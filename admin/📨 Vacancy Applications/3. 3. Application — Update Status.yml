@@ -1,0 +1,21 @@
+info:
+  name: 3. Application — Update Status
+  type: http
+  seq: 3
+http:
+  method: POST
+  url: '{{ base_url }}/admin/vacancy-applications/1/status'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"status\": \"accepted\",\n  \"notes\": \"Kuchli nomzod, kursga yo'naltirildi\",\n  \"hotel_preference\": true\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

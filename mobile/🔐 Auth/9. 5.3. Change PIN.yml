@@ -1,0 +1,21 @@
+info:
+  name: 5.3. Change PIN
+  type: http
+  seq: 9
+http:
+  method: POST
+  url: '{{ base_url }}/mobile/auth/change-pin'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"old_pin\": \"1234\",\n  \"new_pin\": \"5678\"\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ access_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

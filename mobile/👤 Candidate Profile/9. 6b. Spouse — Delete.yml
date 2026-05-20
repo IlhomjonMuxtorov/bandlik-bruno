@@ -1,0 +1,20 @@
+info:
+  name: 6b. Spouse — Delete
+  type: http
+  seq: 9
+http:
+  method: DELETE
+  url: '{{ base_url }}/mobile/candidate/spouse'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  auth:
+    mode: bearer
+    bearer: '{{ access_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

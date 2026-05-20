@@ -1,0 +1,25 @@
+info:
+  name: Add driver certificate
+  type: http
+  seq: 17
+http:
+  method: POST
+  url: '{{ base_url }}/mobile/cv/{{ cv_id }}/driver-certificate'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n    \"type\": \"code_95\",\n    \"title\": \"Kod 95\",\n    \"certificate_number\": \"CRT-2024-001\",\n    \"issue_date\": \"2024-01-15\",\n    \"expiry_date\": \"2029-01-15\"\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ access_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,20 @@
+info:
+  name: 1. Admin / Organization Login
+  type: http
+  seq: 1
+http:
+  method: POST
+  url: '{{ base_url }}/admin/auth/login'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"login\": \"admin\",\n  \"password\": \"secret\"\n}"
+  auth: inherit
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+tests: "const body = insomnia.response.json();\nconst token = body?.data?.token;\nif (token) {\n  insomnia.baseEnvironment.set('admin_token', token);\n  console.log('admin_token saved');\n} else {\n  console.warn('Login response did not contain data.token');\n}"

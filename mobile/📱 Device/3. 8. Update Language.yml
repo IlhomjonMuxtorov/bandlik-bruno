@@ -1,0 +1,21 @@
+info:
+  name: 8. Update Language
+  type: http
+  seq: 3
+http:
+  method: PATCH
+  url: '{{ base_url }}/mobile/device/language'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"device_id\": \"{{ device_id }}\",\n  \"language\": \"ru\"\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ access_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

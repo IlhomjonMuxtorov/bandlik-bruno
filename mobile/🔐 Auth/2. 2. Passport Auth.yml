@@ -1,0 +1,21 @@
+info:
+  name: 2. Passport Auth
+  type: http
+  seq: 2
+http:
+  method: POST
+  url: '{{ base_url }}/mobile/auth/passport'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"passport_series\": \"AA\",\n  \"passport_number\": \"1234567\",\n  \"birth_date\": \"15.05.1990\",\n  \"phone\": \"+998901234567\",\n  \"device_id\": \"{{ device_id }}\"\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ guest_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

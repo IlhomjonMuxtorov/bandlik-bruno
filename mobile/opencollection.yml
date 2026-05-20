@@ -1,0 +1,16 @@
+opencollection: 1.0.0
+info:
+  name: XBA — Mobile API
+bundled: false
+extensions:
+  bruno:
+    ignore:
+    - node_modules
+    - .git
+variables:
+  base_url: http://api.bandlik.loc
+  device_id: 550e8400-e29b-41d4-a716-446655440000
+  guest_token: ''
+  access_token: ''
+  refresh_token: ''
+  cv_id: 1

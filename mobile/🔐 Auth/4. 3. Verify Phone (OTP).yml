@@ -1,0 +1,21 @@
+info:
+  name: 3. Verify Phone (OTP)
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{ base_url }}/mobile/auth/verify-phone'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"phone\": \"+998901234567\",\n  \"code\": \"123456\",\n  \"device_id\": \"{{ device_id }}\"\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ guest_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

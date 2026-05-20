@@ -1,0 +1,60 @@
+info:
+  name: 3. Notarius — Create
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{ base_url }}/admin/notarius'
+  body:
+    type: multipartForm
+    data:
+    - name: name
+      value: Abdiraxmanova Sadoqat Sulaymanovna xususiy notarius
+    - name: brand_name
+      value: CREDO CONSULTING MChJ
+    - name: legal_name
+      value: CREDO CONSULTING OOO
+    - name: description
+      value: Notarial xizmatlar va hujjat tasdiqlash
+    - name: license_number
+      value: NOT-001-2026
+    - name: region_id
+      value: '10'
+    - name: district_id
+      value: '1001'
+    - name: address
+      value: Toshkent sh., Yakkasaroy tumani, At-Termiziy ko'chasi 51/136
+    - name: phone
+      value: '+998944452323'
+    - name: email
+      value: construction.global@gmail.com
+    - name: website_url
+      value: https://credoconsultion.uz
+    - name: responsible_person
+      value: Sardor Karimov
+    - name: login
+      value: notarius_credo
+    - name: password
+      value: secret123
+    - name: telegram_url
+      value: https://t.me/credo
+    - name: instagram_url
+      value: https://instagram.com/credo
+    - name: facebook_url
+      value: https://facebook.com/credo
+    - name: is_active
+      value: '1'
+    - name: license_file
+      type: file
+      fileName: ''
+    - name: logo
+      type: file
+      fileName: ''
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,21 @@
+info:
+  name: 11. Documents — Update
+  type: http
+  seq: 11
+http:
+  method: POST
+  url: '{{ base_url }}/admin/visa-documents/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": {\"uz\": \"O'zgartirilgan hujjat\", \"ru\": \"Измененный документ\", \"en\": \"Modified document\"},\n  \"description\": null\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

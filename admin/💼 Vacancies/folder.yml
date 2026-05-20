@@ -1,0 +1,6 @@
+info:
+  name: 💼 Vacancies
+  type: folder
+  seq: 25
+request:
+  auth: inherit

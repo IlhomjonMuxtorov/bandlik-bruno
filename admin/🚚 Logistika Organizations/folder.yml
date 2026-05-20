@@ -1,0 +1,6 @@
+info:
+  name: 🚚 Logistika Organizations
+  type: folder
+  seq: 12
+request:
+  auth: inherit

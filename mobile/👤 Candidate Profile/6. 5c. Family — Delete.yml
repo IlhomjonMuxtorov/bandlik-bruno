@@ -1,0 +1,20 @@
+info:
+  name: 5c. Family — Delete
+  type: http
+  seq: 6
+http:
+  method: DELETE
+  url: '{{ base_url }}/mobile/candidate/family-member/1'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  auth:
+    mode: bearer
+    bearer: '{{ access_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

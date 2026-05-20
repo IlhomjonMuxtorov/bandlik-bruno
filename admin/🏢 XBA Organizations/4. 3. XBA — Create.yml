@@ -1,0 +1,62 @@
+info:
+  name: 3. XBA — Create
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{ base_url }}/admin/xba'
+  body:
+    type: multipartForm
+    data:
+    - name: name
+      value: XBA Tashkent
+    - name: brand_name
+      value: XBA Tashkent MChJ
+    - name: legal_name
+      value: XBA Tashkent OOO
+    - name: description
+      value: Toshkent shahar XBA tashkiloti
+    - name: license_number
+      value: LIC-001-2026
+    - name: region_id
+      value: '10'
+    - name: district_id
+      value: '1001'
+    - name: address
+      value: Toshkent sh., Yunusobod tumani, Amir Temur ko'chasi 1
+    - name: phone
+      value: '+998941202200'
+    - name: email
+      value: info@xba-tashkent.uz
+    - name: website_url
+      value: https://xba-tashkent.uz
+    - name: responsible_person
+      value: Kamolbek Sardorov
+    - name: login
+      value: xba_tashkent
+    - name: password
+      value: secret123
+    - name: telegram_url
+      value: https://t.me/xba_tashkent
+    - name: instagram_url
+      value: https://instagram.com/xba_tashkent
+    - name: facebook_url
+      value: https://facebook.com/xba_tashkent
+    - name: x_url
+      value: https://x.com/xba_tashkent
+    - name: is_active
+      value: '1'
+    - name: license_file
+      type: file
+      fileName: ''
+    - name: logo
+      type: file
+      fileName: ''
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

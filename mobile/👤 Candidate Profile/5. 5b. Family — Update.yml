@@ -1,0 +1,25 @@
+info:
+  name: 5b. Family — Update
+  type: http
+  seq: 5
+http:
+  method: PATCH
+  url: '{{ base_url }}/mobile/candidate/family-member/1'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n    \"relationship\": \"father\",\n    \"full_name\": \"Rustamov Shavkat Karimovich\",\n    \"birth_date\": \"1965-04-20\"\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ access_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

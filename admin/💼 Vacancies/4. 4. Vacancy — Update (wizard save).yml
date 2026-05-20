@@ -1,0 +1,21 @@
+info:
+  name: 4. Vacancy — Update (wizard save)
+  type: http
+  seq: 4
+http:
+  method: PUT
+  url: '{{ base_url }}/admin/vacancies/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"organization_id\": 1,\n  \"title\": \"Restoran Xizmatchisi (yangilangan)\",\n  \"employment_type\": \"full_time\",\n  \"hiring_quota\": 15,\n  \"country_id\": 1,\n  \"requirements\": [{\"title\": \"Polsha tili A2\", \"is_required\": true}],\n  \"benefits\": [{\"title\": \"Bepul turar joy\"}],\n  \"documents\": [{\"title\": \"Sudlanmaganlik\", \"is_required\": true}],\n  \"services\": [],\n  \"single_payment\": true,\n  \"payment_steps\": []\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

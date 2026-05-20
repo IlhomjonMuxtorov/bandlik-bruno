@@ -1,0 +1,25 @@
+info:
+  name: 8b. Document — Update
+  type: http
+  seq: 15
+http:
+  method: PATCH
+  url: '{{ base_url }}/mobile/cv/{{ cv_id }}/document/1'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n    \"type\": \"passport_scan\",\n    \"title\": \"Passport_renamed.pdf\",\n    \"file_url\": \"https:\\/\\/storage.example.com\\/passport.pdf\"\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ access_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

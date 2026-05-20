@@ -1,0 +1,20 @@
+info:
+  name: 9. OVD / Passport-issuing organs
+  type: http
+  seq: 9
+http:
+  method: GET
+  url: '{{ base_url }}/mobile/ovd?district_id=1001'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  auth:
+    mode: bearer
+    bearer: '{{ access_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,25 @@
+info:
+  name: 7b. Language — Update
+  type: http
+  seq: 11
+http:
+  method: PATCH
+  url: '{{ base_url }}/mobile/cv/{{ cv_id }}/language/1'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n    \"language_id\": 1,\n    \"language_level_id\": 6\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ access_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

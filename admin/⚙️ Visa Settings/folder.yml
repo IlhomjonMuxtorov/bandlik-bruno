@@ -1,0 +1,6 @@
+info:
+  name: ⚙️ Visa Settings
+  type: folder
+  seq: 24
+request:
+  auth: inherit

@@ -1,0 +1,6 @@
+info:
+  name: 📄 CV
+  type: folder
+  seq: 6
+request:
+  auth: inherit

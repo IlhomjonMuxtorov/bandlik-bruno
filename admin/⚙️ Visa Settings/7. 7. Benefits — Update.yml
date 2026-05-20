@@ -1,0 +1,21 @@
+info:
+  name: 7. Benefits — Update
+  type: http
+  seq: 7
+http:
+  method: POST
+  url: '{{ base_url }}/admin/visa-benefits/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": {\"uz\": \"O'zgartirilgan imtiyoz\", \"ru\": \"Измененное преимущество\", \"en\": \"Modified benefit\"},\n  \"description\": null\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

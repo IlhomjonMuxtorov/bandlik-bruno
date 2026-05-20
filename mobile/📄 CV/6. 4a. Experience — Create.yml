@@ -1,0 +1,25 @@
+info:
+  name: 4a. Experience — Create
+  type: http
+  seq: 6
+http:
+  method: POST
+  url: '{{ base_url }}/mobile/cv/{{ cv_id }}/experience'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n    \"company_name\": \"Global Skillhub\",\n    \"position\": \"Buxgalter\",\n    \"start_date\": \"2023-01-15\"\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ access_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

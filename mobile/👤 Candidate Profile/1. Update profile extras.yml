@@ -1,0 +1,25 @@
+info:
+  name: Update profile extras
+  type: http
+  seq: 1
+http:
+  method: PATCH
+  url: '{{ base_url }}/mobile/candidate/profile-extras'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n    \"marital_status\": \"married\",\n    \"tin\": \"29847012395712\",\n    \"had_visa_before\": true\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ access_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

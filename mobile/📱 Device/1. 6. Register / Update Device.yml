@@ -1,0 +1,21 @@
+info:
+  name: 6. Register / Update Device
+  type: http
+  seq: 1
+http:
+  method: POST
+  url: '{{ base_url }}/mobile/device/register'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"device_id\": \"{{ device_id }}\",\n  \"os\": \"android\",\n  \"fcm_token\": \"new_fcm_token_abc\",\n  \"app_version\": \"1.0.0\",\n  \"language\": \"uz\"\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ access_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

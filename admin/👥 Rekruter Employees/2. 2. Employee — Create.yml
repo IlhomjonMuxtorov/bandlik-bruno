@@ -1,0 +1,21 @@
+info:
+  name: 2. Employee — Create
+  type: http
+  seq: 2
+http:
+  method: POST
+  url: '{{ base_url }}/admin/recruiter-employees'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"organization_id\": 1,\n  \"full_name\": \"Rustam Qodirov\",\n  \"phone\": \"+998942030000\",\n  \"role\": \"XBA agenti 1\",\n  \"is_active\": 1\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

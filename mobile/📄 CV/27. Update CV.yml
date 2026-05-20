@@ -1,0 +1,25 @@
+info:
+  name: Update CV
+  type: http
+  seq: 27
+http:
+  method: PATCH
+  url: '{{ base_url }}/mobile/cv/{{ cv_id }}'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n    \"title\": \"Haydovchi CVim — yangilangan\",\n    \"target_profession\": \"International truck driver\"\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ access_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,12 @@
+opencollection: 1.0.0
+info:
+  name: XBA — Admin API
+bundled: false
+extensions:
+  bruno:
+    ignore:
+    - node_modules
+    - .git
+variables:
+  base_url: http://api.bandlik.loc
+  admin_token: ''

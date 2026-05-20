@@ -1,0 +1,21 @@
+info:
+  name: Apply to Vacancy
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{ base_url }}/mobile/vacancies/1/apply'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"cv_id\": null,\n  \"cover_message\": \"Men bu ish o'rni uchun motivatsiyalanganman\",\n  \"hotel_preference\": true\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ access_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

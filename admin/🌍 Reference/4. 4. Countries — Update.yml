@@ -1,0 +1,22 @@
+info:
+  name: 4. Countries — Update
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{ base_url }}/admin/countries/1'
+  body:
+    type: multipartForm
+    data:
+    - name: name
+      value: '{"uz": "O''zbekiston", "ru": "Узбекистан", "en": "Uzbekistan"}'
+    - name: is_visa_available
+      value: '0'
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

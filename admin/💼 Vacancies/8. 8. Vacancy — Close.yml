@@ -1,0 +1,21 @@
+info:
+  name: 8. Vacancy — Close
+  type: http
+  seq: 8
+http:
+  method: POST
+  url: '{{ base_url }}/admin/vacancies/1/close'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"reason\": \"Hammasini topdik\"\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

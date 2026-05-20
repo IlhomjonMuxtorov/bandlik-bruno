@@ -1,0 +1,15 @@
+info:
+  name: 1. Ish beruvchi — Index
+  type: http
+  seq: 2
+http:
+  method: GET
+  url: '{{ base_url }}/admin/employers?per-page=20'
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,20 @@
+info:
+  name: 4. Notarius — Update
+  type: http
+  seq: 5
+http:
+  method: POST
+  url: '{{ base_url }}/admin/notarius/1'
+  body:
+    type: multipartForm
+    data:
+    - name: phone
+      value: '+998944452399'
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

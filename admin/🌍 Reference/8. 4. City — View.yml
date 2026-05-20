@@ -1,0 +1,15 @@
+info:
+  name: 4. City — View
+  type: http
+  seq: 8
+http:
+  method: GET
+  url: '{{ base_url }}/admin/cities/1'
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,15 @@
+info:
+  name: 4. Service — Toggle Status
+  type: http
+  seq: 4
+http:
+  method: PATCH
+  url: '{{ base_url }}/admin/insurance-services/1/toggle-status'
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

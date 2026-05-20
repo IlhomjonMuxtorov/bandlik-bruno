@@ -1,0 +1,15 @@
+info:
+  name: 4. Requirements — Delete
+  type: http
+  seq: 4
+http:
+  method: DELETE
+  url: '{{ base_url }}/admin/visa-requirements/1'
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

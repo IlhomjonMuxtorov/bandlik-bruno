@@ -1,0 +1,20 @@
+info:
+  name: 10c. Course — Delete
+  type: http
+  seq: 23
+http:
+  method: DELETE
+  url: '{{ base_url }}/mobile/cv/{{ cv_id }}/course/1'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  auth:
+    mode: bearer
+    bearer: '{{ access_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

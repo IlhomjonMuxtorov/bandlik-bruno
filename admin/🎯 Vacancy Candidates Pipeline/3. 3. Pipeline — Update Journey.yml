@@ -1,0 +1,21 @@
+info:
+  name: 3. Pipeline — Update Journey
+  type: http
+  seq: 3
+http:
+  method: POST
+  url: '{{ base_url }}/admin/vacancy-candidates/1/journey'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"journey_status\": \"course_in_progress\",\n  \"course_progress_percent\": 40,\n  \"collected_amount\": 1500000,\n  \"collected_currency\": \"UZS\",\n  \"notes\": \"Kurs muvaffaqiyatli boshlandi\"\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,25 @@
+info:
+  name: 10a. Course — Create
+  type: http
+  seq: 21
+http:
+  method: POST
+  url: '{{ base_url }}/mobile/cv/{{ cv_id }}/course'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n    \"course_name\": \"Kompyuter bilimlari kursi\",\n    \"institution_name\": \"Najot Ta'lim\",\n    \"start_date\": \"2023-03-01\",\n    \"end_date\": \"2023-06-01\",\n    \"certificate_number\": \"NT-2023-456\"\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ access_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

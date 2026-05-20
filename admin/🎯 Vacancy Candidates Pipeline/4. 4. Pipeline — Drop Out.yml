@@ -1,0 +1,21 @@
+info:
+  name: 4. Pipeline — Drop Out
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{ base_url }}/admin/vacancy-candidates/1/drop-out'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"reason\": \"Nomzod muddatni o'tkazdi\"\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

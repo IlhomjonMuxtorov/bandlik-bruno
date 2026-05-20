@@ -1,0 +1,15 @@
+info:
+  name: 5. Service — Delete (soft)
+  type: http
+  seq: 5
+http:
+  method: DELETE
+  url: '{{ base_url }}/admin/recruiter-services/1'
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

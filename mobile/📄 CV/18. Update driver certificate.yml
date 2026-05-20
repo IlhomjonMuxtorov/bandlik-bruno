@@ -1,0 +1,25 @@
+info:
+  name: Update driver certificate
+  type: http
+  seq: 18
+http:
+  method: PATCH
+  url: '{{ base_url }}/mobile/cv/{{ cv_id }}/driver-certificate/1'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n    \"type\": \"code_95\",\n    \"title\": \"Code 95 — yangilangan\",\n    \"expiry_date\": \"2030-01-15\"\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ access_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

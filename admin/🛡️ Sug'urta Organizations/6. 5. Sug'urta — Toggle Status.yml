@@ -1,0 +1,15 @@
+info:
+  name: 5. Sug'urta — Toggle Status
+  type: http
+  seq: 6
+http:
+  method: PATCH
+  url: '{{ base_url }}/admin/insurance/1/toggle-status'
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

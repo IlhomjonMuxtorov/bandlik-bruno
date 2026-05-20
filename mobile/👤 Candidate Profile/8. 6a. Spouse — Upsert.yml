@@ -1,0 +1,25 @@
+info:
+  name: 6a. Spouse — Upsert
+  type: http
+  seq: 8
+http:
+  method: PUT
+  url: '{{ base_url }}/mobile/candidate/spouse'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n    \"full_name\": \"Karimova Dilshoda\",\n    \"birth_date\": \"1995-08-10\",\n    \"marriage_date\": \"2020-09-15\"\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ access_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

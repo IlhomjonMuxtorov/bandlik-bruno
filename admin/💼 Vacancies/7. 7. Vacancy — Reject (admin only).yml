@@ -1,0 +1,21 @@
+info:
+  name: 7. Vacancy — Reject (admin only)
+  type: http
+  seq: 7
+http:
+  method: POST
+  url: '{{ base_url }}/admin/vacancies/1/reject'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"reason\": \"Maosh diapazoni real emas\"\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

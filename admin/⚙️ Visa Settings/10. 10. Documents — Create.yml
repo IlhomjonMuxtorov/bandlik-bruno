@@ -1,0 +1,21 @@
+info:
+  name: 10. Documents — Create
+  type: http
+  seq: 10
+http:
+  method: POST
+  url: '{{ base_url }}/admin/visa-documents'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": {\"uz\": \"Tug'ilish sertifikati\", \"ru\": \"Свидетельство о рождении\", \"en\": \"Birth certificate\"},\n  \"description\": {\"uz\": \"Asli yoki notarialashtirilgan nusxasi\", \"ru\": \"Оригинал или нотариально заверенная копия\", \"en\": \"Original or notarized copy\"}\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

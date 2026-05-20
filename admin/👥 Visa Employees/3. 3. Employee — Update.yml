@@ -1,0 +1,21 @@
+info:
+  name: 3. Employee — Update
+  type: http
+  seq: 3
+http:
+  method: POST
+  url: '{{ base_url }}/admin/visa-employees/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"role\": \"XBA admin\"\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

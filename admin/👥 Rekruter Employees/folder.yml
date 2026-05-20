@@ -1,0 +1,6 @@
+info:
+  name: 👥 Rekruter Employees
+  type: folder
+  seq: 23
+request:
+  auth: inherit

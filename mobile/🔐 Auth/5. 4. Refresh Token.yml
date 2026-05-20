@@ -1,0 +1,19 @@
+info:
+  name: 4. Refresh Token
+  type: http
+  seq: 5
+http:
+  method: POST
+  url: '{{ base_url }}/mobile/auth/refresh'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"refresh_token\": \"{{ refresh_token }}\"\n}"
+  auth: inherit
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

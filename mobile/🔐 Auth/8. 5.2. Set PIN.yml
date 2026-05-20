@@ -1,0 +1,21 @@
+info:
+  name: 5.2. Set PIN
+  type: http
+  seq: 8
+http:
+  method: POST
+  url: '{{ base_url }}/mobile/auth/set-pin'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"pin\": \"1234\"\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ access_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

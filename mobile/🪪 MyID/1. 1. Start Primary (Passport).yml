@@ -1,0 +1,19 @@
+info:
+  name: 1. Start Primary (Passport)
+  type: http
+  seq: 1
+http:
+  method: POST
+  url: '{{ base_url }}/mobile/my-id/start-primary'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"pass_data\": \"AA1234567\",\n  \"phone\": \"+998901234567\",\n  \"birth_date\": \"15.01.1990\",\n  \"threshold\": 0.85\n}"
+  auth: inherit
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

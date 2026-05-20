@@ -1,0 +1,50 @@
+info:
+  name: 3. Visa — Create
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{ base_url }}/admin/visa'
+  body:
+    type: multipartForm
+    data:
+    - name: name
+      value: Visa Express
+    - name: brand_name
+      value: Visa Express MChJ
+    - name: license_number
+      value: VISA-001-2026
+    - name: region_id
+      value: '10'
+    - name: district_id
+      value: '1001'
+    - name: address
+      value: Toshkent sh., Mirzo Ulug'bek tumani
+    - name: phone
+      value: '+998901112233'
+    - name: email
+      value: info@visa-express.uz
+    - name: website_url
+      value: https://visa-express.uz
+    - name: responsible_person
+      value: Aziz Karimov
+    - name: login
+      value: visa_express
+    - name: password
+      value: secret123
+    - name: is_active
+      value: '1'
+    - name: license_file
+      type: file
+      fileName: ''
+    - name: logo
+      type: file
+      fileName: ''
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

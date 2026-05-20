@@ -1,0 +1,15 @@
+info:
+  name: 6. Countries — Toggle Visa
+  type: http
+  seq: 6
+http:
+  method: PATCH
+  url: '{{ base_url }}/admin/countries/1/toggle-visa'
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

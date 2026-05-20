@@ -1,0 +1,15 @@
+info:
+  name: 5. Vacancy — Submit for approval
+  type: http
+  seq: 5
+http:
+  method: POST
+  url: '{{ base_url }}/admin/vacancies/1/submit'
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,25 @@
+info:
+  name: Create CV
+  type: http
+  seq: 25
+http:
+  method: POST
+  url: '{{ base_url }}/mobile/cv'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n    \"title\": \"Haydovchi CVim\",\n    \"summary\": \"10+ yil tajribali xalqaro yuk haydovchisi\",\n    \"target_profession\": \"International truck driver\",\n    \"target_country_id\": 1,\n    \"is_primary\": false\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ access_token }}'
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
