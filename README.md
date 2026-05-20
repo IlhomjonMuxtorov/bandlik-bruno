@@ -36,16 +36,41 @@ Global SkillHub API dokumentatsiyasi Bruno formatida.
     └── [Plus Services, Employees, and other folders]
 ```
 
+## 🔗 Repository
+
+- **GitHub**: https://github.com/IlhomjonMuxtorov/bandlik-bruno
+- **Standalone collection** (API docs only, backend'dan erkli)
+- **Main repo'da**: `/var/www/xba/docs/bruno/` (git submodule sifatida)
+
+### Clone
+
+**Standalone repo sifatida:**
+```bash
+git clone https://github.com/IlhomjonMuxtorov/bandlik-bruno.git
+bruno open bandlik-bruno/
+```
+
+**Asosiy repo ichida (submodule):**
+```bash
+git clone --recurse-submodules https://github.com/yourorg/xba.git
+# yoki:
+git clone https://github.com/yourorg/xba.git
+cd xba
+git submodule update --init --recursive
+```
+
+---
+
 ## 🚀 Quick Start
 
 ### In Bruno 3.3+
 
 ```bash
 # Open the collection
-bruno open /var/www/xba/docs/bruno/
+bruno open ./
 
 # Or in Bruno GUI:
-# File → Open Collection → /var/www/xba/docs/bruno/
+# File → Open Collection → [Bruno folder path]
 ```
 
 ### Environment Setup
