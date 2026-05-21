@@ -10,24 +10,15 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"name\": {\"uz\": \"Pasportni tasdiqlovchi hujjat\", \"ru\": \"Подтверждающий паспорт документ\", \"en\": \"Passport confirmation document\"},\n  \"description\": {\"uz\": \"Asli yoki sertifikatsiya nusxasi\", \"ru\": \"Оригинал или заверенная копия\", \"en\": \"Original or certified copy\"}\n}"
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Yangi viza talab qo'shadi.
-
-  **Auth:** `admin_token`.
-
-  ### 📥 Request Body
-
-  ```json
-  {
-    "name": {"uz": "...", "ru": "...", "en": "..."},
-    "description": {"uz": "...", "ru": "...", "en": "..."}
-  }
-  ```
-
+    data: "{\n  \"name\": {\"uz\": \"Pasportni tasdiqlovchi hujjat\", \"ru\": \"Подтверждающий\
+      \ паспорт документ\", \"en\": \"Passport confirmation document\"},\n  \"description\"\
+      : {\"uz\": \"Asli yoki sertifikatsiya nusxasi\", \"ru\": \"Оригинал или заверенная\
+      \ копия\", \"en\": \"Original or certified copy\"}\n}"
+  auth: inherit
+docs: "Yangi viza talab qo'shadi.\n\n**Auth:** `admin_token`.\n\n### \U0001F4E5 Request\
+  \ Body\n\n```json\n{\n  \"name\": {\"uz\": \"...\", \"ru\": \"...\", \"en\": \"\
+  ...\"},\n  \"description\": {\"uz\": \"...\", \"ru\": \"...\", \"en\": \"...\"}\n\
+  }\n```\n"
 settings:
   encodeUrl: true
   timeout: 0

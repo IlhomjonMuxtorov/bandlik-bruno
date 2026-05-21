@@ -11,22 +11,28 @@ http:
   body:
     type: json
     data: "{\n  \"phone\": \"+998901112299\"\n}"
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Mavjud Viza tashkilotini yangilaydi. `application/json` — faqat o'zgartirmoqchi bo'lgan maydonlarni yuborish kifoya. XBA `Update` bilan bir xil semantika.
+  auth: inherit
+docs: 'Mavjud Viza tashkilotini yangilaydi. `application/json` — faqat o''zgartirmoqchi
+  bo''lgan maydonlarni yuborish kifoya. XBA `Update` bilan bir xil semantika.
+
 
   **Auth:** `admin_token`.
 
+
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
+
   | `404` | Viza topilmadi |
+
   | `422` | Validatsiya xatosi |
+
   | `400` | Fayl ID topilmadi yoki `status=uploading` |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

@@ -5,24 +5,30 @@ info:
 http:
   method: PATCH
   url: '{{base_url}}/admin/xba/1/toggle-status'
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  XBA `is_active` qiymatini teskariga aylantiradi (Faol ↔ Nofaol). Bog'liq `User.status` ham mos ravishda `ACTIVE`/`INACTIVE` ga o'tadi.
+  auth: inherit
+docs: 'XBA `is_active` qiymatini teskariga aylantiradi (Faol ↔ Nofaol). Bog''liq `User.status`
+  ham mos ravishda `ACTIVE`/`INACTIVE` ga o''tadi.
+
 
   **Auth:** `admin_token`.
 
+
   ### 📤 Response
+
 
   Yangilangan XBA `OrganizationOutputDTO` formatida.
 
+
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
+
   | `404` | XBA topilmadi |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

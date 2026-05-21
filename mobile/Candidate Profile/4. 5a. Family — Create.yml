@@ -14,23 +14,29 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"relationship\": \"father\",\n    \"full_name\": \"Rustamov Shavkat\",\n    \"birth_date\": \"1965-04-20\"\n}"
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Yangi oila a'zosi qo'shish.
+    data: "{\n    \"relationship\": \"father\",\n    \"full_name\": \"Rustamov Shavkat\"\
+      ,\n    \"birth_date\": \"1965-04-20\"\n}"
+  auth: inherit
+docs: 'Yangi oila a''zosi qo''shish.
+
 
   **Auth:** `access_token`.
 
+
   ### 📥 Request Body
 
+
   | Field | Type | Required | Description |
+
   |---|---|:---:|---|
+
   | `relationship` | string | ✅ | `father` \| `mother` \| `brother` \| `sister` |
-  | `full_name` | string | ✅ | To'liq ism |
+
+  | `full_name` | string | ✅ | To''liq ism |
+
   | `birth_date` | date | ✅ | `YYYY-MM-DD` |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

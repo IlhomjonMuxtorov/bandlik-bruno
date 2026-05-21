@@ -5,66 +5,29 @@ info:
 http:
   method: GET
   url: '{{base_url}}/admin/vacancies/1/statistics'
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Vakansiya statistika tabining barcha ma'lumotlari — 3 karta + chart.
-
-  **Auth:** Admin yoki vakansiya egasi (`organization_id` yoki `recruiter_id`).
-
-  ### 🔎 Query Parameters
-
-  | Param | Type | Required | Description |
-  |---|---|:---:|---|
-  | `from` | string | ➖ | `YYYY-MM-DD`. Default: 30 kun oldin. |
-  | `to` | string | ➖ | `YYYY-MM-DD`. Default: bugun. Maksimum diapazon — 366 kun. |
-
-  ### 📤 Response (`data`)
-
-  | Field | Type | Description |
-  |---|---|---|
-  | `vacancy_id` | int | |
-  | `from` / `to` | string | Hisob diapazoni (`YYYY-MM-DD`) |
-  | `summary.views_count` | int | Jami ko'rishlar (raw, log dan) |
-  | `summary.unique_views_count` | int | DISTINCT `candidate_id` (mehmonlar bitta bucket sifatida) |
-  | `summary.applications_count` | int | Diapazondagi arizalar soni |
-  | `summary.conversion_rate` | float | `applications / unique_views * 100` (2 ko'rsatkichgacha) |
-  | `chart` | array | Kunlik nuqtalar: `[{day: 'YYYY-MM-DD', views: int, applications: int}, ...]` — har bir kun nol bilan to'ldirilgan (continuous line) |
-
-  ### 📦 Example Response
-
-  ```json
-  {
-    "success": true,
-    "data": {
-      "vacancy_id": 1,
-      "from": "2026-04-18",
-      "to": "2026-05-18",
-      "summary": {
-        "views_count": 67,
-        "unique_views_count": 48,
-        "applications_count": 24,
-        "conversion_rate": 50.0
-      },
-      "chart": [
-        { "day": "2026-04-18", "views": 0, "applications": 0 },
-        { "day": "2026-04-19", "views": 3, "applications": 1 }
-      ]
-    }
-  }
-  ```
-
-  ### ⚠️ Errors
-
-  | Code | Reason |
-  |---|---|
-  | `400` | `from`/`to` formati noto'g'ri (`YYYY-MM-DD` emas) |
-  | `400` | `from > to` |
-  | `400` | Diapazon 366 kundan oshdi |
-  | `403` | Boshqa tashkilot |
-  | `404` | Vakansiya topilmadi |
-
+  auth: inherit
+docs: "Vakansiya statistika tabining barcha ma'lumotlari — 3 karta + chart.\n\n**Auth:**\
+  \ Admin yoki vakansiya egasi (`organization_id` yoki `recruiter_id`).\n\n### \U0001F50E\
+  \ Query Parameters\n\n| Param | Type | Required | Description |\n|---|---|:---:|---|\n\
+  | `from` | string | ➖ | `YYYY-MM-DD`. Default: 30 kun oldin. |\n| `to` | string\
+  \ | ➖ | `YYYY-MM-DD`. Default: bugun. Maksimum diapazon — 366 kun. |\n\n### \U0001F4E4\
+  \ Response (`data`)\n\n| Field | Type | Description |\n|---|---|---|\n| `vacancy_id`\
+  \ | int | |\n| `from` / `to` | string | Hisob diapazoni (`YYYY-MM-DD`) |\n| `summary.views_count`\
+  \ | int | Jami ko'rishlar (raw, log dan) |\n| `summary.unique_views_count` | int\
+  \ | DISTINCT `candidate_id` (mehmonlar bitta bucket sifatida) |\n| `summary.applications_count`\
+  \ | int | Diapazondagi arizalar soni |\n| `summary.conversion_rate` | float | `applications\
+  \ / unique_views * 100` (2 ko'rsatkichgacha) |\n| `chart` | array | Kunlik nuqtalar:\
+  \ `[{day: 'YYYY-MM-DD', views: int, applications: int}, ...]` — har bir kun nol\
+  \ bilan to'ldirilgan (continuous line) |\n\n### \U0001F4E6 Example Response\n\n\
+  ```json\n{\n  \"success\": true,\n  \"data\": {\n    \"vacancy_id\": 1,\n    \"\
+  from\": \"2026-04-18\",\n    \"to\": \"2026-05-18\",\n    \"summary\": {\n     \
+  \ \"views_count\": 67,\n      \"unique_views_count\": 48,\n      \"applications_count\"\
+  : 24,\n      \"conversion_rate\": 50.0\n    },\n    \"chart\": [\n      { \"day\"\
+  : \"2026-04-18\", \"views\": 0, \"applications\": 0 },\n      { \"day\": \"2026-04-19\"\
+  , \"views\": 3, \"applications\": 1 }\n    ]\n  }\n}\n```\n\n### ⚠️ Errors\n\n|\
+  \ Code | Reason |\n|---|---|\n| `400` | `from`/`to` formati noto'g'ri (`YYYY-MM-DD`\
+  \ emas) |\n| `400` | `from > to` |\n| `400` | Diapazon 366 kundan oshdi |\n| `403`\
+  \ | Boshqa tashkilot |\n| `404` | Vakansiya topilmadi |\n"
 settings:
   encodeUrl: true
   timeout: 0

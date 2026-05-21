@@ -10,47 +10,83 @@ http:
     value: application/json
   - name: Accept-Language
     value: uz
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Joriy nomzodning **barcha CV** ro'yxati — "Rezumelarim" ekrani uchun. Har bir CV uchun kasbi, umumiy ish staji (yil/oy), oxirgi yangilanish, ko'rishlar/takliflar soni va mos vakansiyalar soni qaytariladi. Birinchi — primary CV, keyin oxirgi yangilanish bo'yicha.
+  auth: inherit
+docs: 'Joriy nomzodning **barcha CV** ro''yxati — "Rezumelarim" ekrani uchun. Har
+  bir CV uchun kasbi, umumiy ish staji (yil/oy), oxirgi yangilanish, ko''rishlar/takliflar
+  soni va mos vakansiyalar soni qaytariladi. Birinchi — primary CV, keyin oxirgi yangilanish
+  bo''yicha.
+
 
   **Auth:** `access_token`.
 
+
   ### 📋 Headers
 
+
   | Header | Required | Description |
+
   |---|:---:|---|
+
   | `Authorization` | ✅ | `Bearer {token}` |
+
 
   ### 📤 Response (array)
 
-  | Field | Type | Description |
-  |---|---|---|
-  | `id` | int | CV ID — boshqa CV endpointlarda `cv_id` |
-  | `profession` | string | CV `title` |
-  | `photo_url` | string \| null | CV rasmi (CV → candidate → passport tartibida) |
-  | `status` | string | CV holati: `draft` yoki `active` |
-  | `is_primary` | bool | Primary CV bayrog'i |
-  | `experience_years` | int | Umumiy ish stajining yil qismi (CV experiences yig'indisidan) |
-  | `experience_months` | int | Yildan qolgan oy qismi (0–11) |
-  | `experience_total_months` | int | Umumiy ish staji oyda (yil/oyga ajratish uchun manba) |
-  | `updated_at` | int | Unix timestamp — "Yangilangan" sanasi (mijoz `DD.MM.YYYY` ga formatlaydi) |
-  | `views_count` | int | CV-ni ish beruvchilar tomonidan ko'rilgan soni. **Hozircha kuzatuv yo'q — doim `0`** |
-  | `offers_count` | int | Ish beruvchidan kelgan qabul qilingan takliflar soni (`vacancy_application.status = accepted`, shu CV bo'yicha) |
 
-  > **Eslatma:** `views_count` uchun maxsus log jadvali hali qo'shilmagan — keyinroq qo'shilishi bilan bir xil response shaklida real raqam keladi.
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `id` | int | CV ID — boshqa CV endpointlarda `cv_id` |
+
+  | `profession` | string | CV `title` |
+
+  | `photo_url` | string \| null | CV rasmi (CV → candidate → passport tartibida)
+  |
+
+  | `status` | string | CV holati: `draft` yoki `active` |
+
+  | `is_primary` | bool | Primary CV bayrog''i |
+
+  | `experience_years` | int | Umumiy ish stajining yil qismi (CV experiences yig''indisidan)
+  |
+
+  | `experience_months` | int | Yildan qolgan oy qismi (0–11) |
+
+  | `experience_total_months` | int | Umumiy ish staji oyda (yil/oyga ajratish uchun
+  manba) |
+
+  | `updated_at` | int | Unix timestamp — "Yangilangan" sanasi (mijoz `DD.MM.YYYY`
+  ga formatlaydi) |
+
+  | `views_count` | int | CV-ni ish beruvchilar tomonidan ko''rilgan soni. **Hozircha
+  kuzatuv yo''q — doim `0`** |
+
+  | `offers_count` | int | Ish beruvchidan kelgan qabul qilingan takliflar soni (`vacancy_application.status
+  = accepted`, shu CV bo''yicha) |
+
+
+  > **Eslatma:** `views_count` uchun maxsus log jadvali hali qo''shilmagan — keyinroq
+  qo''shilishi bilan bir xil response shaklida real raqam keladi.
+
   >
-  > CV holati `draft` — to'ldirilmoqda; `active` — tugallangan va ish beruvchilarga ko'rinadigan.
+
+  > CV holati `draft` — to''ldirilmoqda; `active` — tugallangan va ish beruvchilarga
+  ko''rinadigan.
+
 
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
-  | `401` | Token yo'q yoki muddati o'tgan |
+
+  | `401` | Token yo''q yoki muddati o''tgan |
+
   | `404` | Joriy foydalanuvchi nomzod emas |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

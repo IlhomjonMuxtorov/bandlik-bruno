@@ -11,36 +11,51 @@ http:
   body:
     type: json
     data: "{\n  \"pin\": \"1234\"\n}"
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Birinchi marta PIN-kod o'rnatish yoki pasport orqali qayta kirgandan so'ng yangilash.
+  auth: inherit
+docs: 'Birinchi marta PIN-kod o''rnatish yoki pasport orqali qayta kirgandan so''ng
+  yangilash.
 
-  > PIN DB da **hash** ko'rinishida saqlanadi (bcrypt).
+
+  > PIN DB da **hash** ko''rinishida saqlanadi (bcrypt).
+
 
   **Auth:** `access_token` majburiy.
 
+
   ### 📥 Request Body
 
+
   | Field | Type | Required | Description |
+
   |---|---|:---:|---|
+
   | `pin` | string | ✅ | 4 xonali raqam (`0000`–`9999`). Boshqa belgilar `400`. |
+
 
   ### 📤 Response
 
+
   | Field | Type | Description |
+
   |---|---|---|
+
   | `is_pin_set` | bool | Har doim `true` |
+
 
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
-  | `400` | `pin` yo'q / raqam emas / 4 ta emas |
-  | `401` | `access_token` yo'q yoki muddati o'tgan |
+
+  | `400` | `pin` yo''q / raqam emas / 4 ta emas |
+
+  | `401` | `access_token` yo''q yoki muddati o''tgan |
+
   | `500` | DB da saqlashda xatolik |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

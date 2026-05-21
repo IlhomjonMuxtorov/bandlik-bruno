@@ -9,27 +9,33 @@ http:
     type: multipartForm
     data:
     - name: name
-      value: '{"uz": "Toshkent shahri (yangilandi)", "ru": "город Ташкент (обновлено)", "en": "Tashkent City (updated)"}'
+      value: '{"uz": "Toshkent shahri (yangilandi)", "ru": "город Ташкент (обновлено)",
+        "en": "Tashkent City (updated)"}'
     - name: is_active
       value: '1'
     - name: sort_order
       value: '1'
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Viloyat ma'lumotlarini yangilash (qisman update).
+  auth: inherit
+docs: 'Viloyat ma''lumotlarini yangilash (qisman update).
+
 
   **Auth:** `admin_token`.
 
+
   ### 📥 Request Body (multipart/form-data)
 
+
   | Field | Type | Required | Description |
+
   |---|---|:---:|---|
+
   | `name` | object (JSON) | ➖ | `{"uz": "...", "ru": "...", "en": "..."}` |
+
   | `is_active` | int (0\|1) | ➖ | |
+
   | `sort_order` | int | ➖ | |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

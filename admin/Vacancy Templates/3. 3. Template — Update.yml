@@ -10,15 +10,15 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"organization_id\": 1,\n  \"name\": \"Restoran Xizmatchisi (Polsha) — v2\",\n  \"payload\": {},\n  \"is_active\": true\n}"
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Shablon ma'lumotlari va `payload` JSON ni yangilaydi.
+    data: "{\n  \"organization_id\": 1,\n  \"name\": \"Restoran Xizmatchisi (Polsha)\
+      \ — v2\",\n  \"payload\": {},\n  \"is_active\": true\n}"
+  auth: inherit
+docs: 'Shablon ma''lumotlari va `payload` JSON ni yangilaydi.
+
 
   **Auth:** Admin yoki shablon egasi.
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

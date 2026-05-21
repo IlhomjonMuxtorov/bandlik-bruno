@@ -5,18 +5,19 @@ info:
 http:
   method: PATCH
   url: '{{base_url}}/admin/countries/1/toggle-visa'
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Davlatning viza talab qilinadi statusini almashlaydi.
+  auth: inherit
+docs: 'Davlatning viza talab qilinadi statusini almashlaydi.
+
 
   **Auth:** `admin_token`.
 
+
   ### 📤 Response
+
 
   Yangilangan davlat `AdminCountryOutputDTO` formatida qaytadi.
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

@@ -18,24 +18,31 @@ http:
       value: '1'
     - name: sort_order
       value: '0'
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Yangi tuman qo'shadi.
+  auth: inherit
+docs: 'Yangi tuman qo''shadi.
+
 
   **Auth:** `admin_token`.
 
+
   ### 📥 Request Body (multipart/form-data)
 
+
   | Field | Type | Required | Description |
+
   |---|---|:---:|---|
+
   | `id` | int | ✅ | GCP SP_ID (manual PK) |
-  | `region_id` | int | ✅ | Viloyat ID. Viloyat mavjud bo'lishi kerak. |
+
+  | `region_id` | int | ✅ | Viloyat ID. Viloyat mavjud bo''lishi kerak. |
+
   | `name` | object (JSON) | ✅ | `{"uz": "...", "ru": "...", "en": "..."}` |
+
   | `is_active` | int (0\|1) | ➖ | Default: 1 |
+
   | `sort_order` | int | ➖ | Default: 0 |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

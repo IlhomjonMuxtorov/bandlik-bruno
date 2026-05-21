@@ -10,17 +10,20 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"name\": {\"uz\": \"O'zbekiston\", \"ru\": \"Узбекистан\", \"en\": \"Uzbekistan\"},\n  \"is_visa_available\": 0\n}"
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Davlatni yangilaydi. `application/json` — faqat o'zgaradigan maydonlarni yuborish kifoya.
+    data: "{\n  \"name\": {\"uz\": \"O'zbekiston\", \"ru\": \"Узбекистан\", \"en\"\
+      : \"Uzbekistan\"},\n  \"is_visa_available\": 0\n}"
+  auth: inherit
+docs: 'Davlatni yangilaydi. `application/json` — faqat o''zgaradigan maydonlarni yuborish
+  kifoya.
 
-  Fayl maydonlari: `flag_id`, `image_id` (oldindan `/admin/upload` orqali yuklangan fayl ID).
+
+  Fayl maydonlari: `flag_id`, `image_id` (oldindan `/admin/upload` orqali yuklangan
+  fayl ID).
+
 
   **Auth:** `admin_token`.
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

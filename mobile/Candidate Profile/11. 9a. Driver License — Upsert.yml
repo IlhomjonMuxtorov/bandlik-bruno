@@ -14,25 +14,34 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"has_license\": true,\n    \"categories\": \"B,C,D\",\n    \"license_number\": \"AB1234567\",\n    \"issue_date\": \"2018-05-10\",\n    \"expiry_date\": \"2028-05-10\"\n}"
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Haydovchilik guvohnomasini yaratish yoki yangilash (`PUT` — upsert).
+    data: "{\n    \"has_license\": true,\n    \"categories\": \"B,C,D\",\n    \"license_number\"\
+      : \"AB1234567\",\n    \"issue_date\": \"2018-05-10\",\n    \"expiry_date\":\
+      \ \"2028-05-10\"\n}"
+  auth: inherit
+docs: 'Haydovchilik guvohnomasini yaratish yoki yangilash (`PUT` — upsert).
+
 
   **Auth:** `access_token`.
 
+
   ### 📥 Request Body
 
+
   | Field | Type | Required | Description |
+
   |---|---|:---:|---|
+
   | `has_license` | bool | ✅ | Guvohnoma bormi |
+
   | `categories` | string | ➖ | Masalan `B,C,D` |
+
   | `license_number` | string | ➖ | Guvohnoma raqami |
+
   | `issue_date` | date | ➖ | Berilgan sana |
+
   | `expiry_date` | date | ➖ | Amal qilish muddati |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

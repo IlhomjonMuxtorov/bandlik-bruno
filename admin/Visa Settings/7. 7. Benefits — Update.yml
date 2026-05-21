@@ -10,15 +10,15 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"name\": {\"uz\": \"O'zgartirilgan imtiyoz\", \"ru\": \"Измененное преимущество\", \"en\": \"Modified benefit\"},\n  \"description\": null\n}"
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Viza imtiyozini yangilaydi.
+    data: "{\n  \"name\": {\"uz\": \"O'zgartirilgan imtiyoz\", \"ru\": \"Измененное\
+      \ преимущество\", \"en\": \"Modified benefit\"},\n  \"description\": null\n}"
+  auth: inherit
+docs: 'Viza imtiyozini yangilaydi.
+
 
   **Auth:** `admin_token`.
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

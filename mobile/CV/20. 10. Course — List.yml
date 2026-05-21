@@ -10,29 +10,43 @@ http:
     value: application/json
   - name: Accept-Language
     value: uz
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Kurslar ro'yxati.
+  auth: inherit
+docs: 'Kurslar ro''yxati.
+
 
   **Auth:** `access_token`.
 
+
   ### 📤 Response *(massiv elementi)*
 
-  | Field | Type | Description |
-  |---|---|---|
-  | `id` | int | Kurs ID |
-  | `course_name` | string | Kurs nomi |
-  | `institution_name` | string | O'quv markazi |
-  | `start_date` | date | `YYYY-MM-DD` |
-  | `end_date` | date \| null | Tugagan sana |
-  | `certificate_number` | string \| null | Sertifikat raqami |
-  | `certificate_file_url` | string \| null | Fayl URL |
-  | `certificate_file_size` | int \| null | Fayl hajmi (bayt) |
-  | `certificate_file_kind` | string \| null | `pdf` \| `image` \| `word` \| `excel` \| `other` |
-  | `certificate_file_kind_icon_url` | string \| null | Standart ikonkaga to'liq URL |
 
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `id` | int | Kurs ID |
+
+  | `course_name` | string | Kurs nomi |
+
+  | `institution_name` | string | O''quv markazi |
+
+  | `start_date` | date | `YYYY-MM-DD` |
+
+  | `end_date` | date \| null | Tugagan sana |
+
+  | `certificate_number` | string \| null | Sertifikat raqami |
+
+  | `certificate_file_url` | string \| null | Fayl URL |
+
+  | `certificate_file_size` | int \| null | Fayl hajmi (bayt) |
+
+  | `certificate_file_kind` | string \| null | `pdf` \| `image` \| `word` \| `excel`
+  \| `other` |
+
+  | `certificate_file_kind_icon_url` | string \| null | Standart ikonkaga to''liq
+  URL |
+
+  '
 settings:
   encodeUrl: true
   timeout: 0

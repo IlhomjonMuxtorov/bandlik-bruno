@@ -11,42 +11,72 @@ http:
   body:
     type: json
     data: "{\n  \"pin\": \"1234\",\n  \"device_id\": \"{{device_id}}\"\n}"
-  auth: inherit
-docs: |
-  PIN-kod orqali tizimga kirish (parolsiz). PIN avval `set-pin` orqali o'rnatilgan bo'lishi kerak.
+  auth:
+    type: none
+docs: 'PIN-kod orqali tizimga kirish (parolsiz). PIN avval `set-pin` orqali o''rnatilgan
+  bo''lishi kerak.
+
 
   **Auth:** talab qilinmaydi.
 
+
   ### 📥 Request Body
 
+
   | Field | Type | Required | Description |
+
   |---|---|:---:|---|
+
   | `pin` | string | ✅ | 4 xonali raqamli PIN-kod. |
-  | `device_id` | string | ✅ | UUID. Foydalanuvchi shu qurilma orqali aniqlanadi. |
+
+  | `device_id` | string | ✅ | UUID. Foydalanuvchi shu qurilma orqali aniqlanadi.
+  |
+
 
   ### 📤 Response
 
+
   | Field | Type | Description |
+
   |---|---|---|
+
   | `access_token` | string | JWT (15 daqiqa) |
+
   | `refresh_token` | string | Yangilash tokeni (30 kun) |
+
   | `expires_in` | int | `900` sek |
+
   | `token_type` | string | `Bearer` |
+
 
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
-  | `400` | Validatsiya: `pin` yoki `device_id` yo'q / format noto'g'ri |
+
+  | `400` | Validatsiya: `pin` yoki `device_id` yo''q / format noto''g''ri |
+
   | `400` | Device topilmadi |
+
   | `400` | Foydalanuvchi topilmadi yoki faol emas |
-  | `400` | PIN o'rnatilmagan (`is_pin_set=false`) |
-  | `400` | PIN noto'g'ri → `{ errors: ["Incorrect PIN. N attempt(s) remaining."] }` |
-  | `400` | 3 marta xato → bloklash → `{ blocked_for: 600, errors: ["Account blocked…"] }` |
-  | `400` | PIN muddati o'tgan → `{ pin_expired: true, errors: ["PIN has expired…"] }` |
+
+  | `400` | PIN o''rnatilmagan (`is_pin_set=false`) |
+
+  | `400` | PIN noto''g''ri → `{ errors: ["Incorrect PIN. N attempt(s) remaining."]
+  }` |
+
+  | `400` | 3 marta xato → bloklash → `{ blocked_for: 600, errors: ["Account blocked…"]
+  }` |
+
+  | `400` | PIN muddati o''tgan → `{ pin_expired: true, errors: ["PIN has expired…"]
+  }` |
+
 
   > ✨ **Auto-save:** `access_token` va `refresh_token` avtomatik saqlanadi.
 
+  '
 settings:
   encodeUrl: true
   timeout: 0
@@ -54,11 +84,7 @@ settings:
   maxRedirects: 5
 runtime:
   scripts:
-    - type: after-response
-      code: |-
-        const body = res.getBody();
-        if (body && body.access_token) {
-          bru.setEnvVar('access_token', body.access_token);
-          bru.setEnvVar('refresh_token', body.refresh_token);
-          console.log('access_token and refresh_token saved');
-        }
+  - type: after-response
+    code: "const body = res.getBody();\nif (body && body.access_token) {\n  bru.setEnvVar('access_token',\
+      \ body.access_token);\n  bru.setEnvVar('refresh_token', body.refresh_token);\n\
+      \  console.log('access_token and refresh_token saved');\n}"

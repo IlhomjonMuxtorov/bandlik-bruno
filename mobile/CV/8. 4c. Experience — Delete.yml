@@ -10,14 +10,13 @@ http:
     value: application/json
   - name: Accept-Language
     value: uz
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Tajribani o'chirish. `204 No Content`.
+  auth: inherit
+docs: 'Tajribani o''chirish. `204 No Content`.
+
 
   **Auth:** `access_token`.
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

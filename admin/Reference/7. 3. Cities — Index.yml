@@ -5,36 +5,53 @@ info:
 http:
   method: GET
   url: '{{base_url}}/admin/cities?country_id=1'
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Shaharlar ro'yxati. Odatda `country_id` bo'yicha filterlanadi.
+  auth: inherit
+docs: 'Shaharlar ro''yxati. Odatda `country_id` bo''yicha filterlanadi.
+
 
   **Auth:** `admin_token`.
 
+
   ### 🔎 Query Parameters
 
+
   | Param | Type | Required | Description |
+
   |---|---|:---:|---|
-  | `country_id` | int | ➖ | Davlat bo'yicha filtr |
-  | `q` | string | ➖ | Nom bo'yicha qidiruv |
-  | `is_active` | int (0\|1) | ➖ | Faolligi bo'yicha filtr |
+
+  | `country_id` | int | ➖ | Davlat bo''yicha filtr |
+
+  | `q` | string | ➖ | Nom bo''yicha qidiruv |
+
+  | `is_active` | int (0\|1) | ➖ | Faolligi bo''yicha filtr |
+
   | `page` | int | ➖ | Sahifa raqami |
+
   | `per-page` | int | ➖ | Sahifa hajmi |
+
 
   ### 📤 Response (`data.items[]`)
 
+
   | Field | Type | Description |
+
   |---|---|---|
+
   | `id` | int | |
+
   | `country_id` | int | |
-  | `name` | string | Til bo'yicha tarjima |
+
+  | `name` | string | Til bo''yicha tarjima |
+
   | `is_active` | bool | |
+
   | `sort_order` | int | |
+
   | `created_at` | int | |
+
   | `updated_at` | int | |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

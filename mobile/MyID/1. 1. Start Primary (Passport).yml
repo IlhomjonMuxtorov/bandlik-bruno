@@ -10,25 +10,18 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"pass_data\": \"AA1234567\",\n  \"phone\": \"+998901234567\",\n  \"birth_date\": \"15.01.1990\",\n  \"threshold\": 0.85\n}"
-  auth: inherit
-docs: |
-  # Passport ma'lumotlari orqali session yaratish
-
-  Yuz tanish uchun birinchi marta identifikatsiya. Passport seriyasi, nomeri va tug'ilgan sanani yuboradi.
-
-  **Auth:** none  
-  **Returns:** `{ session_id }`
-
-  ### 📥 Request Body
-
-  | Field | Type | Required | Description |
-  |---|---|:---:|---|
-  | `pass_data` | string | ✅ | Pasport seriyasi + nomeri, masalan `AA1234567` |
-  | `phone` | string | ➖ | Telefon raqami `+998XXXXXXXXX` formatida |
-  | `birth_date` | string | ➖ | Tug'ilgan sana `dd.mm.yyyy` formatida |
-  | `threshold` | number | ➖ | Yuz moslik progi (0.6–0.99), default: 0.85 |
-
+    data: "{\n  \"pass_data\": \"AA1234567\",\n  \"phone\": \"+998901234567\",\n \
+      \ \"birth_date\": \"15.01.1990\",\n  \"threshold\": 0.85\n}"
+  auth:
+    type: none
+docs: "# Passport ma'lumotlari orqali session yaratish\n\nYuz tanish uchun birinchi\
+  \ marta identifikatsiya. Passport seriyasi, nomeri va tug'ilgan sanani yuboradi.\n\
+  \n**Auth:** none  \n**Returns:** `{ session_id }`\n\n### \U0001F4E5 Request Body\n\
+  \n| Field | Type | Required | Description |\n|---|---|:---:|---|\n| `pass_data`\
+  \ | string | ✅ | Pasport seriyasi + nomeri, masalan `AA1234567` |\n| `phone` | string\
+  \ | ➖ | Telefon raqami `+998XXXXXXXXX` formatida |\n| `birth_date` | string | ➖\
+  \ | Tug'ilgan sana `dd.mm.yyyy` formatida |\n| `threshold` | number | ➖ | Yuz moslik\
+  \ progi (0.6–0.99), default: 0.85 |\n"
 settings:
   encodeUrl: true
   timeout: 0

@@ -10,25 +10,33 @@ http:
     value: application/json
   - name: Accept-Language
     value: uz
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Haydovchilik guvohnomasi + sertifikatlar.
+  auth: inherit
+docs: 'Haydovchilik guvohnomasi + sertifikatlar.
+
 
   **Auth:** `access_token`.
 
+
   ### 📤 Response
 
+
   | Field | Type | Description |
+
   |---|---|---|
+
   | `has_license` | bool | Guvohnoma bormi |
+
   | `categories` | string \| null | Masalan `B,C,D` |
+
   | `license_number` | string \| null | Guvohnoma raqami |
+
   | `issue_date` | date \| null | Berilgan sana |
+
   | `expiry_date` | date \| null | Amal qilish muddati |
+
   | `certificates` | array | `[{ id, type, title, … }]` |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

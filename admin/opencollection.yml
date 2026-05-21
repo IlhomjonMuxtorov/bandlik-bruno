@@ -7,6 +7,9 @@ extensions:
     ignore:
     - node_modules
     - .git
+auth:
+  type: bearer
+  token: '{{admin_token}}'
 variables:
   base_url: http://api.bandlik.loc
   admin_token: ''

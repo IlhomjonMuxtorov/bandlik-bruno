@@ -8,36 +8,56 @@ http:
   headers:
   - name: Accept-Language
     value: uz
-  auth: inherit
-docs: |
-  Tasdiqlangan vakansiyalar uchun mavjud sohalar ro'yxati (Restoran, Qurilish, IT, ...).
+  auth:
+    type: none
+docs: 'Tasdiqlangan vakansiyalar uchun mavjud sohalar ro''yxati (Restoran, Qurilish,
+  IT, ...).
+
 
   **Auth:** talab qilinmaydi.
 
+
   ### 📋 Headers
 
+
   | Header | Required | Description |
+
   |---|:---:|---|
+
   | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz`. |
+
 
   ### 📤 Response
 
+
   Massiv:
 
+
   | Field | Type | Description |
+
   |---|---|---|
+
   | `id` | int | Industry ID |
+
   | `code` | string | `restaurant`, `construction`, ... |
+
   | `name` | string | Lokalizatsiyalangan nom |
+
   | `icon` | string \| null | UI ikon kaliti |
+
   | `sort_order` | int | Tartib |
+
 
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
+
   | `500` | Server xatosi |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

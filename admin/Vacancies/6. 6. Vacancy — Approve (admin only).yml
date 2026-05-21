@@ -5,22 +5,28 @@ info:
 http:
   method: POST
   url: '{{base_url}}/admin/vacancies/1/approve'
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  SuperAdmin pending_approval statusdagi vakansiyani tasdiqlaydi — status `approved`, `published_at` o'rnatiladi, mobile feed'da ko'rinadi.
+  auth: inherit
+docs: 'SuperAdmin pending_approval statusdagi vakansiyani tasdiqlaydi — status `approved`,
+  `published_at` o''rnatiladi, mobile feed''da ko''rinadi.
+
 
   **Auth:** `admin_token` (faqat `UserType::Admin`).
 
+
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
+
   | `400` | Status `pending_approval` emas |
+
   | `403` | Admin emas |
+
   | `404` | Vakansiya topilmadi |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

@@ -10,39 +10,58 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"status\": \"accepted\",\n  \"notes\": \"Kuchli nomzod, kursga yo'naltirildi\",\n  \"hotel_preference\": true\n}"
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Ariza statusini o'zgartiradi:
+    data: "{\n  \"status\": \"accepted\",\n  \"notes\": \"Kuchli nomzod, kursga yo'naltirildi\"\
+      ,\n  \"hotel_preference\": true\n}"
+  auth: inherit
+docs: 'Ariza statusini o''zgartiradi:
+
 
   | To | Required | Side effect |
+
   |---|---|---|
-  | `reviewed` | — | `reviewed_at` o'rnatiladi |
-  | `accepted` | `notes` ➖, `hotel_preference` ➖ | **`vacancy_candidate` yozuvi yaratiladi** (status=`pending`) |
+
+  | `reviewed` | — | `reviewed_at` o''rnatiladi |
+
+  | `accepted` | `notes` ➖, `hotel_preference` ➖ | **`vacancy_candidate` yozuvi yaratiladi**
+  (status=`pending`) |
+
   | `rejected` | `reason` ✅ | `rejection_reason` saqlanadi |
 
-  > Terminal statusdagi arizalar (`accepted` / `rejected`) qayta o'zgartirilmaydi.
+
+  > Terminal statusdagi arizalar (`accepted` / `rejected`) qayta o''zgartirilmaydi.
+
 
   **Auth:** Admin yoki vakansiya egasi.
 
+
   ### 📥 Request Body
 
+
   | Field | Type | Required | Description |
+
   |---|---|:---:|---|
+
   | `status` | string | ✅ | `reviewed` \| `accepted` \| `rejected` |
+
   | `reason` | string | ⚠️ | `rejected` uchun majburiy |
-  | `notes` | string | ➖ | `accepted` uchun pipeline yozuviga ko'chiriladi |
+
+  | `notes` | string | ➖ | `accepted` uchun pipeline yozuviga ko''chiriladi |
+
   | `hotel_preference` | bool | ➖ | `accepted` uchun |
+
 
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
-  | `400` | Allaqachon hal qilingan / `reason` bo'sh / noto'g'ri status |
+
+  | `400` | Allaqachon hal qilingan / `reason` bo''sh / noto''g''ri status |
+
   | `403` | Boshqa tashkilot |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

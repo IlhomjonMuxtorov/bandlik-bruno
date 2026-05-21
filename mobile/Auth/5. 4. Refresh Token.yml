@@ -11,38 +11,61 @@ http:
   body:
     type: json
     data: "{\n  \"refresh_token\": \"{{refresh_token}}\"\n}"
-  auth: inherit
-docs: |
-  `access_token` muddati tugaganda yangi token juft olish uchun ishlatiladi.
+  auth:
+    type: none
+docs: '`access_token` muddati tugaganda yangi token juft olish uchun ishlatiladi.
+
 
   > **Rotation:** yuborilgan `refresh_token` bekor qilinadi, yangi juft qaytariladi.
 
+
   **Auth:** talab qilinmaydi.
+
 
   ### 📥 Request Body
 
+
   | Field | Type | Required | Description |
+
   |---|---|:---:|---|
-  | `refresh_token` | string | ✅ | 3- yoki 4-qadamdan olingan `refresh_token`. Bir marta ishlatiladi. |
+
+  | `refresh_token` | string | ✅ | 3- yoki 4-qadamdan olingan `refresh_token`. Bir
+  marta ishlatiladi. |
+
 
   ### 📤 Response
 
+
   | Field | Type | Description |
+
   |---|---|---|
+
   | `access_token` | string | Yangi JWT (15 daqiqa) |
-  | `refresh_token` | string | Yangi refresh token (30 kun). **Eskisi endi ishlamaydi.** |
+
+  | `refresh_token` | string | Yangi refresh token (30 kun). **Eskisi endi ishlamaydi.**
+  |
+
   | `expires_in` | int | `900` sek |
+
   | `token_type` | string | `Bearer` |
+
 
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
-  | `401` | `refresh_token` topilmadi, bekor qilingan yoki muddati o'tgan |
-  | `401` | Tegishli foydalanuvchi topilmadi (o'chirilgan hisob) |
 
-  > ✨ **Auto-save:** yangi `access_token` va `refresh_token` avtomatik yangilanadi. Eski `refresh_token` bekor qilinadi.
+  | `401` | `refresh_token` topilmadi, bekor qilingan yoki muddati o''tgan |
 
+  | `401` | Tegishli foydalanuvchi topilmadi (o''chirilgan hisob) |
+
+
+  > ✨ **Auto-save:** yangi `access_token` va `refresh_token` avtomatik yangilanadi.
+  Eski `refresh_token` bekor qilinadi.
+
+  '
 settings:
   encodeUrl: true
   timeout: 0
@@ -50,11 +73,7 @@ settings:
   maxRedirects: 5
 runtime:
   scripts:
-    - type: after-response
-      code: |-
-        const body = res.getBody();
-        if (body && body.access_token) {
-          bru.setEnvVar('access_token', body.access_token);
-          bru.setEnvVar('refresh_token', body.refresh_token);
-          console.log('tokens refreshed');
-        }
+  - type: after-response
+    code: "const body = res.getBody();\nif (body && body.access_token) {\n  bru.setEnvVar('access_token',\
+      \ body.access_token);\n  bru.setEnvVar('refresh_token', body.refresh_token);\n\
+      \  console.log('tokens refreshed');\n}"

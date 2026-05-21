@@ -14,23 +14,29 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"type\": \"passport_scan\",\n    \"title\": \"Passport.pdf\",\n    \"file_id\": 42\n}"
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Yangi hujjat qo'shish.
+    data: "{\n    \"type\": \"passport_scan\",\n    \"title\": \"Passport.pdf\",\n\
+      \    \"file_id\": 42\n}"
+  auth: inherit
+docs: 'Yangi hujjat qo''shish.
+
 
   **Auth:** `access_token`.
 
+
   ### 📥 Request Body
 
+
   | Field | Type | Required | Description |
+
   |---|---|:---:|---|
+
   | `type` | string | ✅ | `passport_scan` \| `foreign_passport_scan` |
+
   | `title` | string | ✅ | Fayl nomi |
+
   | `file_id` | int | ➖ | `/mobile/upload` orqali yuklangan fayl ID |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

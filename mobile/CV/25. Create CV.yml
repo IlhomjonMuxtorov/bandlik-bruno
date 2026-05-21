@@ -14,37 +14,56 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"title\": \"Haydovchi CVim\",\n    \"is_primary\": false,\n    \"status\": null\n}"
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Yangi CV yaratish.
+    data: "{\n    \"title\": \"Haydovchi CVim\",\n    \"is_primary\": false,\n   \
+      \ \"status\": null\n}"
+  auth: inherit
+docs: 'Yangi CV yaratish.
+
 
   **Auth:** `access_token`.
 
+
   ### 📥 Request Body
 
+
   | Field | Type | Required | Description |
+
   |---|---|:---:|---|
-  | `title` | string | ✅ | CV nomi (foydalanuvchi ko'radigan) |
-  | `photo_url` | string \| null | ➖ | CV uchun maxsus rasm (bo'lmasa candidate rasmi) |
-  | `is_primary` | bool \| null | ➖ | `true` bo'lsa, eski primary CV avtomatik `false` bo'ladi. Birinchi CV bo'lsa, server avtomatik `true` qiladi |
-  | `status` | string \| null | ➖ | CV holati: `draft` (sukut) yoki `active`. Yangisi boshlang'ich `draft` — oxirgi bosqichda `active` o'rnatiladi |
+
+  | `title` | string | ✅ | CV nomi (foydalanuvchi ko''radigan) |
+
+  | `photo_url` | string \| null | ➖ | CV uchun maxsus rasm (bo''lmasa candidate rasmi)
+  |
+
+  | `is_primary` | bool \| null | ➖ | `true` bo''lsa, eski primary CV avtomatik `false`
+  bo''ladi. Birinchi CV bo''lsa, server avtomatik `true` qiladi |
+
+  | `status` | string \| null | ➖ | CV holati: `draft` (sukut) yoki `active`. Yangisi
+  boshlang''ich `draft` — oxirgi bosqichda `active` o''rnatiladi |
+
 
   ### 📤 Response
 
-  `201 Created` + to'liq CV (`/cv/{id}` formatida).
+
+  `201 Created` + to''liq CV (`/cv/{id}` formatida).
+
 
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
+
   | `400` | Validatsiya xatosi |
-  | `401` | Token yo'q |
 
-  > ✨ **Auto-save:** yaratilgan CV ning `id` si avtomatik `cv_id` sifatida saqlanadi. CV qismidagi barcha endpointlar shu `{{cv_id}}` ni ishlatadi.
+  | `401` | Token yo''q |
 
+
+  > ✨ **Auto-save:** yaratilgan CV ning `id` si avtomatik `cv_id` sifatida saqlanadi.
+  CV qismidagi barcha endpointlar shu `{{cv_id}}` ni ishlatadi.
+
+  '
 settings:
   encodeUrl: true
   timeout: 0
@@ -52,10 +71,6 @@ settings:
   maxRedirects: 5
 runtime:
   scripts:
-    - type: after-response
-      code: |-
-        const body = res.getBody();
-        if (body && body.id) {
-          bru.setEnvVar('cv_id', String(body.id));
-          console.log('cv_id saved: ' + body.id);
-        }
+  - type: after-response
+    code: "const body = res.getBody();\nif (body && body.id) {\n  bru.setEnvVar('cv_id',\
+      \ String(body.id));\n  console.log('cv_id saved: ' + body.id);\n}"

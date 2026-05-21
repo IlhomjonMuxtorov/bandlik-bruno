@@ -10,35 +10,49 @@ http:
     value: application/json
   - name: Accept-Language
     value: uz
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Til daraja ma'lumotnomasi (**CEFR** + `native`).
+  auth: inherit
+docs: 'Til daraja ma''lumotnomasi (**CEFR** + `native`).
+
 
   **Auth:** `access_token`.
 
+
   ### 📋 Headers
 
+
   | Header | Required | Description |
+
   |---|:---:|---|
+
   | `Authorization` | ✅ | `Bearer {access_token}` |
+
   | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` |
+
 
   ### 📤 Response *(massiv elementi)*
 
+
   | Field | Type | Description |
+
   |---|---|---|
+
   | `id` | int | Daraja ID |
+
   | `code` | string | `A1` \| `A2` \| `B1` \| `B2` \| `C1` \| `C2` \| `native` |
+
   | `name` | string | Lokalizatsiyalangan nom |
+
 
   ### ⚠️ Errors
 
-  | Code | Reason |
-  |---|---|
-  | `401` | Token yo'q yoki muddati o'tgan |
 
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q yoki muddati o''tgan |
+
+  '
 settings:
   encodeUrl: true
   timeout: 0

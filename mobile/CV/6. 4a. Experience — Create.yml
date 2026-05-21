@@ -14,24 +14,31 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"company_name\": \"Global Skillhub\",\n    \"position\": \"Buxgalter\",\n    \"start_date\": \"2023-01-15\"\n}"
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Yangi ish tajribasi qo'shish.
+    data: "{\n    \"company_name\": \"Global Skillhub\",\n    \"position\": \"Buxgalter\"\
+      ,\n    \"start_date\": \"2023-01-15\"\n}"
+  auth: inherit
+docs: 'Yangi ish tajribasi qo''shish.
+
 
   **Auth:** `access_token`.
 
+
   ### 📥 Request Body
 
+
   | Field | Type | Required | Description |
+
   |---|---|:---:|---|
+
   | `company_name` | string | ✅ | Kompaniya nomi |
+
   | `position` | string | ✅ | Lavozim |
+
   | `start_date` | date | ✅ | `YYYY-MM-DD` |
+
   | `end_date` | date | ➖ | `null` = hozirgacha |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

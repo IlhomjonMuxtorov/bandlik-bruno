@@ -5,41 +5,61 @@ info:
 http:
   method: GET
   url: '{{base_url}}/admin/districts?region_id=10'
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Tumanlar ro'yxati (region bo'yicha paginatsiya bilan).
+  auth: inherit
+docs: 'Tumanlar ro''yxati (region bo''yicha paginatsiya bilan).
+
 
   **Auth:** `admin_token`.
 
+
   ### 🔎 Query Parameters
 
+
   | Param | Type | Required | Description |
+
   |---|---|:---:|---|
-  | `region_id` | int | ➖ | Viloyat bo'yicha filtr. |
-  | `q` | string | ➖ | Nom bo'yicha qidiruv (JSONB `name` bo'yicha `ILIKE`). |
-  | `is_active` | int (0\|1) | ➖ | Faolligi bo'yicha filtr. |
+
+  | `region_id` | int | ➖ | Viloyat bo''yicha filtr. |
+
+  | `q` | string | ➖ | Nom bo''yicha qidiruv (JSONB `name` bo''yicha `ILIKE`). |
+
+  | `is_active` | int (0\|1) | ➖ | Faolligi bo''yicha filtr. |
+
   | `page` | int | ➖ | Sahifa raqami (default `1`). |
+
   | `per-page` | int | ➖ | Sahifa hajmi (1–100, default `20`). |
+
 
   ### 📋 Headers
 
+
   | Header | Required | Description |
+
   |---|:---:|---|
+
   | `Authorization` | ✅ | `Bearer {{ _.admin_token }}` |
+
   | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz`. |
+
 
   ### 📤 Response (`data.items[]`)
 
+
   | Field | Type | Description |
+
   |---|---|---|
+
   | `id` | int | GCP SP_ID |
+
   | `region_id` | int | |
-  | `name` | string | Til bo'yicha tarjima |
+
+  | `name` | string | Til bo''yicha tarjima |
+
   | `is_active` | bool | |
+
   | `sort_order` | int | |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

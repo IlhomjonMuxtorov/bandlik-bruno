@@ -10,25 +10,33 @@ http:
     value: application/json
   - name: Accept-Language
     value: uz
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Ish tajribasi ro'yxati.
+  auth: inherit
+docs: 'Ish tajribasi ro''yxati.
+
 
   **Auth:** `access_token`.
 
+
   ### 📤 Response *(massiv elementi)*
 
+
   | Field | Type | Description |
+
   |---|---|---|
+
   | `id` | int | Tajriba ID |
+
   | `company_name` | string | Kompaniya nomi |
+
   | `position` | string | Lavozim |
+
   | `start_date` | date | `YYYY-MM-DD` |
+
   | `end_date` | date \| null | `null` — hozir ishlayapti |
+
   | `is_current` | bool | Hozirgi ish |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

@@ -5,36 +5,13 @@ info:
 http:
   method: GET
   url: '{{base_url}}/admin/insurance/1'
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Bitta Sug'urta tashkiloti + `stats` sub-object:
-
-  ```json
-  {
-    "id": 1,
-    "type": 2,
-    "type_label": "Sug'urta",
-    "name": "...",
-    ...
-    "stats": {
-      "total_revenue": 48000000,
-      "clients_count": 1920,
-      "services_count": 10,
-      "employees_count": 12
-    }
-  }
-  ```
-
-  **Auth:** `admin_token`.
-
-  ### ⚠️ Errors
-
-  | Code | Reason |
-  |---|---|
-  | `404` | Sug'urta topilmadi (cross-type isolation: XBA/Visa id'si bilan urinilganda ham 404) |
-
+  auth: inherit
+docs: "Bitta Sug'urta tashkiloti + `stats` sub-object:\n\n```json\n{\n  \"id\": 1,\n\
+  \  \"type\": 2,\n  \"type_label\": \"Sug'urta\",\n  \"name\": \"...\",\n  ...\n\
+  \  \"stats\": {\n    \"total_revenue\": 48000000,\n    \"clients_count\": 1920,\n\
+  \    \"services_count\": 10,\n    \"employees_count\": 12\n  }\n}\n```\n\n**Auth:**\
+  \ `admin_token`.\n\n### ⚠️ Errors\n\n| Code | Reason |\n|---|---|\n| `404` | Sug'urta\
+  \ topilmadi (cross-type isolation: XBA/Visa id'si bilan urinilganda ham 404) |\n"
 settings:
   encodeUrl: true
   timeout: 0

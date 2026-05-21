@@ -5,14 +5,13 @@ info:
 http:
   method: DELETE
   url: '{{base_url}}/admin/districts/1001'
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Tumanni o'chirish.
+  auth: inherit
+docs: 'Tumanni o''chirish.
+
 
   **Auth:** `admin_token`.
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

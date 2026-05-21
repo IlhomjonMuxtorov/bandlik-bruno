@@ -5,28 +5,38 @@ info:
 http:
   method: GET
   url: '{{base_url}}/admin/vacancies/1/applications'
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Vakansiyaga topshirilgan barcha arizalar (`applied_at DESC`).
+  auth: inherit
+docs: 'Vakansiyaga topshirilgan barcha arizalar (`applied_at DESC`).
+
 
   **Auth:** Admin yoki vakansiya egasi.
 
+
   ### 🔎 Query Parameters
 
+
   | Param | Type | Required | Description |
+
   |---|---|:---:|---|
+
   | `status` | string | ➖ | `applied` \| `reviewed` \| `accepted` \| `rejected` |
+
   | `per-page` | int | ➖ | 1..100 |
+
 
   ### 📤 Response (`data`)
 
+
   | Field | Type | Description |
+
   |---|---|---|
-  | `items` | array | Ariza ro'yxati (`{id, vacancy, candidate, cv, status, status_label, hotel_preference, applied_at}`) |
+
+  | `items` | array | Ariza ro''yxati (`{id, vacancy, candidate, cv, status, status_label,
+  hotel_preference, applied_at}`) |
+
   | `pagination` | object | `{page, page_size, total_count, page_count}` |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

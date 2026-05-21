@@ -5,20 +5,23 @@ info:
 http:
   method: GET
   url: '{{base_url}}/admin/cities/1'
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Bitta shahar.
+  auth: inherit
+docs: 'Bitta shahar.
+
 
   **Auth:** `admin_token`.
 
+
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
+
   | `404` | Shahar topilmadi |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

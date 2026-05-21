@@ -5,22 +5,25 @@ info:
 http:
   method: GET
   url: '{{base_url}}/admin/insurance?per-page=20'
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Sug'urta tashkilotlari ro'yxati. Faqat `type = 2` yozuvlar qaytadi.
+  auth: inherit
+docs: 'Sug''urta tashkilotlari ro''yxati. Faqat `type = 2` yozuvlar qaytadi.
+
 
   **Auth:** `admin_token`.
 
+
   ### 🔎 Query Parameters
+
 
   XBA Index bilan bir xil: `q`, `region_id`, `district_id`, `is_active`, `page`, `per-page`.
 
+
   ### 📤 Response
 
-  `data.items[]` — `OrganizationOutputDTO` (`type = 2`, `type_label = "Sug'urta"`).
 
+  `data.items[]` — `OrganizationOutputDTO` (`type = 2`, `type_label = "Sug''urta"`).
+
+  '
 settings:
   encodeUrl: true
   timeout: 0

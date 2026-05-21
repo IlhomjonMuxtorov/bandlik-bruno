@@ -11,14 +11,14 @@ http:
   body:
     type: json
     data: "{\n  \"phone\": \"+998944452399\"\n}"
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Mavjud Ish beruvchi tashkilotini yangilaydi. `application/json` — faqat o'zgaradigan maydonlarni yuborish kifoya.
+  auth: inherit
+docs: 'Mavjud Ish beruvchi tashkilotini yangilaydi. `application/json` — faqat o''zgaradigan
+  maydonlarni yuborish kifoya.
+
 
   **Auth:** `admin_token`.
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

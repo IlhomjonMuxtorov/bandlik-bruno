@@ -11,39 +11,57 @@ http:
   body:
     type: json
     data: "{\n  \"old_pin\": \"1234\",\n  \"new_pin\": \"5678\"\n}"
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Mavjud PIN-kodni yangilash. Eski PIN tekshirilgandan so'ng yangi PIN saqlanadi.
+  auth: inherit
+docs: 'Mavjud PIN-kodni yangilash. Eski PIN tekshirilgandan so''ng yangi PIN saqlanadi.
 
-  > Har noto'g'ri `old_pin` urinish hisoblanadi (xuddi `login-with-pin` kabi). 3 marta xato → hisob 10 daqiqaga bloklanadi.
+
+  > Har noto''g''ri `old_pin` urinish hisoblanadi (xuddi `login-with-pin` kabi). 3
+  marta xato → hisob 10 daqiqaga bloklanadi.
+
 
   **Auth:** `access_token` majburiy.
 
+
   ### 📥 Request Body
 
+
   | Field | Type | Required | Description |
+
   |---|---|:---:|---|
+
   | `old_pin` | string | ✅ | Hozirgi 4 xonali PIN. |
+
   | `new_pin` | string | ✅ | Yangi 4 xonali PIN. |
+
 
   ### 📤 Response
 
+
   | Field | Type | Description |
+
   |---|---|---|
+
   | `is_pin_set` | bool | Har doim `true` |
+
 
   ### ⚠️ Errors
 
-  | Code | Reason |
-  |---|---|
-  | `400` | `old_pin`/`new_pin` yo'q yoki format xato |
-  | `400` | PIN o'rnatilmagan |
-  | `400` | `old_pin` noto'g'ri → qolgan urinishlar soni qaytadi |
-  | `400` | 3 marta xato → `{ blocked_for }` |
-  | `401` | `access_token` yo'q yoki muddati o'tgan |
 
+  | Code | Reason |
+
+  |---|---|
+
+  | `400` | `old_pin`/`new_pin` yo''q yoki format xato |
+
+  | `400` | PIN o''rnatilmagan |
+
+  | `400` | `old_pin` noto''g''ri → qolgan urinishlar soni qaytadi |
+
+  | `400` | 3 marta xato → `{ blocked_for }` |
+
+  | `401` | `access_token` yo''q yoki muddati o''tgan |
+
+  '
 settings:
   encodeUrl: true
   timeout: 0

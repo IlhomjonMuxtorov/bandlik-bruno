@@ -5,14 +5,14 @@ info:
 http:
   method: DELETE
   url: '{{base_url}}/admin/vacancies/1'
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Soft delete — status `archived`. Hech qaerda ko'rinmaydi, lekin ma'lumotlar saqlanib qoladi.
+  auth: inherit
+docs: 'Soft delete — status `archived`. Hech qaerda ko''rinmaydi, lekin ma''lumotlar
+  saqlanib qoladi.
+
 
   **Auth:** Admin yoki vakansiya egasi.
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

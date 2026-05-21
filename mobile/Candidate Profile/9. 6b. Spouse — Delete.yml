@@ -10,16 +10,16 @@ http:
     value: application/json
   - name: Accept-Language
     value: uz
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Turmush o'rtog'i yozuvini o'chirish.
+  auth: inherit
+docs: 'Turmush o''rtog''i yozuvini o''chirish.
+
 
   > `marital_status` alohida `cv/profile` orqali update qilinadi.
 
+
   **Auth:** `access_token`.
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

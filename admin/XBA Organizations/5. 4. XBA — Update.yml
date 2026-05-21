@@ -11,30 +11,42 @@ http:
   body:
     type: json
     data: "{\n  \"phone\": \"+998941202299\",\n  \"is_active\": 0\n}"
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Mavjud XBA tashkilotini yangilaydi. `application/json` — faqat o'zgartirmoqchi bo'lgan maydonlarni yuborish kifoya.
+  auth: inherit
+docs: 'Mavjud XBA tashkilotini yangilaydi. `application/json` — faqat o''zgartirmoqchi
+  bo''lgan maydonlarni yuborish kifoya.
+
 
   > PHP `PUT + multipart` cheklangani uchun update **`POST`** orqali amalga oshiriladi.
 
-  Login/parol yuborilsa bog'langan `User` ham yangilanadi. Yangi fayl ID yuborilganda eski `upload_file` FK yangilanadi.
+
+  Login/parol yuborilsa bog''langan `User` ham yangilanadi. Yangi fayl ID yuborilganda
+  eski `upload_file` FK yangilanadi.
+
 
   **Auth:** `admin_token`.
 
+
   ### 📥 Request Body
 
-  Barcha maydonlar **ixtiyoriy** (faqat o'zgaradiganlarini yuboring). To'liq ro'yxat — `Create` endpointidagi kabi. Fayl maydonlari: `license_file_id`, `logo_id`.
+
+  Barcha maydonlar **ixtiyoriy** (faqat o''zgaradiganlarini yuboring). To''liq ro''yxat
+  — `Create` endpointidagi kabi. Fayl maydonlari: `license_file_id`, `logo_id`.
+
 
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
+
   | `404` | XBA topilmadi (yoki id boshqa partner turida) |
+
   | `422` | Validatsiya xatosi |
+
   | `400` | Fayl ID topilmadi yoki `status=uploading` |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

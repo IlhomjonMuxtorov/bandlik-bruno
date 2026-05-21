@@ -10,28 +10,37 @@ http:
     value: application/json
   - name: Accept-Language
     value: uz
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  CV-ni o'chirish. Shu CV-ga tegishli education/experience/language/document/course/driver-certificate ham CASCADE bilan o'chadi.
+  auth: inherit
+docs: 'CV-ni o''chirish. Shu CV-ga tegishli education/experience/language/document/course/driver-certificate
+  ham CASCADE bilan o''chadi.
 
-  Agar bu **oxirgi CV** bo'lsa — `400` qaytadi (kamida 1 ta CV qolishi kerak).
-  Agar primary CV o'chsa — boshqa eng yangilangan CV avtomatik primary bo'ladi.
+
+  Agar bu **oxirgi CV** bo''lsa — `400` qaytadi (kamida 1 ta CV qolishi kerak).
+
+  Agar primary CV o''chsa — boshqa eng yangilangan CV avtomatik primary bo''ladi.
+
 
   **Auth:** `access_token`.
 
+
   ### 📤 Response
+
 
   `204 No Content`.
 
+
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
+
   | `400` | Cannot delete the last CV |
+
   | `404` | CV topilmadi |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

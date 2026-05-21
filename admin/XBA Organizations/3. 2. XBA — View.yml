@@ -5,22 +5,28 @@ info:
 http:
   method: GET
   url: '{{base_url}}/admin/xba/1'
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Bitta XBA tashkiloti haqida to'liq ma'lumot + `stats` (`total_revenue`, `clients_count`, `services_count`, `employees_count`).
+  auth: inherit
+docs: 'Bitta XBA tashkiloti haqida to''liq ma''lumot + `stats` (`total_revenue`, `clients_count`,
+  `services_count`, `employees_count`).
 
-  > Cross-type isolation: agar `id` boshqa partner turidagi yozuvga tegishli bo'lsa — `404`.
+
+  > Cross-type isolation: agar `id` boshqa partner turidagi yozuvga tegishli bo''lsa
+  — `404`.
+
 
   **Auth:** `admin_token`.
 
+
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
+
   | `404` | XBA topilmadi |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

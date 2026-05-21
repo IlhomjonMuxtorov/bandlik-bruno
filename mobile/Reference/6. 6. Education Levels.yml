@@ -10,35 +10,50 @@ http:
     value: application/json
   - name: Accept-Language
     value: uz
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Ta'lim darajasi ma'lumotnomasi.
+  auth: inherit
+docs: 'Ta''lim darajasi ma''lumotnomasi.
+
 
   **Auth:** `access_token`.
 
+
   ### 📋 Headers
 
+
   | Header | Required | Description |
+
   |---|:---:|---|
+
   | `Authorization` | ✅ | `Bearer {access_token}` |
+
   | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` |
+
 
   ### 📤 Response *(massiv elementi)*
 
+
   | Field | Type | Description |
+
   |---|---|---|
+
   | `id` | int | Daraja ID |
-  | `code` | string | `high_school` \| `college` \| `bachelor` \| `master` \| `phd` |
+
+  | `code` | string | `high_school` \| `college` \| `bachelor` \| `master` \| `phd`
+  |
+
   | `name` | string | Lokalizatsiyalangan nom |
+
 
   ### ⚠️ Errors
 
-  | Code | Reason |
-  |---|---|
-  | `401` | Token yo'q yoki muddati o'tgan |
 
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q yoki muddati o''tgan |
+
+  '
 settings:
   encodeUrl: true
   timeout: 0

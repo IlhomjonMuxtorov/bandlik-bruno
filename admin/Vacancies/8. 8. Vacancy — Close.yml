@@ -11,20 +11,23 @@ http:
   body:
     type: json
     data: "{\n  \"reason\": \"Hammasini topdik\"\n}"
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Vakansiyani yopadi (`closed`). Mobile feed'da ko'rinmay qoladi.
+  auth: inherit
+docs: 'Vakansiyani yopadi (`closed`). Mobile feed''da ko''rinmay qoladi.
+
 
   **Auth:** Admin yoki vakansiya egasi.
 
+
   ### 📥 Request Body
 
+
   | Field | Type | Required | Description |
+
   |---|---|:---:|---|
+
   | `reason` | string | ➖ | Yopish sababi (log uchun). |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

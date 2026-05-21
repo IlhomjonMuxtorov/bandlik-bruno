@@ -11,27 +11,36 @@ http:
   body:
     type: json
     data: "{\n  \"reason\": \"Maosh diapazoni real emas\"\n}"
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  SuperAdmin vakansiyani rad etadi. Sabab (`reason`) majburiy va `rejection_reason` ga saqlanadi. Vakansiya egasi ko'rishi mumkin.
+  auth: inherit
+docs: 'SuperAdmin vakansiyani rad etadi. Sabab (`reason`) majburiy va `rejection_reason`
+  ga saqlanadi. Vakansiya egasi ko''rishi mumkin.
+
 
   **Auth:** `admin_token` (faqat `UserType::Admin`).
 
+
   ### 📥 Request Body
 
+
   | Field | Type | Required | Description |
+
   |---|---|:---:|---|
-  | `reason` | string | ✅ | Rad etish sababi (bo'sh emas). |
+
+  | `reason` | string | ✅ | Rad etish sababi (bo''sh emas). |
+
 
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
-  | `400` | Status `pending_approval` emas yoki `reason` bo'sh |
+
+  | `400` | Status `pending_approval` emas yoki `reason` bo''sh |
+
   | `403` | Admin emas |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

@@ -10,15 +10,16 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"name\": {\"uz\": \"O'zgartirilgan talab\", \"ru\": \"Измененное требование\", \"en\": \"Modified requirement\"},\n  \"description\": null\n}"
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Viza talabini yangilaydi.
+    data: "{\n  \"name\": {\"uz\": \"O'zgartirilgan talab\", \"ru\": \"Измененное\
+      \ требование\", \"en\": \"Modified requirement\"},\n  \"description\": null\n\
+      }"
+  auth: inherit
+docs: 'Viza talabini yangilaydi.
+
 
   **Auth:** `admin_token`.
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

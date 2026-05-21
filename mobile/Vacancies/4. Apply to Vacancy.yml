@@ -10,36 +10,52 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"cv_id\": null,\n  \"cover_message\": \"Men bu ish o'rni uchun motivatsiyalanganman\",\n  \"hotel_preference\": true\n}"
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Nomzod tasdiqlangan vakansiyaga ariza topshiradi. Vakansiya `status = approved` bo'lishi va shu nomzoddan **birinchi ariza** bo'lishi shart (unique).
+    data: "{\n  \"cv_id\": null,\n  \"cover_message\": \"Men bu ish o'rni uchun motivatsiyalanganman\"\
+      ,\n  \"hotel_preference\": true\n}"
+  auth: inherit
+docs: 'Nomzod tasdiqlangan vakansiyaga ariza topshiradi. Vakansiya `status = approved`
+  bo''lishi va shu nomzoddan **birinchi ariza** bo''lishi shart (unique).
+
 
   **Auth:** `access_token`.
 
+
   ### 📥 Request Body
 
+
   | Field | Type | Required | Description |
+
   |---|---|:---:|---|
+
   | `cv_id` | int | ➖ | Qaysi CV bilan ariza topshirilayotgani |
-  | `cover_message` | string | ➖ | Qo'shimcha izoh |
+
+  | `cover_message` | string | ➖ | Qo''shimcha izoh |
+
   | `hotel_preference` | bool | ➖ | Mehmonxonada turish istagi (default `false`) |
+
 
   ### 📤 Response
 
+
   201 + Application DTO (id, status=`applied`, applied_at, ...).
+
 
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
+
   | `400` | Vakansiya `approved` emas |
+
   | `409` | Allaqachon ariza topshirilgan |
-  | `401` | Token yo'q |
+
+  | `401` | Token yo''q |
+
   | `404` | Vakansiya yoki nomzod topilmadi |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

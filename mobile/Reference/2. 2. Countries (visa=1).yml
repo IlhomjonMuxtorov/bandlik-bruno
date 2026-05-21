@@ -11,36 +11,53 @@ http:
   - name: Accept-Language
     value: uz
   auth:
-    mode: bearer
-    bearer: '{{guest_token}}'
-docs: |
-  Faqat viza rasmiylashtirish mumkin bo'lgan davlatlar (`is_visa_available=true`). Vakansiya filtri va viza yo'nalishi tanlashda ishlatiladi.
+    type: bearer
+    token: '{{guest_token}}'
+docs: 'Faqat viza rasmiylashtirish mumkin bo''lgan davlatlar (`is_visa_available=true`).
+  Vakansiya filtri va viza yo''nalishi tanlashda ishlatiladi.
+
 
   **Auth:** `guest_token` yoki `access_token`.
 
+
   ### 🔎 Query Parameters
 
+
   | Param | Value | Description |
+
   |---|---|---|
+
   | `visa` | `1` | Yoqilgan |
+
 
   ### 📋 Headers
 
+
   | Header | Required | Description |
+
   |---|:---:|---|
+
   | `Authorization` | ✅ | `Bearer {token}` |
+
   | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz` |
+
 
   ### 📤 Response
 
-  **Countries List** bilan bir xil format — faqat `is_visa_available=true` bo'lganlar.
+
+  **Countries List** bilan bir xil format — faqat `is_visa_available=true` bo''lganlar.
+
 
   ### ⚠️ Errors
 
-  | Code | Reason |
-  |---|---|
-  | `401` | Token yo'q, noto'g'ri yoki muddati o'tgan |
 
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q, noto''g''ri yoki muddati o''tgan |
+
+  '
 settings:
   encodeUrl: true
   timeout: 0

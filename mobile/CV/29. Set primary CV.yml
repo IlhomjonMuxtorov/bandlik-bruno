@@ -10,24 +10,30 @@ http:
     value: application/json
   - name: Accept-Language
     value: uz
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Berilgan CV-ni primary qiladi. Eski primary CV avtomatik `is_primary = false` bo'ladi.
+  auth: inherit
+docs: 'Berilgan CV-ni primary qiladi. Eski primary CV avtomatik `is_primary = false`
+  bo''ladi.
+
 
   **Auth:** `access_token`.
 
+
   ### 📤 Response
 
-  To'liq CV (`/cv/{id}` formatida) — `is_primary: true` bilan.
+
+  To''liq CV (`/cv/{id}` formatida) — `is_primary: true` bilan.
+
 
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
+
   | `404` | CV topilmadi |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

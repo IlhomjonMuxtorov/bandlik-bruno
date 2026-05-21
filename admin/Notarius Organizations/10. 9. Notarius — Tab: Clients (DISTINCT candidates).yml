@@ -5,38 +5,59 @@ info:
 http:
   method: GET
   url: '{{base_url}}/admin/notarius/1/clients?per-page=20'
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Notarius tashkilotning **Mijozlar** tabi — DISTINCT kandidatlar bo'yicha oxirgi xizmat ma'lumotlari.
+  auth: inherit
+docs: 'Notarius tashkilotning **Mijozlar** tabi — DISTINCT kandidatlar bo''yicha oxirgi
+  xizmat ma''lumotlari.
 
-  Query murakkab: `organization_service_order` → kandidat → `passport_data` (F.I.SH) + `user.phone`, har bir kandidat uchun **oxirgi** buyurtma (`MAX(served_at|created_at)`).
+
+  Query murakkab: `organization_service_order` → kandidat → `passport_data` (F.I.SH)
+  + `user.phone`, har bir kandidat uchun **oxirgi** buyurtma (`MAX(served_at|created_at)`).
+
 
   **Auth:** `admin_token`.
 
+
   ### 🔎 Query Parameters
 
+
   | Param | Type | Required | Description |
+
   |---|---|:---:|---|
-  | `q` | string | ➖ | Kandidat F.I.SH / telefon bo'yicha qidiruv |
-  | `status` | int (1\|2\|3) | ➖ | Buyurtma statusi bo'yicha filtr |
+
+  | `q` | string | ➖ | Kandidat F.I.SH / telefon bo''yicha qidiruv |
+
+  | `status` | int (1\|2\|3) | ➖ | Buyurtma statusi bo''yicha filtr |
+
   | `page`, `per-page` | int | ➖ | |
+
 
   ### 📤 Response (`data.items[]` — `OrganizationClientOutputDTO`)
 
+
   | Field | Type | Description |
+
   |---|---|---|
+
   | `candidate_id` | int | |
-  | `full_name` | string | Latin yoki Cyrillic (passport ma'lumotidan) |
+
+  | `full_name` | string | Latin yoki Cyrillic (passport ma''lumotidan) |
+
   | `phone` | string \| null | |
-  | `region_name` | string \| null | Hozircha `null` (kelajakda kandidat passport joyidan hisoblanadi) |
+
+  | `region_name` | string \| null | Hozircha `null` (kelajakda kandidat passport
+  joyidan hisoblanadi) |
+
   | `district_name` | string \| null | Hozircha `null` |
-  | `last_amount` | int \| null | Oxirgi xizmat to'lovi (UZS) |
+
+  | `last_amount` | int \| null | Oxirgi xizmat to''lovi (UZS) |
+
   | `last_served_at` | int \| null | Oxirgi xizmat sanasi (Unix ts) |
+
   | `last_status` | int | Oxirgi buyurtma statusi (1/2/3) |
+
   | `orders_count` | int | Shu org-ga jami buyurtmalar soni |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

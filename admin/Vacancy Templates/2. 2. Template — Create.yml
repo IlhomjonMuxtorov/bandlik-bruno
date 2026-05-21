@@ -10,25 +10,37 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"organization_id\": 1,\n  \"name\": \"Restoran Xizmatchisi (Polsha)\",\n  \"description\": \"Standart shablon Polsha bo'yicha\",\n  \"payload\": {\n    \"industry_id\": 1,\n    \"title\": \"Restoran Xizmatchisi\",\n    \"employment_type\": \"full_time\",\n    \"hiring_quota\": 12,\n    \"country_id\": 1\n  }\n}"
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Yangi shablon yaratadi. `payload` — Vacancy Create body'sining to'liq JSON snapshot'i.
+    data: "{\n  \"organization_id\": 1,\n  \"name\": \"Restoran Xizmatchisi (Polsha)\"\
+      ,\n  \"description\": \"Standart shablon Polsha bo'yicha\",\n  \"payload\":\
+      \ {\n    \"industry_id\": 1,\n    \"title\": \"Restoran Xizmatchisi\",\n   \
+      \ \"employment_type\": \"full_time\",\n    \"hiring_quota\": 12,\n    \"country_id\"\
+      : 1\n  }\n}"
+  auth: inherit
+docs: 'Yangi shablon yaratadi. `payload` — Vacancy Create body''sining to''liq JSON
+  snapshot''i.
 
-  **Auth:** Admin yoki org foydalanuvchi (o'z `organization_id` uchun).
+
+  **Auth:** Admin yoki org foydalanuvchi (o''z `organization_id` uchun).
+
 
   ### 📥 Request Body
 
+
   | Field | Type | Required | Description |
+
   |---|---|:---:|---|
+
   | `organization_id` | int | ✅ | Tashkilot ID |
+
   | `name` | string | ✅ | Shablon nomi |
+
   | `description` | string | ➖ | Tavsif |
+
   | `payload` | object | ✅ | Vacancy form JSON snapshot |
+
   | `is_active` | bool | ➖ | Default `true` |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0
