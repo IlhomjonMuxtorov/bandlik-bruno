@@ -1,0 +1,40 @@
+info:
+  name: 18. 4. Districts — Update
+  type: http
+  seq: 18
+http:
+  method: POST
+  url: '{{base_url}}/admin/districts/1001'
+  body:
+    type: multipartForm
+    data:
+    - name: region_id
+      value: '10'
+    - name: name
+      value: '{"uz": "Uchtepa tumani (yangilandi)", "ru": "Учтепинский район (обновлено)", "en": "Uchtepa District (updated)"}'
+    - name: is_active
+      value: '1'
+    - name: sort_order
+      value: '1'
+  auth:
+    mode: bearer
+    bearer: '{{admin_token}}'
+docs: |
+  Tuman ma'lumotlarini yangilash (qisman update).
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body (multipart/form-data)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `region_id` | int | ➖ | Viloyat ID. Viloyat mavjud bo'lishi kerak. |
+  | `name` | object (JSON) | ➖ | `{"uz": "...", "ru": "...", "en": "..."}` |
+  | `is_active` | int (0\|1) | ➖ | |
+  | `sort_order` | int | ➖ | |
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

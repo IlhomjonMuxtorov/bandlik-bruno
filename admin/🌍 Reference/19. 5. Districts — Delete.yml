@@ -1,0 +1,20 @@
+info:
+  name: 19. 5. Districts — Delete
+  type: http
+  seq: 19
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/districts/1001'
+  auth:
+    mode: bearer
+    bearer: '{{admin_token}}'
+docs: |
+  Tumanni o'chirish.
+
+  **Auth:** `admin_token`.
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

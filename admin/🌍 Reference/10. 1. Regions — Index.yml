@@ -1,0 +1,45 @@
+info:
+  name: 10. 1. Regions — Index
+  type: http
+  seq: 10
+http:
+  method: GET
+  url: '{{base_url}}/admin/regions'
+  auth:
+    mode: bearer
+    bearer: '{{admin_token}}'
+docs: |
+  Viloyatlar ro'yxati (paginatsiya bilan).
+
+  **Auth:** `admin_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `q` | string | ➖ | Nom bo'yicha qidiruv (JSONB `name` bo'yicha `ILIKE`). |
+  | `is_active` | int (0\|1) | ➖ | Faolligi bo'yicha filtr. |
+  | `page` | int | ➖ | Sahifa raqami (default `1`). |
+  | `per-page` | int | ➖ | Sahifa hajmi (1–100, default `20`). |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {{ _.admin_token }}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz`. |
+
+  ### 📤 Response (`data.items[]`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | GCP SP_ID |
+  | `name` | string | Til bo'yicha tarjima |
+  | `is_active` | bool | |
+  | `sort_order` | int | |
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

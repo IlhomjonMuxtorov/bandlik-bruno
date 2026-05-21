@@ -1,0 +1,37 @@
+info:
+  name: 13. 4. Regions — Update
+  type: http
+  seq: 13
+http:
+  method: POST
+  url: '{{base_url}}/admin/regions/10'
+  body:
+    type: multipartForm
+    data:
+    - name: name
+      value: '{"uz": "Toshkent shahri (yangilandi)", "ru": "город Ташкент (обновлено)", "en": "Tashkent City (updated)"}'
+    - name: is_active
+      value: '1'
+    - name: sort_order
+      value: '1'
+  auth:
+    mode: bearer
+    bearer: '{{admin_token}}'
+docs: |
+  Viloyat ma'lumotlarini yangilash (qisman update).
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body (multipart/form-data)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `name` | object (JSON) | ➖ | `{"uz": "...", "ru": "...", "en": "..."}` |
+  | `is_active` | int (0\|1) | ➖ | |
+  | `sort_order` | int | ➖ | |
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
