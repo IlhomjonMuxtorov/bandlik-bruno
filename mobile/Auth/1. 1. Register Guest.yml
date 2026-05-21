@@ -42,8 +42,19 @@ docs: |
   | `400` | Validatsiya xatosi (`device_id` yoki `os` yo'q / noto'g'ri). |
   | `500` | Qurilma yoki foydalanuvchi saqlashda xatolik. |
 
+  > ✨ **Auto-save:** javob kelganda `access_token` avtomatik `guest_token` sifatida saqlanadi.
+
 settings:
   encodeUrl: true
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        const body = res.getBody();
+        if (body && body.access_token) {
+          bru.setEnvVar('guest_token', body.access_token);
+          console.log('guest_token saved');
+        }

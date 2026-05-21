@@ -45,8 +45,20 @@ docs: |
   | `400` | 3 marta xato → bloklash → `{ blocked_for: 600, errors: ["Account blocked…"] }` |
   | `400` | PIN muddati o'tgan → `{ pin_expired: true, errors: ["PIN has expired…"] }` |
 
+  > ✨ **Auto-save:** `access_token` va `refresh_token` avtomatik saqlanadi.
+
 settings:
   encodeUrl: true
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        const body = res.getBody();
+        if (body && body.access_token) {
+          bru.setEnvVar('access_token', body.access_token);
+          bru.setEnvVar('refresh_token', body.refresh_token);
+          console.log('access_token and refresh_token saved');
+        }
