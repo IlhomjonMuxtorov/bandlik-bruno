@@ -1,0 +1,69 @@
+info:
+  name: "1. Upload File"
+  type: http
+  seq: 1
+http:
+  method: POST
+  url: "{{base_url}}/mobile/upload"
+  body:
+    type: multipartForm
+    data:
+    - name: file
+      type: file
+      fileName: ""
+  auth:
+    mode: bearer
+    bearer: "{{access_token}}"
+docs: |
+  Faylni serverga yuklaydi va keyinchalik entity yaratish/yangilashda ishlatish uchun URL qaytaradi.
+
+  **Auth:** `access_token` (Bearer).
+
+  ### Ruxsat etilgan fayl turlari
+
+  | MIME / kengaytma | Turi |
+  |---|---|
+  | jpg, jpeg, png, gif, webp | Rasm |
+  | pdf | PDF |
+  | doc, docx | Word |
+  | xls, xlsx | Excel |
+
+  **Maksimal hajm:** 10 MB
+  **Rasm maksimal o'lchami:** 8000×8000 px
+
+  ### 📥 Request Body (multipart/form-data)
+
+  | Maydon | Turi | Majburiy | Izoh |
+  |---|---|:---:|---|
+  | `file` | file | ✅ | Yuklanadigan fayl |
+
+  ### 📤 Response (201)
+
+  | Maydon | Turi | Izoh |
+  |---|---|---|
+  | `id` | int | Fayl yozuvining PK |
+  | `uuid` | string | RFC-4122 UUID v4 |
+  | `url` | string | Faylning to'liq public URL'i |
+  | `original_name` | string | Brauzerdagi asl fayl nomi |
+  | `file_size` | int | Bayt |
+  | `file_kind` | string | `pdf` \| `image` \| `word` \| `excel` \| ... |
+  | `file_kind_icon_url` | string\|null | Ikon rasmi URL |
+
+  ### Foydalanish oqimi
+
+  1. `POST /mobile/upload` → `url` oling
+  2. `POST /mobile/cv/{cvId}/document` da `file_url` maydoniga shu `url` ni kiriting
+
+  ### ⚠️ Xatolar
+
+  | Kod | Sabab |
+  |---|---|
+  | `400` | Fayl yuborilmagan, validatsiya xatosi, hajm oshib ketgan yoki rasm o'lchami ortiq |
+  | `401` | Token yo'q yoki muddati o'tgan |
+  | `413` | Fayl 10 MB dan katta (web-server darajasida) |
+  | `422` | Serverda MIME tekshiruvi muvaffaqiyatsiz bo'ldi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
