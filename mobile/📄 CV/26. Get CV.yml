@@ -28,7 +28,7 @@ docs: |
 
   | Field | Type | Description |
   |---|---|---|
-  | `header` | object | `{ cv_id, title, summary, target_profession, target_country, is_primary, photo_url, full_name, completion_percent, stats }` |
+  | `header` | object | `{ cv_id, title, status, is_primary, photo_url, full_name, completion_percent, stats }` |
   | `personal` | object | Passport asosida (CV-dan qat'iy nazar bir xil) |
   | `birth_place` | object | `{ region, district, address, country }` |
   | `passport` | object | TIN, foreign passport, visa info |

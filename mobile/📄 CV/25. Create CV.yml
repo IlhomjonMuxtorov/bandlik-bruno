@@ -14,7 +14,7 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"title\": \"Haydovchi CVim\",\n    \"summary\": \"10+ yil tajribali xalqaro yuk haydovchisi\",\n    \"target_profession\": \"International truck driver\",\n    \"target_country_id\": 1,\n    \"is_primary\": false\n}"
+    data: "{\n    \"title\": \"Haydovchi CVim\",\n    \"is_primary\": false,\n    \"status\": null\n}"
   auth:
     mode: bearer
     bearer: '{{access_token}}'
@@ -28,11 +28,9 @@ docs: |
   | Field | Type | Required | Description |
   |---|---|:---:|---|
   | `title` | string | ✅ | CV nomi (foydalanuvchi ko'radigan) |
-  | `summary` | string \| null | ➖ | Qisqacha tavsif |
-  | `target_profession` | string \| null | ➖ | Maqsadli ixtisos |
-  | `target_country_id` | int \| null | ➖ | `country.id` |
   | `photo_url` | string \| null | ➖ | CV uchun maxsus rasm (bo'lmasa candidate rasmi) |
   | `is_primary` | bool \| null | ➖ | `true` bo'lsa, eski primary CV avtomatik `false` bo'ladi. Birinchi CV bo'lsa, server avtomatik `true` qiladi |
+  | `status` | string \| null | ➖ | CV holati: `draft` (sukut) yoki `active`. Yangisi boshlang'ich `draft` — oxirgi bosqichda `active` o'rnatiladi |
 
   ### 📤 Response
 

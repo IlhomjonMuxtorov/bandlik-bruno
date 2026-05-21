@@ -29,8 +29,9 @@ docs: |
   | Field | Type | Description |
   |---|---|---|
   | `id` | int | CV ID — boshqa CV endpointlarda `cv_id` |
-  | `profession` | string | Kasbi (`target_profession`, bo'lmasa CV `title`). Karta sarlavhasi |
+  | `profession` | string | CV `title` |
   | `photo_url` | string \| null | CV rasmi (CV → candidate → passport tartibida) |
+  | `status` | string | CV holati: `draft` yoki `active` |
   | `is_primary` | bool | Primary CV bayrog'i |
   | `experience_years` | int | Umumiy ish stajining yil qismi (CV experiences yig'indisidan) |
   | `experience_months` | int | Yildan qolgan oy qismi (0–11) |
@@ -38,9 +39,10 @@ docs: |
   | `updated_at` | int | Unix timestamp — "Yangilangan" sanasi (mijoz `DD.MM.YYYY` ga formatlaydi) |
   | `views_count` | int | CV-ni ish beruvchilar tomonidan ko'rilgan soni. **Hozircha kuzatuv yo'q — doim `0`** |
   | `offers_count` | int | Ish beruvchidan kelgan qabul qilingan takliflar soni (`vacancy_application.status = accepted`, shu CV bo'yicha) |
-  | `matching_vacancies_count` | int | Shu CV-ning `target_country_id` ga mos keladigan **published** vakansiyalar soni. `target_country_id` `null` bo'lsa `0` |
 
   > **Eslatma:** `views_count` uchun maxsus log jadvali hali qo'shilmagan — keyinroq qo'shilishi bilan bir xil response shaklida real raqam keladi.
+  >
+  > CV holati `draft` — to'ldirilmoqda; `active` — tugallangan va ish beruvchilarga ko'rinadigan.
 
   ### ⚠️ Errors
 

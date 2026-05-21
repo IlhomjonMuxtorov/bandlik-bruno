@@ -14,12 +14,12 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"title\": \"Haydovchi CVim — yangilangan\",\n    \"target_profession\": \"International truck driver\"\n}"
+    data: "{\n    \"title\": \"Haydovchi CVim — yangilangan\",\n    \"status\": \"active\"\n}"
   auth:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  CV meta ma'lumotlarini yangilash (title, summary, target, photo, is_primary).
+  CV meta ma'lumotlarini yangilash (title, photo, is_primary, status).
 
   **Auth:** `access_token`.
 
@@ -28,11 +28,9 @@ docs: |
   | Field | Type | Required | Description |
   |---|---|:---:|---|
   | `title` | string | ✅ | CV nomi |
-  | `summary` | string \| null | ➖ | Tavsif |
-  | `target_profession` | string \| null | ➖ | Maqsadli ixtisos |
-  | `target_country_id` | int \| null | ➖ | `country.id` |
   | `photo_url` | string \| null | ➖ | CV rasm override |
   | `is_primary` | bool \| null | ➖ | `true` bo'lsa boshqa CV-larda `is_primary` avtomatik `false` bo'ladi |
+  | `status` | string \| null | ➖ | CV holati: `draft` yoki `active`. Oxirgi bosqichda `active` yuboring |
 
   ### 📤 Response
 
