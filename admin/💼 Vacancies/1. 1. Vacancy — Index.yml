@@ -4,7 +4,7 @@ info:
   seq: 1
 http:
   method: GET
-  url: '{{ base_url }}/admin/vacancies'
+  url: '{{base_url}}/admin/vacancies'
   headers:
   - name: Accept-Language
     value: uz

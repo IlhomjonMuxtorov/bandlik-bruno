@@ -4,7 +4,7 @@ info:
   seq: 6
 http:
   method: PATCH
-  url: '{{ base_url }}/admin/countries/1/toggle-visa'
+  url: '{{base_url}}/admin/countries/1/toggle-visa'
   auth:
     mode: bearer
     bearer: '{{ admin_token }}'

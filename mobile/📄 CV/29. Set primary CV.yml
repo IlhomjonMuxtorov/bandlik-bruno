@@ -4,7 +4,7 @@ info:
   seq: 29
 http:
   method: POST
-  url: '{{ base_url }}/mobile/cv/{{ cv_id }}/set-primary'
+  url: '{{base_url}}/mobile/cv/{{ cv_id }}/set-primary'
   headers:
   - name: Accept
     value: application/json

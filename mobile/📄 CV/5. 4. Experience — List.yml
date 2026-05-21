@@ -4,7 +4,7 @@ info:
   seq: 5
 http:
   method: GET
-  url: '{{ base_url }}/mobile/cv/{{ cv_id }}/experience'
+  url: '{{base_url}}/mobile/cv/{{ cv_id }}/experience'
   headers:
   - name: Accept
     value: application/json

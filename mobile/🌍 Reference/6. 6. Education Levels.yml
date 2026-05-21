@@ -4,7 +4,7 @@ info:
   seq: 6
 http:
   method: GET
-  url: '{{ base_url }}/mobile/education-levels'
+  url: '{{base_url}}/mobile/education-levels'
   headers:
   - name: Accept
     value: application/json

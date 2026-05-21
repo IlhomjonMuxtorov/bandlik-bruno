@@ -4,7 +4,7 @@ info:
   seq: 9
 http:
   method: POST
-  url: '{{ base_url }}/mobile/auth/change-pin'
+  url: '{{base_url}}/mobile/auth/change-pin'
   headers:
   - name: Content-Type
     value: application/json

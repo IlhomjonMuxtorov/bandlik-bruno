@@ -4,7 +4,7 @@ info:
   seq: 7
 http:
   method: DELETE
-  url: '{{ base_url }}/admin/recruiters/1'
+  url: '{{base_url}}/admin/recruiters/1'
   auth:
     mode: bearer
     bearer: '{{ admin_token }}'

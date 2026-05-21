@@ -4,7 +4,7 @@ info:
   seq: 4
 http:
   method: POST
-  url: '{{ base_url }}/admin/countries/1'
+  url: '{{base_url}}/admin/countries/1'
   body:
     type: multipartForm
     data:

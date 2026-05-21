@@ -4,7 +4,7 @@ info:
   seq: 4
 http:
   method: POST
-  url: '{{ base_url }}/mobile/auth/verify-phone'
+  url: '{{base_url}}/mobile/auth/verify-phone'
   headers:
   - name: Content-Type
     value: application/json

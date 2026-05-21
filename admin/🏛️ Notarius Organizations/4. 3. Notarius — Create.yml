@@ -4,7 +4,7 @@ info:
   seq: 4
 http:
   method: POST
-  url: '{{ base_url }}/admin/notarius'
+  url: '{{base_url}}/admin/notarius'
   body:
     type: multipartForm
     data:

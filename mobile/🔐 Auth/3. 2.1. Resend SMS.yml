@@ -4,7 +4,7 @@ info:
   seq: 3
 http:
   method: POST
-  url: '{{ base_url }}/mobile/auth/resend-sms'
+  url: '{{base_url}}/mobile/auth/resend-sms'
   headers:
   - name: Content-Type
     value: application/json

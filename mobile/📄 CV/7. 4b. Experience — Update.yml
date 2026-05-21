@@ -4,7 +4,7 @@ info:
   seq: 7
 http:
   method: PATCH
-  url: '{{ base_url }}/mobile/cv/{{ cv_id }}/experience/1'
+  url: '{{base_url}}/mobile/cv/{{ cv_id }}/experience/1'
   headers:
   - name: Accept
     value: application/json

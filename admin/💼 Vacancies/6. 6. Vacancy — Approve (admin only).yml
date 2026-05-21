@@ -4,7 +4,7 @@ info:
   seq: 6
 http:
   method: POST
-  url: '{{ base_url }}/admin/vacancies/1/approve'
+  url: '{{base_url}}/admin/vacancies/1/approve'
   auth:
     mode: bearer
     bearer: '{{ admin_token }}'

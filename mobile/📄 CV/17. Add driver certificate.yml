@@ -4,7 +4,7 @@ info:
   seq: 17
 http:
   method: POST
-  url: '{{ base_url }}/mobile/cv/{{ cv_id }}/driver-certificate'
+  url: '{{base_url}}/mobile/cv/{{ cv_id }}/driver-certificate'
   headers:
   - name: Accept
     value: application/json

@@ -4,7 +4,7 @@ info:
   seq: 8
 http:
   method: GET
-  url: '{{ base_url }}/mobile/districts?region_id=10'
+  url: '{{base_url}}/mobile/districts?region_id=10'
   headers:
   - name: Accept
     value: application/json

@@ -4,7 +4,7 @@ info:
   seq: 6
 http:
   method: GET
-  url: '{{ base_url }}/mobile/candidate/spouse'
+  url: '{{base_url}}/mobile/candidate/spouse'
   headers:
   - name: Accept
     value: application/json

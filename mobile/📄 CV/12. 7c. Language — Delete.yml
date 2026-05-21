@@ -4,7 +4,7 @@ info:
   seq: 12
 http:
   method: DELETE
-  url: '{{ base_url }}/mobile/cv/{{ cv_id }}/language/1'
+  url: '{{base_url}}/mobile/cv/{{ cv_id }}/language/1'
   headers:
   - name: Accept
     value: application/json

@@ -4,7 +4,7 @@ info:
   seq: 5
 http:
   method: POST
-  url: '{{ base_url }}/mobile/auth/refresh'
+  url: '{{base_url}}/mobile/auth/refresh'
   headers:
   - name: Content-Type
     value: application/json

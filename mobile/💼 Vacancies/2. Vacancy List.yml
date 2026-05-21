@@ -4,7 +4,7 @@ info:
   seq: 2
 http:
   method: GET
-  url: '{{ base_url }}/mobile/vacancies'
+  url: '{{base_url}}/mobile/vacancies'
   headers:
   - name: Accept-Language
     value: uz

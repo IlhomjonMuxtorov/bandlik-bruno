@@ -4,7 +4,7 @@ info:
   seq: 1
 http:
   method: POST
-  url: '{{ base_url }}/mobile/my-id/start-primary'
+  url: '{{base_url}}/mobile/my-id/start-primary'
   headers:
   - name: Content-Type
     value: application/json

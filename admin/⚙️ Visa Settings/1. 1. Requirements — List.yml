@@ -4,7 +4,7 @@ info:
   seq: 1
 http:
   method: GET
-  url: '{{ base_url }}/admin/visa-requirements'
+  url: '{{base_url}}/admin/visa-requirements'
   auth:
     mode: bearer
     bearer: '{{ admin_token }}'

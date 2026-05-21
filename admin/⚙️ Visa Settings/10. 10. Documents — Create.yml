@@ -4,7 +4,7 @@ info:
   seq: 10
 http:
   method: POST
-  url: '{{ base_url }}/admin/visa-documents'
+  url: '{{base_url}}/admin/visa-documents'
   headers:
   - name: Content-Type
     value: application/json

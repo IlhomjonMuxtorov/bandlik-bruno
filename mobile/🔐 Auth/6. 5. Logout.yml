@@ -4,7 +4,7 @@ info:
   seq: 6
 http:
   method: POST
-  url: '{{ base_url }}/mobile/auth/logout'
+  url: '{{base_url}}/mobile/auth/logout'
   headers:
   - name: Content-Type
     value: application/json

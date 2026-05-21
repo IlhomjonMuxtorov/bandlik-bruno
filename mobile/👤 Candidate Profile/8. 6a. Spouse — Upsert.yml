@@ -4,7 +4,7 @@ info:
   seq: 8
 http:
   method: PUT
-  url: '{{ base_url }}/mobile/candidate/spouse'
+  url: '{{base_url}}/mobile/candidate/spouse'
   headers:
   - name: Accept
     value: application/json

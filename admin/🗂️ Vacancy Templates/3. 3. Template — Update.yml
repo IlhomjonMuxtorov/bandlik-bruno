@@ -4,7 +4,7 @@ info:
   seq: 3
 http:
   method: PUT
-  url: '{{ base_url }}/admin/vacancy-templates/1'
+  url: '{{base_url}}/admin/vacancy-templates/1'
   headers:
   - name: Content-Type
     value: application/json

@@ -4,7 +4,7 @@ info:
   seq: 1
 http:
   method: GET
-  url: '{{ base_url }}/admin/logistics/stats'
+  url: '{{base_url}}/admin/logistics/stats'
   auth:
     mode: bearer
     bearer: '{{ admin_token }}'

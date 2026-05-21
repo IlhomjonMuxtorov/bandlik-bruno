@@ -111,7 +111,7 @@ variables:
 
 **Variable Format in Requests:**
 ```
-{{ base_url }}          ← Bruno template syntax
+{{base_url}}          ← Bruno template syntax
 {{ admin_token }}
 {{ access_token }}
 {{ device_id }}

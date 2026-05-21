@@ -4,7 +4,7 @@ info:
   seq: 8
 http:
   method: POST
-  url: '{{ base_url }}/admin/vacancies/1/close'
+  url: '{{base_url}}/admin/vacancies/1/close'
   headers:
   - name: Content-Type
     value: application/json
