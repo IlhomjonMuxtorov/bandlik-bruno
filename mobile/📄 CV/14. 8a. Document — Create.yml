@@ -32,20 +32,6 @@ docs: |
   | `file_url` | string | ✅ | Yuklab olingan fayl URL |
   | `file_size` | int | ➖ | Bayt |
 
-docs: |
-  Yangi hujjat qo'shish.
-
-  **Auth:** `access_token`.
-
-  ### 📥 Request Body
-
-  | Field | Type | Required | Description |
-  |---|---|:---:|---|
-  | `type` | string | ✅ | `passport_scan` \| `foreign_passport_scan` |
-  | `title` | string | ✅ | Fayl nomi |
-  | `file_url` | string | ✅ | Yuklab olingan fayl URL |
-  | `file_size` | int | ➖ | Bayt |
-
 settings:
   encodeUrl: true
   timeout: 0

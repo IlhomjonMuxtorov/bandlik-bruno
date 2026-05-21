@@ -50,43 +50,6 @@ docs: |
 
   > Boshqa xato qaytarmaydi — mavjud bo'lmasa bo'sh massiv `[]` qaytadi.
 
-docs: |
-  Barcha aktiv davlatlar ro'yxatini qaytaradi.
-
-  **Auth:** har qanday yaroqli JWT (`guest_token` yoki `access_token`).
-
-  ### 📋 Headers
-
-  | Header | Required | Description |
-  |---|:---:|---|
-  | `Authorization` | ✅ | `Bearer {token}` |
-  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Region ham: `ru-RU,ru;q=0.9` → `ru`. Default: `uz` |
-
-  ### 🔎 Query Parameters
-
-  | Param | Type | Required | Description |
-  |---|---|:---:|---|
-  | `visa` | string | ➖ | `1` yuborilsa faqat `is_visa_available=true` davlatlar qaytadi. |
-
-  ### 📤 Response *(massiv elementi)*
-
-  | Field | Type | Description |
-  |---|---|---|
-  | `id` | int | Davlat ID |
-  | `name` | string | `Accept-Language` ga mos tilda. Fallback → `uz`. |
-  | `iso_code` | string | ISO 3166-1 alpha-2 (`DE`, `KR`, `PL`, …). Sinxronizatsiya uchun kalit. |
-  | `flag_url` | string \| null | Bayroq rasmi (`flagcdn.com/w80/{iso}.png`) |
-  | `image_url` | string \| null | Banner/cover rasmi |
-  | `is_visa_available` | bool | `true` — viza rasmiylashtirish mumkin |
-
-  ### ⚠️ Errors
-
-  | Code | Reason |
-  |---|---|
-  | `401` | Token yo'q, noto'g'ri yoki muddati o'tgan |
-
-  > Boshqa xato qaytarmaydi — mavjud bo'lmasa bo'sh massiv `[]` qaytadi.
-
 settings:
   encodeUrl: true
   timeout: 0

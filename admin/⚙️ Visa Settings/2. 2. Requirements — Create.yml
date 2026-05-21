@@ -28,20 +28,6 @@ docs: |
   }
   ```
 
-docs: |
-  Yangi viza talab qo'shadi.
-
-  **Auth:** `admin_token`.
-
-  ### 📥 Request Body
-
-  ```json
-  {
-    "name": {"uz": "...", "ru": "...", "en": "..."},
-    "description": {"uz": "...", "ru": "...", "en": "..."}
-  }
-  ```
-
 settings:
   encodeUrl: true
   timeout: 0

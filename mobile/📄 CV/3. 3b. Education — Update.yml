@@ -31,19 +31,6 @@ docs: |
   | `403` | Boshqa nomzodning resursi |
   | `404` | Topilmadi |
 
-docs: |
-  Mavjud ta'limni yangilash. Maydonlar tarkibi `POST` bilan bir xil. Faqat o'z resurslari.
-
-  **Auth:** `access_token`.
-
-  ### ⚠️ Errors
-
-  | Code | Reason |
-  |---|---|
-  | `400` | Validatsiya |
-  | `403` | Boshqa nomzodning resursi |
-  | `404` | Topilmadi |
-
 settings:
   encodeUrl: true
   timeout: 0

@@ -19,17 +19,6 @@ docs: |
   |---|---|
   | `404` | Shahar topilmadi |
 
-docs: |
-  Bitta shahar.
-
-  **Auth:** `admin_token`.
-
-  ### ⚠️ Errors
-
-  | Code | Reason |
-  |---|---|
-  | `404` | Shahar topilmadi |
-
 settings:
   encodeUrl: true
   timeout: 0

@@ -45,33 +45,6 @@ docs: |
   | `400` | Validatsiya xatosi |
   | `401` | Token yo'q |
 
-docs: |
-  Yangi CV yaratish.
-
-  **Auth:** `access_token`.
-
-  ### 📥 Request Body
-
-  | Field | Type | Required | Description |
-  |---|---|:---:|---|
-  | `title` | string | ✅ | CV nomi (foydalanuvchi ko'radigan) |
-  | `summary` | string \| null | ➖ | Qisqacha tavsif |
-  | `target_profession` | string \| null | ➖ | Maqsadli ixtisos |
-  | `target_country_id` | int \| null | ➖ | `country.id` |
-  | `photo_url` | string \| null | ➖ | CV uchun maxsus rasm (bo'lmasa candidate rasmi) |
-  | `is_primary` | bool \| null | ➖ | `true` bo'lsa, eski primary CV avtomatik `false` bo'ladi. Birinchi CV bo'lsa, server avtomatik `true` qiladi |
-
-  ### 📤 Response
-
-  `201 Created` + to'liq CV (`/cv/{id}` formatida).
-
-  ### ⚠️ Errors
-
-  | Code | Reason |
-  |---|---|
-  | `400` | Validatsiya xatosi |
-  | `401` | Token yo'q |
-
 settings:
   encodeUrl: true
   timeout: 0

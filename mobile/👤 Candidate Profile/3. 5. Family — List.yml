@@ -27,20 +27,6 @@ docs: |
   | `full_name` | string | To'liq ism |
   | `birth_date` | date | `YYYY-MM-DD` |
 
-docs: |
-  Oila a'zolari ro'yxati (ota, ona, aka, opa).
-
-  **Auth:** `access_token`.
-
-  ### 📤 Response *(massiv elementi)*
-
-  | Field | Type | Description |
-  |---|---|---|
-  | `id` | int | Yozuv ID |
-  | `relationship` | string | `father` \| `mother` \| `brother` \| `sister` |
-  | `full_name` | string | To'liq ism |
-  | `birth_date` | date | `YYYY-MM-DD` |
-
 settings:
   encodeUrl: true
   timeout: 0

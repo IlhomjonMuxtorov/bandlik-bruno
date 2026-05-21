@@ -42,34 +42,6 @@ docs: |
   | `400` | SMS yuborishda xatolik |
   | `401` | `guest_token` yo'q yoki muddati o'tgan |
 
-docs: |
-  MVD orqali takroriy tekshiruvisiz faqat SMS ni qayta jo'natadi.
-
-  **Auth:** `guest_token` (1-qadamdan olingan).
-
-  ### 📥 Request Body
-
-  | Field | Type | Required | Description |
-  |---|---|:---:|---|
-  | `phone` | string | ✅ | 2-qadamda ko'rsatilgan telefon (E.164). |
-
-  ### 📤 Response
-
-  | Field | Type | Description |
-  |---|---|---|
-  | `phone_masked` | string | Yashirilgan telefon raqami |
-  | `expires_in` | int | OTP muddati soniyalarda (`180`) |
-
-  ### ⚠️ Errors
-
-  | Code | Reason |
-  |---|---|
-  | `400` | Validatsiya xatosi |
-  | `400` | OTP rate limit |
-  | `400` | Avvalgi OTP so'rovi topilmadi |
-  | `400` | SMS yuborishda xatolik |
-  | `401` | `guest_token` yo'q yoki muddati o'tgan |
-
 settings:
   encodeUrl: true
   timeout: 0

@@ -29,22 +29,6 @@ docs: |
   | `expiry_date` | date \| null | Amal qilish muddati |
   | `certificates` | array | `[{ id, type, title, … }]` |
 
-docs: |
-  Haydovchilik guvohnomasi + sertifikatlar.
-
-  **Auth:** `access_token`.
-
-  ### 📤 Response
-
-  | Field | Type | Description |
-  |---|---|---|
-  | `has_license` | bool | Guvohnoma bormi |
-  | `categories` | string \| null | Masalan `B,C,D` |
-  | `license_number` | string \| null | Guvohnoma raqami |
-  | `issue_date` | date \| null | Berilgan sana |
-  | `expiry_date` | date \| null | Amal qilish muddati |
-  | `certificates` | array | `[{ id, type, title, … }]` |
-
 settings:
   encodeUrl: true
   timeout: 0

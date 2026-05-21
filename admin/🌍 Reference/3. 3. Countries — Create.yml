@@ -36,23 +36,6 @@ docs: |
   | `image` | file | ➖ | jpg, png, gif (maks 3.1 MB) |
   | `flag` | file | ➖ | jpg, png, gif (maks 3.1 MB) |
 
-docs: |
-  Yangi davlat qo'shadi (multipart/form-data bilan fayl uploadlar).
-
-  **Auth:** `admin_token`.
-
-  ### 📥 Request Body (multipart/form-data)
-
-  | Field | Type | Required | Description |
-  |---|---|:---:|---|
-  | `name` | object (JSON) | ✅ | `{"uz": "...", "ru": "...", "en": "..."}` |
-  | `iso_code` | string | ✅ | 2 ta xarfli kod (masalan `DE`, `US`) |
-  | `is_visa_available` | int (0\|1) | ➖ | Default: 0 |
-  | `is_active` | int (0\|1) | ➖ | Default: 0 |
-  | `sort_order` | int | ➖ | Default: 0 |
-  | `image` | file | ➖ | jpg, png, gif (maks 3.1 MB) |
-  | `flag` | file | ➖ | jpg, png, gif (maks 3.1 MB) |
-
 settings:
   encodeUrl: true
   timeout: 0

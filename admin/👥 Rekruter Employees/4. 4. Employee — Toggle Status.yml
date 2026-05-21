@@ -13,11 +13,6 @@ docs: |
 
   **Auth:** `admin_token`.
 
-docs: |
-  Xodimning `is_active` qiymatini teskariga aylantiradi.
-
-  **Auth:** `admin_token`.
-
 settings:
   encodeUrl: true
   timeout: 0

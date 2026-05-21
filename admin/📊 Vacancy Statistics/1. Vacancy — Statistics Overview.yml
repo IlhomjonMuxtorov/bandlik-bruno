@@ -65,63 +65,6 @@ docs: |
   | `403` | Boshqa tashkilot |
   | `404` | Vakansiya topilmadi |
 
-docs: |
-  Vakansiya statistika tabining barcha ma'lumotlari — 3 karta + chart.
-
-  **Auth:** Admin yoki vakansiya egasi (`organization_id` yoki `recruiter_id`).
-
-  ### 🔎 Query Parameters
-
-  | Param | Type | Required | Description |
-  |---|---|:---:|---|
-  | `from` | string | ➖ | `YYYY-MM-DD`. Default: 30 kun oldin. |
-  | `to` | string | ➖ | `YYYY-MM-DD`. Default: bugun. Maksimum diapazon — 366 kun. |
-
-  ### 📤 Response (`data`)
-
-  | Field | Type | Description |
-  |---|---|---|
-  | `vacancy_id` | int | |
-  | `from` / `to` | string | Hisob diapazoni (`YYYY-MM-DD`) |
-  | `summary.views_count` | int | Jami ko'rishlar (raw, log dan) |
-  | `summary.unique_views_count` | int | DISTINCT `candidate_id` (mehmonlar bitta bucket sifatida) |
-  | `summary.applications_count` | int | Diapazondagi arizalar soni |
-  | `summary.conversion_rate` | float | `applications / unique_views * 100` (2 ko'rsatkichgacha) |
-  | `chart` | array | Kunlik nuqtalar: `[{day: 'YYYY-MM-DD', views: int, applications: int}, ...]` — har bir kun nol bilan to'ldirilgan (continuous line) |
-
-  ### 📦 Example Response
-
-  ```json
-  {
-    "success": true,
-    "data": {
-      "vacancy_id": 1,
-      "from": "2026-04-18",
-      "to": "2026-05-18",
-      "summary": {
-        "views_count": 67,
-        "unique_views_count": 48,
-        "applications_count": 24,
-        "conversion_rate": 50.0
-      },
-      "chart": [
-        { "day": "2026-04-18", "views": 0, "applications": 0 },
-        { "day": "2026-04-19", "views": 3, "applications": 1 }
-      ]
-    }
-  }
-  ```
-
-  ### ⚠️ Errors
-
-  | Code | Reason |
-  |---|---|
-  | `400` | `from`/`to` formati noto'g'ri (`YYYY-MM-DD` emas) |
-  | `400` | `from > to` |
-  | `400` | Diapazon 366 kundan oshdi |
-  | `403` | Boshqa tashkilot |
-  | `404` | Vakansiya topilmadi |
-
 settings:
   encodeUrl: true
   timeout: 0

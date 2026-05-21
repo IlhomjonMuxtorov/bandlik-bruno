@@ -17,15 +17,6 @@ docs: |
 
   Yangilangan davlat `AdminCountryOutputDTO` formatida qaytadi.
 
-docs: |
-  Davlatning viza talab qilinadi statusini almashlaydi.
-
-  **Auth:** `admin_token`.
-
-  ### 📤 Response
-
-  Yangilangan davlat `AdminCountryOutputDTO` formatida qaytadi.
-
 settings:
   encodeUrl: true
   timeout: 0

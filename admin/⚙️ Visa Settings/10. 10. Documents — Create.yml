@@ -19,11 +19,6 @@ docs: |
 
   **Auth:** `admin_token`.
 
-docs: |
-  Yangi zarur hujjat qo'shadi.
-
-  **Auth:** `admin_token`.
-
 settings:
   encodeUrl: true
   timeout: 0

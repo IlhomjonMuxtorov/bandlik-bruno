@@ -18,11 +18,6 @@ docs: |
 
   **Auth:** `admin_token`.
 
-docs: |
-  Mavjud Rekruter tashkilotini yangilaydi. `multipart/form-data` — faqat o'zgaradigan maydonlarni yuborish kifoya.
-
-  **Auth:** `admin_token`.
-
 settings:
   encodeUrl: true
   timeout: 0

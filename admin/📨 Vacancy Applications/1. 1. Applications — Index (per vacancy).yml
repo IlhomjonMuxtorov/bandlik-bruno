@@ -27,25 +27,6 @@ docs: |
   | `items` | array | Ariza ro'yxati (`{id, vacancy, candidate, cv, status, status_label, hotel_preference, applied_at}`) |
   | `pagination` | object | `{page, page_size, total_count, page_count}` |
 
-docs: |
-  Vakansiyaga topshirilgan barcha arizalar (`applied_at DESC`).
-
-  **Auth:** Admin yoki vakansiya egasi.
-
-  ### 🔎 Query Parameters
-
-  | Param | Type | Required | Description |
-  |---|---|:---:|---|
-  | `status` | string | ➖ | `applied` \| `reviewed` \| `accepted` \| `rejected` |
-  | `per-page` | int | ➖ | 1..100 |
-
-  ### 📤 Response (`data`)
-
-  | Field | Type | Description |
-  |---|---|---|
-  | `items` | array | Ariza ro'yxati (`{id, vacancy, candidate, cv, status, status_label, hotel_preference, applied_at}`) |
-  | `pagination` | object | `{page, page_size, total_count, page_count}` |
-
 settings:
   encodeUrl: true
   timeout: 0

@@ -42,36 +42,6 @@ docs: |
   | `400` | Validatsiya xatosi (`device_id` yoki `os` yo'q / noto'g'ri). |
   | `500` | Qurilma yoki foydalanuvchi saqlashda xatolik. |
 
-docs: |
-  Ilova birinchi marta o'rnatilganda yoki ishga tushganda chaqiriladi. Yangi guest foydalanuvchi + qurilma yaratadi va qisqa muddatli JWT qaytaradi.
-
-  **Auth:** talab qilinmaydi.
-
-  ### 📥 Request Body
-
-  | Field | Type | Required | Description |
-  |---|---|:---:|---|
-  | `device_id` | string | ✅ | Qurilmaning unikal identifikatori (UUID v4). Bir xil `device_id` kelsa qurilma yangilanadi. |
-  | `os` | string | ✅ | Operatsion tizim — `android` \| `ios`. |
-  | `fcm_token` | string | ➖ | Firebase Cloud Messaging token. Push uchun. Keyinchalik `PATCH /device/fcm` orqali yangilanadi. |
-  | `app_version` | string | ➖ | Semantic version, masalan `1.0.0`. Minimal versiya tekshiruvi uchun saqlanadi. |
-  | `language` | string | ➖ | `uz` \| `ru` \| `en`. Default: `uz`. Push shu tilda yuboriladi. |
-
-  ### 📤 Response
-
-  | Field | Type | Description |
-  |---|---|---|
-  | `access_token` | string | Guest JWT (1 soat amal qiladi). Payload: `{ sub: user_id, status: 3, type: 4 }` |
-  | `token_type` | string | Har doim `Bearer` |
-  | `expires_in` | int | Token muddati soniyalarda (`3600`) |
-
-  ### ⚠️ Errors
-
-  | Code | Reason |
-  |---|---|
-  | `400` | Validatsiya xatosi (`device_id` yoki `os` yo'q / noto'g'ri). |
-  | `500` | Qurilma yoki foydalanuvchi saqlashda xatolik. |
-
 settings:
   encodeUrl: true
   timeout: 0

@@ -29,22 +29,6 @@ docs: |
   | `image_base64` | string | ✅ | Base64 kodlangan yuz rasmi (SDK-dan) |
   | `code` | string | ✅ | Tasdiqlash kodi (SDK-dan qaytariladi) |
 
-docs: |
-  # Yuz tanishni va kodni tasdiqlash
-
-  MyID SDK tarafidan qaytarilgan yuz rasmini va kodni yuboradi. Backend identifikatsiyani tasdiqlab profil ma'lumotlarini qaytaradi.
-
-  **Auth:** none  
-  **Returns:** `{ comparison_value, pass_data, profile, reuid }`
-
-  ### 📥 Request Body
-
-  | Field | Type | Required | Description |
-  |---|---|:---:|---|
-  | `session_id` | string | ✅ | `start-primary` yoki `start-secondary`-dan olingan session ID |
-  | `image_base64` | string | ✅ | Base64 kodlangan yuz rasmi (SDK-dan) |
-  | `code` | string | ✅ | Tasdiqlash kodi (SDK-dan qaytariladi) |
-
 settings:
   encodeUrl: true
   timeout: 0

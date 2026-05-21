@@ -51,46 +51,6 @@ docs: |
   | `401` | Token yo'q |
   | `403` | Org foydalanuvchisi (org_id yo'q yoki Employer/Recruiter emas) |
 
-docs: |
-  Vakansiyalar ro'yxati. Admin barchasini ko'radi; Employer/Recruiter faqat o'z tashkilotiniki + biriktirilgan rekruterligini.
-
-  **Auth:** `admin_token` yoki org foydalanuvchi.
-
-  ### 🔎 Query Parameters
-
-  | Param | Type | Required | Description |
-  |---|---|:---:|---|
-  | `q` | string | ➖ | Sarlavha bo'yicha (ILIKE). |
-  | `status` | string | ➖ | `draft` \| `pending_approval` \| `approved` \| `rejected` \| `closed` \| `archived`. |
-  | `organization_id` | int | ➖ | Tashkilot ID (admin uchun). |
-  | `recruiter_id` | int | ➖ | Rekruter tashkiloti ID. |
-  | `country_id` | int | ➖ | Davlat ID. |
-  | `industry_id` | int | ➖ | Soha ID. |
-  | `employment_type` | string | ➖ | `full_time` \| `part_time` \| `shift` \| `contract` \| `internship`. |
-  | `experience_level` | string | ➖ | `any` \| `junior` \| `mid` \| `senior`. |
-  | `per-page` | int | ➖ | 1..100, default 20. |
-
-  ### 📋 Headers
-
-  | Header | Required | Description |
-  |---|:---:|---|
-  | `Authorization` | ✅ | `Bearer {token}` |
-  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` |
-
-  ### 📤 Response (`data`)
-
-  | Field | Type | Description |
-  |---|---|---|
-  | `items` | array | Vakansiya ro'yxati |
-  | `pagination` | object | `{ page, page_size, total_count, page_count }` |
-
-  ### ⚠️ Errors
-
-  | Code | Reason |
-  |---|---|
-  | `401` | Token yo'q |
-  | `403` | Org foydalanuvchisi (org_id yo'q yoki Employer/Recruiter emas) |
-
 settings:
   encodeUrl: true
   timeout: 0

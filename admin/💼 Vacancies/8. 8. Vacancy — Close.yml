@@ -25,17 +25,6 @@ docs: |
   |---|---|:---:|---|
   | `reason` | string | ➖ | Yopish sababi (log uchun). |
 
-docs: |
-  Vakansiyani yopadi (`closed`). Mobile feed'da ko'rinmay qoladi.
-
-  **Auth:** Admin yoki vakansiya egasi.
-
-  ### 📥 Request Body
-
-  | Field | Type | Required | Description |
-  |---|---|:---:|---|
-  | `reason` | string | ➖ | Yopish sababi (log uchun). |
-
 settings:
   encodeUrl: true
   timeout: 0

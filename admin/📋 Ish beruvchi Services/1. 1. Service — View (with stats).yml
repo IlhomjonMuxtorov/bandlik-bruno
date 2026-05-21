@@ -17,15 +17,6 @@ docs: |
   |---|---|
   | `404` | Service topilmadi |
 
-docs: |
-  Bitta xizmat + stats. **Auth:** `admin_token`.
-
-  ### ⚠️ Errors
-
-  | Code | Reason |
-  |---|---|
-  | `404` | Service topilmadi |
-
 settings:
   encodeUrl: true
   timeout: 0

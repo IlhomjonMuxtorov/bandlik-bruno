@@ -37,25 +37,6 @@ docs: |
   |---|---|
   | `400` | `candidate.marital_status` ≠ `married` |
 
-docs: |
-  Turmush o'rtog'i yozuvini yaratish yoki yangilash (`PUT` — upsert).
-
-  **Auth:** `access_token`.
-
-  ### 📥 Request Body
-
-  | Field | Type | Required | Description |
-  |---|---|:---:|---|
-  | `full_name` | string | ✅ | To'liq ism |
-  | `birth_date` | date | ✅ | `YYYY-MM-DD` |
-  | `marriage_date` | date | ➖ | Nikoh sanasi |
-
-  ### ⚠️ Errors
-
-  | Code | Reason |
-  |---|---|
-  | `400` | `candidate.marital_status` ≠ `married` |
-
 settings:
   encodeUrl: true
   timeout: 0

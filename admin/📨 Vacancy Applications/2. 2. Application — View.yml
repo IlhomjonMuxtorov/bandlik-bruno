@@ -20,18 +20,6 @@ docs: |
   | `404` | Ariza topilmadi |
   | `403` | Boshqa tashkilot |
 
-docs: |
-  Ariza tafsiloti.
-
-  **Auth:** Admin yoki vakansiya egasi.
-
-  ### ⚠️ Errors
-
-  | Code | Reason |
-  |---|---|
-  | `404` | Ariza topilmadi |
-  | `403` | Boshqa tashkilot |
-
 settings:
   encodeUrl: true
   timeout: 0

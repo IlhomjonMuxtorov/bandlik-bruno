@@ -13,11 +13,6 @@ docs: |
 
   **Auth:** `admin_token`.
 
-docs: |
-  Viza imtiyozlari ro'yxati (pagination).
-
-  **Auth:** `admin_token`.
-
 settings:
   encodeUrl: true
   timeout: 0

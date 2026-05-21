@@ -19,11 +19,6 @@ docs: |
 
   **Auth:** Admin yoki shablon egasi.
 
-docs: |
-  Shablon ma'lumotlari va `payload` JSON ni yangilaydi.
-
-  **Auth:** Admin yoki shablon egasi.
-
 settings:
   encodeUrl: true
   timeout: 0

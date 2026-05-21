@@ -35,33 +35,6 @@ docs: |
   |---|---|
   | `404` | Ish beruvchi topilmadi (cross-type isolation: XBA/Visa id'si bilan urinilganda ham 404) |
 
-docs: |
-  Bitta Ish beruvchi tashkiloti + `stats` sub-object:
-
-  ```json
-  {
-    "id": 1,
-    "type": 2,
-    "type_label": "Ish beruvchi",
-    "name": "...",
-    ...
-    "stats": {
-      "total_revenue": 48000000,
-      "clients_count": 1920,
-      "services_count": 10,
-      "employees_count": 12
-    }
-  }
-  ```
-
-  **Auth:** `admin_token`.
-
-  ### ⚠️ Errors
-
-  | Code | Reason |
-  |---|---|
-  | `404` | Ish beruvchi topilmadi (cross-type isolation: XBA/Visa id'si bilan urinilganda ham 404) |
-
 settings:
   encodeUrl: true
   timeout: 0

@@ -31,19 +31,6 @@ docs: |
   | `full_name` | string | ✅ | To'liq ism |
   | `birth_date` | date | ✅ | `YYYY-MM-DD` |
 
-docs: |
-  Yangi oila a'zosi qo'shish.
-
-  **Auth:** `access_token`.
-
-  ### 📥 Request Body
-
-  | Field | Type | Required | Description |
-  |---|---|:---:|---|
-  | `relationship` | string | ✅ | `father` \| `mother` \| `brother` \| `sister` |
-  | `full_name` | string | ✅ | To'liq ism |
-  | `birth_date` | date | ✅ | `YYYY-MM-DD` |
-
 settings:
   encodeUrl: true
   timeout: 0

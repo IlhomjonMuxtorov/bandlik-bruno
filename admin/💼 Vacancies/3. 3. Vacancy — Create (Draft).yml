@@ -72,61 +72,6 @@ docs: |
   | `400` | Snapshot xatosi (Organization service topilmadi yoki tegishli organizatsiyaga emas) |
   | `403` | Boshqa tashkilot uchun yaratish |
 
-docs: |
-  Yangi vakansiya yaratadi — boshlanishi `status = draft`. Wizardning barcha 8 bosqich ma'lumotlari bitta tranzaksiyada saqlanadi.
-
-  **Auth:** `admin_token` yoki Employer/Recruiter (faqat o'z tashkiloti uchun).
-
-  ### 📥 Request Body
-
-  **Asosiy maydonlar (1-bosqich):**
-
-  | Field | Type | Required | Description |
-  |---|---|:---:|---|
-  | `organization_id` | int | ✅ | Ish beruvchi yoki rekruter tashkiloti |
-  | `recruiter_id` | int | ➖ | Agar Employer yaratayotgan bo'lsa, biriktirgan rekruter |
-  | `industry_id` | int | ➖ | Soha ID |
-  | `title` | string | ✅ | Sarlavha |
-  | `description` | string | ➖ | Tavsif (HTML/markdown) |
-  | `experience_level` | string | ➖ | `any` \| `junior` \| `mid` \| `senior` |
-  | `employment_type` | string | ✅ | `full_time` \| `part_time` \| `shift` \| `contract` \| `internship` |
-  | `hiring_quota` | int | ✅ | Necha kishi kerak (>=1) |
-  | `duration_months_min` / `_max` | int | ➖ | Ish davomiyligi |
-  | `work_schedule` | string | ➖ | `5_2` \| `6_1` \| `2_2` \| `shift` \| `flexible` |
-  | `work_time_from` / `_to` | string | ➖ | `HH:MM` |
-  | `salary_gross` / `_currency` | int / string | ➖ | `UZS` \| `USD` \| `EUR` |
-  | `salary_net` / `_currency` | int / string | ➖ | |
-  | `country_id` | int | ✅ | |
-  | `city_id` | int | ➖ | |
-  | `address` | string | ➖ | |
-  | `hide_address_from_clients` | bool | ➖ | Default `false` |
-  | `deadline_at` | string | ➖ | `YYYY-MM-DD` |
-
-  **Child kolleksiyalar:**
-
-  | Field | Type | Description |
-  |---|---|---|
-  | `requirements[]` | array | `{title, description, is_required, sort_order}` |
-  | `benefits[]` | array | `{title, description, sort_order}` |
-  | `documents[]` | array | `{title, description, allowed_mime, is_required, sort_order}` |
-  | `services[]` | array | `{category, organization_id, organization_service_id, price, currency, service_name, duration_text, notes}` |
-  | `single_payment` | bool | `1 tada 100% lik to'lov` toggle |
-  | `payment_steps[]` | array | `{step_type, title, amount, currency, sort_order}` (faqat `single_payment=false` da) |
-
-  **Snapshot:** har bir `services[]` elementi uchun `organization_service_id` berilsa, narx va nom shu xizmatdan olinadi (override `price` yoki `service_name` orqali ham bo'ladi).
-
-  ### 📤 Response (`data`)
-
-  Full detail DTO (View bilan bir xil). `status` = `draft`, `total_service_amount` snapshot narxlar yig'indisi.
-
-  ### ⚠️ Errors
-
-  | Code | Reason |
-  |---|---|
-  | `422` | Validatsiya xatosi |
-  | `400` | Snapshot xatosi (Organization service topilmadi yoki tegishli organizatsiyaga emas) |
-  | `403` | Boshqa tashkilot uchun yaratish |
-
 settings:
   encodeUrl: true
   timeout: 0

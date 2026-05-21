@@ -33,31 +33,6 @@ docs: |
   }
   ```
 
-docs: |
-  Viza talablari ro'yxati (pagination).
-
-  **Auth:** `admin_token`.
-
-  ### 📤 Response
-
-  ```json
-  {
-    "success": true,
-    "data": {
-      "items": [
-        {
-          "id": 1,
-          "name": {"uz": "...", "ru": "...", "en": "..."},
-          "description": {"uz": "...", "ru": "...", "en": "..."},
-          "created_at": 1716825600,
-          "updated_at": 1716825600
-        }
-      ],
-      "pagination": { "total": 10, "page": 1, "per_page": 20 }
-    }
-  }
-  ```
-
 settings:
   encodeUrl: true
   timeout: 0

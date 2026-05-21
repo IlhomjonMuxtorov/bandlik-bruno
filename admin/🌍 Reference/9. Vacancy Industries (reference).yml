@@ -22,17 +22,6 @@ docs: |
   |---|:---:|---|
   | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` |
 
-docs: |
-  Vakansiyalar uchun mavjud sohalar.
-
-  **Auth:** istalgan autentifikatsiyalangan foydalanuvchi.
-
-  ### 📋 Headers
-
-  | Header | Required | Description |
-  |---|:---:|---|
-  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` |
-
 settings:
   encodeUrl: true
   timeout: 0

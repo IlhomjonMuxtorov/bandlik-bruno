@@ -24,22 +24,6 @@ docs: |
 
   > Faqat `type = NOTARIUS (2)` yozuvlari bo'yicha hisoblanadi.
 
-docs: |
-  Rekruter modulining yuqori statistika kartochkalari (sahifa ustida 4 ta karta).
-
-  **Auth:** `admin_token`.
-
-  ### 📤 Response (`data`)
-
-  | Field | Type | Description |
-  |---|---|---|
-  | `total_revenue` | int | Barcha vaqtlar uchun yakunlangan buyurtmalar summasi (UZS) |
-  | `holding_amount` | int | Hozircha `0` placeholder — transaction moduli kelganda integratsiya |
-  | `this_month_revenue` | int | Joriy oydagi yakunlangan buyurtmalar summasi |
-  | `refunded_amount` | int | Hozircha `0` placeholder |
-
-  > Faqat `type = NOTARIUS (2)` yozuvlari bo'yicha hisoblanadi.
-
 settings:
   encodeUrl: true
   timeout: 0

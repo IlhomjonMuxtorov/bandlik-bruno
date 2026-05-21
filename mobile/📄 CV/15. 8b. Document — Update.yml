@@ -23,11 +23,6 @@ docs: |
 
   **Auth:** `access_token`.
 
-docs: |
-  Hujjatni yangilash. Maydonlar `create` bilan bir xil.
-
-  **Auth:** `access_token`.
-
 settings:
   encodeUrl: true
   timeout: 0

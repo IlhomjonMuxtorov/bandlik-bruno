@@ -40,33 +40,6 @@ docs: |
   |---|---|
   | `401` | Token yo'q yoki muddati o'tgan |
 
-docs: |
-  Millat/etnik guruhlar ro'yxati (GCP Spravochniki, ~510 yozuv). Faqat `is_active = true` yozuvlar qaytadi; eskirgan etnonimlar (UI'da kerakli emas) yashirin.
-
-  Passport API javobidagi `nationalityid` to'g'ridan-to'g'ri shu ID ga mos (masalan, 19 = Qozoq).
-
-  **Auth:** `access_token`.
-
-  ### 📋 Headers
-
-  | Header | Required | Description |
-  |---|:---:|---|
-  | `Authorization` | ✅ | `Bearer {access_token}` |
-  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` |
-
-  ### 📤 Response *(massiv elementi)*
-
-  | Field | Type | Description |
-  |---|---|---|
-  | `id` | int | Millat kodi (GCP SP_ID) |
-  | `name` | string | Lokalizatsiyalangan nom |
-
-  ### ⚠️ Errors
-
-  | Code | Reason |
-  |---|---|
-  | `401` | Token yo'q yoki muddati o'tgan |
-
 settings:
   encodeUrl: true
   timeout: 0

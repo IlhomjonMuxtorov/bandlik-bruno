@@ -20,11 +20,6 @@ docs: |
 
   **Auth:** `admin_token`.
 
-docs: |
-  Davlatni yangilaydi (multipart/form-data).
-
-  **Auth:** `admin_token`.
-
 settings:
   encodeUrl: true
   timeout: 0

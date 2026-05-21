@@ -19,17 +19,6 @@ docs: |
   |---|---|
   | `404` | Viza tashkilot topilmadi |
 
-docs: |
-  Bitta Viza tashkiloti haqida to'liq ma'lumot + `stats`.
-
-  **Auth:** `admin_token`.
-
-  ### ⚠️ Errors
-
-  | Code | Reason |
-  |---|---|
-  | `404` | Viza tashkilot topilmadi |
-
 settings:
   encodeUrl: true
   timeout: 0

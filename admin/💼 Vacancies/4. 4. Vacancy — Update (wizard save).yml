@@ -33,25 +33,6 @@ docs: |
   | `403` | Approved/closed vakansiyalar tahrirlanmaydi (egasi uchun) |
   | `422` | Validatsiya xatosi |
 
-docs: |
-  Vakansiyani to'liq qayta saqlaydi — barcha child kolleksiyalar (requirements/benefits/documents/services/payment_steps) **butunlay almashtiriladi** (delete + insert).
-
-  **Auth:** `admin_token` yoki vakansiya egasi.
-
-  > **Eslatma:** faqat `draft` yoki `rejected` statusdagi vakansiyalarni Employer/Recruiter tahrirlay oladi. `approved` / `closed` — faqat admin orqali.
-
-  ### 📥 Request Body
-
-  Create bilan bir xil (yuqorida).
-
-  ### ⚠️ Errors
-
-  | Code | Reason |
-  |---|---|
-  | `404` | Vakansiya topilmadi |
-  | `403` | Approved/closed vakansiyalar tahrirlanmaydi (egasi uchun) |
-  | `422` | Validatsiya xatosi |
-
 settings:
   encodeUrl: true
   timeout: 0

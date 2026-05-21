@@ -13,11 +13,6 @@ docs: |
 
   **Auth:** Admin yoki org foydalanuvchi.
 
-docs: |
-  Shablonlar ro'yxati. Admin barchasini, org foydalanuvchi faqat o'zinikini.
-
-  **Auth:** Admin yoki org foydalanuvchi.
-
 settings:
   encodeUrl: true
   timeout: 0

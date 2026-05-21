@@ -64,27 +64,6 @@ docs: |
   | `401` | Token yo'q |
   | `403` | Super-admin emas |
 
-docs: |
-  Yangi Viza tashkilotini yaratadi. Request body va xatti-harakat XBA `Create` bilan **bir xil** — yagona farq: organization `type = 5` saqlanadi va fayllar `@storage/web/source/organization/visa/*` ga yuklanadi.
-
-  **Auth:** `admin_token`.
-
-  ### 📥 Request Body
-
-  XBA `Create` endpointidagi kabi to'liq ro'yxat (`name`, `brand_name`, `legal_name`, `license_number`, `region_id`, `district_id`, `address`, `phone`, `email`, `website_url`, `responsible_person`, `login`, `password`, social URL'lar, `license_file`, `logo`).
-
-  ### 📤 Response
-
-  `201` — `OrganizationOutputDTO` (`type = 5`, `type_label = "Viza"`).
-
-  ### ⚠️ Errors
-
-  | Code | Reason |
-  |---|---|
-  | `422` | Validatsiya xatosi |
-  | `401` | Token yo'q |
-  | `403` | Super-admin emas |
-
 settings:
   encodeUrl: true
   timeout: 0

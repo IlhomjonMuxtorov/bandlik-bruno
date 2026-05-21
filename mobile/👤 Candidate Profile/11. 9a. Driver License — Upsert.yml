@@ -33,21 +33,6 @@ docs: |
   | `issue_date` | date | ➖ | Berilgan sana |
   | `expiry_date` | date | ➖ | Amal qilish muddati |
 
-docs: |
-  Haydovchilik guvohnomasini yaratish yoki yangilash (`PUT` — upsert).
-
-  **Auth:** `access_token`.
-
-  ### 📥 Request Body
-
-  | Field | Type | Required | Description |
-  |---|---|:---:|---|
-  | `has_license` | bool | ✅ | Guvohnoma bormi |
-  | `categories` | string | ➖ | Masalan `B,C,D` |
-  | `license_number` | string | ➖ | Guvohnoma raqami |
-  | `issue_date` | date | ➖ | Berilgan sana |
-  | `expiry_date` | date | ➖ | Amal qilish muddati |
-
 settings:
   encodeUrl: true
   timeout: 0

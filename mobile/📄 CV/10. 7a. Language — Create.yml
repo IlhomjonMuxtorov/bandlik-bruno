@@ -36,24 +36,6 @@ docs: |
   |---|---|
   | `400` | Bir til ikki marta qo'shilmaydi (UNIQUE) |
 
-docs: |
-  Yangi til qo'shish.
-
-  **Auth:** `access_token`.
-
-  ### 📥 Request Body
-
-  | Field | Type | Required | Description |
-  |---|---|:---:|---|
-  | `language_id` | int | ✅ | Reference: languages |
-  | `language_level_id` | int | ✅ | Reference: language-levels |
-
-  ### ⚠️ Errors
-
-  | Code | Reason |
-  |---|---|
-  | `400` | Bir til ikki marta qo'shilmaydi (UNIQUE) |
-
 settings:
   encodeUrl: true
   timeout: 0

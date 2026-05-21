@@ -13,11 +13,6 @@ docs: |
 
   **Auth:** `admin_token`.
 
-docs: |
-  Zarur hujjatni o'chiradi.
-
-  **Auth:** `admin_token`.
-
 settings:
   encodeUrl: true
   timeout: 0

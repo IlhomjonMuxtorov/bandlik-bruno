@@ -13,11 +13,6 @@ docs: |
 
   **Auth:** Admin yoki vakansiya egasi.
 
-docs: |
-  Pipeline yozuvi tafsiloti.
-
-  **Auth:** Admin yoki vakansiya egasi.
-
 settings:
   encodeUrl: true
   timeout: 0

@@ -32,20 +32,6 @@ docs: |
   | `start_date` | date | ✅ | `YYYY-MM-DD` |
   | `end_date` | date | ➖ | `null` = hozirgacha |
 
-docs: |
-  Yangi ish tajribasi qo'shish.
-
-  **Auth:** `access_token`.
-
-  ### 📥 Request Body
-
-  | Field | Type | Required | Description |
-  |---|---|:---:|---|
-  | `company_name` | string | ✅ | Kompaniya nomi |
-  | `position` | string | ✅ | Lavozim |
-  | `start_date` | date | ✅ | `YYYY-MM-DD` |
-  | `end_date` | date | ➖ | `null` = hozirgacha |
-
 settings:
   encodeUrl: true
   timeout: 0

@@ -13,11 +13,6 @@ docs: |
 
   **Auth:** Admin yoki shablon egasi.
 
-docs: |
-  Shablonni o'chiradi.
-
-  **Auth:** Admin yoki shablon egasi.
-
 settings:
   encodeUrl: true
   timeout: 0

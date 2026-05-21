@@ -35,23 +35,6 @@ docs: |
   | `certificate_file_url` | string | ➖ | Fayl URL |
   | `certificate_file_size` | int | ➖ | Fayl hajmi (bayt) |
 
-docs: |
-  Yangi kurs qo'shish.
-
-  **Auth:** `access_token`.
-
-  ### 📥 Request Body
-
-  | Field | Type | Required | Description |
-  |---|---|:---:|---|
-  | `course_name` | string | ✅ | Kurs nomi |
-  | `institution_name` | string | ✅ | O'quv markazi |
-  | `start_date` | date | ✅ | `YYYY-MM-DD` |
-  | `end_date` | date | ➖ | Tugagan sana |
-  | `certificate_number` | string | ➖ | Sertifikat raqami |
-  | `certificate_file_url` | string | ➖ | Fayl URL |
-  | `certificate_file_size` | int | ➖ | Fayl hajmi (bayt) |
-
 settings:
   encodeUrl: true
   timeout: 0

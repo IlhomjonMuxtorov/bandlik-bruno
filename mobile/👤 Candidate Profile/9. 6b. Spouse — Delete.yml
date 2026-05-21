@@ -20,13 +20,6 @@ docs: |
 
   **Auth:** `access_token`.
 
-docs: |
-  Turmush o'rtog'i yozuvini o'chirish.
-
-  > `marital_status` alohida `cv/profile` orqali update qilinadi.
-
-  **Auth:** `access_token`.
-
 settings:
   encodeUrl: true
   timeout: 0
