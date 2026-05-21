@@ -5,52 +5,23 @@ info:
 http:
   method: POST
   url: '{{base_url}}/admin/visa'
+  headers:
+  - name: Content-Type
+    value: application/json
   body:
-    type: multipartForm
-    data:
-    - name: name
-      value: Visa Express
-    - name: brand_name
-      value: Visa Express MChJ
-    - name: license_number
-      value: VISA-001-2026
-    - name: region_id
-      value: '10'
-    - name: district_id
-      value: '1001'
-    - name: address
-      value: Toshkent sh., Mirzo Ulug'bek tumani
-    - name: phone
-      value: '+998901112233'
-    - name: email
-      value: info@visa-express.uz
-    - name: website_url
-      value: https://visa-express.uz
-    - name: responsible_person
-      value: Aziz Karimov
-    - name: login
-      value: visa_express
-    - name: password
-      value: secret123
-    - name: is_active
-      value: '1'
-    - name: license_file
-      type: file
-      fileName: ''
-    - name: logo
-      type: file
-      fileName: ''
+    type: json
+    data: "{\n  \"name\": \"Visa Express\",\n  \"brand_name\": \"Visa Express MChJ\",\n  \"license_number\": \"VISA-001-2026\",\n  \"region_id\": 10,\n  \"district_id\": 1001,\n  \"address\": \"Toshkent sh., Mirzo Ulug'bek tumani\",\n  \"phone\": \"+998901112233\",\n  \"email\": \"info@visa-express.uz\",\n  \"website_url\": \"https://visa-express.uz\",\n  \"responsible_person\": \"Aziz Karimov\",\n  \"login\": \"visa_express\",\n  \"password\": \"secret123\",\n  \"is_active\": 1,\n  \"license_file_id\": 10,\n  \"logo_id\": 11\n}"
   auth:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  Yangi Viza tashkilotini yaratadi. Request body va xatti-harakat XBA `Create` bilan **bir xil** — yagona farq: organization `type = 5` saqlanadi va fayllar `@storage/web/source/organization/visa/*` ga yuklanadi.
+  Yangi Viza tashkilotini yaratadi. `application/json` so'rov — xatti-harakat XBA `Create` bilan bir xil, yagona farq: `type = 5`.
 
   **Auth:** `admin_token`.
 
   ### 📥 Request Body
 
-  XBA `Create` endpointidagi kabi to'liq ro'yxat (`name`, `brand_name`, `legal_name`, `license_number`, `region_id`, `district_id`, `address`, `phone`, `email`, `website_url`, `responsible_person`, `login`, `password`, social URL'lar, `license_file`, `logo`).
+  XBA `Create` endpointidagi to'liq ro'yxat. Fayl maydonlari: `license_file_id`, `logo_id` (oldindan `/admin/upload` orqali yuklangan fayl ID).
 
   ### 📤 Response
 
@@ -61,6 +32,7 @@ docs: |
   | Code | Reason |
   |---|---|
   | `422` | Validatsiya xatosi |
+  | `400` | Fayl ID topilmadi yoki `status=uploading` |
   | `401` | Token yo'q |
   | `403` | Super-admin emas |
 

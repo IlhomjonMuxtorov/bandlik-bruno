@@ -19,7 +19,7 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  Mavjud ta'limni yangilash. Maydonlar tarkibi `POST` bilan bir xil. Faqat o'z resurslari.
+  Mavjud ta'limni yangilash. Maydonlar tarkibi `POST` bilan bir xil (`diploma_file_id` ham kiradi). Faqat o'z resurslari.
 
   **Auth:** `access_token`.
 

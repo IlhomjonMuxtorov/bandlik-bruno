@@ -5,18 +5,19 @@ info:
 http:
   method: POST
   url: '{{base_url}}/admin/countries/1'
+  headers:
+  - name: Content-Type
+    value: application/json
   body:
-    type: multipartForm
-    data:
-    - name: name
-      value: '{"uz": "O''zbekiston", "ru": "Узбекистан", "en": "Uzbekistan"}'
-    - name: is_visa_available
-      value: '0'
+    type: json
+    data: "{\n  \"name\": {\"uz\": \"O'zbekiston\", \"ru\": \"Узбекистан\", \"en\": \"Uzbekistan\"},\n  \"is_visa_available\": 0\n}"
   auth:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  Davlatni yangilaydi (multipart/form-data).
+  Davlatni yangilaydi. `application/json` — faqat o'zgaradigan maydonlarni yuborish kifoya.
+
+  Fayl maydonlari: `flag_id`, `image_id` (oldindan `/admin/upload` orqali yuklangan fayl ID).
 
   **Auth:** `admin_token`.
 

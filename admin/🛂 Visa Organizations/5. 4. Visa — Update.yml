@@ -5,16 +5,17 @@ info:
 http:
   method: POST
   url: '{{base_url}}/admin/visa/1'
+  headers:
+  - name: Content-Type
+    value: application/json
   body:
-    type: multipartForm
-    data:
-    - name: phone
-      value: '+998901112299'
+    type: json
+    data: "{\n  \"phone\": \"+998901112299\"\n}"
   auth:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  Mavjud Viza tashkilotini yangilaydi. `multipart/form-data` — faqat o'zgartirmoqchi bo'lgan maydonlarni yuborish kifoya. XBA `Update` bilan bir xil semantika.
+  Mavjud Viza tashkilotini yangilaydi. `application/json` — faqat o'zgartirmoqchi bo'lgan maydonlarni yuborish kifoya. XBA `Update` bilan bir xil semantika.
 
   **Auth:** `admin_token`.
 
@@ -24,6 +25,7 @@ docs: |
   |---|---|
   | `404` | Viza topilmadi |
   | `422` | Validatsiya xatosi |
+  | `400` | Fayl ID topilmadi yoki `status=uploading` |
 
 settings:
   encodeUrl: true

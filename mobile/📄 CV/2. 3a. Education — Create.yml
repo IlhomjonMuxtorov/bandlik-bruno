@@ -33,7 +33,7 @@ docs: |
   | `specialty` | string | ➖ | Mutaxassislik |
   | `start_date` | date | ✅ | `YYYY-MM-DD` |
   | `end_date` | date | ➖ | `null` — hozir o'qiyapti |
-  | `diploma_file_url` | string | ➖ | Diplom fayl URL |
+  | `diploma_file_id` | int | ➖ | `/mobile/upload` orqali yuklangan diplom fayl ID |
 
   ### ⚠️ Errors
 

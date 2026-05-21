@@ -14,7 +14,7 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"type\": \"passport_scan\",\n    \"title\": \"Passport.pdf\",\n    \"file_url\": \"https:\\/\\/storage.example.com\\/passport.pdf\",\n    \"file_size\": 524288\n}"
+    data: "{\n    \"type\": \"passport_scan\",\n    \"title\": \"Passport.pdf\",\n    \"file_id\": 42\n}"
   auth:
     mode: bearer
     bearer: '{{access_token}}'
@@ -29,8 +29,7 @@ docs: |
   |---|---|:---:|---|
   | `type` | string | ✅ | `passport_scan` \| `foreign_passport_scan` |
   | `title` | string | ✅ | Fayl nomi |
-  | `file_url` | string | ✅ | Yuklab olingan fayl URL |
-  | `file_size` | int | ➖ | Bayt |
+  | `file_id` | int | ➖ | `/mobile/upload` orqali yuklangan fayl ID |
 
 settings:
   encodeUrl: true

@@ -14,12 +14,12 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"type\": \"passport_scan\",\n    \"title\": \"Passport_renamed.pdf\",\n    \"file_url\": \"https:\\/\\/storage.example.com\\/passport.pdf\"\n}"
+    data: "{\n    \"type\": \"passport_scan\",\n    \"title\": \"Passport_renamed.pdf\",\n    \"file_id\": 42\n}"
   auth:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  Hujjatni yangilash. Maydonlar `create` bilan bir xil.
+  Hujjatni yangilash. Maydonlar `create` bilan bir xil. Fayl: `file_id`.
 
   **Auth:** `access_token`.
 

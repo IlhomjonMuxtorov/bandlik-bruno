@@ -5,16 +5,17 @@ info:
 http:
   method: POST
   url: '{{base_url}}/admin/recruiters/1'
+  headers:
+  - name: Content-Type
+    value: application/json
   body:
-    type: multipartForm
-    data:
-    - name: phone
-      value: '+998944452399'
+    type: json
+    data: "{\n  \"phone\": \"+998944452399\"\n}"
   auth:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  Mavjud Rekruter tashkilotini yangilaydi. `multipart/form-data` — faqat o'zgaradigan maydonlarni yuborish kifoya.
+  Mavjud Rekruter tashkilotini yangilaydi. `application/json` — faqat o'zgaradigan maydonlarni yuborish kifoya.
 
   **Auth:** `admin_token`.
 

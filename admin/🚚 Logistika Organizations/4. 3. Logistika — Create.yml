@@ -5,72 +5,34 @@ info:
 http:
   method: POST
   url: '{{base_url}}/admin/logistics'
+  headers:
+  - name: Content-Type
+    value: application/json
   body:
-    type: multipartForm
-    data:
-    - name: name
-      value: Abdiraxmanova Sadoqat Sulaymanovna xususiy logistics
-    - name: brand_name
-      value: CREDO CONSULTING MChJ
-    - name: legal_name
-      value: CREDO CONSULTING OOO
-    - name: description
-      value: Notarial xizmatlar va hujjat tasdiqlash
-    - name: license_number
-      value: LOG-001-2026
-    - name: region_id
-      value: '10'
-    - name: district_id
-      value: '1001'
-    - name: address
-      value: Toshkent sh., Yakkasaroy tumani, At-Termiziy ko'chasi 51/136
-    - name: phone
-      value: '+998944452323'
-    - name: email
-      value: construction.global@gmail.com
-    - name: website_url
-      value: https://credoconsultion.uz
-    - name: responsible_person
-      value: Sardor Karimov
-    - name: login
-      value: logistics_credo
-    - name: password
-      value: secret123
-    - name: telegram_url
-      value: https://t.me/credo
-    - name: instagram_url
-      value: https://instagram.com/credo
-    - name: facebook_url
-      value: https://facebook.com/credo
-    - name: is_active
-      value: '1'
-    - name: license_file
-      type: file
-      fileName: ''
-    - name: logo
-      type: file
-      fileName: ''
+    type: json
+    data: "{\n  \"name\": \"Abdiraxmanova Sadoqat Sulaymanovna xususiy logistics\",\n  \"brand_name\": \"CREDO CONSULTING MChJ\",\n  \"legal_name\": \"CREDO CONSULTING OOO\",\n  \"description\": \"Notarial xizmatlar va hujjat tasdiqlash\",\n  \"license_number\": \"LOG-001-2026\",\n  \"region_id\": 10,\n  \"district_id\": 1001,\n  \"address\": \"Toshkent sh., Yakkasaroy tumani, At-Termiziy ko'chasi 51/136\",\n  \"phone\": \"+998944452323\",\n  \"email\": \"construction.global@gmail.com\",\n  \"website_url\": \"https://credoconsultion.uz\",\n  \"responsible_person\": \"Sardor Karimov\",\n  \"login\": \"logistics_credo\",\n  \"password\": \"secret123\",\n  \"telegram_url\": \"https://t.me/credo\",\n  \"instagram_url\": \"https://instagram.com/credo\",\n  \"facebook_url\": \"https://facebook.com/credo\",\n  \"is_active\": 1,\n  \"license_file_id\": 10,\n  \"logo_id\": 11\n}"
   auth:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  Yangi Logistika tashkilotini yaratadi. Request body XBA `Create` bilan bir xil shaklda — yagona farq: `type = 2` saqlanadi va fayllar `@storage/web/source/organization/logistics/*` ga yuklanadi.
+  Yangi Logistika tashkilotini yaratadi. `application/json` so'rov — xatti-harakat XBA `Create` bilan bir xil, yagona farq: `type = 3`.
 
   **Auth:** `admin_token`.
 
   ### 📥 Request Body
 
-  XBA `Create` endpointidagi to'liq ro'yxat (`name`, `brand_name`, `legal_name`, `description`, `license_number`, `region_id`, `district_id`, `address`, `phone`, `email`, `website_url`, `responsible_person`, `login`, `password`, social URL'lar, `license_file`, `logo`).
+  XBA `Create` endpointidagi to'liq ro'yxat. Fayl maydonlari: `license_file_id`, `logo_id` (oldindan `/admin/upload` orqali yuklangan fayl ID).
 
   ### 📤 Response
 
-  `201` — `OrganizationOutputDTO` (`type = 2`).
+  `201` — `OrganizationOutputDTO` (`type = 3`).
 
   ### ⚠️ Errors
 
   | Code | Reason |
   |---|---|
   | `422` | Validatsiya xatosi |
+  | `400` | Fayl ID topilmadi yoki `status=uploading` |
 
 settings:
   encodeUrl: true

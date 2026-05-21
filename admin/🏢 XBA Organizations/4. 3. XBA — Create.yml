@@ -5,67 +5,25 @@ info:
 http:
   method: POST
   url: '{{base_url}}/admin/xba'
+  headers:
+  - name: Content-Type
+    value: application/json
   body:
-    type: multipartForm
-    data:
-    - name: name
-      value: XBA Tashkent
-    - name: brand_name
-      value: XBA Tashkent MChJ
-    - name: legal_name
-      value: XBA Tashkent OOO
-    - name: description
-      value: Toshkent shahar XBA tashkiloti
-    - name: license_number
-      value: LIC-001-2026
-    - name: region_id
-      value: '10'
-    - name: district_id
-      value: '1001'
-    - name: address
-      value: Toshkent sh., Yunusobod tumani, Amir Temur ko'chasi 1
-    - name: phone
-      value: '+998941202200'
-    - name: email
-      value: info@xba-tashkent.uz
-    - name: website_url
-      value: https://xba-tashkent.uz
-    - name: responsible_person
-      value: Kamolbek Sardorov
-    - name: login
-      value: xba_tashkent
-    - name: password
-      value: secret123
-    - name: telegram_url
-      value: https://t.me/xba_tashkent
-    - name: instagram_url
-      value: https://instagram.com/xba_tashkent
-    - name: facebook_url
-      value: https://facebook.com/xba_tashkent
-    - name: x_url
-      value: https://x.com/xba_tashkent
-    - name: is_active
-      value: '1'
-    - name: license_file
-      type: file
-      fileName: ''
-    - name: logo
-      type: file
-      fileName: ''
+    type: json
+    data: "{\n  \"name\": \"XBA Tashkent\",\n  \"brand_name\": \"XBA Tashkent MChJ\",\n  \"legal_name\": \"XBA Tashkent OOO\",\n  \"description\": \"Toshkent shahar XBA tashkiloti\",\n  \"license_number\": \"LIC-001-2026\",\n  \"region_id\": 10,\n  \"district_id\": 1001,\n  \"address\": \"Toshkent sh., Yunusobod tumani, Amir Temur ko'chasi 1\",\n  \"phone\": \"+998941202200\",\n  \"email\": \"info@xba-tashkent.uz\",\n  \"website_url\": \"https://xba-tashkent.uz\",\n  \"responsible_person\": \"Kamolbek Sardorov\",\n  \"login\": \"xba_tashkent\",\n  \"password\": \"secret123\",\n  \"telegram_url\": \"https://t.me/xba_tashkent\",\n  \"instagram_url\": \"https://instagram.com/xba_tashkent\",\n  \"facebook_url\": \"https://facebook.com/xba_tashkent\",\n  \"x_url\": \"https://x.com/xba_tashkent\",\n  \"is_active\": 1,\n  \"license_file_id\": 10,\n  \"logo_id\": 11\n}"
   auth:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  Yangi XBA tashkilotini yaratadi. `multipart/form-data` so'rov — matn maydonlar + 2 ta fayl (`license_file`, `logo`).
+  Yangi XBA tashkilotini yaratadi. `application/json` so'rov.
 
   Service quyidagilarni bir DB tranzaksiyasida bajaradi:
   1. Yangi `User` (`TYPE_PARTNER`, `STATUS_ACTIVE`) yaratiladi — `username = login`, `password_hash`.
-  2. Fayllarni `@storage/web/source/organization/xba/{license,logo}/` ga saqlaydi.
-  3. `organization` jadvalga `type = 1` bilan yozadi.
+  2. `organization` jadvalga `type = 1` bilan yozadi.
 
   **Auth:** `admin_token`.
 
-  ### 📥 Request Body (multipart/form-data)
+  ### 📥 Request Body
 
   | Field | Type | Required | Description |
   |---|---|:---:|---|
@@ -88,8 +46,8 @@ docs: |
   | `facebook_url` | string | ➖ | URL |
   | `x_url` | string | ➖ | URL |
   | `is_active` | bool (0\|1) | ➖ | Default `1` |
-  | `license_file` | file | ➖ | pdf \| jpg \| png \| gif. Max 3.1 MB |
-  | `logo` | file | ➖ | jpg \| png \| gif. Max 3.1 MB |
+  | `license_file_id` | int | ➖ | `/admin/upload` orqali oldindan yuklangan fayl ID |
+  | `logo_id` | int | ➖ | `/admin/upload` orqali oldindan yuklangan fayl ID |
 
   ### 📋 Headers
 
@@ -105,7 +63,8 @@ docs: |
 
   | Code | Reason |
   |---|---|
-  | `422` | Validatsiya xatosi (`license_number` band, `region_id`/`district_id` topilmadi, parol qisqa, fayl formati noto'g'ri va h.k.) |
+  | `422` | Validatsiya xatosi (`license_number` band, `region_id`/`district_id` topilmadi, parol qisqa va h.k.) |
+  | `400` | `license_file_id` yoki `logo_id` topilmadi yoki `status=uploading` |
   | `401` | Token yo'q yoki yaroqsiz |
   | `403` | Super-admin emas |
 
