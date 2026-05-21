@@ -10,10 +10,10 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"device_id\": \"{{ device_id }}\",\n  \"fcm_token\": \"refreshed_fcm_token_xyz\"\n}"
+    data: "{\n  \"device_id\": \"{{device_id}}\",\n  \"fcm_token\": \"refreshed_fcm_token_xyz\"\n}"
   auth:
     mode: bearer
-    bearer: '{{ access_token }}'
+    bearer: '{{access_token}}'
 settings:
   encodeUrl: true
   timeout: 0

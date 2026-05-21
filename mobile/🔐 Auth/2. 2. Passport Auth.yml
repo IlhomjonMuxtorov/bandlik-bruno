@@ -10,10 +10,10 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"passport_series\": \"AA\",\n  \"passport_number\": \"1234567\",\n  \"birth_date\": \"15.05.1990\",\n  \"phone\": \"+998901234567\",\n  \"device_id\": \"{{ device_id }}\"\n}"
+    data: "{\n  \"passport_series\": \"AA\",\n  \"passport_number\": \"1234567\",\n  \"birth_date\": \"15.05.1990\",\n  \"phone\": \"+998901234567\",\n  \"device_id\": \"{{device_id}}\"\n}"
   auth:
     mode: bearer
-    bearer: '{{ guest_token }}'
+    bearer: '{{guest_token}}'
 settings:
   encodeUrl: true
   timeout: 0

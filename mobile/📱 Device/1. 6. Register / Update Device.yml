@@ -10,10 +10,10 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"device_id\": \"{{ device_id }}\",\n  \"os\": \"android\",\n  \"fcm_token\": \"new_fcm_token_abc\",\n  \"app_version\": \"1.0.0\",\n  \"language\": \"uz\"\n}"
+    data: "{\n  \"device_id\": \"{{device_id}}\",\n  \"os\": \"android\",\n  \"fcm_token\": \"new_fcm_token_abc\",\n  \"app_version\": \"1.0.0\",\n  \"language\": \"uz\"\n}"
   auth:
     mode: bearer
-    bearer: '{{ access_token }}'
+    bearer: '{{access_token}}'
 settings:
   encodeUrl: true
   timeout: 0

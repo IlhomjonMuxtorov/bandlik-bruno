@@ -13,7 +13,7 @@ http:
     data: "{\n  \"organization_id\": 1,\n  \"name\": \"Restoran Xizmatchisi (Polsha)\",\n  \"description\": \"Standart shablon Polsha bo'yicha\",\n  \"payload\": {\n    \"industry_id\": 1,\n    \"title\": \"Restoran Xizmatchisi\",\n    \"employment_type\": \"full_time\",\n    \"hiring_quota\": 12,\n    \"country_id\": 1\n  }\n}"
   auth:
     mode: bearer
-    bearer: '{{ admin_token }}'
+    bearer: '{{admin_token}}'
 settings:
   encodeUrl: true
   timeout: 0

@@ -4,7 +4,7 @@ info:
   seq: 27
 http:
   method: PATCH
-  url: '{{base_url}}/mobile/cv/{{ cv_id }}'
+  url: '{{base_url}}/mobile/cv/{{cv_id}}'
   headers:
   - name: Accept
     value: application/json
@@ -17,7 +17,7 @@ http:
     data: "{\n    \"title\": \"Haydovchi CVim — yangilangan\",\n    \"target_profession\": \"International truck driver\"\n}"
   auth:
     mode: bearer
-    bearer: '{{ access_token }}'
+    bearer: '{{access_token}}'
 settings:
   encodeUrl: true
   timeout: 0

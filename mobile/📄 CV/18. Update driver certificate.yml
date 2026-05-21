@@ -4,7 +4,7 @@ info:
   seq: 18
 http:
   method: PATCH
-  url: '{{base_url}}/mobile/cv/{{ cv_id }}/driver-certificate/1'
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/driver-certificate/1'
   headers:
   - name: Accept
     value: application/json
@@ -17,7 +17,7 @@ http:
     data: "{\n    \"type\": \"code_95\",\n    \"title\": \"Code 95 — yangilangan\",\n    \"expiry_date\": \"2030-01-15\"\n}"
   auth:
     mode: bearer
-    bearer: '{{ access_token }}'
+    bearer: '{{access_token}}'
 settings:
   encodeUrl: true
   timeout: 0

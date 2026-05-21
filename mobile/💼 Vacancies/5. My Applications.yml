@@ -7,7 +7,7 @@ http:
   url: '{{base_url}}/mobile/my-applications'
   auth:
     mode: bearer
-    bearer: '{{ access_token }}'
+    bearer: '{{access_token}}'
 settings:
   encodeUrl: true
   timeout: 0

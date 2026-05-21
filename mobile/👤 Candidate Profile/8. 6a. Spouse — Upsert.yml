@@ -17,7 +17,7 @@ http:
     data: "{\n    \"full_name\": \"Karimova Dilshoda\",\n    \"birth_date\": \"1995-08-10\",\n    \"marriage_date\": \"2020-09-15\"\n}"
   auth:
     mode: bearer
-    bearer: '{{ access_token }}'
+    bearer: '{{access_token}}'
 settings:
   encodeUrl: true
   timeout: 0

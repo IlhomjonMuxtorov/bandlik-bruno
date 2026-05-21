@@ -17,7 +17,7 @@ http:
     data: "{\n    \"title\": \"Haydovchi CVim\",\n    \"summary\": \"10+ yil tajribali xalqaro yuk haydovchisi\",\n    \"target_profession\": \"International truck driver\",\n    \"target_country_id\": 1,\n    \"is_primary\": false\n}"
   auth:
     mode: bearer
-    bearer: '{{ access_token }}'
+    bearer: '{{access_token}}'
 settings:
   encodeUrl: true
   timeout: 0

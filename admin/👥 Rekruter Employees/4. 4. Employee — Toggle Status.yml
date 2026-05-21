@@ -7,7 +7,7 @@ http:
   url: '{{base_url}}/admin/recruiter-employees/1/toggle-status'
   auth:
     mode: bearer
-    bearer: '{{ admin_token }}'
+    bearer: '{{admin_token}}'
 settings:
   encodeUrl: true
   timeout: 0

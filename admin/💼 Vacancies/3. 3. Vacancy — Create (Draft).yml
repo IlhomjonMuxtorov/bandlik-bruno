@@ -16,7 +16,7 @@ http:
       title\": \"Sudlanmaganlik haqida hujjat\", \"allowed_mime\": \"application/pdf\", \"is_required\": true},\n    {\"title\": \"Tibbiy ko'rik xulosasi\",       \"allowed_mime\": \"application/pdf\", \"is_required\": true}\n  ],\n  \"services\": [\n    {\"category\": \"notarius\",  \"organization_id\": 2, \"organization_service_id\": 1, \"duration_text\": \"20 kun\"},\n    {\"category\": \"insurance\", \"organization_id\": 3, \"organization_service_id\": 5}\n  ],\n  \"single_payment\": false,\n  \"payment_steps\": [\n    {\"step_type\": \"agency_fee\",             \"title\": \"Agentlik xizmati to'lovi\", \"amount\": 1000000, \"currency\": \"UZS\", \"sort_order\": 0},\n    {\"step_type\": \"translation_apostille\", \"title\": \"Tarjima apostil\",         \"amount\": 800000,  \"currency\": \"UZS\", \"sort_order\": 1},\n    {\"step_type\": \"training\",              \"title\": \"O'quv kursi\",             \"amount\": 1500000, \"currency\": \"UZS\", \"sort_order\": 2}\n  ]\n}"
   auth:
     mode: bearer
-    bearer: '{{ admin_token }}'
+    bearer: '{{admin_token}}'
 settings:
   encodeUrl: true
   timeout: 0

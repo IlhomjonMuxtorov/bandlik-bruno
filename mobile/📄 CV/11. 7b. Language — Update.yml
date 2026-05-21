@@ -4,7 +4,7 @@ info:
   seq: 11
 http:
   method: PATCH
-  url: '{{base_url}}/mobile/cv/{{ cv_id }}/language/1'
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/language/1'
   headers:
   - name: Accept
     value: application/json
@@ -17,7 +17,7 @@ http:
     data: "{\n    \"language_id\": 1,\n    \"language_level_id\": 6\n}"
   auth:
     mode: bearer
-    bearer: '{{ access_token }}'
+    bearer: '{{access_token}}'
 settings:
   encodeUrl: true
   timeout: 0

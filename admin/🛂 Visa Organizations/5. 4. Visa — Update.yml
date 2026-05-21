@@ -12,7 +12,7 @@ http:
       value: '+998901112299'
   auth:
     mode: bearer
-    bearer: '{{ admin_token }}'
+    bearer: '{{admin_token}}'
 settings:
   encodeUrl: true
   timeout: 0

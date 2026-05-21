@@ -4,7 +4,7 @@ info:
   seq: 3
 http:
   method: PATCH
-  url: '{{base_url}}/mobile/cv/{{ cv_id }}/education/1'
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/education/1'
   headers:
   - name: Accept
     value: application/json
@@ -17,7 +17,7 @@ http:
     data: "{\n    \"education_level_id\": 4,\n    \"institution_name\": \"INHA University\",\n    \"start_date\": \"2022-09-01\"\n}"
   auth:
     mode: bearer
-    bearer: '{{ access_token }}'
+    bearer: '{{access_token}}'
 settings:
   encodeUrl: true
   timeout: 0

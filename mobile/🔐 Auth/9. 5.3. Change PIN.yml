@@ -13,7 +13,7 @@ http:
     data: "{\n  \"old_pin\": \"1234\",\n  \"new_pin\": \"5678\"\n}"
   auth:
     mode: bearer
-    bearer: '{{ access_token }}'
+    bearer: '{{access_token}}'
 settings:
   encodeUrl: true
   timeout: 0

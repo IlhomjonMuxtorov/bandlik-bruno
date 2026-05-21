@@ -13,7 +13,7 @@ http:
     data: "{\n  \"organization_id\": 1,\n  \"name\": \"Hujjatlarni notarial tasdiqlash\",\n  \"description\": \"Pasport nusxasi, diplom, sertifikat va boshqa hujjatlarni tasdiqlash\",\n  \"price\": 123456000,\n  \"is_active\": 1,\n  \"sort_order\": 0\n}"
   auth:
     mode: bearer
-    bearer: '{{ admin_token }}'
+    bearer: '{{admin_token}}'
 settings:
   encodeUrl: true
   timeout: 0

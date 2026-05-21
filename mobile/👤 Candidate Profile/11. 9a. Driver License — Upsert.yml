@@ -17,7 +17,7 @@ http:
     data: "{\n    \"has_license\": true,\n    \"categories\": \"B,C,D\",\n    \"license_number\": \"AB1234567\",\n    \"issue_date\": \"2018-05-10\",\n    \"expiry_date\": \"2028-05-10\"\n}"
   auth:
     mode: bearer
-    bearer: '{{ access_token }}'
+    bearer: '{{access_token}}'
 settings:
   encodeUrl: true
   timeout: 0

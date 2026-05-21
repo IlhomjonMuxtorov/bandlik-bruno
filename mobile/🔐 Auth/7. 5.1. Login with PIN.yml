@@ -10,7 +10,7 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"pin\": \"1234\",\n  \"device_id\": \"{{ device_id }}\"\n}"
+    data: "{\n  \"pin\": \"1234\",\n  \"device_id\": \"{{device_id}}\"\n}"
   auth: inherit
 settings:
   encodeUrl: true

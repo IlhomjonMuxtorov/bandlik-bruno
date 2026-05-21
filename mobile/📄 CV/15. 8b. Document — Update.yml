@@ -4,7 +4,7 @@ info:
   seq: 15
 http:
   method: PATCH
-  url: '{{base_url}}/mobile/cv/{{ cv_id }}/document/1'
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/document/1'
   headers:
   - name: Accept
     value: application/json
@@ -17,7 +17,7 @@ http:
     data: "{\n    \"type\": \"passport_scan\",\n    \"title\": \"Passport_renamed.pdf\",\n    \"file_url\": \"https:\\/\\/storage.example.com\\/passport.pdf\"\n}"
   auth:
     mode: bearer
-    bearer: '{{ access_token }}'
+    bearer: '{{access_token}}'
 settings:
   encodeUrl: true
   timeout: 0

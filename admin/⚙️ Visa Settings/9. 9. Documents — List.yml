@@ -7,7 +7,7 @@ http:
   url: '{{base_url}}/admin/visa-documents'
   auth:
     mode: bearer
-    bearer: '{{ admin_token }}'
+    bearer: '{{admin_token}}'
 settings:
   encodeUrl: true
   timeout: 0

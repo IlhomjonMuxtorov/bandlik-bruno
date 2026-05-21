@@ -10,10 +10,10 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"phone\": \"+998901234567\",\n  \"code\": \"123456\",\n  \"device_id\": \"{{ device_id }}\"\n}"
+    data: "{\n  \"phone\": \"+998901234567\",\n  \"code\": \"123456\",\n  \"device_id\": \"{{device_id}}\"\n}"
   auth:
     mode: bearer
-    bearer: '{{ guest_token }}'
+    bearer: '{{guest_token}}'
 settings:
   encodeUrl: true
   timeout: 0

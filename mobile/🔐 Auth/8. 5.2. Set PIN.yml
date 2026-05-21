@@ -13,7 +13,7 @@ http:
     data: "{\n  \"pin\": \"1234\"\n}"
   auth:
     mode: bearer
-    bearer: '{{ access_token }}'
+    bearer: '{{access_token}}'
 settings:
   encodeUrl: true
   timeout: 0

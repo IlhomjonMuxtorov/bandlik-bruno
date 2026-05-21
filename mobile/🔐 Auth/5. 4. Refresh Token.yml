@@ -10,7 +10,7 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"refresh_token\": \"{{ refresh_token }}\"\n}"
+    data: "{\n  \"refresh_token\": \"{{refresh_token}}\"\n}"
   auth: inherit
 settings:
   encodeUrl: true
