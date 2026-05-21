@@ -1,0 +1,6 @@
+info:
+  name: Notarius Employees
+  type: folder
+  seq: 11
+request:
+  auth: inherit

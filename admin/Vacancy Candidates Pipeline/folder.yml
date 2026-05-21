@@ -1,0 +1,6 @@
+info:
+  name: Vacancy Candidates Pipeline
+  type: folder
+  seq: 28
+request:
+  auth: inherit

@@ -1,0 +1,6 @@
+info:
+  name: Candidate Profile
+  type: folder
+  seq: 5
+request:
+  auth: inherit
