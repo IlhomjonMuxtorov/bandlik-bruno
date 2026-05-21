@@ -15,27 +15,35 @@ http:
   body:
     type: json
     data: "{\n    \"language_id\": 1,\n    \"language_level_id\": 7\n}"
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Yangi til qo'shish.
+  auth: inherit
+docs: 'Yangi til qo''shish.
+
 
   **Auth:** `access_token`.
 
+
   ### 📥 Request Body
 
+
   | Field | Type | Required | Description |
+
   |---|---|:---:|---|
+
   | `language_id` | int | ✅ | Reference: languages |
+
   | `language_level_id` | int | ✅ | Reference: language-levels |
+
 
   ### ⚠️ Errors
 
-  | Code | Reason |
-  |---|---|
-  | `400` | Bir til ikki marta qo'shilmaydi (UNIQUE) |
 
+  | Code | Reason |
+
+  |---|---|
+
+  | `400` | Bir til ikki marta qo''shilmaydi (UNIQUE) |
+
+  '
 settings:
   encodeUrl: true
   timeout: 0

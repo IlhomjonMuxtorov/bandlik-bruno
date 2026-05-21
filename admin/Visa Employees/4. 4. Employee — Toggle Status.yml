@@ -5,14 +5,13 @@ info:
 http:
   method: PATCH
   url: '{{base_url}}/admin/visa-employees/1/toggle-status'
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Xodimning `is_active` qiymatini teskariga aylantiradi.
+  auth: inherit
+docs: 'Xodimning `is_active` qiymatini teskariga aylantiradi.
+
 
   **Auth:** `admin_token`.
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

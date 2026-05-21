@@ -11,14 +11,13 @@ http:
   body:
     type: json
     data: "{\n  \"role\": \"XBA admin\"\n}"
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Xodim ma'lumotlarini yangilaydi.
+  auth: inherit
+docs: 'Xodim ma''lumotlarini yangilaydi.
+
 
   **Auth:** `admin_token`.
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

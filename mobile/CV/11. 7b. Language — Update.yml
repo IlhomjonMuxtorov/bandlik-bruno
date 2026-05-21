@@ -15,14 +15,13 @@ http:
   body:
     type: json
     data: "{\n    \"language_id\": 1,\n    \"language_level_id\": 6\n}"
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Til darajasini yangilash.
+  auth: inherit
+docs: 'Til darajasini yangilash.
+
 
   **Auth:** `access_token`.
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

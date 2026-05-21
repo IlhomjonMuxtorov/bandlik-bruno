@@ -5,14 +5,14 @@ info:
 http:
   method: PATCH
   url: '{{base_url}}/admin/employers/1/toggle-status'
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Ish beruvchi tashkilotning `is_active` qiymatini teskariga aylantiradi. Bog'liq `User.status` ham flipped.
+  auth: inherit
+docs: 'Ish beruvchi tashkilotning `is_active` qiymatini teskariga aylantiradi. Bog''liq
+  `User.status` ham flipped.
+
 
   **Auth:** `admin_token`.
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

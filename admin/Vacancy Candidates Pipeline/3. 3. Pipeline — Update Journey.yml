@@ -10,35 +10,52 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"journey_status\": \"course_in_progress\",\n  \"course_progress_percent\": 40,\n  \"collected_amount\": 1500000,\n  \"collected_currency\": \"UZS\",\n  \"notes\": \"Kurs muvaffaqiyatli boshlandi\"\n}"
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Pipeline yozuvini yangilaydi (partial — faqat berilgan maydonlar o'zgaradi).
+    data: "{\n  \"journey_status\": \"course_in_progress\",\n  \"course_progress_percent\"\
+      : 40,\n  \"collected_amount\": 1500000,\n  \"collected_currency\": \"UZS\",\n\
+      \  \"notes\": \"Kurs muvaffaqiyatli boshlandi\"\n}"
+  auth: inherit
+docs: 'Pipeline yozuvini yangilaydi (partial — faqat berilgan maydonlar o''zgaradi).
+
 
   **Auth:** Admin yoki vakansiya egasi.
 
+
   ### 📥 Request Body
 
-  | Field | Type | Required | Description |
-  |---|---|:---:|---|
-  | `journey_status` | string | ➖ | Yangi status |
-  | `course_progress_percent` | int | ➖ | 0..100 |
-  | `collected_amount` | int | ➖ | Minor units (UZS so'm yoki USD dollar) |
-  | `collected_currency` | string | ➖ | `UZS` \| `USD` \| `EUR` |
-  | `hotel_preference` | bool | ➖ | |
-  | `notes` | string | ➖ | Bo'sh string yuborilsa `null` ga o'rnatiladi |
 
-  > `journey_status = departed` qilinganda `departed_at` avtomatik o'rnatiladi (agar bo'sh bo'lsa).
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `journey_status` | string | ➖ | Yangi status |
+
+  | `course_progress_percent` | int | ➖ | 0..100 |
+
+  | `collected_amount` | int | ➖ | Minor units (UZS so''m yoki USD dollar) |
+
+  | `collected_currency` | string | ➖ | `UZS` \| `USD` \| `EUR` |
+
+  | `hotel_preference` | bool | ➖ | |
+
+  | `notes` | string | ➖ | Bo''sh string yuborilsa `null` ga o''rnatiladi |
+
+
+  > `journey_status = departed` qilinganda `departed_at` avtomatik o''rnatiladi (agar
+  bo''sh bo''lsa).
+
 
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
-  | `400` | Noto'g'ri status / progress diapazoni / valyuta |
+
+  | `400` | Noto''g''ri status / progress diapazoni / valyuta |
+
   | `403` | Boshqa tashkilot |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

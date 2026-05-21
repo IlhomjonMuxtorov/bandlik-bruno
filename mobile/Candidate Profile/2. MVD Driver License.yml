@@ -10,50 +10,77 @@ http:
     value: application/json
   - name: Accept-Language
     value: uz
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  MVD (Ichki Ishlar Vazirligi) manbalaridan haydovchilik guvohnomasini olish.
+  auth: inherit
+docs: 'MVD (Ichki Ishlar Vazirligi) manbalaridan haydovchilik guvohnomasini olish.
 
-  Foydalanuvchining passport ma'lumotlari asosida MVD API dan guvohnomasini so'raydi. Agar topilmasa, bo'sh object `{}` qaytariladi.
+
+  Foydalanuvchining passport ma''lumotlari asosida MVD API dan guvohnomasini so''raydi.
+  Agar topilmasa, bo''sh object `{}` qaytariladi.
+
 
   **Auth:** `access_token`.
 
+
   ### 📋 Headers
 
+
   | Header | Required | Description |
+
   |---|:---:|---|
+
   | `Authorization` | ✅ | `Bearer {token}` |
+
 
   ### 📤 Response
 
+
   | Field | Type | Description |
+
   |---|---|---|
+
   | `result_code` | int | MVD result code (1 = topildi, 0/2+ = topilmadi) |
+
   | `owner_full_name` | string \| null | Guvohnoma egasining F.I.O. |
+
   | `license_serial` | string \| null | Guvohnoma raqami |
+
   | `license_begin_date` | date \| null | Berilgan sana |
+
   | `license_end_date` | date \| null | Amal qilish muddati |
+
   | `categories` | array | Guvohnoma kategoriyalari |
+
 
   **Kategoriya elementi:**
 
+
   | Field | Type | Description |
+
   |---|---|---|
+
   | `category` | string | Kategoriya kodi (`A`, `B`, `C`, `D` va h.k.) |
+
   | `begin_date` | date \| null | Kategoriya berilgan sana |
+
   | `end_date` | date \| null | Kategoriya amal qilish muddati |
 
-  **Topilmasa (`result_code !== 1`):** `{}` (bo'sh object).
+
+  **Topilmasa (`result_code !== 1`):** `{}` (bo''sh object).
+
 
   ### ⚠️ Errors
 
-  | Code | Reason |
-  |---|---|
-  | `404` | Passport ma'lumoti topilmadi (foydalanuvchi hali passport orqali login qilmadi) |
-  | `401` | Token yo'q |
 
+  | Code | Reason |
+
+  |---|---|
+
+  | `404` | Passport ma''lumoti topilmadi (foydalanuvchi hali passport orqali login
+  qilmadi) |
+
+  | `401` | Token yo''q |
+
+  '
 settings:
   encodeUrl: true
   timeout: 0

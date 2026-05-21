@@ -5,18 +5,20 @@ info:
 http:
   method: GET
   url: '{{base_url}}/admin/recruiter-employees/1'
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Bitta xodim. **Auth:** `admin_token`.
+  auth: inherit
+docs: 'Bitta xodim. **Auth:** `admin_token`.
+
 
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
+
   | `404` | Employee topilmadi |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

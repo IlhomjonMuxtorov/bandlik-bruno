@@ -5,14 +5,13 @@ info:
 http:
   method: GET
   url: '{{base_url}}/admin/visa-documents'
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Viza uchun zarur hujjatlar ro'yxati (pagination).
+  auth: inherit
+docs: 'Viza uchun zarur hujjatlar ro''yxati (pagination).
+
 
   **Auth:** `admin_token`.
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

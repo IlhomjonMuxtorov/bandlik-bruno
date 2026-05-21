@@ -11,41 +11,63 @@ http:
   - name: Accept-Language
     value: uz
   auth:
-    mode: bearer
-    bearer: '{{guest_token}}'
-docs: |
-  Berilgan davlat uchun barcha aktiv shaharlar ro'yxatini qaytaradi.
+    type: bearer
+    token: '{{guest_token}}'
+docs: 'Berilgan davlat uchun barcha aktiv shaharlar ro''yxatini qaytaradi.
+
 
   **Auth:** har qanday yaroqli JWT.
 
+
   ### 🔎 Query Parameters
 
+
   | Param | Type | Required | Description |
+
   |---|---|:---:|---|
-  | `country_id` | int | ✅ | `countries` endpoint'dan olingan ID. `0` yoki yo'q bo'lsa `400`. |
+
+  | `country_id` | int | ✅ | `countries` endpoint''dan olingan ID. `0` yoki yo''q
+  bo''lsa `400`. |
+
 
   ### 📋 Headers
 
+
   | Header | Required | Description |
+
   |---|:---:|---|
+
   | `Authorization` | ✅ | `Bearer {token}` |
+
   | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz` |
+
 
   ### 📤 Response *(massiv elementi)*
 
+
   | Field | Type | Description |
+
   |---|---|---|
+
   | `id` | int | Shahar ID |
+
   | `name` | string | Tilga mos nom. Fallback → `en` → `uz`. |
+
 
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
-  | `400` | `country_id` ko'rsatilmagan yoki `0` |
-  | `401` | Token yo'q, noto'g'ri yoki muddati o'tgan |
+
+  | `400` | `country_id` ko''rsatilmagan yoki `0` |
+
+  | `401` | Token yo''q, noto''g''ri yoki muddati o''tgan |
+
   | `404` | `country_id` topilmadi yoki faol emas |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

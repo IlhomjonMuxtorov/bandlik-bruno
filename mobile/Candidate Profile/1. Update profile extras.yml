@@ -14,44 +14,69 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"marital_status\": \"married\",\n    \"tin\": \"29847012395712\",\n    \"had_visa_before\": true\n}"
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Nomzodning **passport / birth / registration / marital** qo'shimcha maydonlarini yangilash.
+    data: "{\n    \"marital_status\": \"married\",\n    \"tin\": \"29847012395712\"\
+      ,\n    \"had_visa_before\": true\n}"
+  auth: inherit
+docs: 'Nomzodning **passport / birth / registration / marital** qo''shimcha maydonlarini
+  yangilash.
+
 
   > Hamma maydon ixtiyoriy — faqat keladigan maydon yangilanadi.
 
+
   **Auth:** `access_token`.
+
 
   ### 📥 Request Body
 
+
   | Field | Type | Description |
+
   |---|---|---|
+
   | `photo_url` | string | Profile rasm URL |
+
   | `tin` | string | TIN/INN |
+
   | `foreign_passport_number` | string | Xorijiy passport raqami |
+
   | `had_visa_before` | bool | Avval viza olinganmi? |
-  | `additional_visa_country_id` | int | Qo'shimcha viza davlati ID |
-  | `birth_region` / `birth_district` / `birth_address` | string | Tug'ilgan joy |
-  | `registration_region` / `registration_district` / `registration_address` | string | Ro'yxat joyi |
+
+  | `additional_visa_country_id` | int | Qo''shimcha viza davlati ID |
+
+  | `birth_region` / `birth_district` / `birth_address` | string | Tug''ilgan joy
+  |
+
+  | `registration_region` / `registration_district` / `registration_address` | string
+  | Ro''yxat joyi |
+
   | `postal_code` | string | Pochta indeksi |
+
   | `registration_date` | date | `YYYY-MM-DD` |
+
   | `marital_status` | string | `single` \| `married` \| `divorced` \| `widowed` |
+
 
   ### 📤 Response
 
+
   `GET /mobile/cv` bilan bir xil (yangilangan).
+
 
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
-  | `400` | Validatsiya xatosi (noto'g'ri `marital_status` va h.k.) |
-  | `401` | Token yo'q |
+
+  | `400` | Validatsiya xatosi (noto''g''ri `marital_status` va h.k.) |
+
+  | `401` | Token yo''q |
+
   | `404` | Nomzod topilmadi |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

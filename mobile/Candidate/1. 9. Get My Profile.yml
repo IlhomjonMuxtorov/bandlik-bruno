@@ -8,52 +8,84 @@ http:
   headers:
   - name: Accept
     value: application/json
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Ro'yxatdan o'tgan nomzodning o'z profili va **MVD** dan olingan pasport ma'lumotlarini qaytaradi.
+  auth: inherit
+docs: 'Ro''yxatdan o''tgan nomzodning o''z profili va **MVD** dan olingan pasport
+  ma''lumotlarini qaytaradi.
+
 
   > Faqat `TYPE_CANDIDATE` (`type=4`) foydalanuvchilar uchun.
 
+
   **Auth:** `access_token`.
+
 
   ### 📋 Headers
 
+
   | Header | Required | Description |
+
   |---|:---:|---|
+
   | `Authorization` | ✅ | `Bearer {access_token}` |
+
 
   ### 📤 Response
 
+
   | Field | Type | Description |
+
   |---|---|---|
+
   | `id` | int | Foydalanuvchi ID |
-  | `phone` | string \| null | E.164 (`+998XXXXXXXXX`). `null` — hali tasdiqlanmagan |
+
+  | `phone` | string \| null | E.164 (`+998XXXXXXXXX`). `null` — hali tasdiqlanmagan
+  |
+
   | `passport_series` | string \| null | 2 harf (`AA`) |
+
   | `passport_number` | string \| null | 7 raqam (`1234567`) |
+
   | `birth_date` | string \| null | `YYYY-MM-DD` |
+
   | `is_verified` | bool | Pasport MVD orqali tasdiqlangan |
+
   | `status` | int | `1`=aktiv, `2`=nofaol, `3`=mehmon |
+
   | `full_name_latin` | string \| null | MVD: `SURNAME NAME` lotin |
-  | `full_name_cyrillic` | string \| null | MVD: kirill harflarda to'liq ism |
+
+  | `full_name_cyrillic` | string \| null | MVD: kirill harflarda to''liq ism |
+
   | `pinpp` | string \| null | Shaxsiy ID raqami (14 raqam) |
+
   | `nationality` | string \| null | Millati (MVD) |
+
   | `citizenship` | string \| null | Fuqaroligi (MVD) |
+
   | `sex` | string \| null | `male` \| `female` |
-  | `photo_url` | string \| null | Pasport rasmi URL. `null` — MVD da rasm yo'q |
+
+  | `photo_url` | string \| null | Pasport rasmi URL. `null` — MVD da rasm yo''q |
+
   | `passport_issued_by` | string \| null | Pasport bergan organ nomi |
+
   | `passport_valid_from` | string \| null | Berilgan sana (`YYYY-MM-DD`) |
+
   | `passport_valid_until` | string \| null | Amal qilish muddati (`YYYY-MM-DD`) |
+
   | `created_at` | int | Hisob yaratilgan vaqt (UNIX) |
+
 
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
-  | `401` | `access_token` yo'q yoki muddati o'tgan |
+
+  | `401` | `access_token` yo''q yoki muddati o''tgan |
+
   | `403` | Foydalanuvchi `TYPE_CANDIDATE` emas |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

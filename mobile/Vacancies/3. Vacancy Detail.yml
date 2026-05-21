@@ -8,46 +8,78 @@ http:
   headers:
   - name: Accept-Language
     value: uz
-  auth: inherit
-docs: |
-  Tasdiqlangan vakansiyaning to'liq tafsiloti. **Har chaqiriqda `views_count` atomik 1 ga oshadi.**
+  auth:
+    type: none
+docs: 'Tasdiqlangan vakansiyaning to''liq tafsiloti. **Har chaqiriqda `views_count`
+  atomik 1 ga oshadi.**
+
 
   **Auth:** ochiq.
 
+
   ### 📋 Headers
 
+
   | Header | Required | Description |
+
   |---|:---:|---|
+
   | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz`. |
+
 
   ### 📤 Response
 
-  List item maydonlariga qo'shimcha:
+
+  List item maydonlariga qo''shimcha:
+
 
   | Field | Type | Description |
+
   |---|---|---|
+
   | `description` | string \| null | HTML/markdown matn |
+
   | `experience_level` | string | `any` \| `junior` \| `mid` \| `senior` |
+
   | `experience_level_label` | string | Lokalizatsiyalangan |
+
   | `duration_months_min` / `_max` | int \| null | Ish davomiyligi |
+
   | `work_schedule` / `_label` | string \| null | `5_2` / `Shift` ... |
+
   | `work_time_from` / `_to` | string \| null | `HH:MM` |
-  | `address` | string \| null | `null` agar `hide_address_from_clients` true bo'lsa |
-  | `requirements` | array | `[{id, title, description, is_required, sort_order}]` |
+
+  | `address` | string \| null | `null` agar `hide_address_from_clients` true bo''lsa
+  |
+
+  | `requirements` | array | `[{id, title, description, is_required, sort_order}]`
+  |
+
   | `benefits` | array | `[{id, title, description, sort_order}]` |
+
   | `documents` | array | `[{id, title, allowed_mime, is_required}]` |
+
   | `services` | array | Biriktirilgan xizmatlar (snapshot narxli) |
-  | `services_by_category` | object | Kategoriya bo'yicha guruhlangan |
-  | `payment_steps` | array | To'lov tartibi (drag-reorder) |
+
+  | `services_by_category` | object | Kategoriya bo''yicha guruhlangan |
+
+  | `payment_steps` | array | To''lov tartibi (drag-reorder) |
+
   | `total_service_amount` | int | Jami xizmat summasi (UZS) |
-  | `single_payment` | bool | `1 tada 100% lik to'lov` toggle |
+
+  | `single_payment` | bool | `1 tada 100% lik to''lov` toggle |
+
 
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
+
   | `404` | Vakansiya topilmadi yoki `approved` emas |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

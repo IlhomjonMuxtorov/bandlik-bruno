@@ -5,14 +5,13 @@ info:
 http:
   method: GET
   url: '{{base_url}}/admin/vacancy-templates'
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Shablonlar ro'yxati. Admin barchasini, org foydalanuvchi faqat o'zinikini.
+  auth: inherit
+docs: 'Shablonlar ro''yxati. Admin barchasini, org foydalanuvchi faqat o''zinikini.
+
 
   **Auth:** Admin yoki org foydalanuvchi.
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

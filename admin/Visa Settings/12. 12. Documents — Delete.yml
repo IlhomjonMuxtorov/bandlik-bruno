@@ -5,14 +5,13 @@ info:
 http:
   method: DELETE
   url: '{{base_url}}/admin/visa-documents/1'
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Zarur hujjatni o'chiradi.
+  auth: inherit
+docs: 'Zarur hujjatni o''chiradi.
+
 
   **Auth:** `admin_token`.
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

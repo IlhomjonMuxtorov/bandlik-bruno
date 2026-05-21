@@ -10,30 +10,45 @@ http:
     value: application/json
   - name: Accept-Language
     value: uz
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Nomzodning **ta'lim ro'yxati**.
+  auth: inherit
+docs: 'Nomzodning **ta''lim ro''yxati**.
+
 
   **Auth:** `access_token`.
 
+
   ### 📤 Response *(massiv elementi)*
 
-  | Field | Type | Description |
-  |---|---|---|
-  | `id` | int | Ta'lim ID |
-  | `education_level` | object | `{ id, code, name }` |
-  | `institution_name` | string | O'quv muassasasi |
-  | `faculty` | string \| null | Fakultet |
-  | `specialty` | string \| null | Mutaxassislik |
-  | `start_date` | date | `YYYY-MM-DD` |
-  | `end_date` | date \| null | `null` — hozir o'qiyapti |
-  | `is_current` | bool | Hozir o'qiyaptimi |
-  | `diploma_file_url` | string \| null | Diplom fayl URL |
-  | `diploma_file_kind` | string \| null | `pdf` \| `image` \| `word` \| `excel` \| `other` |
-  | `diploma_file_kind_icon_url` | string \| null | Standart ikonkaga to'liq URL |
 
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `id` | int | Ta''lim ID |
+
+  | `education_level` | object | `{ id, code, name }` |
+
+  | `institution_name` | string | O''quv muassasasi |
+
+  | `faculty` | string \| null | Fakultet |
+
+  | `specialty` | string \| null | Mutaxassislik |
+
+  | `start_date` | date | `YYYY-MM-DD` |
+
+  | `end_date` | date \| null | `null` — hozir o''qiyapti |
+
+  | `is_current` | bool | Hozir o''qiyaptimi |
+
+  | `diploma_file_url` | string \| null | Diplom fayl URL |
+
+  | `diploma_file_kind` | string \| null | `pdf` \| `image` \| `word` \| `excel` \|
+  `other` |
+
+  | `diploma_file_kind_icon_url` | string \| null | Standart ikonkaga to''liq URL
+  |
+
+  '
 settings:
   encodeUrl: true
   timeout: 0

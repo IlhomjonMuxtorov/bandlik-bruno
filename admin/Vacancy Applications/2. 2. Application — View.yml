@@ -5,21 +5,25 @@ info:
 http:
   method: GET
   url: '{{base_url}}/admin/vacancy-applications/1'
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Ariza tafsiloti.
+  auth: inherit
+docs: 'Ariza tafsiloti.
+
 
   **Auth:** Admin yoki vakansiya egasi.
 
+
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
+
   | `404` | Ariza topilmadi |
+
   | `403` | Boshqa tashkilot |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

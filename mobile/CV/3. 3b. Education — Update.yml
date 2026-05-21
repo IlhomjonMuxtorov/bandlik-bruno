@@ -14,23 +14,30 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"education_level_id\": 4,\n    \"institution_name\": \"INHA University\",\n    \"start_date\": \"2022-09-01\"\n}"
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Mavjud ta'limni yangilash. Maydonlar tarkibi `POST` bilan bir xil (`diploma_file_id` ham kiradi). Faqat o'z resurslari.
+    data: "{\n    \"education_level_id\": 4,\n    \"institution_name\": \"INHA University\"\
+      ,\n    \"start_date\": \"2022-09-01\"\n}"
+  auth: inherit
+docs: 'Mavjud ta''limni yangilash. Maydonlar tarkibi `POST` bilan bir xil (`diploma_file_id`
+  ham kiradi). Faqat o''z resurslari.
+
 
   **Auth:** `access_token`.
 
+
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
+
   | `400` | Validatsiya |
+
   | `403` | Boshqa nomzodning resursi |
+
   | `404` | Topilmadi |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

@@ -11,7 +11,8 @@ http:
   body:
     type: json
     data: "{\n  \"login\": \"admin\",\n  \"password\": \"secret\"\n}"
-  auth: inherit
+  auth:
+    type: none
 docs: |
   Admin paneliga login/parol orqali kirish. Muvaffaqiyatli bo'lsa JWT qaytaradi.
 

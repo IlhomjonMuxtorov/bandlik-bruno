@@ -11,36 +11,52 @@ http:
   body:
     type: json
     data: "{\n  \"device_id\": \"{{device_id}}\"\n}"
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Joriy qurilmaning barcha aktiv `refresh_token` larini server tomonida bekor qiladi.
+  auth: inherit
+docs: 'Joriy qurilmaning barcha aktiv `refresh_token` larini server tomonida bekor
+  qiladi.
 
-  > Ilova o'z tomonida ham `access_token` va `refresh_token` ni o'chirishi kerak.
+
+  > Ilova o''z tomonida ham `access_token` va `refresh_token` ni o''chirishi kerak.
+
 
   **Auth:** `access_token` majburiy.
 
+
   ### 📥 Request Body
 
+
   | Field | Type | Required | Description |
+
   |---|---|:---:|---|
-  | `device_id` | string | ✅ | `register-guest` da yuborilgan UUID. Shu user+device juftligidagi barcha refresh tokenlar revoke qilinadi. |
+
+  | `device_id` | string | ✅ | `register-guest` da yuborilgan UUID. Shu user+device
+  juftligidagi barcha refresh tokenlar revoke qilinadi. |
+
 
   ### 📤 Response
 
+
   | Field | Type | Description |
+
   |---|---|---|
+
   | `message` | string | `Logged out successfully.` |
+
 
   ### ⚠️ Errors
 
-  | Code | Reason |
-  |---|---|
-  | `400` | `device_id` bo'sh yoki ko'rsatilmagan |
-  | `401` | `access_token` yo'q yoki muddati o'tgan |
-  | `404` | Bu user uchun ko'rsatilgan qurilmada aktiv sessiya topilmadi |
 
+  | Code | Reason |
+
+  |---|---|
+
+  | `400` | `device_id` bo''sh yoki ko''rsatilmagan |
+
+  | `401` | `access_token` yo''q yoki muddati o''tgan |
+
+  | `404` | Bu user uchun ko''rsatilgan qurilmada aktiv sessiya topilmadi |
+
+  '
 settings:
   encodeUrl: true
   timeout: 0

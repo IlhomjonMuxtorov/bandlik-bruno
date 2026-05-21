@@ -5,14 +5,13 @@ info:
 http:
   method: DELETE
   url: '{{base_url}}/admin/countries/1'
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Davlatni o'chiradi.
+  auth: inherit
+docs: 'Davlatni o''chiradi.
+
 
   **Auth:** `admin_token`.
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

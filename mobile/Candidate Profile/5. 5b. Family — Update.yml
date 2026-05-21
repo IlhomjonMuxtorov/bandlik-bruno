@@ -14,15 +14,15 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"relationship\": \"father\",\n    \"full_name\": \"Rustamov Shavkat Karimovich\",\n    \"birth_date\": \"1965-04-20\"\n}"
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Oila a'zosini yangilash. Maydonlar `create` bilan bir xil.
+    data: "{\n    \"relationship\": \"father\",\n    \"full_name\": \"Rustamov Shavkat\
+      \ Karimovich\",\n    \"birth_date\": \"1965-04-20\"\n}"
+  auth: inherit
+docs: 'Oila a''zosini yangilash. Maydonlar `create` bilan bir xil.
+
 
   **Auth:** `access_token`.
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

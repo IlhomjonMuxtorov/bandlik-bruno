@@ -10,30 +10,50 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"name\": \"Abdiraxmanova Sadoqat Sulaymanovna xususiy insurance\",\n  \"brand_name\": \"CREDO CONSULTING MChJ\",\n  \"legal_name\": \"CREDO CONSULTING OOO\",\n  \"description\": \"Notarial xizmatlar va hujjat tasdiqlash\",\n  \"license_number\": \"INS-001-2026\",\n  \"region_id\": 10,\n  \"district_id\": 1001,\n  \"address\": \"Toshkent sh., Yakkasaroy tumani, At-Termiziy ko'chasi 51/136\",\n  \"phone\": \"+998944452323\",\n  \"email\": \"construction.global@gmail.com\",\n  \"website_url\": \"https://credoconsultion.uz\",\n  \"responsible_person\": \"Sardor Karimov\",\n  \"login\": \"insurance_credo\",\n  \"password\": \"secret123\",\n  \"telegram_url\": \"https://t.me/credo\",\n  \"instagram_url\": \"https://instagram.com/credo\",\n  \"facebook_url\": \"https://facebook.com/credo\",\n  \"is_active\": 1,\n  \"license_file_id\": 10,\n  \"logo_id\": 11\n}"
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Yangi Sug'urta tashkilotini yaratadi. `application/json` so'rov — xatti-harakat XBA `Create` bilan bir xil, yagona farq: `type = 4`.
+    data: "{\n  \"name\": \"Abdiraxmanova Sadoqat Sulaymanovna xususiy insurance\"\
+      ,\n  \"brand_name\": \"CREDO CONSULTING MChJ\",\n  \"legal_name\": \"CREDO CONSULTING\
+      \ OOO\",\n  \"description\": \"Notarial xizmatlar va hujjat tasdiqlash\",\n\
+      \  \"license_number\": \"INS-001-2026\",\n  \"region_id\": 10,\n  \"district_id\"\
+      : 1001,\n  \"address\": \"Toshkent sh., Yakkasaroy tumani, At-Termiziy ko'chasi\
+      \ 51/136\",\n  \"phone\": \"+998944452323\",\n  \"email\": \"construction.global@gmail.com\"\
+      ,\n  \"website_url\": \"https://credoconsultion.uz\",\n  \"responsible_person\"\
+      : \"Sardor Karimov\",\n  \"login\": \"insurance_credo\",\n  \"password\": \"\
+      secret123\",\n  \"telegram_url\": \"https://t.me/credo\",\n  \"instagram_url\"\
+      : \"https://instagram.com/credo\",\n  \"facebook_url\": \"https://facebook.com/credo\"\
+      ,\n  \"is_active\": 1,\n  \"license_file_id\": 10,\n  \"logo_id\": 11\n}"
+  auth: inherit
+docs: 'Yangi Sug''urta tashkilotini yaratadi. `application/json` so''rov — xatti-harakat
+  XBA `Create` bilan bir xil, yagona farq: `type = 4`.
+
 
   **Auth:** `admin_token`.
 
+
   ### 📥 Request Body
 
-  XBA `Create` endpointidagi to'liq ro'yxat. Fayl maydonlari: `license_file_id`, `logo_id` (oldindan `/admin/upload` orqali yuklangan fayl ID).
+
+  XBA `Create` endpointidagi to''liq ro''yxat. Fayl maydonlari: `license_file_id`,
+  `logo_id` (oldindan `/admin/upload` orqali yuklangan fayl ID).
+
 
   ### 📤 Response
 
+
   `201` — `OrganizationOutputDTO` (`type = 4`).
+
 
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
+
   | `422` | Validatsiya xatosi |
+
   | `400` | Fayl ID topilmadi yoki `status=uploading` |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

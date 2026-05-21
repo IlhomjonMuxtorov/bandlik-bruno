@@ -5,24 +5,30 @@ info:
 http:
   method: DELETE
   url: '{{base_url}}/admin/xba/1'
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  **Soft delete** — XBA `is_active = false`, bog'liq `User.status = STATUS_INACTIVE`. Fayllar saqlanib qoladi. Hard delete kelajakda alohida endpointda qo'shiladi.
+  auth: inherit
+docs: '**Soft delete** — XBA `is_active = false`, bog''liq `User.status = STATUS_INACTIVE`.
+  Fayllar saqlanib qoladi. Hard delete kelajakda alohida endpointda qo''shiladi.
+
 
   **Auth:** `admin_token`.
 
+
   ### 📤 Response
+
 
   `200`, `data = null`, `message = "XBA organization deleted"`.
 
+
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
+
   | `404` | XBA topilmadi |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

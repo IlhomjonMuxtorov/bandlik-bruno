@@ -14,41 +14,65 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"type\": \"code_95\",\n    \"title\": \"Kod 95\",\n    \"certificate_number\": \"CRT-2024-001\",\n    \"issue_date\": \"2024-01-15\",\n    \"expiry_date\": \"2029-01-15\",\n    \"file_id\": 42\n}"
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Haydovchilik sertifikati qo'shish (Code 95, ADR, Chip card va h.k.).
+    data: "{\n    \"type\": \"code_95\",\n    \"title\": \"Kod 95\",\n    \"certificate_number\"\
+      : \"CRT-2024-001\",\n    \"issue_date\": \"2024-01-15\",\n    \"expiry_date\"\
+      : \"2029-01-15\",\n    \"file_id\": 42\n}"
+  auth: inherit
+docs: 'Haydovchilik sertifikati qo''shish (Code 95, ADR, Chip card va h.k.).
+
 
   **Auth:** `access_token`.
 
+
   ### 📥 Request Body
 
+
   | Field | Type | Required | Description |
+
   |---|---|:---:|---|
+
   | `type` | string | ✅ | `code_95` \| `adr` \| `chip_card` |
+
   | `title` | string | ✅ | Sertifikat nomi |
+
   | `certificate_number` | string | ➖ | Raqam |
+
   | `issue_date` | date | ➖ | Berilgan sana |
+
   | `expiry_date` | date | ➖ | Amal qilish muddati |
+
   | `file_id` | int | ➖ | `/mobile/upload` orqali yuklangan sertifikat fayl ID |
+
 
   ### 📤 Response
 
-  | Field | Type | Description |
-  |---|---|---|
-  | `id` | int | Sertifikat ID |
-  | `type` | string | `code_95` \| `adr` \| `chip_card` |
-  | `title` | string | Sertifikat nomi |
-  | `certificate_number` | string \| null | Raqam |
-  | `issue_date` | date \| null | Berilgan sana |
-  | `expiry_date` | date \| null | Amal qilish muddati |
-  | `file_url` | string \| null | Fayl URL (upload_file'dan) |
-  | `file_size` | int \| null | Fayl hajmi (bayt) |
-  | `file_kind` | string \| null | `pdf` \| `image` \| `word` \| `excel` \| `other` |
-  | `file_kind_icon_url` | string \| null | Standart ikonkaga to'liq URL |
 
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `id` | int | Sertifikat ID |
+
+  | `type` | string | `code_95` \| `adr` \| `chip_card` |
+
+  | `title` | string | Sertifikat nomi |
+
+  | `certificate_number` | string \| null | Raqam |
+
+  | `issue_date` | date \| null | Berilgan sana |
+
+  | `expiry_date` | date \| null | Amal qilish muddati |
+
+  | `file_url` | string \| null | Fayl URL (upload_file''dan) |
+
+  | `file_size` | int \| null | Fayl hajmi (bayt) |
+
+  | `file_kind` | string \| null | `pdf` \| `image` \| `word` \| `excel` \| `other`
+  |
+
+  | `file_kind_icon_url` | string \| null | Standart ikonkaga to''liq URL |
+
+  '
 settings:
   encodeUrl: true
   timeout: 0

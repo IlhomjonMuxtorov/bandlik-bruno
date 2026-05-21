@@ -10,37 +10,55 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"organization_id\": 1,\n  \"full_name\": \"Rustam Qodirov\",\n  \"phone\": \"+998942030000\",\n  \"role\": \"XBA agenti 1\",\n  \"is_active\": 1\n}"
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Yangi xodim qo'shadi. `joined_at` yuborilmasa hozirgi vaqt sifatida o'rnatiladi.
+    data: "{\n  \"organization_id\": 1,\n  \"full_name\": \"Rustam Qodirov\",\n  \"\
+      phone\": \"+998942030000\",\n  \"role\": \"XBA agenti 1\",\n  \"is_active\"\
+      : 1\n}"
+  auth: inherit
+docs: 'Yangi xodim qo''shadi. `joined_at` yuborilmasa hozirgi vaqt sifatida o''rnatiladi.
+
 
   **Auth:** `admin_token`.
 
+
   ### 📥 Request Body (JSON)
 
+
   | Field | Type | Required | Description |
+
   |---|---|:---:|---|
+
   | `organization_id` | int | ✅ | Visa `organization.id` (type = 2) |
+
   | `user_id` | int | ➖ | Agar xodim alohida login olsa |
+
   | `full_name` | string | ✅ | Max 200 |
+
   | `phone` | string | ➖ | Max 20 |
-  | `role` | string | ✅ | "XBA agenti 1", "XBA admin", ... (max 50, erkin string) |
+
+  | `role` | string | ✅ | "XBA agenti 1", "XBA admin", ... (max 50, erkin string)
+  |
+
   | `joined_at` | int | ➖ | Unix timestamp. Default = hozir |
+
   | `is_active` | bool (0\|1) | ➖ | Default `1` |
+
 
   ### 📤 Response
 
+
   `201` — `OrganizationEmployeeOutputDTO`.
+
 
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
+
   | `422` | Validatsiya xatosi |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

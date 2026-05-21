@@ -14,29 +14,39 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"full_name\": \"Karimova Dilshoda\",\n    \"birth_date\": \"1995-08-10\",\n    \"marriage_date\": \"2020-09-15\"\n}"
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Turmush o'rtog'i yozuvini yaratish yoki yangilash (`PUT` — upsert).
+    data: "{\n    \"full_name\": \"Karimova Dilshoda\",\n    \"birth_date\": \"1995-08-10\"\
+      ,\n    \"marriage_date\": \"2020-09-15\"\n}"
+  auth: inherit
+docs: 'Turmush o''rtog''i yozuvini yaratish yoki yangilash (`PUT` — upsert).
+
 
   **Auth:** `access_token`.
 
+
   ### 📥 Request Body
 
+
   | Field | Type | Required | Description |
+
   |---|---|:---:|---|
-  | `full_name` | string | ✅ | To'liq ism |
+
+  | `full_name` | string | ✅ | To''liq ism |
+
   | `birth_date` | date | ✅ | `YYYY-MM-DD` |
+
   | `marriage_date` | date | ➖ | Nikoh sanasi |
+
 
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
+
   | `400` | `candidate.marital_status` ≠ `married` |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

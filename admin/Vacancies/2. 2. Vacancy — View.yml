@@ -8,38 +8,60 @@ http:
   headers:
   - name: Accept-Language
     value: uz
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Vakansiyaning to'liq tafsiloti — wizard tahrirlash uchun barcha bosqich ma'lumotlari.
+  auth: inherit
+docs: 'Vakansiyaning to''liq tafsiloti — wizard tahrirlash uchun barcha bosqich ma''lumotlari.
+
 
   **Auth:** `admin_token` yoki vakansiya egasi.
 
+
   ### 📤 Response (`data`)
 
+
   | Field | Type | Description |
+
   |---|---|---|
+
   | `id` | int | |
+
   | `status` / `status_label` | string | `draft` ... |
-  | `organization` / `recruiter` / `industry` / `country` / `city` | object \| null | Bog'liq entitylar |
-  | `experience_level_label` / `employment_type_label` / `work_schedule_label` | string | Lokalizatsiyalangan |
-  | `requirements` | array | `[{id, title, description, is_required, sort_order}]` |
+
+  | `organization` / `recruiter` / `industry` / `country` / `city` | object \| null
+  | Bog''liq entitylar |
+
+  | `experience_level_label` / `employment_type_label` / `work_schedule_label` | string
+  | Lokalizatsiyalangan |
+
+  | `requirements` | array | `[{id, title, description, is_required, sort_order}]`
+  |
+
   | `benefits` | array | `[{id, title, description, sort_order}]` |
+
   | `documents` | array | `[{id, title, allowed_mime, is_required, sort_order}]` |
+
   | `services` | array | Biriktirilgan xizmatlar (snapshot) |
-  | `services_by_category` | object | Kategoriya bo'yicha guruhlangan |
-  | `payment_steps` | array | Drag-reorder qilinadigan to'lovlar |
-  | `total_service_amount` | int | Snapshot narxlar yig'indisi (UZS) |
-  | `single_payment` | bool | `1 tada 100% lik to'lov` rejimi |
+
+  | `services_by_category` | object | Kategoriya bo''yicha guruhlangan |
+
+  | `payment_steps` | array | Drag-reorder qilinadigan to''lovlar |
+
+  | `total_service_amount` | int | Snapshot narxlar yig''indisi (UZS) |
+
+  | `single_payment` | bool | `1 tada 100% lik to''lov` rejimi |
+
 
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
+
   | `404` | Vakansiya topilmadi |
+
   | `403` | Boshqa tashkilotning vakansiyasi |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

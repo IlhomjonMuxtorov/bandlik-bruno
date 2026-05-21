@@ -10,36 +10,54 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"organization_id\": 1,\n  \"name\": \"Hujjatlarni notarial tasdiqlash\",\n  \"description\": \"Pasport nusxasi, diplom, sertifikat va boshqa hujjatlarni tasdiqlash\",\n  \"price\": 123456000,\n  \"is_active\": 1,\n  \"sort_order\": 0\n}"
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Yangi Visa xizmatini yaratadi.
+    data: "{\n  \"organization_id\": 1,\n  \"name\": \"Hujjatlarni notarial tasdiqlash\"\
+      ,\n  \"description\": \"Pasport nusxasi, diplom, sertifikat va boshqa hujjatlarni\
+      \ tasdiqlash\",\n  \"price\": 123456000,\n  \"is_active\": 1,\n  \"sort_order\"\
+      : 0\n}"
+  auth: inherit
+docs: 'Yangi Visa xizmatini yaratadi.
+
 
   **Auth:** `admin_token`.
 
+
   ### 📥 Request Body (JSON)
 
+
   | Field | Type | Required | Description |
+
   |---|---|:---:|---|
-  | `organization_id` | int | ✅ | Visa `organization.id` (type = 2 bo'lishi shart) |
+
+  | `organization_id` | int | ✅ | Visa `organization.id` (type = 2 bo''lishi shart)
+  |
+
   | `name` | string | ✅ | Max 200 |
+
   | `description` | string | ➖ | |
-  | `price` | int | ✅ | UZS so'mda (≥0) |
+
+  | `price` | int | ✅ | UZS so''mda (≥0) |
+
   | `is_active` | bool (0\|1) | ➖ | Default `1` |
+
   | `sort_order` | int | ➖ | Default `0` |
+
 
   ### 📤 Response
 
+
   `201` — `OrganizationServiceOutputDTO`.
+
 
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
+
   | `422` | Validatsiya xatosi (`organization_id` topilmadi yoki type mismatch) |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

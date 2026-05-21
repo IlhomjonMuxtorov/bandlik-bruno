@@ -8,57 +8,97 @@ http:
   headers:
   - name: Accept-Language
     value: uz
-  auth: inherit
-docs: |
-  Tasdiqlangan (`status=approved`) vakansiyalar ro'yxati. `published_at DESC` bo'yicha saralanadi.
+  auth:
+    type: none
+docs: 'Tasdiqlangan (`status=approved`) vakansiyalar ro''yxati. `published_at DESC`
+  bo''yicha saralanadi.
+
 
   **Auth:** ochiq.
 
+
   ### 🔎 Query Parameters
 
+
   | Param | Type | Required | Description |
+
   |---|---|:---:|---|
-  | `q` | string | ➖ | Sarlavha bo'yicha qidiruv (ILIKE). |
+
+  | `q` | string | ➖ | Sarlavha bo''yicha qidiruv (ILIKE). |
+
   | `country_id` | int | ➖ | Davlat ID. |
+
   | `city_id` | int | ➖ | Shahar ID. |
+
   | `industry_id` | int | ➖ | Soha ID. |
-  | `employment_type` | string | ➖ | `full_time` \| `part_time` \| `shift` \| `contract` \| `internship`. |
+
+  | `employment_type` | string | ➖ | `full_time` \| `part_time` \| `shift` \| `contract`
+  \| `internship`. |
+
   | `experience_level` | string | ➖ | `any` \| `junior` \| `mid` \| `senior`. |
+
   | `per-page` | int | ➖ | 1..100, default 20. |
+
   | `page` | int | ➖ | Sahifa raqami. |
+
 
   ### 📋 Headers
 
+
   | Header | Required | Description |
+
   |---|:---:|---|
+
   | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz`. |
+
 
   ### 📤 Response
 
-  Massiv (mobile format — metadata yo'q). Har bir element:
+
+  Massiv (mobile format — metadata yo''q). Har bir element:
+
 
   | Field | Type | Description |
+
   |---|---|---|
+
   | `id` | int | Vacancy ID |
+
   | `title` | string | Sarlavha |
+
   | `status` | string | `approved` |
+
   | `organization` | object | `{ id, name, logo_url }` |
+
   | `recruiter` | object \| null | `{ id, name }` |
+
   | `industry` | object \| null | `{ id, name }` |
+
   | `country` | object | `{ id, name, flag_url }` |
+
   | `city` | object \| null | `{ id, name }` |
+
   | `employment_type` | string | `full_time` ... |
+
   | `hiring_quota` | int | Necha kishi kerak |
+
   | `salary` | object | `{ gross, gross_currency, net, net_currency }` |
+
   | `applications_count` | int | Ariza soni |
+
   | `published_at` | int | Unix timestamp |
+
 
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
+
   | `500` | Server xatosi |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

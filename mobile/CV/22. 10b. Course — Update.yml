@@ -14,15 +14,16 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"course_name\": \"Kompyuter bilimlari kursi (yangilangan)\",\n    \"institution_name\": \"Najot Ta'lim\",\n    \"start_date\": \"2023-03-01\"\n}"
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Kursni yangilash. Maydonlar `create` bilan bir xil.
+    data: "{\n    \"course_name\": \"Kompyuter bilimlari kursi (yangilangan)\",\n\
+      \    \"institution_name\": \"Najot Ta'lim\",\n    \"start_date\": \"2023-03-01\"\
+      \n}"
+  auth: inherit
+docs: 'Kursni yangilash. Maydonlar `create` bilan bir xil.
+
 
   **Auth:** `access_token`.
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

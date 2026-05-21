@@ -10,15 +10,16 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"name\": {\"uz\": \"Viza olinmay kirish\", \"ru\": \"Безвизовый въезд\", \"en\": \"Visa-free entry\"},\n  \"description\": {\"uz\": \"90 kun boqiy\", \"ru\": \"90 дней пребывания\", \"en\": \"90 days stay\"}\n}"
-  auth:
-    mode: bearer
-    bearer: '{{admin_token}}'
-docs: |
-  Yangi viza imtiyozi qo'shadi.
+    data: "{\n  \"name\": {\"uz\": \"Viza olinmay kirish\", \"ru\": \"Безвизовый въезд\"\
+      , \"en\": \"Visa-free entry\"},\n  \"description\": {\"uz\": \"90 kun boqiy\"\
+      , \"ru\": \"90 дней пребывания\", \"en\": \"90 days stay\"}\n}"
+  auth: inherit
+docs: 'Yangi viza imtiyozi qo''shadi.
+
 
   **Auth:** `admin_token`.
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

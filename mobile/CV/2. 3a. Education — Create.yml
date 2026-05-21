@@ -14,35 +14,54 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"education_level_id\": 3,\n    \"institution_name\": \"INHA University\",\n    \"faculty\": \"Axborot texnologiyalari\",\n    \"specialty\": \"Axborot xavfsizligi\",\n    \"start_date\": \"2022-09-01\",\n    \"end_date\": \"2026-06-30\"\n}"
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Yangi ta'lim qo'shish.
+    data: "{\n    \"education_level_id\": 3,\n    \"institution_name\": \"INHA University\"\
+      ,\n    \"faculty\": \"Axborot texnologiyalari\",\n    \"specialty\": \"Axborot\
+      \ xavfsizligi\",\n    \"start_date\": \"2022-09-01\",\n    \"end_date\": \"\
+      2026-06-30\"\n}"
+  auth: inherit
+docs: 'Yangi ta''lim qo''shish.
+
 
   **Auth:** `access_token`.
 
+
   ### 📥 Request Body
 
+
   | Field | Type | Required | Description |
+
   |---|---|:---:|---|
+
   | `education_level_id` | int | ✅ | Reference: education-levels |
-  | `institution_name` | string | ✅ | O'quv muassasasi |
+
+  | `institution_name` | string | ✅ | O''quv muassasasi |
+
   | `faculty` | string | ➖ | Fakultet |
+
   | `specialty` | string | ➖ | Mutaxassislik |
+
   | `start_date` | date | ✅ | `YYYY-MM-DD` |
-  | `end_date` | date | ➖ | `null` — hozir o'qiyapti |
-  | `diploma_file_id` | int | ➖ | `/mobile/upload` orqali yuklangan diplom fayl ID |
+
+  | `end_date` | date | ➖ | `null` — hozir o''qiyapti |
+
+  | `diploma_file_id` | int | ➖ | `/mobile/upload` orqali yuklangan diplom fayl ID
+  |
+
 
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
+
   | `400` | Validatsiya |
-  | `401` | Token yo'q |
+
+  | `401` | Token yo''q |
+
   | `404` | Nomzod topilmadi |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0

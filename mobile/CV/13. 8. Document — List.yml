@@ -10,26 +10,36 @@ http:
     value: application/json
   - name: Accept-Language
     value: uz
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Nomzod hujjatlari ro'yxati.
+  auth: inherit
+docs: 'Nomzod hujjatlari ro''yxati.
+
 
   **Auth:** `access_token`.
 
+
   ### 📤 Response *(massiv elementi)*
 
-  | Field | Type | Description |
-  |---|---|---|
-  | `id` | int | Hujjat ID |
-  | `type` | string | `passport_scan` \| `foreign_passport_scan` |
-  | `title` | string | Fayl nomi |
-  | `file_url` | string | Fayl URL |
-  | `file_size` | int \| null | Bayt |
-  | `file_kind` | string \| null | `pdf` \| `image` \| `word` \| `excel` \| `other` |
-  | `file_kind_icon_url` | string \| null | Standart ikonkaga to'liq URL |
 
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `id` | int | Hujjat ID |
+
+  | `type` | string | `passport_scan` \| `foreign_passport_scan` |
+
+  | `title` | string | Fayl nomi |
+
+  | `file_url` | string | Fayl URL |
+
+  | `file_size` | int \| null | Bayt |
+
+  | `file_kind` | string \| null | `pdf` \| `image` \| `word` \| `excel` \| `other`
+  |
+
+  | `file_kind_icon_url` | string \| null | Standart ikonkaga to''liq URL |
+
+  '
 settings:
   encodeUrl: true
   timeout: 0

@@ -10,39 +10,62 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"device_id\": \"{{device_id}}\",\n  \"os\": \"android\",\n  \"fcm_token\": \"new_fcm_token_abc\",\n  \"app_version\": \"1.0.0\",\n  \"language\": \"uz\"\n}"
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Login yoki har bir ilova ishga tushishida chaqiriladi. `device_id` allaqachon mavjud bo'lsa — yangilaydi (**upsert**).
+    data: "{\n  \"device_id\": \"{{device_id}}\",\n  \"os\": \"android\",\n  \"fcm_token\"\
+      : \"new_fcm_token_abc\",\n  \"app_version\": \"1.0.0\",\n  \"language\": \"\
+      uz\"\n}"
+  auth: inherit
+docs: 'Login yoki har bir ilova ishga tushishida chaqiriladi. `device_id` allaqachon
+  mavjud bo''lsa — yangilaydi (**upsert**).
+
 
   **Auth:** `access_token`.
 
+
   ### 📥 Request Body
 
+
   | Field | Type | Required | Description |
+
   |---|---|:---:|---|
-  | `device_id` | string | ✅ | UUID v4. Bir foydalanuvchida bir nechta qurilma bo'lishi mumkin. |
+
+  | `device_id` | string | ✅ | UUID v4. Bir foydalanuvchida bir nechta qurilma bo''lishi
+  mumkin. |
+
   | `os` | string | ✅ | `android` \| `ios` |
-  | `fcm_token` | string | ➖ | Firebase push token. `null` yuborilsa o'zgarmaydi. |
+
+  | `fcm_token` | string | ➖ | Firebase push token. `null` yuborilsa o''zgarmaydi.
+  |
+
   | `app_version` | string | ➖ | Semantic version (`1.2.3`). Force-update uchun. |
-  | `language` | string | ➖ | `uz` \| `ru` \| `en`. `null` yuborilsa o'zgarmaydi. |
+
+  | `language` | string | ➖ | `uz` \| `ru` \| `en`. `null` yuborilsa o''zgarmaydi.
+  |
+
 
   ### 📤 Response
 
+
   | Field | Type | Description |
+
   |---|---|---|
+
   | `registered` | bool | Har doim `true` |
+
 
   ### ⚠️ Errors
 
-  | Code | Reason |
-  |---|---|
-  | `400` | `device_id` yoki `os` ko'rsatilmagan |
-  | `400` | `os` qiymati noto'g'ri |
-  | `401` | `access_token` yo'q yoki muddati o'tgan |
 
+  | Code | Reason |
+
+  |---|---|
+
+  | `400` | `device_id` yoki `os` ko''rsatilmagan |
+
+  | `400` | `os` qiymati noto''g''ri |
+
+  | `401` | `access_token` yo''q yoki muddati o''tgan |
+
+  '
 settings:
   encodeUrl: true
   timeout: 0

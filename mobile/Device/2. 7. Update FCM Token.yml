@@ -10,36 +10,54 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"device_id\": \"{{device_id}}\",\n  \"fcm_token\": \"refreshed_fcm_token_xyz\"\n}"
-  auth:
-    mode: bearer
-    bearer: '{{access_token}}'
-docs: |
-  Firebase tomonidan FCM token yangilanganda chaqiriladi. Faqat `fcm_token` maydonini yangilaydi, boshqa qurilma ma'lumotlari o'zgarmaydi.
+    data: "{\n  \"device_id\": \"{{device_id}}\",\n  \"fcm_token\": \"refreshed_fcm_token_xyz\"\
+      \n}"
+  auth: inherit
+docs: 'Firebase tomonidan FCM token yangilanganda chaqiriladi. Faqat `fcm_token` maydonini
+  yangilaydi, boshqa qurilma ma''lumotlari o''zgarmaydi.
+
 
   **Auth:** `access_token`.
 
+
   ### 📥 Request Body
 
+
   | Field | Type | Required | Description |
+
   |---|---|:---:|---|
-  | `device_id` | string | ✅ | UUID. Qaysi qurilmaning FCM tokeni yangilanishi kerak. |
-  | `fcm_token` | string | ✅ | Yangi Firebase Cloud Messaging token. Bo'sh string ❌. |
+
+  | `device_id` | string | ✅ | UUID. Qaysi qurilmaning FCM tokeni yangilanishi kerak.
+  |
+
+  | `fcm_token` | string | ✅ | Yangi Firebase Cloud Messaging token. Bo''sh string
+  ❌. |
+
 
   ### 📤 Response
 
+
   | Field | Type | Description |
+
   |---|---|---|
+
   | `updated` | bool | Har doim `true` |
+
 
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
-  | `400` | `device_id` yoki `fcm_token` ko'rsatilmagan |
-  | `401` | `access_token` yo'q yoki muddati o'tgan |
+
+  | `400` | `device_id` yoki `fcm_token` ko''rsatilmagan |
+
+  | `401` | `access_token` yo''q yoki muddati o''tgan |
+
   | `404` | `device_id` ushbu foydalanuvchiga tegishli emas |
 
+  '
 settings:
   encodeUrl: true
   timeout: 0
