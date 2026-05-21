@@ -15,28 +15,41 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles POST request.
-  
+  SuperAdmin vakansiyani rad etadi. Sabab (`reason`) majburiy va `rejection_reason` ga saqlanadi. Vakansiya egasi ko'rishi mumkin.
+
+  **Auth:** `admin_token` (faqat `UserType::Admin`).
+
   ### 📥 Request Body
-  
+
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `reason` | string | ✅ | — |
-  
-  ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  | `reason` | string | ✅ | Rad etish sababi (bo'sh emas). |
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `400` | Status `pending_approval` emas yoki `reason` bo'sh |
+  | `403` | Admin emas |
+
+docs: |
+  SuperAdmin vakansiyani rad etadi. Sabab (`reason`) majburiy va `rejection_reason` ga saqlanadi. Vakansiya egasi ko'rishi mumkin.
+
+  **Auth:** `admin_token` (faqat `UserType::Admin`).
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `reason` | string | ✅ | Rad etish sababi (bo'sh emas). |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Status `pending_approval` emas yoki `reason` bo'sh |
+  | `403` | Admin emas |
+
 settings:
   encodeUrl: true
   timeout: 0

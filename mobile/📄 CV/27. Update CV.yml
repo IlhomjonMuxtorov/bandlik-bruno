@@ -19,29 +19,59 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles PATCH request.
-  
+  CV meta ma'lumotlarini yangilash (title, summary, target, photo, is_primary).
+
+  **Auth:** `access_token`.
+
   ### 📥 Request Body
-  
+
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `title` | string | ✅ | — |
-  | `target_profession` | string | ✅ | — |
-  
+  | `title` | string | ✅ | CV nomi |
+  | `summary` | string \| null | ➖ | Tavsif |
+  | `target_profession` | string \| null | ➖ | Maqsadli ixtisos |
+  | `target_country_id` | int \| null | ➖ | `country.id` |
+  | `photo_url` | string \| null | ➖ | CV rasm override |
+  | `is_primary` | bool \| null | ➖ | `true` bo'lsa boshqa CV-larda `is_primary` avtomatik `false` bo'ladi |
+
   ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+
+  To'liq CV (`/cv/{id}` formatida).
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `400` | Validatsiya xatosi |
+  | `404` | CV topilmadi |
+
+docs: |
+  CV meta ma'lumotlarini yangilash (title, summary, target, photo, is_primary).
+
+  **Auth:** `access_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `title` | string | ✅ | CV nomi |
+  | `summary` | string \| null | ➖ | Tavsif |
+  | `target_profession` | string \| null | ➖ | Maqsadli ixtisos |
+  | `target_country_id` | int \| null | ➖ | `country.id` |
+  | `photo_url` | string \| null | ➖ | CV rasm override |
+  | `is_primary` | bool \| null | ➖ | `true` bo'lsa boshqa CV-larda `is_primary` avtomatik `false` bo'ladi |
+
+  ### 📤 Response
+
+  To'liq CV (`/cv/{id}` formatida).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Validatsiya xatosi |
+  | `404` | CV topilmadi |
+
 settings:
   encodeUrl: true
   timeout: 0

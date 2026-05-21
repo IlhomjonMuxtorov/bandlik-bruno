@@ -9,22 +9,23 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles PATCH request.
-  
+  Davlatning viza talab qilinadi statusini almashlaydi.
+
+  **Auth:** `admin_token`.
+
   ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+
+  Yangilangan davlat `AdminCountryOutputDTO` formatida qaytadi.
+
+docs: |
+  Davlatning viza talab qilinadi statusini almashlaydi.
+
+  **Auth:** `admin_token`.
+
+  ### 📤 Response
+
+  Yangilangan davlat `AdminCountryOutputDTO` formatida qaytadi.
+
 settings:
   encodeUrl: true
   timeout: 0

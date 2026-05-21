@@ -13,31 +13,22 @@ http:
     data: "{\n  \"pass_data\": \"AA1234567\",\n  \"phone\": \"+998901234567\",\n  \"birth_date\": \"15.01.1990\",\n  \"threshold\": 0.85\n}"
   auth: inherit
 docs: |
-  This endpoint handles POST request.
-  
+  # Passport ma'lumotlari orqali session yaratish
+
+  Yuz tanish uchun birinchi marta identifikatsiya. Passport seriyasi, nomeri va tug'ilgan sanani yuboradi.
+
+  **Auth:** none  
+  **Returns:** `{ session_id }`
+
   ### 📥 Request Body
-  
+
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `pass_data` | string | ✅ | — |
-  | `phone` | string | ✅ | — |
-  | `birth_date` | string | ✅ | — |
-  | `threshold` | float | ✅ | — |
-  
-  ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `pass_data` | string | ✅ | Pasport seriyasi + nomeri, masalan `AA1234567` |
+  | `phone` | string | ➖ | Telefon raqami `+998XXXXXXXXX` formatida |
+  | `birth_date` | string | ➖ | Tug'ilgan sana `dd.mm.yyyy` formatida |
+  | `threshold` | number | ➖ | Yuz moslik progi (0.6–0.99), default: 0.85 |
+
 settings:
   encodeUrl: true
   timeout: 0

@@ -15,29 +15,59 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles PATCH request.
-  
+  Foydalanuvchi ilovada tilni o'zgartirganida chaqiriladi. Backend push-xabarnomalarni keyinchalik shu tilda yuboradi.
+
+  **Auth:** `access_token`.
+
   ### 📥 Request Body
-  
+
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `device_id` | string | ✅ | — |
-  | `language` | string | ✅ | — |
-  
+  | `device_id` | string | ✅ | UUID. Tili o'zgartirilayotgan qurilma. |
+  | `language` | string | ✅ | `uz` \| `ru` \| `en`. Boshqa qiymat `400`. |
+
   ### 📤 Response
-  
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  | `updated` | bool | Har doim `true` |
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `400` | `device_id` ko'rsatilmagan |
+  | `400` | `language` qiymati `uz`/`ru`/`en` dan tashqari |
+  | `401` | `access_token` yo'q yoki muddati o'tgan |
+  | `404` | `device_id` ushbu foydalanuvchiga tegishli emas |
+
+docs: |
+  Foydalanuvchi ilovada tilni o'zgartirganida chaqiriladi. Backend push-xabarnomalarni keyinchalik shu tilda yuboradi.
+
+  **Auth:** `access_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `device_id` | string | ✅ | UUID. Tili o'zgartirilayotgan qurilma. |
+  | `language` | string | ✅ | `uz` \| `ru` \| `en`. Boshqa qiymat `400`. |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `updated` | bool | Har doim `true` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `device_id` ko'rsatilmagan |
+  | `400` | `language` qiymati `uz`/`ru`/`en` dan tashqari |
+  | `401` | `access_token` yo'q yoki muddati o'tgan |
+  | `404` | `device_id` ushbu foydalanuvchiga tegishli emas |
+
 settings:
   encodeUrl: true
   timeout: 0

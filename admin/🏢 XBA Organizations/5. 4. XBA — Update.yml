@@ -16,22 +16,45 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles POST request.
-  
-  ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  Mavjud XBA tashkilotini yangilaydi. `multipart/form-data` — faqat o'zgartirmoqchi bo'lgan maydonlarni yuborish kifoya.
+
+  > PHP `PUT + multipart` cheklangani uchun update **`POST`** orqali amalga oshiriladi.
+
+  Login/parol yuborilsa bog'langan `User` ham yangilanadi. Yangi fayl yuklanganda eski fayl storage'dan o'chiriladi.
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body (multipart/form-data)
+
+  Barcha maydonlar **ixtiyoriy** (faqat o'zgaradiganlarini yuboring). To'liq ro'yxat — `Create` endpointidagi kabi.
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `404` | XBA topilmadi (yoki id boshqa partner turida) |
+  | `422` | Validatsiya xatosi |
+
+docs: |
+  Mavjud XBA tashkilotini yangilaydi. `multipart/form-data` — faqat o'zgartirmoqchi bo'lgan maydonlarni yuborish kifoya.
+
+  > PHP `PUT + multipart` cheklangani uchun update **`POST`** orqali amalga oshiriladi.
+
+  Login/parol yuborilsa bog'langan `User` ham yangilanadi. Yangi fayl yuklanganda eski fayl storage'dan o'chiriladi.
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body (multipart/form-data)
+
+  Barcha maydonlar **ixtiyoriy** (faqat o'zgaradiganlarini yuboring). To'liq ro'yxat — `Create` endpointidagi kabi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | XBA topilmadi (yoki id boshqa partner turida) |
+  | `422` | Validatsiya xatosi |
+
 settings:
   encodeUrl: true
   timeout: 0

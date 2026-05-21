@@ -15,32 +15,63 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles POST request.
-  
+  Login yoki har bir ilova ishga tushishida chaqiriladi. `device_id` allaqachon mavjud bo'lsa — yangilaydi (**upsert**).
+
+  **Auth:** `access_token`.
+
   ### 📥 Request Body
-  
+
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `device_id` | string | ✅ | — |
-  | `os` | string | ✅ | — |
-  | `fcm_token` | string | ✅ | — |
-  | `app_version` | string | ✅ | — |
-  | `language` | string | ✅ | — |
-  
+  | `device_id` | string | ✅ | UUID v4. Bir foydalanuvchida bir nechta qurilma bo'lishi mumkin. |
+  | `os` | string | ✅ | `android` \| `ios` |
+  | `fcm_token` | string | ➖ | Firebase push token. `null` yuborilsa o'zgarmaydi. |
+  | `app_version` | string | ➖ | Semantic version (`1.2.3`). Force-update uchun. |
+  | `language` | string | ➖ | `uz` \| `ru` \| `en`. `null` yuborilsa o'zgarmaydi. |
+
   ### 📤 Response
-  
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  | `registered` | bool | Har doim `true` |
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `400` | `device_id` yoki `os` ko'rsatilmagan |
+  | `400` | `os` qiymati noto'g'ri |
+  | `401` | `access_token` yo'q yoki muddati o'tgan |
+
+docs: |
+  Login yoki har bir ilova ishga tushishida chaqiriladi. `device_id` allaqachon mavjud bo'lsa — yangilaydi (**upsert**).
+
+  **Auth:** `access_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `device_id` | string | ✅ | UUID v4. Bir foydalanuvchida bir nechta qurilma bo'lishi mumkin. |
+  | `os` | string | ✅ | `android` \| `ios` |
+  | `fcm_token` | string | ➖ | Firebase push token. `null` yuborilsa o'zgarmaydi. |
+  | `app_version` | string | ➖ | Semantic version (`1.2.3`). Force-update uchun. |
+  | `language` | string | ➖ | `uz` \| `ru` \| `en`. `null` yuborilsa o'zgarmaydi. |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `registered` | bool | Har doim `true` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `device_id` yoki `os` ko'rsatilmagan |
+  | `400` | `os` qiymati noto'g'ri |
+  | `401` | `access_token` yo'q yoki muddati o'tgan |
+
 settings:
   encodeUrl: true
   timeout: 0

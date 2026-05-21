@@ -9,22 +9,31 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles GET request.
-  
-  ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  Bitta XBA tashkiloti haqida to'liq ma'lumot + `stats` (`total_revenue`, `clients_count`, `services_count`, `employees_count`).
+
+  > Cross-type isolation: agar `id` boshqa partner turidagi yozuvga tegishli bo'lsa — `404`.
+
+  **Auth:** `admin_token`.
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `404` | XBA topilmadi |
+
+docs: |
+  Bitta XBA tashkiloti haqida to'liq ma'lumot + `stats` (`total_revenue`, `clients_count`, `services_count`, `employees_count`).
+
+  > Cross-type isolation: agar `id` boshqa partner turidagi yozuvga tegishli bo'lsa — `404`.
+
+  **Auth:** `admin_token`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | XBA topilmadi |
+
 settings:
   encodeUrl: true
   timeout: 0

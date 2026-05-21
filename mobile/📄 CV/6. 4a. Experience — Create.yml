@@ -19,30 +19,33 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles POST request.
-  
+  Yangi ish tajribasi qo'shish.
+
+  **Auth:** `access_token`.
+
   ### 📥 Request Body
-  
+
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `company_name` | string | ✅ | — |
-  | `position` | string | ✅ | — |
-  | `start_date` | string | ✅ | — |
-  
-  ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `company_name` | string | ✅ | Kompaniya nomi |
+  | `position` | string | ✅ | Lavozim |
+  | `start_date` | date | ✅ | `YYYY-MM-DD` |
+  | `end_date` | date | ➖ | `null` = hozirgacha |
+
+docs: |
+  Yangi ish tajribasi qo'shish.
+
+  **Auth:** `access_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `company_name` | string | ✅ | Kompaniya nomi |
+  | `position` | string | ✅ | Lavozim |
+  | `start_date` | date | ✅ | `YYYY-MM-DD` |
+  | `end_date` | date | ➖ | `null` = hozirgacha |
+
 settings:
   encodeUrl: true
   timeout: 0

@@ -14,22 +14,35 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles GET request.
-  
+  Turmush o'rtog'i ma'lumotlari yoki `null`.
+
+  > Faqat `marital_status = 'married'` bo'lganda mavjud.
+
+  **Auth:** `access_token`.
+
   ### 📤 Response
-  
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `full_name` | string | To'liq ism |
+  | `birth_date` | date | `YYYY-MM-DD` |
+  | `marriage_date` | date \| null | Nikoh sanasi |
+
+docs: |
+  Turmush o'rtog'i ma'lumotlari yoki `null`.
+
+  > Faqat `marital_status = 'married'` bo'lganda mavjud.
+
+  **Auth:** `access_token`.
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `full_name` | string | To'liq ism |
+  | `birth_date` | date | `YYYY-MM-DD` |
+  | `marriage_date` | date \| null | Nikoh sanasi |
+
 settings:
   encodeUrl: true
   timeout: 0

@@ -9,22 +9,23 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles GET request.
-  
-  ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  Bitta xizmat + stats. **Auth:** `admin_token`.
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `404` | Service topilmadi |
+
+docs: |
+  Bitta xizmat + stats. **Auth:** `admin_token`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Service topilmadi |
+
 settings:
   encodeUrl: true
   timeout: 0

@@ -19,32 +19,35 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles PUT request.
-  
+  Haydovchilik guvohnomasini yaratish yoki yangilash (`PUT` — upsert).
+
+  **Auth:** `access_token`.
+
   ### 📥 Request Body
-  
+
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `has_license` | boolean | ✅ | — |
-  | `categories` | string | ✅ | — |
-  | `license_number` | string | ✅ | — |
-  | `issue_date` | string | ✅ | — |
-  | `expiry_date` | string | ✅ | — |
-  
-  ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `has_license` | bool | ✅ | Guvohnoma bormi |
+  | `categories` | string | ➖ | Masalan `B,C,D` |
+  | `license_number` | string | ➖ | Guvohnoma raqami |
+  | `issue_date` | date | ➖ | Berilgan sana |
+  | `expiry_date` | date | ➖ | Amal qilish muddati |
+
+docs: |
+  Haydovchilik guvohnomasini yaratish yoki yangilash (`PUT` — upsert).
+
+  **Auth:** `access_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `has_license` | bool | ✅ | Guvohnoma bormi |
+  | `categories` | string | ➖ | Masalan `B,C,D` |
+  | `license_number` | string | ➖ | Guvohnoma raqami |
+  | `issue_date` | date | ➖ | Berilgan sana |
+  | `expiry_date` | date | ➖ | Amal qilish muddati |
+
 settings:
   encodeUrl: true
   timeout: 0

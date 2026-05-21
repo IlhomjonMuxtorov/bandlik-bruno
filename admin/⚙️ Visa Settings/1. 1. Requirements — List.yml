@@ -9,22 +9,55 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles GET request.
-  
+  Viza talablari ro'yxati (pagination).
+
+  **Auth:** `admin_token`.
+
   ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "items": [
+        {
+          "id": 1,
+          "name": {"uz": "...", "ru": "...", "en": "..."},
+          "description": {"uz": "...", "ru": "...", "en": "..."},
+          "created_at": 1716825600,
+          "updated_at": 1716825600
+        }
+      ],
+      "pagination": { "total": 10, "page": 1, "per_page": 20 }
+    }
+  }
+  ```
+
+docs: |
+  Viza talablari ro'yxati (pagination).
+
+  **Auth:** `admin_token`.
+
+  ### 📤 Response
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "items": [
+        {
+          "id": 1,
+          "name": {"uz": "...", "ru": "...", "en": "..."},
+          "description": {"uz": "...", "ru": "...", "en": "..."},
+          "created_at": 1716825600,
+          "updated_at": 1716825600
+        }
+      ],
+      "pagination": { "total": 10, "page": 1, "per_page": 20 }
+    }
+  }
+  ```
+
 settings:
   encodeUrl: true
   timeout: 0

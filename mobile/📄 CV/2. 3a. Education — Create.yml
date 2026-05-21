@@ -19,33 +19,30 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles POST request.
-  
+  Yangi ta'lim qo'shish.
+
+  **Auth:** `access_token`.
+
   ### 📥 Request Body
-  
+
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `education_level_id` | int | ✅ | — |
-  | `institution_name` | string | ✅ | — |
-  | `faculty` | string | ✅ | — |
-  | `specialty` | string | ✅ | — |
-  | `start_date` | string | ✅ | — |
-  | `end_date` | string | ✅ | — |
-  
-  ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  | `education_level_id` | int | ✅ | Reference: education-levels |
+  | `institution_name` | string | ✅ | O'quv muassasasi |
+  | `faculty` | string | ➖ | Fakultet |
+  | `specialty` | string | ➖ | Mutaxassislik |
+  | `start_date` | date | ✅ | `YYYY-MM-DD` |
+  | `end_date` | date | ➖ | `null` — hozir o'qiyapti |
+  | `diploma_file_url` | string | ➖ | Diplom fayl URL |
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `400` | Validatsiya |
+  | `401` | Token yo'q |
+  | `404` | Nomzod topilmadi |
+
 settings:
   encodeUrl: true
   timeout: 0

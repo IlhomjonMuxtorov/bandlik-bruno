@@ -9,22 +9,35 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles DELETE request.
-  
+  **Soft delete** — XBA `is_active = false`, bog'liq `User.status = STATUS_INACTIVE`. Fayllar saqlanib qoladi. Hard delete kelajakda alohida endpointda qo'shiladi.
+
+  **Auth:** `admin_token`.
+
   ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+
+  `200`, `data = null`, `message = "XBA organization deleted"`.
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `404` | XBA topilmadi |
+
+docs: |
+  **Soft delete** — XBA `is_active = false`, bog'liq `User.status = STATUS_INACTIVE`. Fayllar saqlanib qoladi. Hard delete kelajakda alohida endpointda qo'shiladi.
+
+  **Auth:** `admin_token`.
+
+  ### 📤 Response
+
+  `200`, `data = null`, `message = "XBA organization deleted"`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | XBA topilmadi |
+
 settings:
   encodeUrl: true
   timeout: 0

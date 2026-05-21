@@ -14,22 +14,87 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles GET request.
-  
-  ### 📤 Response
-  
+  Pasport / ID-karta beruvchi IIB bo'limchalari va xorijdagi elchixonalar (464 yozuv). Filtrlar prioriteti: `district_id` > `region_id` > `country_id`. Kamida bittasi majburiy.
+
+  Passport API javobidagi `docgiveplaceid` / `birthplaceid` to'g'ridan-to'g'ri shu jadval ID ga mos.
+
+  **Auth:** `access_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `district_id` | int | ➖ | Tuman ID (eng aniq filtr) |
+  | `region_id` | int | ➖ | Viloyat ID |
+  | `country_id` | int | ➖ | Davlat ID (`country.id`, GCP code emas) |
+
+  > ⚠️ Kamida bittasi yuborilishi kerak, aks holda `400` qaytadi.
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {access_token}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` |
+
+  ### 📤 Response *(massiv elementi)*
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  | `id` | int | OVD kodi |
+  | `country_id` | int \| null | `country.id` (gcp_code orqali lookup qilingan) |
+  | `region_id` | int \| null | Viloyat ID |
+  | `district_id` | int \| null | Tuman ID |
+  | `name` | string | Lokalizatsiyalangan nom |
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `400` | Hech qanday filtr berilmagan |
+  | `401` | Token yo'q yoki muddati o'tgan |
+
+docs: |
+  Pasport / ID-karta beruvchi IIB bo'limchalari va xorijdagi elchixonalar (464 yozuv). Filtrlar prioriteti: `district_id` > `region_id` > `country_id`. Kamida bittasi majburiy.
+
+  Passport API javobidagi `docgiveplaceid` / `birthplaceid` to'g'ridan-to'g'ri shu jadval ID ga mos.
+
+  **Auth:** `access_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `district_id` | int | ➖ | Tuman ID (eng aniq filtr) |
+  | `region_id` | int | ➖ | Viloyat ID |
+  | `country_id` | int | ➖ | Davlat ID (`country.id`, GCP code emas) |
+
+  > ⚠️ Kamida bittasi yuborilishi kerak, aks holda `400` qaytadi.
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {access_token}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` |
+
+  ### 📤 Response *(massiv elementi)*
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | OVD kodi |
+  | `country_id` | int \| null | `country.id` (gcp_code orqali lookup qilingan) |
+  | `region_id` | int \| null | Viloyat ID |
+  | `district_id` | int \| null | Tuman ID |
+  | `name` | string | Lokalizatsiyalangan nom |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Hech qanday filtr berilmagan |
+  | `401` | Token yo'q yoki muddati o'tgan |
+
 settings:
   encodeUrl: true
   timeout: 0

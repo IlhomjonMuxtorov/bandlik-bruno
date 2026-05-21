@@ -19,30 +19,15 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles PATCH request.
-  
-  ### 📥 Request Body
-  
-  | Field | Type | Required | Description |
-  |---|---|:---:|---|
-  | `relationship` | string | ✅ | — |
-  | `full_name` | string | ✅ | — |
-  | `birth_date` | string | ✅ | — |
-  
-  ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  Oila a'zosini yangilash. Maydonlar `create` bilan bir xil.
+
+  **Auth:** `access_token`.
+
+docs: |
+  Oila a'zosini yangilash. Maydonlar `create` bilan bir xil.
+
+  **Auth:** `access_token`.
+
 settings:
   encodeUrl: true
   timeout: 0

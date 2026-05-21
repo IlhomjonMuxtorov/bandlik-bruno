@@ -14,22 +14,87 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles GET request.
-  
+  MVD (Ichki Ishlar Vazirligi) manbalaridan haydovchilik guvohnomasini olish.
+
+  Foydalanuvchining passport ma'lumotlari asosida MVD API dan guvohnomasini so'raydi. Agar topilmasa, bo'sh object `{}` qaytariladi.
+
+  **Auth:** `access_token`.
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {token}` |
+
   ### 📤 Response
-  
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  | `result_code` | int | MVD result code (1 = topildi, 0/2+ = topilmadi) |
+  | `owner_full_name` | string \| null | Guvohnoma egasining F.I.O. |
+  | `license_serial` | string \| null | Guvohnoma raqami |
+  | `license_begin_date` | date \| null | Berilgan sana |
+  | `license_end_date` | date \| null | Amal qilish muddati |
+  | `categories` | array | Guvohnoma kategoriyalari |
+
+  **Kategoriya elementi:**
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `category` | string | Kategoriya kodi (`A`, `B`, `C`, `D` va h.k.) |
+  | `begin_date` | date \| null | Kategoriya berilgan sana |
+  | `end_date` | date \| null | Kategoriya amal qilish muddati |
+
+  **Topilmasa (`result_code !== 1`):** `{}` (bo'sh object).
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `404` | Passport ma'lumoti topilmadi (foydalanuvchi hali passport orqali login qilmadi) |
+  | `401` | Token yo'q |
+
+docs: |
+  MVD (Ichki Ishlar Vazirligi) manbalaridan haydovchilik guvohnomasini olish.
+
+  Foydalanuvchining passport ma'lumotlari asosida MVD API dan guvohnomasini so'raydi. Agar topilmasa, bo'sh object `{}` qaytariladi.
+
+  **Auth:** `access_token`.
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {token}` |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `result_code` | int | MVD result code (1 = topildi, 0/2+ = topilmadi) |
+  | `owner_full_name` | string \| null | Guvohnoma egasining F.I.O. |
+  | `license_serial` | string \| null | Guvohnoma raqami |
+  | `license_begin_date` | date \| null | Berilgan sana |
+  | `license_end_date` | date \| null | Amal qilish muddati |
+  | `categories` | array | Guvohnoma kategoriyalari |
+
+  **Kategoriya elementi:**
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `category` | string | Kategoriya kodi (`A`, `B`, `C`, `D` va h.k.) |
+  | `begin_date` | date \| null | Kategoriya berilgan sana |
+  | `end_date` | date \| null | Kategoriya amal qilish muddati |
+
+  **Topilmasa (`result_code !== 1`):** `{}` (bo'sh object).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Passport ma'lumoti topilmadi (foydalanuvchi hali passport orqali login qilmadi) |
+  | `401` | Token yo'q |
+
 settings:
   encodeUrl: true
   timeout: 0

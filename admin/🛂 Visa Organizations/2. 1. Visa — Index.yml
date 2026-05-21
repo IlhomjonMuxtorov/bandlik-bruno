@@ -9,22 +9,31 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles GET request.
-  
+  Viza tashkilotlari ro'yxati. Faqat `type = 5` yozuvlar qaytadi.
+
+  **Auth:** `admin_token`.
+
+  ### 🔎 Query Parameters
+
+  XBA Index bilan bir xil: `q`, `region_id`, `district_id`, `is_active`, `page`, `per-page`.
+
   ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+
+  `data.items[]` — `OrganizationOutputDTO` (XBA bilan bir xil shaklda, `type = 5`, `type_label = "Viza"`).
+
+docs: |
+  Viza tashkilotlari ro'yxati. Faqat `type = 5` yozuvlar qaytadi.
+
+  **Auth:** `admin_token`.
+
+  ### 🔎 Query Parameters
+
+  XBA Index bilan bir xil: `q`, `region_id`, `district_id`, `is_active`, `page`, `per-page`.
+
+  ### 📤 Response
+
+  `data.items[]` — `OrganizationOutputDTO` (XBA bilan bir xil shaklda, `type = 5`, `type_label = "Viza"`).
+
 settings:
   encodeUrl: true
   timeout: 0

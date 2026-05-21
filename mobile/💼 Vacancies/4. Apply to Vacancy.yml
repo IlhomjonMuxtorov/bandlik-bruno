@@ -15,30 +15,31 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles POST request.
-  
+  Nomzod tasdiqlangan vakansiyaga ariza topshiradi. Vakansiya `status = approved` bo'lishi va shu nomzoddan **birinchi ariza** bo'lishi shart (unique).
+
+  **Auth:** `access_token`.
+
   ### 📥 Request Body
-  
+
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `cv_id` | NULL | ✅ | — |
-  | `cover_message` | string | ✅ | — |
-  | `hotel_preference` | boolean | ✅ | — |
-  
+  | `cv_id` | int | ➖ | Qaysi CV bilan ariza topshirilayotgani |
+  | `cover_message` | string | ➖ | Qo'shimcha izoh |
+  | `hotel_preference` | bool | ➖ | Mehmonxonada turish istagi (default `false`) |
+
   ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+
+  201 + Application DTO (id, status=`applied`, applied_at, ...).
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `400` | Vakansiya `approved` emas |
+  | `409` | Allaqachon ariza topshirilgan |
+  | `401` | Token yo'q |
+  | `404` | Vakansiya yoki nomzod topilmadi |
+
 settings:
   encodeUrl: true
   timeout: 0

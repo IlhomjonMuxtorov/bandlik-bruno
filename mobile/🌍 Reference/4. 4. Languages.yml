@@ -14,22 +14,57 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles GET request.
-  
-  ### 📤 Response
-  
+  Til ma'lumotnomasi. `Accept-Language` ga ko'ra lokalizatsiya qilingan nomlar qaytariladi.
+
+  **Auth:** `access_token`.
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {access_token}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` |
+
+  ### 📤 Response *(massiv elementi)*
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  | `id` | int | Til ID |
+  | `iso_code` | string | ISO 639-1 (`uz`, `ru`, `en`, …) |
+  | `name` | string | Lokalizatsiyalangan nom |
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `401` | Token yo'q yoki muddati o'tgan |
+
+docs: |
+  Til ma'lumotnomasi. `Accept-Language` ga ko'ra lokalizatsiya qilingan nomlar qaytariladi.
+
+  **Auth:** `access_token`.
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {access_token}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` |
+
+  ### 📤 Response *(massiv elementi)*
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Til ID |
+  | `iso_code` | string | ISO 639-1 (`uz`, `ru`, `en`, …) |
+  | `name` | string | Lokalizatsiyalangan nom |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki muddati o'tgan |
+
 settings:
   encodeUrl: true
   timeout: 0

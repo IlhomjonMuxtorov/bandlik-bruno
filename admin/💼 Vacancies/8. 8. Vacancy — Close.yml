@@ -15,28 +15,27 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles POST request.
-  
+  Vakansiyani yopadi (`closed`). Mobile feed'da ko'rinmay qoladi.
+
+  **Auth:** Admin yoki vakansiya egasi.
+
   ### 📥 Request Body
-  
+
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `reason` | string | ✅ | — |
-  
-  ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `reason` | string | ➖ | Yopish sababi (log uchun). |
+
+docs: |
+  Vakansiyani yopadi (`closed`). Mobile feed'da ko'rinmay qoladi.
+
+  **Auth:** Admin yoki vakansiya egasi.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `reason` | string | ➖ | Yopish sababi (log uchun). |
+
 settings:
   encodeUrl: true
   timeout: 0

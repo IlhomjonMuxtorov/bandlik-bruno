@@ -9,22 +9,37 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles GET request.
-  
-  ### 📤 Response
-  
+  Ish beruvchi modulining yuqori statistika kartochkalari (sahifa ustida 4 ta karta).
+
+  **Auth:** `admin_token`.
+
+  ### 📤 Response (`data`)
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `total_revenue` | int | Barcha vaqtlar uchun yakunlangan buyurtmalar summasi (UZS) |
+  | `holding_amount` | int | Hozircha `0` placeholder — transaction moduli kelganda integratsiya |
+  | `this_month_revenue` | int | Joriy oydagi yakunlangan buyurtmalar summasi |
+  | `refunded_amount` | int | Hozircha `0` placeholder |
+
+  > Faqat `type = NOTARIUS (2)` yozuvlari bo'yicha hisoblanadi.
+
+docs: |
+  Ish beruvchi modulining yuqori statistika kartochkalari (sahifa ustida 4 ta karta).
+
+  **Auth:** `admin_token`.
+
+  ### 📤 Response (`data`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `total_revenue` | int | Barcha vaqtlar uchun yakunlangan buyurtmalar summasi (UZS) |
+  | `holding_amount` | int | Hozircha `0` placeholder — transaction moduli kelganda integratsiya |
+  | `this_month_revenue` | int | Joriy oydagi yakunlangan buyurtmalar summasi |
+  | `refunded_amount` | int | Hozircha `0` placeholder |
+
+  > Faqat `type = NOTARIUS (2)` yozuvlari bo'yicha hisoblanadi.
+
 settings:
   encodeUrl: true
   timeout: 0

@@ -15,32 +15,55 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles POST request.
-  
+  Pipeline yozuvini yangilaydi (partial — faqat berilgan maydonlar o'zgaradi).
+
+  **Auth:** Admin yoki vakansiya egasi.
+
   ### 📥 Request Body
-  
+
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `journey_status` | string | ✅ | — |
-  | `course_progress_percent` | int | ✅ | — |
-  | `collected_amount` | int | ✅ | — |
-  | `collected_currency` | string | ✅ | — |
-  | `notes` | string | ✅ | — |
-  
-  ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  | `journey_status` | string | ➖ | Yangi status |
+  | `course_progress_percent` | int | ➖ | 0..100 |
+  | `collected_amount` | int | ➖ | Minor units (UZS so'm yoki USD dollar) |
+  | `collected_currency` | string | ➖ | `UZS` \| `USD` \| `EUR` |
+  | `hotel_preference` | bool | ➖ | |
+  | `notes` | string | ➖ | Bo'sh string yuborilsa `null` ga o'rnatiladi |
+
+  > `journey_status = departed` qilinganda `departed_at` avtomatik o'rnatiladi (agar bo'sh bo'lsa).
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `400` | Noto'g'ri status / progress diapazoni / valyuta |
+  | `403` | Boshqa tashkilot |
+
+docs: |
+  Pipeline yozuvini yangilaydi (partial — faqat berilgan maydonlar o'zgaradi).
+
+  **Auth:** Admin yoki vakansiya egasi.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `journey_status` | string | ➖ | Yangi status |
+  | `course_progress_percent` | int | ➖ | 0..100 |
+  | `collected_amount` | int | ➖ | Minor units (UZS so'm yoki USD dollar) |
+  | `collected_currency` | string | ➖ | `UZS` \| `USD` \| `EUR` |
+  | `hotel_preference` | bool | ➖ | |
+  | `notes` | string | ➖ | Bo'sh string yuborilsa `null` ga o'rnatiladi |
+
+  > `journey_status = departed` qilinganda `departed_at` avtomatik o'rnatiladi (agar bo'sh bo'lsa).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Noto'g'ri status / progress diapazoni / valyuta |
+  | `403` | Boshqa tashkilot |
+
 settings:
   encodeUrl: true
   timeout: 0

@@ -9,22 +9,67 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles GET request.
-  
-  ### 📤 Response
-  
+  Vakansiya pipeline'idagi nomzodlar (`accepted_at DESC`).
+
+  **Auth:** Admin yoki vakansiya egasi.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `status` | string | ➖ | `pending` \| `course_in_progress` \| `course_passed` \| `course_failed` \| `visa_pending` \| `departed` \| `dropped_out` |
+  | `per-page` | int | ➖ | 1..100 |
+
+  ### 📤 Response (`data`)
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `items` | array | Pipeline elementlari |
+  | `pagination` | object | |
+
+  Har bir element:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | |
+  | `candidate` | object | `{id, full_name, phone, photo_url}` |
+  | `journey_status` / `_label` | string | |
+  | `course_progress_percent` | int | 0..100 |
+  | `collected_amount` / `_currency` | int / string | To'plangan summa |
+  | `hotel_preference` | bool | |
+  | `accepted_at` / `departed_at` | int \| null | |
+
+docs: |
+  Vakansiya pipeline'idagi nomzodlar (`accepted_at DESC`).
+
+  **Auth:** Admin yoki vakansiya egasi.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `status` | string | ➖ | `pending` \| `course_in_progress` \| `course_passed` \| `course_failed` \| `visa_pending` \| `departed` \| `dropped_out` |
+  | `per-page` | int | ➖ | 1..100 |
+
+  ### 📤 Response (`data`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `items` | array | Pipeline elementlari |
+  | `pagination` | object | |
+
+  Har bir element:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | |
+  | `candidate` | object | `{id, full_name, phone, photo_url}` |
+  | `journey_status` / `_label` | string | |
+  | `course_progress_percent` | int | 0..100 |
+  | `collected_amount` / `_currency` | int / string | To'plangan summa |
+  | `hotel_preference` | bool | |
+  | `accepted_at` / `departed_at` | int \| null | |
+
 settings:
   encodeUrl: true
   timeout: 0

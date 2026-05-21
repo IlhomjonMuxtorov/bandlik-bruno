@@ -13,28 +13,63 @@ http:
     data: "{\n  \"refresh_token\": \"{{refresh_token}}\"\n}"
   auth: inherit
 docs: |
-  This endpoint handles POST request.
-  
+  `access_token` muddati tugaganda yangi token juft olish uchun ishlatiladi.
+
+  > **Rotation:** yuborilgan `refresh_token` bekor qilinadi, yangi juft qaytariladi.
+
+  **Auth:** talab qilinmaydi.
+
   ### 📥 Request Body
-  
+
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `refresh_token` | string | ✅ | — |
-  
+  | `refresh_token` | string | ✅ | 3- yoki 4-qadamdan olingan `refresh_token`. Bir marta ishlatiladi. |
+
   ### 📤 Response
-  
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  | `access_token` | string | Yangi JWT (15 daqiqa) |
+  | `refresh_token` | string | Yangi refresh token (30 kun). **Eskisi endi ishlamaydi.** |
+  | `expires_in` | int | `900` sek |
+  | `token_type` | string | `Bearer` |
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `401` | `refresh_token` topilmadi, bekor qilingan yoki muddati o'tgan |
+  | `401` | Tegishli foydalanuvchi topilmadi (o'chirilgan hisob) |
+
+docs: |
+  `access_token` muddati tugaganda yangi token juft olish uchun ishlatiladi.
+
+  > **Rotation:** yuborilgan `refresh_token` bekor qilinadi, yangi juft qaytariladi.
+
+  **Auth:** talab qilinmaydi.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `refresh_token` | string | ✅ | 3- yoki 4-qadamdan olingan `refresh_token`. Bir marta ishlatiladi. |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `access_token` | string | Yangi JWT (15 daqiqa) |
+  | `refresh_token` | string | Yangi refresh token (30 kun). **Eskisi endi ishlamaydi.** |
+  | `expires_in` | int | `900` sek |
+  | `token_type` | string | `Bearer` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | `refresh_token` topilmadi, bekor qilingan yoki muddati o'tgan |
+  | `401` | Tegishli foydalanuvchi topilmadi (o'chirilgan hisob) |
+
 settings:
   encodeUrl: true
   timeout: 0

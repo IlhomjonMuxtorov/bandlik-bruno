@@ -15,38 +15,43 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles PUT request.
-  
+  Vakansiyani to'liq qayta saqlaydi — barcha child kolleksiyalar (requirements/benefits/documents/services/payment_steps) **butunlay almashtiriladi** (delete + insert).
+
+  **Auth:** `admin_token` yoki vakansiya egasi.
+
+  > **Eslatma:** faqat `draft` yoki `rejected` statusdagi vakansiyalarni Employer/Recruiter tahrirlay oladi. `approved` / `closed` — faqat admin orqali.
+
   ### 📥 Request Body
-  
-  | Field | Type | Required | Description |
-  |---|---|:---:|---|
-  | `organization_id` | int | ✅ | — |
-  | `title` | string | ✅ | — |
-  | `employment_type` | string | ✅ | — |
-  | `hiring_quota` | int | ✅ | — |
-  | `country_id` | int | ✅ | — |
-  | `requirements` | object | ✅ | — |
-  | `benefits` | object | ✅ | — |
-  | `documents` | object | ✅ | — |
-  | `services` | object | ✅ | — |
-  | `single_payment` | boolean | ✅ | — |
-  | `payment_steps` | object | ✅ | — |
-  
-  ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+
+  Create bilan bir xil (yuqorida).
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `404` | Vakansiya topilmadi |
+  | `403` | Approved/closed vakansiyalar tahrirlanmaydi (egasi uchun) |
+  | `422` | Validatsiya xatosi |
+
+docs: |
+  Vakansiyani to'liq qayta saqlaydi — barcha child kolleksiyalar (requirements/benefits/documents/services/payment_steps) **butunlay almashtiriladi** (delete + insert).
+
+  **Auth:** `admin_token` yoki vakansiya egasi.
+
+  > **Eslatma:** faqat `draft` yoki `rejected` statusdagi vakansiyalarni Employer/Recruiter tahrirlay oladi. `approved` / `closed` — faqat admin orqali.
+
+  ### 📥 Request Body
+
+  Create bilan bir xil (yuqorida).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Vakansiya topilmadi |
+  | `403` | Approved/closed vakansiyalar tahrirlanmaydi (egasi uchun) |
+  | `422` | Validatsiya xatosi |
+
 settings:
   encodeUrl: true
   timeout: 0

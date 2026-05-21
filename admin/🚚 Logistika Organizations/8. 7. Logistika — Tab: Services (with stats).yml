@@ -9,22 +9,71 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles GET request.
-  
-  ### 📤 Response
-  
+  Logistika tashkilotning **Xizmatlari** tabi (rasmda ko'rinadigan jadval).
+
+  Har bir xizmat uchun per-service aggregate stats — `jarayonda / bajarilgan / bekor qilingan / daromad` (UZS) — bitta query'da hisoblanadi (no N+1).
+
+  **Auth:** `admin_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `q` | string | ➖ | Xizmat nomi / izoh bo'yicha qidiruv |
+  | `is_active` | int (0\|1) | ➖ | |
+  | `page`, `per-page` | int | ➖ | Pagination |
+
+  ### 📤 Response (`data.items[]` — `OrganizationServiceOutputDTO`)
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `id` | int | |
+  | `organization_id` | int | |
+  | `name` | string | "Hujjatlarni notarial tasdiqlash" |
+  | `description` | string \| null | |
+  | `price` | int | UZS so'mda |
+  | `is_active` | bool | |
+  | `sort_order` | int | |
+  | `in_progress_count` | int | Status = `1` |
+  | `completed_count` | int | Status = `2` |
+  | `cancelled_count` | int | Status = `3` |
+  | `revenue` | int | Yakunlangan buyurtmalar summasi (UZS) |
+  | `created_at` | int | |
+  | `updated_at` | int | |
+
+docs: |
+  Logistika tashkilotning **Xizmatlari** tabi (rasmda ko'rinadigan jadval).
+
+  Har bir xizmat uchun per-service aggregate stats — `jarayonda / bajarilgan / bekor qilingan / daromad` (UZS) — bitta query'da hisoblanadi (no N+1).
+
+  **Auth:** `admin_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `q` | string | ➖ | Xizmat nomi / izoh bo'yicha qidiruv |
+  | `is_active` | int (0\|1) | ➖ | |
+  | `page`, `per-page` | int | ➖ | Pagination |
+
+  ### 📤 Response (`data.items[]` — `OrganizationServiceOutputDTO`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | |
+  | `organization_id` | int | |
+  | `name` | string | "Hujjatlarni notarial tasdiqlash" |
+  | `description` | string \| null | |
+  | `price` | int | UZS so'mda |
+  | `is_active` | bool | |
+  | `sort_order` | int | |
+  | `in_progress_count` | int | Status = `1` |
+  | `completed_count` | int | Status = `2` |
+  | `cancelled_count` | int | Status = `3` |
+  | `revenue` | int | Yakunlangan buyurtmalar summasi (UZS) |
+  | `created_at` | int | |
+  | `updated_at` | int | |
+
 settings:
   encodeUrl: true
   timeout: 0

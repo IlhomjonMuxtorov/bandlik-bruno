@@ -15,30 +15,69 @@ http:
     mode: bearer
     bearer: '{{guest_token}}'
 docs: |
-  This endpoint handles POST request.
-  
+  SMS orqali kelgan OTP kodni tasdiqlaydi. Muvaffaqiyatli bo'lsa guest hisob to'liq aktiv holatga o'tadi va to'liq token juft qaytaradi.
+
+  > Agar ushbu pasport bilan boshqa aktiv hisob mavjud bo'lsa — qurilma ko'chiriladi, guest o'chiriladi.
+
+  **Auth:** `guest_token` (1-qadamdan olingan).
+
   ### 📥 Request Body
-  
+
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `phone` | string | ✅ | — |
-  | `code` | string | ✅ | — |
-  | `device_id` | string | ✅ | — |
-  
+  | `phone` | string | ✅ | 2-qadamda ko'rsatilgan telefon (E.164). |
+  | `code` | string | ✅ | 6 xonali OTP kodi. Sandbox: `111111` / `222222`. |
+  | `device_id` | string | ✅ | UUID. Token shu qurilmaga bog'lanadi. |
+
   ### 📤 Response
-  
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  | `access_token` | string | To'liq foydalanuvchi JWT (15 daqiqa). Payload: `{ sub, status: 1, type: 4 }` |
+  | `refresh_token` | string | Yangilash tokeni (30 kun). **Rotation:** har yangilashda eski token bekor qilinadi. |
+  | `expires_in` | int | `access_token` muddati soniyalarda (`900`) |
+  | `token_type` | string | `Bearer` |
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `400` | Validatsiya xatosi |
+  | `400` | OTP noto'g'ri yoki muddati o'tgan (180 sek) |
+  | `401` | `guest_token` yo'q yoki muddati o'tgan |
+
+docs: |
+  SMS orqali kelgan OTP kodni tasdiqlaydi. Muvaffaqiyatli bo'lsa guest hisob to'liq aktiv holatga o'tadi va to'liq token juft qaytaradi.
+
+  > Agar ushbu pasport bilan boshqa aktiv hisob mavjud bo'lsa — qurilma ko'chiriladi, guest o'chiriladi.
+
+  **Auth:** `guest_token` (1-qadamdan olingan).
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `phone` | string | ✅ | 2-qadamda ko'rsatilgan telefon (E.164). |
+  | `code` | string | ✅ | 6 xonali OTP kodi. Sandbox: `111111` / `222222`. |
+  | `device_id` | string | ✅ | UUID. Token shu qurilmaga bog'lanadi. |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `access_token` | string | To'liq foydalanuvchi JWT (15 daqiqa). Payload: `{ sub, status: 1, type: 4 }` |
+  | `refresh_token` | string | Yangilash tokeni (30 kun). **Rotation:** har yangilashda eski token bekor qilinadi. |
+  | `expires_in` | int | `access_token` muddati soniyalarda (`900`) |
+  | `token_type` | string | `Bearer` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Validatsiya xatosi |
+  | `400` | OTP noto'g'ri yoki muddati o'tgan (180 sek) |
+  | `401` | `guest_token` yo'q yoki muddati o'tgan |
+
 settings:
   encodeUrl: true
   timeout: 0

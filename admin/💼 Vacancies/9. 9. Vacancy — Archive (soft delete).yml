@@ -9,22 +9,15 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles DELETE request.
-  
-  ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  Soft delete — status `archived`. Hech qaerda ko'rinmaydi, lekin ma'lumotlar saqlanib qoladi.
+
+  **Auth:** Admin yoki vakansiya egasi.
+
+docs: |
+  Soft delete — status `archived`. Hech qaerda ko'rinmaydi, lekin ma'lumotlar saqlanib qoladi.
+
+  **Auth:** Admin yoki vakansiya egasi.
+
 settings:
   encodeUrl: true
   timeout: 0

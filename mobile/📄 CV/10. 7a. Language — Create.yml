@@ -19,29 +19,41 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles POST request.
-  
+  Yangi til qo'shish.
+
+  **Auth:** `access_token`.
+
   ### 📥 Request Body
-  
+
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `language_id` | int | ✅ | — |
-  | `language_level_id` | int | ✅ | — |
-  
-  ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  | `language_id` | int | ✅ | Reference: languages |
+  | `language_level_id` | int | ✅ | Reference: language-levels |
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `400` | Bir til ikki marta qo'shilmaydi (UNIQUE) |
+
+docs: |
+  Yangi til qo'shish.
+
+  **Auth:** `access_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `language_id` | int | ✅ | Reference: languages |
+  | `language_level_id` | int | ✅ | Reference: language-levels |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Bir til ikki marta qo'shilmaydi (UNIQUE) |
+
 settings:
   encodeUrl: true
   timeout: 0

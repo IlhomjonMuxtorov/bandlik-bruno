@@ -9,22 +9,44 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles GET request.
-  
-  ### 📤 Response
-  
+  Davlatlar ro'yxati (paginatsiya bilan).
+
+  **Auth:** `admin_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `q` | string | ➖ | Nom bo'yicha qidiruv (JSONB `name` bo'yicha `ILIKE`). |
+  | `is_active` | int (0\|1) | ➖ | Faolligi bo'yicha filtr. |
+  | `is_visa_available` | int (0\|1) | ➖ | Viza beradigan davlatlar. |
+  | `page` | int | ➖ | Sahifa raqami (default `1`). |
+  | `per-page` | int | ➖ | Sahifa hajmi (1–100, default `20`). |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {{ _.admin_token }}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz`. |
+
+  ### 📤 Response (`data.items[]`)
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `id` | int | |
+  | `name` | string | Til bo'yicha tarjima |
+  | `iso_code` | string \| null | ISO 3166-1 alpha-2 (`UZ`) |
+  | `iso_alpha3` | string \| null | ISO 3166-1 alpha-3 (`UZB`) |
+  | `gcp_code` | int \| null | GCP Spravochnik ID |
+  | `flag_url` | string \| null | |
+  | `image_url` | string \| null | To'liq URL |
+  | `is_visa_available` | bool | |
+  | `is_active` | bool | |
+  | `sort_order` | int | |
+  | `created_at` | int | Unix timestamp |
+  | `updated_at` | int | Unix timestamp |
+
 settings:
   encodeUrl: true
   timeout: 0

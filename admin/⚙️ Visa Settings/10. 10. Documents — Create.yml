@@ -15,29 +15,15 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles POST request.
-  
-  ### 📥 Request Body
-  
-  | Field | Type | Required | Description |
-  |---|---|:---:|---|
-  | `name` | object | ✅ | — |
-  | `description` | object | ✅ | — |
-  
-  ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  Yangi zarur hujjat qo'shadi.
+
+  **Auth:** `admin_token`.
+
+docs: |
+  Yangi zarur hujjat qo'shadi.
+
+  **Auth:** `admin_token`.
+
 settings:
   encodeUrl: true
   timeout: 0

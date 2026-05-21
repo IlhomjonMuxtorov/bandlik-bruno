@@ -19,30 +19,31 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles PATCH request.
-  
-  ### 📥 Request Body
-  
-  | Field | Type | Required | Description |
-  |---|---|:---:|---|
-  | `education_level_id` | int | ✅ | — |
-  | `institution_name` | string | ✅ | — |
-  | `start_date` | string | ✅ | — |
-  
-  ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  Mavjud ta'limni yangilash. Maydonlar tarkibi `POST` bilan bir xil. Faqat o'z resurslari.
+
+  **Auth:** `access_token`.
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `400` | Validatsiya |
+  | `403` | Boshqa nomzodning resursi |
+  | `404` | Topilmadi |
+
+docs: |
+  Mavjud ta'limni yangilash. Maydonlar tarkibi `POST` bilan bir xil. Faqat o'z resurslari.
+
+  **Auth:** `access_token`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Validatsiya |
+  | `403` | Boshqa nomzodning resursi |
+  | `404` | Topilmadi |
+
 settings:
   encodeUrl: true
   timeout: 0

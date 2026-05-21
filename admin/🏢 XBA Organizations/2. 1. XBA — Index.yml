@@ -9,22 +9,111 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles GET request.
-  
-  ### 📤 Response
-  
+  XBA tashkilotlari ro'yxati (paginatsiya + filtrlar). Faqat `type = 1` yozuvlar qaytadi.
+
+  **Auth:** `admin_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `q` | string | ➖ | Nom / brand / yuridik nom / litsenziya / mas'ul shaxs / telefon bo'yicha `ILIKE` qidiruv. |
+  | `region_id` | int | ➖ | Viloyat filtri. |
+  | `district_id` | int | ➖ | Tuman filtri. |
+  | `is_active` | int (0\|1) | ➖ | Faolligi bo'yicha filtr. |
+  | `page` | int | ➖ | Sahifa raqami. |
+  | `per-page` | int | ➖ | Sahifa hajmi (1–100). |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {{ _.admin_token }}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` |
+
+  ### 📤 Response (`data.items[]` — `OrganizationOutputDTO`)
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `id` | int | |
+  | `type` | int | `1` (XBA) |
+  | `type_label` | string | `"XBA"` |
+  | `name` | string | |
+  | `brand_name` | string \| null | Brend nomi ("... MChJ") |
+  | `legal_name` | string \| null | Yuridik nomi ("... OOO") |
+  | `description` | string \| null | Tashkilot haqida |
+  | `license_number` | string | Unique (`type` bo'yicha) |
+  | `region` | object | `{id, name, is_active, sort_order}` |
+  | `district` | object | `{id, region_id, name, is_active, sort_order}` |
+  | `address` | string | |
+  | `phone` | string | Call-center |
+  | `email` | string \| null | |
+  | `website_url` | string \| null | |
+  | `responsible_person` | string | F.I.SH. |
+  | `login` | string \| null | XBA egasining login'i |
+  | `license_file_url` | string \| null | To'liq URL |
+  | `logo_url` | string \| null | To'liq URL |
+  | `telegram_url` | string \| null | |
+  | `instagram_url` | string \| null | |
+  | `facebook_url` | string \| null | |
+  | `x_url` | string \| null | |
+  | `is_active` | bool | |
+  | `created_at` | int | Unix timestamp |
+  | `updated_at` | int | Unix timestamp |
+
+docs: |
+  XBA tashkilotlari ro'yxati (paginatsiya + filtrlar). Faqat `type = 1` yozuvlar qaytadi.
+
+  **Auth:** `admin_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `q` | string | ➖ | Nom / brand / yuridik nom / litsenziya / mas'ul shaxs / telefon bo'yicha `ILIKE` qidiruv. |
+  | `region_id` | int | ➖ | Viloyat filtri. |
+  | `district_id` | int | ➖ | Tuman filtri. |
+  | `is_active` | int (0\|1) | ➖ | Faolligi bo'yicha filtr. |
+  | `page` | int | ➖ | Sahifa raqami. |
+  | `per-page` | int | ➖ | Sahifa hajmi (1–100). |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {{ _.admin_token }}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` |
+
+  ### 📤 Response (`data.items[]` — `OrganizationOutputDTO`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | |
+  | `type` | int | `1` (XBA) |
+  | `type_label` | string | `"XBA"` |
+  | `name` | string | |
+  | `brand_name` | string \| null | Brend nomi ("... MChJ") |
+  | `legal_name` | string \| null | Yuridik nomi ("... OOO") |
+  | `description` | string \| null | Tashkilot haqida |
+  | `license_number` | string | Unique (`type` bo'yicha) |
+  | `region` | object | `{id, name, is_active, sort_order}` |
+  | `district` | object | `{id, region_id, name, is_active, sort_order}` |
+  | `address` | string | |
+  | `phone` | string | Call-center |
+  | `email` | string \| null | |
+  | `website_url` | string \| null | |
+  | `responsible_person` | string | F.I.SH. |
+  | `login` | string \| null | XBA egasining login'i |
+  | `license_file_url` | string \| null | To'liq URL |
+  | `logo_url` | string \| null | To'liq URL |
+  | `telegram_url` | string \| null | |
+  | `instagram_url` | string \| null | |
+  | `facebook_url` | string \| null | |
+  | `x_url` | string \| null | |
+  | `is_active` | bool | |
+  | `created_at` | int | Unix timestamp |
+  | `updated_at` | int | Unix timestamp |
+
 settings:
   encodeUrl: true
   timeout: 0

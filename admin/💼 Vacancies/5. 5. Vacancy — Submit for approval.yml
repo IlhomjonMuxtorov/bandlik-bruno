@@ -9,22 +9,43 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles POST request.
-  
-  ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  Draft yoki rejected vakansiyani SuperAdmin tasdiqlashiga yuboradi. Status `pending_approval` ga o'tadi va `vacancy_status_log` ga yozuv qo'shiladi.
+
+  **Auth:** Employer / Recruiter (vakansiya egasi) yoki Admin.
+
+  ### ⚠️ Validation
+
+  Kamida quyidagilar to'ldirilgan bo'lishi kerak (aks holda 400):
+  - 1+ talab (`requirements`)
+  - 1+ hujjat (`documents`)
+  - Yo `single_payment = true`, yoki 1+ payment_step
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `400` | Draft/Rejected emas, yoki majburiy bo'limlar bo'sh |
+  | `403` | Boshqa tashkilotning vakansiyasi |
+
+docs: |
+  Draft yoki rejected vakansiyani SuperAdmin tasdiqlashiga yuboradi. Status `pending_approval` ga o'tadi va `vacancy_status_log` ga yozuv qo'shiladi.
+
+  **Auth:** Employer / Recruiter (vakansiya egasi) yoki Admin.
+
+  ### ⚠️ Validation
+
+  Kamida quyidagilar to'ldirilgan bo'lishi kerak (aks holda 400):
+  - 1+ talab (`requirements`)
+  - 1+ hujjat (`documents`)
+  - Yo `single_payment = true`, yoki 1+ payment_step
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Draft/Rejected emas, yoki majburiy bo'limlar bo'sh |
+  | `403` | Boshqa tashkilotning vakansiyasi |
+
 settings:
   encodeUrl: true
   timeout: 0

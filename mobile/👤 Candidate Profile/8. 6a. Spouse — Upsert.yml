@@ -19,30 +19,43 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles PUT request.
-  
+  Turmush o'rtog'i yozuvini yaratish yoki yangilash (`PUT` — upsert).
+
+  **Auth:** `access_token`.
+
   ### 📥 Request Body
-  
+
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `full_name` | string | ✅ | — |
-  | `birth_date` | string | ✅ | — |
-  | `marriage_date` | string | ✅ | — |
-  
-  ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  | `full_name` | string | ✅ | To'liq ism |
+  | `birth_date` | date | ✅ | `YYYY-MM-DD` |
+  | `marriage_date` | date | ➖ | Nikoh sanasi |
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `400` | `candidate.marital_status` ≠ `married` |
+
+docs: |
+  Turmush o'rtog'i yozuvini yaratish yoki yangilash (`PUT` — upsert).
+
+  **Auth:** `access_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `full_name` | string | ✅ | To'liq ism |
+  | `birth_date` | date | ✅ | `YYYY-MM-DD` |
+  | `marriage_date` | date | ➖ | Nikoh sanasi |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `candidate.marital_status` ≠ `married` |
+
 settings:
   encodeUrl: true
   timeout: 0

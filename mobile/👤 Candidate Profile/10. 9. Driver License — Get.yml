@@ -14,22 +14,37 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles GET request.
-  
+  Haydovchilik guvohnomasi + sertifikatlar.
+
+  **Auth:** `access_token`.
+
   ### 📤 Response
-  
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `has_license` | bool | Guvohnoma bormi |
+  | `categories` | string \| null | Masalan `B,C,D` |
+  | `license_number` | string \| null | Guvohnoma raqami |
+  | `issue_date` | date \| null | Berilgan sana |
+  | `expiry_date` | date \| null | Amal qilish muddati |
+  | `certificates` | array | `[{ id, type, title, … }]` |
+
+docs: |
+  Haydovchilik guvohnomasi + sertifikatlar.
+
+  **Auth:** `access_token`.
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `has_license` | bool | Guvohnoma bormi |
+  | `categories` | string \| null | Masalan `B,C,D` |
+  | `license_number` | string \| null | Guvohnoma raqami |
+  | `issue_date` | date \| null | Berilgan sana |
+  | `expiry_date` | date \| null | Amal qilish muddati |
+  | `certificates` | array | `[{ id, type, title, … }]` |
+
 settings:
   encodeUrl: true
   timeout: 0

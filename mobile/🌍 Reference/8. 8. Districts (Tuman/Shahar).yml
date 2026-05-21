@@ -14,22 +14,73 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles GET request.
-  
-  ### 📤 Response
-  
+  Berilgan viloyatga tegishli tuman/shaharlar ro'yxati. `id` qiymati GCP `SP_ID` ga teng (masalan, 1001 = Uchtepa tumani, 1011 = Bektemir tumani).
+
+  **Auth:** `access_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `region_id` | int | ✅ | Viloyat ID (GCP SP_ID, masalan 10) |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {access_token}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` |
+
+  ### 📤 Response *(massiv elementi)*
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  | `id` | int | Tuman kodi |
+  | `region_id` | int | Viloyat ID |
+  | `name` | string | Lokalizatsiyalangan nom |
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `400` | `region_id` yo'q yoki noto'g'ri |
+  | `401` | Token yo'q yoki muddati o'tgan |
+  | `404` | Berilgan viloyat topilmadi |
+
+docs: |
+  Berilgan viloyatga tegishli tuman/shaharlar ro'yxati. `id` qiymati GCP `SP_ID` ga teng (masalan, 1001 = Uchtepa tumani, 1011 = Bektemir tumani).
+
+  **Auth:** `access_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `region_id` | int | ✅ | Viloyat ID (GCP SP_ID, masalan 10) |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {access_token}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` |
+
+  ### 📤 Response *(massiv elementi)*
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Tuman kodi |
+  | `region_id` | int | Viloyat ID |
+  | `name` | string | Lokalizatsiyalangan nom |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `region_id` yo'q yoki noto'g'ri |
+  | `401` | Token yo'q yoki muddati o'tgan |
+  | `404` | Berilgan viloyat topilmadi |
+
 settings:
   encodeUrl: true
   timeout: 0

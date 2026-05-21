@@ -15,28 +15,32 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles POST request.
-  
+  Birinchi marta PIN-kod o'rnatish yoki pasport orqali qayta kirgandan so'ng yangilash.
+
+  > PIN DB da **hash** ko'rinishida saqlanadi (bcrypt).
+
+  **Auth:** `access_token` majburiy.
+
   ### 📥 Request Body
-  
+
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `pin` | string | ✅ | — |
-  
+  | `pin` | string | ✅ | 4 xonali raqam (`0000`–`9999`). Boshqa belgilar `400`. |
+
   ### 📤 Response
-  
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  | `is_pin_set` | bool | Har doim `true` |
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `400` | `pin` yo'q / raqam emas / 4 ta emas |
+  | `401` | `access_token` yo'q yoki muddati o'tgan |
+  | `500` | DB da saqlashda xatolik |
+
 settings:
   encodeUrl: true
   timeout: 0

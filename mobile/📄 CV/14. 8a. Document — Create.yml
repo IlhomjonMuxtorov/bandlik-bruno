@@ -19,31 +19,33 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles POST request.
-  
+  Yangi hujjat qo'shish.
+
+  **Auth:** `access_token`.
+
   ### 📥 Request Body
-  
+
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `type` | string | ✅ | — |
-  | `title` | string | ✅ | — |
-  | `file_url` | string | ✅ | — |
-  | `file_size` | int | ✅ | — |
-  
-  ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `type` | string | ✅ | `passport_scan` \| `foreign_passport_scan` |
+  | `title` | string | ✅ | Fayl nomi |
+  | `file_url` | string | ✅ | Yuklab olingan fayl URL |
+  | `file_size` | int | ➖ | Bayt |
+
+docs: |
+  Yangi hujjat qo'shish.
+
+  **Auth:** `access_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `type` | string | ✅ | `passport_scan` \| `foreign_passport_scan` |
+  | `title` | string | ✅ | Fayl nomi |
+  | `file_url` | string | ✅ | Yuklab olingan fayl URL |
+  | `file_size` | int | ➖ | Bayt |
+
 settings:
   encodeUrl: true
   timeout: 0

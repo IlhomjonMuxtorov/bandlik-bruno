@@ -54,22 +54,43 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles POST request.
-  
+  Yangi Sug'urta tashkilotini yaratadi. Request body XBA `Create` bilan bir xil shaklda — yagona farq: `type = 2` saqlanadi va fayllar `@storage/web/source/organization/insurance/*` ga yuklanadi.
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body
+
+  XBA `Create` endpointidagi to'liq ro'yxat (`name`, `brand_name`, `legal_name`, `description`, `license_number`, `region_id`, `district_id`, `address`, `phone`, `email`, `website_url`, `responsible_person`, `login`, `password`, social URL'lar, `license_file`, `logo`).
+
   ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+
+  `201` — `OrganizationOutputDTO` (`type = 2`).
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `422` | Validatsiya xatosi |
+
+docs: |
+  Yangi Sug'urta tashkilotini yaratadi. Request body XBA `Create` bilan bir xil shaklda — yagona farq: `type = 2` saqlanadi va fayllar `@storage/web/source/organization/insurance/*` ga yuklanadi.
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body
+
+  XBA `Create` endpointidagi to'liq ro'yxat (`name`, `brand_name`, `legal_name`, `description`, `license_number`, `region_id`, `district_id`, `address`, `phone`, `email`, `website_url`, `responsible_person`, `login`, `password`, social URL'lar, `license_file`, `logo`).
+
+  ### 📤 Response
+
+  `201` — `OrganizationOutputDTO` (`type = 2`).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `422` | Validatsiya xatosi |
+
 settings:
   encodeUrl: true
   timeout: 0

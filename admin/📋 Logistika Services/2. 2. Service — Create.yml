@@ -15,33 +15,57 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles POST request.
-  
-  ### 📥 Request Body
-  
+  Yangi Visa xizmatini yaratadi.
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body (JSON)
+
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `organization_id` | int | ✅ | — |
-  | `name` | string | ✅ | — |
-  | `description` | string | ✅ | — |
-  | `price` | int | ✅ | — |
-  | `is_active` | int | ✅ | — |
-  | `sort_order` | int | ✅ | — |
-  
+  | `organization_id` | int | ✅ | Visa `organization.id` (type = 2 bo'lishi shart) |
+  | `name` | string | ✅ | Max 200 |
+  | `description` | string | ➖ | |
+  | `price` | int | ✅ | UZS so'mda (≥0) |
+  | `is_active` | bool (0\|1) | ➖ | Default `1` |
+  | `sort_order` | int | ➖ | Default `0` |
+
   ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+
+  `201` — `OrganizationServiceOutputDTO`.
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `422` | Validatsiya xatosi (`organization_id` topilmadi yoki type mismatch) |
+
+docs: |
+  Yangi Visa xizmatini yaratadi.
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body (JSON)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `organization_id` | int | ✅ | Visa `organization.id` (type = 2 bo'lishi shart) |
+  | `name` | string | ✅ | Max 200 |
+  | `description` | string | ➖ | |
+  | `price` | int | ✅ | UZS so'mda (≥0) |
+  | `is_active` | bool (0\|1) | ➖ | Default `1` |
+  | `sort_order` | int | ➖ | Default `0` |
+
+  ### 📤 Response
+
+  `201` — `OrganizationServiceOutputDTO`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `422` | Validatsiya xatosi (`organization_id` topilmadi yoki type mismatch) |
+
 settings:
   encodeUrl: true
   timeout: 0

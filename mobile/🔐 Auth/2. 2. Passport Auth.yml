@@ -15,32 +15,75 @@ http:
     mode: bearer
     bearer: '{{guest_token}}'
 docs: |
-  This endpoint handles POST request.
-  
+  Pasport ma'lumotlarini **MVD GCP API** orqali tekshiradi. Muvaffaqiyatli bo'lsa, ko'rsatilgan telefonga 6 xonali OTP yuboriladi.
+
+  **Auth:** `guest_token` (1-qadamdan olingan).
+
   ### 📥 Request Body
-  
+
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `passport_series` | string | ✅ | — |
-  | `passport_number` | string | ✅ | — |
-  | `birth_date` | string | ✅ | — |
-  | `phone` | string | ✅ | — |
-  | `device_id` | string | ✅ | — |
-  
+  | `passport_series` | string | ✅ | 2 harf (`AA`, `AB`, …). Backend uppercase qiladi. |
+  | `passport_number` | string | ✅ | 7 raqam (`1234567`). |
+  | `birth_date` | string | ✅ | `DD.MM.YYYY` (masalan: `15.05.1990`). MVD tekshiruvi uchun. |
+  | `phone` | string | ✅ | E.164 format (`+998901234567`). OTP shu raqamga yuboriladi. |
+  | `device_id` | string | ✅ | UUID. Pasport ma'lumotlari shu qurilmaga bog'lanadi. |
+
+  **Sandbox telefonlar:** `+998900000001` → kod `111111`, `+998900000002` → kod `222222`.
+
   ### 📤 Response
-  
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  | `phone_masked` | string | Yashirilgan raqam: `+998 ** *** 5678` |
+  | `expires_in` | int | OTP amal qilish vaqti soniyalarda (`180`) |
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `400` | Validatsiya xatosi |
+  | `400` | MVD: pasport topilmadi yoki ma'lumotlar mos kelmadi |
+  | `400` | MVD: pasport muddati o'tgan |
+  | `400` | OTP rate limit (telefon uchun so'rovlar oshdi) |
+  | `400` | SMS yuborishda xatolik |
+  | `401` | `guest_token` yo'q yoki muddati o'tgan |
+
+docs: |
+  Pasport ma'lumotlarini **MVD GCP API** orqali tekshiradi. Muvaffaqiyatli bo'lsa, ko'rsatilgan telefonga 6 xonali OTP yuboriladi.
+
+  **Auth:** `guest_token` (1-qadamdan olingan).
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `passport_series` | string | ✅ | 2 harf (`AA`, `AB`, …). Backend uppercase qiladi. |
+  | `passport_number` | string | ✅ | 7 raqam (`1234567`). |
+  | `birth_date` | string | ✅ | `DD.MM.YYYY` (masalan: `15.05.1990`). MVD tekshiruvi uchun. |
+  | `phone` | string | ✅ | E.164 format (`+998901234567`). OTP shu raqamga yuboriladi. |
+  | `device_id` | string | ✅ | UUID. Pasport ma'lumotlari shu qurilmaga bog'lanadi. |
+
+  **Sandbox telefonlar:** `+998900000001` → kod `111111`, `+998900000002` → kod `222222`.
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `phone_masked` | string | Yashirilgan raqam: `+998 ** *** 5678` |
+  | `expires_in` | int | OTP amal qilish vaqti soniyalarda (`180`) |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Validatsiya xatosi |
+  | `400` | MVD: pasport topilmadi yoki ma'lumotlar mos kelmadi |
+  | `400` | MVD: pasport muddati o'tgan |
+  | `400` | OTP rate limit (telefon uchun so'rovlar oshdi) |
+  | `400` | SMS yuborishda xatolik |
+  | `401` | `guest_token` yo'q yoki muddati o'tgan |
+
 settings:
   encodeUrl: true
   timeout: 0

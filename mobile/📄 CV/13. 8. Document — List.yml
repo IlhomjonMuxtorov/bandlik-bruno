@@ -14,22 +14,22 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles GET request.
-  
-  ### 📤 Response
-  
+  Nomzod hujjatlari ro'yxati.
+
+  **Auth:** `access_token`.
+
+  ### 📤 Response *(massiv elementi)*
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `id` | int | Hujjat ID |
+  | `type` | string | `passport_scan` \| `foreign_passport_scan` |
+  | `title` | string | Fayl nomi |
+  | `file_url` | string | Fayl URL |
+  | `file_size` | int \| null | Bayt |
+  | `file_kind` | string \| null | `pdf` \| `image` \| `word` \| `excel` \| `other` |
+  | `file_kind_icon_url` | string \| null | Standart ikonkaga to'liq URL |
+
 settings:
   encodeUrl: true
   timeout: 0

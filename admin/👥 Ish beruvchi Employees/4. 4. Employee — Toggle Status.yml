@@ -9,22 +9,15 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles PATCH request.
-  
-  ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  Xodimning `is_active` qiymatini teskariga aylantiradi.
+
+  **Auth:** `admin_token`.
+
+docs: |
+  Xodimning `is_active` qiymatini teskariga aylantiradi.
+
+  **Auth:** `admin_token`.
+
 settings:
   encodeUrl: true
   timeout: 0

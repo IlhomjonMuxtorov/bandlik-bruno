@@ -9,22 +9,43 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles GET request.
-  
-  ### 📤 Response
-  
+  Vakansiyaning barcha status o'zgarishlari tarixini qaytaradi (audit).
+
+  **Auth:** Admin yoki vakansiya egasi.
+
+  ### 📤 Response (`data`)
+
+  Massiv:
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `id` | int | Log ID |
+  | `from_status` / `_label` | string \| null | Oldingi status |
+  | `to_status` / `_label` | string | Yangi status |
+  | `reason` | string \| null | Sabab / izoh |
+  | `actor_user_id` | int \| null | O'zgartirgan foydalanuvchi |
+  | `actor_name` | string \| null | Username |
+  | `created_at` | int | Unix timestamp |
+
+docs: |
+  Vakansiyaning barcha status o'zgarishlari tarixini qaytaradi (audit).
+
+  **Auth:** Admin yoki vakansiya egasi.
+
+  ### 📤 Response (`data`)
+
+  Massiv:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Log ID |
+  | `from_status` / `_label` | string \| null | Oldingi status |
+  | `to_status` / `_label` | string | Yangi status |
+  | `reason` | string \| null | Sabab / izoh |
+  | `actor_user_id` | int \| null | O'zgartirgan foydalanuvchi |
+  | `actor_name` | string \| null | Username |
+  | `created_at` | int | Unix timestamp |
+
 settings:
   encodeUrl: true
   timeout: 0

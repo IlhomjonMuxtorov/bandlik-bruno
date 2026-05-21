@@ -14,22 +14,59 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles GET request.
-  
-  ### 📤 Response
-  
+  O'zbekiston viloyatlari ro'yxati (GCP Spravochniki, 15 yozuv).
+
+  `id` qiymati GCP Spravochniki `SP_ID` ga teng (10 = Toshkent shahri, 11 = Toshkent viloyati, 12 = Sirdaryo va h.k.). Passport API javobidagi `birthregionid` to'g'ridan-to'g'ri shu ID ga mos.
+
+  **Auth:** `access_token`.
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {access_token}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz` |
+
+  ### 📤 Response *(massiv elementi)*
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  | `id` | int | Viloyat kodi (GCP SP_ID) |
+  | `name` | string | Lokalizatsiyalangan nom |
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `401` | Token yo'q yoki muddati o'tgan |
+
+docs: |
+  O'zbekiston viloyatlari ro'yxati (GCP Spravochniki, 15 yozuv).
+
+  `id` qiymati GCP Spravochniki `SP_ID` ga teng (10 = Toshkent shahri, 11 = Toshkent viloyati, 12 = Sirdaryo va h.k.). Passport API javobidagi `birthregionid` to'g'ridan-to'g'ri shu ID ga mos.
+
+  **Auth:** `access_token`.
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {access_token}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz` |
+
+  ### 📤 Response *(massiv elementi)*
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Viloyat kodi (GCP SP_ID) |
+  | `name` | string | Lokalizatsiyalangan nom |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki muddati o'tgan |
+
 settings:
   encodeUrl: true
   timeout: 0

@@ -15,31 +15,35 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles POST request.
-  
+  Yangi shablon yaratadi. `payload` — Vacancy Create body'sining to'liq JSON snapshot'i.
+
+  **Auth:** Admin yoki org foydalanuvchi (o'z `organization_id` uchun).
+
   ### 📥 Request Body
-  
+
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `organization_id` | int | ✅ | — |
-  | `name` | string | ✅ | — |
-  | `description` | string | ✅ | — |
-  | `payload` | object | ✅ | — |
-  
-  ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `organization_id` | int | ✅ | Tashkilot ID |
+  | `name` | string | ✅ | Shablon nomi |
+  | `description` | string | ➖ | Tavsif |
+  | `payload` | object | ✅ | Vacancy form JSON snapshot |
+  | `is_active` | bool | ➖ | Default `true` |
+
+docs: |
+  Yangi shablon yaratadi. `payload` — Vacancy Create body'sining to'liq JSON snapshot'i.
+
+  **Auth:** Admin yoki org foydalanuvchi (o'z `organization_id` uchun).
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `organization_id` | int | ✅ | Tashkilot ID |
+  | `name` | string | ✅ | Shablon nomi |
+  | `description` | string | ➖ | Tavsif |
+  | `payload` | object | ✅ | Vacancy form JSON snapshot |
+  | `is_active` | bool | ➖ | Default `true` |
+
 settings:
   encodeUrl: true
   timeout: 0

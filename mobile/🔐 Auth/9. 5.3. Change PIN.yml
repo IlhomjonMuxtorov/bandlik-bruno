@@ -15,29 +15,35 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles POST request.
-  
+  Mavjud PIN-kodni yangilash. Eski PIN tekshirilgandan so'ng yangi PIN saqlanadi.
+
+  > Har noto'g'ri `old_pin` urinish hisoblanadi (xuddi `login-with-pin` kabi). 3 marta xato → hisob 10 daqiqaga bloklanadi.
+
+  **Auth:** `access_token` majburiy.
+
   ### 📥 Request Body
-  
+
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `old_pin` | string | ✅ | — |
-  | `new_pin` | string | ✅ | — |
-  
+  | `old_pin` | string | ✅ | Hozirgi 4 xonali PIN. |
+  | `new_pin` | string | ✅ | Yangi 4 xonali PIN. |
+
   ### 📤 Response
-  
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  | `is_pin_set` | bool | Har doim `true` |
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `400` | `old_pin`/`new_pin` yo'q yoki format xato |
+  | `400` | PIN o'rnatilmagan |
+  | `400` | `old_pin` noto'g'ri → qolgan urinishlar soni qaytadi |
+  | `400` | 3 marta xato → `{ blocked_for }` |
+  | `401` | `access_token` yo'q yoki muddati o'tgan |
+
 settings:
   encodeUrl: true
   timeout: 0

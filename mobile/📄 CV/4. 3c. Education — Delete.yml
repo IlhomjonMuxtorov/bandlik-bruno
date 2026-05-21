@@ -14,22 +14,29 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles DELETE request.
-  
-  ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  Ta'limni o'chirish. `204 No Content` qaytaradi.
+
+  **Auth:** `access_token`.
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `403` | Boshqa nomzod resursi |
+  | `404` | Topilmadi |
+
+docs: |
+  Ta'limni o'chirish. `204 No Content` qaytaradi.
+
+  **Auth:** `access_token`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `403` | Boshqa nomzod resursi |
+  | `404` | Topilmadi |
+
 settings:
   encodeUrl: true
   timeout: 0

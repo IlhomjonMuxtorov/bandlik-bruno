@@ -9,22 +9,59 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles GET request.
-  
-  ### 📤 Response
-  
+  XBA tashkilotning **Xodimlar** tabi.
+
+  **Auth:** `admin_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `q` | string | ➖ | F.I.SH / rol / telefon bo'yicha qidiruv |
+  | `is_active` | int (0\|1) | ➖ | |
+  | `page`, `per-page` | int | ➖ | Pagination |
+
+  ### 📤 Response (`data.items[]` — `OrganizationEmployeeOutputDTO`)
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `id` | int | |
+  | `organization_id` | int | |
+  | `user_id` | int \| null | Agar xodim alohida login olsa |
+  | `full_name` | string | |
+  | `phone` | string \| null | |
+  | `role` | string | "XBA agenti 1", "XBA admin" va h.k. |
+  | `joined_at` | int \| null | Unix timestamp |
+  | `is_active` | bool | |
+  | `created_at` / `updated_at` | int | |
+
+docs: |
+  XBA tashkilotning **Xodimlar** tabi.
+
+  **Auth:** `admin_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `q` | string | ➖ | F.I.SH / rol / telefon bo'yicha qidiruv |
+  | `is_active` | int (0\|1) | ➖ | |
+  | `page`, `per-page` | int | ➖ | Pagination |
+
+  ### 📤 Response (`data.items[]` — `OrganizationEmployeeOutputDTO`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | |
+  | `organization_id` | int | |
+  | `user_id` | int \| null | Agar xodim alohida login olsa |
+  | `full_name` | string | |
+  | `phone` | string \| null | |
+  | `role` | string | "XBA agenti 1", "XBA admin" va h.k. |
+  | `joined_at` | int \| null | Unix timestamp |
+  | `is_active` | bool | |
+  | `created_at` / `updated_at` | int | |
+
 settings:
   encodeUrl: true
   timeout: 0

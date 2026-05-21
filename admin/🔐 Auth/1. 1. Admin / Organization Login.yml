@@ -13,29 +13,41 @@ http:
     data: "{\n  \"login\": \"admin\",\n  \"password\": \"secret\"\n}"
   auth: inherit
 docs: |
-  This endpoint handles POST request.
-  
+  Admin paneliga login/parol orqali kirish. Muvaffaqiyatli bo'lsa JWT qaytaradi.
+
+  Qabul qilinadigan foydalanuvchi turlari:
+
+  | `type` | Kim |
+  |:---:|---|
+  | `1` | `TYPE_ADMIN` — Super-admin |
+  | `5` | `TYPE_PARTNER` — Tashkilot (XBA / Notarius / Logistika / Sug'urta / Visa) |
+
+  > Tashkilot uchun `username` + `password` `OrganizationService::create()` ichida `dto->login` / `dto->password` qiymatlaridan yaratiladi va shu yerda ishlatiladi.
+
+  **Auth:** talab qilinmaydi.
+
   ### 📥 Request Body
-  
+
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `login` | string | ✅ | — |
-  | `password` | string | ✅ | — |
-  
-  ### 📤 Response
-  
+  | `login` | string | ✅ | Username yoki email |
+  | `password` | string | ✅ | Parol |
+
+  ### 📤 Response (`data`)
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  | `token` | string | JWT — keyingi so'rovlarda `Bearer {token}` |
+
+  > ✨ **Auto-save:** muvaffaqiyatli login `afterResponseScript` orqali tokenni `admin_token` environment variable'iga avtomatik yozadi. Boshqa endpointlar `{{ _.admin_token }}` orqali shu tokenni ishlatadi.
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `422` | Validatsiya xatosi yoki login/parol noto'g'ri |
+  | `403` | Foydalanuvchi `TYPE_ADMIN` yoki `TYPE_PARTNER` emas |
+
 settings:
   encodeUrl: true
   timeout: 0

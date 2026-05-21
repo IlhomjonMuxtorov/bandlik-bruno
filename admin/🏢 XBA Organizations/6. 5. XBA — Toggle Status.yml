@@ -9,22 +9,35 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles PATCH request.
-  
+  XBA `is_active` qiymatini teskariga aylantiradi (Faol ↔ Nofaol). Bog'liq `User.status` ham mos ravishda `ACTIVE`/`INACTIVE` ga o'tadi.
+
+  **Auth:** `admin_token`.
+
   ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+
+  Yangilangan XBA `OrganizationOutputDTO` formatida.
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `404` | XBA topilmadi |
+
+docs: |
+  XBA `is_active` qiymatini teskariga aylantiradi (Faol ↔ Nofaol). Bog'liq `User.status` ham mos ravishda `ACTIVE`/`INACTIVE` ga o'tadi.
+
+  **Auth:** `admin_token`.
+
+  ### 📤 Response
+
+  Yangilangan XBA `OrganizationOutputDTO` formatida.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | XBA topilmadi |
+
 settings:
   encodeUrl: true
   timeout: 0

@@ -14,22 +14,26 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles GET request.
-  
-  ### 📤 Response
-  
+  Nomzodning **ta'lim ro'yxati**.
+
+  **Auth:** `access_token`.
+
+  ### 📤 Response *(massiv elementi)*
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `id` | int | Ta'lim ID |
+  | `education_level` | object | `{ id, code, name }` |
+  | `institution_name` | string | O'quv muassasasi |
+  | `faculty` | string \| null | Fakultet |
+  | `specialty` | string \| null | Mutaxassislik |
+  | `start_date` | date | `YYYY-MM-DD` |
+  | `end_date` | date \| null | `null` — hozir o'qiyapti |
+  | `is_current` | bool | Hozir o'qiyaptimi |
+  | `diploma_file_url` | string \| null | Diplom fayl URL |
+  | `diploma_file_kind` | string \| null | `pdf` \| `image` \| `word` \| `excel` \| `other` |
+  | `diploma_file_kind_icon_url` | string \| null | Standart ikonkaga to'liq URL |
+
 settings:
   encodeUrl: true
   timeout: 0

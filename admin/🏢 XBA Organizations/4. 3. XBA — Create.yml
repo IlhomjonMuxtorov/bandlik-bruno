@@ -56,22 +56,113 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles POST request.
-  
+  Yangi XBA tashkilotini yaratadi. `multipart/form-data` so'rov — matn maydonlar + 2 ta fayl (`license_file`, `logo`).
+
+  Service quyidagilarni bir DB tranzaksiyasida bajaradi:
+  1. Yangi `User` (`TYPE_PARTNER`, `STATUS_ACTIVE`) yaratiladi — `username = login`, `password_hash`.
+  2. Fayllarni `@storage/web/source/organization/xba/{license,logo}/` ga saqlaydi.
+  3. `organization` jadvalga `type = 1` bilan yozadi.
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body (multipart/form-data)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `name` | string | ✅ | XBA nomi (max 200) |
+  | `brand_name` | string | ➖ | Brend nomi (max 200) |
+  | `legal_name` | string | ➖ | Yuridik nomi (max 200) |
+  | `description` | string | ➖ | Tashkilot haqida |
+  | `license_number` | string | ✅ | `type + license_number` unique (max 64) |
+  | `region_id` | int | ✅ | FK `region.id` — viloyat |
+  | `district_id` | int | ✅ | FK `district.id` — tuman |
+  | `address` | string | ✅ | Manzil (max 500) |
+  | `phone` | string | ✅ | Call-center raqami (max 20) |
+  | `email` | string | ➖ | Email |
+  | `website_url` | string | ➖ | URL (https sxema avtomatik qo'shiladi) |
+  | `responsible_person` | string | ✅ | Mas'ul shaxs F.I.SH. |
+  | `login` | string | ✅ | Min 3 belgi. Unique. |
+  | `password` | string | ✅ | Min 6 belgi |
+  | `telegram_url` | string | ➖ | URL |
+  | `instagram_url` | string | ➖ | URL |
+  | `facebook_url` | string | ➖ | URL |
+  | `x_url` | string | ➖ | URL |
+  | `is_active` | bool (0\|1) | ➖ | Default `1` |
+  | `license_file` | file | ➖ | pdf \| jpg \| png \| gif. Max 3.1 MB |
+  | `logo` | file | ➖ | jpg \| png \| gif. Max 3.1 MB |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {{ _.admin_token }}` |
+
   ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+
+  `201` — yaratilgan XBA `OrganizationOutputDTO` formatida.
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `422` | Validatsiya xatosi (`license_number` band, `region_id`/`district_id` topilmadi, parol qisqa, fayl formati noto'g'ri va h.k.) |
+  | `401` | Token yo'q yoki yaroqsiz |
+  | `403` | Super-admin emas |
+
+docs: |
+  Yangi XBA tashkilotini yaratadi. `multipart/form-data` so'rov — matn maydonlar + 2 ta fayl (`license_file`, `logo`).
+
+  Service quyidagilarni bir DB tranzaksiyasida bajaradi:
+  1. Yangi `User` (`TYPE_PARTNER`, `STATUS_ACTIVE`) yaratiladi — `username = login`, `password_hash`.
+  2. Fayllarni `@storage/web/source/organization/xba/{license,logo}/` ga saqlaydi.
+  3. `organization` jadvalga `type = 1` bilan yozadi.
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body (multipart/form-data)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `name` | string | ✅ | XBA nomi (max 200) |
+  | `brand_name` | string | ➖ | Brend nomi (max 200) |
+  | `legal_name` | string | ➖ | Yuridik nomi (max 200) |
+  | `description` | string | ➖ | Tashkilot haqida |
+  | `license_number` | string | ✅ | `type + license_number` unique (max 64) |
+  | `region_id` | int | ✅ | FK `region.id` — viloyat |
+  | `district_id` | int | ✅ | FK `district.id` — tuman |
+  | `address` | string | ✅ | Manzil (max 500) |
+  | `phone` | string | ✅ | Call-center raqami (max 20) |
+  | `email` | string | ➖ | Email |
+  | `website_url` | string | ➖ | URL (https sxema avtomatik qo'shiladi) |
+  | `responsible_person` | string | ✅ | Mas'ul shaxs F.I.SH. |
+  | `login` | string | ✅ | Min 3 belgi. Unique. |
+  | `password` | string | ✅ | Min 6 belgi |
+  | `telegram_url` | string | ➖ | URL |
+  | `instagram_url` | string | ➖ | URL |
+  | `facebook_url` | string | ➖ | URL |
+  | `x_url` | string | ➖ | URL |
+  | `is_active` | bool (0\|1) | ➖ | Default `1` |
+  | `license_file` | file | ➖ | pdf \| jpg \| png \| gif. Max 3.1 MB |
+  | `logo` | file | ➖ | jpg \| png \| gif. Max 3.1 MB |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {{ _.admin_token }}` |
+
+  ### 📤 Response
+
+  `201` — yaratilgan XBA `OrganizationOutputDTO` formatida.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `422` | Validatsiya xatosi (`license_number` band, `region_id`/`district_id` topilmadi, parol qisqa, fayl formati noto'g'ri va h.k.) |
+  | `401` | Token yo'q yoki yaroqsiz |
+  | `403` | Super-admin emas |
+
 settings:
   encodeUrl: true
   timeout: 0

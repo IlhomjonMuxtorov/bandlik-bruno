@@ -9,22 +9,39 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles GET request.
-  
+  Joriy nomzodning barcha arizalari. Mobile pagination — bare array.
+
+  **Auth:** `access_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `status` | string | ➖ | `applied` \| `reviewed` \| `accepted` \| `rejected` |
+  | `per-page` | int | ➖ | 1..100, default 20 |
+
   ### 📤 Response
-  
+
+  Massiv:
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  | `id` | int | Application ID |
+  | `vacancy` | object | `{id, title}` |
+  | `status` / `status_label` | string | `applied` ... |
+  | `cv` | object \| null | `{id, title}` |
+  | `cover_message` | string \| null | |
+  | `hotel_preference` | bool | |
+  | `applied_at` | int | Unix timestamp |
+  | `reviewed_at` / `decided_at` | int \| null | |
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `401` | Token yo'q |
+  | `404` | Nomzod topilmadi |
+
 settings:
   encodeUrl: true
   timeout: 0

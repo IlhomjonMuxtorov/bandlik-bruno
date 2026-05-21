@@ -14,22 +14,15 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles DELETE request.
-  
-  ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  Sertifikatni o'chirish. `204 No Content`.
+
+  **Auth:** `access_token`.
+
+docs: |
+  Sertifikatni o'chirish. `204 No Content`.
+
+  **Auth:** `access_token`.
+
 settings:
   encodeUrl: true
   timeout: 0

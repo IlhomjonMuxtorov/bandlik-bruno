@@ -9,22 +9,59 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles GET request.
-  
-  ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  Bitta Rekruter tashkiloti + `stats` sub-object:
+
+  ```json
+  {
+    "id": 1,
+    "type": 2,
+    "type_label": "Rekruter",
+    "name": "...",
+    ...
+    "stats": {
+      "total_revenue": 48000000,
+      "clients_count": 1920,
+      "services_count": 10,
+      "employees_count": 12
+    }
+  }
+  ```
+
+  **Auth:** `admin_token`.
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `404` | Rekruter topilmadi (cross-type isolation: XBA/Visa id'si bilan urinilganda ham 404) |
+
+docs: |
+  Bitta Rekruter tashkiloti + `stats` sub-object:
+
+  ```json
+  {
+    "id": 1,
+    "type": 2,
+    "type_label": "Rekruter",
+    "name": "...",
+    ...
+    "stats": {
+      "total_revenue": 48000000,
+      "clients_count": 1920,
+      "services_count": 10,
+      "employees_count": 12
+    }
+  }
+  ```
+
+  **Auth:** `admin_token`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Rekruter topilmadi (cross-type isolation: XBA/Visa id'si bilan urinilganda ham 404) |
+
 settings:
   encodeUrl: true
   timeout: 0

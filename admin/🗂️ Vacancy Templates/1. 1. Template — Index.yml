@@ -9,22 +9,15 @@ http:
     mode: bearer
     bearer: '{{admin_token}}'
 docs: |
-  This endpoint handles GET request.
-  
-  ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  Shablonlar ro'yxati. Admin barchasini, org foydalanuvchi faqat o'zinikini.
+
+  **Auth:** Admin yoki org foydalanuvchi.
+
+docs: |
+  Shablonlar ro'yxati. Admin barchasini, org foydalanuvchi faqat o'zinikini.
+
+  **Auth:** Admin yoki org foydalanuvchi.
+
 settings:
   encodeUrl: true
   timeout: 0

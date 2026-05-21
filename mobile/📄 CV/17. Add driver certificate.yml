@@ -19,32 +19,69 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles POST request.
-  
+  Haydovchilik sertifikati qo'shish (Code 95, ADR, Chip card va h.k.).
+
+  **Auth:** `access_token`.
+
   ### 📥 Request Body
-  
+
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `type` | string | ✅ | — |
-  | `title` | string | ✅ | — |
-  | `certificate_number` | string | ✅ | — |
-  | `issue_date` | string | ✅ | — |
-  | `expiry_date` | string | ✅ | — |
-  
+  | `type` | string | ✅ | `code_95` \| `adr` \| `chip_card` |
+  | `title` | string | ✅ | Sertifikat nomi |
+  | `certificate_number` | string | ➖ | Raqam |
+  | `issue_date` | date | ➖ | Berilgan sana |
+  | `expiry_date` | date | ➖ | Amal qilish muddati |
+  | `file_url` | string | ➖ | Sertifikat fayli URL |
+  | `file_size` | int | ➖ | Fayl hajmi (bayt) |
+
   ### 📤 Response
-  
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `id` | int | Sertifikat ID |
+  | `type` | string | `code_95` \| `adr` \| `chip_card` |
+  | `title` | string | Sertifikat nomi |
+  | `certificate_number` | string \| null | Raqam |
+  | `issue_date` | date \| null | Berilgan sana |
+  | `expiry_date` | date \| null | Amal qilish muddati |
+  | `file_url` | string \| null | Fayl URL |
+  | `file_size` | int \| null | Fayl hajmi (bayt) |
+  | `file_kind` | string \| null | `pdf` \| `image` \| `word` \| `excel` \| `other` |
+  | `file_kind_icon_url` | string \| null | Standart ikonkaga to'liq URL |
+
+docs: |
+  Haydovchilik sertifikati qo'shish (Code 95, ADR, Chip card va h.k.).
+
+  **Auth:** `access_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `type` | string | ✅ | `code_95` \| `adr` \| `chip_card` |
+  | `title` | string | ✅ | Sertifikat nomi |
+  | `certificate_number` | string | ➖ | Raqam |
+  | `issue_date` | date | ➖ | Berilgan sana |
+  | `expiry_date` | date | ➖ | Amal qilish muddati |
+  | `file_url` | string | ➖ | Sertifikat fayli URL |
+  | `file_size` | int | ➖ | Fayl hajmi (bayt) |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Sertifikat ID |
+  | `type` | string | `code_95` \| `adr` \| `chip_card` |
+  | `title` | string | Sertifikat nomi |
+  | `certificate_number` | string \| null | Raqam |
+  | `issue_date` | date \| null | Berilgan sana |
+  | `expiry_date` | date \| null | Amal qilish muddati |
+  | `file_url` | string \| null | Fayl URL |
+  | `file_size` | int \| null | Fayl hajmi (bayt) |
+  | `file_kind` | string \| null | `pdf` \| `image` \| `word` \| `excel` \| `other` |
+  | `file_kind_icon_url` | string \| null | Standart ikonkaga to'liq URL |
+
 settings:
   encodeUrl: true
   timeout: 0

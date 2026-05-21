@@ -19,32 +19,39 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles POST request.
-  
+  Yangi kurs qo'shish.
+
+  **Auth:** `access_token`.
+
   ### 📥 Request Body
-  
+
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `course_name` | string | ✅ | — |
-  | `institution_name` | string | ✅ | — |
-  | `start_date` | string | ✅ | — |
-  | `end_date` | string | ✅ | — |
-  | `certificate_number` | string | ✅ | — |
-  
-  ### 📤 Response
-  
-  | Field | Type | Description |
-  |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `course_name` | string | ✅ | Kurs nomi |
+  | `institution_name` | string | ✅ | O'quv markazi |
+  | `start_date` | date | ✅ | `YYYY-MM-DD` |
+  | `end_date` | date | ➖ | Tugagan sana |
+  | `certificate_number` | string | ➖ | Sertifikat raqami |
+  | `certificate_file_url` | string | ➖ | Fayl URL |
+  | `certificate_file_size` | int | ➖ | Fayl hajmi (bayt) |
+
+docs: |
+  Yangi kurs qo'shish.
+
+  **Auth:** `access_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `course_name` | string | ✅ | Kurs nomi |
+  | `institution_name` | string | ✅ | O'quv markazi |
+  | `start_date` | date | ✅ | `YYYY-MM-DD` |
+  | `end_date` | date | ➖ | Tugagan sana |
+  | `certificate_number` | string | ➖ | Sertifikat raqami |
+  | `certificate_file_url` | string | ➖ | Fayl URL |
+  | `certificate_file_size` | int | ➖ | Fayl hajmi (bayt) |
+
 settings:
   encodeUrl: true
   timeout: 0

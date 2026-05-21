@@ -14,22 +14,45 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles GET request.
-  
-  ### 📤 Response
-  
+  Kurslar ro'yxati.
+
+  **Auth:** `access_token`.
+
+  ### 📤 Response *(massiv elementi)*
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
-  ### ⚠️ Errors
-  
-  | Code | Reason |
-  |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `id` | int | Kurs ID |
+  | `course_name` | string | Kurs nomi |
+  | `institution_name` | string | O'quv markazi |
+  | `start_date` | date | `YYYY-MM-DD` |
+  | `end_date` | date \| null | Tugagan sana |
+  | `certificate_number` | string \| null | Sertifikat raqami |
+  | `certificate_file_url` | string \| null | Fayl URL |
+  | `certificate_file_size` | int \| null | Fayl hajmi (bayt) |
+  | `certificate_file_kind` | string \| null | `pdf` \| `image` \| `word` \| `excel` \| `other` |
+  | `certificate_file_kind_icon_url` | string \| null | Standart ikonkaga to'liq URL |
+
+docs: |
+  Kurslar ro'yxati.
+
+  **Auth:** `access_token`.
+
+  ### 📤 Response *(massiv elementi)*
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Kurs ID |
+  | `course_name` | string | Kurs nomi |
+  | `institution_name` | string | O'quv markazi |
+  | `start_date` | date | `YYYY-MM-DD` |
+  | `end_date` | date \| null | Tugagan sana |
+  | `certificate_number` | string \| null | Sertifikat raqami |
+  | `certificate_file_url` | string \| null | Fayl URL |
+  | `certificate_file_size` | int \| null | Fayl hajmi (bayt) |
+  | `certificate_file_kind` | string \| null | `pdf` \| `image` \| `word` \| `excel` \| `other` |
+  | `certificate_file_kind_icon_url` | string \| null | Standart ikonkaga to'liq URL |
+
 settings:
   encodeUrl: true
   timeout: 0

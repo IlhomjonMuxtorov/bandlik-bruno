@@ -14,22 +14,77 @@ http:
     mode: bearer
     bearer: '{{access_token}}'
 docs: |
-  This endpoint handles GET request.
-  
+  Bitta CV-ning to'liq tafsilotlari (education, experience, languages va h.k. shu CV uchun).
+
+  **Auth:** `access_token`.
+
+  ### 📋 Path Params
+
+  | Param | Type | Description |
+  |---|---|---|
+  | `cv_id` | int | CV ID |
+
   ### 📤 Response
-  
+
   | Field | Type | Description |
   |---|---|---|
-  | `success` | boolean | Request success status |
-  | `data` | object | Response data |
-  
+  | `header` | object | `{ cv_id, title, summary, target_profession, target_country, is_primary, photo_url, full_name, completion_percent, stats }` |
+  | `personal` | object | Passport asosida (CV-dan qat'iy nazar bir xil) |
+  | `birth_place` | object | `{ region, district, address, country }` |
+  | `passport` | object | TIN, foreign passport, visa info |
+  | `registration` | object | Manzil ma'lumotlari |
+  | `education` | array | Faqat shu CV-ga tegishli |
+  | `experience` | array | Faqat shu CV-ga tegishli |
+  | `family` | object | Candidate-level (barcha CV-larda bir xil) |
+  | `languages` | array | Faqat shu CV |
+  | `documents` | array | Faqat shu CV |
+  | `driver` | object | License candidate-level, certificates CV-level |
+  | `courses` | array | Faqat shu CV |
+  | `contact` | object | `{ phone, email }` |
+
   ### ⚠️ Errors
-  
+
   | Code | Reason |
   |---|---|
-  | `400` | Invalid request data |
-  | `401` | Unauthorized |
-  | `404` | Not found |
+  | `401` | Token yo'q |
+  | `404` | CV topilmadi yoki boshqa nomzodga tegishli |
+
+docs: |
+  Bitta CV-ning to'liq tafsilotlari (education, experience, languages va h.k. shu CV uchun).
+
+  **Auth:** `access_token`.
+
+  ### 📋 Path Params
+
+  | Param | Type | Description |
+  |---|---|---|
+  | `cv_id` | int | CV ID |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `header` | object | `{ cv_id, title, summary, target_profession, target_country, is_primary, photo_url, full_name, completion_percent, stats }` |
+  | `personal` | object | Passport asosida (CV-dan qat'iy nazar bir xil) |
+  | `birth_place` | object | `{ region, district, address, country }` |
+  | `passport` | object | TIN, foreign passport, visa info |
+  | `registration` | object | Manzil ma'lumotlari |
+  | `education` | array | Faqat shu CV-ga tegishli |
+  | `experience` | array | Faqat shu CV-ga tegishli |
+  | `family` | object | Candidate-level (barcha CV-larda bir xil) |
+  | `languages` | array | Faqat shu CV |
+  | `documents` | array | Faqat shu CV |
+  | `driver` | object | License candidate-level, certificates CV-level |
+  | `courses` | array | Faqat shu CV |
+  | `contact` | object | `{ phone, email }` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `404` | CV topilmadi yoki boshqa nomzodga tegishli |
+
 settings:
   encodeUrl: true
   timeout: 0
