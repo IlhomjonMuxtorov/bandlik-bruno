@@ -12,6 +12,30 @@ http:
     type: json
     data: "{\n  \"pin\": \"1234\",\n  \"device_id\": \"{{device_id}}\"\n}"
   auth: inherit
+docs: |
+  This endpoint handles POST request.
+  
+  ### 📥 Request Body
+  
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `pin` | string | ✅ | — |
+  | `device_id` | string | ✅ | — |
+  
+  ### 📤 Response
+  
+  | Field | Type | Description |
+  |---|---|---|
+  | `success` | boolean | Request success status |
+  | `data` | object | Response data |
+  
+  ### ⚠️ Errors
+  
+  | Code | Reason |
+  |---|---|
+  | `400` | Invalid request data |
+  | `401` | Unauthorized |
+  | `404` | Not found |
 settings:
   encodeUrl: true
   timeout: 0

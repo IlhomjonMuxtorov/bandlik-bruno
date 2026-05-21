@@ -12,6 +12,33 @@ http:
     type: json
     data: "{\n  \"device_id\": \"{{device_id}}\",\n  \"os\": \"android\",\n  \"fcm_token\": \"sample_fcm_token_123\",\n  \"app_version\": \"1.0.0\",\n  \"language\": \"uz\"\n}"
   auth: inherit
+docs: |
+  This endpoint handles POST request.
+  
+  ### 📥 Request Body
+  
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `device_id` | string | ✅ | — |
+  | `os` | string | ✅ | — |
+  | `fcm_token` | string | ✅ | — |
+  | `app_version` | string | ✅ | — |
+  | `language` | string | ✅ | — |
+  
+  ### 📤 Response
+  
+  | Field | Type | Description |
+  |---|---|---|
+  | `success` | boolean | Request success status |
+  | `data` | object | Response data |
+  
+  ### ⚠️ Errors
+  
+  | Code | Reason |
+  |---|---|
+  | `400` | Invalid request data |
+  | `401` | Unauthorized |
+  | `404` | Not found |
 settings:
   encodeUrl: true
   timeout: 0

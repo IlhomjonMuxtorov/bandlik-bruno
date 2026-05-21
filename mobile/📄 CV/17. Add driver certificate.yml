@@ -18,6 +18,33 @@ http:
   auth:
     mode: bearer
     bearer: '{{access_token}}'
+docs: |
+  This endpoint handles POST request.
+  
+  ### 📥 Request Body
+  
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `type` | string | ✅ | — |
+  | `title` | string | ✅ | — |
+  | `certificate_number` | string | ✅ | — |
+  | `issue_date` | string | ✅ | — |
+  | `expiry_date` | string | ✅ | — |
+  
+  ### 📤 Response
+  
+  | Field | Type | Description |
+  |---|---|---|
+  | `success` | boolean | Request success status |
+  | `data` | object | Response data |
+  
+  ### ⚠️ Errors
+  
+  | Code | Reason |
+  |---|---|
+  | `400` | Invalid request data |
+  | `401` | Unauthorized |
+  | `404` | Not found |
 settings:
   encodeUrl: true
   timeout: 0

@@ -12,6 +12,32 @@ http:
     type: json
     data: "{\n  \"pass_data\": \"AA1234567\",\n  \"phone\": \"+998901234567\",\n  \"birth_date\": \"15.01.1990\",\n  \"threshold\": 0.85\n}"
   auth: inherit
+docs: |
+  This endpoint handles POST request.
+  
+  ### 📥 Request Body
+  
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `pass_data` | string | ✅ | — |
+  | `phone` | string | ✅ | — |
+  | `birth_date` | string | ✅ | — |
+  | `threshold` | float | ✅ | — |
+  
+  ### 📤 Response
+  
+  | Field | Type | Description |
+  |---|---|---|
+  | `success` | boolean | Request success status |
+  | `data` | object | Response data |
+  
+  ### ⚠️ Errors
+  
+  | Code | Reason |
+  |---|---|
+  | `400` | Invalid request data |
+  | `401` | Unauthorized |
+  | `404` | Not found |
 settings:
   encodeUrl: true
   timeout: 0

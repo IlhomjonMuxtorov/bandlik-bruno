@@ -12,6 +12,30 @@ http:
     type: json
     data: "{\n  \"reuid\": \"9b7e597e-893e-4e11-92cf-f4e7d4f923b1\",\n  \"threshold\": 0.85\n}"
   auth: inherit
+docs: |
+  This endpoint handles POST request.
+  
+  ### 📥 Request Body
+  
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `reuid` | string | ✅ | — |
+  | `threshold` | float | ✅ | — |
+  
+  ### 📤 Response
+  
+  | Field | Type | Description |
+  |---|---|---|
+  | `success` | boolean | Request success status |
+  | `data` | object | Response data |
+  
+  ### ⚠️ Errors
+  
+  | Code | Reason |
+  |---|---|
+  | `400` | Invalid request data |
+  | `401` | Unauthorized |
+  | `404` | Not found |
 settings:
   encodeUrl: true
   timeout: 0

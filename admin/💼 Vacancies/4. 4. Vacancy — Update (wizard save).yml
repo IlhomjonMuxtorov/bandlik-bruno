@@ -14,6 +14,39 @@ http:
   auth:
     mode: bearer
     bearer: '{{admin_token}}'
+docs: |
+  This endpoint handles PUT request.
+  
+  ### 📥 Request Body
+  
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `organization_id` | int | ✅ | — |
+  | `title` | string | ✅ | — |
+  | `employment_type` | string | ✅ | — |
+  | `hiring_quota` | int | ✅ | — |
+  | `country_id` | int | ✅ | — |
+  | `requirements` | object | ✅ | — |
+  | `benefits` | object | ✅ | — |
+  | `documents` | object | ✅ | — |
+  | `services` | object | ✅ | — |
+  | `single_payment` | boolean | ✅ | — |
+  | `payment_steps` | object | ✅ | — |
+  
+  ### 📤 Response
+  
+  | Field | Type | Description |
+  |---|---|---|
+  | `success` | boolean | Request success status |
+  | `data` | object | Response data |
+  
+  ### ⚠️ Errors
+  
+  | Code | Reason |
+  |---|---|
+  | `400` | Invalid request data |
+  | `401` | Unauthorized |
+  | `404` | Not found |
 settings:
   encodeUrl: true
   timeout: 0

@@ -14,6 +14,33 @@ http:
   auth:
     mode: bearer
     bearer: '{{guest_token}}'
+docs: |
+  This endpoint handles POST request.
+  
+  ### 📥 Request Body
+  
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `passport_series` | string | ✅ | — |
+  | `passport_number` | string | ✅ | — |
+  | `birth_date` | string | ✅ | — |
+  | `phone` | string | ✅ | — |
+  | `device_id` | string | ✅ | — |
+  
+  ### 📤 Response
+  
+  | Field | Type | Description |
+  |---|---|---|
+  | `success` | boolean | Request success status |
+  | `data` | object | Response data |
+  
+  ### ⚠️ Errors
+  
+  | Code | Reason |
+  |---|---|
+  | `400` | Invalid request data |
+  | `401` | Unauthorized |
+  | `404` | Not found |
 settings:
   encodeUrl: true
   timeout: 0

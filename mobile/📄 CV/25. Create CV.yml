@@ -18,6 +18,33 @@ http:
   auth:
     mode: bearer
     bearer: '{{access_token}}'
+docs: |
+  This endpoint handles POST request.
+  
+  ### 📥 Request Body
+  
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `title` | string | ✅ | — |
+  | `summary` | string | ✅ | — |
+  | `target_profession` | string | ✅ | — |
+  | `target_country_id` | int | ✅ | — |
+  | `is_primary` | boolean | ✅ | — |
+  
+  ### 📤 Response
+  
+  | Field | Type | Description |
+  |---|---|---|
+  | `success` | boolean | Request success status |
+  | `data` | object | Response data |
+  
+  ### ⚠️ Errors
+  
+  | Code | Reason |
+  |---|---|
+  | `400` | Invalid request data |
+  | `401` | Unauthorized |
+  | `404` | Not found |
 settings:
   encodeUrl: true
   timeout: 0
