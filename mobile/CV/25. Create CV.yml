@@ -43,8 +43,19 @@ docs: |
   | `400` | Validatsiya xatosi |
   | `401` | Token yo'q |
 
+  > ✨ **Auto-save:** yaratilgan CV ning `id` si avtomatik `cv_id` sifatida saqlanadi. CV qismidagi barcha endpointlar shu `{{cv_id}}` ni ishlatadi.
+
 settings:
   encodeUrl: true
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        const body = res.getBody();
+        if (body && body.id) {
+          bru.setEnvVar('cv_id', String(body.id));
+          console.log('cv_id saved: ' + body.id);
+        }

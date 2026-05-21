@@ -41,8 +41,20 @@ docs: |
   | `401` | `refresh_token` topilmadi, bekor qilingan yoki muddati o'tgan |
   | `401` | Tegishli foydalanuvchi topilmadi (o'chirilgan hisob) |
 
+  > ✨ **Auto-save:** yangi `access_token` va `refresh_token` avtomatik yangilanadi. Eski `refresh_token` bekor qilinadi.
+
 settings:
   encodeUrl: true
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        const body = res.getBody();
+        if (body && body.access_token) {
+          bru.setEnvVar('access_token', body.access_token);
+          bru.setEnvVar('refresh_token', body.refresh_token);
+          console.log('tokens refreshed');
+        }

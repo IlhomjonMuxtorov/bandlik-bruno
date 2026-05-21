@@ -46,8 +46,20 @@ docs: |
   | `400` | OTP noto'g'ri yoki muddati o'tgan (180 sek) |
   | `401` | `guest_token` yo'q yoki muddati o'tgan |
 
+  > ✨ **Auto-save:** `access_token` va `refresh_token` avtomatik saqlanadi.
+
 settings:
   encodeUrl: true
   timeout: 0
   followRedirects: true
   maxRedirects: 5
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        const body = res.getBody();
+        if (body && body.access_token) {
+          bru.setEnvVar('access_token', body.access_token);
+          bru.setEnvVar('refresh_token', body.refresh_token);
+          console.log('access_token and refresh_token saved');
+        }

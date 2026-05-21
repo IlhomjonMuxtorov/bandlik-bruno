@@ -53,4 +53,15 @@ settings:
   timeout: 0
   followRedirects: true
   maxRedirects: 5
-tests: "const body = insomnia.response.json();\nconst token = body?.data?.token;\nif (token) {\n  insomnia.baseEnvironment.set('admin_token', token);\n  console.log('admin_token saved');\n} else {\n  console.warn('Login response did not contain data.token');\n}"
+runtime:
+  scripts:
+    - type: after-response
+      code: |-
+        const body = res.getBody();
+        const token = body?.data?.token;
+        if (token) {
+          bru.setEnvVar('admin_token', token);
+          console.log('admin_token saved');
+        } else {
+          console.warn('Login response did not contain data.token');
+        }
