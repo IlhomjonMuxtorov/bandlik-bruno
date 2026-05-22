@@ -1,0 +1,43 @@
+info:
+  name: 11. Visa Types
+  type: http
+  seq: 11
+http:
+  method: GET
+  url: '{{base_url}}/mobile/visa-types'
+  headers:
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: |
+  Viza turlari ro'yxatini olish (ma'lumotnomalar uchun).
+  
+  **Auth:** `access_token`
+  
+  ### 📋 Headers
+  
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {token}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz` |
+  
+  ### 📤 Response
+  
+  ```json
+  [
+    {
+      "value": "work_visa",
+      "label": "Work visa"
+    },
+    {
+      "value": "business_visa",
+      "label": "Business visa"
+    }
+  ]
+  ```
+  
+  ### ⚠️ Errors
+  
+  | Code | Reason |
+  |---|---|
+  | `401` | Unauthorized (Token yaroqsiz yoki berilmagan) |
