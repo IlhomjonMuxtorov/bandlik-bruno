@@ -1,0 +1,26 @@
+info:
+  name: 11. Documents — Update
+  type: http
+  seq: 11
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancy-documents/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": {\"uz\": \"CV taqdim etish (O'zgartirilgan)\", \"ru\": \"Предоставить\
+      \ резюме (Изменено)\", \"en\": \"Submit CV (Updated)\"},\n  \"description\"\
+      : {\"uz\": \"Yangilangan hujjat talabi\", \"ru\": \"Обновленное требование документа\"\
+      , \"en\": \"Updated document requirement\"}\n}"
+  auth: inherit
+docs: "Vakansiya hujjati ma'lumotini yangilaydi.\n\n**Auth:** `admin_token`.\n\n### \U0001F4E5\
+  \ Request Body\n\n```json\n{\n  \"name\": {\"uz\": \"...\", \"ru\": \"...\", \"en\"\
+  : \"...\"},\n  \"description\": {\"uz\": \"...\", \"ru\": \"...\", \"en\": \"...\"}\n\
+  }\n```\n"
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
