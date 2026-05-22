@@ -1,0 +1,23 @@
+info:
+  name: Benefit — Update
+  type: http
+  seq: 3
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancy-benefit/update?id=1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    json: |-
+      {
+        "name": {
+          "uz": "Updated name"
+        }
+      }
+  auth: inherit
+docs: |
+  Update an existing vacancy-benefit.
+  
+  **Auth:** `admin_token`

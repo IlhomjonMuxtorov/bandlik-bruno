@@ -1,0 +1,12 @@
+info:
+  name: Document — Delete
+  type: http
+  seq: 4
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/vacancy-document/delete?id=1'
+  auth: inherit
+docs: |
+  Delete a vacancy-document.
+  
+  **Auth:** `admin_token`

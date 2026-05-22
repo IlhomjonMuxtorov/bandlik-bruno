@@ -1,0 +1,12 @@
+info:
+  name: Requirement — List
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/vacancy-requirement'
+  auth: inherit
+docs: |
+  List all vacancy-requirements (dictionary items).
+  
+  **Auth:** `admin_token`

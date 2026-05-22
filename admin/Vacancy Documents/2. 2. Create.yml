@@ -1,0 +1,27 @@
+info:
+  name: Document — Create
+  type: http
+  seq: 2
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancy-document/create'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    json: |-
+      {
+        "name": {
+          "uz": "Uzbek name",
+          "ru": "Russian name"
+        },
+        "description": {
+          "uz": "Uzbek desc"
+        }
+      }
+  auth: inherit
+docs: |
+  Create a new vacancy-document.
+  
+  **Auth:** `admin_token`

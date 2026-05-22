@@ -1,0 +1,12 @@
+info:
+  name: Benefit — Delete
+  type: http
+  seq: 4
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/vacancy-benefit/delete?id=1'
+  auth: inherit
+docs: |
+  Delete a vacancy-benefit.
+  
+  **Auth:** `admin_token`
