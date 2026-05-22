@@ -1,0 +1,16 @@
+meta:
+  name: 8c. Visa — Delete
+  type: http
+  seq: 15
+http:
+  method: DELETE
+  url: '{{base_url}}/mobile/candidate/visa/1'
+  auth: inherit
+docs: |-
+  [Nomzod o'zi yaratgan vizani o'chirish.]
+
+  **Auth:** `access_token`
+
+  ### 📤 Response
+
+  Muvaffaqiyatli o'chirilganda `204 No Content` qaytadi (bo'sh javob).
