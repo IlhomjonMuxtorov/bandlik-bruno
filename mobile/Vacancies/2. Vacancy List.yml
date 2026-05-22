@@ -32,8 +32,7 @@ docs: 'Tasdiqlangan (`status=approved`) vakansiyalar ro''yxati. `published_at DE
 
   | `industry_id` | int | ➖ | Soha ID. |
 
-  | `employment_type` | string | ➖ | `full_time` \| `part_time` \| `shift` \| `contract`
-  \| `internship`. |
+  | `employment_type` | string | ➖ | `full_time` \| `part_time` \| `seasonal` \| `contract`. |
 
   | `experience_level` | string | ➖ | `none` \| `one_to_three` \| `three_to_six`. |
 
