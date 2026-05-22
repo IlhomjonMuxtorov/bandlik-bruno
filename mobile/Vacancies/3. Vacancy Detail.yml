@@ -39,7 +39,7 @@ docs: 'Tasdiqlangan vakansiyaning to''liq tafsiloti. **Har chaqiriqda `views_cou
 
   | `description` | string \| null | HTML/markdown matn |
 
-  | `experience_level` | string | `any` \| `junior` \| `mid` \| `senior` |
+  | `experience_level` | string | `none` \| `one_to_three` \| `three_to_six` |
 
   | `experience_level_label` | string | Lokalizatsiyalangan |
 
