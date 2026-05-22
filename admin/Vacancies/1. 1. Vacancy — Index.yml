@@ -36,8 +36,7 @@ docs: 'Vakansiyalar ro''yxati. Admin barchasini ko''radi; Employer/Recruiter faq
 
   | `industry_id` | int | ➖ | Soha ID. |
 
-  | `employment_type` | string | ➖ | `full_time` \| `part_time` \| `shift` \| `contract`
-  \| `internship`. |
+  | `employment_type` | string | ➖ | `full_time` \| `part_time` \| `seasonal` \| `contract`. |
 
   | `experience_level` | string | ➖ | `none` \| `one_to_three` \| `three_to_six`. |
 
