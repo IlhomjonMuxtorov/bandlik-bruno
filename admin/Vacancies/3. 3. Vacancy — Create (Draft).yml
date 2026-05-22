@@ -20,24 +20,24 @@ http:
       work_time_to\": \"18:00\",\n  \"salary_gross\": 1500,\n  \"salary_gross_currency\"\
       : \"USD\",\n  \"salary_net\": 1200,\n  \"salary_net_currency\": \"USD\",\n \
       \ \"country_id\": 1,\n  \"address\": \"Warszawa, Marszalkowska 1\",\n  \"hide_address_from_clients\"\
-      : true,\n  \"deadline_at\": \"2026-07-01\",\n  \"requirements\": [\n    {\"\
-      title\": \"Polsha tili A2 darajada\", \"is_required\": true},\n    {\"title\"\
-      : \"18-45 yosh oraligida\", \"is_required\": true}\n  ],\n  \"benefits\": [\n\
-      \    {\"title\": \"Bepul turar joy\"},\n    {\"title\": \"Transport bilan ta'minlanadi\"\
-      }\n  ],\n  \"documents\": [\n    {\"title\": \"Sudlanmaganlik haqida hujjat\"\
-      , \"allowed_mime\": \"application/pdf\", \"is_required\": true},\n    {\"title\"\
-      : \"Tibbiy ko'rik xulosasi\",       \"allowed_mime\": \"application/pdf\", \"\
-      is_required\": true}\n  ],\n  \"services\": [\n    {\"category\": \"notarius\"\
-      ,  \"organization_id\": 2, \"organization_service_id\": 1, \"duration_text\"\
-      : \"20 kun\"},\n    {\"category\": \"insurance\", \"organization_id\": 3, \"\
-      organization_service_id\": 5}\n  ],\n  \"single_payment\": false,\n  \"payment_steps\"\
-      : [\n    {\"step_type\": \"agency_fee\",             \"title\": \"Agentlik xizmati\
-      \ to'lovi\", \"amount\": 1000000, \"currency\": \"UZS\", \"sort_order\": 0},\n\
-      \    {\"step_type\": \"translation_apostille\", \"title\": \"Tarjima apostil\"\
-      ,         \"amount\": 800000,  \"currency\": \"UZS\", \"sort_order\": 1},\n\
-      \    {\"step_type\": \"training\",              \"title\": \"O'quv kursi\",\
-      \             \"amount\": 1500000, \"currency\": \"UZS\", \"sort_order\": 2}\n\
-      \  ]\n}"
+      : true,\n  \"deadline_at\": \"2026-07-01\",\n  \"requirements\": [\n    {\n\
+      \      \"id\": 1,\n      \"sort_order\": 0\n    },\n    {\n      \"id\": 2,\n\
+      \      \"sort_order\": 1\n    }\n  ],\n  \"benefits\": [\n    {\n      \"id\"\
+      : 1,\n      \"sort_order\": 0\n    },\n    {\n      \"id\": 2,\n      \"sort_order\"\
+      : 1\n    }\n  ],\n  \"documents\": [\n    {\n      \"id\": 1,\n      \"sort_order\"\
+      : 0\n    },\n    {\n      \"id\": 2,\n      \"sort_order\": 1\n    }\n  ],\n\
+      \  \"services\": [\n    {\n      \"category\": \"notarius\",\n      \"organization_id\"\
+      : 2,\n      \"organization_service_id\": 1,\n      \"duration_text\": \"20 kun\"\
+      \n    },\n    {\n      \"category\": \"insurance\",\n      \"organization_id\"\
+      : 3,\n      \"organization_service_id\": 5\n    }\n  ],\n  \"single_payment\"\
+      : false,\n  \"payment_steps\": [\n    {\n      \"step_type\": \"agency_fee\"\
+      ,\n      \"title\": \"Agentlik xizmati to'lovi\",\n      \"amount\": 1000000,\n\
+      \      \"currency\": \"UZS\",\n      \"sort_order\": 0\n    },\n    {\n    \
+      \  \"step_type\": \"translation_apostille\",\n      \"title\": \"Tarjima apostil\"\
+      ,\n      \"amount\": 800000,\n      \"currency\": \"UZS\",\n      \"sort_order\"\
+      : 1\n    },\n    {\n      \"step_type\": \"training\",\n      \"title\": \"\
+      O'quv kursi\",\n      \"amount\": 1500000,\n      \"currency\": \"UZS\",\n \
+      \     \"sort_order\": 2\n    }\n  ]\n}"
   auth: inherit
 docs: 'Yangi vakansiya yaratadi — boshlanishi `status = draft`. Wizardning barcha
   8 bosqich ma''lumotlari bitta tranzaksiyada saqlanadi.
@@ -103,12 +103,11 @@ docs: 'Yangi vakansiya yaratadi — boshlanishi `status = draft`. Wizardning bar
 
   |---|---|---|
 
-  | `requirements[]` | array | `{title, description, is_required, sort_order}` |
+  | `requirements[]` | array | `{id, sort_order}` — vacancy_requirement katalog IDsi |
 
-  | `benefits[]` | array | `{title, description, sort_order}` |
+  | `benefits[]` | array | `{id, sort_order}` — vacancy_benefit katalog IDsi |
 
-  | `documents[]` | array | `{title, description, allowed_mime, is_required, sort_order}`
-  |
+  | `documents[]` | array | `{id, sort_order}` — vacancy_document katalog IDsi |
 
   | `services[]` | array | `{category, organization_id, organization_service_id, price,
   currency, service_name, duration_text, notes}` |
