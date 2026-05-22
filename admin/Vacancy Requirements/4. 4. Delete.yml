@@ -4,9 +4,24 @@ info:
   seq: 4
 http:
   method: DELETE
-  url: '{{base_url}}/admin/vacancy-requirement/delete?id=1'
+  url: '{{base_url}}/admin/vacancy-requirements/1'
   auth: inherit
 docs: |
-  Delete a vacancy-requirement.
-  
-  **Auth:** `admin_token`
+  Vakansiya talabini o'chiradi.
+
+  **Auth:** Faqat `admin_token`.
+
+  > **Eslatma:** Agar talabni birorta vakansiyada ishlatilayotgan bo'lsa — database FK RESTRICT tufayli o'chirib bo'lmaydi. Birinchi shu talabni qo'llayotgan barcha vakansiyalardan olib tashlash kerak.
+
+  ### 📤 Response (200/204)
+
+  Muvaffaqiyatli o'chirildi (bo'sh yoki success message).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Admin emas |
+  | `404` | Element topilmadi |
+  | `409` / `500` | FK RESTRICT — talabni vakansiyada ishlatilmoqda |

@@ -4,24 +4,34 @@ info:
   seq: 2
 http:
   method: POST
-  url: '{{base_url}}/admin/vacancy-document/create'
+  url: '{{base_url}}/admin/vacancy-documents'
   headers:
   - name: Content-Type
     value: application/json
   body:
     type: json
-    json: |-
-      {
-        "name": {
-          "uz": "Uzbek name",
-          "ru": "Russian name"
-        },
-        "description": {
-          "uz": "Uzbek desc"
-        }
-      }
+    data: "{\n  \"name\": {\n    \"uz\": \"Pasport\",\n    \"ru\": \"Паспорт\",\n    \"en\": \"Passport\"\n  },\n  \"description\": {\n    \"uz\": \"Amal qilish muddati kamida 18 oy bo'lishi kerak\",\n    \"ru\": \"Срок действия не менее 18 месяцев\",\n    \"en\": \"Must be valid for at least 18 months\"\n  }\n}"
   auth: inherit
 docs: |
-  Create a new vacancy-document.
-  
-  **Auth:** `admin_token`
+  Yangi vakansiya hujjati yaratadi.
+
+  **Auth:** Faqat `admin_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `name` | object | ✅ | `{ uz, ru, en }` — max 500 belgi |
+  | `description` | object | ➖ | `{ uz, ru, en }` — max 2000 belgi |
+
+  ### 📤 Response (201)
+
+  Yaratilgan element: `{ id, name, description, created_at, updated_at }`
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Admin emas |
+  | `422` | `name` bo'sh yoki noto'g'ri format |

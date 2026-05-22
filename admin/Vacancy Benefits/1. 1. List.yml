@@ -4,9 +4,35 @@ info:
   seq: 1
 http:
   method: GET
-  url: '{{base_url}}/admin/vacancy-benefit'
+  url: '{{base_url}}/admin/vacancy-benefits'
   auth: inherit
 docs: |
-  List all vacancy-benefits (dictionary items).
-  
-  **Auth:** `admin_token`
+  Vakansiya imtiyozlari katalogi — tartiblangan id DESC bo'yicha, sahifalangan.
+
+  **Auth:** Faqat `admin_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `per-page` | int | ➖ | 1..100, default 20 |
+  | `page` | int | ➖ | Sahifa raqami, default 1 |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `items` | array | Katalog elementlari ro'yxati |
+  | `pagination` | object | `{ page, page_size, total_count, page_count }` |
+  | `items[].id` | int | ID |
+  | `items[].name` | object | `{ uz, ru, en }` — multilingual nom |
+  | `items[].description` | object\|null | `{ uz, ru, en }` — multilingual tavsif |
+  | `items[].created_at` | string | ISO 8601 |
+  | `items[].updated_at` | string | ISO 8601 |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Admin emas |

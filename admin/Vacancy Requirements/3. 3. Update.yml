@@ -4,20 +4,34 @@ info:
   seq: 3
 http:
   method: POST
-  url: '{{base_url}}/admin/vacancy-requirement/update?id=1'
+  url: '{{base_url}}/admin/vacancy-requirements/1'
   headers:
   - name: Content-Type
     value: application/json
   body:
     type: json
-    json: |-
-      {
-        "name": {
-          "uz": "Updated name"
-        }
-      }
+    data: "{\n  \"name\": {\n    \"uz\": \"Polsha tili (A1-A2)\",\n    \"ru\": \"Польский язык (A1-A2)\",\n    \"en\": \"Polish language (A1-A2)\"\n  },\n  \"description\": {\n    \"uz\": \"A1 yoki A2 darajasi yetarli\",\n    \"ru\": \"Уровень A1 или A2 достаточно\",\n    \"en\": \"A1 or A2 level sufficient\"\n  }\n}"
   auth: inherit
 docs: |
-  Update an existing vacancy-requirement.
-  
-  **Auth:** `admin_token`
+  Mavjud vakansiya talabini yangilaydi.
+
+  **Auth:** Faqat `admin_token`.
+
+  > **Eslatma:** Update uchun `POST` method ishlatiladi (PUT/PATCH emas). URL da element ID beriladi.
+
+  ### 📥 Request Body
+
+  Create bilan bir xil.
+
+  ### 📤 Response (200)
+
+  Yangilangan element: `{ id, name, description, created_at, updated_at }`
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Admin emas |
+  | `404` | Element topilmadi |
+  | `422` | `name` bo'sh yoki noto'g'ri format |

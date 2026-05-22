@@ -4,20 +4,34 @@ info:
   seq: 3
 http:
   method: POST
-  url: '{{base_url}}/admin/vacancy-document/update?id=1'
+  url: '{{base_url}}/admin/vacancy-documents/1'
   headers:
   - name: Content-Type
     value: application/json
   body:
     type: json
-    json: |-
-      {
-        "name": {
-          "uz": "Updated name"
-        }
-      }
+    data: "{\n  \"name\": {\n    \"uz\": \"Pasport (kopiyasi)\",\n    \"ru\": \"Паспорт (копия)\",\n    \"en\": \"Passport (copy)\"\n  },\n  \"description\": {\n    \"uz\": \"Biometriya ichida yoki jadval sahifasida bo'ladi\",\n    \"ru\": \"Копия биографических данных\",\n    \"en\": \"Copy of biographical data page\"\n  }\n}"
   auth: inherit
 docs: |
-  Update an existing vacancy-document.
-  
-  **Auth:** `admin_token`
+  Mavjud vakansiya hujjatini yangilaydi.
+
+  **Auth:** Faqat `admin_token`.
+
+  > **Eslatma:** Update uchun `POST` method ishlatiladi (PUT/PATCH emas). URL da element ID beriladi.
+
+  ### 📥 Request Body
+
+  Create bilan bir xil.
+
+  ### 📤 Response (200)
+
+  Yangilangan element: `{ id, name, description, created_at, updated_at }`
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Admin emas |
+  | `404` | Element topilmadi |
+  | `422` | `name` bo'sh yoki noto'g'ri format |
