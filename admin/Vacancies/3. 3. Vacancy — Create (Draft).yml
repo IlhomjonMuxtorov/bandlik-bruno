@@ -14,7 +14,7 @@ http:
     type: json
     data: "{\n  \"organization_id\": 1,\n  \"industry_id\": 1,\n  \"title\": \"Restoran\
       \ Xizmatchisi\",\n  \"description\": \"Zamonaviy restoranda ofitsiant.\",\n\
-      \  \"experience_level\": \"junior\",\n  \"employment_type\": \"full_time\",\n\
+      \  \"experience_level\": \"one_to_three\",\n  \"employment_type\": \"full_time\",\n\
       \  \"hiring_quota\": 12,\n  \"duration_months_min\": 6,\n  \"duration_months_max\"\
       : 12,\n  \"work_schedule\": \"5_2\",\n  \"work_time_from\": \"08:00\",\n  \"\
       work_time_to\": \"18:00\",\n  \"salary_gross\": 1500,\n  \"salary_gross_currency\"\
@@ -67,7 +67,7 @@ docs: 'Yangi vakansiya yaratadi — boshlanishi `status = draft`. Wizardning bar
 
   | `description` | string | ➖ | Tavsif (HTML/markdown) |
 
-  | `experience_level` | string | ➖ | `any` \| `junior` \| `mid` \| `senior` |
+  | `experience_level` | string | ➖ | `none` \| `one_to_three` \| `three_to_six` |
 
   | `employment_type` | string | ✅ | `full_time` \| `part_time` \| `shift` \| `contract`
   \| `internship` |
