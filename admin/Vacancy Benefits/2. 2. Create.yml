@@ -4,24 +4,34 @@ info:
   seq: 2
 http:
   method: POST
-  url: '{{base_url}}/admin/vacancy-benefit/create'
+  url: '{{base_url}}/admin/vacancy-benefits'
   headers:
   - name: Content-Type
     value: application/json
   body:
     type: json
-    json: |-
-      {
-        "name": {
-          "uz": "Uzbek name",
-          "ru": "Russian name"
-        },
-        "description": {
-          "uz": "Uzbek desc"
-        }
-      }
+    data: "{\n  \"name\": {\n    \"uz\": \"Bepul turar joy\",\n    \"ru\": \"Бесплатное жильё\",\n    \"en\": \"Free accommodation\"\n  },\n  \"description\": {\n    \"uz\": \"Ish beruvchi tomonidan bepul yotoqxona taqdim etiladi\",\n    \"ru\": \"Предоставляется бесплатное общежитие\",\n    \"en\": \"Free dormitory provided by employer\"\n  }\n}"
   auth: inherit
 docs: |
-  Create a new vacancy-benefit.
-  
-  **Auth:** `admin_token`
+  Yangi vakansiya imtiyozi yaratadi.
+
+  **Auth:** Faqat `admin_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `name` | object | ✅ | `{ uz, ru, en }` — max 500 belgi |
+  | `description` | object | ➖ | `{ uz, ru, en }` — max 2000 belgi |
+
+  ### 📤 Response (201)
+
+  Yaratilgan element: `{ id, name, description, created_at, updated_at }`
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Admin emas |
+  | `422` | `name` bo'sh yoki noto'g'ri format |
