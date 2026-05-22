@@ -1,0 +1,12 @@
+info:
+  name: Benefit — List
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/vacancy-benefit'
+  auth: inherit
+docs: |
+  List all vacancy-benefits (dictionary items).
+  
+  **Auth:** `admin_token`
