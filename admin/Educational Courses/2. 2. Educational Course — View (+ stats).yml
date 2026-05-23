@@ -1,0 +1,23 @@
+info:
+  name: 2. Educational Course — View (+ stats)
+  type: http
+  seq: 2
+http:
+  method: GET
+  url: '{{base_url}}/admin/educational-courses/1'
+  auth: inherit
+docs: "Bitta kurs + `stats` sub-object (mockup'dagi kurs detail sahifasidagi 4 ta\
+  \ karta):\n\n```json\n{\n  \"id\": 1,\n  \"organization_id\": 1,\n  \"name\": \"\
+  A2 Ingliz tili\",\n  \"slug\": \"a2-ingliz-tili\",\n  \"language\": {\"id\": 2,\
+  \ \"iso_code\": \"en\", \"name\": \"Ingliz\"},\n  \"level\": \"A2\",\n  \"price\"\
+  : 124000,\n  \"currency\": \"UZS\",\n  ...,\n  \"stats\": {\n    \"total_revenue\"\
+  : 2004,\n    \"total_students\": 67,\n    \"successful_graduates\": 24,\n    \"\
+  not_completed_count\": 50,\n    \"monthly_trend\": [\n      {\"month\": \"2025-12\"\
+  , \"revenue\": 20000000, \"finished\": 12, \"not_finished\": 1, \"completion_percent\"\
+  : 92.31},\n      ...\n    ]\n  }\n}\n```\n\n**Auth:** `admin_token`.\n\n### ⚠️ Errors\n\
+  \n| Code | Reason |\n|---|---|\n| `404` | Kurs topilmadi |\n"
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

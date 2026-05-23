@@ -1,0 +1,6 @@
+info:
+  name: Educational Centers
+  type: folder
+  seq: 30
+request:
+  auth: inherit

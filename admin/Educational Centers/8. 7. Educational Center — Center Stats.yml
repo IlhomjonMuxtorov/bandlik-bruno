@@ -1,0 +1,51 @@
+info:
+  name: 7. Educational Center — Center Stats
+  type: http
+  seq: 8
+http:
+  method: GET
+  url: '{{base_url}}/admin/educational-centers/1/stats'
+  auth: inherit
+docs: 'Bitta o''quv markazi statistikasi (mockup''dagi yuqori 4 ta karta + qo''shimcha).
+  `View` endpoint javobiga ham `stats` sub-object sifatida qaytadi, lekin shu endpoint
+  faqat statistika qismini olish uchun ishlatiladi.
+
+
+  **Auth:** `admin_token`.
+
+
+  ### 📤 Response (`data`)
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `total_revenue` | int | Markazga tegishli barcha kurslar bo''yicha jami yakunlangan
+  buyurtmalar summasi (UZS) |
+
+  | `students_count` | int | Markaz kurslariga qatnashgan DISTINCT kandidatlar soni |
+
+  | `courses_count` | int | Markazda mavjud kurslar soni |
+
+  | `this_month_revenue` | int | Joriy oydagi yakunlangan buyurtmalar summasi |
+
+  | `this_month_new_students` | int | Joriy oyda birinchi marta yozilgan yangi o''quvchilar
+  soni |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `404` | O''quv markazi topilmadi |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
