@@ -1,0 +1,35 @@
+info:
+  name: Video Call Token
+  type: http
+  seq: 9
+http:
+  method: POST
+  url: '{{base_url}}/admin/chats/1/video-call/token'
+  headers: []
+  body:
+    type: none
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+docs: |
+  XBA xodimi uchun Jitsi JWT (HS256, `moderator=true`). Chat'da `type=call` system message yoziladi va nomzodga FCM push yuboriladi.
+
+  **Auth:** `admin_token`.
+
+  ### 📤 Response
+
+  Mobile Video Call Token bilan bir xil shape (`token`, `room_name`, `domain`, `expires_at`).
+
+  Yagona farq — JWT'da `moderator: true`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` / `403` / `404` | Standart |
+  | `500` | `JITSI_APP_SECRET` configured emas |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

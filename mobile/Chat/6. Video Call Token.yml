@@ -1,0 +1,52 @@
+info:
+  name: Video Call Token
+  type: http
+  seq: 6
+http:
+  method: POST
+  url: '{{base_url}}/mobile/chats/1/video-call/token'
+  headers: []
+  body:
+    type: none
+  auth: inherit
+docs: |
+  Nomzod uchun Jitsi JWT chiqaradi (HS256). Server bir vaqtning o'zida shu chatga `type=call` system message yozadi, qarama-qarshi tomonga `new_message` push yuboradi — XBA xodimi `system_payload.room_name` orqali shu xonaga qo'shilishi mumkin.
+
+  **Auth:** `access_token`. Issued token `moderator=false` claim bilan.
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `token` | string | HS256 JWT |
+  | `room_name` | string | `bandlik-chat-{conversation_id}-{shortRandom}` |
+  | `domain` | string | `JITSI_DOMAIN` (e.g. `meet.jit.si`) |
+  | `expires_at` | int | unix ts (default 2h) |
+
+  ### 📋 JWT Claims
+
+  ```json
+  {
+    "aud": "jitsi",
+    "iss": "JITSI_APP_ID",
+    "sub": "JITSI_DOMAIN",
+    "room": "*",
+    "iat": 1700000000,
+    "exp": 1700007200,
+    "moderator": false,
+    "context": { "user": { "id": "..", "name": "..", "email": "..", "avatar": "" } }
+  }
+  ```
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Chat boshqa nomzodga tegishli |
+  | `500` | `JITSI_APP_SECRET` konfiguratsiya qilinmagan |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

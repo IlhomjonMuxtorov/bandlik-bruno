@@ -1,0 +1,63 @@
+info:
+  name: Chat Detail
+  type: http
+  seq: 2
+http:
+  method: GET
+  url: '{{base_url}}/mobile/chats/1'
+  headers:
+  - name: Accept-Language
+    value: uz
+  body:
+    type: none
+  auth: inherit
+docs: |
+  Bir chatning to'liq detali — list summary + pinlangan **candidate_card** snapshot + **service stages** tracker (faqat ariza qabul qilingan bo'lsa).
+
+  **Auth:** `access_token`.
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {access_token}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz` |
+
+  ### 📤 Response
+
+  List item DTO + qo'shimcha:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `candidate_card` | object \| null | Pinlangan obyektivka. `{candidate_id, application_id, full_name, photo_url, phone, cv_id, cv_title, cover_message}` |
+  | `service_stages` | array | Stage tracker. Bo'sh massiv — ariza hali Accepted emas |
+
+  Har `service_stages[]` elementi:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | stage id |
+  | `category` | string | `agency` \| `notarius` \| `insurance` \| `logistics` \| `visa` \| `translation_apostille` \| `training` |
+  | `category_label` | string | tarjima qilingan label |
+  | `service_name` | string \| null | vacancy_service snapshot nomi |
+  | `status` | string | `pending` \| `in_progress` \| `completed` \| `overdue` \| `skipped` |
+  | `status_label` | string | tarjima qilingan |
+  | `responsible_user` | object \| null | `{id, username}` |
+  | `deadline_at` | int \| null | unix ts |
+  | `completed_at` | int \| null | |
+  | `progress_percent` | int | 0–100 |
+  | `time_left_text` | string \| null | "7 d", "1 d, 2 h", "Deadline passed" — server-localized |
+  | `sort_order` | int | UI tartibi |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Chat boshqa nomzodga tegishli |
+  | `404` | Chat topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

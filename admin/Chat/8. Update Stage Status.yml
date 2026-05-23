@@ -1,0 +1,48 @@
+info:
+  name: Update Stage Status
+  type: http
+  seq: 8
+http:
+  method: POST
+  url: '{{base_url}}/admin/chats/1/stages/1/status'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"status\": \"in_progress\",\n  \"progress_percent\": 50,\n  \"responsible_user_id\": null,\n  \"deadline_at\": null\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+docs: |
+  Bir service stage (XBA xizmati, Tarjima, Sug'urta, O'quv kursi, Logistika) statusini yangilash.
+
+  `status=completed` qilinganda `completed_at` avtomatik yoziladi va chat'da `type=system` xabar paydo bo'ladi (`{kind: stage_completed, stage_id, stage_category, completed_at}`).
+
+  **Auth:** `admin_token`. Stage shu chatning `vacancy_candidate` ga tegishli bo'lishi shart (aks holda 403).
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `status` | string | ✅ | `pending` \| `in_progress` \| `completed` \| `overdue` \| `skipped` |
+  | `progress_percent` | int | ➖ | 0–100. `completed` da avtomatik 100 |
+  | `responsible_user_id` | int | ➖ | Mas'ul xodim |
+  | `deadline_at` | int | ➖ | unix ts |
+
+  ### 📤 Response
+
+  `{ success, data: ChatServiceStageOutputDTO, message: "Stage updated" }`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Invalid `status` qiymati |
+  | `403` | Foydalanuvchi xodim emas yoki stage boshqa application'ga tegishli |
+  | `404` | Chat yoki stage topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

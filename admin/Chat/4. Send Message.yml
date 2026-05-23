@@ -1,0 +1,51 @@
+info:
+  name: Send Message
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{base_url}}/admin/chats/1/messages'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"type\": \"text\",\n  \"body\": \"Hujjatlaringizni tekshirib chiqing\"\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+docs: |
+  XBA xodimi nomzodga xabar yuboradi. Mobile `Send Message` bilan bir xil request body sxemasi.
+
+  Audio/rasm/hujjat uchun avval `POST /admin/upload`, keyin `attachment_upload_file_id`.
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body
+
+  Mobile `Send Message` bilan bir xil:
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `type` | string | ✅ | `text` \| `voice` \| `image` \| `document` |
+  | `body` | string | ⚠️ | `type=text` da majburiy |
+  | `attachment_upload_file_id` | int | ⚠️ | fayl turlari uchun |
+  | `voice_duration_sec` | int | ⚠️ | `type=voice` da |
+  | `reply_to_id` | int | ➖ | |
+
+  ### 📤 Response
+
+  `201` + ChatMessageOutputDTO.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Validation |
+  | `401` | Token yo'q |
+  | `403` | Foydalanuvchi shu tashkilotning aktiv xodimi emas |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

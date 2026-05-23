@@ -1,0 +1,34 @@
+info:
+  name: Mark as Read
+  type: http
+  seq: 5
+http:
+  method: POST
+  url: '{{base_url}}/mobile/chats/1/read'
+  headers: []
+  body:
+    type: none
+  auth: inherit
+docs: |
+  Chatdagi nomzod yubormagan barcha o'qilmagan xabarlarni `read` deb belgilaydi. Conversation'ning `candidate_unread_count` qiymati `0` ga tushiriladi.
+
+  **Auth:** `access_token`.
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `marked_read` | int | Bu chaqiruvda o'qilgan deb belgilangan xabarlar soni |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Chat boshqa nomzodga tegishli |
+  | `404` | Chat topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

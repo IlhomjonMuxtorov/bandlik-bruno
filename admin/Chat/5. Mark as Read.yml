@@ -1,0 +1,34 @@
+info:
+  name: Mark as Read
+  type: http
+  seq: 5
+http:
+  method: POST
+  url: '{{base_url}}/admin/chats/1/read'
+  headers: []
+  body:
+    type: none
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+docs: |
+  XBA tomonidagi o'qilmagan xabarlarni o'qilgan deb belgilaydi va `xba_unread_count` ni `0` ga tushiradi.
+
+  **Auth:** `admin_token`.
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `marked_read` | int | Belgilangan xabarlar soni |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` / `403` / `404` | Standart |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

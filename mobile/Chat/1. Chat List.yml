@@ -1,0 +1,60 @@
+info:
+  name: Chat List
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/mobile/chats?per-page=20'
+  headers:
+  - name: Accept-Language
+    value: uz
+  body:
+    type: none
+  auth: inherit
+docs: |
+  Nomzodning barcha chatlari — har bir topshirgan vakansiyasi uchun bitta thread (Applied statusidan boshlab). Faqat XBA turidagi tashkilotlar vakansiyalari uchun chat ochiladi.
+
+  **Auth:** `access_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `application_status` | string | ➖ | Filter: `applied` \| `reviewed` \| `accepted` \| `rejected` |
+  | `per-page` | int | ➖ | Default `20`, max `100` |
+  | `sort` | string | ➖ | `-last_message_at` (default) \| `-id` |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {access_token}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz` |
+
+  ### 📤 Response
+
+  Massiv (mobile format, metadata yo'q). Har element:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | conversation id |
+  | `vacancy_application_id` | int | tegishli ariza id |
+  | `vacancy.id` / `vacancy.title` | int \| string | vakansiya |
+  | `organization.id` / `organization.name` / `organization.logo_url` | int \| string \| null | XBA tashkilot |
+  | `application_status` | string | `applied` \| `reviewed` \| `accepted` \| `rejected` |
+  | `application_status_label` | string | tarjima qilingan label |
+  | `last_message_preview` | string \| null | matn yoki `🎤/📷/📎` placeholder |
+  | `last_message_at` | int \| null | unix ts |
+  | `unread_count` | int | nomzod tomonidagi o'qilmagan xabarlar soni |
+  | `status` | string | `active` \| `archived` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki yaroqsiz |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

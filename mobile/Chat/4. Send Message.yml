@@ -1,0 +1,52 @@
+info:
+  name: Send Message
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{base_url}}/mobile/chats/1/messages'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"type\": \"text\",\n  \"body\": \"Assalomu alaykum\"\n}"
+  auth: inherit
+docs: |
+  Yangi xabar yuborish. Fayl xabarlari uchun avval `POST /mobile/upload` orqali fayl yuklang va olingan `upload_file_id` ni `attachment_upload_file_id` sifatida yuboring.
+
+  System-only turlar (`candidate_card`, `offer`, `rejection`, `system`, `call`) — mijoz tomonidan yuborilmaydi (400).
+
+  **Auth:** `access_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `type` | string | ✅ | `text` \| `voice` \| `image` \| `document` |
+  | `body` | string | ⚠️ | `type=text` da majburiy |
+  | `attachment_upload_file_id` | int | ⚠️ | `voice`/`image`/`document` da majburiy. `POST /mobile/upload` natijasi |
+  | `voice_duration_sec` | int | ⚠️ | `type=voice` da majburiy, > 0 |
+  | `reply_to_id` | int | ➖ | Oldingi xabarga javob (shu chat ichida bo'lishi kerak) |
+
+  ### 📤 Response
+
+  `201` + ChatMessageOutputDTO (Messages endpointidagi format bilan bir xil).
+
+  Server qo'shimcha:
+  - `unread_count` qarama-qarshi tomonda +1 ga oshadi
+  - Push: `NotificationService::sendToUser(..., 'new_message', ...)` chaqiriladi (FCM)
+  - `last_message_id` / `last_message_at` yangilanadi
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Validation: body yo'q (text), attachment yo'q (voice/image/document), voice duration <= 0, attachment_upload_file_id boshqa user yuklagan, reply_to_id bu chatga tegishli emas |
+  | `401` | Token yo'q |
+  | `403` | Chat boshqa nomzodga tegishli |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
