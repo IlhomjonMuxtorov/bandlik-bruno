@@ -1,0 +1,20 @@
+info:
+  name: 5. Educational Center — Toggle Status
+  type: http
+  seq: 6
+http:
+  method: PATCH
+  url: '{{base_url}}/admin/educational-centers/1/toggle-status'
+  auth: inherit
+docs: 'O''quv markazining `is_active` qiymatini teskariga aylantiradi. Bog''liq `User.status`
+  ham flipped (Active ↔ Inactive).
+
+
+  **Auth:** `admin_token`.
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

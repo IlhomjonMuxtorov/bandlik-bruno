@@ -1,0 +1,23 @@
+info:
+  name: 6. Educational Course — Delete (soft)
+  type: http
+  seq: 6
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/educational-courses/1'
+  auth: inherit
+docs: '**Soft delete** — `is_active = false` VA `status = archived`.
+
+
+  Kurs `vacancy_service.educational_course_id` orqali vakansiyalarga biriktirilgan
+  bo''lsa, FK `SET NULL` qiladi (vakansiya tarix uchun saqlanadi).
+
+
+  **Auth:** `admin_token`.
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,20 @@
+info:
+  name: 5. Educational Course — Toggle Status
+  type: http
+  seq: 5
+http:
+  method: PATCH
+  url: '{{base_url}}/admin/educational-courses/1/toggle-status'
+  auth: inherit
+docs: 'Kursning `is_active` qiymatini teskariga aylantiradi. `status` enum (draft/active/archived)
+  o''zgarmaydi — uni alohida `Update` orqali boshqaring.
+
+
+  **Auth:** `admin_token`.
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

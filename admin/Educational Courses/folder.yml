@@ -1,0 +1,6 @@
+info:
+  name: Educational Courses
+  type: folder
+  seq: 31
+request:
+  auth: inherit

@@ -1,0 +1,20 @@
+info:
+  name: 6. Educational Center — Delete (soft)
+  type: http
+  seq: 7
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/educational-centers/1'
+  auth: inherit
+docs: '**Soft delete** — `is_active = false`, bog''liq `User.status = STATUS_INACTIVE`.
+  Kurslar saqlanib qoladi (ular alohida `is_active` boshqaradi).
+
+
+  **Auth:** `admin_token`.
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,30 @@
+info:
+  name: 7. Educational Course — Stats (monthly trend)
+  type: http
+  seq: 7
+http:
+  method: GET
+  url: '{{base_url}}/admin/educational-courses/1/stats'
+  auth: inherit
+docs: "Bitta kurs uchun batafsil statistika (mockup'dagi statistika sahifasi). `View`\
+  \ endpoint javobiga ham `stats` qaytadi, lekin shu endpoint faqat statistika qismini\
+  \ olish uchun (frontend separately query qilishi mumkin).\n\n**Auth:** `admin_token`.\n\
+  \n### 📤 Response (`data`)\n\n| Field | Type | Description |\n|---|---|---|\n| `total_revenue`\
+  \ | int | Kurs bo'yicha jami yakunlangan buyurtmalar summasi (UZS) |\n| `total_students`\
+  \ | int | Kursga yozilgan DISTINCT kandidatlar soni |\n| `successful_graduates`\
+  \ | int | `status = completed (2)` buyurtmalar soni |\n| `not_completed_count` |\
+  \ int | `status = cancelled (3)` buyurtmalar soni |\n| `monthly_trend` | array[6]\
+  \ | Oxirgi 6 oy bo'yicha trend |\n\n**`monthly_trend` item:**\n\n```json\n{\n  \"\
+  month\": \"2026-01\",\n  \"revenue\": 20000000,\n  \"finished\": 12000,\n  \"not_finished\"\
+  : 1000,\n  \"completion_percent\": 92.31\n}\n```\n\n| Field | Type | Description\
+  \ |\n|---|---|---|\n| `month` | string | `YYYY-MM` formati |\n| `revenue` | int\
+  \ | Shu oydagi yakunlangan buyurtmalar summasi |\n| `finished` | int | Tugatganlar\
+  \ soni |\n| `not_finished` | int | Yakunlay olmaganlar soni |\n| `completion_percent`\
+  \ | float | `finished / (finished + not_finished) * 100` |\n\n> SQL: PostgreSQL\
+  \ `generate_series` ishlatadi — bo'sh oylar ham 0 qiymatlar bilan qaytadi.\n\n###\
+  \ ⚠️ Errors\n\n| Code | Reason |\n|---|---|\n| `404` | Kurs topilmadi |\n"
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

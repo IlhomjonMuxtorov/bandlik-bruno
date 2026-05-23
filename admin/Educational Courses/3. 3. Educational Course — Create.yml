@@ -1,0 +1,90 @@
+info:
+  name: 3. Educational Course — Create
+  type: http
+  seq: 3
+http:
+  method: POST
+  url: '{{base_url}}/admin/educational-courses'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"organization_id\": 1,\n  \"name\": \"A2 Ingliz tili\",\n  \"description\"\
+      : \"Ingliz tili — boshlang'ich darajadan o'rtachaga\",\n  \"language_id\"\
+      : 2,\n  \"level\": \"A2\",\n  \"duration_hours\": 40,\n  \"lessons_count\":\
+      \ 20,\n  \"price\": 124000,\n  \"currency\": \"UZS\",\n  \"cover_file_id\":\
+      \ 11,\n  \"status\": \"active\",\n  \"is_active\": 1,\n  \"sort_order\": 0\n\
+      }"
+  auth: inherit
+docs: 'Yangi o''quv kursini yaratadi. `slug` avtomatik generatsiya qilinadi (`name`
+  asosida, transliteratsiya + noyob qilish uchun suffix). Agar `slug` qo''lda yuborilsa
+  — shu qiymat ishlatiladi (lekin noyob va `/^[a-z0-9-]+$/` shartiga mos bo''lishi
+  shart).
+
+
+  **Auth:** `admin_token`.
+
+
+  ### 📥 Request Body (JSON)
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `organization_id` | int | ✅ | `organization.id` (type = 8 EDUCATIONAL_CENTER bo''lishi
+  shart) |
+
+  | `name` | string | ✅ | Max 200 (mockup''da "A2 Ingliz tili") |
+
+  | `slug` | string | ➖ | Bo''sh bo''lsa avtomatik. Pattern `/^[a-z0-9-]+$/`, max 255 |
+
+  | `description` | string | ➖ | |
+
+  | `language_id` | int | ➖ | `language.id` (kurs tilga bog''liq bo''lmasa null) |
+
+  | `level` | string | ➖ | "A1", "B2" va h.k. — max 10 |
+
+  | `duration_hours` | int | ➖ | Mockup''da "40 soat" |
+
+  | `lessons_count` | int | ➖ | Mockup''da "20 dars" |
+
+  | `price` | int | ✅ | Tanlangan valyutada, min 0 |
+
+  | `currency` | string | ✅ | `UZS` \| `USD` \| `EUR` (default `UZS`) |
+
+  | `cover_file_id` | int | ➖ | Oldindan `/admin/upload` orqali yuklangan kover rasm
+  fayl ID |
+
+  | `status` | string | ➖ | `draft` (default) \| `active` \| `archived` |
+
+  | `is_active` | bool (0\|1) | ➖ | Default `1` |
+
+  | `sort_order` | int | ➖ | Default `0` |
+
+
+  ### 📤 Response
+
+
+  `201` — `EducationalCourseOutputDTO`.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `422` | `organization_id` topilmadi yoki turi EDUCATIONAL_CENTER emas; slug duplicate;
+  validatsiya |
+
+  | `400` | `cover_file_id` topilmadi yoki `status != ready` |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

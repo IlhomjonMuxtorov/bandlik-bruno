@@ -1,0 +1,97 @@
+info:
+  name: 3. Educational Center — Create
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{base_url}}/admin/educational-centers'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": \"Thompson School\",\n  \"brand_name\": \"Thompson School\
+      \ filial Oybek\",\n  \"legal_name\": \"Thompson School OOO\",\n  \"description\"\
+      : \"Til kurslari va imtihonga tayyorlov\",\n  \"license_number\": \"EDU-001-2026\"\
+      ,\n  \"region_id\": 14,\n  \"district_id\": 240,\n  \"address\": \"Toshkent\
+      \ sh., Yunusobod tumani\",\n  \"phone\": \"+998944452323\",\n  \"email\": \"\
+      info@thompson-school.uz\",\n  \"website_url\": \"https://thompson-school.uz\"\
+      ,\n  \"responsible_person\": \"Timurbek Azizov\",\n  \"login\": \"thompson\"\
+      ,\n  \"password\": \"secret123\",\n  \"telegram_url\": \"https://t.me/global_skillhub\"\
+      ,\n  \"instagram_url\": \"https://instagram.com/global_skillhub\",\n  \"is_active\"\
+      : 1,\n  \"license_file_id\": 10,\n  \"logo_id\": 11\n}"
+  auth: inherit
+docs: 'Yangi O''quv markazi yaratadi. `application/json` so''rov. `type` avtomatik
+  `8` (EDUCATIONAL_CENTER) o''rnatiladi.
+
+
+  **Auth:** `admin_token`.
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `name` | string | ✅ | Max 200 |
+
+  | `brand_name` | string | ➖ | Brend nomi (mockup''da "Thompson School filial Oybek") |
+
+  | `legal_name` | string | ➖ | Yuridik nomi |
+
+  | `description` | string | ➖ | |
+
+  | `license_number` | string | ✅ | Unique `(type, license_number)` — max 64 |
+
+  | `region_id` | int | ✅ | Viloyat ID (O''zbekiston) |
+
+  | `district_id` | int | ✅ | Tuman ID |
+
+  | `address` | string | ✅ | Max 500 |
+
+  | `phone` | string | ✅ | Max 20 |
+
+  | `email` | string | ➖ | |
+
+  | `website_url` | string | ➖ | https:// boshlanadi |
+
+  | `responsible_person` | string | ✅ | Mas''ul shaxs F.I.SH (mockup''da "Masul shaxs Timurbek Azizov") |
+
+  | `login` | string | ✅ | Partner panel uchun login (min 3) |
+
+  | `password` | string | ✅ | Min 6 |
+
+  | `telegram_url` / `instagram_url` / `facebook_url` / `x_url` | string | ➖ | https:// |
+
+  | `is_active` | bool (0\|1) | ➖ | Default `1` |
+
+  | `license_file_id` | int | ➖ | Oldindan `/admin/upload` orqali yuklangan litsenziya fayl ID |
+
+  | `logo_id` | int | ➖ | Logo fayl ID |
+
+
+  ### 📤 Response
+
+
+  `201` — `OrganizationOutputDTO`.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `422` | Validatsiya xatosi (licence_number duplicate, login band, va h.k.) |
+
+  | `400` | Fayl ID topilmadi yoki `status=uploading` |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

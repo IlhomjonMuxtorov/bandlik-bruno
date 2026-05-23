@@ -1,0 +1,27 @@
+info:
+  name: 4. Educational Course — Update
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{base_url}}/admin/educational-courses/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"price\": 150000,\n  \"lessons_count\": 24\n}"
+  auth: inherit
+docs: 'Mavjud kursni yangilaydi — faqat o''zgaradigan maydonlarni yuborish kifoya.
+  Maydonlar ro''yxati `Create` bilan bir xil. `organization_id` o''zgartirilsa, yangi
+  markaz turi ham EDUCATIONAL_CENTER bo''lishi shart.
+
+
+  **Auth:** `admin_token`.
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

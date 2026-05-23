@@ -1,0 +1,30 @@
+info:
+  name: 4. Educational Center — Update
+  type: http
+  seq: 5
+http:
+  method: POST
+  url: '{{base_url}}/admin/educational-centers/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"phone\": \"+998944452399\"\n}"
+  auth: inherit
+docs: 'Mavjud O''quv markazini yangilaydi. `application/json` — faqat o''zgaradigan
+  maydonlarni yuborish kifoya.
+
+
+  **Auth:** `admin_token`.
+
+
+  Maydonlar ro''yxati `Create` bilan bir xil. `login` / `password` kiritilsa bog''liq
+  `User` ham yangilanadi.
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

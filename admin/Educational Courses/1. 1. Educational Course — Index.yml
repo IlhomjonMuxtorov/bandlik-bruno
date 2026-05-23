@@ -1,0 +1,86 @@
+info:
+  name: 1. Educational Course — Index
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/educational-courses?per-page=20&organization_id=1'
+  auth: inherit
+docs: 'Barcha o''quv kurslari ro''yxati. Markaz bo''yicha filtrlash uchun `organization_id`
+  query parametri ishlatiladi.
+
+
+  **Auth:** `admin_token`.
+
+
+  ### 🔎 Query Parameters
+
+
+  | Param | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `organization_id` | int | ➖ | Faqat shu markaz kurslari |
+
+  | `q` | string | ➖ | Nom / slug / izoh / level bo''yicha qidiruv |
+
+  | `language_id` | int | ➖ | Til bo''yicha filtr |
+
+  | `status` | string | ➖ | `draft` \| `active` \| `archived` |
+
+  | `is_active` | int (0\|1) | ➖ | |
+
+  | `page`, `per-page` | int | ➖ | Pagination |
+
+  | `sort` | string | ➖ | `id` \| `sort_order` \| `price` \| `created_at` \| `name`
+  (`-` bilan teskari) |
+
+
+  ### 📤 Response (`data.items[]` — `EducationalCourseOutputDTO`)
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `id` | int | |
+
+  | `organization_id` | int | |
+
+  | `name` | string | "A2 Ingliz tili" |
+
+  | `slug` | string | URL-safe — autogenerate qilinadi |
+
+  | `description` | string \| null | |
+
+  | `language` | object \| null | `{id, iso_code, name}` — `Accept-Language` bo''yicha
+  lokalizatsiya |
+
+  | `level` | string \| null | "A1", "B2" va h.k. |
+
+  | `duration_hours` | int \| null | Kurs umumiy soati |
+
+  | `lessons_count` | int \| null | Darslar soni |
+
+  | `price` | int | UZS so''mda (`currency` ham qaytadi) |
+
+  | `currency` | string | `UZS` \| `USD` \| `EUR` |
+
+  | `cover_url` | string \| null | Kover rasm URL (mockup''dagi kartochkada) |
+
+  | `status` | string | `draft` \| `active` \| `archived` |
+
+  | `status_label` | string | Lokalizatsiyalangan label |
+
+  | `is_active` | bool | |
+
+  | `sort_order` | int | |
+
+  | `created_at` / `updated_at` | int | |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
