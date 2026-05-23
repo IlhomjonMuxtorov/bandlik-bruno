@@ -1,0 +1,42 @@
+info:
+  name: Messages
+  type: http
+  seq: 3
+http:
+  method: GET
+  url: '{{base_url}}/admin/chats/1/messages?limit=30'
+  headers: []
+  body:
+    type: none
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+docs: |
+  Paginated xabarlar (cursor pagination). Mobile bilan bir xil format.
+
+  **Auth:** `admin_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `before_id` | int | ➖ | Eski xabarlar |
+  | `after_id` | int | ➖ | Delta sync |
+  | `limit` | int | ➖ | Default `30`, max `100` |
+
+  ### 📤 Response
+
+  Mobile Messages bilan bir xil DTO shape.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Xodim emas |
+  | `404` | Chat topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

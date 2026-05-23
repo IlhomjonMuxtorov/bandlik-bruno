@@ -1,0 +1,36 @@
+info:
+  name: Chat Detail
+  type: http
+  seq: 2
+http:
+  method: GET
+  url: '{{base_url}}/admin/chats/1'
+  headers:
+  - name: Accept-Language
+    value: uz
+  body:
+    type: none
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+docs: |
+  Bir chatning to'liq detali (XBA tomonidan ko'rinish) — `candidate_card` + `service_stages` bilan.
+
+  **Auth:** `admin_token`. Foydalanuvchi shu tashkilot xodimi bo'lishi shart.
+
+  ### 📤 Response
+
+  Mobile `Chat Detail` bilan bir xil shape, lekin `unread_count` XBA tomonidan.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Foydalanuvchi bu tashkilot xodimi emas |
+  | `404` | Chat topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

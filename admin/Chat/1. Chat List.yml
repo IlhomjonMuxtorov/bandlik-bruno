@@ -1,0 +1,44 @@
+info:
+  name: Chat List
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/chats?per-page=20'
+  headers:
+  - name: Accept-Language
+    value: uz
+  body:
+    type: none
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+docs: |
+  XBA xodimi/admin uchun chat list — joriy foydalanuvchi a'zo bo'lgan XBA tashkilot(lar)ning barcha vakansiya chatlari. Admin (`user.type=Admin`) hamma XBA chatlarini ko'radi.
+
+  **Auth:** `admin_token`. Foydalanuvchi `organization_employee` jadvalida `is_active=true` xodim bo'lishi yoki Admin bo'lishi shart.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `vacancy_id` | int | ➖ | Bitta vakansiya bo'yicha filter |
+  | `per-page` | int | ➖ | Default `20`, max `100` |
+
+  ### 📤 Response
+
+  `ResponseFormatter` format: `{ success, data: { items: [...], pagination: {...} } }`.
+
+  Har element mobile bilan bir xil shape, lekin `unread_count` — XBA tomonidagi o'qilmaganlar soni.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Foydalanuvchi hech qaysi tashkilotda xodim emas va Admin ham emas |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

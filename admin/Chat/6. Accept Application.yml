@@ -1,0 +1,50 @@
+info:
+  name: Accept Application
+  type: http
+  seq: 6
+http:
+  method: POST
+  url: '{{base_url}}/admin/chats/1/accept'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"notes\": \"Hujjatlar to'liq, intervyu o'tdi\"\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+docs: |
+  Chat ichidan arizani **Accepted** ga o'tkazadi. Server avtomatik ravishda:
+
+  - `vacancy_application.status = accepted`, `decided_at` yoziladi
+  - `vacancy_candidate` (pipeline) qatori yaratiladi (idempotent)
+  - **`vacancy_candidate_service` qatorlari hosil qilinadi** — har bir `vacancy_service` uchun bittadan (stages tracker uchun)
+  - Chat'da `type=offer` system message paydo bo'ladi (yashil "Ishga taklif" bloki)
+  - Nomzodga `application_accepted` FCM push yuboriladi
+
+  **Auth:** `admin_token`. Idempotent emas — qayta chaqirish `Application is already decided` (400) qaytaradi.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `notes` | string | ➖ | Pipeline notes |
+  | `hotel_preference` | bool | ➖ | Override |
+
+  ### 📤 Response
+
+  `{ success, data: VacancyApplicationOutputDTO, message: "Application accepted" }`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Application allaqachon Accepted/Rejected |
+  | `403` | Foydalanuvchi shu XBA xodimi emas |
+  | `404` | Chat yoki application topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

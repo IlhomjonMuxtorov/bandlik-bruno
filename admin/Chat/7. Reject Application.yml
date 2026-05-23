@@ -1,0 +1,46 @@
+info:
+  name: Reject Application
+  type: http
+  seq: 7
+http:
+  method: POST
+  url: '{{base_url}}/admin/chats/1/reject'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"reason\": \"Tajriba talabga mos kelmadi\"\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+docs: |
+  Arizani rad etadi. Server:
+
+  - `vacancy_application.status = rejected`, `rejection_reason`, `decided_at` yoziladi
+  - Chat'da `type=rejection` system message paydo bo'ladi (qizil "Rad etildi" bloki)
+  - Nomzodga `application_rejected` FCM push yuboriladi
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `reason` | string | ✅ | Rad etish sababi (chatga ko'rsatiladi) |
+
+  ### 📤 Response
+
+  `{ success, data: VacancyApplicationOutputDTO, message: "Application rejected" }`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `reason` bo'sh yoki application allaqachon yopilgan |
+  | `403` / `404` | Standart |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
