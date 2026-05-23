@@ -26,18 +26,20 @@ http:
       : 1,\n      \"sort_order\": 0\n    },\n    {\n      \"id\": 2,\n      \"sort_order\"\
       : 1\n    }\n  ],\n  \"documents\": [\n    {\n      \"id\": 1,\n      \"sort_order\"\
       : 0\n    },\n    {\n      \"id\": 2,\n      \"sort_order\": 1\n    }\n  ],\n\
-      \  \"services\": [\n    {\n      \"category\": \"notarius\",\n      \"organization_id\"\
-      : 2,\n      \"organization_service_id\": 1,\n      \"duration_text\": \"20 kun\"\
-      \n    },\n    {\n      \"category\": \"insurance\",\n      \"organization_id\"\
-      : 3,\n      \"organization_service_id\": 5\n    }\n  ],\n  \"single_payment\"\
-      : false,\n  \"payment_steps\": [\n    {\n      \"step_type\": \"agency_fee\"\
-      ,\n      \"title\": \"Agentlik xizmati to'lovi\",\n      \"amount\": 1000000,\n\
+      \  \"services\": [\n    {\n      \"category\": \"agency\",\n      \"organization_id\"\
+      : 1,\n      \"service_name\": \"Agentlik xizmati\",\n      \"price\": 1500000,\n\
       \      \"currency\": \"UZS\",\n      \"sort_order\": 0\n    },\n    {\n    \
-      \  \"step_type\": \"translation_apostille\",\n      \"title\": \"Tarjima apostil\"\
-      ,\n      \"amount\": 800000,\n      \"currency\": \"UZS\",\n      \"sort_order\"\
-      : 1\n    },\n    {\n      \"step_type\": \"training\",\n      \"title\": \"\
-      O'quv kursi\",\n      \"amount\": 1500000,\n      \"currency\": \"UZS\",\n \
-      \     \"sort_order\": 2\n    }\n  ]\n}"
+      \  \"category\": \"notarius\",\n      \"organization_id\": 2,\n      \"organization_service_id\"\
+      : 1,\n      \"duration_text\": \"20 kun\"\n    },\n    {\n      \"category\"\
+      : \"insurance\",\n      \"organization_id\": 3,\n      \"organization_service_id\"\
+      : 5\n    }\n  ],\n  \"single_payment\": false,\n  \"payment_steps\": [\n    {\n\
+      \      \"step_type\": \"agency_fee\",\n      \"title\": \"Agentlik xizmati to'lovi\"\
+      ,\n      \"amount\": 1000000,\n      \"currency\": \"UZS\",\n      \"sort_order\"\
+      : 0\n    },\n    {\n      \"step_type\": \"translation_apostille\",\n      \"\
+      title\": \"Tarjima apostil\",\n      \"amount\": 800000,\n      \"currency\"\
+      : \"UZS\",\n      \"sort_order\": 1\n    },\n    {\n      \"step_type\": \"\
+      training\",\n      \"title\": \"O'quv kursi\",\n      \"amount\": 1500000,\n\
+      \      \"currency\": \"UZS\",\n      \"sort_order\": 2\n    }\n  ]\n}"
   auth: inherit
 docs: 'Yangi vakansiya yaratadi — boshlanishi `status = draft`. Wizardning barcha
   8 bosqich ma''lumotlari bitta tranzaksiyada saqlanadi.
@@ -122,11 +124,18 @@ docs: 'Yangi vakansiya yaratadi — boshlanishi `status = draft`. Wizardning bar
   bo''ladi).
 
 
+  **⚠️ Agentlik xizmati (majburiy):** `services[]` ichida `category = "agency"` bo''lgan
+  **aniq bitta** qator bo''lishi shart. Uning `organization_id` vakansiyaning `organization_id`
+  ga teng bo''lishi, `service_name` to''ldirilgan va `price` 0 dan katta bo''lishi
+  zarur. `organization_service_id` berilmaydi (agentlik o''z xizmati — katalog yozuvi
+  shart emas). Agentlik narxi `total_service_amount` ga kiritiladi.
+
+
   ### 📤 Response (`data`)
 
 
   Full detail DTO (View bilan bir xil). `status` = `draft`, `total_service_amount`
-  snapshot narxlar yig''indisi.
+  snapshot narxlar yig''indisi (shu jumladan agentlik xizmati narxi).
 
 
   ### ⚠️ Errors
@@ -139,7 +148,8 @@ docs: 'Yangi vakansiya yaratadi — boshlanishi `status = draft`. Wizardning bar
   | `422` | Validatsiya xatosi |
 
   | `400` | Snapshot xatosi (Organization service topilmadi yoki tegishli organizatsiyaga
-  emas) |
+  emas), yoki `services[]` da `agency` qatori yo''q / narxi 0 / boshqa tashkilotga
+  tegishli |
 
   | `403` | Boshqa tashkilot uchun yaratish |
 

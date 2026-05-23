@@ -15,7 +15,9 @@ http:
       : 1,\n  \"requirements\": [{\"title\": \"Polsha tili A2\", \"is_required\":\
       \ true}],\n  \"benefits\": [{\"title\": \"Bepul turar joy\"}],\n  \"documents\"\
       : [{\"title\": \"Sudlanmaganlik\", \"is_required\": true}],\n  \"services\"\
-      : [],\n  \"single_payment\": true,\n  \"payment_steps\": []\n}"
+      : [{\"category\": \"agency\", \"organization_id\": 1, \"service_name\": \"Agentlik\
+      \ xizmati\", \"price\": 1500000, \"currency\": \"UZS\", \"sort_order\": 0}],\n\
+      \  \"single_payment\": true,\n  \"payment_steps\": []\n}"
   auth: inherit
 docs: 'Vakansiyani to''liq qayta saqlaydi — barcha child kolleksiyalar (requirements/benefits/documents/services/payment_steps)
   **butunlay almashtiriladi** (delete + insert).
@@ -32,6 +34,11 @@ docs: 'Vakansiyani to''liq qayta saqlaydi — barcha child kolleksiyalar (requir
 
 
   Create bilan bir xil (yuqorida).
+
+
+  **⚠️ Agentlik xizmati (majburiy):** Update so''rovida ham `services[]` ichida `category
+  = "agency"` qatori (vakansiyaning `organization_id` ga tegishli, `price > 0`, `service_name`
+  to''ldirilgan) bo''lishi shart — aks holda 400 qaytadi.
 
 
   ### ⚠️ Errors
