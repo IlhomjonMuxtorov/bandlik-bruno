@@ -2,17 +2,21 @@ info:
   name: Chat List
   type: http
   seq: 1
+
 http:
   method: GET
-  url: '{{base_url}}/admin/chats?per-page=20'
+  url: "{{base_url}}/admin/chats?per-page=20"
   headers:
-  - name: Accept-Language
-    value: uz
-  body:
-    type: none
-  auth:
-    mode: bearer
-    bearer: '{{ admin_token }}'
+    - name: Accept-Language
+      value: uz
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+
 docs: |
   XBA xodimi/admin uchun chat list — joriy foydalanuvchi a'zo bo'lgan XBA tashkilot(lar)ning barcha vakansiya chatlari. Admin (`user.type=Admin`) hamma XBA chatlarini ko'radi.
 
@@ -37,8 +41,3 @@ docs: |
   |---|---|
   | `401` | Token yo'q |
   | `403` | Foydalanuvchi hech qaysi tashkilotda xodim emas va Admin ham emas |
-settings:
-  encodeUrl: true
-  timeout: 0
-  followRedirects: true
-  maxRedirects: 5
