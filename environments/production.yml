@@ -2,7 +2,7 @@ name: production
 
 variables:
   - name: base_url
-    value: http://api.bandlik.uz
+    value: https://api.bandlik.uz
 
   - name: admin_token
     value: ""
