@@ -1,0 +1,33 @@
+info:
+  name: 7. Course — Purchase
+  type: http
+  seq: 7
+http:
+  method: POST
+  url: '{{base_url}}/mobile/courses/1/purchase'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"provider\": \"payme\",\n  \"return_url\": \"myapp://payment-return\"\
+      \n}"
+  auth: inherit
+docs: "Nomzod kurs uchun to'lov sessiyasini bitta so'rovda ochadi: ichida `OrganizationServiceOrder`\
+  \ yaratiladi va darhol gateway invoice so'raladi. Natijada `redirect_url` qaytariladi.\n\
+  \n\n**Auth:** `access_token` (nomzod).\n\n\n### \U0001F4E5 Request Body\n\n\n| Field\
+  \ | Type | Required | Description |\n\n|---|---|:---:|---|\n\n| `provider` | string\
+  \ | ✅ | `click` \\| `payme` \\| `uzum` |\n\n| `return_url` | string | ➖\
+  \ | To'lovdan keyin nomzod qaytariladigan URL |\n\n\n### \U0001F4E4 Response (201)\n\
+  \n\n```json\n\n{\n\n  \"payment_id\": 123,\n\n  \"provider\": \"payme\",\n\n  \"\
+  redirect_url\": \"https://checkout.paycom.uz/...\",\n\n  \"amount\": 500000,\n\n\
+  \  \"currency\": \"UZS\",\n\n  \"expires_at\": 1748123456\n\n}\n\n```\n\nMijoz\
+  \ `redirect_url` ga yo'naltiriladi. To'lov tugagach webhook orqali natija qaytariladi.\n\
+  \n\n### ⚠️ Errors\n\n\n| Code | Reason |\n\n|---|---|\n\n| `400` | Provider\
+  \ yoqilmagan yoki noto'g'ri, order yaratib bo'lmadi |\n\n| `401` | Token yo'q |\n\
+  \n| `404` | Kurs topilmadi yoki faol emas |\n\n"
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
