@@ -18,8 +18,7 @@ http:
       : [{\"category\": \"agency\", \"organization_id\": 1, \"service_name\": \"Agentlik\
       \ xizmati\", \"price\": 1500000, \"currency\": \"UZS\", \"sort_order\": 0}, {\"\
       category\": \"training\", \"organization_id\": 4, \"educational_course_id\":\
-      \ 12, \"service_name\": \"Til kursi\", \"price\": 1500000, \"currency\": \"\
-      UZS\", \"sort_order\": 1}],\n\
+      \ 12, \"sort_order\": 1}],\n\
       \  \"single_payment\": true,\n  \"payment_steps\": []\n}"
   auth: inherit
 docs: 'Vakansiyani to''liq qayta saqlaydi — barcha child kolleksiyalar (requirements/benefits/documents/services/payment_steps)
