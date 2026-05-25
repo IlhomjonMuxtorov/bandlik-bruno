@@ -1,0 +1,67 @@
+info:
+  name: 6. Payouts — Complete
+  type: http
+  seq: 6
+http:
+  method: POST
+  url: '{{base_url}}/admin/payouts/17/complete'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"external_ref\": \"BK-2026-05-25-9817\",\n  \"note\": \"Asaka Bank\
+      \ orqali yuborildi\"\n}"
+  auth: inherit
+docs: 'Bank tarafida pul yuborildi — payout''ni yakuniylash. **Pul harakati:** Org
+  wallet `hold_balance -= amount`, External Bank wallet `balance += amount`. Yangi
+  Transaction (`type=OrganizationPayout`, `status=Completed`).
+
+
+  `external_ref` (bank kvitansiya/tranzaksiya raqami) `bank_details.external_ref`
+  ga saqlanadi.
+
+
+  **Auth:** `admin_token`. Permission: `payoutComplete`.
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `external_ref` | string | ➖ | Bank tarafidagi tranzaksiya/kvitansiya raqami |
+
+  | `note` | string | ➖ | Audit izoh |
+
+
+  ### 📤 Response
+
+
+  Yangilangan PayoutRequest DTO (`status=Completed`, `completed_at`, `transaction_id`
+  to''ldirildi).
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `422` | `Payout must be Approved or Processing to complete` |
+
+  | `404` | Payout topilmadi |
+
+  | `401` | Token yo''q |
+
+  | `403` | Admin emas |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

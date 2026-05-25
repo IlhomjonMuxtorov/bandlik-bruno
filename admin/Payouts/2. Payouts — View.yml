@@ -1,0 +1,40 @@
+info:
+  name: 2. Payouts — View
+  type: http
+  seq: 2
+http:
+  method: GET
+  url: '{{base_url}}/admin/payouts/17'
+  auth: inherit
+docs: 'Bitta payout so''rovi haqida to''liq ma''lumot — bank rekvizitlari (`bank_details`)
+  bilan birga, admin tomonidan bank tarafida pul yuborish uchun.
+
+
+  **Auth:** `admin_token`.
+
+
+  ### 📤 Response
+
+
+  PayoutRequest DTO.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q |
+
+  | `403` | Admin emas |
+
+  | `404` | Payout topilmadi |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

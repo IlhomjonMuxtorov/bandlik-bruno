@@ -1,0 +1,6 @@
+info:
+  name: Finance Reports
+  type: folder
+  seq: 37
+request:
+  auth: inherit

@@ -1,0 +1,58 @@
+info:
+  name: 4. Payouts — Reject
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{base_url}}/admin/payouts/17/reject'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"reason\": \"Bank rekvizitlari noto'g'ri\"\n}"
+  auth: inherit
+docs: 'Pending payout''ni rad etish. **Pul harakati yo''q** — partner balansi o''zgarmaydi
+  (chunki Approve hali bo''lmagan). `reject_reason` saqlanadi.
+
+
+  **Auth:** `admin_token`. Permission: `payoutApprove`.
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `reason` | string | ➖ | Rad etish sababi (partner ko''radi) |
+
+
+  ### 📤 Response
+
+
+  Yangilangan PayoutRequest DTO (`status=Rejected`, `reject_reason` to''ldirildi).
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `422` | `Only pending payouts can be rejected` |
+
+  | `404` | Payout topilmadi |
+
+  | `401` | Token yo''q |
+
+  | `403` | Admin emas |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

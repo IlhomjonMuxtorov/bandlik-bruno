@@ -1,0 +1,69 @@
+info:
+  name: 3. Payments — Manual Confirm
+  type: http
+  seq: 3
+http:
+  method: POST
+  url: '{{base_url}}/admin/payments/manual-confirm'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"service_order_id\": 1,\n  \"amount\": 1000000,\n  \"currency\":\
+      \ \"UZS\",\n  \"note\": \"Naqd to'lov, kvitansiya #2026/05-123\"\n}"
+  auth: inherit
+docs: 'Admin gateway''dan tashqari (naqd pul, bank o''tkazmasi) qabul qilingan to''lovni
+  tizimga kiritadi. Yangi `Payment` (`provider=manual`, `status=Success`) yaratiladi
+  va darrov LedgerService chaqirilib Transaction yoziladi.
+
+
+  **Auth:** `admin_token`. Permission: `paymentManage`.
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `service_order_id` | int | ✅ | Qaysi buyurtma uchun to''lov |
+
+  | `amount` | int | ✅ | Tiyin/sentda, > 0 |
+
+  | `currency` | string | ✅ | `UZS` \| `USD` \| `EUR` |
+
+  | `note` | string | ➖ | Audit izoh (kvitansiya raqami, sana va h.k.) |
+
+
+  Tasdiqlovchi (admin user ID) va izoh `Payment.callback_payload` ga JSON ko''rinishida
+  saqlanadi: `{"confirmed_by": 1, "note": "..."}`.
+
+
+  ### 📤 Response (201)
+
+
+  TransactionOutputDTO (yangi yaratilgan CandidatePayment Transaction).
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `422` | `Service order not found` / `Amount must be positive` / validatsiya xatosi
+  |
+
+  | `401` | Token yo''q |
+
+  | `403` | Admin emas |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

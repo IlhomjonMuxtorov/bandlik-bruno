@@ -1,0 +1,74 @@
+info:
+  name: 3. Transactions — Refund
+  type: http
+  seq: 3
+http:
+  method: POST
+  url: '{{base_url}}/admin/transactions/refund'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"transaction_id\": 305,\n  \"amount\": 500000,\n  \"reason\": \"\
+      Nomzod xizmatdan voz kechdi\"\n}"
+  auth: inherit
+docs: 'Admin tomonidan to''lovni qaytarish. Original Transaction''ning teskari yozuvi:
+  Platform hold''dan DEBIT, External gateway wallet''ga CREDIT (gateway tomonidan
+  haqiqiy refund qilinmasligi mumkin — bu faqat ledger yozuvi).
+
+
+  Faqat `CandidatePayment` type''dagi tranzaksiyalarni qaytarish mumkin. Qisman refund
+  qo''llab-quvvatlanadi (`amount <= original.amount`); `amount` berilmasa, to''liq
+  qaytariladi.
+
+
+  Gateway tarafida ham refund chaqirish urinishi qilinadi (Click/Payme/Uzum — `gateway->refund(provider_payment_id,
+  amount)`), lekin u fail bo''lsa ham ledger yozuvi saqlanadi (qo''lda solishtirib
+  ko''rishni admin qiladi).
+
+
+  **Auth:** `admin_token`. Permission: `paymentManage`.
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `transaction_id` | int | ✅ | Refund qilinayotgan original Transaction ID |
+
+  | `amount` | int | ➖ | Tiyin/sentda; berilmasa — to''liq summa |
+
+  | `reason` | string | ✅ | Refund sababi (audit logga yoziladi) |
+
+
+  ### 📤 Response (201)
+
+
+  Yangi Refund Transaction DTO (TransactionOutputDTO shape).
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `422` | `Only candidate payments can be refunded` / `Invalid refund amount` |
+
+  | `404` | Transaction topilmadi |
+
+  | `401` | Token yo''q |
+
+  | `403` | Admin emas |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

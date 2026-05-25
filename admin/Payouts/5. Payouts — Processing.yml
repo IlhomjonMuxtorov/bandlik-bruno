@@ -1,0 +1,43 @@
+info:
+  name: 5. Payouts — Processing
+  type: http
+  seq: 5
+http:
+  method: POST
+  url: '{{base_url}}/admin/payouts/17/processing'
+  auth: inherit
+docs: 'Approved payout''ni "Processing" holatiga o''tkazish — admin bank ilovasida
+  pul yuborishni boshlagani belgisi. Ledger''ga ta''sir qilmaydi (Hold''da turaveradi),
+  faqat status = Processing va `processed_at` o''rnatiladi.
+
+
+  **Auth:** `admin_token`. Permission: `payoutComplete`.
+
+
+  ### 📤 Response
+
+
+  Yangilangan PayoutRequest DTO (`status=Processing`).
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `422` | `Only approved payouts can move to processing` |
+
+  | `404` | Payout topilmadi |
+
+  | `401` | Token yo''q |
+
+  | `403` | Admin emas |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,58 @@
+info:
+  name: 1. Payouts — Index
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/payouts?per-page=20&status=1'
+  auth: inherit
+docs: 'Barcha payout so''rovlari — admin tomonidan ko''rib chiqilishi kerak bo''lganlar
+  (status=1, Pending) eng birinchi.
+
+
+  **Auth:** `admin_token`. Permission: `payoutApprove` (ko''rish), `payoutComplete`
+  (yakunlash).
+
+
+  ### 🔎 Query Params
+
+
+  | Param | Type | Description |
+
+  |---|---|---|
+
+  | `organization_id` | int | Tashkilot bo''yicha |
+
+  | `status` | int | 1..6 (Pending, Approved, Rejected, Processing, Completed, Failed)
+  |
+
+  | `from` / `to` | int | created_at unix timestamp |
+
+  | `per-page` | int | 1..100 |
+
+  | `sort` | string | `id`, `created_at`, `amount` |
+
+
+  ### 📤 Response
+
+
+  PayoutRequest DTO ro''yxati (V1 list bilan bir xil shape).
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q |
+
+  | `403` | Admin emas |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

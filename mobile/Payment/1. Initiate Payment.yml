@@ -1,0 +1,89 @@
+info:
+  name: 1. Initiate Payment
+  type: http
+  seq: 1
+http:
+  method: POST
+  url: '{{base_url}}/mobile/payments/initiate'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"service_order_id\": 1,\n  \"provider\": \"payme\",\n  \"return_url\"\
+      : \"https://bandlik.uz/payment/success?order=1\"\n}"
+  auth: inherit
+docs: 'Nomzod xizmat buyurtmasi uchun to''lov sessiyasini ochadi. Tanlangan gateway
+  (`click | payme | uzum | manual`) `Payment` row yaratadi, gateway''dan invoice oladi
+  va `redirect_url` qaytaradi. Bunda `OrganizationServiceOrder` allaqachon mavjud bo''lishi
+  shart va `paid_amount < amount` (to''liq to''lanmagan) bo''lishi kerak.
+
+
+  **Auth:** `access_token` (nomzod). `service_order_id.candidate_id` joriy nomzodga
+  tegishli bo''lishi yoki `null` bo''lishi shart.
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `service_order_id` | int | ✅ | `OrganizationServiceOrder.id` |
+
+  | `provider` | string | ✅ | `click` \| `payme` \| `uzum` \| `manual` (`.env` da `enabled=true`
+  bo''lishi shart) |
+
+  | `return_url` | string | ➖ | To''lovdan keyin nomzod qaytariladigan URL |
+
+
+  ### 📤 Response (201)
+
+
+  ```json
+
+  {
+
+    "payment_id": 42,
+
+    "provider": "payme",
+
+    "redirect_url": "https://checkout.paycom.uz/<base64>",
+
+    "amount": 1000000,
+
+    "currency": "UZS",
+
+    "expires_at": 1735650000
+
+  }
+
+  ```
+
+
+  Mijoz `redirect_url` ga yo''naltiriladi. To''lov tugagach gateway webhook orqali
+  natijani bizning serverga qaytaradi.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `400` | Provider yoqilmagan, order to''liq to''langan, validatsiya xatosi |
+
+  | `401` | Token yo''q |
+
+  | `403` | Boshqa nomzod orderi |
+
+  | `404` | Buyurtma topilmadi |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

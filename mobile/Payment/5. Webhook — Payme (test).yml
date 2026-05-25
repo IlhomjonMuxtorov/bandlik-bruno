@@ -1,0 +1,200 @@
+info:
+  name: 5. Webhook — Payme (test)
+  type: http
+  seq: 5
+http:
+  method: POST
+  url: '{{base_url}}/mobile/payments/webhook/payme'
+  headers:
+  - name: Content-Type
+    value: application/json
+  - name: Authorization
+    value: Basic UGF5Y29tOlJFUExBQ0VfV0lUSF9TRUNSRVQ=
+  body:
+    type: json
+    data: "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 1,\n  \"method\": \"CheckPerformTransaction\"\
+      ,\n  \"params\": {\n    \"amount\": 1000000,\n    \"account\": {\n      \"service_order_id\"\
+      : 1\n    }\n  }\n}"
+  auth: none
+docs: 'Payme JSON-RPC webhook endpoint. Auth Basic header: `Basic base64("Paycom:"
+  + PAYME_SECRET)`. Bizning gateway 6 ta metodni qo''llab-quvvatlaydi:
+
+
+  | Method | Vazifa | Bizdagi javob |
+
+  |---|---|---|
+
+  | `CheckPerformTransaction` | Order mavjudligi va summa to''g''riligini tekshirish
+  | `result: {allow: true}` yoki error |
+
+  | `CreateTransaction` | Yangi Payme tx yaratish, bizdagi Payment ID''ga bog''lash
+  | `result: {create_time, transaction, state: 1}` |
+
+  | `PerformTransaction` | To''lovni yakunlash (LedgerService chaqiriladi) | `result:
+  {transaction, perform_time, state: 2}` |
+
+  | `CancelTransaction` | Bekor qilish | `result: {transaction, cancel_time, state:
+  -1 yoki -2}` |
+
+  | `CheckTransaction` | Status query | `result: {state, create_time, perform_time,
+  ...}` |
+
+  | `GetStatement` | Reconciliation | `result: {transactions: [...]}` |
+
+
+  **`account.service_order_id`** — Payme kassasida `account` maydoni `service_order_id`
+  deb sozlanishi shart.
+
+
+  ### 📥 Request Body (CheckPerformTransaction misoli)
+
+
+  ```json
+
+  {
+
+    "jsonrpc": "2.0",
+
+    "id": 1,
+
+    "method": "CheckPerformTransaction",
+
+    "params": {
+
+      "amount": 1000000,
+
+      "account": { "service_order_id": 1 }
+
+    }
+
+  }
+
+  ```
+
+
+  **CreateTransaction:**
+
+
+  ```json
+
+  {
+
+    "method": "CreateTransaction",
+
+    "params": {
+
+      "id": "65a2d6b89c2f4d3b8e9f1234",
+
+      "time": 1735644000000,
+
+      "amount": 1000000,
+
+      "account": { "service_order_id": 1 }
+
+    }
+
+  }
+
+  ```
+
+
+  **PerformTransaction:**
+
+
+  ```json
+
+  {
+
+    "method": "PerformTransaction",
+
+    "params": { "id": "65a2d6b89c2f4d3b8e9f1234" }
+
+  }
+
+  ```
+
+
+  ### 📤 Response
+
+
+  Har metod uchun JSON-RPC envelope. Misol PerformTransaction uchun:
+
+
+  ```json
+
+  {
+
+    "jsonrpc": "2.0",
+
+    "id": 1,
+
+    "result": {
+
+      "transaction": "42",
+
+      "perform_time": 1735647500000,
+
+      "state": 2
+
+    }
+
+  }
+
+  ```
+
+
+  ### ⚠️ Error codes
+
+
+  | Code | Sabab |
+
+  |---|---|
+
+  | -31001 | Amount mismatch |
+
+  | -31003 | Transaction not found |
+
+  | -31008 | Cannot perform (order already paid) |
+
+  | -31050 | Order not found |
+
+  | -32600 | Missing required field |
+
+  | -32601 | Unknown method |
+
+
+  Error response shape:
+
+
+  ```json
+
+  {
+
+    "jsonrpc": "2.0",
+
+    "id": 1,
+
+    "error": { "code": -31050, "message": {"ru":"...","uz":"...","en":"..."} }
+
+  }
+
+  ```
+
+
+  ### 🔐 Auth header generation
+
+
+  ```bash
+
+  echo -n "Paycom:YOUR_PAYME_SECRET" | base64
+
+  # → UGF5Y29tOllPVVJfUEFZTUVfU0VDUkVU
+
+  ```
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

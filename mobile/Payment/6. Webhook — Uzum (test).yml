@@ -1,0 +1,101 @@
+info:
+  name: 6. Webhook — Uzum (test)
+  type: http
+  seq: 6
+http:
+  method: POST
+  url: '{{base_url}}/mobile/payments/webhook/uzum'
+  headers:
+  - name: Content-Type
+    value: application/json
+  - name: X-Uzum-Signature
+    value: REPLACE_WITH_HMAC_SHA256_OF_BODY
+  body:
+    type: json
+    data: "{\n  \"order_id\": \"42\",\n  \"provider_payment_id\": \"uzum-tx-9876\"\
+      ,\n  \"amount\": 1000000,\n  \"currency\": \"UZS\",\n  \"status\": \"paid\"\n\
+      }"
+  auth: none
+docs: 'Uzum Pay webhook. Signature `X-Uzum-Signature` header''ida HMAC-SHA256:
+
+
+  ```
+
+  X-Uzum-Signature = hmac_sha256(
+
+    UZUM_SECRET,
+
+    raw_request_body
+
+  )
+
+  ```
+
+
+  ### 📥 Request Body
+
+
+  ```json
+
+  {
+
+    "order_id": "42",
+
+    "provider_payment_id": "uzum-tx-9876",
+
+    "amount": 1000000,
+
+    "currency": "UZS",
+
+    "status": "paid"
+
+  }
+
+  ```
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `order_id` | string | Bizdagi `Payment.id` |
+
+  | `provider_payment_id` | string | Uzum tarafidagi tx ID |
+
+  | `amount` | int | UZS tiyinda |
+
+  | `currency` | string | `UZS` |
+
+  | `status` | string | `paid`/`success`/`confirmed` → success; `cancelled`/`canceled`
+  → cancelled; `failed`/`error`/`declined` → failed; default → pending |
+
+
+  ### 📤 Response
+
+
+  ```json
+
+  { "status": "OK" }
+
+  ```
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | `signature_invalid` |
+
+  | `400` | `provider_payment_id` yo''q yoki payload buzilgan |
+
+  | `403` | IP allow-list''dan tashqarida |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

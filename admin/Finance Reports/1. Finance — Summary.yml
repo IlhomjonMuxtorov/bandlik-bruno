@@ -1,0 +1,121 @@
+info:
+  name: 1. Finance — Summary
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/reports/finance/summary?from=1735603200&to=1738281600&currency=UZS'
+  auth: inherit
+docs: 'Davr uchun moliyaviy umumiy ko''rsatkichlar — kirim, chiqim, komissiya, payout''lar
+  va net foyda.
+
+
+  **Auth:** `admin_token`. Permission: `reportView`.
+
+
+  ### 🔎 Query Params
+
+
+  | Param | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `from` | int | ➖ | Default: oy boshi |
+
+  | `to` | int | ➖ | Default: hozir |
+
+  | `currency` | string | ➖ | Default `UZS` |
+
+
+  ### 📤 Response
+
+
+  ```json
+
+  {
+
+    "from": 1735603200,
+
+    "to": 1738281600,
+
+    "currency": "UZS",
+
+    "total_income": 250000000,
+
+    "total_expense": 164200000,
+
+    "total_commission": 25000000,
+
+    "total_escrow_released": 180000000,
+
+    "total_payouts": 175000000,
+
+    "total_refunds": 5000000,
+
+    "net": 80800000,
+
+    "expense_by_category": {
+
+      "salary": 150000000,
+
+      "marketing": 5000000,
+
+      "sms": 1200000,
+
+      "office": 8000000
+
+    },
+
+    "daily_cash_flow": [
+
+      { "date": 1735603200, "income": 10000000, "expense": 1000000 },
+
+      { "date": 1735689600, "income": 8500000, "expense": 0 }
+
+    ]
+
+  }
+
+  ```
+
+
+  **Maydonlar:**
+
+
+  | Field | Hisob |
+
+  |---|---|
+
+  | `total_income` | `SUM(amount)` CandidatePayment + Completed |
+
+  | `total_expense` | `SUM(amount)` PlatformExpense + Completed |
+
+  | `total_commission` | Platform wallet `balance` CREDIT yozuvlari (CandidatePayment
+  tx ichida) |
+
+  | `total_escrow_released` | InternalTransfer + Completed |
+
+  | `total_payouts` | OrganizationPayout + Completed |
+
+  | `total_refunds` | Refund + Completed |
+
+  | `net` | `income - expense - refunds` |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q |
+
+  | `403` | Admin emas |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,143 @@
+info:
+  name: 3. Transactions
+  type: http
+  seq: 3
+http:
+  method: GET
+  url: '{{base_url}}/v1/wallet/transactions?per-page=20'
+  auth: inherit
+docs: 'Partner tashkilotga tegishli barcha Transaction''lar (yuqori darajadagi pul
+  harakati birligi). Har Transaction N ta WalletEntry''dan iborat — bu yerda faqat
+  jami yozuvlar ko''rinadi.
+
+
+  **Type kodlari:**
+
+
+  | Type | Label |
+
+  |---|---|
+
+  | 1 | Candidate payment |
+
+  | 2 | Organization payout |
+
+  | 3 | Platform expense |
+
+  | 4 | Refund |
+
+  | 5 | Adjustment |
+
+  | 6 | Internal transfer (escrow release) |
+
+
+  **Status kodlari:**
+
+
+  | Status | Label |
+
+  |---|---|
+
+  | 1 | Pending |
+
+  | 2 | Completed |
+
+  | 3 | Failed |
+
+  | 4 | Refunded |
+
+  | 5 | Cancelled |
+
+
+  **Auth:** `partner_token`.
+
+
+  ### 🔎 Query Params
+
+
+  | Param | Type | Description |
+
+  |---|---|---|
+
+  | `per-page` | int | 1..100 |
+
+  | `page` | int | 1+ |
+
+  | `sort` | string | `id`, `created_at`, `amount` |
+
+
+  ### 📤 Response
+
+
+  ```json
+
+  {
+
+    "items": [
+
+      {
+
+        "id": 305,
+
+        "type": 6,
+
+        "type_label": "Internal transfer",
+
+        "status": 2,
+
+        "status_label": "Completed",
+
+        "amount": 900000,
+
+        "currency": "UZS",
+
+        "organization_id": 3,
+
+        "candidate_id": null,
+
+        "vacancy_id": null,
+
+        "service_order_id": 1,
+
+        "reference_type": "oso",
+
+        "reference_id": 1,
+
+        "gateway_provider": null,
+
+        "gateway_ref": null,
+
+        "description": "Escrow release for order #1",
+
+        "paid_at": 1735647500,
+
+        "created_at": 1735647500
+
+      }
+
+    ],
+
+    "pagination": { "page": 1, "page_size": 20, "total_count": 5, "page_count": 1 }
+
+  }
+
+  ```
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q |
+
+  | `403` | Foydalanuvchi birorta tashkilotga biriktirilmagan |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,145 @@
+info:
+  name: 2. Transactions — View
+  type: http
+  seq: 2
+http:
+  method: GET
+  url: '{{base_url}}/admin/transactions/305'
+  auth: inherit
+docs: 'Bitta Transaction''ning to''liq ma''lumoti — `entries[]` array bilan birga
+  (har wallet entry alohida ko''rsatiladi). Bu **audit replay** uchun: balance/hold
+  after qiymatlari bilan har bir double-entry leg.
+
+
+  **Auth:** `admin_token`.
+
+
+  ### 📤 Response
+
+
+  ```json
+
+  {
+
+    "id": 305,
+
+    "type": 1,
+
+    "type_label": "Candidate payment",
+
+    "status": 2,
+
+    "status_label": "Completed",
+
+    "amount": 1000000,
+
+    "currency": "UZS",
+
+    "organization_id": 3,
+
+    "candidate_id": 7,
+
+    "service_order_id": 1,
+
+    "gateway_provider": "payme",
+
+    "gateway_ref": "65a2d6b89c2f4d3b8e9f1234",
+
+    "description": "Candidate payment for order #1",
+
+    "paid_at": 1735647500,
+
+    "created_at": 1735647500,
+
+    "entries": [
+
+      {
+
+        "id": 1020,
+
+        "wallet_id": 2,
+
+        "direction": 2,
+
+        "bucket": "balance",
+
+        "amount": 1000000,
+
+        "balance_after": -1000000,
+
+        "hold_after": 0,
+
+        "description": "Payment from payme"
+
+      },
+
+      {
+
+        "id": 1021,
+
+        "wallet_id": 1,
+
+        "direction": 1,
+
+        "bucket": "balance",
+
+        "amount": 100000,
+
+        "balance_after": 100000,
+
+        "hold_after": 0,
+
+        "description": "Commission"
+
+      },
+
+      {
+
+        "id": 1022,
+
+        "wallet_id": 1,
+
+        "direction": 1,
+
+        "bucket": "hold_balance",
+
+        "amount": 900000,
+
+        "balance_after": 100000,
+
+        "hold_after": 900000,
+
+        "description": "Escrow for order #1"
+
+      }
+
+    ]
+
+  }
+
+  ```
+
+
+  `direction`: 1=Credit, 2=Debit. `SUM(credit) === SUM(debit)` har Transaction uchun
+  qat''iy invariant.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q |
+
+  | `403` | Admin emas |
+
+  | `404` | Transaction topilmadi |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
