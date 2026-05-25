@@ -1,0 +1,105 @@
+info:
+  name: 2. Entries (Ledger)
+  type: http
+  seq: 2
+http:
+  method: GET
+  url: '{{base_url}}/v1/wallet/entries?per-page=50'
+  auth: inherit
+docs: 'Wallet entry — har wallet ustida qo''yilgan har bir credit/debit yozuvi (double-entry
+  qatorlari). Bu list orqali partner tashkilot o''z balansiga qachon nima kelgani/qachon
+  nima chiqqanini ko''ra oladi.
+
+
+  Har Transaction kamida 2 ta WalletEntry yaratadi — bu yerda faqat partner tashkilotning
+  wallet''iga tegishli qatorlar ko''rinadi.
+
+
+  **Auth:** `partner_token`.
+
+
+  ### 🔎 Query Params
+
+
+  | Param | Type | Description |
+
+  |---|---|---|
+
+  | `per-page` | int | 1..100 (default 20) |
+
+  | `page` | int | 1+ |
+
+  | `sort` | string | `id`, `created_at` (`-` bilan teskari) |
+
+
+  ### 📤 Response
+
+
+  ```json
+
+  {
+
+    "items": [
+
+      {
+
+        "id": 1024,
+
+        "wallet_id": 11,
+
+        "transaction_id": 305,
+
+        "direction": 1,
+
+        "bucket": "balance",
+
+        "amount": 900000,
+
+        "balance_after": 5400000,
+
+        "hold_after": 1000000,
+
+        "description": "Settlement for order #1",
+
+        "created_at": 1735647500
+
+      }
+
+    ],
+
+    "pagination": { "page": 1, "page_size": 50, "total_count": 12, "page_count": 1 }
+
+  }
+
+  ```
+
+
+  | Field | Ma''nosi |
+
+  |---|---|
+
+  | `direction` | 1=Credit (kirim), 2=Debit (chiqim) |
+
+  | `bucket` | `balance` yoki `hold_balance` (escrow ushlangan summa) |
+
+  | `balance_after` / `hold_after` | Yozuvdan **keyin** wallet holati (audit replay
+  uchun) |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q |
+
+  | `403` | Foydalanuvchi birorta tashkilotga biriktirilmagan |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

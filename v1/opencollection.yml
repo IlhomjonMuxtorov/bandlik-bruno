@@ -1,0 +1,15 @@
+opencollection: 1.0.0
+info:
+  name: XBA — V1 Partner API
+bundled: false
+extensions:
+  bruno:
+    ignore:
+    - node_modules
+    - .git
+auth:
+  type: bearer
+  token: '{{partner_token}}'
+variables:
+  base_url: http://api.bandlik.loc
+  partner_token: ''

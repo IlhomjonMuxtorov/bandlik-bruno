@@ -1,0 +1,145 @@
+info:
+  name: 4. Webhook — Click (test)
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{base_url}}/mobile/payments/webhook/click'
+  headers:
+  - name: Content-Type
+    value: application/x-www-form-urlencoded
+  body:
+    type: formUrlEncoded
+    formUrlEncoded:
+    - name: click_trans_id
+      value: '987654321'
+    - name: service_id
+      value: '12345'
+    - name: merchant_trans_id
+      value: '42'
+    - name: amount
+      value: '10000.00'
+    - name: action
+      value: '1'
+    - name: sign_time
+      value: '2026-05-25 13:45:00'
+    - name: sign_string
+      value: REPLACE_WITH_MD5_OF_SIGNATURE
+    - name: error
+      value: '0'
+    - name: merchant_prepare_id
+      value: '42'
+  auth: none
+docs: 'Click webhook endpoint. Auth bypass — har gateway o''z signature''ini tekshiradi.
+  `merchant_trans_id` bizdagi `Payment.id`''ga teng.
+
+
+  **Click Pass formulasi:**
+
+
+  ```
+
+  sign_string = md5(
+
+    click_trans_id +
+
+    service_id +
+
+    SECRET +
+
+    merchant_trans_id +
+
+    merchant_prepare_id +
+
+    amount +
+
+    action +
+
+    sign_time
+
+  )
+
+  ```
+
+
+  Faqat `action=1` (Complete) va `error=0` muvaffaqiyatli to''lov hisoblanadi.
+
+
+  **IP allow-list:** `CLICK_ALLOWED_IPS` `.env` da o''rnatilgan bo''lsa, faqat shu
+  IP/CIDR''lardan kelgan so''rov qabul qilinadi.
+
+
+  ### 📥 Form Fields
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `click_trans_id` | string | ✅ | Click tarafidagi transaction ID |
+
+  | `service_id` | int | ✅ | Click service ID (config''dagi `service_id`) |
+
+  | `merchant_trans_id` | string | ✅ | `Payment.id` (initiate paytida `transaction_param`
+  sifatida yuborgan) |
+
+  | `merchant_prepare_id` | string | ➖ | Faqat `action=1` da, Prepare bosqichidan |
+
+  | `amount` | float | ✅ | UZS so''mda (biz tiyinga ko''paytirib saqlaymiz: amount
+  * 100) |
+
+  | `action` | int | ✅ | 0=Prepare, 1=Complete |
+
+  | `error` | int | ✅ | 0=OK, manfiy=xato |
+
+  | `sign_time` | string | ✅ | `YYYY-MM-DD HH:MM:SS` |
+
+  | `sign_string` | string | ✅ | MD5 yuqoridagi formula bo''yicha |
+
+
+  ### 📤 Response
+
+
+  Click flat JSON kutadi:
+
+
+  ```json
+
+  {
+
+    "click_trans_id": "987654321",
+
+    "merchant_trans_id": "42",
+
+    "merchant_prepare_id": "42",
+
+    "merchant_confirm_id": "42",
+
+    "error": 0,
+
+    "error_note": "Success"
+
+  }
+
+  ```
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | `signature_invalid` — sign_string noto''g''ri |
+
+  | `400` | Provider yoqilmagan yoki payload buzilgan |
+
+  | `403` | IP allow-list''dan tashqarida |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

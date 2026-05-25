@@ -1,0 +1,74 @@
+info:
+  name: 4. Expenses — Summary
+  type: http
+  seq: 4
+http:
+  method: GET
+  url: '{{base_url}}/admin/expenses/summary?from=1735603200&to=1738281600'
+  auth: inherit
+docs: 'Berilgan davr uchun xarajatlar yig''indisi — kategoriya × valyuta bo''yicha
+  guruhlangan.
+
+
+  **Auth:** `admin_token`. Permission: `expenseManage` yoki `reportView`.
+
+
+  ### 🔎 Query Params
+
+
+  | Param | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `from` | int | ➖ | Default: oy boshi |
+
+  | `to` | int | ➖ | Default: hozir |
+
+
+  ### 📤 Response
+
+
+  ```json
+
+  {
+
+    "from": 1735603200,
+
+    "to": 1738281600,
+
+    "summary": {
+
+      "salary": { "UZS": 150000000 },
+
+      "marketing": { "UZS": 5000000, "USD": 2000 },
+
+      "sms": { "UZS": 1200000 },
+
+      "infrastructure": { "USD": 1500 },
+
+      "office": { "UZS": 8000000 }
+
+    }
+
+  }
+
+  ```
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q |
+
+  | `403` | Admin emas |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

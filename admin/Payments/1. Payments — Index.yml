@@ -1,0 +1,59 @@
+info:
+  name: 1. Payments — Index
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/payments?per-page=20&provider=payme&status=3'
+  auth: inherit
+docs: 'Gateway to''lov urinishlari ro''yxati — har bir nomzod payme/click/uzum bilan
+  qancha urinish qilgani.
+
+
+  **Auth:** `admin_token`.
+
+
+  ### 🔎 Query Params
+
+
+  | Param | Type | Description |
+
+  |---|---|---|
+
+  | `provider` | string | `click` \| `payme` \| `uzum` \| `manual` |
+
+  | `status` | int | 1..6 (Initiated, Pending, Success, Failed, Cancelled, Refunded)
+  |
+
+  | `candidate_id` | int | |
+
+  | `service_order_id` | int | |
+
+  | `per-page` | int | 1..100 |
+
+  | `sort` | string | `id`, `created_at`, `paid_at`, `amount` |
+
+
+  ### 📤 Response
+
+
+  Payment DTO (mobile/payment History bilan bir xil shape) ro''yxati paginate qilingan.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q |
+
+  | `403` | Admin emas |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

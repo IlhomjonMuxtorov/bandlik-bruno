@@ -1,0 +1,121 @@
+info:
+  name: 1. Transactions — Index
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/transactions?per-page=20&type=1&status=2'
+  auth: inherit
+docs: 'Barcha Transaction''lar (jami pul harakati birliklari) — filtrlangan ro''yxat.
+
+
+  **Auth:** `admin_token` (faqat `UserType::Admin`).
+
+
+  ### 🔎 Query Params
+
+
+  | Param | Type | Description |
+
+  |---|---|---|
+
+  | `organization_id` | int | Tashkilot bo''yicha |
+
+  | `candidate_id` | int | Nomzod bo''yicha |
+
+  | `vacancy_id` | int | Vakansiya bo''yicha |
+
+  | `service_order_id` | int | Buyurtma bo''yicha |
+
+  | `educational_course_id` | int | Kurs bo''yicha (JOIN orqali) |
+
+  | `type` | int | 1..6 (CandidatePayment, OrganizationPayout, PlatformExpense, Refund,
+  Adjustment, InternalTransfer) |
+
+  | `status` | int | 1..5 (Pending, Completed, Failed, Refunded, Cancelled) |
+
+  | `provider` | string | `click` \| `payme` \| `uzum` \| `manual` |
+
+  | `from` / `to` | int | Unix timestamp (created_at) |
+
+  | `per-page` | int | 1..100 |
+
+  | `sort` | string | `id`, `created_at`, `amount` |
+
+
+  ### 📤 Response
+
+
+  ```json
+
+  {
+
+    "items": [
+
+      {
+
+        "id": 305,
+
+        "type": 1,
+
+        "type_label": "Candidate payment",
+
+        "status": 2,
+
+        "status_label": "Completed",
+
+        "amount": 1000000,
+
+        "currency": "UZS",
+
+        "organization_id": 3,
+
+        "candidate_id": 7,
+
+        "vacancy_id": null,
+
+        "service_order_id": 1,
+
+        "reference_type": "oso",
+
+        "reference_id": 1,
+
+        "gateway_provider": "payme",
+
+        "gateway_ref": "65a2d6b89c2f4d3b8e9f1234",
+
+        "description": "Candidate payment for order #1",
+
+        "paid_at": 1735647500,
+
+        "created_at": 1735647500
+
+      }
+
+    ],
+
+    "pagination": { "page": 1, "page_size": 20, "total_count": 152, "page_count":
+  8 }
+
+  }
+
+  ```
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q |
+
+  | `403` | Admin emas |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

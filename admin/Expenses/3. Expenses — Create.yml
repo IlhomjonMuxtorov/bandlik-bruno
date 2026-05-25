@@ -1,0 +1,76 @@
+info:
+  name: 3. Expenses — Create
+  type: http
+  seq: 3
+http:
+  method: POST
+  url: '{{base_url}}/admin/expenses'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"category\": \"salary\",\n  \"amount\": 50000000,\n  \"currency\"\
+      : \"UZS\",\n  \"description\": \"May oyi maoshi — backend jamoasi\",\n  \"occurred_at\"\
+      : 1735599600,\n  \"attachment_file_id\": null\n}"
+  auth: inherit
+docs: 'Yangi xarajat qaydi. Birinchi `OperationalExpense` row yoziladi, keyin atomic
+  tarzda Transaction (`type=PlatformExpense`, `status=Completed`): Platform balance
+  DEBIT + External Bank balance CREDIT. Agar ledger fail bo''lsa, expense ham qaytariladi.
+
+
+  **Auth:** `admin_token`. Permission: `expenseCreate`.
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `category` | string | ✅ | `salary` \| `marketing` \| `sms` \| `infrastructure`
+  \| `office` \| `bank_fee` \| `other` |
+
+  | `amount` | int | ✅ | Tiyin/sentda, > 0 |
+
+  | `currency` | string | ✅ | `UZS` \| `USD` \| `EUR` |
+
+  | `description` | string | ➖ | Audit izoh |
+
+  | `occurred_at` | int | ✅ | Unix timestamp — xarajat haqiqiy sodir bo''lgan vaqt
+  (created_at''dan farq qiladi) |
+
+  | `paid_by_user_id` | int | ➖ | Berilmasa joriy admin ID olinadi |
+
+  | `attachment_file_id` | int | ➖ | Skan/foto upload_file ID |
+
+
+  ### 📤 Response (201)
+
+
+  OperationalExpense DTO (`transaction_id` to''ldirildi).
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `422` | Validatsiya xatosi |
+
+  | `500` | Ledger xatosi (masalan, Platform wallet seed qilinmagan) — expense qaytariladi
+  |
+
+  | `401` | Token yo''q |
+
+  | `403` | Admin emas |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

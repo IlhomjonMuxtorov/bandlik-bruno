@@ -1,0 +1,47 @@
+info:
+  name: 3. Payouts — Approve
+  type: http
+  seq: 3
+http:
+  method: POST
+  url: '{{base_url}}/admin/payouts/17/approve'
+  auth: inherit
+docs: 'Pending payout''ni tasdiqlash. **Pul harakati:** Org wallet `balance -= amount`,
+  `hold_balance += amount` (qulflash). Yangi Transaction (`type=OrganizationPayout`,
+  `status=Pending`, `idempotency_key="payout:approve:{id}"`) yoziladi.
+
+
+  Bu bosqichda hali bank tarafidan pul yuborilmaydi — faqat ledger''da reservatsiya.
+
+
+  **Auth:** `admin_token`. Permission: `payoutApprove`.
+
+
+  ### 📤 Response
+
+
+  Yangilangan PayoutRequest DTO (`status=Approved`, `approved_by`, `approved_at`,
+  `transaction_id` to''ldirildi).
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `422` | `Payout is not pending` / `Insufficient balance` |
+
+  | `404` | Payout topilmadi |
+
+  | `401` | Token yo''q |
+
+  | `403` | Admin emas |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

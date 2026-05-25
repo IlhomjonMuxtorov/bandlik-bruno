@@ -1,0 +1,98 @@
+info:
+  name: 2. Payment History
+  type: http
+  seq: 2
+http:
+  method: GET
+  url: '{{base_url}}/mobile/payments?per-page=20'
+  auth: inherit
+docs: 'Joriy nomzodning barcha to''lov urinishlari (Initiated → Pending → Success/Failed/Cancelled/Refunded).
+  Sahifalangan, default `per-page=20`, sort `id DESC`.
+
+
+  **Auth:** `access_token`.
+
+
+  ### 🔎 Query Params
+
+
+  | Param | Type | Description |
+
+  |---|---|---|
+
+  | `per-page` | int | 1..100 (default 20) |
+
+  | `page` | int | 1+ |
+
+  | `sort` | string | `id`, `created_at`, `paid_at` (`-` prefiks bilan teskari) |
+
+
+  ### 📤 Response
+
+
+  ```json
+
+  {
+
+    "items": [
+
+      {
+
+        "id": 42,
+
+        "transaction_id": 101,
+
+        "provider": "payme",
+
+        "provider_payment_id": "65a2d6b89c2f4d3b8e9f1234",
+
+        "amount": 1000000,
+
+        "currency": "UZS",
+
+        "status": 3,
+
+        "status_label": "Success",
+
+        "service_order_id": 1,
+
+        "candidate_id": 7,
+
+        "organization_id": 3,
+
+        "redirect_url": "https://checkout.paycom.uz/...",
+
+        "expires_at": 1735650000,
+
+        "paid_at": 1735647500,
+
+        "failed_reason": null,
+
+        "created_at": 1735644000
+
+      }
+
+    ],
+
+    "pagination": { "page": 1, "page_size": 20, "total_count": 1, "page_count": 1 }
+
+  }
+
+  ```
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

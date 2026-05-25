@@ -1,0 +1,122 @@
+info:
+  name: 4. Payout Request (Create)
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{base_url}}/v1/wallet/payout-request'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"amount\": 500000,\n  \"currency\": \"UZS\",\n  \"bank_details\":\
+      \ {\n    \"bank_name\": \"Asaka Bank\",\n    \"account\": \"40817810099910004312\"\
+      ,\n    \"inn\": \"301234567\",\n    \"swift\": \"ASCAUZ22\"\n  },\n  \"note\"\
+      : \"May oyi uchun payout\"\n}"
+  auth: inherit
+docs: 'Partner tashkilot o''z wallet balansidan bank hisobiga pul yechib olish so''rovini
+  yuboradi. Tekshiruv: `amount <= wallet.available (balance - hold_balance)`.
+
+
+  Lifecycle:
+
+  - **Pending** (yangi yaratildi)
+
+  - **Approved** (admin tasdiqladi → balance → hold)
+
+  - **Processing** (admin bankka yuborayapti)
+
+  - **Completed** (admin yakunladi → hold → External Bank wallet)
+
+  - yoki **Rejected** / **Failed**
+
+
+  **Auth:** `partner_token`. `organization_id` query/body''dan emas, foydalanuvchidagi
+  `OrganizationEmployee` orqali avtomatik aniqlanadi.
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `amount` | int | ✅ | Tiyin/sentda (UZS uchun so''m * 100). `> 0` va `<= available` |
+
+  | `currency` | string | ✅ | `UZS` \| `USD` \| `EUR` (shu valyutada wallet bo''lishi
+  shart) |
+
+  | `bank_details` | object | ✅ | Bank rekvizitlari (free-form jsonb). Kamida `account`
+  bo''lishi tavsiya etiladi |
+
+  | `note` | string | ➖ | Admin uchun izoh |
+
+
+  ### 📤 Response (201)
+
+
+  ```json
+
+  {
+
+    "data": {
+
+      "id": 17,
+
+      "organization_id": 3,
+
+      "amount": 500000,
+
+      "currency": "UZS",
+
+      "status": 1,
+
+      "status_label": "Pending",
+
+      "bank_details": { "bank_name": "Asaka Bank", "account": "..." },
+
+      "note": "May oyi uchun payout",
+
+      "reject_reason": null,
+
+      "approved_by": null,
+
+      "approved_at": null,
+
+      "completed_at": null,
+
+      "transaction_id": null,
+
+      "created_at": 1735647500
+
+    },
+
+    "message": "Payout request created"
+
+  }
+
+  ```
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `422` | `Insufficient balance: available 100000` / `Amount must be positive` /
+  `Bank details required` |
+
+  | `401` | Token yo''q |
+
+  | `403` | Foydalanuvchi birorta tashkilotga biriktirilmagan |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

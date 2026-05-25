@@ -1,0 +1,116 @@
+info:
+  name: 1. Expenses — Index
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/expenses?per-page=20&category=salary'
+  auth: inherit
+docs: 'Platforma operatsion xarajatlari ro''yxati (maoshlar, marketing, SMS, ofis,
+  bank to''lovlari va h.k.).
+
+
+  **Category kodlari:**
+
+
+  | Code | Label |
+
+  |---|---|
+
+  | `salary` | Maosh |
+
+  | `marketing` | Marketing |
+
+  | `sms` | SMS |
+
+  | `infrastructure` | Infratuzilma (server, cloud) |
+
+  | `office` | Ofis (ijara, kommunal) |
+
+  | `bank_fee` | Bank komissiyasi |
+
+  | `other` | Boshqa |
+
+
+  **Auth:** `admin_token`. Permission: `expenseManage`.
+
+
+  ### 🔎 Query Params
+
+
+  | Param | Type | Description |
+
+  |---|---|---|
+
+  | `category` | string | yuqoridagi kodlardan biri |
+
+  | `currency` | string | `UZS` \| `USD` \| `EUR` |
+
+  | `from` / `to` | int | `occurred_at` unix timestamp |
+
+  | `per-page` | int | 1..100 |
+
+  | `sort` | string | `id`, `occurred_at`, `amount`, `created_at` |
+
+
+  ### 📤 Response
+
+
+  ```json
+
+  {
+
+    "items": [
+
+      {
+
+        "id": 12,
+
+        "category": "salary",
+
+        "category_label": "Salary",
+
+        "amount": 50000000,
+
+        "currency": "UZS",
+
+        "description": "May oyi maoshi — backend jamoasi",
+
+        "occurred_at": 1735599600,
+
+        "paid_by_user_id": 1,
+
+        "attachment_file_id": null,
+
+        "transaction_id": 410,
+
+        "created_at": 1735604000
+
+      }
+
+    ],
+
+    "pagination": { "page": 1, "page_size": 20, "total_count": 30, "page_count": 2 }
+
+  }
+
+  ```
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q |
+
+  | `403` | Admin emas |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
