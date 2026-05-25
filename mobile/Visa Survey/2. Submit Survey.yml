@@ -1,0 +1,51 @@
+info:
+  name: 2. Submit Survey
+  type: http
+  seq: 2
+http:
+  method: POST
+  url: '{{base_url}}/mobile/visa-survey/submit'
+  headers:
+    - name: Content-Type
+      value: application/json
+    - name: Accept-Language
+      value: uz
+  body:
+    type: json
+    data: "{\n  \"answers\": {\n    \"gender\": \"erkak\",\n    \"age\": \"y26\",\n\
+      \    \"education\": \"bak\",\n    \"field\": [\"zavod\", \"qurilish\"],\n  \
+      \  \"certificate\": \"intl\",\n    \"foreign_exp\": \"uzoq\",\n    \"uz_exp\"\
+      : \"uz2\",\n    \"language\": [\"de\", \"en\"],\n    \"duration\": \"biryil\"\
+      ,\n    \"documents\": \"hamma\"\n  }\n}"
+  auth:
+    type: inherit
+docs: "Foydalanuvchining javoblarini saqlaydi va natijani hisoblaydi. Har bir foydalanuvchi\
+  \ uchun bitta yozuv (upsert) — yangi topshirish eskisini almashtiradi.\n\n**Auth:**\
+  \ Bearer JWT (guest yoki access token).\n\n### \U0001F4E5 Request Body\n\n| Field\
+  \ | Type | Description |\n|---|---|---|\n| `answers.gender` | string | `erkak`\
+  \ \\| `ayol` |\n| `answers.age` | string | `y18` \\| `y26` \\| `y36` \\| `y46`\
+  \ |\n| `answers.education` | string | `bak` \\| `mag` \\| `kolej` \\| `maktab`\
+  \ |\n| `answers.field` | string[] | Multi: `zavod`, `qurilish`, `qishloq`, ... |\n\
+  | `answers.certificate` | string | `intl` \\| `uz` \\| `no` |\n| `answers.foreign_exp`\
+  \ | string | `uzoq` \\| `mavsumiy` \\| `yoq` |\n| `answers.uz_exp` | string | `uz5`\
+  \ \\| `uz2` \\| `uz1` \\| `noras` \\| `yoq` |\n| `answers.language` | string[]\
+  \ | Multi: `de`, `en`, `pl`, `cz`, `other`, `ru`, `uz` |\n| `answers.duration`\
+  \ | string | `biryil` \\| `mavsumiy` |\n| `answers.documents` | string | `hamma`\
+  \ \\| `pasport` \\| `hech` |\n\n### \U0001F4E4 Response (201 Created)\n\n\`\`\`\
+  json\n{\n  \"id\": 42,\n  \"raw_score\": 88,\n  \"score_percent\": 97,\n  \"level\"\
+  : \"strong\",\n  \"color\": \"green\",\n  \"country_matches\": [\n    { \"code\"\
+  : \"slovakia\", \"label\": \"Slovakia\", \"percent\": 97, \"level\": \"strong\"\
+  , \"color\": \"green\" }\n    // top 5 only\n  ],\n  \"recommendations\": [\n \
+  \   { \"code\": \"contact_consultant\", \"percent\": null, \"text\": \"Bandlik app\
+  \ orqali mutaxassis maslahatchiga murojaat qiling\" }\n  ],\n  \"answers\": { ...\
+  \ },\n  \"created_at\": 1748131200,\n  \"updated_at\": 1748131200\n}\n\`\`\`\n\n\
+  > ⚠️ Submit qilingandan keyin keshlangan natija avtomatik invalidate qilinadi.\n"
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+runtime:
+  scripts:
+    - type: after-response
+      code: "const body = res.getBody();\nif (body && body.id) {\n  bru.setEnvVar('visa_survey_id',\
+        \ String(body.id));\n  console.log('visa_survey_id saved:', body.id);\n}"
