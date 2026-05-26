@@ -22,6 +22,33 @@ docs: 'Hujjatni yangilash. Maydonlar `create` bilan bir xil. Fayl: `file_id`.
 
   **Auth:** `access_token`.
 
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `type` | string | ✅ | `passport_scan` \| `foreign_passport_scan` \| `criminal_record_scan`
+  \| `photo_3x4_scan` |
+
+  | `title` | string | ✅ | Fayl nomi |
+
+  | `file_id` | int | ➖ | Yangi `upload_file_id`. Eski fayl avtomatik o''chiriladi. |
+
+
+  ### 📎 `type` qiymatlari
+
+
+  - `passport_scan` — Ichki pasport nusxasi
+
+  - `foreign_passport_scan` — Xorijiy (biometrik) pasport nusxasi
+
+  - `criminal_record_scan` — Sudlanmaganlik haqida guvohnoma
+
+  - `photo_3x4_scan` — 3.5 × 4.5 rasm
+
   '
 settings:
   encodeUrl: true

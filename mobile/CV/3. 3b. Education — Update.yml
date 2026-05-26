@@ -21,6 +21,12 @@ docs: 'Mavjud ta''limni yangilash. Maydonlar tarkibi `POST` bilan bir xil (`dipl
   ham kiradi). Faqat o''z resurslari.
 
 
+  ⚠️ **MVD'' dan sinxronlangan yozuvlar (`is_from_mvd=true`) bu endpoint orqali
+  yangilanmaydi — `403 Forbidden` qaytadi.** Bunday yozuvlarga faqat diplom
+  faylini biriktirish/almashtirish uchun **`PATCH /education/<id>/file`**
+  endpoint''dan foydalaning.
+
+
   **Auth:** `access_token`.
 
 
