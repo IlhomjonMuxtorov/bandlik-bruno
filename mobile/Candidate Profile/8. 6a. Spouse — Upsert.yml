@@ -14,8 +14,8 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"full_name\": \"Karimova Dilshoda\",\n    \"birth_date\": \"1995-08-10\"\
-      ,\n    \"marriage_date\": \"2020-09-15\"\n}"
+    data: "{\n    \"full_name\": \"Karimova Dilshoda\",\n    \"birth_date\": \"10.08.1995\"\
+      ,\n    \"marriage_date\": \"15.09.2020\"\n}"
   auth: inherit
 docs: 'Turmush o''rtog''i yozuvini yaratish yoki yangilash (`PUT` — upsert).
 
@@ -32,7 +32,7 @@ docs: 'Turmush o''rtog''i yozuvini yaratish yoki yangilash (`PUT` — upsert).
 
   | `full_name` | string | ✅ | To''liq ism |
 
-  | `birth_date` | date | ✅ | `YYYY-MM-DD` |
+  | `birth_date` | date | ✅ | `DD.MM.YYYY` |
 
   | `marriage_date` | date | ➖ | Nikoh sanasi |
 

@@ -15,8 +15,8 @@ http:
   body:
     type: json
     data: "{\n    \"type\": \"code_95\",\n    \"title\": \"Kod 95\",\n    \"certificate_number\"\
-      : \"CRT-2024-001\",\n    \"issue_date\": \"2024-01-15\",\n    \"expiry_date\"\
-      : \"2029-01-15\",\n    \"file_id\": 42\n}"
+      : \"CRT-2024-001\",\n    \"issue_date\": \"15.01.2024\",\n    \"expiry_date\"\
+      : \"15.01.2029\",\n    \"file_id\": 42\n}"
   auth: inherit
 docs: 'Haydovchilik sertifikati qo''shish (Code 95, ADR, Chip card va h.k.).
 

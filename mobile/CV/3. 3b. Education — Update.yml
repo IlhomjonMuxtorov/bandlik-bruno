@@ -15,7 +15,7 @@ http:
   body:
     type: json
     data: "{\n    \"education_level_id\": 4,\n    \"institution_name\": \"INHA University\"\
-      ,\n    \"start_date\": \"2022-09-01\"\n}"
+      ,\n    \"start_date\": \"01.09.2022\"\n}"
   auth: inherit
 docs: 'Mavjud ta''limni yangilash. Maydonlar tarkibi `POST` bilan bir xil (`diploma_file_id`
   ham kiradi). Faqat o''z resurslari.

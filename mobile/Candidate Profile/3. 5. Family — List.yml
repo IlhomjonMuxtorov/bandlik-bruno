@@ -30,7 +30,7 @@ docs: 'Oila a''zolari ro''yxati (ota, ona, aka, opa).
 
   | `full_name` | string | To''liq ism |
 
-  | `birth_date` | date | `YYYY-MM-DD` |
+  | `birth_date` | date | `DD.MM.YYYY` |
 
   '
 settings:

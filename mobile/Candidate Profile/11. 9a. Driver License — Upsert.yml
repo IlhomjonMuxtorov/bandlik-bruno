@@ -15,8 +15,8 @@ http:
   body:
     type: json
     data: "{\n    \"has_license\": true,\n    \"categories\": \"B,C,D\",\n    \"license_number\"\
-      : \"AB1234567\",\n    \"issue_date\": \"2018-05-10\",\n    \"expiry_date\":\
-      \ \"2028-05-10\"\n}"
+      : \"AB1234567\",\n    \"issue_date\": \"10.05.2018\",\n    \"expiry_date\":\
+      \ \"10.05.2028\"\n}"
   auth: inherit
 docs: 'Haydovchilik guvohnomasini yaratish yoki yangilash (`PUT` — upsert).
 

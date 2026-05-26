@@ -20,7 +20,7 @@ http:
       work_time_to\": \"18:00\",\n  \"salary_gross\": 1500,\n  \"salary_gross_currency\"\
       : \"USD\",\n  \"salary_net\": 1200,\n  \"salary_net_currency\": \"USD\",\n \
       \ \"country_id\": 1,\n  \"address\": \"Warszawa, Marszalkowska 1\",\n  \"hide_address_from_clients\"\
-      : true,\n  \"deadline_at\": \"2026-07-01\",\n  \"requirements\": [\n    {\n\
+      : true,\n  \"deadline_at\": \"01.07.2026\",\n  \"requirements\": [\n    {\n\
       \      \"id\": 1,\n      \"sort_order\": 0\n    },\n    {\n      \"id\": 2,\n\
       \      \"sort_order\": 1\n    }\n  ],\n  \"benefits\": [\n    {\n      \"id\"\
       : 1,\n      \"sort_order\": 0\n    },\n    {\n      \"id\": 2,\n      \"sort_order\"\
@@ -95,7 +95,7 @@ docs: 'Yangi vakansiya yaratadi — boshlanishi `status = draft`. Wizardning bar
 
   | `hide_address_from_clients` | bool | ➖ | Default `false` |
 
-  | `deadline_at` | string | ➖ | `YYYY-MM-DD` |
+  | `deadline_at` | string | ➖ | `DD.MM.YYYY` |
 
 
   **Child kolleksiyalar:**

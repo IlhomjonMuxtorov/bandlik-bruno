@@ -30,7 +30,7 @@ docs: 'Kurslar ro''yxati.
 
   | `institution_name` | string | O''quv markazi |
 
-  | `start_date` | date | `YYYY-MM-DD` |
+  | `start_date` | date | `DD.MM.YYYY` |
 
   | `end_date` | date \| null | Tugagan sana |
 

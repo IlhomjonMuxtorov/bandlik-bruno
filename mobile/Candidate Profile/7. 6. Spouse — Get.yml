@@ -29,7 +29,7 @@ docs: 'Turmush o''rtog''i ma''lumotlari yoki `null`.
 
   | `full_name` | string | To''liq ism |
 
-  | `birth_date` | date | `YYYY-MM-DD` |
+  | `birth_date` | date | `DD.MM.YYYY` |
 
   | `marriage_date` | date \| null | Nikoh sanasi |
 
