@@ -20,9 +20,10 @@ http:
 docs: 'Mavjud tajribani yangilash. Maydonlar `create` bilan bir xil.
 
 
-  ⚠️ **MVD'' dan sinxronlangan yozuvlar (`is_from_mvd=true`) bu endpoint orqali yangilanmaydi
-  — `403 Forbidden` qaytadi.** Bunday yozuvlarga faqat hujjat fayli biriktirish/almashtirish
-  uchun **`PATCH /experience/<id>/file`** endpoint''dan foydalaning.
+  ℹ️ **MVD'' dan sinxronlangan yozuvlar (`is_from_mvd=true`):** body shu endpoint''ga
+  yuborilganda faqat `file_id` maydoni qabul qilinadi (MVD hujjat skanini bermaydi
+  — nomzod o''zi biriktiradi). Qolgan maydonlar (`company_name`, `position`, va h.k.)
+  jim e''tiborga olinmaydi.
 
 
   **Auth:** `access_token`.
