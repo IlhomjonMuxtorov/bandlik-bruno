@@ -11,26 +11,117 @@ http:
   - name: Accept-Language
     value: uz
   auth: inherit
-docs: 'Oila a''zolari ro''yxati (ota, ona, aka, opa).
+docs: 'Kandidat oila a''zolarining yagona ro''yxati: `candidate_family_member` jadvalidan
+  (ota, ona, aka/uka, opa/singil, farzand) hamda 1:1 turmush o''rtog''i yozuvi
+  (`candidate_spouse`), agar `marital_status = "married"` bo''lsa.
+
+
+  > Ro''yxat element soni odatda kichik — paginatsiya yo''q. `?per-page` va `?sort`
+  > parametrlari e''tiborga olinmaydi.
+
+
+  Har element `kind` discriminatorga ega:
+
+  - `kind: "member"` — `candidate_family_member` yozuvi. CRUD endpoint: `POST/PATCH/DELETE
+  /mobile/candidate/family-member/{id}`.
+
+  - `kind: "spouse"` — `candidate_spouse` yozuvi. CRUD endpoint: `PUT/DELETE /mobile/candidate/spouse`
+  yoki ZAGS dan olib kelish — `POST /mobile/candidate/spouse/mvd-fetch`.
+
+
+  > `id` ikki manbada bir xil raqamga to''g''ri kelishi mumkin (boshqa jadvallar).
+  > Frontend `kind` orqali qaysi endpointga murojaat qilishni aniqlaydi.
 
 
   **Auth:** `access_token`.
 
 
-  ### 📤 Response *(massiv elementi)*
+  ### 📤 Response
+
+
+  Massiv. Har element quyidagi ko''rinishda:
+
+
+  **Umumiy maydonlar (har ikki kind uchun):**
 
 
   | Field | Type | Description |
 
   |---|---|---|
 
-  | `id` | int | Yozuv ID |
+  | `kind` | string | `"member"` \| `"spouse"` |
 
-  | `relationship` | string | `father` \| `mother` \| `brother` \| `sister` |
+  | `id` | int | Yozuv identifikatori (`kind` ichida unique) |
+
+  | `relationship` | string | `father` \| `mother` \| `brother` \| `sister` \| `child` \| `spouse` |
 
   | `full_name` | string | To''liq ism |
 
   | `birth_date` | date | `DD.MM.YYYY` |
+
+
+  **Faqat `kind: "spouse"` uchun qo''shimcha maydonlar:**
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `marriage_date` | date \| null | Nikoh sanasi (`DD.MM.YYYY`) |
+
+  | `source` | string | `"manual"` \| `"mvd_zags"` |
+
+  | `is_editable` | bool | `false` bo''lsa — ZAGS yozuvi, o''zgartirilmaydi |
+
+  | `divorced` | bool | Ajrashganmi (ZAGS dan kelgan ma''lumot) |
+
+  | `repeal` | bool | Nikoh bekor qilinganmi (turmush o''rtog''ining vafoti) |
+
+  | `cert_series` | string \| null | Nikoh guvohnomasi seriyasi |
+
+  | `cert_number` | string \| null | Nikoh guvohnomasi raqami |
+
+  | `cert_date` | date \| null | Guvohnoma sanasi (`DD.MM.YYYY`) |
+
+
+  ### 📦 Example
+
+
+  ```json
+
+  [
+    {
+      "kind": "member",
+      "id": 12,
+      "relationship": "father",
+      "full_name": "Karimov Akmal",
+      "birth_date": "01.04.1965"
+    },
+    {
+      "kind": "member",
+      "id": 14,
+      "relationship": "child",
+      "full_name": "Karimova Madina",
+      "birth_date": "15.06.2018"
+    },
+    {
+      "kind": "spouse",
+      "id": 3,
+      "relationship": "spouse",
+      "full_name": "Karimova Dilshoda",
+      "birth_date": "10.08.1995",
+      "marriage_date": "15.09.2020",
+      "source": "mvd_zags",
+      "is_editable": false,
+      "divorced": false,
+      "repeal": false,
+      "cert_series": "I-TN",
+      "cert_number": "1234567",
+      "cert_date": "15.09.2020"
+    }
+  ]
+
+  ```
 
   '
 settings:

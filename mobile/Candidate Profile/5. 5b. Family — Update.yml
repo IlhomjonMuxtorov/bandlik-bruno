@@ -20,6 +20,15 @@ http:
 docs: 'Oila a''zosini yangilash. Maydonlar `create` bilan bir xil.
 
 
+  > `relationship` qiymatlari: `father` \| `mother` \| `brother` \| `sister` \| `child`.
+  > Singleton qoidalar `create` dagi kabi: `father`/`mother` ga aylantirib bo''lmaydi
+  > agar boshqa a''zoda allaqachon u rol bo''lsa.
+
+
+  > Faqat `kind: "member"` yozuvlari uchun. Spouse uchun `PUT /mobile/candidate/spouse`
+  > ishlatiladi.
+
+
   **Auth:** `access_token`.
 
   '
