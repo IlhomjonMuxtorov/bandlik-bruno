@@ -17,6 +17,12 @@ docs: 'Turmush o''rtog''i ma''lumotlari yoki `null`.
   > Faqat `marital_status = ''married''` bo''lganda mavjud.
 
 
+  Yozuv ikki manbadan kelishi mumkin: kandidat o''zi kiritgan (`source="manual"`)
+  yoki ZAGS xizmatidan olib kelingan (`source="mvd_zags"`). ZAGS manbadagi yozuv
+  read-only — `PUT` va `DELETE` so''rovlari `403` qaytaradi. Frontend `is_editable`
+  bayrog''iga qarab tahrirlash UIni faollashtiradi yoki o''chiradi.
+
+
   **Auth:** `access_token`.
 
 
@@ -27,11 +33,27 @@ docs: 'Turmush o''rtog''i ma''lumotlari yoki `null`.
 
   |---|---|---|
 
+  | `id` | int | Yozuv identifikatori |
+
   | `full_name` | string | To''liq ism |
 
   | `birth_date` | date | `DD.MM.YYYY` |
 
   | `marriage_date` | date \| null | Nikoh sanasi |
+
+  | `source` | string | `"manual"` \| `"mvd_zags"` |
+
+  | `is_editable` | bool | `false` bo''lsa — yozuv ZAGS dan kelgan, o''zgartirilmaydi |
+
+  | `divorced` | bool | Ajrashganmi (faqat `mvd_zags` uchun real qiymat) |
+
+  | `repeal` | bool | Nikoh bekor qilinganmi (turmush o''rtog''ining vafoti) |
+
+  | `cert_series` | string \| null | Nikoh guvohnomasi seriyasi (faqat ZAGS) |
+
+  | `cert_number` | string \| null | Nikoh guvohnomasi raqami (faqat ZAGS) |
+
+  | `cert_date` | date \| null | `DD.MM.YYYY` — guvohnoma sanasi (faqat ZAGS) |
 
   '
 settings:

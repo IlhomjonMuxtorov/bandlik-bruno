@@ -17,7 +17,13 @@ http:
     data: "{\n    \"full_name\": \"Karimova Dilshoda\",\n    \"birth_date\": \"10.08.1995\"\
       ,\n    \"marriage_date\": \"15.09.2020\"\n}"
   auth: inherit
-docs: 'Turmush o''rtog''i yozuvini yaratish yoki yangilash (`PUT` — upsert).
+docs: 'Turmush o''rtog''i yozuvini qo''lda yaratish yoki yangilash (`PUT` — upsert).
+  Yozuv `source="manual"` bilan saqlanadi.
+
+
+  > ZAGS dan olib kelingan yozuv (`source="mvd_zags"`) ustiga `PUT` yuborilsa —
+  > `403 Forbidden` qaytadi. ZAGS yozuvini almashtirish uchun avval u
+  > `/mobile/candidate/spouse/mvd-fetch` orqali qayta yangilanishi kerak.
 
 
   **Auth:** `access_token`.
@@ -45,6 +51,8 @@ docs: 'Turmush o''rtog''i yozuvini yaratish yoki yangilash (`PUT` — upsert).
   |---|---|
 
   | `400` | `candidate.marital_status` ≠ `married` |
+
+  | `403` | Yozuv ZAGS dan olib kelingan — o''zgartirilmaydi |
 
   '
 settings:
