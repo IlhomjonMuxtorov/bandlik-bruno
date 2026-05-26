@@ -12,16 +12,34 @@ http:
     type: none
   auth:
     type: inherit
-docs: "10 ta standart so'rovnoma savollarini variantlari bilan qaytaradi. Til\
-  \ `Accept-Language` header orqali tanlanadi (uz | ru | en, default uz).\n\n\
-  **Auth:** Bearer JWT (guest yoki access token).\n\n### \U0001F4E4 Response\n\n\
-  \`\`\`json\n{\n  \"language\": \"uz\",\n  \"questions\": [\n    {\n      \"id\":\
-  \ 1,\n      \"code\": \"gender\",\n      \"title\": \"Jins\",\n      \"type\":\
-  \ 1,\n      \"max_points\": 0,\n      \"options\": [\n        { \"id\": 1, \"code\"\
-  : \"erkak\", \"label\": \"Erkak\", \"points\": 0 },\n        { \"id\": 2, \"code\"\
-  : \"ayol\", \"label\": \"Ayol\", \"points\": 0 }\n      ]\n    }\n    // ...\n\
-  \  ]\n}\n\`\`\`\n\n> ⚡ Natija server tomondan til bo'yicha keshlanadi (1 kun).\
-  \ Qaytaruv vaqti birinchi marta 50–80ms, takroriy so'rovda 1–5ms.\n"
+docs: |
+  10 ta standart so'rovnoma savollarini variantlari bilan qaytaradi. Til `Accept-Language` header orqali tanlanadi (uz | ru | en, default uz).
+
+  **Auth:** Bearer JWT (guest yoki access token).
+
+  ### 📤 Response
+
+  ```json
+  {
+    "language": "uz",
+    "questions": [
+      {
+        "id": 1,
+        "code": "gender",
+        "title": "Jins",
+        "type": 1,
+        "max_points": 0,
+        "options": [
+          { "id": 1, "code": "erkak", "label": "Erkak", "points": 0 },
+          { "id": 2, "code": "ayol",  "label": "Ayol",  "points": 0 }
+        ]
+      }
+      // ...
+    ]
+  }
+  ```
+
+  > ⚡ Natija server tomondan til bo'yicha keshlanadi (1 kun). Qaytaruv vaqti birinchi marta 50–80ms, takroriy so'rovda 1–5ms.
 settings:
   encodeUrl: true
   timeout: 0
