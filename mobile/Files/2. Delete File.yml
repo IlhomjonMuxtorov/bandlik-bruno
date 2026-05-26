@@ -1,0 +1,60 @@
+info:
+  name: 2. Delete File
+  type: http
+  seq: 2
+http:
+  method: DELETE
+  url: '{{base_url}}/mobile/upload/1'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: 'Foydalanuvchi o''zi yuklagan faylni o''chiradi. `204 No Content`.
+
+
+  Operatsiya idempotent emas (qayta chaqirilsa `404` qaytadi). FK ustunlari `ON
+  DELETE SET NULL` bilan o''rnatilgan — fayl boshqa entity tomonidan ishlatilayotgan
+  bo''lsa ham o''chadi, parent ustun avtomatik `NULL` bo''ladi.
+
+
+  **Auth:** `access_token` (Bearer).
+
+
+  ### 📋 Path Parameters
+
+
+  | Param | Turi | Majburiy | Izoh |
+
+  |---|---|:---:|---|
+
+  | `id` | int | ✅ | `upload_file.id` — faqat hozirgi foydalanuvchi yuklagan
+  fayl |
+
+
+  ### 📤 Response
+
+
+  - `204 No Content` — muvaffaqiyatli o''chirildi
+
+
+  ### ⚠️ Xatolar
+
+
+  | Kod | Sabab |
+
+  |---|---|
+
+  | `401` | Token yo''q yoki muddati o''tgan |
+
+  | `403` | Fayl boshqa foydalanuvchiga tegishli |
+
+  | `404` | Fayl topilmadi |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
