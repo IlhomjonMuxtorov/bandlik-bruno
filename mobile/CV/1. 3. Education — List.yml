@@ -48,6 +48,9 @@ docs: 'Nomzodning **ta''lim ro''yxati**.
   | `diploma_file_kind_icon_url` | string \| null | Standart ikonkaga to''liq URL
   |
 
+  | `is_from_mvd` | bool | MVD sinxronlangan yozuv. `update`/`delete` taqiqlanadi,
+  lekin `diploma_file_id` ni `PATCH /education/<id>/file` orqali yangilash mumkin |
+
   '
 settings:
   encodeUrl: true

@@ -15,12 +15,37 @@ http:
   body:
     type: json
     data: "{\n    \"company_name\": \"Global Skillhub\",\n    \"position\": \"Senior\
-      \ Buxgalter\",\n    \"start_date\": \"15.01.2023\"\n}"
+      \ Buxgalter\",\n    \"start_date\": \"15.01.2023\",\n    \"file_id\": 42\n}"
   auth: inherit
 docs: 'Mavjud tajribani yangilash. Maydonlar `create` bilan bir xil.
 
 
+  ⚠️ **MVD'' dan sinxronlangan yozuvlar (`is_from_mvd=true`) bu endpoint orqali yangilanmaydi
+  — `403 Forbidden` qaytadi.** Bunday yozuvlarga faqat hujjat fayli biriktirish/almashtirish
+  uchun **`PATCH /experience/<id>/file`** endpoint''dan foydalaning.
+
+
   **Auth:** `access_token`.
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `company_name` | string | ✅ | Kompaniya nomi |
+
+  | `position` | string | ✅ | Lavozim |
+
+  | `start_date` | date | ✅ | `DD.MM.YYYY` |
+
+  | `end_date` | date | ➖ | `null` = hozirgacha |
+
+  | `file_id` | int | ➖ | Yangi `upload_file_id`. Eski fayl avtomatik o''chiriladi.
+  Saqlash uchun joriy qiymat bo''lsa, qaytadan yuborilsin yoki maydon
+  yuborilmasin |
 
   '
 settings:

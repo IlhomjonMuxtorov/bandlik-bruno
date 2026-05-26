@@ -26,7 +26,8 @@ docs: 'Nomzod hujjatlari ro''yxati.
 
   | `id` | int | Hujjat ID |
 
-  | `type` | string | `passport_scan` \| `foreign_passport_scan` |
+  | `type` | string | `passport_scan` \| `foreign_passport_scan` \| `criminal_record_scan`
+  \| `photo_3x4_scan` |
 
   | `title` | string | Fayl nomi |
 
@@ -38,6 +39,18 @@ docs: 'Nomzod hujjatlari ro''yxati.
   |
 
   | `file_kind_icon_url` | string \| null | Standart ikonkaga to''liq URL |
+
+
+  ### 📎 `type` qiymatlari
+
+
+  - `passport_scan` — Ichki pasport nusxasi
+
+  - `foreign_passport_scan` — Xorijiy (biometrik) pasport nusxasi
+
+  - `criminal_record_scan` — Sudlanmaganlik haqida guvohnoma
+
+  - `photo_3x4_scan` — 3.5 × 4.5 rasm
 
   '
 settings:
