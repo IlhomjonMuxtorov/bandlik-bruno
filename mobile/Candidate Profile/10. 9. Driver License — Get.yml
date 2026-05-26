@@ -26,7 +26,8 @@ docs: 'Haydovchilik guvohnomasi + sertifikatlar.
 
   | `has_license` | bool | Guvohnoma bormi |
 
-  | `categories` | string \| null | Masalan `B,C,D` |
+  | `categories` | string \| null | Vergul bilan ajratilgan toifalar (`A,B,C,D,E,BE,CE,DE,TM,TB`
+  ichidan). Masalan `A,B,C` |
 
   | `license_number` | string \| null | Guvohnoma raqami |
 
@@ -34,7 +35,18 @@ docs: 'Haydovchilik guvohnomasi + sertifikatlar.
 
   | `expiry_date` | date \| null | Amal qilish muddati |
 
-  | `certificates` | array | `[{ id, type, title, … }]` |
+  | `file_id` | int \| null | Guvohnoma skan fayl ID si |
+
+  | `file_url` | string \| null | Skan faylga to''g''ri URL |
+
+  | `file_size` | int \| null | Fayl o''lchami (bayt) |
+
+  | `file_kind` | string \| null | `image` \| `pdf` \| ... |
+
+  | `file_kind_icon_url` | string \| null | Fayl turi ikonkasi |
+
+  | `certificates` | array | `[{ id, type, title, … }]` — Code 95 / ADR / Chip karta
+  sertifikatlari |
 
   '
 settings:

@@ -14,14 +14,18 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"marital_status\": \"married\",\n    \"tin\": \"29847012395712\"\
-      ,\n    \"had_visa_before\": true\n}"
+    data: "{\n    \"tin\": \"29847012395712\",\n    \"had_visa_before\": true\n}"
   auth: inherit
-docs: 'Nomzodning **passport / birth / registration / marital** qo''shimcha maydonlarini
-  yangilash.
+docs: 'Nomzodning **passport / birth / registration** qo''shimcha maydonlarini yangilash.
 
 
   > Hamma maydon ixtiyoriy — faqat keladigan maydon yangilanadi.
+
+
+  > **`marital_status` bu yerda QABUL QILINMAYDI.** U ZAGS xizmatidan avtomatik
+  > olinadi (CV yaratish paytida, `POST /mobile/cv`). Foydalanuvchi qo''lda
+  > spouse yozuvini kiritsa (`PUT /mobile/candidate/spouse`), `marital_status`
+  > avtomatik `married` ga o''rnatiladi. Mavjud qiymat response ichida qaytariladi.
 
 
   **Auth:** `access_token`.
@@ -34,7 +38,7 @@ docs: 'Nomzodning **passport / birth / registration / marital** qo''shimcha mayd
 
   |---|---|---|
 
-  | `photo_url` | string | Profile rasm URL |
+  | `photo_file_id` | int | `/mobile/upload` qaytargan fayl ID si |
 
   | `tin` | string | TIN/INN |
 
@@ -54,13 +58,12 @@ docs: 'Nomzodning **passport / birth / registration / marital** qo''shimcha mayd
 
   | `registration_date` | date | `DD.MM.YYYY` |
 
-  | `marital_status` | string | `single` \| `married` \| `divorced` \| `widowed` |
-
 
   ### 📤 Response
 
 
-  `GET /mobile/cv` bilan bir xil (yangilangan).
+  Profilning yangilangan holati. `marital_status` ham qaytariladi (read-only — bu
+  endpoint orqali o''zgartirilmaydi).
 
 
   ### ⚠️ Errors
@@ -70,7 +73,7 @@ docs: 'Nomzodning **passport / birth / registration / marital** qo''shimcha mayd
 
   |---|---|
 
-  | `400` | Validatsiya xatosi (noto''g''ri `marital_status` va h.k.) |
+  | `400` | Validatsiya xatosi |
 
   | `401` | Token yo''q |
 

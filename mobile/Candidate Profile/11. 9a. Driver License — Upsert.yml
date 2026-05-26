@@ -14,9 +14,9 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"has_license\": true,\n    \"categories\": \"B,C,D\",\n    \"license_number\"\
+    data: "{\n    \"has_license\": true,\n    \"categories\": \"A,B,C\",\n    \"license_number\"\
       : \"AB1234567\",\n    \"issue_date\": \"10.05.2018\",\n    \"expiry_date\":\
-      \ \"10.05.2028\"\n}"
+      \ \"10.05.2028\",\n    \"file_id\": 42\n}"
   auth: inherit
 docs: 'Haydovchilik guvohnomasini yaratish yoki yangilash (`PUT` — upsert).
 
@@ -33,13 +33,23 @@ docs: 'Haydovchilik guvohnomasini yaratish yoki yangilash (`PUT` — upsert).
 
   | `has_license` | bool | ✅ | Guvohnoma bormi |
 
-  | `categories` | string | ➖ | Masalan `B,C,D` |
+  | `categories` | string | ➖ | Vergul bilan ajratilgan toifalar ro''yxati. Ruxsat
+  etilganlari: `A, B, C, D, E, BE, CE, DE, TM, TB`. Masalan: `A,B,C` |
 
   | `license_number` | string | ➖ | Guvohnoma raqami |
 
-  | `issue_date` | date | ➖ | Berilgan sana |
+  | `issue_date` | date | ➖ | Berilgan sana (`DD.MM.YYYY`) |
 
-  | `expiry_date` | date | ➖ | Amal qilish muddati |
+  | `expiry_date` | date | ➖ | Amal qilish muddati (`DD.MM.YYYY`) |
+
+  | `file_id` | int | ➖ | `/mobile/upload` qaytargan fayl ID si (guvohnomaning skan
+  nusxasi) |
+
+
+  ### 📤 Response
+
+
+  Yangilangan guvohnoma + sertifikatlar (`GET` bilan bir xil shaklda).
 
   '
 settings:
