@@ -30,7 +30,7 @@ docs: 'Yangi oila a''zosi qo''shish.
 
   |---|---|:---:|---|
 
-  | `relationship` | string | ✅ | `father` \| `mother` \| `brother` \| `sister` |
+  | `relationship` | string | ✅ | `father` \| `mother` \| `brother` \| `sister` \| `child`. `father` va `mother` faqat bir marta qo''shilishi mumkin (singleton); `brother`, `sister`, `child` cheksiz. Turmush o''rtog''i bu yerda emas — `PUT /mobile/candidate/spouse` orqali boshqariladi. |
 
   | `full_name` | string | ✅ | To''liq ism |
 
