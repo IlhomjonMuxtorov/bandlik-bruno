@@ -1,0 +1,90 @@
+info:
+  name: 6d. Spouse — MVD Fetch (ZAGS)
+  type: http
+  seq: 16
+http:
+  method: POST
+  url: '{{base_url}}/mobile/candidate/spouse/mvd-fetch'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: 'Adliya vazirligi ZAGS xizmatidan (svidetelstvo o brake) turmush o''rtog''i
+  haqidagi ma''lumotlarni olib keladi va kandidat profilida saqlaydi.
+
+
+  Yangi yozuv `source = "mvd_zags"` bilan saqlanadi va o''zgartirib bo''lmaydi —
+  keyingi `PUT /mobile/candidate/spouse` va `DELETE /mobile/candidate/spouse` so''rovlari
+  `403 Forbidden` qaytaradi. Mavjud manual yoki MVD yozuv mavjud bo''lsa, u o''rniga
+  yangi ZAGS yozuv qo''yiladi.
+
+
+  Manba: kandidatning passport ma''lumotlaridagi PINFL. Pasport ma''lumotlari yo''q
+  bo''lsa yoki ZAGS xizmatida nikoh topilmasa — `404`.
+
+
+  > ZAGS bir nechta nikoh aktini qaytarishi mumkin (qayta nikoh holatida). Server
+  > faolligini saqlangan (`divorced=false` va `repeal=false`) eng birinchi yozuvni
+  > tanlaydi; bunday yozuv bo''lmasa — eng oxirgisi olinadi.
+
+
+  **Auth:** `access_token`.
+
+
+  ### 📥 Request Body
+
+
+  Bo''sh — kandidat PINFL avtomatik tarzda token orqali aniqlanadi.
+
+
+  ### 📤 Response
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `id` | int | Yangi yoki yangilangan `candidate_spouse.id` |
+
+  | `full_name` | string | Turmush o''rtog''ining to''liq ismi (FIO) |
+
+  | `birth_date` | date | `DD.MM.YYYY` — turmush o''rtog''ining tug''ilgan sanasi |
+
+  | `marriage_date` | date \| null | `DD.MM.YYYY` — nikoh sanasi (cert_date) |
+
+  | `source` | string | Doimo `"mvd_zags"` |
+
+  | `is_editable` | bool | Doimo `false` — yozuv o''zgartirilmaydi |
+
+  | `divorced` | bool | Ajrashganmi |
+
+  | `repeal` | bool | Nikoh bekor qilinganmi (turmush o''rtog''ining vafoti) |
+
+  | `cert_series` | string \| null | Nikoh guvohnomasi seriyasi (masalan `I-TN`) |
+
+  | `cert_number` | string \| null | Nikoh guvohnomasi raqami |
+
+  | `cert_date` | date \| null | `DD.MM.YYYY` — guvohnoma berilgan sana |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q yoki muddati o''tgan |
+
+  | `404` | Passport ma''lumoti yo''q yoki ZAGS xizmatidan nikoh topilmadi |
+
+  | `500` | MVD xizmati vaqtinchalik mavjud emas |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -17,7 +17,21 @@ docs: 'Turmush o''rtog''i yozuvini o''chirish.
   > `marital_status` alohida `cv/profile` orqali update qilinadi.
 
 
+  > ZAGS dan olib kelingan yozuvni (`source="mvd_zags"`) o''chirib bo''lmaydi —
+  > `403 Forbidden` qaytadi.
+
+
   **Auth:** `access_token`.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `403` | Yozuv ZAGS dan olib kelingan — o''chirib bo''lmaydi |
 
   '
 settings:
