@@ -1,0 +1,67 @@
+info:
+  name: 10a. Contact — Update
+  type: http
+  seq: 17
+http:
+  method: PATCH
+  url: '{{base_url}}/mobile/candidate/contact'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n    \"phone\": \"+998901234567\",\n    \"email\": \"candidate@example.com\"\
+      \n}"
+  auth: inherit
+docs: 'Nomzodning aloqa ma''lumotlarini (telefon + email) yangilash.
+
+
+  Har ikkala maydon ham ixtiyoriy — faqat yuborilgan maydon yangilanadi
+  (null/yuborilmagan maydon o''zgartirilmaydi).
+
+
+  **Auth:** `access_token`.
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `phone` | string | ➖ | `+998901234567` yoki `901234567`. Server `+998XXXXXXXXX` ga
+  normallashtirilgan ko''rinishda saqlaydi. |
+
+  | `email` | string | ➖ | Elektron pochta |
+
+
+  ### 📤 Response
+
+
+  Yangilangan `{ phone, email }`.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `400` | Email noto''g''ri yoki telefon allaqachon boshqa foydalanuvchida band |
+
+  | `401` | Token yo''q |
+
+  | `404` | Nomzod topilmadi |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

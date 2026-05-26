@@ -21,6 +21,17 @@ docs: 'Turmush o''rtog''i yozuvini qo''lda yaratish yoki yangilash (`PUT` — up
   Yozuv `source="manual"` bilan saqlanadi.
 
 
+  > Ushbu endpoint asosan ZAGS ma''lumotlari mavjud bo''lmagan holatlar uchun:
+  > xorijiy turmush o''rtog''i, ro''yxatdan o''tmagan nikoh, yoki MVD xizmati
+  > ishlamayotgan paytda fallback. CV yaratishda nikoh ma''lumoti avtomatik
+  > ZAGS dan olib kelinadi (`POST /mobile/cv`). Agar ZAGS topgan bo''lsa, bu
+  > endpointga `PUT` yuborilsa — `403` qaytadi.
+
+
+  > Manual yozuv saqlanganda `candidate.marital_status` avtomatik `married` ga
+  > o''rnatiladi (oldingi qiymat boshqa bo''lsa).
+
+
   > ZAGS dan olib kelingan yozuv (`source="mvd_zags"`) ustiga `PUT` yuborilsa —
   > `403 Forbidden` qaytadi. ZAGS yozuvini almashtirish uchun avval u
   > `/mobile/candidate/spouse/mvd-fetch` orqali qayta yangilanishi kerak.
@@ -49,8 +60,6 @@ docs: 'Turmush o''rtog''i yozuvini qo''lda yaratish yoki yangilash (`PUT` — up
   | Code | Reason |
 
   |---|---|
-
-  | `400` | `candidate.marital_status` ≠ `married` |
 
   | `403` | Yozuv ZAGS dan olib kelingan — o''zgartirilmaydi |
 

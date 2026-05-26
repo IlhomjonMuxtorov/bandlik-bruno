@@ -63,6 +63,22 @@ docs: 'Yangi CV yaratish.
   > ✨ **Auto-save:** yaratilgan CV ning `id` si avtomatik `cv_id` sifatida saqlanadi.
   CV qismidagi barcha endpointlar shu `{{cv_id}}` ni ishlatadi.
 
+
+  > 🔄 **MVD avtomatik sinxronlash** (server background):
+
+  > - Diplomalar — MinVUZ servisidan kelib `candidate_education` ga yoziladi
+
+  > - Mehnat tarixi — Mintud servisidan kelib `candidate_experience` ga yoziladi
+
+  > - Nikoh ma''lumoti — ZAGS dan kelib `candidate_spouse` ga yoziladi va
+  > `candidate.marital_status` (`married` / `divorced` / `widowed`) avtomatik
+  > o''rnatiladi. Foydalanuvchi `marital_status` ni qo''lda o''zgartirmaydi.
+
+  >
+
+  > Agar tegishli MVD xizmat topa olmasa yoki xato bersa — log ga yoziladi,
+  > CV yaratish baribir davom etadi.
+
   '
 settings:
   encodeUrl: true
