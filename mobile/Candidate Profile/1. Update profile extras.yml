@@ -52,7 +52,7 @@ docs: 'Nomzodning **passport / birth / registration / marital** qo''shimcha mayd
 
   | `postal_code` | string | Pochta indeksi |
 
-  | `registration_date` | date | `YYYY-MM-DD` |
+  | `registration_date` | date | `DD.MM.YYYY` |
 
   | `marital_status` | string | `single` \| `married` \| `divorced` \| `widowed` |
 

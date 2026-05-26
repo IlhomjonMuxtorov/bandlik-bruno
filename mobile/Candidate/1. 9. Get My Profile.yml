@@ -45,7 +45,7 @@ docs: 'Ro''yxatdan o''tgan nomzodning o''z profili va **MVD** dan olingan paspor
 
   | `passport_number` | string \| null | 7 raqam (`1234567`) |
 
-  | `birth_date` | string \| null | `YYYY-MM-DD` |
+  | `birth_date` | string \| null | `DD.MM.YYYY` |
 
   | `is_verified` | bool | Pasport MVD orqali tasdiqlangan |
 
@@ -67,9 +67,9 @@ docs: 'Ro''yxatdan o''tgan nomzodning o''z profili va **MVD** dan olingan paspor
 
   | `passport_issued_by` | string \| null | Pasport bergan organ nomi |
 
-  | `passport_valid_from` | string \| null | Berilgan sana (`YYYY-MM-DD`) |
+  | `passport_valid_from` | string \| null | Berilgan sana (`DD.MM.YYYY`) |
 
-  | `passport_valid_until` | string \| null | Amal qilish muddati (`YYYY-MM-DD`) |
+  | `passport_valid_until` | string \| null | Amal qilish muddati (`DD.MM.YYYY`) |
 
   | `created_at` | int | Hisob yaratilgan vaqt (UNIX) |
 

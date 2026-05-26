@@ -21,8 +21,8 @@ docs: |-
   | `visa_type` | string | Viza turi (`schengen`, `national`, `tourist` va h.k.) |
   | `visa_type_label` | string | Viza turi matni |
   | `country` | object \| null | Davlat ma'lumotlari (`id`, `name`) |
-  | `entry_date` | string | Kirish sanasi (YYYY-MM-DD) |
-  | `exit_date` | string \| null | Chiqish sanasi (YYYY-MM-DD) |
+  | `entry_date` | string | Kirish sanasi (DD.MM.YYYY) |
+  | `exit_date` | string \| null | Chiqish sanasi (DD.MM.YYYY) |
   | `is_current` | boolean | Hozirda amaldami |
   | `diploma_file_url` | string \| null | Viza hujjati havolasi |
   | `diploma_file_kind` | string \| null | Fayl turi (pdf, image) |

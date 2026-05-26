@@ -34,7 +34,7 @@ docs: 'Nomzodning **ta''lim ro''yxati**.
 
   | `specialty` | string \| null | Mutaxassislik |
 
-  | `start_date` | date | `YYYY-MM-DD` |
+  | `start_date` | date | `DD.MM.YYYY` |
 
   | `end_date` | date \| null | `null` — hozir o''qiyapti |
 

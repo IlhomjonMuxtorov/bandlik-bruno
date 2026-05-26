@@ -15,7 +15,7 @@ http:
   body:
     type: json
     data: "{\n    \"company_name\": \"Global Skillhub\",\n    \"position\": \"Buxgalter\"\
-      ,\n    \"start_date\": \"2023-01-15\"\n}"
+      ,\n    \"start_date\": \"15.01.2023\"\n}"
   auth: inherit
 docs: 'Yangi ish tajribasi qo''shish.
 
@@ -34,7 +34,7 @@ docs: 'Yangi ish tajribasi qo''shish.
 
   | `position` | string | ✅ | Lavozim |
 
-  | `start_date` | date | ✅ | `YYYY-MM-DD` |
+  | `start_date` | date | ✅ | `DD.MM.YYYY` |
 
   | `end_date` | date | ➖ | `null` = hozirgacha |
 

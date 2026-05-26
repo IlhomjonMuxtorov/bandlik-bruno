@@ -15,7 +15,7 @@ http:
   body:
     type: json
     data: "{\n    \"visa_type\": \"work_visa\",\n    \"country_id\": 1,\n    \"entry_date\"\
-      : \"2023-03-15\",\n    \"exit_date\": null,\n    \"diploma_file_id\": null\n\
+      : \"15.03.2023\",\n    \"exit_date\": null,\n    \"diploma_file_id\": null\n\
       }"
   auth: inherit
 docs: 'Vizani yangilash. Barcha maydonlar yuborilishi kerak (PUT uslubida).
@@ -35,9 +35,9 @@ docs: 'Vizani yangilash. Barcha maydonlar yuborilishi kerak (PUT uslubida).
 
   | `country_id` | int | ✅ | Davlat ID |
 
-  | `entry_date` | date | ✅ | `YYYY-MM-DD` |
+  | `entry_date` | date | ✅ | `DD.MM.YYYY` |
 
-  | `exit_date` | date | ➖ | `YYYY-MM-DD` yoki `null` |
+  | `exit_date` | date | ➖ | `DD.MM.YYYY` yoki `null` |
 
   | `diploma_file_id` | int | ➖ | `/mobile/upload` orqali yuklangan hujjat fayl ID
   yoki `null` |

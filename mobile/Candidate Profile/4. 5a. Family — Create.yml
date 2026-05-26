@@ -15,7 +15,7 @@ http:
   body:
     type: json
     data: "{\n    \"relationship\": \"father\",\n    \"full_name\": \"Rustamov Shavkat\"\
-      ,\n    \"birth_date\": \"1965-04-20\"\n}"
+      ,\n    \"birth_date\": \"20.04.1965\"\n}"
   auth: inherit
 docs: 'Yangi oila a''zosi qo''shish.
 
@@ -34,7 +34,7 @@ docs: 'Yangi oila a''zosi qo''shish.
 
   | `full_name` | string | ✅ | To''liq ism |
 
-  | `birth_date` | date | ✅ | `YYYY-MM-DD` |
+  | `birth_date` | date | ✅ | `DD.MM.YYYY` |
 
   '
 settings:
