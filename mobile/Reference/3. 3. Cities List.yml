@@ -13,7 +13,8 @@ http:
   auth:
     type: bearer
     token: '{{guest_token}}'
-docs: 'Berilgan davlat uchun barcha aktiv shaharlar ro''yxatini qaytaradi.
+docs: 'Aktiv shaharlar ro''yxati. `country_id` bo''yicha filterlash va/yoki `q` bo''yicha
+  nom qidiruvi. Kamida bittasi (`country_id` yoki `q`) berilishi shart.
 
 
   **Auth:** har qanday yaroqli JWT.
@@ -26,8 +27,14 @@ docs: 'Berilgan davlat uchun barcha aktiv shaharlar ro''yxatini qaytaradi.
 
   |---|---|:---:|---|
 
-  | `country_id` | int | ✅ | `countries` endpoint''dan olingan ID. `0` yoki yo''q
-  bo''lsa `400`. |
+  | `country_id` | int | ➖* | `countries` endpoint''dan olingan ID. Berilsa shu davlat
+  shaharlari bilan cheklanadi; mavjud bo''lmasa `404`. |
+
+  | `q` | string | ➖* | Nom bo''yicha qidiruv (`uz`/`ru`/`en`, registrga befarq, qisman
+  moslik). `country_id` bilan birga ishlaydi. |
+
+
+  > \* `country_id` yoki `q` — kamida bittasi majburiy. Ikkalasi ham bo''lmasa `400`.
 
 
   ### 📋 Headers
@@ -61,7 +68,7 @@ docs: 'Berilgan davlat uchun barcha aktiv shaharlar ro''yxatini qaytaradi.
 
   |---|---|
 
-  | `400` | `country_id` ko''rsatilmagan yoki `0` |
+  | `400` | `country_id` ham, `q` ham berilmagan |
 
   | `401` | Token yo''q, noto''g''ri yoki muddati o''tgan |
 
