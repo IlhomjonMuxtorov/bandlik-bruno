@@ -16,14 +16,14 @@ docs: |-
   - `GET /mobile/vacancies/{id}/payments`
   - `GET /mobile/vacancies/{id}/courses`
 
-  **Auth:** ixtiyoriy. Token yuborilsa `visa_chance` to'ldiriladi (aks holda `null`).
+  **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi). `visa_chance` viza so'rovnomasi to'ldirilmagan bo'lsa `null`.
 
   ### 📋 Headers
 
   | Header | Required | Description |
   |---|:---:|---|
   | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz`. |
-  | `Authorization` | ➖ | `Bearer <access_token>` — `visa_chance` uchun. |
+  | `Authorization` | ✅ | `Bearer <access_token>` (mehmon tokeni ham). |
 
   ### 📤 Response
 

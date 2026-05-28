@@ -8,18 +8,18 @@ http:
   headers:
   - name: Accept-Language
     value: uz
-  auth:
-    type: none
+  auth: inherit
 docs: |-
   Detail ekranining **3-tabi ("Tayyorlov kursi")**: vakansiyaga biriktirilgan `training` kategoriyasidagi xizmatlar, har biri bog'langan `EducationalCourse` ma'lumotlari (rasm, soat, dars soni) bilan boyitilgan.
 
-  **Auth:** ochiq.
+  **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi).
 
   ### 📋 Headers
 
   | Header | Required | Description |
   |---|:---:|---|
   | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. |
+  | `Authorization` | ✅ | `Bearer <access_token>`. |
 
   ### 📤 Response
 
