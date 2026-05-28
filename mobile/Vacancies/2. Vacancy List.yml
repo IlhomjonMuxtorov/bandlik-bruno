@@ -19,6 +19,7 @@ docs: |-
   | `country_id` | int | ➖ | Davlat ID. |
   | `city_id` | int \| int[] | ➖ | Shahar ID. Bir nechta shahar: `city_id[]=1&city_id[]=2` yoki `city_id=1,2` (OR bo'yicha). |
   | `industry_id` | int | ➖ | Soha ID. |
+  | `organization_id` | int | ➖ | Tashkilot bo'yicha (tashkilot kartasidagi "Barcha vakansiyalar"dan o'tilganda). |
   | `employment_type` | string | ➖ | `full_time` \| `part_time` \| `seasonal` \| `contract`. |
   | `experience_level` | string | ➖ | `none` \| `one_to_three` \| `three_to_six`. |
   | `salary_min` | int | ➖ | Minimal brutto maosh (`salary_gross >=`). |
