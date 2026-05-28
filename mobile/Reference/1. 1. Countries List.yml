@@ -42,6 +42,9 @@ docs: 'Barcha aktiv davlatlar ro''yxatini qaytaradi.
   | `visa` | string | ➖ | `1` yuborilsa faqat `is_visa_available=true` davlatlar qaytadi.
   |
 
+  | `q` | string | ➖ | Nom bo''yicha qidiruv (`uz`/`ru`/`en` ichidan, registrga befarq, qisman
+  moslik). `visa` bilan birga ishlaydi. |
+
 
   ### 📤 Response *(massiv elementi)*
 
