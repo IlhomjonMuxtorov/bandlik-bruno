@@ -1,0 +1,64 @@
+info:
+  name: Course List
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/mobile/courses'
+  auth: inherit
+docs: |-
+  Faol va e'lon qilingan (`is_active=true`, `status=active`) o'quv kurslari ro'yxati — mobil **kartochka** ko'rinishi (Kurslar feed). Default tartib: `sort_order ASC`, keyin `id DESC`. Filtrlar "Filter" oynasiga mos: Kurs turi, Til, Daraja, Davomiylik.
+
+  **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi).
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `q` | string | ➖ | Nomi / slug / tavsif / daraja bo'yicha qidiruv (ILIKE). |
+  | `category` | string \| string[] | ➖ | Kurs turi. `interview_prep` \| `language` \| `living_abroad`. Bir nechta: `category[]=language&category[]=interview_prep` yoki `category=language,interview_prep` (OR bo'yicha). Noma'lum qiymatlar e'tiborga olinmaydi. |
+  | `language_id` | int \| int[] | ➖ | Til ID. Bir nechta: `language_id[]=1&language_id[]=2` yoki `language_id=1,2` (OR bo'yicha). |
+  | `level` | string | ➖ | Daraja (masalan `A1`, `B2`). Aniq moslik. |
+  | `duration_min` | int | ➖ | Minimal davomiylik, soat (`duration_hours >=`). |
+  | `duration_max` | int | ➖ | Maksimal davomiylik, soat (`duration_hours <=`). |
+  | `sort` | string | ➖ | `id` \| `sort_order` \| `price` \| `duration_hours` \| `created_at` \| `name` (oldiga `-` qo'yilsa kamayish tartibida, masalan `-price`). |
+  | `per-page` | int | ➖ | 1..100, default 20. |
+  | `page` | int | ➖ | Sahifa raqami. |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer <access_token>` (mehmon tokeni ham). |
+
+  ### 📤 Response
+
+  Massiv (mobile format — metadata yo'q; sahifalash `X-Pagination-*` header'larida). Har bir element:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Kurs ID |
+  | `name` | string | Kurs nomi |
+  | `slug` | string | URL slug |
+  | `description` | string \| null | Qisqa tavsif |
+  | `category` | string \| null | `interview_prep` \| `language` \| `living_abroad` |
+  | `category_label` | string \| null | Lokalizatsiya qilingan kurs turi nomi |
+  | `language` | object \| null | `{ id, iso_code, name }` |
+  | `level` | string \| null | Daraja (`A1` ...) |
+  | `duration_hours` | int \| null | Davomiylik, soat |
+  | `lessons_count` | int \| null | Darslar soni |
+  | `price` | int | Narx (butun, `currency` valyutasida) |
+  | `currency` | string | `UZS` \| `USD` \| `EUR` |
+  | `cover_url` | string \| null | Muqova rasmi URL |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki yaroqsiz |
+  | `500` | Server xatosi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
