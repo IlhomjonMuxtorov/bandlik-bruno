@@ -13,7 +13,7 @@ docs: |
 
   **Auth:** `access_token` (nomzod).
 
-  ### Response (200) — Transaction DTO ro'yxati
+  ### Response (200) — Transaction DTO ro'yxati (amount so'mda)
   ```json
   [
     {

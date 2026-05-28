@@ -19,7 +19,7 @@ docs: |
   ### Request Body
   Bo'sh (kurs id URL'da). Provider/return_url endi kerak emas.
 
-  ### Response (201)
+  ### Response (201) — summalar so'mda
   ```json
   {
     "order_id": 7,

@@ -12,11 +12,11 @@ docs: |
 
   **Auth:** `access_token` (nomzod).
 
-  ### Response (200) — Payment DTO ro'yxati
+  ### Response (200) — Payment DTO ro'yxati (amount so'mda)
   ```json
   [
     {
-      "id": 50, "provider": "payme", "amount": 1000000, "currency": "UZS",
+      "id": 50, "provider": "payme", "amount": 50000, "currency": "UZS",
       "status": 3, "status_label": "Success", "paid_at": 1735650000, "created_at": 1735649000
     }
   ]

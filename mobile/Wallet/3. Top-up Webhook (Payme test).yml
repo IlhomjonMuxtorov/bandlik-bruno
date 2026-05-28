@@ -28,6 +28,10 @@ docs: |
   `service_order_id` emas, `payment_id` (Top-up'da yaratilgan Payment.id). Payme
   kabinetida ham account kaliti `payment_id` bo'lishi shart.
 
+  DIQQAT — birlik: JSON-RPC `amount` bu yerda TIYINda (Payme protokoli) va saqlangan
+  `payment.amount`ga teng. Bu mobil API'dagi so'm EMAS. Masalan, 50 000 so'mlik
+  top-up -> `payment.amount = 5 000 000` tiyin -> webhook `amount: 5000000`.
+
   Authorization: `Basic base64("Paycom:" + PAYME_SECRET)`. Quyidagi placeholder'ni
   almashtiring:
   ```bash
