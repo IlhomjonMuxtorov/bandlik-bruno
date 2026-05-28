@@ -1,7 +1,7 @@
 info:
-  name: 10a. Contact — Update
+  name: 10b. Contact — Update
   type: http
-  seq: 17
+  seq: 18
 http:
   method: PATCH
   url: '{{base_url}}/mobile/candidate/contact'
@@ -14,14 +14,20 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"phone\": \"+998901234567\",\n    \"email\": \"candidate@example.com\"\
-      \n}"
+    data: "{\n    \"phone\": \"+998901234567\",\n    \"code\": \"1234\",\n    \"email\"\
+      : \"candidate@example.com\"\n}"
   auth: inherit
 docs: 'Nomzodning aloqa ma''lumotlarini (telefon + email) yangilash.
 
 
   Har ikkala maydon ham ixtiyoriy — faqat yuborilgan maydon yangilanadi
   (null/yuborilmagan maydon o''zgartirilmaydi).
+
+
+  ⚠️ **Telefon raqamini o''zgartirish SMS tasdiqlashni talab qiladi.** Avval
+  `POST /mobile/candidate/contact/request-otp` bilan yangi raqamga kod yuboring,
+  so''ng shu yerda `phone` bilan birga `code` ni yuboring. Faqat `email`
+  o''zgartirilayotgan bo''lsa, `code` kerak emas.
 
 
   **Auth:** `access_token`.
@@ -36,6 +42,8 @@ docs: 'Nomzodning aloqa ma''lumotlarini (telefon + email) yangilash.
 
   | `phone` | string | ➖ | `+998901234567` yoki `901234567`. Server `+998XXXXXXXXX` ga
   normallashtirilgan ko''rinishda saqlaydi. |
+
+  | `code` | string | ➖ | 4 xonali SMS kod. **Faqat** `phone` o''zgartirilayotganda majburiy. |
 
   | `email` | string | ➖ | Elektron pochta |
 
@@ -52,6 +60,10 @@ docs: 'Nomzodning aloqa ma''lumotlarini (telefon + email) yangilash.
   | Code | Reason |
 
   |---|---|
+
+  | `400` | `phone` o''zgargan, lekin `code` yuborilmagan |
+
+  | `400` | SMS kod noto''g''ri yoki muddati o''tgan |
 
   | `400` | Email noto''g''ri yoki telefon allaqachon boshqa foydalanuvchida band |
 
