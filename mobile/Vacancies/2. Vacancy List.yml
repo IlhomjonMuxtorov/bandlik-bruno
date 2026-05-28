@@ -12,7 +12,7 @@ http:
 docs: |-
   Tasdiqlangan (`status=approved`) vakansiyalar ro'yxati — mobil **kartochka** ko'rinishi (yengil DTO, faqat kartochkada ko'rinadigan maydonlar). `published_at DESC` bo'yicha saralanadi.
 
-  **Auth:** ixtiyoriy. Token yuborilsa `match_score` va `is_favorite` joriy foydalanuvchiga moslab to'ldiriladi; mehmon uchun `match_score=null`, `is_favorite=false`.
+  **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi). `match_score` viza so'rovnomasi to'ldirilmagan bo'lsa `null`; `is_favorite` nomzod profili hali yo'q bo'lsa `false`.
 
   ### 🔎 Query Parameters
 
@@ -35,7 +35,7 @@ docs: |-
   | Header | Required | Description |
   |---|:---:|---|
   | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz`. |
-  | `Authorization` | ➖ | `Bearer <access_token>` — `match_score`/`is_favorite` uchun. |
+  | `Authorization` | ✅ | `Bearer <access_token>` (mehmon tokeni ham). |
 
   ### 📤 Response
 

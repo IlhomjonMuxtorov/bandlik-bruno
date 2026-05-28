@@ -8,13 +8,12 @@ http:
   headers:
   - name: Accept-Language
     value: uz
-  auth:
-    type: none
+  auth: inherit
 docs: 'Tasdiqlangan vakansiyalar uchun mavjud sohalar ro''yxati (Restoran, Qurilish,
   IT, ...).
 
 
-  **Auth:** talab qilinmaydi.
+  **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi).
 
 
   ### 📋 Headers
@@ -25,6 +24,8 @@ docs: 'Tasdiqlangan vakansiyalar uchun mavjud sohalar ro''yxati (Restoran, Quril
   |---|:---:|---|
 
   | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz`. |
+
+  | `Authorization` | ✅ | `Bearer <access_token>`. |
 
 
   ### 📤 Response

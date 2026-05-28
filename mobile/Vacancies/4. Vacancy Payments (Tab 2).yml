@@ -8,18 +8,18 @@ http:
   headers:
   - name: Accept-Language
     value: uz
-  auth:
-    type: none
+  auth: inherit
 docs: |-
   Detail ekranining **2-tabi ("To'lovlar")**: jami summa + kategoriya bo'yicha guruhlangan xizmatlar + to'lov bosqichlari. `training` kategoriyasi bu yerda **chiqarib tashlangan** (u 3-tab "Tayyorlov kursi"da).
 
-  **Auth:** ochiq.
+  **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi).
 
   ### 📋 Headers
 
   | Header | Required | Description |
   |---|:---:|---|
   | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Kategoriya label'lari uchun. |
+  | `Authorization` | ✅ | `Bearer <access_token>`. |
 
   ### 📤 Response
 
