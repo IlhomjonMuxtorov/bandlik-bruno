@@ -31,6 +31,7 @@ docs: |-
   | `country` | object | `{ id, name, flag_url }` |
   | `city` | object \| null | `{ id, name }` |
   | `visa_chance` | int \| null | "Sizga Viza chiqish darajasi %" — viza so'rovnomasidan, shu davlat bo'yicha. `match_score` bilan bir xil manba. `null` agar token yo'q / so'rovnoma to'ldirilmagan. |
+  | `is_favorite` | bool | Joriy foydalanuvchi shu vakansiyani sevimlilarga qo'shganmi. Mehmon / kandidat topilmasa `false`. |
   | `salary` | object | `{ gross, gross_currency, net, net_currency }` |
   | `experience_level` / `_label` | string | `none` \| `one_to_three` \| `three_to_six` + lokalizatsiya |
   | `employment_type` / `_label` | string | `full_time` ... + lokalizatsiya |
