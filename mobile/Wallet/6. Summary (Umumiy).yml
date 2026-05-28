@@ -1,0 +1,33 @@
+info:
+  name: 6. Summary (Umumiy)
+  type: http
+  seq: 6
+http:
+  method: GET
+  url: '{{base_url}}/mobile/wallet/summary'
+  auth: inherit
+docs: |
+  "Umumiy" tab — xizmat buyurtmasi bo'yicha guruhlangan to'lovlar (O'quv kursi,
+  Notarius, Sug'urta, Viza, ...). Har bir guruhda jami summa va ichidagi
+  tranzaksiyalar ro'yxati.
+
+  **Auth:** `access_token` (nomzod).
+
+  ### Response (200)
+  ```json
+  [
+    {
+      "service_order_id": 7,
+      "title": "O'quv kursi uchun to'lov",
+      "total": 735000,
+      "payments": [
+        { "id": 120, "amount": 245000, "status": 2, "created_at": 1735650500 }
+      ]
+    }
+  ]
+  ```
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
