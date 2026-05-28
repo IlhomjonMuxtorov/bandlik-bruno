@@ -1,0 +1,56 @@
+info:
+  name: Vacancy Courses (Tab 3 — Tayyorlov kursi)
+  type: http
+  seq: 5
+http:
+  method: GET
+  url: '{{base_url}}/mobile/vacancies/1/courses'
+  headers:
+  - name: Accept-Language
+    value: uz
+  auth:
+    type: none
+docs: |-
+  Detail ekranining **3-tabi ("Tayyorlov kursi")**: vakansiyaga biriktirilgan `training` kategoriyasidagi xizmatlar, har biri bog'langan `EducationalCourse` ma'lumotlari (rasm, soat, dars soni) bilan boyitilgan.
+
+  **Auth:** ochiq.
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. |
+
+  ### 📤 Response
+
+  `{ "items": [ ... ] }` — har bir element:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `service_id` | int | `vacancy_service` qatori ID (snapshot narx shu yerdan) |
+  | `price` | int | Kurs narxi (snapshot) |
+  | `currency` | string | `UZS` ... |
+  | `course` | object \| null | Bog'langan kurs ma'lumotlari (quyida). Kurs o'chirilgan bo'lsa `null`. |
+
+  **`course` object:**
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | EducationalCourse ID |
+  | `name` | string | Kurs nomi (masalan "Nemis tili A1 darajasi") |
+  | `description` | string \| null | Tavsif |
+  | `level` | string \| null | Daraja (masalan `A1`) |
+  | `duration_hours` | int \| null | Soat ("40 soat") |
+  | `lessons_count` | int \| null | Darslar soni ("20 dars") |
+  | `cover_url` | string \| null | Muqova rasm URL |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Vakansiya topilmadi yoki `approved` emas |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,28 @@
+info:
+  name: Remove from Favorites
+  type: http
+  seq: 9
+http:
+  method: DELETE
+  url: '{{base_url}}/mobile/vacancies/1/favorite'
+  auth: inherit
+docs: |-
+  Vakansiyani nomzodning sevimlilaridan olib tashlaydi. **Idempotent** — sevimlida bo'lmasa ham xatosiz.
+
+  **Auth:** `access_token`.
+
+  ### 📤 Response
+
+  `{ "is_favorite": false }`
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `404` | Nomzod topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
