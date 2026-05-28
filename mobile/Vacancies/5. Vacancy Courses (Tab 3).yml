@@ -19,7 +19,7 @@ docs: |-
 
   ### 📤 Response
 
-  `{ "items": [ ... ] }` — har bir element:
+  `[ ... ]` — to'g'ridan-to'g'ri massiv, har bir element:
 
   | Field | Type | Description |
   |---|---|---|
