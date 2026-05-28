@@ -8,8 +8,6 @@ http:
   headers:
   - name: Accept
     value: application/json
-  - name: Accept-Language
-    value: uz
   auth: inherit
 docs: 'Bitta CV-ning to''liq tafsilotlari (education, experience, languages va h.k.
   shu CV uchun).

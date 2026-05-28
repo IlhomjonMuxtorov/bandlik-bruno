@@ -8,8 +8,6 @@ http:
   headers:
   - name: Accept
     value: application/json
-  - name: Accept-Language
-    value: uz
   auth: inherit
 docs: 'Adliya vazirligi ZAGS xizmatidan (svidetelstvo o brake) turmush o''rtog''i
   haqidagi ma''lumotlarni olib keladi va kandidat profilida saqlaydi.

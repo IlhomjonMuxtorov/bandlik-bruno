@@ -5,9 +5,6 @@ info:
 http:
   method: GET
   url: '{{base_url}}/mobile/vacancies'
-  headers:
-  - name: Accept-Language
-    value: uz
   auth: inherit
 docs: |-
   Tasdiqlangan (`status=approved`) vakansiyalar ro'yxati — mobil **kartochka** ko'rinishi (yengil DTO, faqat kartochkada ko'rinadigan maydonlar). `published_at DESC` bo'yicha saralanadi.
@@ -34,7 +31,6 @@ docs: |-
 
   | Header | Required | Description |
   |---|:---:|---|
-  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz`. |
   | `Authorization` | ✅ | `Bearer <access_token>` (mehmon tokeni ham). |
 
   ### 📤 Response

@@ -8,8 +8,6 @@ http:
   headers:
   - name: Accept
     value: application/json
-  - name: Accept-Language
-    value: uz
   auth:
     type: bearer
     token: '{{guest_token}}'
@@ -27,9 +25,6 @@ docs: 'Barcha aktiv davlatlar ro''yxatini qaytaradi.
   |---|:---:|---|
 
   | `Authorization` | ✅ | `Bearer {token}` |
-
-  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Region ham: `ru-RU,ru;q=0.9` → `ru`.
-  Default: `uz` |
 
 
   ### 🔎 Query Parameters
@@ -55,7 +50,7 @@ docs: 'Barcha aktiv davlatlar ro''yxatini qaytaradi.
 
   | `id` | int | Davlat ID |
 
-  | `name` | string | `Accept-Language` ga mos tilda. Fallback → `uz`. |
+  | `name` | string | Tanlangan tilga mos. Fallback → `uz`. |
 
   | `iso_code` | string | ISO 3166-1 alpha-2 (`DE`, `KR`, `PL`, …). Sinxronizatsiya
   uchun kalit. |
