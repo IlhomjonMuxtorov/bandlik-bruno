@@ -8,8 +8,6 @@ http:
   headers:
   - name: Accept
     value: application/json
-  - name: Accept-Language
-    value: uz
   auth: inherit
 docs: 'O''zbekiston viloyatlari ro''yxati (GCP Spravochniki, 15 yozuv).
 
@@ -30,8 +28,6 @@ docs: 'O''zbekiston viloyatlari ro''yxati (GCP Spravochniki, 15 yozuv).
   |---|:---:|---|
 
   | `Authorization` | ✅ | `Bearer {access_token}` |
-
-  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz` |
 
 
   ### 📤 Response *(massiv elementi)*

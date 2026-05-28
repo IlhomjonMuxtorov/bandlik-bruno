@@ -5,15 +5,12 @@ info:
 http:
   method: GET
   url: '{{base_url}}/mobile/visa-survey/questions'
-  headers:
-    - name: Accept-Language
-      value: uz
   body:
     type: none
   auth:
     type: inherit
 docs: |
-  10 ta standart so'rovnoma savollarini variantlari bilan qaytaradi. Til `Accept-Language` header orqali tanlanadi (uz | ru | en, default uz).
+  10 ta standart so'rovnoma savollarini variantlari bilan qaytaradi. Til qurilma tiliga ko'ra avtomatik tanlanadi (uz | ru | en, default uz).
 
   **Auth:** Bearer JWT (guest yoki access token).
 

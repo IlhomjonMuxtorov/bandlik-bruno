@@ -8,8 +8,6 @@ http:
   headers:
   - name: Accept
     value: application/json
-  - name: Accept-Language
-    value: uz
   auth: inherit
 docs: 'Joriy nomzodning **barcha CV** ro''yxati — "Rezumelarim" ekrani uchun. Har
   bir CV uchun kasbi, umumiy ish staji (yil/oy), oxirgi yangilanish, ko''rishlar/takliflar

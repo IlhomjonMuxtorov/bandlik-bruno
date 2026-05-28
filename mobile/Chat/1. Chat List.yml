@@ -5,9 +5,6 @@ info:
 http:
   method: GET
   url: '{{base_url}}/mobile/chats?per-page=20'
-  headers:
-  - name: Accept-Language
-    value: uz
   body:
     type: none
   auth: inherit
@@ -29,7 +26,6 @@ docs: |
   | Header | Required | Description |
   |---|:---:|---|
   | `Authorization` | ✅ | `Bearer {access_token}` |
-  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz` |
 
   ### 📤 Response
 

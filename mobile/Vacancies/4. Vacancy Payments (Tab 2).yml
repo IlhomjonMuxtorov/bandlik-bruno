@@ -5,9 +5,6 @@ info:
 http:
   method: GET
   url: '{{base_url}}/mobile/vacancies/1/payments'
-  headers:
-  - name: Accept-Language
-    value: uz
   auth: inherit
 docs: |-
   Detail ekranining **2-tabi ("To'lovlar")**: jami summa + kategoriya bo'yicha guruhlangan xizmatlar + to'lov bosqichlari. `training` kategoriyasi bu yerda **chiqarib tashlangan** (u 3-tab "Tayyorlov kursi"da).
@@ -18,7 +15,6 @@ docs: |-
 
   | Header | Required | Description |
   |---|:---:|---|
-  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Kategoriya label'lari uchun. |
   | `Authorization` | ✅ | `Bearer <access_token>`. |
 
   ### 📤 Response

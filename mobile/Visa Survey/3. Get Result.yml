@@ -5,15 +5,12 @@ info:
 http:
   method: GET
   url: '{{base_url}}/mobile/visa-survey/result'
-  headers:
-    - name: Accept-Language
-      value: uz
   body:
     type: none
   auth:
     type: inherit
 docs: "Foydalanuvchining oxirgi topshirgan so'rovnoma natijasini qaytaradi. Til\
-  \ `Accept-Language` orqali tanlanadi.\n\n**Auth:** Bearer JWT.\n\n### \U0001F4E4\
+  \ qurilma tiliga ko'ra tanlanadi.\n\n**Auth:** Bearer JWT.\n\n### \U0001F4E4\
   \ Response (200 OK)\n\n`Submit Survey` javobi bilan bir xil shaklda — `country_matches`,\
   \ `recommendations`, `score_percent` va h.k.\n\n### ⚠️ Errors\n\n| Code | Reason\
   \ |\n|---|---|\n| `404` | Foydalanuvchi hali so'rovnomani topshirmagan. |\n\n>\

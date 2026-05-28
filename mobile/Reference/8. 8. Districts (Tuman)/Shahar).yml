@@ -8,8 +8,6 @@ http:
   headers:
   - name: Accept
     value: application/json
-  - name: Accept-Language
-    value: uz
   auth: inherit
 docs: 'Berilgan viloyatga tegishli tuman/shaharlar ro''yxati. `id` qiymati GCP `SP_ID`
   ga teng (masalan, 1001 = Uchtepa tumani, 1011 = Bektemir tumani).
@@ -36,8 +34,6 @@ docs: 'Berilgan viloyatga tegishli tuman/shaharlar ro''yxati. `id` qiymati GCP `
   |---|:---:|---|
 
   | `Authorization` | ✅ | `Bearer {access_token}` |
-
-  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` |
 
 
   ### 📤 Response *(massiv elementi)*

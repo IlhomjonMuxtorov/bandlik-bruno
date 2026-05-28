@@ -8,10 +8,8 @@ http:
   headers:
   - name: Accept
     value: application/json
-  - name: Accept-Language
-    value: uz
   auth: inherit
-docs: 'Til ma''lumotnomasi. `Accept-Language` ga ko''ra lokalizatsiya qilingan nomlar
+docs: 'Til ma''lumotnomasi. Tanlangan tilga ko''ra lokalizatsiya qilingan nomlar
   qaytariladi.
 
 
@@ -26,8 +24,6 @@ docs: 'Til ma''lumotnomasi. `Accept-Language` ga ko''ra lokalizatsiya qilingan n
   |---|:---:|---|
 
   | `Authorization` | ✅ | `Bearer {access_token}` |
-
-  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` |
 
 
   ### 📤 Response *(massiv elementi)*

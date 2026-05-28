@@ -8,8 +8,6 @@ http:
   headers:
   - name: Accept
     value: application/json
-  - name: Accept-Language
-    value: uz
   auth:
     type: bearer
     token: '{{guest_token}}'
@@ -38,8 +36,6 @@ docs: 'Faqat viza rasmiylashtirish mumkin bo''lgan davlatlar (`is_visa_available
   |---|:---:|---|
 
   | `Authorization` | ✅ | `Bearer {token}` |
-
-  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz` |
 
 
   ### 📤 Response
