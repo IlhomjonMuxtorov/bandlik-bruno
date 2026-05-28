@@ -11,7 +11,8 @@ http:
   body:
     type: json
     data: "{\n  \"organization_id\": 1,\n  \"name\": \"A2 Ingliz tili\",\n  \"description\"\
-      : \"Ingliz tili — boshlang'ich darajadan o'rtachaga\",\n  \"language_id\"\
+      : \"Ingliz tili — boshlang'ich darajadan o'rtachaga\",\n  \"category\": \"language\"\
+      ,\n  \"language_id\"\
       : 2,\n  \"level\": \"A2\",\n  \"duration_hours\": 40,\n  \"lessons_count\":\
       \ 20,\n  \"price\": 124000,\n  \"currency\": \"UZS\",\n  \"cover_file_id\":\
       \ 11,\n  \"status\": \"active\",\n  \"is_active\": 1,\n  \"sort_order\": 0\n\
@@ -41,6 +42,9 @@ docs: 'Yangi o''quv kursini yaratadi. `slug` avtomatik generatsiya qilinadi (`na
   | `slug` | string | ➖ | Bo''sh bo''lsa avtomatik. Pattern `/^[a-z0-9-]+$/`, max 255 |
 
   | `description` | string | ➖ | |
+
+  | `category` | string | ➖ | Kurs turi: `interview_prep` \| `language` \| `living_abroad`.
+  Mobil "Kurs turi" filtri shu qiymat bo''yicha ishlaydi |
 
   | `language_id` | int | ➖ | `language.id` (kurs tilga bog''liq bo''lmasa null) |
 

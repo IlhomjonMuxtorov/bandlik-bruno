@@ -1,0 +1,49 @@
+info:
+  name: Course Detail
+  type: http
+  seq: 2
+http:
+  method: GET
+  url: '{{base_url}}/mobile/courses/1'
+  auth: inherit
+docs: |-
+  Bitta kurs tafsiloti. Faqat faol + e'lon qilingan (`is_active=true`, `status=active`) kurs qaytariladi. Kartochka maydonlariga qo'shimcha: to'liq tavsif va kursni taqdim etuvchi o'quv markazi (`organization`).
+
+  **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi).
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer <access_token>` (mehmon tokeni ham). |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Kurs ID |
+  | `name` | string | Kurs nomi |
+  | `slug` | string | URL slug |
+  | `description` | string \| null | To'liq tavsif |
+  | `category` | string \| null | `interview_prep` \| `language` \| `living_abroad` |
+  | `category_label` | string \| null | Lokalizatsiya qilingan kurs turi nomi |
+  | `language` | object \| null | `{ id, iso_code, name }` |
+  | `level` | string \| null | Daraja (`A1` ...) |
+  | `duration_hours` | int \| null | Davomiylik, soat |
+  | `lessons_count` | int \| null | Darslar soni |
+  | `price` | int | Narx (butun, `currency` valyutasida) |
+  | `currency` | string | `UZS` \| `USD` \| `EUR` |
+  | `cover_url` | string \| null | Muqova rasmi URL |
+  | `organization` | object \| null | O'quv markazi: `{ id, name, logo_url }` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki yaroqsiz |
+  | `404` | Kurs topilmadi yoki faol/e'lon qilinmagan |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
