@@ -1,0 +1,48 @@
+info:
+  name: Vacancy Organization (Tashkilot ma'lumotlari)
+  type: http
+  seq: 10
+http:
+  method: GET
+  url: '{{base_url}}/mobile/vacancies/1/organization'
+  auth: inherit
+docs: |-
+  Vakansiya detalidan ochiladigan **tashkilot ma'lumotlari** kartasi: logotip, nomi, manzil, aloqa (telefon/email), web-sayt, ijtimoiy tarmoqlar, hujjatlar (sertifikat/litsenziya fayli) va shu tashkilotning **barcha e'lon qilingan vakansiyalari soni**.
+
+  **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi).
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer <access_token>` (mehmon tokeni ham). |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Tashkilot ID |
+  | `name` | string | Tashkilot nomi |
+  | `description` | string \| null | Tashkilot haqida |
+  | `logo_url` | string \| null | Logotip URL |
+  | `address` | string | Manzil |
+  | `website_url` | string \| null | Web-sayt |
+  | `license_file_url` | string \| null | Hujjatlar (sertifikat va litsenziya fayli) |
+  | `phone` | string | Telefon raqam |
+  | `email` | string \| null | Email |
+  | `telegram_url` | string \| null | Telegram |
+  | `instagram_url` | string \| null | Instagram |
+  | `facebook_url` | string \| null | Facebook |
+  | `x_url` | string \| null | X (Twitter) |
+  | `vacancies_count` | int | Barcha (e'lon qilingan) vakansiyalar soni |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Vakansiya topilmadi yoki `approved` emas |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
