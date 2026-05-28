@@ -63,9 +63,18 @@ docs: 'Joriy nomzodning **barcha CV** ro''yxati — "Rezumelarim" ekrani uchun. 
   | `offers_count` | int | Ish beruvchidan kelgan qabul qilingan takliflar soni (`vacancy_application.status
   = accepted`, shu CV bo''yicha) |
 
+  | `matching_vacancies_count` | int | Shu CV-ga mos vakansiyalar soni. **Hozircha moslik
+  mantig''i yo''q — doim `0`** |
+
 
   > **Eslatma:** `views_count` uchun maxsus log jadvali hali qo''shilmagan — keyinroq
   qo''shilishi bilan bir xil response shaklida real raqam keladi.
+
+  >
+
+  > `matching_vacancies_count` hozircha placeholder (`0`). "Mos vakansiyalar"ni bosganda
+  mijoz mavjud `GET /mobile/vacancies?cv_id=<id>` ni chaqiradi; `cv_id` bo''yicha real
+  filtr keyinroq qo''shiladi.
 
   >
 
