@@ -12,7 +12,7 @@ http:
     type: json
     data: |
       {
-        "amount": 1000000,
+        "amount": 50000,
         "provider": "payme",
         "return_url": "myapp://wallet-topup-return"
       }
@@ -28,7 +28,7 @@ docs: |
   ### Request Body
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `amount` | int | yes | Tiyinda. Minimal 100000 (1 000 so'm). |
+  | `amount` | int | yes | SO'Mda. Minimal 1 000 so'm. |
   | `provider` | string | yes | `click` yoki `payme` (`manual` mumkin emas). |
   | `return_url` | string | no | To'lovdan keyin qaytish URL'i. |
 
@@ -38,11 +38,13 @@ docs: |
     "payment_id": 50,
     "provider": "payme",
     "redirect_url": "https://checkout.paycom.uz/<base64>",
-    "amount": 1000000,
+    "amount": 50000,
     "currency": "UZS",
     "expires_at": 1735650000
   }
   ```
+  Eslatma: `amount` so'mda. Backendda tiyinga aylantiriladi (×100) va gateway'ga
+  tiyinda yuboriladi.
 
   ### Errors
   | Code | Reason |

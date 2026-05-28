@@ -30,7 +30,7 @@ docs: |
   |---|---|:---:|---|
   | `service_order_id` | int | yes | To'lanadigan OrganizationServiceOrder.id |
 
-  ### Response (201)
+  ### Response (201) — summalar so'mda
   ```json
   {
     "order_id": 7,

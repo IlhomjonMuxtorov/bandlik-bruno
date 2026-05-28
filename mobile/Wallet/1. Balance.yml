@@ -20,7 +20,7 @@ docs: |
     "currency": "UZS"
   }
   ```
-  Eslatma: barcha summalar tiyinda (1 so'm = 100 tiyin).
+  Eslatma: mobil API'da barcha summalar SO'Mda (backendda tiyinda saqlanadi).
 settings:
   encodeUrl: true
   timeout: 0
