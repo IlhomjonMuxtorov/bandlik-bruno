@@ -36,6 +36,15 @@ docs: 'Tasdiqlangan (`status=approved`) vakansiyalar ro''yxati. `published_at DE
 
   | `experience_level` | string | ➖ | `none` \| `one_to_three` \| `three_to_six`. |
 
+  | `salary_min` | int | ➖ | Minimal brutto maosh (`salary_gross >=`). |
+
+
+  | `salary_max` | int | ➖ | Maksimal brutto maosh (`salary_gross <=`). |
+
+
+  | `salary_currency` | string | ➖ | `UZS` \| `USD` \| `EUR`. Range berilganda default `USD`. |
+
+
   | `per-page` | int | ➖ | 1..100, default 20. |
 
   | `page` | int | ➖ | Sahifa raqami. |
