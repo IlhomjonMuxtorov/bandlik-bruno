@@ -1,0 +1,54 @@
+info:
+  name: Vacancy Payments (Tab 2 — To'lovlar)
+  type: http
+  seq: 4
+http:
+  method: GET
+  url: '{{base_url}}/mobile/vacancies/1/payments'
+  headers:
+  - name: Accept-Language
+    value: uz
+  auth:
+    type: none
+docs: |-
+  Detail ekranining **2-tabi ("To'lovlar")**: jami summa + kategoriya bo'yicha guruhlangan xizmatlar + to'lov bosqichlari. `training` kategoriyasi bu yerda **chiqarib tashlangan** (u 3-tab "Tayyorlov kursi"da).
+
+  **Auth:** ochiq.
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Kategoriya label'lari uchun. |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `total_service_amount` | int | Umumiy to'lash kerak bo'lgan summa |
+  | `total_service_currency` | string | `UZS` ... |
+  | `single_payment` | bool | "1 tada 100% to'lov" rejimi |
+  | `groups` | array | Kategoriya guruhlari (quyida) |
+  | `payment_steps` | array | `[{ id, step_type, step_type_label, title, amount, currency, sort_order }]` |
+
+  **`groups[]` element:**
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `category` | string | `notarius` \| `insurance` \| `logistics` \| `visa` \| `agency` \| `translation_apostille` |
+  | `category_label` | string | Lokalizatsiyalangan nom (masalan "Notarius") |
+  | `deadline_text` | null | "Boshlangan kundan N kun ichida" — **hozircha doim `null`** (DB ustuni hali yo'q, manba aniqlanmoqda). |
+  | `items` | array | `[{ id, service_name, price, currency, duration_text, notes }]` |
+
+  > Bo'sh kategoriyalar (item'i yo'q) javobga kiritilmaydi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Vakansiya topilmadi yoki `approved` emas |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

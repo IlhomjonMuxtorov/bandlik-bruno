@@ -1,0 +1,28 @@
+info:
+  name: Add to Favorites
+  type: http
+  seq: 8
+http:
+  method: POST
+  url: '{{base_url}}/mobile/vacancies/1/favorite'
+  auth: inherit
+docs: |-
+  Vakansiyani nomzodning sevimlilariga qo'shadi (feed kartochkasidagi ❤️ toggle). **Idempotent** — qayta chaqirilsa xatosiz, takror yozilmaydi.
+
+  **Auth:** `access_token`.
+
+  ### 📤 Response
+
+  `{ "is_favorite": true }`
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `404` | Vakansiya topilmadi yoki `approved` emas / nomzod topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

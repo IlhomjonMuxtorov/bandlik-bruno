@@ -1,68 +1,44 @@
 info:
   name: My Applications
   type: http
-  seq: 5
+  seq: 7
 http:
   method: GET
   url: '{{base_url}}/mobile/my-applications'
   auth: inherit
-docs: 'Joriy nomzodning barcha arizalari. Mobile pagination — bare array.
-
+docs: |-
+  Joriy nomzodning barcha arizalari. Mobile pagination — bare array.
 
   **Auth:** `access_token`.
 
-
   ### 🔎 Query Parameters
 
-
   | Param | Type | Required | Description |
-
   |---|---|:---:|---|
-
   | `status` | string | ➖ | `applied` \| `reviewed` \| `accepted` \| `rejected` |
-
   | `per-page` | int | ➖ | 1..100, default 20 |
-
 
   ### 📤 Response
 
-
   Massiv:
 
-
   | Field | Type | Description |
-
   |---|---|---|
-
   | `id` | int | Application ID |
-
   | `vacancy` | object | `{id, title}` |
-
   | `status` / `status_label` | string | `applied` ... |
-
   | `cv` | object \| null | `{id, title}` |
-
   | `cover_message` | string \| null | |
-
   | `hotel_preference` | bool | |
-
   | `applied_at` | int | Unix timestamp |
-
   | `reviewed_at` / `decided_at` | int \| null | |
-
 
   ### ⚠️ Errors
 
-
   | Code | Reason |
-
   |---|---|
-
-  | `401` | Token yo''q |
-
+  | `401` | Token yo'q |
   | `404` | Nomzod topilmadi |
-
-  '
 settings:
   encodeUrl: true
   timeout: 0
