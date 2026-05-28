@@ -1,0 +1,72 @@
+info:
+  name: 7. Pay from wallet
+  type: http
+  seq: 7
+http:
+  method: POST
+  url: '{{base_url}}/mobile/wallet/pay'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: |
+      {
+        "service_order_id": 7
+      }
+  auth: inherit
+docs: |
+  Mavjud xizmat buyurtmasini (Notarius, Sug'urta, Viza, kurs, ...) nomzod hamyoni
+  balansidan to'lash. Gateway CHAQIRILMAYDI. Buyurtmaning qolgan summasi to'liq
+  yechiladi; balans yetmasa 400 qaytadi.
+
+  Kurs sotib olish uchun alohida endpoint bor: `POST /mobile/courses/<id>/purchase`
+  (buyurtma yaratib, darhol balansdan to'laydi).
+
+  **Auth:** `access_token` (nomzod).
+
+  ### Request Body
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `service_order_id` | int | yes | To'lanadigan OrganizationServiceOrder.id |
+
+  ### Response (201)
+  ```json
+  {
+    "order_id": 7,
+    "transaction_id": 120,
+    "amount": 245000,
+    "currency": "UZS",
+    "paid": true
+  }
+  ```
+
+  ### Balans yetmasa — 402 Payment Required
+  Balans yetmasa to'lov amalga oshmaydi va quyidagi javob qaytadi. Ilova shu yerda
+  "Balansni to'ldiring" oynasini ko'rsatib, `shortfall` summasi bilan
+  `POST /mobile/wallet/topup` (Click/Payme) oqimiga yo'naltiradi. To'ldirgach
+  shu so'rovni qayta yuboradi.
+  ```json
+  {
+    "status_code": 402,
+    "message": "Insufficient balance. Please top up your wallet.",
+    "errors": ["Insufficient balance. Please top up your wallet."],
+    "insufficient_balance": true,
+    "required": 245000,
+    "available": 84000,
+    "shortfall": 161000
+  }
+  ```
+
+  ### Errors
+  | Code | Reason |
+  |---|---|
+  | 402 | Balans yetarli emas (`insufficient_balance: true`, `shortfall` bilan) |
+  | 400 | Order to'liq to'langan, boshqa nomzod orderi |
+  | 401 | Token yo'q |
+  | 404 | Buyurtma topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

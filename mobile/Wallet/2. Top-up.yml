@@ -1,0 +1,56 @@
+info:
+  name: 2. Top-up
+  type: http
+  seq: 2
+http:
+  method: POST
+  url: '{{base_url}}/mobile/wallet/topup'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: |
+      {
+        "amount": 1000000,
+        "provider": "payme",
+        "return_url": "myapp://wallet-topup-return"
+      }
+  auth: inherit
+docs: |
+  Hisobni to'ldirish ("Hisobni to'ldirish" modali). Buyurtmaga bog'liq emas:
+  purpose=wallet_topup bo'lgan Payment yaratiladi va gateway sessiyasi ochiladi.
+  Gateway muvaffaqiyatli webhook yuborgach, balans LedgerService::recordCandidateTopup
+  orqali kreditlanadi.
+
+  **Auth:** `access_token` (nomzod).
+
+  ### Request Body
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `amount` | int | yes | Tiyinda. Minimal 100000 (1 000 so'm). |
+  | `provider` | string | yes | `click` yoki `payme` (`manual` mumkin emas). |
+  | `return_url` | string | no | To'lovdan keyin qaytish URL'i. |
+
+  ### Response (201)
+  ```json
+  {
+    "payment_id": 50,
+    "provider": "payme",
+    "redirect_url": "https://checkout.paycom.uz/<base64>",
+    "amount": 1000000,
+    "currency": "UZS",
+    "expires_at": 1735650000
+  }
+  ```
+
+  ### Errors
+  | Code | Reason |
+  |---|---|
+  | 400 | Provider yoqilmagan/noto'g'ri, summa minimaldan kichik |
+  | 401 | Token yo'q |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

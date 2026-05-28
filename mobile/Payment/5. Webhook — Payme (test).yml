@@ -13,7 +13,7 @@ http:
   body:
     type: json
     data: "{\n  \"jsonrpc\": \"2.0\",\n  \"id\": 1,\n  \"method\": \"CheckPerformTransaction\"\
-      ,\n  \"params\": {\n    \"amount\": 1000000,\n    \"account\": {\n      \"service_order_id\"\
+      ,\n  \"params\": {\n    \"amount\": 1000000,\n    \"account\": {\n      \"payment_id\"\
       : 1\n    }\n  }\n}"
   auth: none
 docs: 'Payme JSON-RPC webhook endpoint. Auth Basic header: `Basic base64("Paycom:"
@@ -42,8 +42,8 @@ docs: 'Payme JSON-RPC webhook endpoint. Auth Basic header: `Basic base64("Paycom
   | `GetStatement` | Reconciliation | `result: {transactions: [...]}` |
 
 
-  **`account.service_order_id`** — Payme kassasida `account` maydoni `service_order_id`
-  deb sozlanishi shart.
+  **`account.payment_id`** — Payme kassasida `account` maydoni `payment_id`
+  deb sozlanishi shart (bizning Payment.id). Eski `service_order_id` o'rniga.
 
 
   ### 📥 Request Body (CheckPerformTransaction misoli)
@@ -63,7 +63,7 @@ docs: 'Payme JSON-RPC webhook endpoint. Auth Basic header: `Basic base64("Paycom
 
       "amount": 1000000,
 
-      "account": { "service_order_id": 1 }
+      "account": { "payment_id": 1 }
 
     }
 
@@ -89,7 +89,7 @@ docs: 'Payme JSON-RPC webhook endpoint. Auth Basic header: `Basic base64("Paycom
 
       "amount": 1000000,
 
-      "account": { "service_order_id": 1 }
+      "account": { "payment_id": 1 }
 
     }
 

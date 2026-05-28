@@ -1,0 +1,28 @@
+info:
+  name: 4. Top-ups (To'ldirishlar)
+  type: http
+  seq: 4
+http:
+  method: GET
+  url: '{{base_url}}/mobile/wallet/topups?per-page=20'
+  auth: inherit
+docs: |
+  "To'ldirishlar" tab — nomzodning hamyon to'ldirish tarixi (purpose=wallet_topup
+  Payment'lar). Paginatsiya X-Pagination-* header'larida.
+
+  **Auth:** `access_token` (nomzod).
+
+  ### Response (200) — Payment DTO ro'yxati
+  ```json
+  [
+    {
+      "id": 50, "provider": "payme", "amount": 1000000, "currency": "UZS",
+      "status": 3, "status_label": "Success", "paid_at": 1735650000, "created_at": 1735649000
+    }
+  ]
+  ```
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,6 @@
+info:
+  name: Wallet
+  type: folder
+  seq: 12
+request:
+  auth: inherit
