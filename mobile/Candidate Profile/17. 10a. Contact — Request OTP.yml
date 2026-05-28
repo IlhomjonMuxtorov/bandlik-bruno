@@ -1,0 +1,70 @@
+info:
+  name: 10a. Contact — Request OTP
+  type: http
+  seq: 17
+http:
+  method: POST
+  url: '{{base_url}}/mobile/candidate/contact/request-otp'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n    \"phone\": \"+998901234567\"\n}"
+  auth: inherit
+docs: 'Telefon raqamini o''zgartirish uchun SMS tasdiqlash kodini (4 xonali)
+  **yangi** raqamga yuboradi.
+
+
+  Oqim: avval shu endpoint bilan kod so''raladi, so''ng `PATCH /mobile/candidate/contact`
+  ga `phone` + `code` yuboriladi. Email-ni o''zgartirish uchun kod **kerak emas**.
+
+
+  **Auth:** `access_token`.
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `phone` | string | ✅ | Yangi raqam. `+998901234567` yoki `901234567`. |
+
+
+  ### 📤 Response
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `phone_masked` | string | `+998 ** *** 4567` ko''rinishida |
+
+  | `expires_in` | int | Kod amal qilish muddati (soniya, odatda 180) |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `400` | Raqam noto''g''ri, joriy raqam bilan bir xil yoki boshqa foydalanuvchida band |
+
+  | `400` | Juda ko''p so''rov (rate limit) — biroz kutib qayta urinib ko''ring |
+
+  | `401` | Token yo''q |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
