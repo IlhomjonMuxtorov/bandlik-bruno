@@ -7,7 +7,7 @@ http:
   url: '{{base_url}}/mobile/vacancies'
   auth: inherit
 docs: |-
-  Tasdiqlangan (`status=approved`) vakansiyalar ro'yxati — mobil **kartochka** ko'rinishi (yengil DTO, faqat kartochkada ko'rinadigan maydonlar). `published_at DESC` bo'yicha saralanadi.
+  Tasdiqlangan (`status=approved`) vakansiyalar ro'yxati — mobil **kartochka** ko'rinishi (yengil DTO, faqat kartochkada ko'rinadigan maydonlar). Default tartib: eng yangi e'lon qilinganlar (`published_at DESC`). Tartibni `sort` parametri bilan o'zgartirish mumkin.
 
   **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi). `match_score` viza so'rovnomasi to'ldirilmagan bo'lsa `null`; `is_favorite` nomzod profili hali yo'q bo'lsa `false`.
 
@@ -24,6 +24,7 @@ docs: |-
   | `salary_min` | int | ➖ | Minimal brutto maosh (`salary_gross >=`). |
   | `salary_max` | int | ➖ | Maksimal brutto maosh (`salary_gross <=`). |
   | `salary_currency` | string | ➖ | `UZS` \| `USD` \| `EUR`. Range berilganda default `USD`. |
+  | `sort` | string | ➖ | Saralash. `newest` (Yaqinda qo'shilganlar, default) \| `salary_asc` (Maosh o'sish tartibida) \| `salary_desc` (Maosh kamayish tartibida). Maoshsiz vakansiyalar har doim oxirida. Noma'lum qiymat → `newest`. |
   | `per-page` | int | ➖ | 1..100, default 20. |
   | `page` | int | ➖ | Sahifa raqami. |
 
