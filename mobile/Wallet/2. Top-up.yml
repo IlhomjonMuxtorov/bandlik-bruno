@@ -32,7 +32,7 @@ docs: |
   | Maydon | Tip | Majburiy | Izoh |
   |---|---|:---:|---|
   | `amount` | int | ✅ | To'ldirish summasi **so'mda**. Minimal **1 000 so'm**. Backendda ×100 qilinib tiyinga aylantiriladi. |
-  | `provider` | string | ✅ | `click` yoki `payme`. `manual` MUMKIN EMAS. Provider `.env`da `enabled=true` bo'lishi shart. |
+  | `provider` | string | ✅ | `click` yoki `payme`. `manual` MUMKIN EMAS. Mavjud provayderlar va ikonkalari `GET /mobile/wallet/providers` dan olinadi. |
   | `return_url` | string | ➖ | To'lovdan keyin ilovaga qaytish uchun deep-link / URL. |
 
   ## Response (201)

@@ -31,6 +31,7 @@ docs: |
       "id": 50,
       "transaction_id": 88,
       "provider": "payme",
+      "provider_icon": "http://storage.../icons/payment/payme.png",
       "provider_payment_id": "65a2d6b89c2f4d3b8e9f1234",
       "amount": 50000,
       "currency": "UZS",
@@ -53,6 +54,7 @@ docs: |
   | `id` | int | Payment id. |
   | `transaction_id` | int\|null | Muvaffaqiyatli to'lovda ledger Transaction id. |
   | `provider` | string | `click` / `payme`. |
+  | `provider_icon` | string\|null | Gateway brend ikonkasi URL'i (provayderlar bilan bir xil). |
   | `provider_payment_id` | string\|null | Gateway tx id (yoki boshlang'ich `pending-...`). |
   | `amount` | int | To'ldirish summasi (so'm). |
   | `currency` | string | `UZS`. |
