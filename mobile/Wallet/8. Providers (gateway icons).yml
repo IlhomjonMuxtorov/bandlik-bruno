@@ -1,0 +1,50 @@
+info:
+  name: 8. Providers (gateway icons)
+  type: http
+  seq: 8
+http:
+  method: GET
+  url: '{{base_url}}/mobile/wallet/providers'
+  auth: inherit
+docs: |
+  # GET /mobile/wallet/providers
+
+  "Hisobni to'ldirish" modali uchun yoqilgan to'lov gateway'lari ro'yxati — har biri
+  o'z **icon**i bilan. `manual` chiqmaydi (nomzod top-up varianti emas). Faqat `.env`da
+  `enabled=true` bo'lgan provayderlar qaytadi (masalan `CLICK_ENABLED`, `PAYME_ENABLED`).
+
+  **Auth:** `access_token` (nomzod).
+
+  ## Response (200)
+  ```json
+  [
+    { "code": "click", "label": "Click", "icon": "http://storage.../icons/payment/click.png" },
+    { "code": "payme", "label": "Payme", "icon": "http://storage.../icons/payment/payme.png" }
+  ]
+  ```
+
+  | Maydon | Tip | Izoh |
+  |---|---|---|
+  | `code` | string | Provider kodi — `topup`/`pay` so'rovlarida `provider` sifatida yuboriladi (`click` / `payme` / `uzum`). |
+  | `label` | string | Ko'rsatiladigan nom (tarjima qilinadi). |
+  | `icon` | string\|null | Gateway brend ikonkasi URL'i. |
+
+  ## Icon manbai
+  Default — storage'dan: `@storageUrl/icons/payment/<provider>.png`. Fayllar
+  **`storage/web/icons/payment/`** da: `click.png`, `payme.png`, `uzum.png`,
+  `manual.png` (40×40). To'liq URL `@storageUrl` (= `STORAGE_HOST_INFO +
+  STORAGE_BASE_URL`) dan quriladi. Boshqa joyga (CDN) yo'naltirish uchun `.env`da
+  `CLICK_ICON_URL` / `PAYME_ICON_URL` / `UZUM_ICON_URL` ga to'liq URL bering.
+
+  > Bir xil `icon` qiymati boshqa joylarda ham qaytadi — masalan
+  > `GET /mobile/wallet/topups` har bir yozuvda `provider_icon` beradi.
+
+  ## Errors
+  | Code | Sabab |
+  |---|---|
+  | `401` | Token yo'q. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
