@@ -18,52 +18,100 @@ http:
         "id": 1,
         "method": "CheckPerformTransaction",
         "params": {
-          "amount": 1000000,
+          "amount": 5000000,
           "account": { "payment_id": 50 }
         }
       }
   auth: none
 docs: |
-  Top-up'ni Payme webhook orqali yakunlash (lokal test). MUHIM: account maydoni endi
-  `service_order_id` emas, `payment_id` (Top-up'da yaratilgan Payment.id). Payme
-  kabinetida ham account kaliti `payment_id` bo'lishi shart.
+  # POST /mobile/payments/webhook/payme  (gateway-facing)
 
-  DIQQAT — birlik: JSON-RPC `amount` bu yerda TIYINda (Payme protokoli) va saqlangan
-  `payment.amount`ga teng. Bu mobil API'dagi so'm EMAS. Masalan, 50 000 so'mlik
-  top-up -> `payment.amount = 5 000 000` tiyin -> webhook `amount: 5000000`.
+  Top-up'ni Payme webhook orqali yakunlash. Bu endpoint'ni odatda **Payme serveri**
+  chaqiradi (foydalanuvchi emas) — bu yerda esa lokal testlash uchun qo'lda yuboriladi.
+  Muvaffaqiyatli `PerformTransaction` kelganda nomzod hamyoni balansi kreditlanadi.
 
-  Authorization: `Basic base64("Paycom:" + PAYME_SECRET)`. Quyidagi placeholder'ni
-  almashtiring:
+  ## MUHIM — account maydoni
+  Account referensi `payment_id` (Top-up'da yaratilgan `Payment.id`), eski
+  `service_order_id` EMAS. **Payme kabinetida ham account kaliti `payment_id`
+  bo'lishi shart**, aks holda `CheckPerformTransaction` "Payment not found" qaytaradi.
+
+  ## MUHIM — birlik (tiyin, so'm emas)
+  JSON-RPC `amount` bu yerda **TIYINda** (Payme protokoli) va saqlangan
+  `payment.amount`ga teng bo'lishi shart. Bu mobil API'dagi so'm EMAS.
+  Masalan: 50 000 so'mlik top-up → `payment.amount = 5 000 000` tiyin → webhook
+  `amount: 5000000`.
+
+  ## Auth
+  HTTP Basic: `Authorization: Basic base64("Paycom:" + PAYME_SECRET)`.
+  `hash_equals` bilan tekshiriladi. Placeholder'ni o'z secret'ingizga almashtiring:
   ```bash
   echo -n "Paycom:SIZNING_PAYME_SECRET" | base64
+  # natijani "Basic <...>" sifatida Authorization header'ga qo'ying
   ```
+  Imzo noto'g'ri bo'lsa → HTTP 401 `{"error":"signature_invalid"}`.
 
-  ### Metodlar ketma-ketligi (har birini alohida yuboring)
-  1. `CheckPerformTransaction` -> `result.allow = true`
-  2. `CreateTransaction` (params.id = Payme tx id, account.payment_id) -> state 1
-  3. `PerformTransaction` (params.id = o'sha tx id) -> state 2; SHU yerda balans kreditlanadi
+  ## IP allow-list
+  Productionda Payme faqat `185.234.113.0/28` (`185.234.113.1`–`.15`) dan so'rov
+  yuboradi (`PAYME_ALLOWED_IPS`). Lokalda allow-list bo'sh bo'lsa tekshiruv
+  o'tkazib yuboriladi.
+
+  ## Qo'llab-quvvatlanadigan 6 metod
+  | Method | Vazifa | Bizdagi javob (result) |
+  |---|---|---|
+  | `CheckPerformTransaction` | To'lov mumkinligini tekshirish | `{ "allow": true }` yoki error |
+  | `CreateTransaction` | Payme tx yaratish, Payment.id'ga bog'lash | `{ create_time, transaction, state: 1 }` |
+  | `PerformTransaction` | To'lovni yakunlash (BALANS kreditlanadi) | `{ transaction, perform_time, state: 2 }` |
+  | `CancelTransaction` | Bekor qilish | `{ transaction, cancel_time, state: -1/-2 }` |
+  | `CheckTransaction` | Holatni so'rash | `{ state, create_time, perform_time, ... }` |
+  | `GetStatement` | Reconciliation (from/to ms) | `{ transactions: [...] }` |
+
+  ## Test ketma-ketligi (har birini alohida yuboring)
+  1. `CheckPerformTransaction` → `result.allow = true`
+  2. `CreateTransaction` (`params.id` = Payme tx id, `account.payment_id`) → `state: 1`
+  3. `PerformTransaction` (`params.id` = o'sha tx id) → `state: 2`; **shu yerda balans
+     kreditlanadi**
   4. (ixtiyoriy) `CheckTransaction`, `CancelTransaction`, `GetStatement`
 
-  CreateTransaction misoli:
+  CreateTransaction:
   ```json
   {
     "jsonrpc": "2.0", "id": 2, "method": "CreateTransaction",
     "params": {
       "id": "65a2d6b89c2f4d3b8e9f1234",
       "time": 1735644000000,
-      "amount": 1000000,
+      "amount": 5000000,
       "account": { "payment_id": 50 }
     }
   }
   ```
-  PerformTransaction misoli:
+  PerformTransaction:
   ```json
   {
     "jsonrpc": "2.0", "id": 3, "method": "PerformTransaction",
     "params": { "id": "65a2d6b89c2f4d3b8e9f1234" }
   }
   ```
-  Perform'dan keyin `GET /mobile/wallet/balance` balans oshganini ko'rsatishi kerak.
+  Perform'dan keyin `GET /mobile/wallet/balance` balans oshganini ko'rsatadi
+  (so'mda: 5 000 000 tiyin → +50 000 so'm).
+
+  ## Payme error kodlari
+  | Code | Sabab |
+  |---|---|
+  | `-31001` | Amount mismatch (webhook tiyin ≠ payment.amount) |
+  | `-31003` | Transaction not found |
+  | `-31008` | Cannot perform (Payment allaqachon yakunlangan) |
+  | `-31050` | Payment not found (`account.payment_id` noto'g'ri) |
+  | `-32600` | Required field yo'q (masalan tx id) |
+  | `-32601` | Noma'lum metod |
+
+  Error envelope:
+  ```json
+  { "jsonrpc": "2.0", "id": 1, "error": { "code": -31050, "message": {"ru":"...","uz":"...","en":"..."} } }
+  ```
+
+  ## Idempotentlik
+  Perform ikki marta kelsa, balans IKKI marta kreditlanmaydi: Payment terminal holatga
+  o'tadi va ledger `topup:{payment_id}` idempotency kaliti dublikatni to'sadi.
 settings:
   encodeUrl: true
   timeout: 0

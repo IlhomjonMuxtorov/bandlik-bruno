@@ -7,13 +7,18 @@ http:
   url: '{{base_url}}/mobile/wallet/summary'
   auth: inherit
 docs: |
-  "Umumiy" tab — xizmat buyurtmasi bo'yicha guruhlangan to'lovlar (O'quv kursi,
-  Notarius, Sug'urta, Viza, ...). Har bir guruhda jami summa va ichidagi
-  tranzaksiyalar ro'yxati.
+  # GET /mobile/wallet/summary  — "Umumiy" tab
+
+  Nomzodning yakunlangan to'lovlari (`type=CandidatePayment`, `status=Completed`)
+  xizmat buyurtmasi (`service_order_id`) bo'yicha guruhlangan holda qaytadi —
+  mockup'dagi "Umumiy" ekrani: har bir xizmat (O'quv kursi, Notarius, Sug'urta,
+  Viza, ...) ostida jami summa va unga tegishli tranzaksiyalar.
+
+  Paginatsiya YO'Q — barcha guruhlar bitta javobda qaytadi (`id` desc tartib).
 
   **Auth:** `access_token` (nomzod).
 
-  ### Response (200) — summalar so'mda
+  ## Response (200) — summalar so'mda
   ```json
   [
     {
@@ -21,11 +26,35 @@ docs: |
       "title": "O'quv kursi uchun to'lov",
       "total": 735000,
       "payments": [
-        { "id": 120, "amount": 245000, "status": 2, "created_at": 1735650500 }
+        {
+          "id": 120,
+          "type": 1,
+          "type_label": "Candidate payment",
+          "status": 2,
+          "status_label": "Completed",
+          "amount": 245000,
+          "currency": "UZS",
+          "service_order_id": 7,
+          "description": "Candidate wallet payment for order #7",
+          "paid_at": 1735650500,
+          "created_at": 1735650500
+        }
       ]
     }
   ]
   ```
+
+  | Maydon | Tip | Izoh |
+  |---|---|---|
+  | `service_order_id` | int | Guruh kaliti — buyurtma id. |
+  | `title` | string | Xizmat nomi (`OrganizationService.name`), topilmasa `"Order #<id>"`. |
+  | `total` | int | Guruh bo'yicha jami summa (so'm). |
+  | `payments` | array | Guruhdagi `Transaction` DTO'lari (har biri `amount` so'mda). Maydonlar "5. Payments" bilan bir xil. |
+
+  ## Errors
+  | Code | Sabab |
+  |---|---|
+  | `401` | Token yo'q. |
 settings:
   encodeUrl: true
   timeout: 0

@@ -7,12 +7,38 @@ http:
   url: '{{base_url}}/mobile/wallet/balance'
   auth: inherit
 docs: |
-  Nomzod hamyoni balansi (Hamyon ekrani "Umumiy summa" va Profil "Hamyon: ... so'm").
-  Hamyon birinchi to'ldirishda yaratiladi; hali yo'q bo'lsa 0 qaytadi.
+  # Hamyon (Wallet) — umumiy
 
-  **Auth:** `access_token` (nomzod).
+  Nomzodning oldindan to'ldiriladigan ("prepaid") hamyoni. Nomzod hamyonni
+  Click/Payme orqali to'ldiradi va xizmatlar (kurs, notarius, sug'urta, viza, ...)
+  uchun shu **balansdan** to'laydi. Pulni qaytarib yechib bo'lmaydi (cash-out yo'q).
 
-  ### Response (200)
+  ## Oqim
+  1. **To'ldirish** — `POST /mobile/wallet/topup` → gateway sessiyasi (`redirect_url`)
+     → foydalanuvchi to'laydi → gateway webhook (`/mobile/payments/webhook/<provider>`)
+     → balans kreditlanadi.
+  2. **To'lash** — `POST /mobile/wallet/pay` yoki `POST /mobile/courses/<id>/purchase`
+     → balansdan yechiladi (gateway chaqirilmaydi). Balans yetmasa **402** + `shortfall`.
+  3. **Ko'rish** — `balance` (joriy summa), `topups` (To'ldirishlar), `payments`
+     (To'lovlar), `summary` (xizmat bo'yicha guruh).
+
+  ## Birlik (MUHIM)
+  Mobil API'da **barcha summalar SO'Mda**. Backend/ledger ichida esa **tiyinda**
+  saqlanadi (1 so'm = 100 tiyin). Konversiya faqat mobil chegarada bo'ladi.
+  Istisno: gateway webhook'lari (Payme JSON-RPC) tiyinda ishlaydi — pastdagi
+  "Top-up Webhook" so'roviga qarang.
+
+  ---
+
+  # GET /mobile/wallet/balance
+
+  Nomzod hamyoni joriy balansini qaytaradi (Hamyon ekranidagi "Umumiy summa" va
+  Profil sahifasidagi "Hamyon: ... so'm"). Hamyon birinchi to'ldirishda avtomatik
+  yaratiladi; hali yaratilmagan bo'lsa hammasi `0` qaytadi.
+
+  **Auth:** `access_token` (nomzod). Bearer token majburiy.
+
+  ## Response (200)
   ```json
   {
     "balance": 60000000,
@@ -20,7 +46,18 @@ docs: |
     "currency": "UZS"
   }
   ```
-  Eslatma: mobil API'da barcha summalar SO'Mda (backendda tiyinda saqlanadi).
+
+  | Maydon | Tip | Izoh |
+  |---|---|---|
+  | `balance` | int | Umumiy balans (so'm). |
+  | `available` | int | Sarflash mumkin bo'lgan summa (so'm) = `balance − hold`. Nomzodda hold ishlatilmaydi, shuning uchun odatda `available == balance`. |
+  | `currency` | string | Valyuta kodi (hozircha doim `UZS`). |
+
+  ## Errors
+  | Code | Sabab |
+  |---|---|
+  | `401` | Token yo'q yoki yaroqsiz. |
+  | `404` | Joriy foydalanuvchiga bog'langan nomzod topilmadi. |
 settings:
   encodeUrl: true
   timeout: 0

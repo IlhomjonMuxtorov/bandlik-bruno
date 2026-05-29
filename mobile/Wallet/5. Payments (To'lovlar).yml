@@ -7,23 +7,74 @@ http:
   url: '{{base_url}}/mobile/wallet/payments?per-page=20'
   auth: inherit
 docs: |
-  "To'lovlar" tab — nomzod balansidan amalga oshirilgan xizmat to'lovlari
-  (type=CandidatePayment, status=Completed bo'lgan Transaction'lar). Paginatsiya
-  X-Pagination-* header'larida.
+  # GET /mobile/wallet/payments  — "To'lovlar" tab
+
+  Nomzod balansidan amalga oshirilgan xizmat to'lovlari: `type=CandidatePayment`,
+  `status=Completed` bo'lgan `Transaction` yozuvlari, `id` bo'yicha kamayish
+  tartibida. (Top-up'lar bu yerda EMAS — ular `type=CandidateTopup`.)
 
   **Auth:** `access_token` (nomzod).
 
-  ### Response (200) — Transaction DTO ro'yxati (amount so'mda)
+  ## Query parametrlari (paginatsiya)
+  | Param | Default | Izoh |
+  |---|---|---|
+  | `per-page` | 20 | Sahifadagi yozuvlar (1–100). |
+  | `page` | 1 | Sahifa raqami. |
+
+  Meta header'larda: `X-Pagination-Total-Count`, `X-Pagination-Page-Count`,
+  `X-Pagination-Current-Page`, `X-Pagination-Per-Page`.
+
+  ## Response (200) — `Transaction` DTO ro'yxati (amount so'mda)
   ```json
   [
     {
-      "id": 120, "type": 1, "type_label": "Candidate payment",
-      "status": 2, "status_label": "Completed",
-      "amount": 245000, "currency": "UZS",
-      "service_order_id": 7, "created_at": 1735650500
+      "id": 120,
+      "type": 1,
+      "type_label": "Candidate payment",
+      "status": 2,
+      "status_label": "Completed",
+      "amount": 245000,
+      "currency": "UZS",
+      "organization_id": 4,
+      "candidate_id": 12,
+      "vacancy_id": null,
+      "service_order_id": 7,
+      "reference_type": "oso",
+      "reference_id": 7,
+      "gateway_provider": null,
+      "gateway_ref": null,
+      "description": "Candidate wallet payment for order #7",
+      "paid_at": 1735650500,
+      "created_at": 1735650500
     }
   ]
   ```
+
+  | Maydon | Tip | Izoh |
+  |---|---|---|
+  | `id` | int | Transaction id. |
+  | `type` / `type_label` | int / string | `1` = Candidate payment. |
+  | `status` / `status_label` | int / string | `2` = Completed. |
+  | `amount` | int | To'lov summasi (so'm). |
+  | `service_order_id` | int | Qaysi buyurtma uchun to'langani. |
+  | `reference_type` / `reference_id` | string / int | `oso` + buyurtma id. |
+  | `gateway_provider` | null | Balansdan to'lovda gateway yo'q, shuning uchun `null`. |
+  | `description` | string | Izoh. |
+  | `paid_at` / `created_at` | int | Unix timestamp. |
+
+  ## Transaction status kodlari
+  | Status | Label |
+  |---|---|
+  | 1 | Pending |
+  | 2 | Completed |
+  | 3 | Failed |
+  | 4 | Refunded |
+  | 5 | Cancelled |
+
+  ## Errors
+  | Code | Sabab |
+  |---|---|
+  | `401` | Token yo'q. |
 settings:
   encodeUrl: true
   timeout: 0
