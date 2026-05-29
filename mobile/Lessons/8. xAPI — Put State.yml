@@ -1,0 +1,37 @@
+info:
+  name: xAPI — Put State
+  type: http
+  seq: 8
+http:
+  method: PUT
+  url: '{{base_url}}/mobile/articulate/activities/state?stateId=suspend_data&agent=%7B%22name%22%3A%221%22%7D'
+  params:
+  - name: stateId
+    value: suspend_data
+  - name: agent
+    value: '%7B%22name%22%3A%221%22%7D'
+  body:
+    type: text
+    data: |-
+      <raw suspend_data blob — Storyline runtime yuboradi>
+  auth: inherit
+docs: |-
+  **xAPI / Tin Can** State API (saqlash). `type=2` paketlar avtomatik chaqiradi. Raw body'ni `course_lesson_progress.suspend_data` ga yozadi. Javob — saqlangan `suspend_data` (raw matn).
+
+  **Auth:** `access_token` (Bearer). `candidate_id` token'dan; dars `agent.name` dan.
+
+  ### 🔎 Query
+
+  | Param | Description |
+  |---|---|
+  | `stateId` | `suspend_data` (boshqalari e'tiborsiz) |
+  | `agent` | URL-encoded `{"name":"<lessonId>"}` |
+
+  ### 📥 Body
+
+  Raw matn (Storyline'ning LMS state blobi).
+settings:
+  encodeUrl: false
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

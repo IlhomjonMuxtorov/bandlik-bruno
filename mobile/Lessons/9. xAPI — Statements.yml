@@ -1,0 +1,45 @@
+info:
+  name: xAPI — Statements
+  type: http
+  seq: 9
+http:
+  method: POST
+  url: '{{base_url}}/mobile/articulate/statements'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: |-
+      [
+        {
+          "id": "12345678-1234-1234-1234-123456789012",
+          "actor": { "name": "1" },
+          "verb": { "id": "http://adlnet.gov/expapi/verbs/completed" },
+          "result": { "success": true, "completion": true }
+        }
+      ]
+  auth: inherit
+docs: |-
+  **xAPI / Tin Can** Statements API. `type=2` paketlar avtomatik chaqiradi. `result.success=true` → dars `is_passed=1` (+ interaction bo'lmagan modullar finished); `result.completion=true` → `progress=100`.
+
+  **Auth:** `access_token` (Bearer). `candidate_id` token'dan; dars `actor.name` (= lesson id) dan. Nomzod kursni sotib olgan bo'lishi shart.
+
+  ### 📥 Body
+
+  xAPI statement obyektlari massivi. `actor.name` = `course_lesson.id`.
+
+  ### 📤 Response
+
+  Qabul qilingan statement ID'lari massivi (`[ "<id>" ]`).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Nomzod/dars topilmadi yoki kurs sotib olinmagan |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,33 @@
+info:
+  name: xAPI — Get State
+  type: http
+  seq: 7
+http:
+  method: GET
+  url: '{{base_url}}/mobile/articulate/activities/state?stateId=suspend_data&agent=%7B%22name%22%3A%221%22%7D'
+  params:
+  - name: stateId
+    value: suspend_data
+  - name: agent
+    value: '%7B%22name%22%3A%221%22%7D'
+  auth: inherit
+docs: |-
+  **xAPI / Tin Can** State API. `type=2` (index_api) paketlar avtomatik chaqiradi — qo'lda emas. Saqlangan `suspend_data` ni (yoki til afzalligini) qaytaradi. Javob **raw matn** (JSON emas).
+
+  **Auth:** `access_token` (Bearer) — Storyline runtime `play_url` dagi `auth` paramidan oladi. `candidate_id` token'dan; dars `agent.name` (= lesson id) dan.
+
+  ### 🔎 Query
+
+  | Param | Description |
+  |---|---|
+  | `stateId` | `suspend_data` \| `cmi.student_preference.language` \| ... |
+  | `agent` | URL-encoded JSON, `{"name":"<lessonId>"}` |
+
+  ### 📤 Response
+
+  Raw matn: saqlangan `suspend_data` (yoki bo'sh string). `stateId=cmi.student_preference.language` da joriy til (`uz`/`ru`/`en`).
+settings:
+  encodeUrl: false
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

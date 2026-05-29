@@ -1,0 +1,24 @@
+info:
+  name: 5. Lesson Delete
+  type: http
+  seq: 5
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/lessons/1'
+  auth: inherit
+docs: |-
+  Darsni o'chiradi. DB yozuvlari (modul/quiz/progress — FK cascade) va extract qilingan papka (`@api/web/articulate/{random}`) o'chiriladi; `educational_course.lessons_count` yangilanadi.
+
+  **Auth:** `admin_token`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401/403` | Admin emas |
+  | `404` | `Lesson not found` |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,47 @@
+info:
+  name: Event — Report Answer
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{base_url}}/mobile/articulate/report-answer'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "course_lesson_id": 1,
+        "quiz_key": "quiz_1",
+        "is_correct": true,
+        "retry_attempts": 0
+      }
+  auth: inherit
+docs: |-
+  `lms.js` (type=1) paketidagi `reportAnswer` hodisasi — bitta quiz javobi to'g'ri/noto'g'riligini va urinishlar sonini yozadi.
+
+  **Auth:** `access_token` (Bearer). Kurs sotib olingan bo'lishi shart. `candidate_id` token'dan.
+
+  ### 📥 Request Body (JSON)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `course_lesson_id` | int | ✅ | Dars ID |
+  | `quiz_key` | string | ✅ | tincan quiz kaliti |
+  | `is_correct` | bool | ➖ | Javob to'g'rimi |
+  | `retry_attempts` | int | ➖ | Urinishlar soni |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q/yaroqsiz |
+  | `403` | Kurs sotib olinmagan |
+  | `404` | Dars topilmadi |
+  | `422` | `Lesson quiz not found` yoki validatsiya |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

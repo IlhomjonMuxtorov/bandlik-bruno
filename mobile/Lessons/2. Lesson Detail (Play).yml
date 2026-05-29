@@ -1,0 +1,43 @@
+info:
+  name: Lesson Detail (Play)
+  type: http
+  seq: 2
+http:
+  method: GET
+  url: '{{base_url}}/mobile/lessons/1'
+  auth: inherit
+docs: |-
+  Bitta darsning to'liq tafsiloti va **o'ynatish (play) URL**i. Articulate kontentni WebView/iframe ichida shu `play_url` orqali ochiladi.
+
+  - `type=2` (xAPI / index_api) bo'lsa `play_url` ga `?endpoint=.../mobile/articulate&auth=Bearer <token>&actor={"name":<lessonId>}` qo'shiladi — kontent statement/state'larni shu endpointga yuboradi.
+  - `type=1` (lms.js) bo'lsa `play_url` oddiy statik URL; kontent `postMessage` hodisalarini chiqaradi, ularni front `mobile/articulate/*` event endpointlariga uzatadi.
+
+  **Auth:** `access_token` (Bearer). Nomzod kursni **sotib olgan** bo'lishi shart.
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Dars ID |
+  | `name` | string | Dars nomi |
+  | `description` | string \| null | Tavsif |
+  | `type` | int | `1` = lms.js, `2` = xAPI |
+  | `play_url` | string | Iframe/WebView uchun to'liq URL |
+  | `progress` | float | Umumiy tugatish foizi (0–100) |
+  | `is_passed` | bool | Dars o'tilganmi |
+  | `last_module_key` | string \| null | Oxirgi ochilgan modul kaliti (bookmark) |
+  | `modules` | array | Modullar; har biri: `id, module_key, name, is_interaction, type, is_passed, score, quizzes[]` |
+  | `modules[].quizzes` | array | `id, quiz_key, name, type, is_correct, retry_attempts` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki yaroqsiz |
+  | `403` | Kurs sotib olinmagan |
+  | `404` | Dars topilmadi yoki faol emas |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
