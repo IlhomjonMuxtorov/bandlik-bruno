@@ -1,0 +1,38 @@
+info:
+  name: 7. FAQ — Delete
+  type: http
+  seq: 7
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/faqs/1'
+  body:
+    type: none
+  auth: inherit
+docs: |
+  FAQ yozuvini ID bo'yicha o'chiradi.
+
+  **Auth:** `admin_token`.
+
+  ### 📤 Response
+
+  ```json
+  {
+    "success": true,
+    "data": null,
+    "message": "FAQ deleted",
+    "errors": {}
+  }
+  ```
+
+  O'chirilgandan keyin mobil `faq` keshi avtomatik tozalanadi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | FAQ topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
