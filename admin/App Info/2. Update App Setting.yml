@@ -1,0 +1,51 @@
+info:
+  name: 2. Update App Setting
+  type: http
+  seq: 2
+http:
+  method: POST
+  url: '{{base_url}}/admin/app-setting'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "support_address": {"uz": "Afrosiyob ko'chasi, 14/1", "ru": "Улица Афросиаб, 14/1", "en": "Afrosiyob street, 14/1"},
+        "support_phone": "+998 55 172 00 00",
+        "support_website": "https://bandlik.uz",
+        "support_telegram": "@bandlik_uz",
+        "about_text": {"uz": "Global Skill App — ...", "ru": "Global Skill App — ...", "en": "Global Skill App — ..."},
+        "about_logo_id": 0
+      }
+  auth: inherit
+docs: |
+  Singleton sozlamani qisman yangilaydi (faqat yuborilgan maydonlar o'zgaradi). `application/json` so'rov.
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `support_address` | object (JSON) | ➖ | `{"uz": "...", "ru": "...", "en": "..."}` |
+  | `support_phone` | string | ➖ | Telefon raqam |
+  | `support_website` | string | ➖ | Web-sayt URL |
+  | `support_telegram` | string | ➖ | Telegram handle |
+  | `about_text` | object (JSON) | ➖ | `{"uz": "...", "ru": "...", "en": "..."}` |
+  | `about_logo_id` | int | ➖ | `/admin/upload` orqali yuklangan logo fayl ID. `0` — default logoga qaytarish. |
+
+  Yangilangandan keyin mobil `support`/`about` keshi avtomatik tozalanadi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `422` | Validatsiya xatosi |
+  | `400` | `about_logo_id` topilmadi yoki `status=uploading` |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

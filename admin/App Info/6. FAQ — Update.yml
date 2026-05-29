@@ -1,0 +1,47 @@
+info:
+  name: 6. FAQ — Update
+  type: http
+  seq: 6
+http:
+  method: POST
+  url: '{{base_url}}/admin/faqs/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "question": {"uz": "...", "ru": "...", "en": "..."},
+        "answer": {"uz": "...", "ru": "...", "en": "..."},
+        "sort_order": 2,
+        "is_active": 0
+      }
+  auth: inherit
+docs: |
+  Mavjud FAQ yozuvini qisman yangilaydi (faqat yuborilgan maydonlar o'zgaradi). `application/json` so'rov.
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `question` | object (JSON) | ➖ | `{"uz": "...", "ru": "...", "en": "..."}` |
+  | `answer` | object (JSON) | ➖ | `{"uz": "...", "ru": "...", "en": "..."}` |
+  | `sort_order` | int | ➖ | Tartib raqami |
+  | `is_active` | int (0\|1) | ➖ | `0` — mobil ro'yxatdan yashiradi |
+
+  Yangilangandan keyin mobil `faq` keshi avtomatik tozalanadi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | FAQ topilmadi |
+  | `422` | Validatsiya xatosi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

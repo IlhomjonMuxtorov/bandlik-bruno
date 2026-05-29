@@ -11,7 +11,7 @@ Global SkillHub API dokumentatsiyasi Bruno formatida.
 ├── environments/             # Environment configurations
 │   ├── development.yml       # Dev environment (consistent variables)
 │   └── production.yml        # Prod environment (same variable names)
-├── mobile/                   # Mobile API (72 requests)
+├── mobile/                   # Mobile API (75 requests)
 │   ├── folder.yml
 │   ├── 🔐 Auth/
 │   ├── 👤 Candidate/
@@ -20,12 +20,14 @@ Global SkillHub API dokumentatsiyasi Bruno formatida.
 │   ├── 🌍 Reference/
 │   ├── 🪪 MyID/
 │   ├── 💼 Vacancies/
-│   └── 👤 Candidate Profile/
+│   ├── 👤 Candidate Profile/
+│   └── ℹ️ App Info/          # Support / About / FAQ
 │
-└── admin/                    # Admin API (185 requests)
+└── admin/                    # Admin API (192 requests)
     ├── folder.yml
     ├── 🔐 Auth/
     ├── 🌍 Reference/
+    ├── ℹ️ App Info/          # App Setting + FAQ CRUD
     ├── 🏢 XBA Organizations/
     ├── 🛂 Visa Organizations/
     ├── 🏛️ Notarius Organizations/
@@ -138,11 +140,11 @@ variables:
 
 | Metrika | Qiymat |
 |---------|--------|
-| Mobile Requests | 72 |
-| Admin Requests | 185 |
-| Total Requests | 257 |
-| Total YAML Files | 297 |
-| Folders | 38 |
+| Mobile Requests | 75 |
+| Admin Requests | 192 |
+| Total Requests | 267 |
+| Total YAML Files | 309 |
+| Folders | 40 |
 | Environments | 2 (Dev + Prod) |
 
 ## 🔑 Key Features
@@ -162,6 +164,7 @@ variables:
 ## 🔄 Version History
 
 - **2026-05-20**: Initial conversion from Insomnia JSON to Bruno YAML format
+- **2026-06-13**: Added App Info — mobile Support/About/FAQ (3) + admin App Setting & FAQ CRUD (7)
 - **Format**: Bruno 3.3+ OpenCollection YAML
 - **Conversion Tool**: Python script (automatic)
 

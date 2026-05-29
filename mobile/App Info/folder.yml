@@ -1,0 +1,6 @@
+info:
+  name: App Info
+  type: folder
+  seq: 15
+request:
+  auth: inherit

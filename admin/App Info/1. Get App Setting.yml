@@ -1,0 +1,43 @@
+info:
+  name: 1. Get App Setting
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/app-setting'
+  body:
+    type: none
+  auth: inherit
+docs: |
+  Platforma sozlamalari singletonini (support + about) uch tilda to'liq qaytaradi. Admin panelda tahrirlash uchun.
+
+  **Auth:** `admin_token`.
+
+  ### 📤 Response
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "id": 1,
+      "support_address": {"uz": "Afrosiyob ko'chasi, 14/1", "ru": "Улица Афросиаб, 14/1", "en": "Afrosiyob street, 14/1"},
+      "support_phone": "+998 55 172 00 00",
+      "support_website": "https://bandlik.uz",
+      "support_telegram": "@bandlik_uz",
+      "about_text": {"uz": "...", "ru": "...", "en": "..."},
+      "about_logo_upload_file_id": null,
+      "logo_url": "https://storage.bandlik.uz/icons/logo/logo.png",
+      "created_at": 1739000000,
+      "updated_at": 1739000000
+    },
+    "message": "",
+    "errors": {}
+  }
+  ```
+
+  > `about_logo_upload_file_id = null` bo'lsa `logo_url` default logoni ko'rsatadi.
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
