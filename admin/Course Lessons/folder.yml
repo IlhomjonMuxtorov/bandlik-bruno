@@ -1,0 +1,6 @@
+info:
+  name: Course Lessons
+  type: folder
+  seq: 32
+request:
+  auth: inherit

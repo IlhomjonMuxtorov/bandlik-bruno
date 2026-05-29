@@ -1,0 +1,47 @@
+info:
+  name: Event — Open Bookmark
+  type: http
+  seq: 3
+http:
+  method: POST
+  url: '{{base_url}}/mobile/articulate/open-bookmark'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "course_lesson_id": 1,
+        "module_key": "module_1",
+        "is_finished": false,
+        "cache": null
+      }
+  auth: inherit
+docs: |-
+  `lms.js` (type=1) paketlaridagi `openBookmark` / `finishBookmark` hodisasi. Front `postMessage` dan oladi va shu yerga uzatadi. Modul ochilishi/tugashini yozadi va umumiy progressni qayta hisoblaydi.
+
+  **Auth:** `access_token` (Bearer). Nomzod kursni sotib olgan bo'lishi shart. `candidate_id` token'dan olinadi — bodyda yuborilmaydi.
+
+  ### 📥 Request Body (JSON)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `course_lesson_id` | int | ✅ | Dars (CourseLesson) ID |
+  | `module_key` | string | ✅ | tincan modul kaliti (injektsiyadagi `lesson_id`) |
+  | `is_finished` | bool | ➖ | `true` → modul tugatildi; `false`/yo'q → ochildi |
+  | `cache` | string \| null | ➖ | lms.js restore-cache blobi (`is_finished=true` da) |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q/yaroqsiz |
+  | `403` | Kurs sotib olinmagan |
+  | `404` | Dars topilmadi |
+  | `422` | `Lesson module not found` yoki validatsiya |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,41 @@
+info:
+  name: Lesson List
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/mobile/courses/1/lessons'
+  auth: inherit
+docs: |-
+  Sotib olingan kursning darslari (darslar) ro'yxati — har bir dars uchun joriy nomzod progressi bilan. Faqat faol + e'lon qilingan darslar (`is_active=true`, `status=active`) qaytariladi.
+
+  > Eslatma: darslar ro'yxati kurs tafsiloti javobida ham (`GET /mobile/courses/{id}` → `lessons`) qaytadi; bu endpoint enrolled holatda to'liq ro'yxat uchun.
+
+  **Auth:** `access_token` (Bearer). Nomzod kursni **sotib olgan** bo'lishi shart.
+
+  ### 📤 Response
+
+  Massiv, har element:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Dars ID |
+  | `name` | string | Dars nomi |
+  | `type` | int | `1` = lms.js, `2` = xAPI (index_api) |
+  | `sort_order` | int | Tartib |
+  | `progress` | float | Tugatish foizi (0–100) |
+  | `is_passed` | bool | Dars o'tilgan/o'tilmagan |
+  | `is_locked` | bool | Bu endpointda doim `false` (enrolled) |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki yaroqsiz |
+  | `403` | Kurs sotib olinmagan (`You have not purchased this course`) |
+  | `404` | Kurs topilmadi yoki faol emas |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

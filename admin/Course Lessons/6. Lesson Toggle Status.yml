@@ -1,0 +1,28 @@
+info:
+  name: 6. Lesson Toggle Status
+  type: http
+  seq: 6
+http:
+  method: PATCH
+  url: '{{base_url}}/admin/lessons/1/toggle-status'
+  auth: inherit
+docs: |-
+  Darsning `is_active` bayrog'ini teskari qiladi. (`status` ni emas — uni `Update` orqali o'zgartiring.)
+
+  **Auth:** `admin_token`.
+
+  ### 📤 Response
+
+  `200` — yangilangan `CourseLessonOutputDTO`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401/403` | Admin emas |
+  | `404` | `Lesson not found` |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,34 @@
+info:
+  name: 7. Candidate Progress
+  type: http
+  seq: 7
+http:
+  method: GET
+  url: '{{base_url}}/admin/educational-courses/1/candidate-progress/1'
+  auth: inherit
+docs: |-
+  Bitta nomzodning kurs bo'yicha barcha darslar progressi (admin tracking ko'rinishi). Har dars uchun umumiy progress + modul + quiz darajasidagi natijalar.
+
+  **Auth:** `admin_token`. URL: `.../educational-courses/{courseId}/candidate-progress/{candidateId}`.
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `educational_course_id` | int | Kurs ID |
+  | `candidate_id` | int | Nomzod ID |
+  | `lessons` | array | Har dars: `id, name, type, progress, is_passed, last_module_key, modules[]` |
+  | `lessons[].modules[]` | array | `id, module_key, name, is_interaction, type, is_passed, score, quizzes[]` |
+  | `...quizzes[]` | array | `id, quiz_key, name, type, is_correct, retry_attempts` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401/403` | Admin emas |
+  | `404` | `Educational course not found` yoki `Candidate not found` |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

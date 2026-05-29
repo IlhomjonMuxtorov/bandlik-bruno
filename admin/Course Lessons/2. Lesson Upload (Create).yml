@@ -1,0 +1,62 @@
+info:
+  name: 2. Lesson Upload (Create)
+  type: http
+  seq: 2
+http:
+  method: POST
+  url: '{{base_url}}/admin/educational-courses/1/lessons'
+  body:
+    type: multipartForm
+    data:
+    - name: file
+      type: file
+      fileName: ''
+    - name: name
+      type: text
+      value: '1-dars: Suhbatga tayyorgarlik'
+    - name: status
+      type: text
+      value: active
+    - name: passing_score
+      type: text
+      value: '60'
+    - name: sort_order
+      type: text
+      value: '0'
+  auth: inherit
+docs: |-
+  Kursga yangi dars qo'shadi — bitta **Articulate (Storyline) zip** yuklash orqali. Zip serverga ochiladi (`@api/web/articulate/{random}/`), `index.html`/`lms.js` ga event ko'prigi inject qilinadi, `tincan.xml` parse qilinib modul/quiz strukturasi yaratiladi. `educational_course.lessons_count` yangilanadi.
+
+  **Auth:** `admin_token`. **Content-Type:** `multipart/form-data`.
+
+  ### Zip talablari
+
+  Zip ichida bo'lishi shart: `index.html` + `tincan.xml` + (`lms.js` **yoki** `indexapi.html`). `lms.js` bor → `type=1` (lms.js, postMessage); aks holda `indexapi.html` → `type=2` (xAPI). Storyline eksporti **LMS (SCORM/Tin Can)** formatida bo'lishi kerak.
+
+  ### 📥 Body (multipart/form-data)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `file` | file | ✅ | Articulate zip |
+  | `name` | string | ➖ | Bo'sh bo'lsa tincan'dagi kurs nomi olinadi |
+  | `description` | string | ➖ | |
+  | `passing_score` | number | ➖ | O'tish bali |
+  | `status` | string | ➖ | `draft` (default) \| `active` \| `archived`. Mobil ko'rinishi uchun `active` |
+  | `sort_order` | int | ➖ | Default — oxiriga qo'shiladi |
+
+  ### 📤 Response
+
+  `201` — `CourseLessonOutputDTO`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401/403` | Admin emas |
+  | `404` | Kurs topilmadi |
+  | `422` | `Articulate zip file is required`; `index.html/tincan.xml/lms.js or indexapi.html not found`; `Invalid tincan file`; inject xatosi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

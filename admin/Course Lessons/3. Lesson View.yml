@@ -1,0 +1,24 @@
+info:
+  name: 3. Lesson View
+  type: http
+  seq: 3
+http:
+  method: GET
+  url: '{{base_url}}/admin/lessons/1'
+  auth: inherit
+docs: |-
+  Bitta dars tafsiloti (`CourseLessonOutputDTO`).
+
+  **Auth:** `admin_token`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401/403` | Admin emas |
+  | `404` | `Lesson not found` |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

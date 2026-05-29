@@ -1,0 +1,56 @@
+info:
+  name: 4. Lesson Update
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{base_url}}/admin/lessons/1'
+  body:
+    type: multipartForm
+    data:
+    - name: name
+      type: text
+      value: '1-dars (yangilangan)'
+    - name: status
+      type: text
+      value: active
+    - name: file
+      type: file
+      fileName: ''
+  auth: inherit
+docs: |-
+  Darsni yangilaydi. Ikki narsani qila oladi (ikkalasi ham ixtiyoriy):
+
+  1. **Zip almashtirish** — `file` yuborilsa: yangi paket extract qilinadi, eski modullar/quizlar (va progress) o'chiriladi, yangi tincan strukturasi yaratiladi, eski extract papkasi o'chadi.
+  2. **Meta yangilash** — `name`, `description`, `passing_score`, `status`, `is_active`, `sort_order`.
+
+  **Auth:** `admin_token`. **Content-Type:** `multipart/form-data` (faqat meta bo'lsa JSON ham bo'ladi).
+
+  ### 📥 Body
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `file` | file | ➖ Yangi Articulate zip (almashtirish) |
+  | `name` | string | ➖ |
+  | `description` | string | ➖ |
+  | `passing_score` | number | ➖ |
+  | `status` | string | ➖ `draft` \| `active` \| `archived` |
+  | `is_active` | bool (0\|1) | ➖ |
+  | `sort_order` | int | ➖ |
+
+  ### 📤 Response
+
+  `200` — `CourseLessonOutputDTO`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401/403` | Admin emas |
+  | `404` | `Lesson not found` |
+  | `422` | Zip validatsiya / inject / meta validatsiya |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

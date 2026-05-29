@@ -1,0 +1,46 @@
+info:
+  name: 1. Lesson Index
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/educational-courses/1/lessons'
+  auth: inherit
+docs: |-
+  Kursning darslari (paginatsiyalangan). Har element `CourseLessonOutputDTO`.
+
+  **Auth:** `admin_token`.
+
+  ### 📤 Response
+
+  `{ items: [...], pagination: { page, page_size, total_count, page_count } }`
+
+  Har `items[]`:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Dars ID |
+  | `educational_course_id` | int | Kurs ID |
+  | `name` | string | Dars nomi |
+  | `description` | string \| null | Tavsif |
+  | `type` | int | `1` = lms.js, `2` = xAPI |
+  | `type_label` | string | `lms.js` \| `xAPI` |
+  | `passing_score` | float \| null | O'tish bali |
+  | `status` | string | `draft` \| `active` \| `archived` |
+  | `is_active` | bool | Faolmi |
+  | `sort_order` | int | Tartib |
+  | `modules_count` | int | Modullar soni (tincan) |
+  | `quizzes_count` | int | Quizlar soni (tincan) |
+  | `entry_url` | string | Extract qilingan kirish html nisbiy yo'li |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401/403` | Admin emas |
+  | `404` | Kurs topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

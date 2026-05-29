@@ -1,0 +1,26 @@
+info:
+  name: xAPI — Statements Update
+  type: http
+  seq: 10
+http:
+  method: PUT
+  url: '{{base_url}}/mobile/articulate/statements?statementId=12345678-1234-1234-1234-123456789012'
+  params:
+  - name: statementId
+    value: '12345678-1234-1234-1234-123456789012'
+  auth: inherit
+docs: |-
+  **xAPI / Tin Can** Statements (PUT) — Storyline runtime ba'zan statementni `statementId` bilan PUT qiladi. Bu endpoint shunchaki `[statementId]` ni qaytaradi (echo, no-op).
+
+  **Auth:** `access_token` (Bearer).
+
+  ### 🔎 Query
+
+  | Param | Description |
+  |---|---|
+  | `statementId` | xAPI statement UUID |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

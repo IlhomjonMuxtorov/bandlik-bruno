@@ -1,0 +1,46 @@
+info:
+  name: Event — Update Progress
+  type: http
+  seq: 6
+http:
+  method: POST
+  url: '{{base_url}}/mobile/articulate/update-progress'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "course_lesson_id": 1,
+        "progress": 50,
+        "is_passed": false,
+        "last_module_key": "module_2"
+      }
+  auth: inherit
+docs: |-
+  `lms.js` (type=1) paketidagi `progress` / `score` / `passed` hodisalari. Umumiy progressni yangilaydi. Progress faqat **oshadi** (eski qiymatdan kichik bo'lsa o'zgarmaydi).
+
+  **Auth:** `access_token` (Bearer). Kurs sotib olingan bo'lishi shart. `candidate_id` token'dan.
+
+  ### 📥 Request Body (JSON)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `course_lesson_id` | int | ✅ | Dars ID |
+  | `progress` | number | ➖ | Foiz (0–100). `percent` ham qabul qilinadi |
+  | `is_passed` | bool | ➖ | O'tdi/yiqildi. `passed` ham qabul qilinadi |
+  | `last_module_key` | string | ➖ | Oxirgi modul kaliti. `module_key` ham qabul qilinadi |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q/yaroqsiz |
+  | `403` | Kurs sotib olinmagan |
+  | `404` | Dars topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

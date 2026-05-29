@@ -35,6 +35,11 @@ docs: |-
   | `currency` | string | `UZS` \| `USD` \| `EUR` |
   | `cover_url` | string \| null | Muqova rasmi URL |
   | `organization` | object \| null | O'quv markazi: `{ id, name, logo_url }` |
+  | `is_purchased` | bool | Nomzod kursni sotib olganmi (mehmonda/sotib olinmaganda `false`) |
+  | `completion_percent` | float | Kursni tugatish foizi (darslar progressi o'rtachasi; sotib olinmaganda `0`) |
+  | `lessons` | array | Darslar ro'yxati (har element: `id, name, type, sort_order, progress, is_passed, is_locked`) |
+
+  > **Darslar ro'yxati** kurs sahifasida doim ko'rinadi. Sotib olinmaganda har bir dars `is_locked=true` (qulflangan, ochib bo'lmaydi) va `is_purchased=false` — UI to'lov qutisini (`price`) ko'rsatadi. Sotib olingach `is_locked=false`, `progress`/`is_passed` to'ladi va `completion_percent` progress barini boshqaradi. Darsni ochish (play_url) uchun: `GET /mobile/lessons/{id}`.
 
   ### ⚠️ Errors
 

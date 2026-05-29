@@ -1,0 +1,47 @@
+info:
+  name: Event — Finish Quiz
+  type: http
+  seq: 5
+http:
+  method: POST
+  url: '{{base_url}}/mobile/articulate/finish-quiz'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "course_lesson_id": 1,
+        "module_key": "module_1",
+        "is_passed": true,
+        "score": 85
+      }
+  auth: inherit
+docs: |-
+  `lms.js` (type=1) paketidagi `finishQuiz` hodisasi — modul (quiz) ball bilan tugatilganini yozadi va umumiy progressni qayta hisoblaydi.
+
+  **Auth:** `access_token` (Bearer). Kurs sotib olingan bo'lishi shart. `candidate_id` token'dan.
+
+  ### 📥 Request Body (JSON)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `course_lesson_id` | int | ✅ | Dars ID |
+  | `module_key` | string | ✅ | tincan modul kaliti |
+  | `is_passed` | bool | ➖ | O'tdi/yiqildi |
+  | `score` | number | ➖ | Ball (0–100) |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q/yaroqsiz |
+  | `403` | Kurs sotib olinmagan |
+  | `404` | Dars topilmadi |
+  | `422` | `Lesson module not found` yoki validatsiya |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
