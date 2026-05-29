@@ -18,21 +18,24 @@ http:
       }
   auth: inherit
 docs: |
-  Hisobni to'ldirish ("Hisobni to'ldirish" modali). Buyurtmaga bog'liq emas:
-  purpose=wallet_topup bo'lgan Payment yaratiladi va gateway sessiyasi ochiladi.
-  Gateway muvaffaqiyatli webhook yuborgach, balans LedgerService::recordCandidateTopup
-  orqali kreditlanadi.
+  # POST /mobile/wallet/topup
 
-  **Auth:** `access_token` (nomzod).
+  Hamyonni to'ldirish ("Hisobni to'ldirish" modali). Buyurtmaga bog'liq EMAS:
+  ichida `purpose=wallet_topup`, `service_order_id=null` bo'lgan `Payment` yaratiladi
+  va tanlangan gateway'dan to'lov sessiyasi (`redirect_url`) olinadi. Gateway
+  muvaffaqiyatli webhook yuborgach, `LedgerService::recordCandidateTopup` balansni
+  kreditlaydi (external gateway hisobidan → nomzod hamyoni balansiga).
 
-  ### Request Body
-  | Field | Type | Required | Description |
+  **Auth:** `access_token` (nomzod). Bearer token majburiy.
+
+  ## Request Body
+  | Maydon | Tip | Majburiy | Izoh |
   |---|---|:---:|---|
-  | `amount` | int | yes | SO'Mda. Minimal 1 000 so'm. |
-  | `provider` | string | yes | `click` yoki `payme` (`manual` mumkin emas). |
-  | `return_url` | string | no | To'lovdan keyin qaytish URL'i. |
+  | `amount` | int | ✅ | To'ldirish summasi **so'mda**. Minimal **1 000 so'm**. Backendda ×100 qilinib tiyinga aylantiriladi. |
+  | `provider` | string | ✅ | `click` yoki `payme`. `manual` MUMKIN EMAS. Provider `.env`da `enabled=true` bo'lishi shart. |
+  | `return_url` | string | ➖ | To'lovdan keyin ilovaga qaytish uchun deep-link / URL. |
 
-  ### Response (201)
+  ## Response (201)
   ```json
   {
     "payment_id": 50,
@@ -43,14 +46,28 @@ docs: |
     "expires_at": 1735650000
   }
   ```
-  Eslatma: `amount` so'mda. Backendda tiyinga aylantiriladi (×100) va gateway'ga
-  tiyinda yuboriladi.
 
-  ### Errors
-  | Code | Reason |
+  | Maydon | Tip | Izoh |
+  |---|---|---|
+  | `payment_id` | int | Yaratilgan `Payment.id`. Gateway account referensi shu (Payme `ac.payment_id`). |
+  | `provider` | string | Tanlangan provider. |
+  | `redirect_url` | string | Foydalanuvchi yo'naltiriladigan checkout URL. |
+  | `amount` | int | So'mda (so'rovdagi `amount` bilan bir xil). |
+  | `currency` | string | `UZS`. |
+  | `expires_at` | int | Sessiya amal qilish muddati (unix timestamp). |
+
+  ## Keyingi qadam
+  Ilova `redirect_url`ga yo'naltiradi. To'lov tugagach:
+  - Holatni `GET /mobile/payments/{payment_id}` bilan polling qilish mumkin, yoki
+  - `GET /mobile/wallet/balance` bilan balans oshganini tekshirish.
+  - Real to'lov gateway webhook orqali tasdiqlanadi (lokal test uchun "3. Top-up
+    Webhook" so'roviga qarang).
+
+  ## Errors
+  | Code | Sabab |
   |---|---|
-  | 400 | Provider yoqilmagan/noto'g'ri, summa minimaldan kichik |
-  | 401 | Token yo'q |
+  | `400` | Provider yoqilmagan/noto'g'ri (`manual` ham), summa minimaldan (`1 000 so'm`) kichik, validatsiya xatosi, gateway xatosi. |
+  | `401` | Token yo'q. |
 settings:
   encodeUrl: true
   timeout: 0

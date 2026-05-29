@@ -7,20 +7,76 @@ http:
   url: '{{base_url}}/mobile/wallet/topups?per-page=20'
   auth: inherit
 docs: |
-  "To'ldirishlar" tab — nomzodning hamyon to'ldirish tarixi (purpose=wallet_topup
-  Payment'lar). Paginatsiya X-Pagination-* header'larida.
+  # GET /mobile/wallet/topups  — "To'ldirishlar" tab
+
+  Nomzodning hamyon to'ldirish tarixi: `purpose=wallet_topup` bo'lgan `Payment`
+  yozuvlari (barcha statuslar), `id` bo'yicha kamayish tartibida.
 
   **Auth:** `access_token` (nomzod).
 
-  ### Response (200) — Payment DTO ro'yxati (amount so'mda)
+  ## Query parametrlari (paginatsiya)
+  | Param | Default | Izoh |
+  |---|---|---|
+  | `per-page` | 20 | Sahifadagi yozuvlar (1–100). |
+  | `page` | 1 | Sahifa raqami. |
+
+  Paginatsiya meta'si **header**larda qaytadi:
+  `X-Pagination-Total-Count`, `X-Pagination-Page-Count`,
+  `X-Pagination-Current-Page`, `X-Pagination-Per-Page`.
+
+  ## Response (200) — `Payment` DTO ro'yxati (amount so'mda)
   ```json
   [
     {
-      "id": 50, "provider": "payme", "amount": 50000, "currency": "UZS",
-      "status": 3, "status_label": "Success", "paid_at": 1735650000, "created_at": 1735649000
+      "id": 50,
+      "transaction_id": 88,
+      "provider": "payme",
+      "provider_payment_id": "65a2d6b89c2f4d3b8e9f1234",
+      "amount": 50000,
+      "currency": "UZS",
+      "status": 3,
+      "status_label": "Success",
+      "service_order_id": null,
+      "candidate_id": 12,
+      "organization_id": null,
+      "redirect_url": "https://checkout.paycom.uz/<base64>",
+      "expires_at": 1735650000,
+      "paid_at": 1735649800,
+      "failed_reason": null,
+      "created_at": 1735649000
     }
   ]
   ```
+
+  | Maydon | Tip | Izoh |
+  |---|---|---|
+  | `id` | int | Payment id. |
+  | `transaction_id` | int\|null | Muvaffaqiyatli to'lovda ledger Transaction id. |
+  | `provider` | string | `click` / `payme`. |
+  | `provider_payment_id` | string\|null | Gateway tx id (yoki boshlang'ich `pending-...`). |
+  | `amount` | int | To'ldirish summasi (so'm). |
+  | `currency` | string | `UZS`. |
+  | `status` | int | Quyidagi jadval. |
+  | `status_label` | string | Status nomi. |
+  | `service_order_id` | null | Top-up'da doim `null`. |
+  | `paid_at` | int\|null | To'langan vaqt (unix). |
+  | `failed_reason` | string\|null | Xato sababi (agar bo'lsa). |
+  | `created_at` | int | Yaratilgan vaqt (unix). |
+
+  ## Payment status kodlari
+  | Status | Label |
+  |---|---|
+  | 1 | Initiated |
+  | 2 | Pending |
+  | 3 | Success |
+  | 4 | Failed |
+  | 5 | Cancelled |
+  | 6 | Refunded |
+
+  ## Errors
+  | Code | Sabab |
+  |---|---|
+  | `401` | Token yo'q. |
 settings:
   encodeUrl: true
   timeout: 0

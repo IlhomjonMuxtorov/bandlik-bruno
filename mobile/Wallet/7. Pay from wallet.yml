@@ -16,21 +16,27 @@ http:
       }
   auth: inherit
 docs: |
-  Mavjud xizmat buyurtmasini (Notarius, Sug'urta, Viza, kurs, ...) nomzod hamyoni
-  balansidan to'lash. Gateway CHAQIRILMAYDI. Buyurtmaning qolgan summasi to'liq
-  yechiladi; balans yetmasa 400 qaytadi.
+  # POST /mobile/wallet/pay
 
-  Kurs sotib olish uchun alohida endpoint bor: `POST /mobile/courses/<id>/purchase`
-  (buyurtma yaratib, darhol balansdan to'laydi).
+  Mavjud xizmat buyurtmasini (Notarius, Sug'urta, Viza, kurs, ...) nomzod hamyoni
+  **balansidan** to'lash. Gateway CHAQIRILMAYDI — to'lov ichki ledger orqali bo'ladi:
+  nomzod hamyonidan yechiladi, komissiya platformaga, qolgani (escrow rejimida) hold'ga
+  yoki (direct rejimda) tashkilot hamyoniga o'tadi.
+
+  Buyurtmaning **qolgan to'liq summasi** (`amount − paid_amount`) yechiladi.
+
+  > Kurs sotib olish uchun alohida, qulayroq endpoint bor:
+  > `POST /mobile/courses/<id>/purchase` — buyurtma yaratib (yoki mavjud to'lanmaganini
+  > qayta ishlatib), darhol balansdan to'laydi.
 
   **Auth:** `access_token` (nomzod).
 
-  ### Request Body
-  | Field | Type | Required | Description |
+  ## Request Body
+  | Maydon | Tip | Majburiy | Izoh |
   |---|---|:---:|---|
-  | `service_order_id` | int | yes | To'lanadigan OrganizationServiceOrder.id |
+  | `service_order_id` | int | ✅ | To'lanadigan `OrganizationServiceOrder.id`. Buyurtma joriy nomzodga tegishli (yoki `candidate_id = null`) bo'lishi shart. |
 
-  ### Response (201) — summalar so'mda
+  ## Response (201) — summalar so'mda
   ```json
   {
     "order_id": 7,
@@ -41,11 +47,19 @@ docs: |
   }
   ```
 
-  ### Balans yetmasa — 402 Payment Required
-  Balans yetmasa to'lov amalga oshmaydi va quyidagi javob qaytadi. Ilova shu yerda
-  "Balansni to'ldiring" oynasini ko'rsatib, `shortfall` summasi bilan
-  `POST /mobile/wallet/topup` (Click/Payme) oqimiga yo'naltiradi. To'ldirgach
-  shu so'rovni qayta yuboradi.
+  | Maydon | Tip | Izoh |
+  |---|---|---|
+  | `order_id` | int | To'langan buyurtma id. |
+  | `transaction_id` | int | Yaratilgan ledger Transaction id. |
+  | `amount` | int | Yechilgan summa (so'm). |
+  | `currency` | string | `UZS`. |
+  | `paid` | bool | Doim `true` (muvaffaqiyatda). |
+
+  ## Balans yetmasa — 402 Payment Required
+  Balans yetmasa to'lov amalga oshmaydi va quyidagi javob qaytadi (summalar so'mda).
+  Ilova "Balansni to'ldiring" oynasini ko'rsatib, `shortfall` summasi bilan
+  `POST /mobile/wallet/topup` (Click/Payme) oqimiga yo'naltiradi; to'ldirgach shu
+  so'rovni qayta yuboradi.
   ```json
   {
     "status_code": 402,
@@ -57,14 +71,25 @@ docs: |
     "shortfall": 161000
   }
   ```
-
-  ### Errors
-  | Code | Reason |
+  | Maydon | Izoh |
   |---|---|
-  | 402 | Balans yetarli emas (`insufficient_balance: true`, `shortfall` bilan) |
-  | 400 | Order to'liq to'langan, boshqa nomzod orderi |
-  | 401 | Token yo'q |
-  | 404 | Buyurtma topilmadi |
+  | `insufficient_balance` | Doim `true` — ilova shu flag bo'yicha to'ldirish oynasiga o'tadi. |
+  | `required` | To'lov uchun kerakli summa (so'm). |
+  | `available` | Joriy mavjud balans (so'm). |
+  | `shortfall` | Yetishmayotgan summa (so'm) — to'ldirish oynasini shu bilan to'ldiring. |
+
+  ## Idempotentlik
+  Buyurtma to'langach `paid_amount` to'liq bo'ladi; takroriy so'rov **400 "Order is
+  already paid"** qaytaradi (ikki marta yechilmaydi). Ledger darajasida ham
+  `wallet_payment:order:{id}` idempotency kaliti himoya qiladi.
+
+  ## Errors
+  | Code | Sabab |
+  |---|---|
+  | `402` | Balans yetarli emas (`insufficient_balance: true`, `shortfall` bilan). |
+  | `400` | Buyurtma to'liq to'langan, yoki boshqa nomzodning buyurtmasi. |
+  | `401` | Token yo'q. |
+  | `404` | Buyurtma topilmadi. |
 settings:
   encodeUrl: true
   timeout: 0
