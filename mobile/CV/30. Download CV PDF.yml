@@ -1,0 +1,66 @@
+info:
+  name: Download CV PDF
+  type: http
+  seq: 30
+http:
+  method: GET
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/download-pdf'
+  headers:
+  - name: Accept
+    value: application/pdf
+  auth: inherit
+docs: 'Nomzodning CV-sini PDF fayl sifatida yuklab oladi. Zamonaviy ikki ustunli
+  rezyume shabloni (chap tomonda to''q rangli sidebar: aloqa, tillar, haydovchilik
+  guvohnomasi; o''ng tomonda: shaxsiy ma''lumotlar, ish tajribasi, ta''lim, kurslar,
+  vizalar, oila). Til (uz/ru/en) qurilma JWT-dagi `device_id` orqali aniqlanadi.
+
+
+  **Auth:** `access_token`.
+
+
+  ### 📋 Path Params
+
+
+  | Param | Type | Description |
+
+  |---|---|---|
+
+  | `cv_id` | int | CV ID |
+
+
+  ### 📤 Response
+
+
+  Binary PDF fayl.
+
+
+  | Header | Value |
+
+  |---|---|
+
+  | `Content-Type` | `application/pdf` |
+
+  | `Content-Disposition` | `attachment; filename="<F.I.Sh>.pdf"` |
+
+
+  > Bruno-da javobni ko''rish uchun **Response → Save Response** orqali `.pdf`
+  qilib saqlang.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q |
+
+  | `404` | CV topilmadi yoki boshqa nomzodga tegishli |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
