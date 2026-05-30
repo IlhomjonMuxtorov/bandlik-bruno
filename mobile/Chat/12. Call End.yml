@@ -1,0 +1,46 @@
+info:
+  name: Call End
+  type: http
+  seq: 12
+http:
+  method: POST
+  url: '{{base_url}}/mobile/chats/1/call-end'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"call_message_id\": 0,\n  \"duration_seconds\": 0\n}"
+  auth: inherit
+docs: |
+  Qo'ng'iroq tugatildi — davomiyligi va `ended_at` `system_payload` ga yoziladi (UI da "00:32" ko'rsatish uchun).
+
+  **Auth:** `access_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `call_message_id` | int | ✅ | `ChatMessage.id` (`type=call`) |
+  | `duration_seconds` | int | ✅ | Qo'ng'iroq davomiyligi (sekundlarda) |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `status` | string | Doim `ended` |
+  | `duration_seconds` | int | Yozilgan davomiyligi |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `call_message_id` noto'g'ri |
+  | `401` | Token yo'q |
+  | `403` | Chat boshqa nomzodga tegishli |
+  | `404` | Call message topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

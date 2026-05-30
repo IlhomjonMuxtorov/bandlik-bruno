@@ -1,0 +1,34 @@
+info:
+  name: Unmute Chat
+  type: http
+  seq: 8
+http:
+  method: POST
+  url: '{{base_url}}/mobile/chats/1/unmute'
+  headers: []
+  body:
+    type: none
+  auth: inherit
+docs: |
+  Chat uchun avval o'rnatilgan mute'ni bekor qiladi. Push'lar darhol qayta keladi.
+
+  **Auth:** `access_token`.
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `muted_until` | null | Doim `null` (mute o'chirildi) |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Chat boshqa nomzodga tegishli |
+  | `404` | Chat topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

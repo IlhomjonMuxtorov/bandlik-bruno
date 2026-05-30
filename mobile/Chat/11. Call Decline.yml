@@ -1,0 +1,46 @@
+info:
+  name: Call Decline
+  type: http
+  seq: 11
+http:
+  method: POST
+  url: '{{base_url}}/mobile/chats/1/call-decline'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"call_message_id\": 0\n}"
+  auth: inherit
+docs: |
+  Kiruvchi qo'ng'iroqni rad etish. Asl `call` system message'ning `system_payload` ga `{outcome: "declined", ended_by, ended_at}` yoziladi.
+
+  Frontend `incoming_call` push'ini olgach: foydalanuvchi "rad etish" bossagina shu endpoint chaqiriladi.
+
+  **Auth:** `access_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `call_message_id` | int | ✅ | `ChatMessage.id` (`type=call`) — qaysi qo'ng'iroqni rad etish |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `status` | string | Doim `declined` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `call_message_id` noto'g'ri yoki message turi `call` emas |
+  | `401` | Token yo'q |
+  | `403` | Chat boshqa nomzodga tegishli |
+  | `404` | Call message topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

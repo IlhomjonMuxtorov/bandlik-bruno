@@ -1,0 +1,57 @@
+info:
+  name: Upload File
+  type: http
+  seq: 10
+http:
+  method: POST
+  url: '{{base_url}}/mobile/chats/1/upload'
+  headers: []
+  body:
+    type: multipartForm
+    multipartForm:
+    - name: file
+      type: file
+      value: []
+  auth: inherit
+docs: |
+  Chat uchun fayl yuklaydi (rasm/PDF/voice). Olingan `id` keyin `POST /mobile/chats/{id}/messages` chaqiruvida `attachment_upload_file_id` sifatida ishlatiladi.
+
+  Ruxsat berilgan fayl turlari: `jpg`, `jpeg`, `png`, `gif`, `webp`, `pdf`, `doc`, `docx`, `xls`, `xlsx`, `mp3`, `m4a`, `aac`, `ogg`, `opus`, `wav`, `webm`.
+
+  Maksimum hajm: 10 MB (audio uchun 25 MB).
+
+  **Auth:** `access_token`.
+
+  ### 📥 Request Body (multipart/form-data)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `file` | file | ✅ | Yuklanadigan fayl |
+
+  ### 📤 Response (`201`)
+
+  `UploadFileOutputDTO`:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | UploadFile primary key |
+  | `uuid` | string | UUIDv4 |
+  | `url` | string | Public CDN url (storage host) |
+  | `original_name` | string | Yuklangan asl fayl nomi |
+  | `file_size` | int | Bytes |
+  | `file_kind` | string | `pdf` \| `image` \| `audio` \| `word` \| `excel` \| `other` ... |
+  | `file_kind_icon_url` | string \| null | UI ikonkasi uchun URL |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Fayl yo'q yoki ruxsat berilmagan turi/hajmi, MIME server tomonida tasdiqlanmadi |
+  | `401` | Token yo'q |
+  | `403` | Chat boshqa nomzodga tegishli |
+  | `404` | Chat topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

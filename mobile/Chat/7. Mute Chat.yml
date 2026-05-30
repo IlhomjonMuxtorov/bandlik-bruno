@@ -1,0 +1,46 @@
+info:
+  name: Mute Chat
+  type: http
+  seq: 7
+http:
+  method: POST
+  url: '{{base_url}}/mobile/chats/1/mute'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"duration\": \"1h\"\n}"
+  auth: inherit
+docs: |
+  Notification push'larini ushbu chat uchun belgilangan vaqtga bostiradi. Xabarlar baribir saqlanadi va `Mark as Read` orqali o'qish mumkin — faqat FCM/APNS push tushmaydi.
+
+  Lazy participant row: birinchi marta `mute`/`unmute`/`hide` chaqirilganda `chat_conversation_user` ga row yaratiladi.
+
+  **Auth:** `access_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `duration` | string | ✅ | `1h` \| `8h` \| `1d` \| `forever` |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `muted_until` | int \| string | Unix ts qachongacha mute, yoki `"forever"` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Noto'g'ri `duration` qiymati |
+  | `401` | Token yo'q |
+  | `403` | Chat boshqa nomzodga tegishli |
+  | `404` | Chat topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
