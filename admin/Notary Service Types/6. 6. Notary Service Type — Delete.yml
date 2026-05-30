@@ -1,0 +1,28 @@
+info:
+  name: 6. Notary Service Type — Delete
+  type: http
+  seq: 6
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/notary-service-types/1'
+  auth: inherit
+docs: '**Smart delete**:
+
+
+  - Xizmat turi `notary_apostille_price` yoki `notary_other_service_price` da ishlatilgan
+  bo''lsa → `is_active=false` (archive)
+
+  - Hech qaerda ishlatilmagan bo''lsa → hard `DELETE`
+
+
+  Javobda `{deleted: bool, archived: bool}` qaytadi.
+
+
+  **Auth:** `admin_token`.
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

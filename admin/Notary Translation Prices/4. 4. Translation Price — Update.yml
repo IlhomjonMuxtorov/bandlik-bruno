@@ -1,0 +1,30 @@
+info:
+  name: 4. Translation Price — Update
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{base_url}}/admin/notary-translation-prices/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"price\": 180000,\n  \"sort_order\": 1\n}"
+  auth: inherit
+docs: 'Tarjima narxini yangilash. PATCH semantikasi — faqat yuborilgan maydonlar
+  tegishli bo''ladi.
+
+
+  **⚠️ Diqqat:** narx satrini o''zgartirsangiz, mavjud `vacancy_service` snapshotlari
+  saqlanib qoladi (vakansiya umumiy summasi o''zgarmaydi).
+
+
+  **Auth:** `admin_token`.
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

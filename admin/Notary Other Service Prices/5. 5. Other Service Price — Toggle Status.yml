@@ -1,0 +1,19 @@
+info:
+  name: 5. Other Service Price — Toggle Status
+  type: http
+  seq: 5
+http:
+  method: PATCH
+  url: '{{base_url}}/admin/notary-other-service-prices/1/toggle-status'
+  auth: inherit
+docs: '`is_active` qiymatini teskariga aylantiradi.
+
+
+  **Auth:** `admin_token`.
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

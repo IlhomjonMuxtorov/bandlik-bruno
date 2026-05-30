@@ -31,6 +31,11 @@ Global SkillHub API dokumentatsiyasi Bruno formatida.
     ├── 🏢 XBA Organizations/
     ├── 🛂 Visa Organizations/
     ├── 🏛️ Notarius Organizations/
+    ├── 📜 Notary Document Types/      # Reference: hujjat turlari (Pasport, Diplom, …)
+    ├── 🏷️ Notary Service Types/       # Reference: xizmat turlari (apostille | other)
+    ├── 🌐 Notary Translation Prices/  # Per-org tarjima narx-katalogi
+    ├── ✒️ Notary Apostille Prices/    # Per-org apostil / notarial tasdiqlash narxlari
+    ├── 📄 Notary Other Service Prices/ # Per-org boshqa xizmatlar narxlari
     ├── 🚚 Logistika Organizations/
     ├── 🛡️ Sug'urta Organizations/
     ├── 🏢 Ish beruvchi Organizations/

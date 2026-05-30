@@ -1,0 +1,6 @@
+info:
+  name: Notary Translation Prices
+  type: folder
+  seq: 52
+request:
+  auth: inherit

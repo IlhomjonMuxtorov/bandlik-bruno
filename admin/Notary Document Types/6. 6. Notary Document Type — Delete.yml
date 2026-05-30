@@ -1,0 +1,28 @@
+info:
+  name: 6. Notary Document Type — Delete
+  type: http
+  seq: 6
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/notary-document-types/1'
+  auth: inherit
+docs: '**Smart delete**:
+
+
+  - Hujjat turi `notary_translation_price` yoki `notary_apostille_price` da ishlatilgan
+  bo''lsa → `is_active=false` (archive, FK `ON DELETE RESTRICT` himoyasi sababli)
+
+  - Hech qaerda ishlatilmagan bo''lsa → hard `DELETE`
+
+
+  Javobda `{deleted: bool, archived: bool}` qaytadi.
+
+
+  **Auth:** `admin_token`.
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,25 @@
+info:
+  name: 4. Other Service Price — Update
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{base_url}}/admin/notary-other-service-prices/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"price\": 90000\n}"
+  auth: inherit
+docs: 'Boshqa xizmat narxini yangilash. PATCH semantikasi.
+
+
+  **Auth:** `admin_token`.
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
