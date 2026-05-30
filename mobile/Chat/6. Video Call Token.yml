@@ -20,7 +20,7 @@ docs: |
   |---|---|---|
   | `token` | string | HS256 JWT |
   | `room_name` | string | `bandlik-chat-{conversation_id}-{shortRandom}` |
-  | `domain` | string | `JITSI_DOMAIN` (e.g. `meet.jit.si`) |
+  | `domain` | string | `JITSI_DOMAIN` — host[:port] mijoz ulanadigan server (masalan `meet.isft.uz:8443`). Mijoz URL'ni quradi: `https://{domain}/{room_name}?jwt={token}` |
   | `expires_at` | int | unix ts (default 2h) |
 
   ### 📋 JWT Claims
@@ -29,7 +29,7 @@ docs: |
   {
     "aud": "jitsi",
     "iss": "JITSI_APP_ID",
-    "sub": "JITSI_DOMAIN",
+    "sub": "JITSI_JWT_SUB",
     "room": "*",
     "iat": 1700000000,
     "exp": 1700007200,
@@ -37,6 +37,8 @@ docs: |
     "context": { "user": { "id": "..", "name": "..", "email": "..", "avatar": "" } }
   }
   ```
+
+  > **Eslatma:** `sub` claim odatda `JITSI_DOMAIN`'dan farq qiladi — bu Jitsi server `mod_auth_token` kutadigan tenant identifikatori (masalan `lms.isft.uz`). `JITSI_JWT_SUB` env o'rnatilmasa, `JITSI_DOMAIN`'ga qaytadi.
 
   ### ⚠️ Errors
 
