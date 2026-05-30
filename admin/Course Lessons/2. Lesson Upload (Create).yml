@@ -25,7 +25,7 @@ http:
       value: '0'
   auth: inherit
 docs: |-
-  Kursga yangi dars qo'shadi — bitta **Articulate (Storyline) zip** yuklash orqali. Zip serverga ochiladi (`@api/web/articulate/{random}/`), `index.html`/`lms.js` ga event ko'prigi inject qilinadi, `tincan.xml` parse qilinib modul/quiz strukturasi yaratiladi. `educational_course.lessons_count` yangilanadi.
+  Kursga yangi dars qo'shadi — bitta **Articulate (Storyline) zip** yuklash orqali. Zip storage sub-app'iga ochiladi (`@storage/web/source/articulate/{random}/`) va `@storageUrl/source/articulate/{random}/index.html` orqali public xizmat qilinadi. `index.html`/`lms.js` ga event ko'prigi inject qilinadi, `tincan.xml` parse qilinib modul/quiz strukturasi yaratiladi. `educational_course.lessons_count` yangilanadi. Javobdagi `entry_url` — to'liq public URL.
 
   **Auth:** `admin_token`. **Content-Type:** `multipart/form-data`.
 

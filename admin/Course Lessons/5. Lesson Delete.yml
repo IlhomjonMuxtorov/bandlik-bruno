@@ -7,7 +7,7 @@ http:
   url: '{{base_url}}/admin/lessons/1'
   auth: inherit
 docs: |-
-  Darsni o'chiradi. DB yozuvlari (modul/quiz/progress — FK cascade) va extract qilingan papka (`@api/web/articulate/{random}`) o'chiriladi; `educational_course.lessons_count` yangilanadi.
+  Darsni o'chiradi. DB yozuvlari (modul/quiz/progress — FK cascade) va extract qilingan papka (`@storage/web/source/articulate/{random}`) o'chiriladi; `educational_course.lessons_count` yangilanadi.
 
   **Auth:** `admin_token`.
 
