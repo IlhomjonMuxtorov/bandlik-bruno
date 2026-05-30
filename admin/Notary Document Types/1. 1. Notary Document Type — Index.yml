@@ -1,0 +1,58 @@
+info:
+  name: 1. Notary Document Type — Index
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/notary-document-types?per-page=20'
+  auth: inherit
+docs: 'Notarius hujjat turlari ro''yxati (Pasport, Diplom, Tug''ilganlik haqida guvohnoma, …).
+  Skrinshotdagi "Hujjat turi" dropdownini to''ldirish uchun ishlatiladi.
+
+
+  **Auth:** `admin_token`.
+
+
+  ### 🔎 Query Parameters
+
+
+  | Param | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `q` | string | ➖ | `code` yoki `name->>''uz''/''ru''/''en''` bo''yicha ILIKE |
+
+  | `is_active` | int (0\|1) | ➖ | |
+
+  | `page`, `per-page` | int | ➖ | Pagination |
+
+  | `sort` | string | ➖ | `id` \| `sort_order` \| `code` \| `created_at` |
+
+
+  ### 📤 Response (`data.items[]`)
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `id` | int | |
+
+  | `code` | string | `passport`, `diploma`, … |
+
+  | `name` | object | `{uz, ru, en}` JSONB |
+
+  | `name_localized` | string | `Accept-Language` header bo''yicha tanlangan til |
+
+  | `is_active` | bool | |
+
+  | `sort_order` | int | |
+
+  | `created_at` / `updated_at` | int | |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,6 @@
+info:
+  name: Notary Other Service Prices
+  type: folder
+  seq: 54
+request:
+  auth: inherit

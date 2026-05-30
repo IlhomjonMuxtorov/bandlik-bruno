@@ -1,0 +1,73 @@
+info:
+  name: 3. Translation Price — Create
+  type: http
+  seq: 3
+http:
+  method: POST
+  url: '{{base_url}}/admin/notary-translation-prices'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"organization_id\": 2,\n  \"notary_document_type_id\": 1,\n  \"source_language_id\"\
+      : 1,\n  \"target_language_id\": 5,\n  \"price\": 150000,\n  \"currency\": \"\
+      UZS\",\n  \"is_active\": 1,\n  \"sort_order\": 0\n}"
+  auth: inherit
+docs: 'Yangi tarjima narx satrini yaratadi. Bir tashkilot uchun bir xil
+  `(doc × src → tgt)` faqat bir marta yaratiladi.
+
+
+  **Auth:** `admin_token`.
+
+
+  ### 📥 Request Body (JSON)
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `organization_id` | int | ✅ | `organization.id` — turi `NOTARIUS` (=2) bo''lishi
+  shart |
+
+  | `notary_document_type_id` | int | ✅ | `notary_document_type.id` (active bo''lishi
+  shart) |
+
+  | `source_language_id` | int | ✅ | `language.id` (manba til) |
+
+  | `target_language_id` | int | ✅ | `language.id` (tarjima tili) — manbadan farqli
+  bo''lishi shart |
+
+  | `price` | int | ✅ | ≥ 0 |
+
+  | `currency` | string | ➖ | Default `UZS` |
+
+  | `is_active` | bool (0\|1) | ➖ | Default `1` |
+
+  | `sort_order` | int | ➖ | Default `0` |
+
+
+  ### 📤 Response
+
+
+  `201` — `NotaryTranslationPriceOutputDTO`.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `422` | `(org, doc, src, tgt)` allaqachon mavjud → "A translation price for this
+  combination already exists"; `src == tgt` → "Source and target language must differ";
+  `organization_id` notarius emas → "Organization must be a notary (NOTARIUS)" |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

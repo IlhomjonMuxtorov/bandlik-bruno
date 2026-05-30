@@ -1,0 +1,6 @@
+info:
+  name: Notary Service Types
+  type: folder
+  seq: 51
+request:
+  auth: inherit

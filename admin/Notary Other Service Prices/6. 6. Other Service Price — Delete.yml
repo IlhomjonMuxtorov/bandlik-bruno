@@ -1,0 +1,20 @@
+info:
+  name: 6. Other Service Price — Delete
+  type: http
+  seq: 6
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/notary-other-service-prices/1'
+  auth: inherit
+docs: '**Hard delete**. Mavjud `vacancy_service.notary_other_service_price_id`
+  havolasi `SET NULL` bo''ladi.
+
+
+  **Auth:** `admin_token`.
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,6 @@
+info:
+  name: Notary Apostille Prices
+  type: folder
+  seq: 53
+request:
+  auth: inherit

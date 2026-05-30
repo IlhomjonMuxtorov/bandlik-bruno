@@ -1,0 +1,19 @@
+info:
+  name: 5. Notary Service Type — Toggle Status
+  type: http
+  seq: 5
+http:
+  method: PATCH
+  url: '{{base_url}}/admin/notary-service-types/1/toggle-status'
+  auth: inherit
+docs: 'Xizmat turining `is_active` qiymatini teskariga aylantiradi.
+
+
+  **Auth:** `admin_token`.
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

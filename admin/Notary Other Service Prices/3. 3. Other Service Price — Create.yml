@@ -1,0 +1,65 @@
+info:
+  name: 3. Other Service Price — Create
+  type: http
+  seq: 3
+http:
+  method: POST
+  url: '{{base_url}}/admin/notary-other-service-prices'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"organization_id\": 2,\n  \"notary_service_type_id\": 3,\n  \"price\"\
+      : 80000,\n  \"currency\": \"UZS\",\n  \"is_active\": 1,\n  \"sort_order\": 0\n\
+      }"
+  auth: inherit
+docs: 'Yangi "boshqa xizmat" narx satrini yaratadi.
+
+
+  **Auth:** `admin_token`.
+
+
+  ### 📥 Request Body (JSON)
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `organization_id` | int | ✅ | Notarius tashkilot |
+
+  | `notary_service_type_id` | int | ✅ | `category=other` bo''lishi shart |
+
+  | `price` | int | ✅ | ≥ 0 |
+
+  | `currency` | string | ➖ | Default `UZS` |
+
+  | `is_active` | bool (0\|1) | ➖ | Default `1` |
+
+  | `sort_order` | int | ➖ | Default `0` |
+
+
+  ### 📤 Response
+
+
+  `201` — `NotaryOtherServicePriceOutputDTO`.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `422` | `(org, svc)` allaqachon mavjud → "A price for this service already exists";
+  `service_type.category != other` → "Service type must belong to the other category";
+  `organization_id` notarius emas |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

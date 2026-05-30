@@ -1,0 +1,40 @@
+info:
+  name: 4. Notary Document Type — Update
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{base_url}}/admin/notary-document-types/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": {\n    \"uz\": \"Pasport (yangilangan)\",\n    \"ru\": \"\
+      Паспорт (обновлено)\",\n    \"en\": \"Passport (updated)\"\n  },\n  \"sort_order\"\
+      : 1\n}"
+  auth: inherit
+docs: 'Faqat yuborilgan maydonlar yangilanadi (PATCH semantikasi). `code` ham o''zgartirilishi
+  mumkin, lekin unique constraint saqlanadi.
+
+
+  **Auth:** `admin_token`.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `404` | Topilmadi |
+
+  | `422` | Validatsiya xatosi |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

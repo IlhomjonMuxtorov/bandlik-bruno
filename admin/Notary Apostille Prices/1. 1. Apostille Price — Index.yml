@@ -1,0 +1,69 @@
+info:
+  name: 1. Apostille Price — Index
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/notary-apostille-prices?organization_id=2&per-page=20'
+  auth: inherit
+docs: 'Notarius tashkilotining "Apostil va notarial tasdiqlash" narx-katalogi:
+  har bir `(hujjat turi × xizmat turi)` uchun alohida satr.
+
+
+  Skrinshotdagi forma misol: `Diplom` → `Apostil`=0, `Diplom` → `Notarial tasdiqlash`=0.
+
+
+  **Auth:** `admin_token`.
+
+
+  ### 🔎 Query Parameters
+
+
+  | Param | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `organization_id` | int | ➖ | Faqat ushbu notarius narxlari |
+
+  | `notary_document_type_id` | int | ➖ | |
+
+  | `notary_service_type_id` | int | ➖ | Faqat `category=apostille` xizmat turlari |
+
+  | `is_active` | int (0\|1) | ➖ | |
+
+  | `page`, `per-page` | int | ➖ | Pagination |
+
+  | `sort` | string | ➖ | `id` \| `sort_order` \| `price` \| `created_at` |
+
+
+  ### 📤 Response (`data.items[]` — `NotaryApostillePriceOutputDTO`)
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `id` | int | |
+
+  | `organization_id` | int | |
+
+  | `document_type` | object | `{id, code, name, name_localized}` |
+
+  | `service_type` | object | `{id, category, code, name, name_localized}` — `category=apostille` |
+
+  | `price` | int | |
+
+  | `currency` | string | |
+
+  | `is_active` | bool | |
+
+  | `sort_order` | int | |
+
+  | `created_at` / `updated_at` | int | |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,6 @@
+info:
+  name: Notary Document Types
+  type: folder
+  seq: 50
+request:
+  auth: inherit

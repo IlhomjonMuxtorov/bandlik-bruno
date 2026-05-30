@@ -1,0 +1,65 @@
+info:
+  name: 1. Other Service Price — Index
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/notary-other-service-prices?organization_id=2&per-page=20'
+  auth: inherit
+docs: 'Notarius tashkilotining "Boshqa xizmatlar" narx-katalogi: faqat
+  `xizmat turi` → narx (hujjat turi yo''q).
+
+
+  Skrinshotdagi forma: `Ishonchnoma` → 0, `Nusxa olish` → …
+
+
+  **Auth:** `admin_token`.
+
+
+  ### 🔎 Query Parameters
+
+
+  | Param | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `organization_id` | int | ➖ | Faqat ushbu notarius narxlari |
+
+  | `notary_service_type_id` | int | ➖ | Faqat `category=other` xizmat turlari |
+
+  | `is_active` | int (0\|1) | ➖ | |
+
+  | `page`, `per-page` | int | ➖ | Pagination |
+
+  | `sort` | string | ➖ | `id` \| `sort_order` \| `price` \| `created_at` |
+
+
+  ### 📤 Response (`data.items[]` — `NotaryOtherServicePriceOutputDTO`)
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `id` | int | |
+
+  | `organization_id` | int | |
+
+  | `service_type` | object | `{id, category, code, name, name_localized}` — `category=other` |
+
+  | `price` | int | |
+
+  | `currency` | string | |
+
+  | `is_active` | bool | |
+
+  | `sort_order` | int | |
+
+  | `created_at` / `updated_at` | int | |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

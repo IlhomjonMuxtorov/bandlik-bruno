@@ -1,0 +1,74 @@
+info:
+  name: 1. Translation Price — Index
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/notary-translation-prices?organization_id=2&per-page=20'
+  auth: inherit
+docs: 'Notarius tashkilotining tarjima narx-katalogi: har bir
+  `(hujjat turi × manba til → tarjima tili)` uchun alohida satr.
+
+
+  Skrinshotdagi "Tarjima" formada ushbu satrlar ko''rsatiladi (Pasport: O''zbek→Fransuz=0,
+  O''zbek→Nemis=1000, Nemis→O''zbek=20000, …).
+
+
+  **Auth:** `admin_token`.
+
+
+  ### 🔎 Query Parameters
+
+
+  | Param | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `organization_id` | int | ➖ | Faqat ushbu notarius narxlari |
+
+  | `notary_document_type_id` | int | ➖ | Faqat ushbu hujjat turi |
+
+  | `source_language_id` | int | ➖ | Manba til |
+
+  | `target_language_id` | int | ➖ | Tarjima tili |
+
+  | `is_active` | int (0\|1) | ➖ | |
+
+  | `page`, `per-page` | int | ➖ | Pagination |
+
+  | `sort` | string | ➖ | `id` \| `sort_order` \| `price` \| `created_at` |
+
+
+  ### 📤 Response (`data.items[]` — `NotaryTranslationPriceOutputDTO`)
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `id` | int | |
+
+  | `organization_id` | int | |
+
+  | `document_type` | object | `{id, code, name, name_localized}` |
+
+  | `source_language` | object | `{id, iso_code, name}` |
+
+  | `target_language` | object | `{id, iso_code, name}` |
+
+  | `price` | int | UZS so''mda |
+
+  | `currency` | string | `UZS` \| `USD` \| `EUR` |
+
+  | `is_active` | bool | |
+
+  | `sort_order` | int | |
+
+  | `created_at` / `updated_at` | int | |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

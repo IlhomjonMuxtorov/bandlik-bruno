@@ -1,0 +1,20 @@
+info:
+  name: 5. Translation Price — Toggle Status
+  type: http
+  seq: 5
+http:
+  method: PATCH
+  url: '{{base_url}}/admin/notary-translation-prices/1/toggle-status'
+  auth: inherit
+docs: 'Narx satrining `is_active` qiymatini teskariga aylantiradi. Vakansiya
+  formasidagi tanlovdan yashirish uchun.
+
+
+  **Auth:** `admin_token`.
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

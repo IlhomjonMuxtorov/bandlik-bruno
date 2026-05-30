@@ -1,0 +1,78 @@
+info:
+  name: 1. Notary Service Type — Index
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/notary-service-types?category=apostille&per-page=20'
+  auth: inherit
+docs: 'Notarius xizmat turlari. `category` filtri "Apostil va notarial tasdiqlash"
+  yoki "Boshqa xizmatlar" formalarining dropdownini to''ldirish uchun ishlatiladi.
+
+
+  **Auth:** `admin_token`.
+
+
+  ### 🔎 Query Parameters
+
+
+  | Param | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `category` | string | ➖ | `apostille` \| `other` |
+
+  | `q` | string | ➖ | `code` yoki `name->>''uz''/''ru''/''en''` ILIKE |
+
+  | `is_active` | int (0\|1) | ➖ | |
+
+  | `page`, `per-page` | int | ➖ | Pagination |
+
+  | `sort` | string | ➖ | `id` \| `sort_order` \| `code` \| `category` \| `created_at` |
+
+
+  ### 📤 Response (`data.items[]`)
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `id` | int | |
+
+  | `category` | string | `apostille` \| `other` |
+
+  | `category_label` | string | "Apostille and notarization" / "Other notary services"
+  (lokalize) |
+
+  | `code` | string | `apostille`, `notarial_confirm`, `power_of_attorney`, … |
+
+  | `name` | object | `{uz, ru, en}` JSONB |
+
+  | `name_localized` | string | `Accept-Language` bo''yicha |
+
+  | `is_active` | bool | |
+
+  | `sort_order` | int | |
+
+  | `created_at` / `updated_at` | int | |
+
+
+  ### 🌱 Seeded data
+
+
+  - `category=apostille`: Apostil, Notarial tasdiqlash (2 ta)
+
+  - `category=other`: Ishonchnoma, Nusxa olish (kopiya), Notarial tasdiqlash, Tezkor
+  tarjima, Tahrir / proofreading, Kuryer xizmati, Skanerlash, Chop etish (8 ta)
+
+
+  "Notarial tasdiqlash" har 2 toifada mavjud — `(category, code)` unique bo''lgani
+  uchun.
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
