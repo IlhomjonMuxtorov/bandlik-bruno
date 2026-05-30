@@ -1,0 +1,52 @@
+info:
+  name: 9. FCM Push Payloads (Reference)
+  type: http
+  seq: 4
+http:
+  method: GET
+  url: '{{base_url}}/mobile/_docs/fcm-payloads'
+  headers: []
+  auth: inherit
+docs: "Bu — **chaqiriladigan endpoint emas**, faqat hujjat. Mobil ilova FCM\
+  \ orqali qabul qiladigan barcha push xabarlarning to'liq tuzilishini va `data` payload\
+  \ kalitlarini ko'rsatadi.\n\n\nBatafsil reference: [docs/FCM_PAYLOADS.md](../../../FCM_PAYLOADS.md)\n\n\
+  \n## Umumiy tuzilish\n\n\nHar bir push xabari 4 ta blokdan iborat:\n\n```json\n{\n\
+  \  \"notification\": { \"title\": \"...\", \"body\": \"...\" },\n  \"data\": { \"\
+  template\": \"<key>\", \"...\": \"...\" },\n  \"android\": { \"priority\": \"high\"\
+  , \"notification\": { \"sound\": \"default\" } },\n  \"apns\": { \"headers\": {\
+  \ \"apns-priority\": \"10\" }, \"payload\": { \"aps\": { \"sound\": \"default\"\
+  , \"content-available\": 1 } } }\n}\n```\n\n\n- `notification.title` va `notification.body`\
+  \ — `user_devices.language` asosida tarjima qilinadi.\n\n- Mobil client `data.template`\
+  \ bo'yicha ekran/handler tanlaydi.\n\n- FCM `data` faqat string→string map (backend\
+  \ avtomatik aylantiradi).\n\n\n---\n\n\n## Templates ro'yxati\n\n\n| Template |\
+  \ Sabab | Asosiy `data` kalitlari |\n\n|---|---|---|\n\n| `visa_ready` | Viza tasdiqlandi\
+  \ | `template`, `name` |\n\n| `payment_received` | To'lov qabul qilindi | `template`,\
+  \ `amount` |\n\n| `new_message` | Yangi chat xabari | `template`, `conversation_id`,\
+  \ `message_id`, `type`, `sender_name`, `preview` |\n\n| `incoming_call` | Jitsi qo'ng'iroq\
+  \ | `template`, `conversation_id`, `message_id`, `type`, `caller_id`, `caller_name`,\
+  \ `jitsi_room`, `jitsi_domain`, `started_at` |\n\n| `application_accepted` | Vakansiya\
+  \ arizasi qabul | `template`, `vacancy_title` |\n\n| `application_rejected` | Vakansiya\
+  \ arizasi rad | `template`, `vacancy_title` |\n\n\n---\n\n\n## `new_message` (chat)\
+  \ — to'liq misol\n\n```json\n{\n  \"notification\": {\n    \"title\": \"Ali\",\n\
+  \    \"body\": \"Salom, ish bo'shmi?\"\n  },\n  \"data\": {\n    \"template\": \"\
+  new_message\",\n    \"conversation_id\": \"42\",\n    \"message_id\": \"12345\"\
+  ,\n    \"type\": \"text\",\n    \"sender_name\": \"Ali\",\n    \"preview\": \"Salom,\
+  \ ish bo'shmi?\"\n  }\n}\n```\n\n\n**Mute:** `chat_conversation_user.muted_until\
+  \ > now()` bo'lsa push yuborilmaydi.\n\n\n---\n\n\n## `incoming_call` — to'liq misol\n\
+  \n```json\n{\n  \"notification\": {\n    \"title\": \"Video call\",\n    \"body\"\
+  : \"Maria is calling you\"\n  },\n  \"data\": {\n    \"template\": \"incoming_call\"\
+  ,\n    \"conversation_id\": \"42\",\n    \"message_id\": \"12346\",\n    \"type\"\
+  : \"call\",\n    \"caller_id\": \"7\",\n    \"caller_name\": \"Maria\",\n    \"\
+  jitsi_room\": \"bandlik-conv-42-1717023456\",\n    \"jitsi_domain\": \"meet.isft.uz:8443\"\
+  ,\n    \"started_at\": \"1717023456\"\n  }\n}\n```\n\n\n**Muhim:** Call push'lar\
+  \ mute'ni e'tibordan chetda qoldiradi (vaqt-sezgir). Mobil tomon:\n\n- iOS: CallKit\
+  \ ringing screen\n\n- Android: ConnectionService / full-screen intent\n\n- Qabul\
+  \ qilingach → Jitsi SDK ga `jitsi_domain` + `jitsi_room` + (alohida olinadigan)\
+  \ JWT bilan ulanish.\n\n\n---\n\n\n## Invalid token cleanup\n\n\nFCM `UNREGISTERED`\
+  \ (NotFound) qaytarsa, `SendPushNotificationJob` qurilmaning `fcm_token` qiymatini\
+  \ `NULL` qiladi va retry qilmaydi. Boshqa xatolar 3 marta urinadi (TTR=60s).\n"
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
