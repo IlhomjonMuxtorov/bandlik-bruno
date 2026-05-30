@@ -6,16 +6,26 @@ http:
   method: GET
   url: '{{base_url}}/admin/educational-courses/1'
   auth: inherit
-docs: "Bitta kurs + `stats` sub-object (mockup'dagi kurs detail sahifasidagi 4 ta\
-  \ karta):\n\n```json\n{\n  \"id\": 1,\n  \"organization_id\": 1,\n  \"name\": \"\
-  A2 Ingliz tili\",\n  \"slug\": \"a2-ingliz-tili\",\n  \"language\": {\"id\": 2,\
-  \ \"iso_code\": \"en\", \"name\": \"Ingliz\"},\n  \"level\": \"A2\",\n  \"price\"\
-  : 124000,\n  \"currency\": \"UZS\",\n  ...,\n  \"stats\": {\n    \"total_revenue\"\
-  : 2004,\n    \"total_students\": 67,\n    \"successful_graduates\": 24,\n    \"\
-  not_completed_count\": 50,\n    \"monthly_trend\": [\n      {\"month\": \"2025-12\"\
-  , \"revenue\": 20000000, \"finished\": 12, \"not_finished\": 1, \"completion_percent\"\
-  : 92.31},\n      ...\n    ]\n  }\n}\n```\n\n**Auth:** `admin_token`.\n\n### ⚠️ Errors\n\
-  \n| Code | Reason |\n|---|---|\n| `404` | Kurs topilmadi |\n"
+docs: "Bitta kurs + `stats` sub-object + `lessons` (har bir lesson ichida `modules`\
+  \ va `quizzes` nested, mobil tomondagidek):\n\n```json\n{\n  \"id\": 1,\n  \"organization_id\"\
+  : 1,\n  \"name\": \"A2 Ingliz tili\",\n  \"slug\": \"a2-ingliz-tili\",\n  \"language\"\
+  : {\"id\": 2, \"iso_code\": \"en\", \"name\": \"Ingliz\"},\n  \"level\": \"A2\"\
+  ,\n  \"price\": 124000,\n  \"currency\": \"UZS\",\n  ...,\n  \"stats\": {\n    \"\
+  total_revenue\": 2004,\n    \"total_students\": 67,\n    \"successful_graduates\"\
+  : 24,\n    \"not_completed_count\": 50,\n    \"monthly_trend\": [\n      {\"month\"\
+  : \"2025-12\", \"revenue\": 20000000, \"finished\": 12, \"not_finished\": 1, \"\
+  completion_percent\": 92.31},\n      ...\n    ]\n  },\n  \"lessons\": [\n    {\n\
+  \      \"id\": 7,\n      \"educational_course_id\": 1,\n      \"name\": \"Lesson\
+  \ 1 — Greetings\",\n      \"type\": 2,\n      \"type_label\": \"xAPI\",\n      \"\
+  status\": \"active\",\n      \"is_active\": true,\n      \"sort_order\": 0,\n  \
+  \    \"modules_count\": 4,\n      \"quizzes_count\": 12,\n      \"entry_url\": \"\
+  https://.../indexapi.html\",\n      \"modules\": [\n        {\n          \"id\"\
+  : 31,\n          \"module_key\": \"mod_01\",\n          \"name\": \"Intro\",\n \
+  \         \"is_interaction\": false,\n          \"sort_order\": 0,\n          \"\
+  quizzes\": [\n            {\"id\": 101, \"quiz_key\": \"q_01\", \"name\": \"Q1\"\
+  , \"type\": \"choice\"}\n          ]\n        }\n      ]\n    }\n  ]\n}\n```\n\n\
+  **Auth:** `admin_token`.\n\n### ⚠️ Errors\n\n| Code | Reason |\n|---|---|\n| `404`\
+  \ | Kurs topilmadi |\n"
 settings:
   encodeUrl: true
   timeout: 0
