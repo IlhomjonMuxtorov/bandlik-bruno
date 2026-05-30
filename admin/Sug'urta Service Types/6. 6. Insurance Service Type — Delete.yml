@@ -1,0 +1,38 @@
+info:
+  name: 6. Insurance Service Type — Delete
+  type: http
+  seq: 6
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/insurance-service-types/1'
+  auth: inherit
+docs: '**Smart delete**:
+
+
+  - Xizmat turi `insurance_country_price` jadvalida ishlatilgan bo''lsa → `is_active=false`
+  (archive, FK `ON DELETE RESTRICT` himoyasi sababli)
+
+  - Hech qaerda ishlatilmagan bo''lsa → hard `DELETE`
+
+
+  Javobda `{deleted: bool, archived: bool}` qaytadi.
+
+
+  **Auth:** `admin_token`.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `404` | Xizmat turi topilmadi |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

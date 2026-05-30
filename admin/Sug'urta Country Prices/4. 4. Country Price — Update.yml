@@ -1,0 +1,57 @@
+info:
+  name: 4. Country Price — Update
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{base_url}}/admin/insurance-country-prices/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"price\": 420000,\n  \"coverage_amount\": 75000000,\n  \"sort_order\"\
+      : 1\n}"
+  auth: inherit
+docs: 'Mavjud davlat-narxi satrini tahrirlaydi. Faqat berilgan maydonlar yangilanadi
+  (partial update).
+
+
+  **MUHIM:** Bu yerda narx o''zgartirilsa, mavjud vakansiyalardagi snapshot saqlangan
+  narxlar (vacancy_service jadvalida) o''zgarmaydi — chunki ular attach-paytida frozen
+  bo''ladi. Faqat keyinchalik yaratiladigan yangi vakansiyalarga ta''sir qiladi.
+
+
+  **Auth:** `admin_token`.
+
+
+  ### 📥 Request Body (JSON)
+
+
+  Yaratish (Create) bilan bir xil maydonlar, lekin barchasi optional. Unique cheklov
+  (org+country+type+coverage) saqlanadi.
+
+
+  ### 📤 Response
+
+
+  `200` — `InsuranceCountryPriceOutputDTO`.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `404` | Narx satri topilmadi |
+
+  | `422` | Yangi kombinatsiya boshqa satr bilan to''qnashdi; org turi noto''g''ri |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

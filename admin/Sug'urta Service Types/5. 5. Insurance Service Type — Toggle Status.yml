@@ -1,0 +1,37 @@
+info:
+  name: 5. Insurance Service Type — Toggle Status
+  type: http
+  seq: 5
+http:
+  method: PATCH
+  url: '{{base_url}}/admin/insurance-service-types/1/toggle-status'
+  auth: inherit
+docs: '`is_active` ni aksiga aylantiradi (true ↔ false). Inactive xizmat turlari vakansiya
+  formasidagi narxlash dropdown''dan ham, `available/{countryId}` natijasidan ham
+  yashiriladi.
+
+
+  **Auth:** `admin_token`.
+
+
+  ### 📤 Response
+
+
+  `200` — `InsuranceServiceTypeOutputDTO` (yangi `is_active` qiymati bilan).
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `404` | Xizmat turi topilmadi |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,67 @@
+info:
+  name: 7. Country Price — Available For Country
+  type: http
+  seq: 7
+http:
+  method: GET
+  url: '{{base_url}}/admin/insurance-country-prices/available/1'
+  auth: inherit
+docs: '**Vakansiya formasi uchun helper endpoint.** Vakansiya yaratish jarayonida
+  recruiter `country_id` ni tanlaganda, frontend shu endpoint''ni chaqirib mavjud
+  takliflarni ro''yxatga oladi.
+
+
+  Qaytariladigan satrlar:
+
+  - `is_active = true`
+
+  - Berilgan `countryId` ga tegishli
+
+  - `service_type` joined (`InsuranceServiceType`)
+
+  - `organization` joined (sug''urta kompaniyasi)
+
+  - `country` joined
+
+  - Tartib: `insurance_service_type_id ASC`, `price ASC`, `id ASC`
+
+
+  Pagination yo''q — barchasi qaytadi (vakansiya formasidagi dropdown''ni to''ldirish
+  uchun).
+
+
+  **Auth:** `admin_token`.
+
+
+  ### 📤 Response
+
+
+  `200` — `InsuranceCountryPriceOutputDTO[]` (array, Index bilan bir xil item shakli).
+
+
+  ### Vakansiyaga biriktirish
+
+
+  Recruiter tanlovini `vacancy.services[]` da quyidagicha yuboradi:
+
+
+  ```json
+
+  {
+    "category": "insurance",
+    "organization_id": 42,
+    "insurance_country_price_id": 7
+  }
+
+  ```
+
+
+  Server-side `VacancyService::buildServiceSnapshot()` o''sha satrning `name` (auto-label),
+  `price`, `currency`, `coverage_amount`''ini vakansiyaga frozen snapshot qiladi.
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

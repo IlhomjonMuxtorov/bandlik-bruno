@@ -1,6 +1,6 @@
 info:
-  name: Sug'urta Services
+  name: Sug'urta Country Prices
   type: folder
-  seq: 16
+  seq: 55
 request:
   auth: inherit
