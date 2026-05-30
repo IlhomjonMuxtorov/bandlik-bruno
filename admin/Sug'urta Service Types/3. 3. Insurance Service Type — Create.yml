@@ -1,0 +1,65 @@
+info:
+  name: 3. Insurance Service Type — Create
+  type: http
+  seq: 3
+http:
+  method: POST
+  url: '{{base_url}}/admin/insurance-service-types'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"code\": \"kasko\",\n  \"name\": {\n    \"uz\": \"KASKO (To'liq avto\
+      \ sug'urtasi)\",\n    \"ru\": \"КАСКО (Полное автострахование)\",\n    \"en\"\
+      : \"KASKO (Comprehensive auto insurance)\"\n  },\n  \"description\": {\n    \"\
+      uz\": \"Avtomobilning shikastlanishi va o'g'irlanishidan to'liq himoya\",\n \
+      \   \"ru\": \"Полная защита от повреждений и угона автомобиля\",\n    \"en\"\
+      : \"Full protection against vehicle damage and theft\"\n  },\n  \"is_active\"\
+      : 1,\n  \"sort_order\": 1\n}"
+  auth: inherit
+docs: 'Yangi sug''urta xizmat turini yaratadi.
+
+
+  **Auth:** `admin_token`.
+
+
+  ### 📥 Request Body (JSON)
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `code` | string | ✅ | Pattern `/^[a-z0-9_]+$/`, max 50, unique |
+
+  | `name` | object | ✅ | `{uz, ru, en}` — kamida `uz` kaliti bo''lishi shart, har til max 200 belgi |
+
+  | `description` | object | ➖ | `{uz, ru, en}` — har til max 2000 belgi |
+
+  | `is_active` | bool (0\|1) | ➖ | Default `1` |
+
+  | `sort_order` | int | ➖ | Default `0` |
+
+
+  ### 📤 Response
+
+
+  `201` — `InsuranceServiceTypeOutputDTO`.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `422` | `code` duplicate yoki regex-ga mos kelmadi; `name.uz` bo''sh |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

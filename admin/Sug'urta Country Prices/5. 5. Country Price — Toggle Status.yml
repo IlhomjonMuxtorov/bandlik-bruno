@@ -1,0 +1,36 @@
+info:
+  name: 5. Country Price — Toggle Status
+  type: http
+  seq: 5
+http:
+  method: PATCH
+  url: '{{base_url}}/admin/insurance-country-prices/1/toggle-status'
+  auth: inherit
+docs: '`is_active` ni aksiga aylantiradi. Inactive narx satrlari `available/{countryId}`
+  ro''yxatiga chiqmaydi va vakansiya formasidagi dropdown''da ko''rsatilmaydi.
+
+
+  **Auth:** `admin_token`.
+
+
+  ### 📤 Response
+
+
+  `200` — `InsuranceCountryPriceOutputDTO` (yangi `is_active` qiymati bilan).
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `404` | Narx satri topilmadi |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

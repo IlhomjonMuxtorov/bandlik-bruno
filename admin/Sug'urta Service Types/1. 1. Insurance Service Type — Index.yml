@@ -1,0 +1,63 @@
+info:
+  name: 1. Insurance Service Type — Index
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/insurance-service-types?per-page=20'
+  auth: inherit
+docs: 'Global sug''urta xizmat turlari katalogi (KASKO, Tibbiy, Sayohat (VZR), Hayot,
+  …). Admin boshqaradi. Skrinshotdagi "Sug''urta xizmatlari" formasi va vakansiya
+  yaratishdagi narxlash dropdown''ini to''ldirish uchun ishlatiladi.
+
+
+  **Auth:** `admin_token`.
+
+
+  ### 🔎 Query Parameters
+
+
+  | Param | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `q` | string | ➖ | `code` yoki `name->>''uz''/''ru''/''en''` bo''yicha ILIKE |
+
+  | `is_active` | int (0\|1) | ➖ | |
+
+  | `page`, `per-page` | int | ➖ | Pagination |
+
+  | `sort` | string | ➖ | `id` \| `sort_order` \| `code` \| `created_at` |
+
+
+  ### 📤 Response (`data.items[]`)
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `id` | int | |
+
+  | `code` | string | `kasko`, `medical`, `travel`, `life` |
+
+  | `name` | object | `{uz, ru, en}` JSONB |
+
+  | `name_localized` | string | `Accept-Language` header bo''yicha tanlangan til |
+
+  | `description` | object | `{uz, ru, en}` JSONB (ixtiyoriy) |
+
+  | `description_localized` | string | |
+
+  | `is_active` | bool | |
+
+  | `sort_order` | int | |
+
+  | `created_at` / `updated_at` | int | |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
