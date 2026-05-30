@@ -1,0 +1,36 @@
+info:
+  name: Hide Chat
+  type: http
+  seq: 9
+http:
+  method: DELETE
+  url: '{{base_url}}/mobile/chats/1'
+  headers: []
+  body:
+    type: none
+  auth: inherit
+docs: |
+  "Chatni o'chirish" — chat ro'yxatdan faqat **shu foydalanuvchi uchun** yashiriladi (soft-hide). Boshqa tomondagi xodim chatni ko'rishda davom etadi.
+
+  Yangi xabar kelganda `hidden_at` avtomatik tozalanadi va chat list'da qaytib paydo bo'ladi.
+
+  **Auth:** `access_token`.
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `hidden_at` | int | Yashirilgan vaqt (unix ts) |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Chat boshqa nomzodga tegishli |
+  | `404` | Chat topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
