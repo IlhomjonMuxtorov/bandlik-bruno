@@ -1,0 +1,94 @@
+info:
+  name: 4. Audit Log — View
+  type: http
+  seq: 4
+http:
+  method: GET
+  url: '{{base_url}}/admin/audit-log/9421'
+  auth: inherit
+docs: 'Bitta audit yozuvi haqida to''liq ma''lumot — diff ko''rinishi uchun
+  `data_before` va `data_after` jsonb snapshot''i, o''zgargan atributlar va
+  request konteksti (IP, route) bilan birga.
+
+
+  **Auth:** `admin_token`.
+
+
+  ### 📤 Response
+
+
+  ```json
+
+  {
+    "id": 9421,
+    "entity_type": "vacancy",
+    "entity_id": 87,
+    "entity_label": "Welder for Poland",
+    "action": "approve",
+    "action_label": "Tasdiqlash",
+    "category": "approved",
+    "category_label": "Tasdiqlanganlar",
+    "description": "admin Welder for Poland vakansiyasini tasdiqladi",
+    "actor_user_id": 1,
+    "actor_type": 1,
+    "actor_type_label": "Admin",
+    "actor_org_id": null,
+    "actor_org_name": null,
+    "actor_name": "admin",
+    "data_before": null,
+    "data_after": {
+      "title": "Welder for Poland",
+      "status": "approved",
+      "organization_id": 12,
+      "recruiter_id": null,
+      "hiring_quota": 5,
+      "salary_gross": 2500,
+      "salary_net": null
+    },
+    "changed_attrs": ["title", "status", "organization_id", "recruiter_id", "hiring_quota", "salary_gross", "salary_net"],
+    "context": {
+      "ip": "127.0.0.1",
+      "route": "admin/vacancy/approve",
+      "reason": null
+    },
+    "created_at": 1748678400
+  }
+
+  ```
+
+
+  ### 📝 Notes
+
+
+  - `data_before` / `data_after` faqat modelning `getAuditTrackedAttributes()`
+    whitelist''iga kiruvchi atributlarni o''z ichiga oladi. Maxfiy field''lar
+    (`password_hash`, `auth_key`, `access_token`, `pin_code_hash`) hech qachon
+    saqlanmaydi.
+
+  - `changed_attrs` faqat `update` aksiyalarda mazmunli — boshqa aksiyalarda
+    bu massiv `data_after` kalitlari ro''yxati bo''ladi.
+
+  - `context` qo''shimcha metadata — `reason` (approve/reject sababi),
+    `from_status`/`to_status` (status_change), `ip`, `route`, `source: "console"`
+    (CLI ishida).
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q |
+
+  | `403` | Admin emas |
+
+  | `404` | Audit jurnali yozuvi topilmadi |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

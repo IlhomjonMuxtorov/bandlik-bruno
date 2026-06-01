@@ -1,0 +1,60 @@
+info:
+  name: 2. Audit Log — Filters
+  type: http
+  seq: 2
+http:
+  method: GET
+  url: '{{base_url}}/admin/audit-log/filters'
+  auth: inherit
+docs: 'Filtr panelidagi dropdownlar uchun dictionary — rollar, kategoriyalar,
+  faol tashkilotlar ro''yxati. Sahifa birinchi yuklanganda bir marta chaqiriladi.
+
+
+  **Auth:** `admin_token`.
+
+
+  ### 📤 Response
+
+
+  ```json
+
+  {
+    "actor_types": [
+      {"value": 1, "label": "Admin"},
+      {"value": 2, "label": "Recruiter"},
+      {"value": 3, "label": "Employer"},
+      {"value": 4, "label": "Candidate"},
+      {"value": 5, "label": "Partner"}
+    ],
+    "categories": [
+      {"value": "created",  "label": "Yaratilganlar"},
+      {"value": "updated",  "label": "O''zgartirilganlar"},
+      {"value": "approved", "label": "Tasdiqlanganlar"},
+      {"value": "deleted",  "label": "O''chirilganlar"}
+    ],
+    "organizations": [
+      {"id": 12, "name": "MegaXBA", "type": 3},
+      {"id": 13, "name": "TalentHub", "type": 2}
+    ]
+  }
+
+  ```
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q |
+
+  | `403` | Admin emas |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

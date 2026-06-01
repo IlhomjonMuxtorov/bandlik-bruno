@@ -1,0 +1,75 @@
+info:
+  name: 1. Audit Log — Stats
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/audit-log/stats'
+  auth: inherit
+docs: 'Audit jurnali sahifasi tepasidagi 4 ta statistika kartochkasi uchun. Bugungi
+  (00:00 dan boshlab) harakatlar soni rol bo''yicha taqsimlangan + kategoriyalar
+  bo''yicha breakdown.
+
+
+  **Auth:** `admin_token`.
+
+
+  ### 📤 Response
+
+
+  ```json
+
+  {
+    "today_total": 1245,
+    "admins": 156,
+    "agents": 234,
+    "others": 854,
+    "by_category": {
+      "created": 156,
+      "updated": 423,
+      "approved": 89,
+      "deleted": 24
+    }
+  }
+
+  ```
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `today_total` | int | Bugungi (today 00:00 dan boshlab) jami harakatlar |
+
+  | `admins` | int | `actor_type = 1` (Admin) tomonidan |
+
+  | `agents` | int | `actor_type IN (2,3)` — Recruiter / Employer (XBA agentliklar) |
+
+  | `others` | int | Boshqa rollar (Candidate / Partner / Guest) |
+
+  | `by_category.created` | int | Yaratilganlar tabi badge |
+
+  | `by_category.updated` | int | O''zgartirilganlar tabi badge |
+
+  | `by_category.approved` | int | Tasdiqlanganlar tabi badge |
+
+  | `by_category.deleted` | int | O''chirilganlar tabi badge |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q |
+
+  | `403` | Admin emas |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

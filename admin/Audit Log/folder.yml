@@ -1,0 +1,6 @@
+info:
+  name: Audit Log
+  type: folder
+  seq: 56
+request:
+  auth: inherit
