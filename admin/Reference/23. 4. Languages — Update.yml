@@ -1,0 +1,47 @@
+info:
+  name: 23. 4. Languages — Update
+  type: http
+  seq: 23
+http:
+  method: POST
+  url: '{{base_url}}/admin/languages/1'
+  body:
+    type: multipartForm
+    data:
+    - name: name
+      value: '{"uz": "O''zbek (yangilandi)", "ru": "Узбекский (обновлено)", "en": "Uzbek
+        (updated)"}'
+    - name: iso_code
+      value: uz
+    - name: is_active
+      value: '1'
+    - name: sort_order
+      value: '1'
+  auth: inherit
+docs: 'Til ma''lumotlarini yangilash (qisman update).
+
+
+  **Auth:** `admin_token`.
+
+
+  ### 📥 Request Body (multipart/form-data)
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `name` | object (JSON) | ➖ | `{"uz": "...", "ru": "...", "en": "..."}` |
+
+  | `iso_code` | string (max 5) | ➖ | Unikal ISO kod |
+
+  | `is_active` | int (0\|1) | ➖ | |
+
+  | `sort_order` | int | ➖ | |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

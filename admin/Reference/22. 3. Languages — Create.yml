@@ -1,0 +1,46 @@
+info:
+  name: 22. 3. Languages — Create
+  type: http
+  seq: 22
+http:
+  method: POST
+  url: '{{base_url}}/admin/languages'
+  body:
+    type: multipartForm
+    data:
+    - name: name
+      value: '{"uz": "Fransuz", "ru": "Французский", "en": "French"}'
+    - name: iso_code
+      value: fr
+    - name: is_active
+      value: '1'
+    - name: sort_order
+      value: '11'
+  auth: inherit
+docs: 'Yangi til qo''shadi.
+
+
+  **Auth:** `admin_token`.
+
+
+  ### 📥 Request Body (multipart/form-data)
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `name` | object (JSON) | ✅ | `{"uz": "...", "ru": "...", "en": "..."}` |
+
+  | `iso_code` | string (max 5) | ✅ | Unikal ISO kod (masalan `fr`) |
+
+  | `is_active` | int (0\|1) | ➖ | Default: 1 |
+
+  | `sort_order` | int | ➖ | Default: 0 |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

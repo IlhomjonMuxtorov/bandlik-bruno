@@ -1,0 +1,49 @@
+info:
+  name: 21. 2. Language — View
+  type: http
+  seq: 21
+http:
+  method: GET
+  url: '{{base_url}}/admin/languages/1'
+  auth: inherit
+docs: 'Bitta til ma''lumotlarini olish.
+
+
+  **Auth:** `admin_token`.
+
+
+  ### 📋 Headers
+
+
+  | Header | Required | Description |
+
+  |---|:---:|---|
+
+  | `Authorization` | ✅ | `Bearer {{ _.admin_token }}` |
+
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz`. |
+
+
+  ### 📤 Response
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `id` | int | |
+
+  | `name` | string | Til bo''yicha tarjima |
+
+  | `iso_code` | string | ISO kod |
+
+  | `is_active` | bool | |
+
+  | `sort_order` | int | |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
