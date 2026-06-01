@@ -6,7 +6,12 @@ http:
   method: GET
   url: '{{base_url}}/admin/insurance?per-page=20'
   auth: inherit
-docs: 'Sug''urta tashkilotlari ro''yxati. Faqat `type = 2` yozuvlar qaytadi.
+docs: 'Sug''urta tashkilotlari ro''yxati. Faqat `type = 4` yozuvlar qaytadi.
+
+
+  **"Davlatlar bo''yicha narxlash" formasidagi tashkilot dropdown''ining manbasi** —
+  admin shu ro''yxatdan sug''urta tashkilotini tanlaydi, so''ngra
+  `GET /admin/insurance-country-prices/by-organization?organization_id=…` chaqiriladi.
 
 
   **Auth:** `admin_token`.
@@ -21,7 +26,7 @@ docs: 'Sug''urta tashkilotlari ro''yxati. Faqat `type = 2` yozuvlar qaytadi.
   ### 📤 Response
 
 
-  `data.items[]` — `OrganizationOutputDTO` (`type = 2`, `type_label = "Sug''urta"`).
+  `data.items[]` — `OrganizationOutputDTO` (`type = 4`, `type_label = "Sug''urta"`).
 
   '
 settings:

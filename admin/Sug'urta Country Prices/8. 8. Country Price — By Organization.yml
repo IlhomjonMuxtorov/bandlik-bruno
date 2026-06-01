@@ -1,0 +1,78 @@
+info:
+  name: 8. Country Price — By Organization
+  type: http
+  seq: 8
+http:
+  method: GET
+  url: '{{base_url}}/admin/insurance-country-prices/by-organization?organization_id=2&per-page=20'
+  auth: inherit
+docs: |
+  **"Davlatlar bo'yicha narxlash" formasining asosiy yuklash endpoint'i.**
+
+  Bitta sug'urta tashkiloti tanlanganda (dropdown manbasi: `GET /admin/insurance`,
+  `type = 4`), shu tashkilot **narx kiritgan davlatlar** paginationli ro'yxat sifatida
+  qaytadi va har bir davlat o'z **xizmat narxlari** bilan guruhlanadi.
+
+  **Auth:** `admin_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `organization_id` | int | ✅ | Sug'urta tashkilot (`type = 4`) |
+  | `page`, `per-page` | int | ➖ | Pagination (`per-page` 1..100, default 20) |
+
+  ### 📤 Response (`data`)
+
+  ```json
+  {
+    "items": [
+      {
+        "country_id": 1,
+        "country": { "id": 1, "name": {"uz": "O'zbekiston"}, "name_localized": "O'zbekiston" },
+        "services": [
+          {
+            "id": 7,
+            "insurance_service_type_id": 1,
+            "service_type": { "id": 1, "code": "kasko", "name": {"uz": "KASKO (To'liq avto sug'urtasi)"}, "name_localized": "KASKO (To'liq avto sug'urtasi)" },
+            "coverage_amount": 50000000,
+            "price": 350000,
+            "currency": "UZS",
+            "is_active": true,
+            "sort_order": 0
+          },
+          {
+            "id": 8,
+            "insurance_service_type_id": 2,
+            "service_type": { "id": 2, "code": "medical", "name_localized": "Tibbiy sug'urta" },
+            "coverage_amount": 20000000,
+            "price": 180000,
+            "currency": "UZS",
+            "is_active": true,
+            "sort_order": 1
+          }
+        ]
+      },
+      { "country_id": 2, "country": { "id": 2, "name_localized": "Rossiya" }, "services": [ ] }
+    ],
+    "pagination": { "page": 1, "page_size": 20, "total_count": 2, "page_count": 1 }
+  }
+  ```
+
+  Pagination birligi — **davlat** (`items[]` har biri bitta davlat bloki). Faqat narx
+  kiritilgan davlatlar qaytadi.
+
+  Har bir `items[]` blokini tahrirlash/saqlash uchun `POST .../sync` (Group Save)
+  ishlatiladi. Bitta davlat blokini qayta yuklash uchun `GET .../group` ishlatiladi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `422` | `organization_id` berilmagan |
+  | `404` | Sug'urta tashkiloti topilmadi (`type != 4`) |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

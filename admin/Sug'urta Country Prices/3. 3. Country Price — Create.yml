@@ -14,9 +14,12 @@ http:
       : 1,\n  \"coverage_amount\": 50000000,\n  \"price\": 350000,\n  \"currency\"\
       : \"UZS\",\n  \"is_active\": 1,\n  \"sort_order\": 0\n}"
   auth: inherit
-docs: 'Yangi davlat-narxi satrini yaratadi. Skrinshotdagi forma har bir qator uchun
-  bu endpoint''ni chaqiradi: `O''zbekiston` → `KASKO` → qoplash `50 000 000` → `350
-  000 so''m`.
+docs: 'Yangi davlat-narxi satrini yaratadi — **granular (bitta satr)** operatsiya.
+
+
+  **Eslatma:** "Davlatlar bo''yicha narxlash" formasi endi butun davlat blokini bitta
+  so''rovda saqlaydi (`POST .../sync`). Bu endpoint bitta alohida satrni qo''shish
+  kerak bo''lganda (yoki eski integratsiyalar uchun) saqlanib qoladi.
 
 
   **Auth:** `admin_token`.

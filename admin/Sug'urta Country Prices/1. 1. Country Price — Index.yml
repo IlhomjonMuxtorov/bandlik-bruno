@@ -6,11 +6,21 @@ http:
   method: GET
   url: '{{base_url}}/admin/insurance-country-prices?organization_id=2&per-page=20'
   auth: inherit
-docs: 'Sug''urta tashkilotining davlat-bo''yicha narx-katalogi: har bir `(davlat ×
-  xizmat turi × qoplash summasi)` kombinatsiyasi uchun alohida satr.
+docs: 'Sug''urta tashkilotining davlat-bo''yicha narx-katalogining **tekis (flat)**
+  ro''yxati: har bir `(davlat × xizmat turi × qoplash summasi)` kombinatsiyasi uchun
+  alohida satr. Umumiy filtrlash/qidiruv uchun (pagination bilan).
 
 
-  Skrinshotdagi "Davlatlar bo''yicha narxlash" formasini to''ldirish uchun ishlatiladi.
+  **Skrinshotdagi "Davlatlar bo''yicha narxlash" formasi uchun bularni ishlating:**
+
+  - `GET .../by-organization?organization_id=…` — tashkilot narx kiritgan davlatlar
+  (paginationli), har biri xizmatlari bilan guruhlangan (formaning asosiy yuklash endpoint''i).
+
+  - `GET .../group?organization_id=…&country_id=…` — bitta davlat blokini yuklash.
+
+  - `POST .../sync` — bitta `(tashkilot + davlat)` blokini saqlash (upsert + diff-delete).
+
+  Tashkilot dropdown manbasi: `GET /admin/insurance` (`type = 4`).
 
 
   **Auth:** `admin_token`.

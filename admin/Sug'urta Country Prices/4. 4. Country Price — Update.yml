@@ -13,8 +13,13 @@ http:
     data: "{\n  \"price\": 420000,\n  \"coverage_amount\": 75000000,\n  \"sort_order\"\
       : 1\n}"
   auth: inherit
-docs: 'Mavjud davlat-narxi satrini tahrirlaydi. Faqat berilgan maydonlar yangilanadi
-  (partial update).
+docs: 'Mavjud davlat-narxi satrini tahrirlaydi — **granular (bitta satr)** operatsiya.
+  Faqat berilgan maydonlar yangilanadi (partial update).
+
+
+  **Eslatma:** "Davlatlar bo''yicha narxlash" formasi odatda butun davlat blokini
+  `POST .../sync` orqali saqlaydi (u ham yangilash/o''chirishni o''zi hal qiladi). Bu
+  endpoint bitta satrni nuqtali tahrirlash uchun saqlanib qoladi.
 
 
   **MUHIM:** Bu yerda narx o''zgartirilsa, mavjud vakansiyalardagi snapshot saqlangan

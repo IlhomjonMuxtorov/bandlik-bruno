@@ -1,0 +1,59 @@
+info:
+  name: 9. Country Price — Group Read
+  type: http
+  seq: 9
+http:
+  method: GET
+  url: '{{base_url}}/admin/insurance-country-prices/group?organization_id=2&country_id=1'
+  auth: inherit
+docs: |
+  Bitta `(tashkilot + davlat)` blokini forma uchun yuklaydi — formadagi bitta davlat
+  kartochkasini (xizmat satrlari bilan) qayta tiklash uchun. `By Organization` ning
+  bitta davlatga qisqartirilgan ko'rinishi.
+
+  **Auth:** `admin_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `organization_id` | int | ✅ | Sug'urta tashkilot (`type = 4`) |
+  | `country_id` | int | ✅ | Davlat |
+
+  ### 📤 Response (`data`)
+
+  ```json
+  {
+    "organization_id": 2,
+    "organization": { "id": 2, "name": "Apex Insurance", "type": 4 },
+    "country_id": 1,
+    "country": { "id": 1, "name": {"uz": "O'zbekiston"}, "name_localized": "O'zbekiston" },
+    "services": [
+      {
+        "id": 7,
+        "insurance_service_type_id": 1,
+        "service_type": { "id": 1, "code": "kasko", "name_localized": "KASKO (To'liq avto sug'urtasi)" },
+        "coverage_amount": 50000000,
+        "price": 350000,
+        "currency": "UZS",
+        "is_active": true,
+        "sort_order": 0
+      }
+    ]
+  }
+  ```
+
+  `services[].id` ni saqlab qo'ying — `POST .../sync` da o'sha `id` qaytarilsa satr
+  yangilanadi, `id` siz yuborilsa yangi satr yaratiladi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `422` | `organization_id` yoki `country_id` berilmagan |
+  | `404` | Sug'urta tashkiloti (`type != 4`) yoki davlat topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

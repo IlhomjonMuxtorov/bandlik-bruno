@@ -1,0 +1,71 @@
+info:
+  name: 10. Country Price — Sync (Group Save)
+  type: http
+  seq: 10
+http:
+  method: POST
+  url: '{{base_url}}/admin/insurance-country-prices/sync'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "organization_id": 2,
+        "country_id": 1,
+        "services": [
+          { "id": 7, "insurance_service_type_id": 1, "coverage_amount": 50000000, "currency": "UZS", "price": 350000 },
+          { "insurance_service_type_id": 2, "coverage_amount": 20000000, "currency": "UZS", "price": 180000 }
+        ]
+      }
+  auth: inherit
+docs: |
+  **"Davlatlar bo'yicha narxlash" formasining asosiy saqlash endpoint'i.** Bitta
+  `(tashkilot + davlat)` blokidagi barcha xizmat satrlarini **bitta so'rovda** saqlaydi.
+  Forma `+ Xizmat qo'shish` bilan qo'shilgan satrlarning hammasi shu yerga yuboriladi.
+
+  Bir nechta davlat (badge `2`) bo'lsa, har bir davlat bloki uchun alohida `sync`
+  chaqiriladi.
+
+  **Auth:** `admin_token`.
+
+  ### 🧠 Sync mantiqi (bitta tranzaksiyada)
+
+  - `services[]` da **`id` bor** satr → mavjud yozuv **yangilanadi**.
+  - `services[]` da **`id` yo'q** satr → **yangi** yozuv yaratiladi.
+  - Shu `(org, country)` uchun bazada bor, lekin payloadda `id` si **kelmagan** satrlar
+    → **o'chiriladi** (diff-delete).
+  - Biror satr xato bo'lsa — butun tranzaksiya **rollback**, hech nima saqlanmaydi.
+
+  ### 📥 Request Body (JSON)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `organization_id` | int | ✅ | Sug'urta tashkilot (`type = 4`) |
+  | `country_id` | int | ✅ | Davlat |
+  | `services` | array | ✅ | Xizmat satrlari (quyidagi maydonlar bilan) |
+  | `services[].id` | int | ➖ | Mavjud satrni yangilash uchun. Yo'q bo'lsa — yangi satr |
+  | `services[].insurance_service_type_id` | int | ✅ | Global katalog xizmat turi |
+  | `services[].coverage_amount` | int | ✅ | Qoplash summasi, ≥ 0 |
+  | `services[].price` | int | ✅ | Narx, ≥ 0 |
+  | `services[].currency` | string | ➖ | Default `UZS`. Variantlar: `UZS`, `USD`, `EUR` |
+  | `services[].is_active` | bool (0\|1) | ➖ | Default `1` |
+  | `services[].sort_order` | int | ➖ | Default `0` |
+
+  ### 📤 Response (`data`)
+
+  `200` — `Group Read` bilan **bir xil shakl**: saqlangandan keyingi `(org + country)`
+  guruhi (`services[]` har birida yangi `id`).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `422` | `organization_id` / `country_id` berilmagan; `organization_id` sug'urta turida emas ("Organization must be an insurance company"); payloadda takroriy `(service_type, coverage)` (`services.<index>`); satr validatsiyasi xatosi (`services.<index>.<field>`); DB unique-kalit to'qnashuvi |
+  | `404` | `country_id` mavjud emas |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
