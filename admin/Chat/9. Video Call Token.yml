@@ -18,7 +18,11 @@ docs: |
 
   ### 📤 Response
 
-  Mobile Video Call Token bilan bir xil shape (`token`, `room_name`, `domain`, `expires_at`).
+  Mobile Video Call Token bilan bir xil shape (`token`, `room_name`, `domain`, `expires_at`, `expires_at_formatted`, `call_message_id`).
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `call_message_id` | int | Yaratilgan `type=call` system message `id`'si. Qo'ng'iroq tugaganda `call-end`/`call-decline` ga shu qiymat yuboriladi. |
 
   Yagona farq — JWT'da `moderator: true`.
 

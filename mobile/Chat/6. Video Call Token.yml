@@ -23,6 +23,7 @@ docs: |
   | `domain` | string | `JITSI_DOMAIN` — host[:port] mijoz ulanadigan server (masalan `meet.isft.uz:8443`). Mijoz URL'ni quradi: `https://{domain}/{room_name}?jwt={token}` |
   | `expires_at` | int | unix ts (default 2h) |
   | `expires_at_formatted` | string | `d.m.Y H:i` (Asia/Tashkent) |
+  | `call_message_id` | int | Yaratilgan `type=call` system message `id`'si. Qo'ng'iroq tugaganda `call-end`/`call-decline` endpointlariga shu qiymat yuboriladi. |
 
   ### 📋 JWT Claims
 
