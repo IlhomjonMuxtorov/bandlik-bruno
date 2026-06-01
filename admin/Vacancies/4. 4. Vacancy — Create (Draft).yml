@@ -36,10 +36,10 @@ http:
       : 4,\n      \"educational_course_id\": 12,\n      \"sort_order\": 3\n    }\n  ],\n  \"single_payment\": false,\n  \"payment_steps\": [\n    {\n\
       \      \"step_type\": \"agency_fee\",\n      \"title\": \"Agentlik xizmati to'lovi\"\
       ,\n      \"amount\": 1000000,\n      \"currency\": \"UZS\",\n      \"sort_order\"\
-      : 0\n    },\n    {\n      \"step_type\": \"translation_apostille\",\n      \"\
-      title\": \"Tarjima apostil\",\n      \"amount\": 800000,\n      \"currency\"\
+      : 0\n    },\n    {\n      \"step_type\": \"notarius\",\n      \"\
+      title\": \"Notarius xizmati\",\n      \"amount\": 800000,\n      \"currency\"\
       : \"UZS\",\n      \"sort_order\": 1\n    },\n    {\n      \"step_type\": \"\
-      training\",\n      \"title\": \"O'quv kursi\",\n      \"amount\": 1500000,\n\
+      course\",\n      \"title\": \"O'quv kursi\",\n      \"amount\": 1500000,\n\
       \      \"currency\": \"UZS\",\n      \"sort_order\": 2\n    }\n  ]\n}"
   auth: inherit
 docs: 'Yangi vakansiya yaratadi — boshlanishi `status = draft`. Wizardning barcha
