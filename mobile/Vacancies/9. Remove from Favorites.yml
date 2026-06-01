@@ -21,6 +21,7 @@ docs: |-
   |---|---|
   | `401` | Token yo'q |
   | `404` | Nomzod topilmadi |
+  | `456` | Mehmon foydalanuvchi — ro'yxatdan o'tish talab qilinadi |
 settings:
   encodeUrl: true
   timeout: 0
