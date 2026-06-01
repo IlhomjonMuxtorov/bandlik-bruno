@@ -8,7 +8,7 @@ variables:
     value: ""
 
   - name: access_token
-    value: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnbG9iYWwtc2tpbGxodWIiLCJzdWIiOjMyLCJ0eXBlIjo0LCJzdGF0dXMiOjEsImlhdCI6MTc3OTQyNjcxMCwiZXhwIjoxNzgwMjkwNzEwfQ.gIlNOW8bhJPBH9MOsth7kFWJiUUvVkpMYYvjUaVAjog"
+    value: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnbG9iYWwtc2tpbGxodWIiLCJzdWIiOjMyLCJ0eXBlIjo0LCJzdGF0dXMiOjEsImlhdCI6MTc4MDI5MDg0MywiZXhwIjoxNzgxMTU0ODQzLCJkZXZpY2VfaWQiOjR9.0j8FscK4ViUvnbKimYCqrP0eAFmiIWmum2ihSFpYeBI"
 
   - name: guest_token
     value: ""
