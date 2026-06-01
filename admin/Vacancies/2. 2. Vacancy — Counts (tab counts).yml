@@ -1,0 +1,123 @@
+info:
+  name: 2. Vacancy — Counts (tab counts)
+  type: http
+  seq: 2
+http:
+  method: GET
+  url: '{{base_url}}/admin/vacancies/counts'
+  headers:
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: 'Vakansiyalar ro''yxati sahifasidagi tablar uchun statuslar bo''yicha sonlar.
+  Har bir tabda ko''rsatiladigan count''ni qaytaradi (Barchasi, Tasdiq kutilayotgan,
+  Faol, Qoralama, Yopilganlar va h.k.).
+
+
+  Admin barcha vakansiyalarni sanaydi; Employer/Recruiter faqat o''z tashkilotiniki
+  + biriktirilgan rekruterligini.
+
+
+  **Auth:** `admin_token` yoki org foydalanuvchi.
+
+
+  ### 🔎 Query Parameters
+
+
+  Index (ro''yxat) bilan bir xil filterlar qo''llab-quvvatlanadi — count''lar
+  filterlangan natija bilan sinxron bo''lishi uchun. `status` parametri bu yerda
+  e''tiborga olinmaydi (har bir status alohida sanaladi).
+
+
+  | Param | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `q` | string | ➖ | Sarlavha bo''yicha (ILIKE). |
+
+  | `organization_id` | int | ➖ | Tashkilot ID (admin uchun). |
+
+  | `recruiter_id` | int | ➖ | Rekruter tashkiloti ID. |
+
+  | `country_id` | int | ➖ | Davlat ID. |
+
+  | `city_id` | int[] | ➖ | Shahar ID(lar). |
+
+  | `industry_id` | int | ➖ | Soha ID. |
+
+  | `employment_type` | string | ➖ | `full_time` \| `part_time` \| `seasonal` \| `contract`. |
+
+  | `experience_level` | string | ➖ | `none` \| `one_to_three` \| `three_to_six`. |
+
+  | `salary_min` / `salary_max` | int | ➖ | Maosh oralig''i. |
+
+
+  ### 📋 Headers
+
+
+  | Header | Required | Description |
+
+  |---|:---:|---|
+
+  | `Authorization` | ✅ | `Bearer {token}` |
+
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` |
+
+
+  ### 📤 Response (`data`)
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `total` | int | Barcha statuslar yig''indisi |
+
+  | `draft` | int | Qoralama |
+
+  | `pending_approval` | int | Tasdiq kutilayotgan |
+
+  | `approved` | int | Faol (tasdiqlangan) |
+
+  | `rejected` | int | Rad etilgan |
+
+  | `closed` | int | Yopilgan |
+
+  | `archived` | int | Arxivlangan |
+
+
+  ```json
+
+  {
+    "success": true,
+    "data": {
+      "total": 1490,
+      "draft": 312,
+      "pending_approval": 245,
+      "approved": 601,
+      "rejected": 88,
+      "closed": 198,
+      "archived": 46
+    }
+  }
+
+  ```
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q |
+
+  | `403` | Org foydalanuvchisi (org_id yo''q yoki Employer/Recruiter emas) |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

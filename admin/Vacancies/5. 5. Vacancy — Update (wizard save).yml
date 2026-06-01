@@ -1,7 +1,7 @@
 info:
-  name: 4. Vacancy — Update (wizard save)
+  name: 5. Vacancy — Update (wizard save)
   type: http
-  seq: 4
+  seq: 5
 http:
   method: PUT
   url: '{{base_url}}/admin/vacancies/1'

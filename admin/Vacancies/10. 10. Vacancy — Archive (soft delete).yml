@@ -1,7 +1,7 @@
 info:
-  name: 9. Vacancy — Archive (soft delete)
+  name: 10. Vacancy — Archive (soft delete)
   type: http
-  seq: 9
+  seq: 10
 http:
   method: DELETE
   url: '{{base_url}}/admin/vacancies/1'

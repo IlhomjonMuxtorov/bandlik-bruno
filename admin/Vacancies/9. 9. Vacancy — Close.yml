@@ -1,7 +1,7 @@
 info:
-  name: 8. Vacancy — Close
+  name: 9. Vacancy — Close
   type: http
-  seq: 8
+  seq: 9
 http:
   method: POST
   url: '{{base_url}}/admin/vacancies/1/close'

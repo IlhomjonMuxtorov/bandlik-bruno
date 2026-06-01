@@ -1,7 +1,7 @@
 info:
-  name: 3. Vacancy — Create (Draft)
+  name: 4. Vacancy — Create (Draft)
   type: http
-  seq: 3
+  seq: 4
 http:
   method: POST
   url: '{{base_url}}/admin/vacancies'

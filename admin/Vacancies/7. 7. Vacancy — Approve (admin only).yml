@@ -1,7 +1,7 @@
 info:
-  name: 6. Vacancy — Approve (admin only)
+  name: 7. Vacancy — Approve (admin only)
   type: http
-  seq: 6
+  seq: 7
 http:
   method: POST
   url: '{{base_url}}/admin/vacancies/1/approve'

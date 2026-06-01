@@ -1,7 +1,7 @@
 info:
-  name: 5. Vacancy — Submit for approval
+  name: 6. Vacancy — Submit for approval
   type: http
-  seq: 5
+  seq: 6
 http:
   method: POST
   url: '{{base_url}}/admin/vacancies/1/submit'
