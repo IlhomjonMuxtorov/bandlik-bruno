@@ -1,0 +1,24 @@
+info:
+  name: 4. Message Template — Delete
+  type: http
+  seq: 4
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/message-templates/1'
+  auth: inherit
+docs: |
+  Shablonni o'chiradi (URL'dagi `/<id>` bo'yicha).
+
+  **Auth:** `admin_token` yoki shablon egasi (tashkilot mos kelishi shart).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `403` | Boshqa tashkilot shabloni |
+  | `404` | Shablon topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

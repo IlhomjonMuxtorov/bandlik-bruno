@@ -21,9 +21,10 @@ docs: |
   | `type` | Kim |
   |:---:|---|
   | `1` | `TYPE_ADMIN` — Super-admin |
-  | `5` | `TYPE_PARTNER` — Tashkilot (XBA / Notarius / Logistika / Sug'urta / Visa) |
+  | `5` | `TYPE_PARTNER` — Tashkilot admini (XBA / Notarius / Logistika / Sug'urta / Visa) |
+  | `6` | `TYPE_EMPLOYEE` — Tashkilot sub-xodimi (`organization_employee`) |
 
-  > Tashkilot uchun `username` + `password` `OrganizationService::create()` ichida `dto->login` / `dto->password` qiymatlaridan yaratiladi va shu yerda ishlatiladi.
+  > Tashkilot admini uchun `username` + `password` `OrganizationService::create()` ichida `dto->login` / `dto->password` qiymatlaridan yaratiladi; shu bilan birga `organization_employee` (role=`admin`) yozuvi ham yaratiladi.
 
   **Auth:** talab qilinmaydi.
 
@@ -47,7 +48,7 @@ docs: |
   | Code | Reason |
   |---|---|
   | `422` | Validatsiya xatosi yoki login/parol noto'g'ri |
-  | `403` | Foydalanuvchi `TYPE_ADMIN` yoki `TYPE_PARTNER` emas |
+  | `403` | Foydalanuvchi `TYPE_ADMIN`, `TYPE_PARTNER` yoki `TYPE_EMPLOYEE` emas |
 
 settings:
   encodeUrl: true

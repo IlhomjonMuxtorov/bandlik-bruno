@@ -1,0 +1,54 @@
+info:
+  name: 2. Profile — Update
+  type: http
+  seq: 2
+http:
+  method: PATCH
+  url: '{{base_url}}/admin/me'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"first_name\": \"Abdulaziz\",\n  \"last_name\": \"Karimov\",\n  \"patronymic\": \"Abdurashidovich\",\n  \"region_id\": 1,\n  \"district_id\": 1,\n  \"address\": \"Toshkent, Shayxontohur tumani\",\n  \"phone\": \"+998901234567\",\n  \"email\": \"admin@xba.uz\",\n  \"birth_date\": \"1998-10-11\",\n  \"passport_series\": \"AA\",\n  \"passport_number\": \"3450077\",\n  \"avatar_upload_file_id\": null,\n  \"language\": \"uz\"\n}"
+  auth: inherit
+docs: |
+  Joriy foydalanuvchi profilini yangilaydi. Foydalanuvchi turiga qarab tegishli
+  jadval yangilanadi (Admin → `admin_profile` + `user`; Partner/Employee → `organization_employee`).
+  Barcha maydonlar ixtiyoriy — faqat yuborilganlari yangilanadi (`null` = o'zgartirmaslik).
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body — Admin (`type=1`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `first_name` / `last_name` / `patronymic` | string | FISH |
+  | `region_id` / `district_id` | int | Viloyat / Tuman |
+  | `address` | string | Manzil |
+  | `phone` / `email` | string | Aloqa (`user` jadvalida) |
+  | `birth_date` | string | `Y-m-d` |
+  | `passport_series` (2) / `passport_number` (7) | string | Pasport |
+  | `avatar_upload_file_id` | int | `POST /admin/upload` natijasidagi fayl ID |
+  | `language` | string | `uz` \| `ru` \| `en` |
+
+  ### 📥 Request Body — Partner / Employee (`type=5,6`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `full_name` | string | To'liq ism |
+  | `phone` | string | Telefon |
+  | `profile_photo_upload_file_id` | int | Profil rasmi fayl ID |
+  | `language` | string | `uz` \| `ru` \| `en` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `422` | Validatsiya xatosi (masalan, `email` band yoki noto'g'ri) |
+  | `404` | Partner/Employee profili topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

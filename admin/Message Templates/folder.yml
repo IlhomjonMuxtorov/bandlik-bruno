@@ -1,0 +1,6 @@
+info:
+  name: Message Templates
+  type: folder
+  seq: 26
+request:
+  auth: inherit

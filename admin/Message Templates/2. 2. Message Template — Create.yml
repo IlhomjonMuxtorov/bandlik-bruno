@@ -1,0 +1,40 @@
+info:
+  name: 2. Message Template — Create
+  type: http
+  seq: 2
+http:
+  method: POST
+  url: '{{base_url}}/admin/message-templates'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"organization_id\": 1,\n  \"title_uz\": \"Hujjat yetarli emas\",\n  \"title_ru\": \"Документы недостаточны\",\n  \"title_en\": \"Documents insufficient\",\n  \"body_uz\": \"Siz yuborgan hujjatlar yetarli emas. Iltimos, to'liq to'plamni qayta yuboring.\",\n  \"body_ru\": \"Отправленные вами документы недостаточны. Пожалуйста, отправьте полный комплект.\",\n  \"body_en\": \"The documents you submitted are insufficient. Please resend the full set.\",\n  \"is_active\": true\n}"
+  auth: inherit
+docs: |
+  Yangi javob xabari shablonini yaratadi. `title` va `body` 3 tilda alohida
+  maydonlar sifatida yuboriladi va backendda `{uz, ru, en}` JSON sifatida saqlanadi.
+
+  **Auth:** `admin_token` yoki org foydalanuvchi (faqat o'z `organization_id` uchun).
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `organization_id` | int | ✅ | Tashkilot ID |
+  | `title_uz` / `title_ru` / `title_en` | string | ✅ | Sarlavha (3 til) |
+  | `body_uz` / `body_ru` / `body_en` | string | ✅ | Xabar matni (3 til) |
+  | `is_active` | bool | ➖ | Default `true` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `403` | Org foydalanuvchi boshqa tashkilot uchun yaratmoqchi |
+  | `422` | Validatsiya xatosi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

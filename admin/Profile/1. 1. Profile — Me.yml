@@ -1,0 +1,59 @@
+info:
+  name: 1. Profile — Me
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/me'
+  auth: inherit
+docs: |
+  Joriy autentifikatsiyalangan foydalanuvchining profil ma'lumotlari.
+  Foydalanuvchi turiga qarab javob shakli farq qiladi:
+
+  | `type` | Manba | Javob shakli |
+  |:---:|---|---|
+  | `1` — Admin | `admin_profile` jadvali | shaxsiy ma'lumotlar (FISH, viloyat, pasport, ...) |
+  | `5` — Partner / `6` — Employee | `organization_employee` jadvali | `full_name`, `role`, `organization_id`, ... |
+
+  **Auth:** `admin_token` (Admin, Partner yoki Employee).
+
+  ### 📤 Response (Admin — `data`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `user_id` | int | Foydalanuvchi ID |
+  | `username` | string | Login |
+  | `type` | int | `1` = Admin |
+  | `first_name` / `last_name` / `patronymic` | string\|null | FISH |
+  | `region_id` / `region_name` | int\|string\|null | Viloyat |
+  | `district_id` / `district_name` | int\|string\|null | Tuman |
+  | `address` | string\|null | Manzil |
+  | `phone` / `email` | string\|null | Aloqa |
+  | `birth_date` | string\|null | `Y-m-d` |
+  | `passport_series` / `passport_number` | string\|null | Pasport |
+  | `avatar_url` | string\|null | Profil rasmi |
+  | `language` | string | `uz` \| `ru` \| `en` |
+
+  ### 📤 Response (Partner / Employee — `data`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `user_id` | int | Foydalanuvchi ID |
+  | `organization_id` / `organization_name` | int\|string | Tashkilot |
+  | `full_name` | string | To'liq ism |
+  | `phone` | string\|null | Telefon |
+  | `role` | string | Tashkilotdagi rol (`admin`, ...) |
+  | `language` | string | `uz` \| `ru` \| `en` |
+  | `profile_photo_url` | string\|null | Profil rasmi |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki noto'g'ri |
+  | `404` | Partner/Employee uchun profil topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,43 @@
+info:
+  name: 4. Profile — Change Language
+  type: http
+  seq: 4
+http:
+  method: PATCH
+  url: '{{base_url}}/admin/me/language'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"language\": \"ru\"\n}"
+  auth: inherit
+docs: |
+  Joriy foydalanuvchining interfeys tilini o'zgartiradi.
+  Admin → `admin_profile.language`; Partner/Employee → `organization_employee.language`.
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `language` | string | ✅ | `uz` \| `ru` \| `en` |
+
+  ### 📤 Response (`data`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `language` | string | Saqlangan til |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `422` | `language` ruxsat etilgan qiymatlardan emas |
+  | `404` | Partner/Employee profili topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
