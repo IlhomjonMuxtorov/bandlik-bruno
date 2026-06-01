@@ -1,0 +1,34 @@
+info:
+  name: 16. Offer Cancel
+  type: http
+  seq: 16
+http:
+  method: POST
+  url: '{{base_url}}/mobile/chats/1/offer/cancel'
+  auth: inherit
+docs: |
+  # POST /mobile/chats/&lt;id&gt;/offer/cancel
+
+  Nomzod **qabul qilingan** taklifni ish tugamasdan bekor qiladi. Hali band'da turgan
+  **qolgan summa** (`remaining_hold = reserved_amount − captured_amount`) balansga
+  qaytariladi. Allaqachon xizmatlarga yechib o'tkazilgan pul (`captured_amount`)
+  **qaytarilmaydi**. Yetkazilmagan xizmatlar (`awaiting_funds`/`in_progress`) `cancelled` bo'ladi.
+
+  **Auth:** `access_token`. Taklif `confirmed` bo'lishi va terminal bo'lmasligi shart.
+
+  ### 📤 Response (200)
+
+  Yangilangan `offer` obyekti — `journey_status = dropped_out`, `remaining_hold = 0`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Taklif qabul qilinmagan yoki allaqachon yakunlangan |
+  | `403` | Chat boshqa nomzodga tegishli |
+  | `404` | Chat topilmadi yoki unda taklif yo'q |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

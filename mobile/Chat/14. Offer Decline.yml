@@ -1,0 +1,33 @@
+info:
+  name: 14. Offer Decline
+  type: http
+  seq: 14
+http:
+  method: POST
+  url: '{{base_url}}/mobile/chats/1/offer/decline'
+  auth: inherit
+docs: |
+  # POST /mobile/chats/&lt;id&gt;/offer/decline
+
+  Nomzod **hali qabul qilmagan** taklifni rad etadi. Pipeline `dropped_out` bo'ladi
+  va **chat to'liq yopiladi** (`archived`). Pul band qilinmagani uchun moliyaviy harakat yo'q.
+
+  **Auth:** `access_token`. Taklif `confirmed` bo'lmasligi va terminal bo'lmasligi shart.
+  Qabul qilingan taklifni to'xtatish uchun **Offer Cancel** ishlatiladi.
+
+  ### 📤 Response (200)
+
+  Yangilangan `offer` obyekti — `journey_status = dropped_out`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Taklif allaqachon qabul qilingan (Cancel ishlating) yoki terminal |
+  | `403` | Chat boshqa nomzodga tegishli |
+  | `404` | Chat topilmadi yoki unda taklif yo'q |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

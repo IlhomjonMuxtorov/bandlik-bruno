@@ -1,0 +1,41 @@
+info:
+  name: 13. Offer Accept
+  type: http
+  seq: 13
+http:
+  method: POST
+  url: '{{base_url}}/mobile/chats/1/offer/accept'
+  auth: inherit
+docs: |
+  # POST /mobile/chats/&lt;id&gt;/offer/accept
+
+  Nomzod chat ichidagi taklifni (Offer system-xabari) **qabul qiladi**. Ish jarayoni
+  boshlanadi va hisobdan pul **band qilinadi (hold)**. Acceptning o'zi balans
+  yetmasligi sababli **bloklanmaydi** — xizmat faqat puli band qilingach `in_progress` bo'ladi.
+
+  **Auth:** `access_token`. Chat `pending` taklifga ega bo'lishi shart.
+
+  ## Funding (vakansiyaga bog'liq)
+  - `single_payment = true` → `required_amount` to'liq mavjud bo'lsa **barcha** xizmat
+    boshlanadi; aks holda hech biri (`awaiting_funds`).
+  - `single_payment = false` → xizmatlar **navbat bilan** band qilinadi; balans
+    yetganicha boshlanadi, qolgani kutadi.
+
+  ### 📤 Response (200)
+
+  Yangilangan `offer` obyekti (Chat Detail'dagi `offer` bilan bir xil shakl).
+  `awaiting_amount > 0` bo'lsa → nomzodni hamyonni to'ldirishga yo'naltiring, keyin `offer/fund`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Taklif endi qabul qilib bo'lmaydi (pending emas / terminal) |
+  | `409` | Nomzodda allaqachon boshqa **aktiv qabul qilingan taklif** bor |
+  | `403` | Chat boshqa nomzodga tegishli |
+  | `404` | Chat topilmadi yoki unda taklif yo'q |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

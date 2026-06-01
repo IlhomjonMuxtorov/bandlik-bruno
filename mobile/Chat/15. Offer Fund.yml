@@ -1,0 +1,34 @@
+info:
+  name: 15. Offer Fund
+  type: http
+  seq: 15
+http:
+  method: POST
+  url: '{{base_url}}/mobile/chats/1/offer/fund'
+  auth: inherit
+docs: |
+  # POST /mobile/chats/&lt;id&gt;/offer/fund
+
+  Hamyon **to'ldirilgandan keyin** hali band qilinmagan (`awaiting_funds`) xizmatlarni
+  qayta band qilishga urinadi. `single_payment = false` rejimida navbatdagi xizmatlar
+  ketma-ket boshlanadi; `single_payment = true` rejimida to'liq summa yetganda hammasi boshlanadi.
+
+  **Auth:** `access_token`. Taklif `confirmed` (qabul qilingan) bo'lishi shart.
+  Idempotent — bir necha bor chaqirish xavfsiz. Balans hali yetmasa hech narsa o'zgarmaydi.
+
+  ### 📤 Response (200)
+
+  Yangilangan `offer` obyekti — `services[].status` va funding summalari bilan.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Taklif qabul qilinmagan |
+  | `403` | Chat boshqa nomzodga tegishli |
+  | `404` | Chat topilmadi yoki unda taklif yo'q |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

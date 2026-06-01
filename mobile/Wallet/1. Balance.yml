@@ -42,7 +42,8 @@ docs: |
   ```json
   {
     "balance": 60000000,
-    "available": 60000000,
+    "hold": 20000000,
+    "available": 40000000,
     "currency": "UZS"
   }
   ```
@@ -50,7 +51,8 @@ docs: |
   | Maydon | Tip | Izoh |
   |---|---|---|
   | `balance` | int | Umumiy balans (so'm). |
-  | `available` | int | Sarflash mumkin bo'lgan summa (so'm) = `balance − hold`. Nomzodda hold ishlatilmaydi, shuning uchun odatda `available == balance`. |
+  | `hold` | int | **Band qilingan** summa (so'm). Nomzod taklifni qabul qilganda (`POST /mobile/my-offers/<id>/accept`) xizmatlar uchun pul shu yerga o'tadi va xizmat yetkazilguncha band turadi. |
+  | `available` | int | Sarflash mumkin bo'lgan summa (so'm) = `balance − hold`. |
   | `currency` | string | Valyuta kodi (hozircha doim `UZS`). |
 
   ## Errors

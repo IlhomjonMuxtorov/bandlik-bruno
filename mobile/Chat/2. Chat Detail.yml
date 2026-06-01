@@ -27,6 +27,24 @@ docs: |
   |---|---|---|
   | `candidate_card` | object \| null | Pinlangan obyektivka. `{candidate_id, application_id, full_name, photo_url, phone, cv_id, cv_title, cover_message}`. Conversation ochilishda system message sifatida birinchi xabar sifatida |
   | `service_stages` | array | Stage tracker. Bo'sh massiv — ariza hali Accepted emas |
+  | `offer` | object \| null | **Taklif + funding holati**. `null` — tashkilot arizani hali qabul qilmagan (pipeline yo'q). Nomzod taklifni shu yerdan **qabul/rad/bekor** qiladi: `POST /mobile/chats/<id>/offer/{accept,decline,fund,cancel}` |
+
+  `offer` obyekti (mavjud bo'lsa):
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Pipeline (taklif) id |
+  | `journey_status` | string | `pending` (qabul kutilmoqda) / `course_in_progress` (qabul qilingan) / ... |
+  | `confirmed` | bool | Taklif qabul qilinganmi (pul band qilish boshlanganmi) |
+  | `currency` | string | Band qilish valyutasi (UZS) |
+  | `required_amount` | int | Barcha xizmatlar jami (so'm) |
+  | `funded_amount` | int | Band qilingan (boshlangan) summa |
+  | `awaiting_amount` | int | Boshlash uchun yana yetishmayotgan summa (→ hamyonni to'ldirish) |
+  | `reserved_amount` | int | Jami band qilingan |
+  | `captured_amount` | int | Xizmatlarga yechib o'tkazilgan |
+  | `remaining_hold` | int | Hali band'da turgan (bekor qilishda qaytadigan) |
+
+  > Per-xizmat detal (summa, holat, muddat, mas'ul xodim) `service_stages[]` da — `offer` faqat jami ko'rsatkichlar.
 
   Har `service_stages[]` elementi:
 
@@ -36,6 +54,9 @@ docs: |
   | `category` | string | `agency` \| `notarius` \| `insurance` \| `logistics` \| `visa` \| `translation_apostille` \| `training` |
   | `category_label` | string | tarjima qilingan label |
   | `service_name` | string \| null | vacancy_service snapshot nomi |
+  | `amount` | int | **Xizmat summasi** (so'm) — qabul paytida snapshot qilinadi |
+  | `currency` | string | Valyuta (UZS) |
+  | `funded` | bool | Nomzod puli shu xizmat uchun band qilinganmi (`true` bo'lmaguncha tashkilot boshlay olmaydi) |
   | `status` | string | `pending` \| `in_progress` \| `completed` \| `overdue` \| `skipped` |
   | `status_label` | string | tarjima qilingan |
   | `responsible_user` | object \| null | `{id, username}` |
