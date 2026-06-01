@@ -19,6 +19,14 @@ docs: |
 
   `status=completed` qilinganda `completed_at` avtomatik yoziladi va chat'da `type=system` xabar paydo bo'ladi (`{kind: stage_completed, stage_id, stage_category, completed_at}`).
 
+  ### 💰 Pul ta'siri (Faza B)
+  - **`in_progress`ga o'tkazish** — stage **funded** bo'lishi shart (nomzod taklifni qabul qilib,
+    shu xizmat summasini band qilgan bo'lishi kerak). Funded bo'lmasa `400` ("not funded yet") —
+    "balans yetmasa tashkilot xizmatni boshlamaydi". `deadline_at` berilmasa avtomatik
+    `now + vacancy_service.deadline_days` o'rnatiladi.
+  - **`completed`ga o'tkazish** — nomzod hold'idan shu xizmat summasi **capture** qilinadi:
+    komissiya platformaga, qolgani tashkilot balansiga. Idempotent (`captured_at`).
+
   **Auth:** `admin_token`. Stage shu chatning `vacancy_candidate` ga tegishli bo'lishi shart (aks holda 403).
 
   ### 📥 Request Body
