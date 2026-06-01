@@ -37,6 +37,8 @@ docs: |
 
   `201` + ChatMessageOutputDTO.
 
+  Sender maydonida: XBA xodimi bo'lsa `full_name` va `profile_photo_url` (agar mavjud bo'lsa) qo'shiladi.
+
   ### ⚠️ Errors
 
   | Code | Reason |

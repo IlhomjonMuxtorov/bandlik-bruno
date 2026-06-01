@@ -26,7 +26,11 @@ docs: |
 
   ### 📤 Response
 
-  Mobile Messages bilan bir xil DTO shape.
+  Mobile Messages bilan bir xil, lekin sender maydonida XBA xodimi bo'lsa `full_name` va `profile_photo_url` qo'shiladi:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `sender` | object \| null | `{id, username, full_name?, profile_photo_url?}` — XBA xodimi bo'lsa full_name va profile_photo_url qo'shiladi |
 
   ### ⚠️ Errors
 

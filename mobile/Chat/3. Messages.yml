@@ -38,7 +38,7 @@ docs: |
   | `type` | string | `text` \| `voice` \| `image` \| `document` \| `candidate_card` \| `offer` \| `rejection` \| `system` \| `call` |
   | `type_label` | string | tarjima qilingan |
   | `body` | string \| null | matn (yoki ovoz/rasm uchun caption) |
-  | `sender` | object \| null | `{id, username}` — system message uchun `null` |
+  | `sender` | object \| null | `{id, username, full_name?, profile_photo_url?}` — system message uchun `null`. XBA xodimi bo'lsa `full_name` va `profile_photo_url` qo'shiladi |
   | `attachment` | object \| null | `{id, name, mime_type, size, file_kind, url}` |
   | `voice_duration_sec` | int \| null | faqat `type=voice` da |
   | `system_payload` | object \| null | system msg ma'lumotlari (offer, rejection, call payload, candidate_card snapshot) |

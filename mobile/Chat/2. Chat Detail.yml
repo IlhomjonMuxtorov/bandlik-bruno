@@ -25,7 +25,7 @@ docs: |
 
   | Field | Type | Description |
   |---|---|---|
-  | `candidate_card` | object \| null | Pinlangan obyektivka. `{candidate_id, application_id, full_name, photo_url, phone, cv_id, cv_title, cover_message}` |
+  | `candidate_card` | object \| null | Pinlangan obyektivka. `{candidate_id, application_id, full_name, photo_url, phone, cv_id, cv_title, cover_message}`. Conversation ochilishda system message sifatida birinchi xabar sifatida |
   | `service_stages` | array | Stage tracker. Bo'sh massiv — ariza hali Accepted emas |
 
   Har `service_stages[]` elementi:
