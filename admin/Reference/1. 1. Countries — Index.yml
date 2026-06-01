@@ -25,6 +25,11 @@ docs: 'Davlatlar ro''yxati (paginatsiya bilan).
 
   | `is_visa_available` | int (0\|1) | ➖ | Viza beradigan davlatlar. |
 
+  | `exclude_priced_for_org` | int | ➖ | Sug''urta tashkilot `organization.id` (`type = 4`). Berilsa,
+  o''sha tashkilotga **allaqachon narx biriktirilgan** davlatlar ro''yxatdan chiqariladi — "Davlatlar
+  bo''yicha narxlash" formasida yangi davlat qo''shish dropdown''i uchun (dublikat blok / unique-kalit
+  konfliktining oldini oladi). Active yoki inactive — har qanday narx satri bo''lsa, davlat chiqariladi. |
+
   | `page` | int | ➖ | Sahifa raqami (default `1`). |
 
   | `per-page` | int | ➖ | Sahifa hajmi (1–100, default `20`). |

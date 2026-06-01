@@ -65,6 +65,9 @@ docs: |
   Har bir `items[]` blokini tahrirlash/saqlash uchun `POST .../sync` (Group Save)
   ishlatiladi. Bitta davlat blokini qayta yuklash uchun `GET .../group` ishlatiladi.
 
+  **Yangi davlat qo'shish** dropdown'i uchun narx biriktirilmagan davlatlar:
+  `GET /admin/countries?exclude_priced_for_org=<organization_id>`.
+
   ### ⚠️ Errors
 
   | Code | Reason |
