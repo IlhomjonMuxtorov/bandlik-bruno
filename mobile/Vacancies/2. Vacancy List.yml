@@ -25,6 +25,7 @@ docs: |-
   | `salary_min` | int | ➖ | Minimal brutto maosh (`salary_gross >=`). |
   | `salary_max` | int | ➖ | Maksimal brutto maosh (`salary_gross <=`). |
   | `salary_currency` | string | ➖ | `UZS` \| `USD` \| `EUR`. Range berilganda default `USD`. |
+  | `is_favorite` | bool | ➖ | Faqat sevimli vakansiyalar (`true`) yoki sevimli emaslari (`false`). Default: barcha vakansiyalar. |
   | `cv_id` | int | ➖ | CV ID — "mos vakansiyalar" uchun. **Hozircha qabul qilinadi, lekin filtr qo'llanmaydi (no-op);** `cv_id` bo'yicha real moslik filtri keyinroq qo'shiladi. |
   | `sort` | string | ➖ | Saralash. `newest` (Yaqinda qo'shilganlar, default) \| `salary_asc` (Maosh o'sish tartibida) \| `salary_desc` (Maosh kamayish tartibida). Maoshsiz vakansiyalar har doim oxirida. Noma'lum qiymat → `newest`. |
   | `per-page` | int | ➖ | 1..100, default 20. |
