@@ -30,6 +30,7 @@ docs: |
   | Field | Type | Description |
   |---|---|---|
   | `muted_until` | int \| string | Unix ts qachongacha mute, yoki `"forever"` |
+  | `muted_until_formatted` | string \| null | `d.m.Y H:i` (Asia/Tashkent) |
 
   ### ⚠️ Errors
 

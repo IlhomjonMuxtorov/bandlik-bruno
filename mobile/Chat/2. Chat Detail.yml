@@ -40,7 +40,9 @@ docs: |
   | `status_label` | string | tarjima qilingan |
   | `responsible_user` | object \| null | `{id, username}` |
   | `deadline_at` | int \| null | unix ts |
+  | `deadline_at_formatted` | string \| null | `d.m.Y H:i` (Asia/Tashkent) |
   | `completed_at` | int \| null | |
+  | `completed_at_formatted` | string \| null | `d.m.Y H:i` (Asia/Tashkent) |
   | `progress_percent` | int | 0–100 |
   | `time_left_text` | string \| null | "7 d", "1 d, 2 h", "Deadline passed" — server-localized |
   | `sort_order` | int | UI tartibi |

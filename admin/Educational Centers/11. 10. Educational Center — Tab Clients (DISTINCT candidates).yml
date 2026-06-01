@@ -48,6 +48,8 @@ docs: 'O''quv markazining **Mijozlar** tabi — DISTINCT o''quvchilar bo''yicha 
 
   | `last_served_at` | int \| null | Oxirgi buyurtma sanasi (Unix ts) |
 
+  | `last_served_at_formatted` | string \| null | `d.m.Y H:i` (Asia/Tashkent) |
+
   | `last_status` | int | Oxirgi buyurtma statusi (1/2/3) |
 
   | `orders_count` | int | Shu markaz kurslariga jami yozilishlar soni |

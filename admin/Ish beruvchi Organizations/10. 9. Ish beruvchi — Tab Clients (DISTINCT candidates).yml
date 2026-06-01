@@ -53,6 +53,8 @@ docs: 'Ish beruvchi tashkilotning **Mijozlar** tabi — DISTINCT kandidatlar bo'
 
   | `last_served_at` | int \| null | Oxirgi xizmat sanasi (Unix ts) |
 
+  | `last_served_at_formatted` | string \| null | `d.m.Y H:i` (Asia/Tashkent) |
+
   | `last_status` | int | Oxirgi buyurtma statusi (1/2/3) |
 
   | `orders_count` | int | Shu org-ga jami buyurtmalar soni |

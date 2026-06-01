@@ -46,6 +46,7 @@ docs: |
   | `is_mine` | bool | viewer xabar muallifimi |
   | `is_read` | bool | viewer o'qiganmi |
   | `created_at` | int | unix ts |
+  | `created_at_formatted` | string | `d.m.Y H:i` (Asia/Tashkent) |
 
   ### ⚠️ Errors
 

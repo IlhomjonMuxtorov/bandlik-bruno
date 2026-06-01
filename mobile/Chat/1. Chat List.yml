@@ -41,6 +41,7 @@ docs: |
   | `application_status_label` | string | tarjima qilingan label |
   | `last_message_preview` | string \| null | matn yoki `🎤/📷/📎` placeholder |
   | `last_message_at` | int \| null | unix ts |
+  | `last_message_at_formatted` | string \| null | `d.m.Y H:i` (Asia/Tashkent) |
   | `unread_count` | int | nomzod tomonidagi o'qilmagan xabarlar soni |
   | `status` | string | `active` \| `archived` |
 

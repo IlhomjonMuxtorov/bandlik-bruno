@@ -57,6 +57,8 @@ docs: 'Notarius tashkilotining "Boshqa xizmatlar" narx-katalogi: faqat
 
   | `created_at` / `updated_at` | int | |
 
+  | `created_at_formatted` / `updated_at_formatted` | string | `d.m.Y H:i` (Asia/Tashkent) |
+
   '
 settings:
   encodeUrl: true

@@ -62,8 +62,10 @@ docs: |
   | `status_label` | string | Status nomi. |
   | `service_order_id` | null | Top-up'da doim `null`. |
   | `paid_at` | int\|null | To'langan vaqt (unix). |
+  | `paid_at_formatted` | string\|null | `d.m.Y H:i` (Asia/Tashkent) |
   | `failed_reason` | string\|null | Xato sababi (agar bo'lsa). |
   | `created_at` | int | Yaratilgan vaqt (unix). |
+  | `created_at_formatted` | string | `d.m.Y H:i` (Asia/Tashkent) |
 
   ## Payment status kodlari
   | Status | Label |

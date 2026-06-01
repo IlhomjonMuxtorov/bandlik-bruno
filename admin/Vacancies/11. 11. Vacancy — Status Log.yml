@@ -36,6 +36,8 @@ docs: 'Vakansiyaning barcha status o''zgarishlari tarixini qaytaradi (audit).
 
   | `created_at` | int | Unix timestamp |
 
+  | `created_at_formatted` | string | `d.m.Y H:i` (Asia/Tashkent) |
+
   '
 settings:
   encodeUrl: true

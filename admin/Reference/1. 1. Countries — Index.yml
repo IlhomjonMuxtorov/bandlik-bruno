@@ -71,7 +71,11 @@ docs: 'Davlatlar ro''yxati (paginatsiya bilan).
 
   | `created_at` | int | Unix timestamp |
 
+  | `created_at_formatted` | string | `d.m.Y H:i` (Asia/Tashkent) |
+
   | `updated_at` | int | Unix timestamp |
+
+  | `updated_at_formatted` | string | `d.m.Y H:i` (Asia/Tashkent) |
 
   '
 settings:

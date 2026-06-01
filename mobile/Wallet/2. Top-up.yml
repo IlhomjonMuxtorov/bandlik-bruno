@@ -55,6 +55,7 @@ docs: |
   | `amount` | int | So'mda (so'rovdagi `amount` bilan bir xil). |
   | `currency` | string | `UZS`. |
   | `expires_at` | int | Sessiya amal qilish muddati (unix timestamp). |
+  | `expires_at_formatted` | string | `d.m.Y H:i` (Asia/Tashkent) |
 
   ## Keyingi qadam
   Ilova `redirect_url`ga yo'naltiradi. To'lov tugagach:

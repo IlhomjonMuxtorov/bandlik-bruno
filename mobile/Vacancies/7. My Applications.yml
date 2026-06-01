@@ -31,7 +31,9 @@ docs: |-
   | `cover_message` | string \| null | |
   | `hotel_preference` | bool | |
   | `applied_at` | int | Unix timestamp |
+  | `applied_at_formatted` | string | `d.m.Y H:i` (Asia/Tashkent) |
   | `reviewed_at` / `decided_at` | int \| null | |
+  | `reviewed_at_formatted` / `decided_at_formatted` | string \| null | `d.m.Y H:i` (Asia/Tashkent) |
 
   ### ⚠️ Errors
 

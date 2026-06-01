@@ -19,6 +19,7 @@ docs: |
   | Field | Type | Description |
   |---|---|---|
   | `muted_until` | null | Doim `null` (mute o'chirildi) |
+  | `muted_until_formatted` | null | `d.m.Y H:i` (Asia/Tashkent) |
 
   ### ⚠️ Errors
 

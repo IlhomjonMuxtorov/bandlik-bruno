@@ -73,6 +73,8 @@ docs: 'Ro''yxatdan o''tgan nomzodning o''z profili va **MVD** dan olingan paspor
 
   | `created_at` | int | Hisob yaratilgan vaqt (UNIX) |
 
+  | `created_at_formatted` | string | `d.m.Y H:i` (Asia/Tashkent) |
+
 
   ### ⚠️ Errors
 

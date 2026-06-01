@@ -57,6 +57,8 @@ docs: 'Joriy nomzodning **barcha CV** ro''yxati — "Rezumelarim" ekrani uchun. 
   | `updated_at` | int | Unix timestamp — "Yangilangan" sanasi (mijoz `DD.MM.YYYY`
   ga formatlaydi) |
 
+  | `updated_at_formatted` | string | `d.m.Y H:i` (Asia/Tashkent) |
+
   | `views_count` | int | CV-ni ish beruvchilar tomonidan ko''rilgan soni. **Hozircha
   kuzatuv yo''q — doim `0`** |
 
