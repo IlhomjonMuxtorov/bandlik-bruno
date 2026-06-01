@@ -1,0 +1,93 @@
+info:
+  name: 12. Vacancy — Organizations (employer/recruiter select)
+  type: http
+  seq: 12
+http:
+  method: GET
+  url: '{{base_url}}/admin/vacancies/organizations?q='
+  params:
+  - name: q
+    value: ''
+    type: query
+    enabled: true
+  headers:
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: 'Vakansiya yaratishdagi **"Ish beruvchi / Rekruter"** bitta select uchun
+  birlashtirilgan ro''yxat. Faqat aktiv (`is_active = true`) Employer (`type=6`) va
+  Recruiter (`type=7`) tashkilotlari qaytariladi.
+
+
+  **Eslatma:** tanlangan `id` vacancy create payload''idagi `recruiter_id` ga
+  yuboriladi (`organization_id` — XBA tashkiloti id''si, alohida o''rnatiladi).
+
+
+  **Auth:** `admin_token` yoki org foydalanuvchi.
+
+
+  ### 🔎 Query Parameters
+
+
+  | Param | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `q` | string | ➖ | Nom / brend bo''yicha qidiruv (`name`, `brand_name` ILIKE). |
+
+  | `page` | int | ➖ | Sahifa raqami (default `1`). |
+
+  | `per-page` | int | ➖ | 1..100, default 20. |
+
+
+  ### 📋 Headers
+
+
+  | Header | Required | Description |
+
+  |---|:---:|---|
+
+  | `Authorization` | ✅ | `Bearer {token}` |
+
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` |
+
+
+  ### 📤 Response (`data`)
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `items` | array | Tashkilotlar ro''yxati |
+
+  | `items[].id` | int | Tashkilot ID |
+
+  | `items[].type` | int | `6` = Employer, `7` = Recruiter |
+
+  | `items[].type_label` | string | `Ish beruvchi` \| `Rekruter` |
+
+  | `items[].name` | string | Tashkilot nomi |
+
+  | `items[].brand_name` | string \| null | Brend nomi |
+
+  | `pagination` | object | `{ page, page_size, total_count, page_count }` |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q |
+
+  | `403` | Ruxsat yo''q |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
