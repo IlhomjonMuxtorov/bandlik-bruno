@@ -34,8 +34,10 @@ docs: 'Faylni serverga yuklaydi va keyinchalik entity yaratish/yangilashda ishla
 
   | xls, xlsx | Excel |
 
+  | mp3, m4a, aac, ogg, opus, wav, webm | Audio (ovozli xabar) |
 
-  **Maksimal hajm:** 10 MB
+
+  **Maksimal hajm:** 10 MB (audio fayllar uchun 25 MB)
 
   **Rasm maksimal o''lchami:** 8000×8000 px
 
