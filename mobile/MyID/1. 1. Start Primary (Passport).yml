@@ -22,7 +22,11 @@ docs: "# Passport ma'lumotlari orqali session yaratish\n\nYuz tanish uchun birin
   \ | string | ✅ | Pasport seriyasi + nomeri, masalan `AA1234567` |\n| `phone` | string\
   \ | ➖ | Telefon raqami `+998XXXXXXXXX` formatida |\n| `birth_date` | string | ➖\
   \ | Tug'ilgan sana `dd.mm.yyyy` formatida |\n| `threshold` | number | ➖ | Yuz moslik\
-  \ progi (0.6–0.99), default: 0.85 |\n"
+  \ progi (0.6–0.99), default: 0.85 |\n| `empty_session` | boolean | ➖ | `true`\
+  \ bo'lsa bo'sh sessiya yaratiladi: pass_data va boshqa maydonlar talab qilinmaydi\
+  \ hamda MyID so'roviga umuman yuborilmaydi, SDK passport kiritish ekranini\
+  \ ko'rsatadi |\n\n> `empty_session: true` berilganda boshqa barcha maydonlar\
+  \ e'tiborsiz qoldiriladi va so'rov tanasi bo'sh `{}` jo'natiladi.\n"
 settings:
   encodeUrl: true
   timeout: 0
