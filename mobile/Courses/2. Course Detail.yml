@@ -7,7 +7,7 @@ http:
   url: '{{base_url}}/mobile/courses/1'
   auth: inherit
 docs: |-
-  Bitta kurs tafsiloti. Faqat faol + e'lon qilingan (`is_active=true`, `status=active`) kurs qaytariladi. Kartochka maydonlariga qo'shimcha: to'liq tavsif va kursni taqdim etuvchi o'quv markazi (`organization`).
+  Bitta kurs tafsiloti. Faqat e'lon qilingan (`status=active`) kurs qaytariladi. Kartochka maydonlariga qo'shimcha: to'liq tavsif va kursni taqdim etuvchi o'quv markazi (`organization`).
 
   **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi).
 

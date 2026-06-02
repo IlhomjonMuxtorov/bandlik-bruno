@@ -15,7 +15,7 @@ http:
       ,\n  \"language_id\"\
       : 2,\n  \"level\": \"A2\",\n  \"duration_hours\": 40,\n  \"lessons_count\":\
       \ 20,\n  \"price\": 124000,\n  \"currency\": \"UZS\",\n  \"cover_file_id\":\
-      \ 11,\n  \"status\": \"active\",\n  \"is_active\": 1,\n  \"sort_order\": 0\n\
+      \ 11,\n  \"status\": \"active\",\n  \"sort_order\": 0\n\
       }"
   auth: inherit
 docs: 'Yangi o''quv kursini yaratadi. `slug` avtomatik generatsiya qilinadi (`name`
@@ -61,9 +61,7 @@ docs: 'Yangi o''quv kursini yaratadi. `slug` avtomatik generatsiya qilinadi (`na
   | `cover_file_id` | int | ➖ | Oldindan `/admin/upload` orqali yuklangan kover rasm
   fayl ID |
 
-  | `status` | string | ➖ | `draft` (default) \| `active` \| `archived` |
-
-  | `is_active` | bool (0\|1) | ➖ | Default `1` |
+  | `status` | string | ➖ | `draft` (default) \| `active` \| `archived`. Kurs ko''rinishini shu maydon boshqaradi: faqat `active` kurslar kandidatlarga ko''rinadi |
 
   | `sort_order` | int | ➖ | Default `0` |
 

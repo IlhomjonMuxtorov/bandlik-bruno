@@ -6,7 +6,7 @@ http:
   method: DELETE
   url: '{{base_url}}/admin/educational-courses/1'
   auth: inherit
-docs: '**Soft delete** — `is_active = false` VA `status = archived`.
+docs: '**Soft delete** — `status = archived` qilinadi (kurs kandidatlarga ko''rinmaydi).
 
 
   Kurs `vacancy_service.educational_course_id` orqali vakansiyalarga biriktirilgan

@@ -30,8 +30,6 @@ docs: 'Barcha o''quv kurslari ro''yxati. Markaz bo''yicha filtrlash uchun `organ
 
   | `status` | string | ➖ | `draft` \| `active` \| `archived` |
 
-  | `is_active` | int (0\|1) | ➖ | |
-
   | `page`, `per-page` | int | ➖ | Pagination |
 
   | `sort` | string | ➖ | `id` \| `sort_order` \| `price` \| `created_at` \| `name`
@@ -77,8 +75,6 @@ docs: 'Barcha o''quv kurslari ro''yxati. Markaz bo''yicha filtrlash uchun `organ
   | `status` | string | `draft` \| `active` \| `archived` |
 
   | `status_label` | string | Lokalizatsiyalangan label |
-
-  | `is_active` | bool | |
 
   | `sort_order` | int | |
 

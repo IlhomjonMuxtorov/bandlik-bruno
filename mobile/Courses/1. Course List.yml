@@ -7,7 +7,7 @@ http:
   url: '{{base_url}}/mobile/courses'
   auth: inherit
 docs: |-
-  Faol va e'lon qilingan (`is_active=true`, `status=active`) o'quv kurslari ro'yxati — mobil **kartochka** ko'rinishi (Kurslar feed). Default tartib: `sort_order ASC`, keyin `id DESC`. Filtrlar "Filter" oynasiga mos: Kurs turi, Til, Daraja, Davomiylik.
+  E'lon qilingan (`status=active`) o'quv kurslari ro'yxati — mobil **kartochka** ko'rinishi (Kurslar feed). Default tartib: `sort_order ASC`, keyin `id DESC`. Filtrlar "Filter" oynasiga mos: Kurs turi, Til, Daraja, Davomiylik.
 
   **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi).
 

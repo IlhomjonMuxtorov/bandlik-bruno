@@ -6,8 +6,9 @@ http:
   method: PATCH
   url: '{{base_url}}/admin/educational-courses/1/toggle-status'
   auth: inherit
-docs: 'Kursning `is_active` qiymatini teskariga aylantiradi. `status` enum (draft/active/archived)
-  o''zgarmaydi — uni alohida `Update` orqali boshqaring.
+docs: 'Kurs ko''rinishini teskariga aylantiradi: `status` `active` (e''lon qilingan)
+  ↔ `archived` (yashirilgan). Boshqa holatga (masalan `draft`) o''tkazish uchun `Update`
+  orqali `status` ni to''g''ridan-to''g''ri yuboring.
 
 
   **Auth:** `admin_token`.
