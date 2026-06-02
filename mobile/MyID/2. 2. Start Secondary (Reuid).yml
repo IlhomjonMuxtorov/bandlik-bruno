@@ -13,10 +13,11 @@ http:
     data: "{\n  \"reuid\": \"9b7e597e-893e-4e11-92cf-f4e7d4f923b1\",\n  \"threshold\"\
       : 0.85\n}"
   auth:
-    type: none
+    type: bearer
+    token: '{{guest_token}}'
 docs: "# Reuid orqali session yaratish\n\nOldin qilgan identifikatsiyaning reuid-i\
   \ bilan qayta session yaratish. Parol tiklash yoki boshqa qurilmadan kirish uchun.\n\
-  \n**Auth:** none  \n**Returns:** `{ session_id }`\n\n### \U0001F4E5 Request Body\n\
+  \n**Auth:** `guest_token` (kamida guest token kerak)  \n**Returns:** `{ session_id }`\n\n### \U0001F4E5 Request Body\n\
   \n| Field | Type | Required | Description |\n|---|---|:---:|---|\n| `reuid` | string\
   \ | ✅ | Qayta foydalanish uchun ID (oldin olingan) |\n| `phone` | string | ➖ | Telefon\
   \ raqami |\n| `threshold` | number | ➖ | Yuz moslik progi, default: 0.85 |\n"
