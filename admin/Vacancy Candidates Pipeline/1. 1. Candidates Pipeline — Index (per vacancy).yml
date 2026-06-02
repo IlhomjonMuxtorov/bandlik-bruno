@@ -58,6 +58,10 @@ docs: 'Vakansiya pipeline''idagi nomzodlar (`accepted_at DESC`).
 
   | `accepted_at` / `departed_at` | int \| null | |
 
+  | `stages` | array | "Joriy status" bosqichlari (`sort_order ASC`). Har biri: `{id,
+  category, category_label, service_name, amount, currency, funded, status, status_label,
+  responsible_user, deadline_at, completed_at, progress_percent, sort_order}` |
+
   '
 settings:
   encodeUrl: true

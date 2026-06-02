@@ -49,6 +49,9 @@ docs: 'Vakansiyaning to''liq tafsiloti — wizard tahrirlash uchun barcha bosqic
 
   | `single_payment` | bool | `1 tada 100% lik to''lov` rejimi |
 
+  | `views_count` / `applications_count` / `candidates_count` | int | Header tab
+  sonlari (Arizalar / Kandidatlar) |
+
 
   ### ⚠️ Errors
 

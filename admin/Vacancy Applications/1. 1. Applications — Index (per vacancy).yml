@@ -34,6 +34,15 @@ docs: 'Vakansiyaga topshirilgan barcha arizalar (`applied_at DESC`).
   | `items` | array | Ariza ro''yxati (`{id, vacancy, candidate, cv, status, status_label,
   hotel_preference, applied_at}`) |
 
+  | `candidate` | object | `{id, full_name, phone, photo_url, location}` — `location`
+  = `"Viloyat, Tuman"` (ro''yxat manzilidan) |
+
+  | `experience_years` / `experience_months` / `experience_total_months` | int | Ariza
+  CV''sidan hisoblangan umumiy ish tajribasi |
+
+  | `match_score` | int \| null | Moslik darajasi (% ). Hozircha har doim `null` —
+  keyinchalik ulanadi |
+
   | `pagination` | object | `{page, page_size, total_count, page_count}` |
 
   '
