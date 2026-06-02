@@ -9,62 +9,129 @@ http:
   - name: Accept-Language
     value: uz
   auth: inherit
-docs: 'Vakansiyaning to''liq tafsiloti — wizard tahrirlash uchun barcha bosqich ma''lumotlari.
+docs: |-
+  Vakansiyaning to'liq tafsiloti — wizard tahrirlash va detail sahifasi uchun barcha bosqich ma'lumotlari.
 
+  **Auth:** `admin_token` yoki vakansiya egasi (tashkilot / recruiter).
 
-  **Auth:** `admin_token` yoki vakansiya egasi.
-
+  `Accept-Language` (`uz` | `ru` | `en`) lokalizatsiyalangan maydonlarga ta'sir qiladi: `industry.name`, `country.name`, `city.name` va barcha `*_label`.
 
   ### 📤 Response (`data`)
 
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Vacancy ID |
+  | `title` | string | Sarlavha |
+  | `slug` | string | URL slug |
+  | `description` | string \| null | HTML/markdown matn |
+  | `status` | string | `draft` \| `pending_approval` \| `approved` \| `rejected` \| `closed` \| `archived` |
+  | `status_label` | string | Lokalizatsiyalangan status |
+  | `rejection_reason` | string \| null | Rad etilsa sababi |
+  | `approved_by` | int \| null | Tasdiqlagan `user.id` |
+  | `approved_at` | int \| null | Unix timestamp |
+  | `approved_at_formatted` | string | Inson o'qiy oladigan sana |
+  | `organization` | object | Ish beruvchi tashkilot — quyida |
+  | `recruiter` | object \| null | Vositachi (recruiter) tashkilot — quyida |
+  | `industry` | object \| null | Soha — quyida |
+  | `experience_level` | string | `none` \| `one_to_three` \| `three_to_six` |
+  | `experience_level_label` | string | Lokalizatsiyalangan |
+  | `employment_type` | string | `full_time` \| `part_time` … |
+  | `employment_type_label` | string | Lokalizatsiyalangan |
+  | `hiring_quota` | int | Ishga qabul kvotasi |
+  | `duration_months_min` / `_max` | int \| null | Ish davomiyligi (oy) |
+  | `work_schedule` | string \| null | Ish jadvali kodi |
+  | `work_schedule_label` | string \| null | Lokalizatsiyalangan |
+  | `work_time_from` / `_to` | string \| null | `HH:MM:SS` |
+  | `salary` | object | `{ gross: int\|null, gross_currency: string\|null, net: int\|null, net_currency: string\|null }` — summalar minor unitlarda, valyuta ISO 4217 |
+  | `country` | object | Davlat — quyida |
+  | `city` | object \| null | Shahar — quyida |
+  | `address` | string \| null | To'liq manzil |
+  | `hide_address_from_clients` | bool | Manzil mijozlardan yashirilganmi |
+  | `deadline_at` | string \| null | `DD.MM.YYYY` |
+  | `single_payment` | bool | `1 tada 100% lik to'lov` rejimi |
+  | `total_service_amount` | int | Snapshot narxlar yig'indisi (minor units) |
+  | `total_service_currency` | string | ISO 4217 (default `UZS`) |
+  | `saved_from_template_id` | int \| null | Qaysi shablondan saqlangan |
+  | `views_count` | int | Ko'rishlar soni |
+  | `applications_count` | int | Arizalar soni (header tab) |
+  | `candidates_count` | int | Kandidatlar soni (header tab) |
+  | `published_at` | int \| null | Unix timestamp |
+  | `published_at_formatted` | string | Inson o'qiy oladigan |
+  | `created_at` | int | Unix timestamp |
+  | `created_at_formatted` | string | Inson o'qiy oladigan |
+  | `updated_at` | int | Unix timestamp |
+  | `updated_at_formatted` | string | Inson o'qiy oladigan |
+  | `requirements` | array | `[{ id: int, title: string, description: string\|null, sort_order: int }]` |
+  | `benefits` | array | `[{ id: int, title: string, description: string\|null, sort_order: int }]` |
+  | `documents` | array | `[{ id: int, title: string, description: string\|null, sort_order: int }]` |
+  | `services` | array | Biriktirilgan xizmatlar (snapshot) — service object ro'yxati (quyida) |
+  | `services_by_category` | object | Kategoriya kaliti → service object massivi |
+  | `payment_steps` | array | `[{ id: int, step_type: string, step_type_label: string, title: string, amount: int, currency: string, sort_order: int }]` |
+
+  ### 🏢 `organization` (object — har doim mavjud)
 
   | Field | Type | Description |
-
   |---|---|---|
+  | `id` | int | `organization.id` |
+  | `name` | string \| null | Tashkilot nomi |
+  | `logo_url` | string \| null | Logotipning to'liq URL'i (yo'q bo'lsa `null`) |
 
-  | `id` | int | |
+  ### 🧑‍💼 `recruiter` (object \| null — `recruiter_id` bo'lmasa butun obyekt `null`)
 
-  | `status` / `status_label` | string | `draft` ... |
+  Recruiter ham `organization` jadvalining yozuvi, shuning uchun `organization` bilan bir xil shaklda.
 
-  | `organization` / `recruiter` / `industry` / `country` / `city` | object \| null
-  | Bog''liq entitylar |
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Recruiter tashkilot `organization.id` |
+  | `name` | string \| null | Recruiter tashkilot nomi |
+  | `logo_url` | string \| null | Recruiter logotipining to'liq URL'i (yo'q bo'lsa `null`) |
 
-  | `experience_level_label` / `employment_type_label` / `work_schedule_label` | string
-  | Lokalizatsiyalangan |
+  ### 🏭 `industry` (object \| null — `industry_id` bo'lmasa `null`)
 
-  | `requirements` | array | `[{id, title, description, is_required, sort_order}]`
-  |
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | `vacancy_industry.id` |
+  | `name` | string | Soha nomi (`Accept-Language` bo'yicha lokalizatsiyalangan) |
 
-  | `benefits` | array | `[{id, title, description, sort_order}]` |
+  ### 🌍 `country` (object — har doim mavjud)
 
-  | `documents` | array | `[{id, title, allowed_mime, is_required, sort_order}]` |
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | `country.id` |
+  | `name` | string | Davlat nomi (lokalizatsiyalangan) |
+  | `flag_url` | string \| null | Bayroq rasmining to'liq URL'i |
 
-  | `services` | array | Biriktirilgan xizmatlar (snapshot) |
+  ### 🏙 `city` (object \| null — `city_id` bo'lmasa `null`)
 
-  | `services_by_category` | object | Kategoriya bo''yicha guruhlangan |
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | `city.id` |
+  | `name` | string | Shahar nomi (lokalizatsiyalangan) |
 
-  | `payment_steps` | array | Drag-reorder qilinadigan to''lovlar |
+  ### 🧾 service object (`services[]` va `services_by_category{}` ichida)
 
-  | `total_service_amount` | int | Snapshot narxlar yig''indisi (UZS) |
-
-  | `single_payment` | bool | `1 tada 100% lik to''lov` rejimi |
-
-  | `views_count` / `applications_count` / `candidates_count` | int | Header tab
-  sonlari (Arizalar / Kandidatlar) |
-
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Snapshot service ID |
+  | `category` | string | Xizmat kategoriyasi kodi |
+  | `category_label` | string | Lokalizatsiyalangan |
+  | `organization_id` | int | Xizmat egasi tashkilot |
+  | `organization_name` | string \| null | |
+  | `organization_logo_url` | string \| null | |
+  | `organization_service_id` | int \| null | Manba xizmat ID (snapshotgacha) |
+  | `service_name` | string | Xizmat nomi (snapshot) |
+  | `price` | int | Narx (minor units) |
+  | `currency` | string | ISO 4217 |
+  | `duration_text` | string \| null | Muddat matni |
+  | `notes` | string \| null | Izoh |
+  | `sort_order` | int | Tartib |
 
   ### ⚠️ Errors
 
-
   | Code | Reason |
-
   |---|---|
-
   | `404` | Vakansiya topilmadi |
-
   | `403` | Boshqa tashkilotning vakansiyasi |
-
-  '
 settings:
   encodeUrl: true
   timeout: 0
