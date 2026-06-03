@@ -1,0 +1,45 @@
+info:
+  name: Video Call Join
+  type: http
+  seq: 10
+http:
+  method: POST
+  url: '{{base_url}}/admin/chats/1/video-call/join'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"call_message_id\": 0\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+docs: |
+  Chatda **allaqachon boshlangan** qo'ng'iroqqa qo'shilish (masalan nomzod boshlagan bo'lsa). Server aktiv `call` system message'dagi **o'sha** `room_name` uchun Jitsi JWT (`moderator=true`) chiqaradi — **yangi xona ochmaydi** va **yangi `call` xabari yozmaydi**.
+
+  `call_message_id`'ni `GET /admin/chats/<id>` javobidagi `active_call.call_message_id`'dan (yoki nomzod yuborgan `call` xabaridan) olish mumkin.
+
+  **Auth:** `admin_token`. Issued token `moderator=true`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `call_message_id` | int | ✅ | Qo'shilinadigan aktiv qo'ng'iroqning `ChatMessage.id` (`type=call`) |
+
+  ### 📤 Response
+
+  `Video Call Token` bilan bir xil shape (`token`, `room_name`, `domain`, `expires_at`, `expires_at_formatted`, `call_message_id`). Yagona farq — `room_name` mavjud xona, JWT'da `moderator: true`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Qo'ng'iroq allaqachon tugagan/rad etilgan, yoki `call_message_id` noto'g'ri, yoki xona nomi yo'q |
+  | `401` / `403` / `404` | Standart |
+  | `500` | `JITSI_APP_SECRET` configured emas |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

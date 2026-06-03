@@ -28,6 +28,7 @@ docs: |
   | `candidate_card` | object \| null | Pinlangan obyektivka. `{candidate_id, application_id, full_name, photo_url, phone, cv_id, cv_title, cover_message}`. Conversation ochilishda system message sifatida birinchi xabar sifatida |
   | `service_stages` | array | Stage tracker. Bo'sh massiv — ariza hali Accepted emas |
   | `offer` | object \| null | **Taklif + funding holati**. `null` — tashkilot arizani hali qabul qilmagan (pipeline yo'q). Nomzod taklifni shu yerdan **qabul/rad/bekor** qiladi: `POST /mobile/chats/<id>/offer/{accept,decline,fund,cancel}` |
+  | `active_call` | object \| null | **Aktiv (davom etayotgan/jiringlayotgan) qo'ng'iroq**. `null` — qo'shiladigan qo'ng'iroq yo'q. Push kelmagan / chat qayta ochilgan holatda mijoz shu maydon orqali "Join" tugmasini ko'rsatadi va `POST /mobile/chats/<id>/video-call/join` chaqiradi. Obyekt: `{call_message_id, room_name, domain, started_by, started_at}` |
 
   `offer` obyekti (mavjud bo'lsa):
 

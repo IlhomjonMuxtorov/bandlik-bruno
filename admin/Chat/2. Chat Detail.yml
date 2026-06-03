@@ -29,6 +29,9 @@ docs: |
   **Candidate Card:**
   - `{candidate_id, application_id, full_name, photo_url, phone, cv_id, cv_title, cover_message}`
 
+  **Active Call:**
+  - `active_call` (object | null) — aktiv (davom etayotgan/jiringlayotgan) qo'ng'iroq. `null` — qo'shiladigan qo'ng'iroq yo'q. Admin shu maydon orqali `POST /admin/chats/<id>/video-call/join` bilan qayta qo'shiladi. Obyekt: `{call_message_id, room_name, domain, started_by, started_at}`
+
   ### ⚠️ Errors
 
   | Code | Reason |

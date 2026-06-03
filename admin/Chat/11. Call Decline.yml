@@ -1,0 +1,45 @@
+info:
+  name: Call Decline
+  type: http
+  seq: 11
+http:
+  method: POST
+  url: '{{base_url}}/admin/chats/1/call-decline'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"call_message_id\": 0\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+docs: |
+  XBA xodimi kiruvchi qo'ng'iroqni rad etadi. Asl `call` system message'ning `system_payload`'ga `{outcome: "declined", ended_by, ended_at}` yoziladi. Mobile `Call Decline` bilan bir xil mantiq, faqat `admin_token` auth.
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `call_message_id` | int | ✅ | `ChatMessage.id` (`type=call`) |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `status` | string | Doim `declined` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `call_message_id` noto'g'ri yoki message turi `call` emas |
+  | `401` / `403` | Standart |
+  | `404` | Call message topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

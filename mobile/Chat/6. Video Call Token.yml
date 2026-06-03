@@ -10,7 +10,9 @@ http:
     type: none
   auth: inherit
 docs: |
-  Nomzod uchun Jitsi JWT chiqaradi (HS256). Server bir vaqtning o'zida shu chatga `type=call` system message yozadi, qarama-qarshi tomonga `new_message` push yuboradi — XBA xodimi `system_payload.room_name` orqali shu xonaga qo'shilishi mumkin.
+  Nomzod **yangi** qo'ng'iroq boshlaydi: Jitsi JWT chiqaradi (HS256), yangi xona (`bandlik-chat-{id}-{random}`) ochiladi. Server bir vaqtning o'zida shu chatga `type=call` system message yozadi va qarama-qarshi tomonga `incoming_call` (data-only) FCM push yuboradi — XBA xodimi `POST /admin/chats/<id>/video-call/join` orqali shu xonaga (`call_message_id` bilan) qo'shiladi.
+
+  > Mavjud qo'ng'iroqqa **qo'shilish** uchun bu emas, `POST /mobile/chats/<id>/video-call/join` ishlatiladi (u yangi xona ochmaydi).
 
   **Auth:** `access_token`. Issued token `moderator=false` claim bilan.
 

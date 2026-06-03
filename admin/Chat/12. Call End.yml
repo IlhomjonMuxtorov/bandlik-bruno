@@ -1,0 +1,47 @@
+info:
+  name: Call End
+  type: http
+  seq: 12
+http:
+  method: POST
+  url: '{{base_url}}/admin/chats/1/call-end'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"call_message_id\": 0,\n  \"duration_seconds\": 0\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+docs: |
+  XBA xodimi qo'ng'iroqni tugatadi (chatdan turib). Asl `call` system message'ning `system_payload`'ga `{outcome: "ended", ended_by, ended_at, duration_seconds}` yoziladi — mijoz "00:32" davomiylikni ko'rsatadi. Mobile `Call End` bilan bir xil mantiq, faqat `admin_token` auth.
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `call_message_id` | int | ✅ | `ChatMessage.id` (`type=call`) |
+  | `duration_seconds` | int | — | Qo'ng'iroq davomiyligi (soniya). Default `0` |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `status` | string | Doim `ended` |
+  | `duration_seconds` | int | Yuborilgan davomiylik |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `call_message_id` noto'g'ri yoki message turi `call` emas |
+  | `401` / `403` | Standart |
+  | `404` | Call message topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

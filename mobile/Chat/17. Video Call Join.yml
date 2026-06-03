@@ -1,0 +1,56 @@
+info:
+  name: Video Call Join
+  type: http
+  seq: 17
+http:
+  method: POST
+  url: '{{base_url}}/mobile/chats/1/video-call/join'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"call_message_id\": 0\n}"
+  auth: inherit
+docs: |
+  Boshqa tomon (odatda XBA admin) **allaqachon boshlagan** qo'ng'iroqqa qo'shilish. Server aktiv `call` system message'dagi **o'sha** `room_name` uchun Jitsi JWT (`moderator=false`) chiqaradi — **yangi xona ochmaydi** va **yangi `call` xabari yozmaydi**. Shu sababli nomzod admin bilan bir xil konferensiyaga tushadi.
+
+  `call_message_id`'ni quyidagilardan olish mumkin:
+  - `incoming_call` FCM push'idagi `message_id` maydoni, yoki
+  - `GET /mobile/chats/<id>` javobidagi `active_call.call_message_id` (push kelmagan / chat qayta ochilgan holatda).
+
+  **Auth:** `access_token`. Issued token `moderator=false`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `call_message_id` | int | ✅ | Qo'shilinadigan aktiv qo'ng'iroqning `ChatMessage.id` (`type=call`) |
+
+  ### 📤 Response
+
+  `Video Call Token` bilan **bir xil** shape — mijoz yagona Jitsi-ochish kodidan foydalanadi:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `token` | string | HS256 JWT (`moderator=false`) |
+  | `room_name` | string | Adminning qo'ng'irog'idagi **o'sha** xona (yangi emas) |
+  | `domain` | string | `JITSI_DOMAIN`. Mijoz: `https://{domain}/{room_name}?jwt={token}` |
+  | `expires_at` | int | unix ts (default 2h) |
+  | `expires_at_formatted` | string | `d.m.Y H:i` (Asia/Tashkent) |
+  | `call_message_id` | int | O'sha aktiv `call` message id (keyin `call-end`/`call-decline` uchun) |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Qo'ng'iroq allaqachon tugagan/rad etilgan (`outcome` o'rnatilgan), yoki `call_message_id` noto'g'ri, yoki xona nomi yo'q |
+  | `401` | Token yo'q |
+  | `403` | Chat boshqa nomzodga tegishli |
+  | `404` | Call message topilmadi |
+  | `500` | `JITSI_APP_SECRET` konfiguratsiya qilinmagan |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

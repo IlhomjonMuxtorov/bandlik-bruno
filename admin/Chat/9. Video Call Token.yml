@@ -12,7 +12,9 @@ http:
     mode: bearer
     bearer: '{{ admin_token }}'
 docs: |
-  XBA xodimi uchun Jitsi JWT (HS256, `moderator=true`). Chat'da `type=call` system message yoziladi va nomzodga FCM push yuboriladi.
+  XBA xodimi **yangi** qo'ng'iroq boshlaydi: Jitsi JWT (HS256, `moderator=true`), yangi xona ochiladi. Chat'da `type=call` system message yoziladi va nomzodga `incoming_call` (data-only) FCM push yuboriladi. Nomzod `POST /mobile/chats/<id>/video-call/join` orqali shu xonaga qo'shiladi.
+
+  > Mavjud qo'ng'iroqqa **qo'shilish** uchun `POST /admin/chats/<id>/video-call/join` ishlatiladi (yangi xona ochmaydi).
 
   **Auth:** `admin_token`.
 
