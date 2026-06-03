@@ -1,0 +1,125 @@
+info:
+  name: Active Offer
+  type: http
+  seq: 2
+http:
+  method: GET
+  url: '{{base_url}}/mobile/candidate/active-offer'
+  headers:
+  - name: Accept
+    value: application/json
+  auth: inherit
+docs: 'Nomzodning hozirgi **faol qabul qilingan taklifini** (bitta vakansiya) va uning
+  **jarayon stepperini** qaytaradi — asosiy sahifadagi karta uchun.
+
+
+  > Biznes qoidasi: nomzod faqat **bitta** vakansiya uchun taklifni qabul qila oladi,
+  shuning uchun istalgan paytda ko''pi bilan bitta faol (confirmed, terminal bo''lmagan)
+  taklif bo''ladi.
+
+
+  > Faqat `TYPE_CANDIDATE` (`type=4`) foydalanuvchilar uchun.
+
+
+  **Auth:** `access_token`. Pul qiymatlari **so''m** da (backend tiyin saqlaydi).
+
+
+  ### 📋 Headers
+
+
+  | Header | Required | Description |
+
+  |---|:---:|---|
+
+  | `Authorization` | ✅ | `Bearer {access_token}` |
+
+
+  ### 📤 Response
+
+
+  Faol taklif **yo''q** bo''lsa (`200`):
+
+  `{ "offer": null, "vacancy": null, "service_stages": [] }`
+
+
+  Faol taklif **bor** bo''lsa (`200`):
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `offer.id` | int | Pipeline (VacancyCandidate) ID |
+
+  | `offer.vacancy` | object | `{ id, title }` |
+
+  | `offer.journey_status` | string | `course_in_progress`, `visa_pending`, ... |
+
+  | `offer.confirmed` | bool | Taklif qabul qilingan |
+
+  | `offer.confirmed_at` | int \| null | Qabul qilingan vaqt (UNIX) |
+
+  | `offer.currency` | string | Valyuta |
+
+  | `offer.required_amount` | int | Barcha bosqichlar summasi (so''m) |
+
+  | `offer.funded_amount` | int | To''langan (hold qilingan) summa |
+
+  | `offer.awaiting_amount` | int | Yana to''lanishi kerak bo''lgan summa |
+
+  | `offer.reserved_amount` | int | Rezerv qilingan |
+
+  | `offer.captured_amount` | int | Yechib olingan |
+
+  | `offer.remaining_hold` | int | Qolgan hold |
+
+  | `vacancy.id` | int | Vakansiya ID |
+
+  | `vacancy.title` | string \| null | Vakansiya nomi (masalan `Oshipaz`) |
+
+  | `vacancy.country` | object | `{ id, name, flag_url }` (lokalizatsiya) |
+
+  | `vacancy.city` | object \| null | `{ id, name }` (lokalizatsiya) |
+
+  | `service_stages[]` | array | Stepper bosqichlari, `sort_order` bo''yicha |
+
+  | `service_stages[].category` | string | `agency`, `training`, `visa`, ... |
+
+  | `service_stages[].category_label` | string | Lokalizatsiya qilingan nom |
+
+  | `service_stages[].status` | string | `pending`, `in_progress`, `completed`, `skipped`, `overdue` |
+
+  | `service_stages[].status_label` | string | Lokalizatsiya qilingan status |
+
+  | `service_stages[].funded` | bool | Ushbu bosqich to''langan |
+
+  | `service_stages[].amount` | int | Bosqich summasi (so''m) |
+
+  | `service_stages[].progress_percent` | int | 0–100 |
+
+  | `service_stages[].deadline_at` | int \| null | Muddat (UNIX) |
+
+  | `service_stages[].time_left_text` | string \| null | Qolgan vaqt (`3 d, 2 h`) |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | `access_token` yo''q yoki muddati o''tgan |
+
+  | `403` | Foydalanuvchi `TYPE_CANDIDATE` emas |
+
+  | `404` | Joriy foydalanuvchi uchun nomzod topilmadi |
+
+  | `456` | Mehmon (faollashmagan) foydalanuvchi |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
