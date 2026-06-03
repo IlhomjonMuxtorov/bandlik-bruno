@@ -39,7 +39,7 @@ docs: 'Nomzodning hozirgi **faol qabul qilingan taklifini** (bitta vakansiya) va
 
   Faol taklif **yo''q** bo''lsa (`200`):
 
-  `{ "offer": null, "vacancy": null, "service_stages": [] }`
+  `{ "chat_id": null, "offer": null, "vacancy": null, "service_stages": [] }`
 
 
   Faol taklif **bor** bo''lsa (`200`):
@@ -48,6 +48,8 @@ docs: 'Nomzodning hozirgi **faol qabul qilingan taklifini** (bitta vakansiya) va
   | Field | Type | Description |
 
   |---|---|---|
+
+  | `chat_id` | int \| null | Offer chati (ChatConversation) ID — offer amallari uchun (`/mobile/chats/<id>/offer/...`) |
 
   | `offer.id` | int | Pipeline (VacancyCandidate) ID |
 
