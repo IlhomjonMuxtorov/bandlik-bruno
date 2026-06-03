@@ -30,8 +30,7 @@ docs: |
 
   | Code | Reason |
   |---|---|
-  | `400` | Taklif endi qabul qilib bo'lmaydi (pending emas / terminal) |
-  | `409` | Nomzodda allaqachon boshqa **aktiv qabul qilingan taklif** bor |
+  | `400` | Taklif endi qabul qilib bo'lmaydi (pending emas / terminal) **yoki** nomzodda allaqachon boshqa **aktiv qabul qilingan taklif** bor |
   | `403` | Chat boshqa nomzodga tegishli |
   | `404` | Chat topilmadi yoki unda taklif yo'q |
 settings:
