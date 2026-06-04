@@ -26,7 +26,8 @@ docs: |
   | Field | Type | Description |
   |---|---|---|
   | `candidate_card` | object \| null | Pinlangan obyektivka. `{candidate_id, application_id, full_name, photo_url, phone, cv_id, cv_title, cover_message}`. Conversation ochilishda system message sifatida birinchi xabar sifatida |
-  | `service_stages` | array | Stage tracker. Bo'sh massiv — ariza hali Accepted emas |
+  | `service_stages` | array | Stage tracker (tekis ro'yxat, orqaga moslik uchun). Bo'sh massiv — ariza hali Accepted emas |
+  | `service_groups` | array | **Xizmatlar tashkilot bo'yicha guruhlangan** + guruh bo'yicha ketma-ket to'lov holati. Bo'sh massiv — pipeline yo'q. (Quyida tuzilishi) |
   | `offer` | object \| null | **Taklif + funding holati**. `null` — tashkilot arizani hali qabul qilmagan (pipeline yo'q). Nomzod taklifni shu yerdan **qabul/rad/bekor** qiladi: `POST /mobile/chats/<id>/offer/{accept,decline,fund,cancel}` |
   | `active_call` | object \| null | **Aktiv (davom etayotgan/jiringlayotgan) qo'ng'iroq**. `null` — qo'shiladigan qo'ng'iroq yo'q. Push kelmagan / chat qayta ochilgan holatda mijoz shu maydon orqali "Join" tugmasini ko'rsatadi va `POST /mobile/chats/<id>/video-call/join` chaqiradi. Obyekt: `{call_message_id, room_name, domain, started_by, started_at}` |
 
@@ -45,7 +46,25 @@ docs: |
   | `captured_amount` | int | Xizmatlarga yechib o'tkazilgan |
   | `remaining_hold` | int | Hali band'da turgan (bekor qilishda qaytadigan) |
 
-  > Per-xizmat detal (summa, holat, muddat, mas'ul xodim) `service_stages[]` da — `offer` faqat jami ko'rsatkichlar.
+  > `offer` faqat **jami** ko'rsatkichlar. Per-xizmat detal `service_stages[]` da; tashkilot bo'yicha guruhlangan to'lov holati esa yuqori darajadagi `service_groups[]` da.
+
+  ### 🗂 `service_groups[]` — tashkilot bo'yicha guruh
+
+  To'lov **guruh (tashkilot) bo'yicha, ketma-ket** amalga oshiriladi: guruhlar sort tartibida; oldingi guruh to'liq to'lanmaguncha keyingisi ochilmaydi (`is_current`). Guruh ichida — hammasi yoki hech narsa.
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `organization` | object \| null | `{id, name, type, type_label, logo_url}` — xizmatni beruvchi tashkilot |
+  | `responsible_user` | object \| null | Tashkilotning mas'ul useri: `{id, username, full_name, phone, photo_url}` |
+  | `stages` | array | Shu guruhdagi `service_stages[]` elementlari (quyidagi struktura) |
+  | `required_amount` | int | Guruh jami (so'm) |
+  | `funded_amount` | int | Guruhda band qilingan (so'm) |
+  | `awaiting_amount` | int | Guruhni to'lash uchun yetishmayotgan (so'm) |
+  | `currency` | string | Valyuta (UZS) |
+  | `fully_funded` | bool | Guruhning barcha (skipped emas) bosqichlari to'langanmi |
+  | `is_current` | bool | **Hozir to'lanishi mumkin** bo'lgan guruhmi. Ketma-ket vakansiyada faqat birinchi to'lanmagan guruhda `true`; `single_payment` vakansiyada barcha to'lanmagan guruhlarda `true` (hammasi birga to'lanadi) |
+  | `paid_percent` | int | **Guruh uchun necha foiz to'langani** (`funded_amount / required_amount`, 0–100) |
+  | `progress_percent` | int | Guruh o'rtacha bajarilish progressi (0–100) |
 
   Har `service_stages[]` elementi:
 
@@ -60,7 +79,8 @@ docs: |
   | `funded` | bool | Nomzod puli shu xizmat uchun band qilinganmi (`true` bo'lmaguncha tashkilot boshlay olmaydi) |
   | `status` | string | `pending` \| `in_progress` \| `completed` \| `overdue` \| `skipped` |
   | `status_label` | string | tarjima qilingan |
-  | `responsible_user` | object \| null | `{id, username}` |
+  | `responsible_user` | object \| null | Tashkilotdan: `{id, username, full_name, phone, photo_url}` (mas'ul — xizmatni beruvchi tashkilot useri) |
+  | `organization` | object \| null | `{id, name, type, type_label, logo_url}` — xizmatni beruvchi tashkilot |
   | `deadline_at` | int \| null | unix ts |
   | `deadline_at_formatted` | string \| null | `d.m.Y H:i` (Asia/Tashkent) |
   | `completed_at` | int \| null | |

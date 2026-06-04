@@ -34,7 +34,7 @@ docs: 'This endpoint handles POST request.
 
   | `success` | boolean | Request success status |
 
-  | `data` | object | Response data |
+  | `data` | object | Yangilangan pipeline yozuvi — `Pipeline — View` bilan bir xil shakl (`stages[]` + `service_groups[]`) |
 
 
   ### ⚠️ Errors

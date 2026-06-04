@@ -44,6 +44,14 @@ docs: 'Pipeline yozuvini yangilaydi (partial — faqat berilgan maydonlar o''zga
   bo''sh bo''lsa).
 
 
+  ### 📤 Response
+
+
+  Yangilangan pipeline yozuvi — `Pipeline — View` bilan bir xil shakl (`stages[]` +
+  `service_groups[]`; `responsible_user` xizmatni beruvchi tashkilotdan: `{id, username,
+  full_name, phone, photo_url}`).
+
+
   ### ⚠️ Errors
 
 

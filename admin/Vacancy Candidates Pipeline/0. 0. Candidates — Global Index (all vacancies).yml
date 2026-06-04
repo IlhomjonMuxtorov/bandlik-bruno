@@ -103,7 +103,13 @@ docs: 'Global "Kandidatlar" ekrani — barcha vakansiyalar bo''yicha nomzodlar (
 
   | `stages` | array | "Joriy status" bosqichlari (`sort_order ASC`). Har biri: `{id,
   category, category_label, service_name, amount, currency, funded, status, status_label,
-  responsible_user, deadline_at, completed_at, progress_percent, sort_order}` |
+  responsible_user, organization, deadline_at, completed_at, progress_percent, sort_order}`.
+  `responsible_user` = xizmatni beruvchi tashkilot useri `{id, username, full_name, phone,
+  photo_url}`; `organization` = `{id, name, type, type_label, logo_url}` |
+
+  | `service_groups` | array | Bosqichlar **tashkilot bo''yicha guruhlangan** + guruh bo''yicha
+  ketma-ket to''lov holati. Har biri: `{organization, responsible_user, stages[],
+  required_amount, funded_amount, awaiting_amount, currency, fully_funded, is_current, paid_percent, progress_percent}` (admin summalar minor unit / tiyinda) |
 
   '
 settings:

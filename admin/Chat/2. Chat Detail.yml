@@ -22,6 +22,13 @@ docs: |
 
   Mobile `Chat Detail` bilan bir xil shape, lekin `unread_count` XBA tomonidan.
 
+  - `service_stages[]` — har biri boyitilgan `responsible_user` (xizmatni beruvchi tashkilot
+  useri: `{id, username, full_name, phone, photo_url}`) va `organization`
+  (`{id, name, type, type_label, logo_url}`) bilan.
+  - `service_groups[]` — bosqichlar **tashkilot bo'yicha guruhlangan** + guruh bo'yicha
+  ketma-ket to'lov holati: `{organization, responsible_user, stages[], required_amount,
+  funded_amount, awaiting_amount, currency, fully_funded, is_current, paid_percent, progress_percent}`.
+
   **Xabarlar (`messages` maydonidagi xabarlar):**
   - Xabar muallifi (sender) XBA xodimi bo'lsa, sender maydonida `full_name` va `profile_photo_url` (agar mavjud bo'lsa) qo'shiladi
   - Kandidat xabarlari sender to'liq ma'lumotlari bilan qaytadi

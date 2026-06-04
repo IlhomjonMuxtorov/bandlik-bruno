@@ -39,7 +39,7 @@ docs: 'Nomzodning hozirgi **faol qabul qilingan taklifini** (bitta vakansiya) va
 
   Faol taklif **yo''q** bo''lsa (`200`):
 
-  `{ "chat_id": null, "offer": null, "vacancy": null, "service_stages": [] }`
+  `{ "chat_id": null, "offer": null, "vacancy": null, "service_stages": [], "service_groups": [] }`
 
 
   Faol taklif **bor** bo''lsa (`200`):
@@ -73,7 +73,12 @@ docs: 'Nomzodning hozirgi **faol qabul qilingan taklifini** (bitta vakansiya) va
 
   | `offer.captured_amount` | int | Yechib olingan |
 
-  | `offer.remaining_hold` | int | Qolgan hold |
+  | `offer.remaining_hold` | int | Qolgan hold (`offer` faqat jami ko'rsatkichlar) |
+
+  | `service_groups` | array | (Yuqori daraja) Xizmatlar **tashkilot bo''yicha guruhlangan** + guruh bo''yicha
+  ketma-ket to''lov holati: `{organization, responsible_user, stages[], required_amount,
+  funded_amount, awaiting_amount, currency, fully_funded, is_current, paid_percent, progress_percent}`.
+  To''lov guruh bo''yicha ketma-ket — `is_current=true` bo''lgan guruh hozir to''lanadi |
 
   | `vacancy.id` | int | Vakansiya ID |
 

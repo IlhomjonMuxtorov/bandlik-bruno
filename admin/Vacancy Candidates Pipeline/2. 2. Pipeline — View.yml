@@ -11,6 +11,20 @@ docs: 'Pipeline yozuvi tafsiloti.
 
   **Auth:** Admin yoki vakansiya egasi.
 
+
+  ### 📤 Response
+
+  Global Index elementi bilan bir xil shakl (`id, vacancy, candidate, journey_status,
+  course_progress_percent, collected_amount, stages[], service_groups[]`).
+
+  - `stages[]` — tekis ro''yxat; har biri `responsible_user` (xizmatni beruvchi tashkilot
+  useri: `{id, username, full_name, phone, photo_url}`) va `organization`
+  (`{id, name, type, type_label, logo_url}`) bilan boyitilgan.
+
+  - `service_groups[]` — bosqichlar **tashkilot bo''yicha guruhlangan** + guruh bo''yicha
+  ketma-ket to''lov holati: `{organization, responsible_user, stages[], required_amount,
+  funded_amount, awaiting_amount, currency, fully_funded, is_current, paid_percent, progress_percent}`.
+
   '
 settings:
   encodeUrl: true
