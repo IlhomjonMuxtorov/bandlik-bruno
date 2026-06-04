@@ -55,8 +55,8 @@ docs: 'Global "Kandidatlar" ekrani — barcha vakansiyalar bo''yicha nomzodlar (
   `translation_apostille` \| `training` \| `notary_translation` \|
   `notary_apostille` \| `notary_other` |
 
-  | `stage_status` | string | ➖ | Bosqich holati: `pending` \| `in_progress` \|
-  `completed` \| `overdue` \| `skipped` |
+  | `stage_status` | string | ➖ | Bosqich holati: `pending` \| `awaiting_payment` \| `in_progress` \|
+  `completed` \| `overdue` \| `payment_overdue` \| `skipped` |
 
   | `sort` | string | ➖ | `id` \| `accepted_at` \| `course_progress_percent` \|
   `collected_amount` (oldiga `-` qo''yilsa kamayish tartibida) |
@@ -103,13 +103,13 @@ docs: 'Global "Kandidatlar" ekrani — barcha vakansiyalar bo''yicha nomzodlar (
 
   | `stages` | array | "Joriy status" bosqichlari (`sort_order ASC`). Har biri: `{id,
   category, category_label, service_name, amount, currency, funded, status, status_label,
-  responsible_user, organization, deadline_at, completed_at, progress_percent, sort_order}`.
+  service_group_id, responsible_user, organization, started_at, payment_deadline_at, deadline_at, completed_at, progress_percent, sort_order}`.
   `responsible_user` = xizmatni beruvchi tashkilot useri `{id, username, full_name, phone,
   photo_url}`; `organization` = `{id, name, type, type_label, logo_url}` |
 
   | `service_groups` | array | Bosqichlar **tashkilot bo''yicha guruhlangan** + guruh bo''yicha
   ketma-ket to''lov holati. Har biri: `{organization, responsible_user, stages[],
-  required_amount, funded_amount, awaiting_amount, currency, fully_funded, is_current, paid_percent, progress_percent}` (admin summalar minor unit / tiyinda) |
+  required_amount, funded_amount, awaiting_amount, currency, started, awaiting_start, fully_funded, is_current, payment_deadline_at, paid_percent, progress_percent}` (admin summalar minor unit / tiyinda) |
 
   '
 settings:

@@ -40,7 +40,8 @@ docs: |
   | `currency` | string | Band qilish valyutasi (UZS) |
   | `required_amount` | int | Barcha xizmatlar jami (so'm) |
   | `funded_amount` | int | Band qilingan (boshlangan) summa |
-  | `awaiting_amount` | int | Boshlash uchun yana yetishmayotgan summa (→ hamyonni to'ldirish) |
+  | `awaiting_amount` | int | **Boshlangan** (awaiting_payment) — hozir to'lash mumkin bo'lgan summa |
+  | `pending_amount` | int | Hali boshlanmagan (pending) guruhlar summasi — hali to'lab bo'lmaydi |
   | `reserved_amount` | int | Jami band qilingan |
   | `captured_amount` | int | Xizmatlarga yechib o'tkazilgan |
   | `remaining_hold` | int | Hali band'da turgan (bekor qilishda qaytadigan) |
@@ -49,7 +50,7 @@ docs: |
 
   ### 🗂 `service_groups[]` — tashkilot bo'yicha guruh
 
-  To'lov **guruh (tashkilot) bo'yicha, ketma-ket** amalga oshiriladi: guruhlar sort tartibida; oldingi guruh to'liq to'lanmaguncha keyingisi ochilmaydi (`is_current`). Guruh ichida — hammasi yoki hech narsa.
+  Oqim: **Start → Pay → Execute**. Admin/tashkilot guruhni boshlaydi (`started`), shunda kandidat to'lay oladi. To'lov **guruh bo'yicha, ketma-ket** (sort tartibida; oldingi to'lanmaguncha keyingisi `is_current` bo'lmaydi). Guruh ichida — hammasi yoki hech narsa.
 
   | Field | Type | Description |
   |---|---|---|
@@ -60,8 +61,11 @@ docs: |
   | `funded_amount` | int | Guruhda band qilingan (so'm) |
   | `awaiting_amount` | int | Guruhni to'lash uchun yetishmayotgan (so'm) |
   | `currency` | string | Valyuta (UZS) |
+  | `started` | bool | Admin/tashkilot guruhni boshlaganmi (to'lov oynasi ochilganmi) |
+  | `awaiting_start` | bool | Guruh hali boshlanmagan (kandidat boshlanishini kutmoqda) |
   | `fully_funded` | bool | Guruhning barcha (skipped emas) bosqichlari to'langanmi |
-  | `is_current` | bool | **Hozir to'lanishi mumkin** bo'lgan guruhmi. Ketma-ket vakansiyada faqat birinchi to'lanmagan guruhda `true`; `single_payment` vakansiyada barcha to'lanmagan guruhlarda `true` (hammasi birga to'lanadi) |
+  | `is_current` | bool | **Hozir to'lanishi mumkin** (boshlangan + to'lanmagan). Ketma-ket vakansiyada faqat birinchi shunday guruh; `single_payment` da barcha boshlangan to'lanmagan guruhlar |
+  | `payment_deadline_at` | int \| null | Guruhning to'lov muddati (unix ts; boshlangach o'rnatiladi) |
   | `paid_percent` | int | **Guruh uchun necha foiz to'langani** (`funded_amount / required_amount`, 0–100) |
   | `progress_percent` | int | Guruh o'rtacha bajarilish progressi (0–100) |
 
@@ -70,17 +74,21 @@ docs: |
   | Field | Type | Description |
   |---|---|---|
   | `id` | int | stage id |
+  | `service_group_id` | int \| null | tegishli kategoriya guruhi id |
   | `category` | string | `agency` \| `notarius` \| `insurance` \| `logistics` \| `visa` \| `translation_apostille` \| `training` |
   | `category_label` | string | tarjima qilingan label |
   | `service_name` | string \| null | vacancy_service snapshot nomi |
   | `amount` | int | **Xizmat summasi** (so'm) — qabul paytida snapshot qilinadi |
   | `currency` | string | Valyuta (UZS) |
-  | `funded` | bool | Nomzod puli shu xizmat uchun band qilinganmi (`true` bo'lmaguncha tashkilot boshlay olmaydi) |
-  | `status` | string | `pending` \| `in_progress` \| `completed` \| `overdue` \| `skipped` |
+  | `funded` | bool | Nomzod puli shu xizmat uchun band qilinganmi (to'langanmi) |
+  | `status` | string | `pending` \| `awaiting_payment` \| `in_progress` \| `completed` \| `overdue` \| `payment_overdue` \| `skipped` |
   | `status_label` | string | tarjima qilingan |
   | `responsible_user` | object \| null | Tashkilotdan: `{id, username, full_name, phone, photo_url}` (mas'ul — xizmatni beruvchi tashkilot useri) |
   | `organization` | object \| null | `{id, name, type, type_label, logo_url}` — xizmatni beruvchi tashkilot |
-  | `deadline_at` | int \| null | unix ts |
+  | `started_at` | int \| null | Guruh boshlangan vaqt (unix ts) |
+  | `payment_deadline_at` | int \| null | To'lov muddati (unix ts) — `awaiting_payment` da |
+  | `payment_time_left_text` | string \| null | To'lovgacha qolgan vaqt (server-localized) |
+  | `deadline_at` | int \| null | Ijro muddati (unix ts) — to'langan kundan |
   | `deadline_at_formatted` | string \| null | `d.m.Y H:i` (Asia/Tashkent) |
   | `completed_at` | int \| null | |
   | `completed_at_formatted` | string \| null | `d.m.Y H:i` (Asia/Tashkent) |

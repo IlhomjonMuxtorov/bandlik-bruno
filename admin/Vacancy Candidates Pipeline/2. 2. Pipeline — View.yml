@@ -23,7 +23,7 @@ docs: 'Pipeline yozuvi tafsiloti.
 
   - `service_groups[]` — bosqichlar **tashkilot bo''yicha guruhlangan** + guruh bo''yicha
   ketma-ket to''lov holati: `{organization, responsible_user, stages[], required_amount,
-  funded_amount, awaiting_amount, currency, fully_funded, is_current, paid_percent, progress_percent}`.
+  funded_amount, awaiting_amount, currency, started, awaiting_start, fully_funded, is_current, payment_deadline_at, paid_percent, progress_percent}`.
 
   '
 settings:

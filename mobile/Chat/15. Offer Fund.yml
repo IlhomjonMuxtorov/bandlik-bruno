@@ -9,16 +9,19 @@ http:
 docs: |
   # POST /mobile/chats/&lt;id&gt;/offer/fund
 
-  Hamyon **to'ldirilgandan keyin** hali band qilinmagan (`awaiting_funds`) xizmatlarni
-  qayta band qilishga urinadi. `single_payment = false` rejimida navbatdagi xizmatlar
-  ketma-ket boshlanadi; `single_payment = true` rejimida to'liq summa yetganda hammasi boshlanadi.
+  Hamyon **to'ldirilgandan keyin** to'lovni qayta urinadi. To'lov faqat admin/tashkilot
+  **boshlagan** (`awaiting_payment`) guruhlarga tegishli — boshlanmagan (`pending`) guruhlar
+  to'lanmaydi (Start → Pay → Execute). `single_payment = false` → boshlangan guruhlar **navbat
+  bilan** (guruh bo'yicha all-or-nothing); `single_payment = true` → barcha boshlangan guruhlar
+  to'liq summa yetganda birga. To'langach bosqich `in_progress` va ijro muddati to'langan kundan boshlanadi.
 
   **Auth:** `access_token`. Taklif `confirmed` (qabul qilingan) bo'lishi shart.
   Idempotent — bir necha bor chaqirish xavfsiz. Balans hali yetmasa hech narsa o'zgarmaydi.
 
   ### 📤 Response (200)
 
-  Yangilangan `offer` obyekti — `services[].status` va funding summalari bilan.
+  Yangilangan `offer` obyekti (`awaiting_amount` / `pending_amount` va funding summalari bilan).
+  Per-guruh holat yuqori darajadagi `service_groups[]` da (Chat Detail bilan bir xil).
 
   ### ⚠️ Errors
 

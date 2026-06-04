@@ -9,17 +9,20 @@ http:
 docs: |
   # POST /mobile/chats/&lt;id&gt;/offer/accept
 
-  Nomzod chat ichidagi taklifni (Offer system-xabari) **qabul qiladi**. Ish jarayoni
-  boshlanadi va hisobdan pul **band qilinadi (hold)**. Acceptning o'zi balans
-  yetmasligi sababli **bloklanmaydi** — xizmat faqat puli band qilingach `in_progress` bo'ladi.
+  Nomzod chat ichidagi taklifni (Offer system-xabari) **qabul qiladi**. Bosqichlar
+  yaratiladi, lekin **qabulda avtomatik to'lov (hold) bo'lmaydi** (Start → Pay → Execute).
+
+  > ⚠️ **O'zgarish:** to'lov endi faqat admin/tashkilot guruhni **boshlagandan** keyin
+  amalga oshadi. Qabuldan so'ng guruh `pending` holatda turadi; admin uni
+  `POST /admin/chats/{id}/groups/{groupId}/start` orqali boshlaydi → guruh `awaiting_payment`
+  bo'ladi va kandidat o'shanda to'laydi (`offer/fund`). To'langach bosqich `in_progress`.
 
   **Auth:** `access_token`. Chat `pending` taklifga ega bo'lishi shart.
 
-  ## Funding (vakansiyaga bog'liq)
-  - `single_payment = true` → `required_amount` to'liq mavjud bo'lsa **barcha** xizmat
-    boshlanadi; aks holda hech biri (`awaiting_funds`).
-  - `single_payment = false` → xizmatlar **navbat bilan** band qilinadi; balans
-    yetganicha boshlanadi, qolgani kutadi.
+  ## Funding (faqat boshlangan guruhlar)
+  - To'lov **guruh bo'yicha** (all-or-nothing). `single_payment = false` → boshlangan guruhlar
+    **navbat bilan** to'lanadi (`is_current`).
+  - `single_payment = true` → boshlangan guruhlarning umumiy summasi bir martada.
 
   ### 📤 Response (200)
 

@@ -12,151 +12,135 @@ http:
     value: uz
   body:
     type: json
-    data: "{\n  \"organization_id\": 1,\n  \"industry_id\": 1,\n  \"title\": \"Restoran\
-      \ Xizmatchisi\",\n  \"description\": \"Zamonaviy restoranda ofitsiant.\",\n\
-      \  \"experience_level\": \"one_to_three\",\n  \"employment_type\": \"full_time\",\n\
-      \  \"hiring_quota\": 12,\n  \"duration_months_min\": 6,\n  \"duration_months_max\"\
-      : 12,\n  \"work_schedule\": \"5_2\",\n  \"work_time_from\": \"08:00\",\n  \"\
-      work_time_to\": \"18:00\",\n  \"salary_gross\": 1500,\n  \"salary_gross_currency\"\
-      : \"USD\",\n  \"salary_net\": 1200,\n  \"salary_net_currency\": \"USD\",\n \
-      \ \"country_id\": 1,\n  \"address\": \"Warszawa, Marszalkowska 1\",\n  \"hide_address_from_clients\"\
-      : true,\n  \"deadline_at\": \"01.07.2026\",\n  \"requirements\": [\n    {\n\
-      \      \"id\": 1,\n      \"sort_order\": 0\n    },\n    {\n      \"id\": 2,\n\
-      \      \"sort_order\": 1\n    }\n  ],\n  \"benefits\": [\n    {\n      \"id\"\
-      : 1,\n      \"sort_order\": 0\n    },\n    {\n      \"id\": 2,\n      \"sort_order\"\
-      : 1\n    }\n  ],\n  \"documents\": [\n    {\n      \"id\": 1,\n      \"sort_order\"\
-      : 0\n    },\n    {\n      \"id\": 2,\n      \"sort_order\": 1\n    }\n  ],\n\
-      \  \"services\": [\n    {\n      \"category\": \"agency\",\n      \"organization_id\"\
-      : 1,\n      \"service_name\": \"Agentlik xizmati\",\n      \"price\": 1500000,\n\
-      \      \"currency\": \"UZS\",\n      \"sort_order\": 0\n    },\n    {\n    \
-      \  \"category\": \"notarius\",\n      \"organization_id\": 2,\n      \"organization_service_id\"\
-      : 1,\n      \"duration_text\": \"20 kun\"\n    },\n    {\n      \"category\"\
-      : \"insurance\",\n      \"organization_id\": 3,\n      \"organization_service_id\"\
-      : 5\n    },\n    {\n      \"category\": \"training\",\n      \"organization_id\"\
-      : 4,\n      \"educational_course_id\": 12,\n      \"sort_order\": 3\n    }\n  ],\n  \"single_payment\": false,\n  \"payment_steps\": [\n    {\n\
-      \      \"step_type\": \"agency_fee\",\n      \"title\": \"Agentlik xizmati to'lovi\"\
-      ,\n      \"amount\": 1000000,\n      \"currency\": \"UZS\",\n      \"sort_order\"\
-      : 0\n    },\n    {\n      \"step_type\": \"notarius\",\n      \"\
-      title\": \"Notarius xizmati\",\n      \"amount\": 800000,\n      \"currency\"\
-      : \"UZS\",\n      \"sort_order\": 1\n    },\n    {\n      \"step_type\": \"\
-      course\",\n      \"title\": \"O'quv kursi\",\n      \"amount\": 1500000,\n\
-      \      \"currency\": \"UZS\",\n      \"sort_order\": 2\n    }\n  ]\n}"
+    data: |
+      {
+        "organization_id": 1,
+        "industry_id": 1,
+        "title": "Restoran Xizmatchisi",
+        "description": "Zamonaviy restoranda ofitsiant.",
+        "experience_level": "one_to_three",
+        "employment_type": "full_time",
+        "hiring_quota": 12,
+        "duration_months_min": 6,
+        "duration_months_max": 12,
+        "work_schedule": "5_2",
+        "work_time_from": "08:00",
+        "work_time_to": "18:00",
+        "salary_gross": 1500,
+        "salary_gross_currency": "USD",
+        "salary_net": 1200,
+        "salary_net_currency": "USD",
+        "country_id": 1,
+        "address": "Warszawa, Marszalkowska 1",
+        "hide_address_from_clients": true,
+        "deadline_at": "01.07.2026",
+        "requirements": [{ "id": 1, "sort_order": 0 }, { "id": 2, "sort_order": 1 }],
+        "benefits": [{ "id": 1, "sort_order": 0 }, { "id": 2, "sort_order": 1 }],
+        "documents": [{ "id": 1, "sort_order": 0 }, { "id": 2, "sort_order": 1 }],
+        "service_groups": [
+          {
+            "organization_id": 1,
+            "payment_deadline_days": 3,
+            "execution_deadline_days": 7,
+            "sort_order": 0,
+            "services": [
+              { "category": "agency", "service_name": "Agentlik xizmati", "price": 1500000, "currency": "UZS", "sort_order": 0 }
+            ]
+          },
+          {
+            "organization_id": 2,
+            "payment_deadline_days": 3,
+            "execution_deadline_days": 7,
+            "sort_order": 1,
+            "services": [
+              { "category": "notary_translation", "notary_translation_price_id": 7 },
+              { "category": "notary_apostille", "notary_apostille_price_id": 4 },
+              { "category": "notary_other", "notary_other_service_price_id": 2 }
+            ]
+          },
+          {
+            "organization_id": 3,
+            "payment_deadline_days": 3,
+            "execution_deadline_days": 7,
+            "sort_order": 2,
+            "services": [
+              { "category": "insurance", "insurance_country_price_id": 5 }
+            ]
+          },
+          {
+            "organization_id": 4,
+            "payment_deadline_days": 5,
+            "execution_deadline_days": 14,
+            "sort_order": 3,
+            "services": [
+              { "category": "training", "educational_course_id": 12 }
+            ]
+          }
+        ],
+        "single_payment": false,
+        "payment_steps": [
+          { "step_type": "agency_fee", "title": "Agentlik xizmati to'lovi", "amount": 1000000, "currency": "UZS", "sort_order": 0 },
+          { "step_type": "notarius", "title": "Notarius xizmati", "amount": 800000, "currency": "UZS", "sort_order": 1 },
+          { "step_type": "course", "title": "O'quv kursi", "amount": 1500000, "currency": "UZS", "sort_order": 2 }
+        ]
+      }
   auth: inherit
-docs: 'Yangi vakansiya yaratadi — boshlanishi `status = draft`. Wizardning barcha
-  8 bosqich ma''lumotlari bitta tranzaksiyada saqlanadi.
+docs: |
+  Yangi vakansiya yaratadi — boshlanishi `status = draft`. Wizardning barcha 8 bosqich
+  ma'lumotlari bitta tranzaksiyada saqlanadi.
 
-
-  **Auth:** `admin_token` yoki Employer/Recruiter (faqat o''z tashkiloti uchun).
-
+  **Auth:** `admin_token` yoki Employer/Recruiter (faqat o'z tashkiloti uchun).
 
   ### 📥 Request Body
 
-
   **Asosiy maydonlar (1-bosqich):**
 
-
   | Field | Type | Required | Description |
-
   |---|---|:---:|---|
-
   | `organization_id` | int | ✅ | Ish beruvchi yoki rekruter tashkiloti |
-
-  | `recruiter_id` | int | ➖ | Agar Employer yaratayotgan bo''lsa, biriktirgan rekruter
-  |
-
+  | `recruiter_id` | int | ➖ | Employer yaratayotgan bo'lsa biriktirilgan rekruter |
   | `industry_id` | int | ➖ | Soha ID |
-
   | `title` | string | ✅ | Sarlavha |
-
   | `description` | string | ➖ | Tavsif (HTML/markdown) |
-
   | `experience_level` | string | ➖ | `none` \| `one_to_three` \| `three_to_six` |
-
   | `employment_type` | string | ✅ | `full_time` \| `part_time` \| `seasonal` \| `contract` |
-
   | `hiring_quota` | int | ✅ | Necha kishi kerak (>=1) |
-
   | `duration_months_min` / `_max` | int | ➖ | Ish davomiyligi |
-
-  | `work_schedule` | string | ➖ | `5_2` \| `6_1` \| `2_2` \| `shift` \| `flexible`
-  |
-
+  | `work_schedule` | string | ➖ | `5_2` \| `6_1` \| `2_2` \| `shift` \| `flexible` |
   | `work_time_from` / `_to` | string | ➖ | `HH:MM` |
-
   | `salary_gross` / `_currency` | int / string | ➖ | `UZS` \| `USD` \| `EUR` |
-
   | `salary_net` / `_currency` | int / string | ➖ | |
-
   | `country_id` | int | ✅ | |
-
   | `city_id` | int | ➖ | |
-
   | `address` | string | ➖ | |
-
   | `hide_address_from_clients` | bool | ➖ | Default `false` |
-
   | `deadline_at` | string | ➖ | `DD.MM.YYYY` |
-
 
   **Child kolleksiyalar:**
 
-
   | Field | Type | Description |
-
   |---|---|---|
-
   | `requirements[]` | array | `{id, sort_order}` — vacancy_requirement katalog IDsi |
-
   | `benefits[]` | array | `{id, sort_order}` — vacancy_benefit katalog IDsi |
-
   | `documents[]` | array | `{id, sort_order}` — vacancy_document katalog IDsi |
+  | `service_groups[]` | array | **Xizmatlar TASHKILOT guruhlari bo'yicha (majburiy).** Har bir guruh: `{organization_id, payment_deadline_days, execution_deadline_days, sort_order, services:[…]}`. Bitta tashkilot = bitta guruh; guruh bir nechta kategoriyani qamrashi mumkin (masalan notarius tashkilotning `notary_translation` + `notary_apostille` + `notary_other` xizmatlari bitta guruhda). `organization_id` faqat guruhda — nested xizmatlar undan meros oladi. Ikkala muddat (kunlarda) > 0. `payment_deadline_days` — kandidatning to'lash muddati (guruh boshlangandan); `execution_deadline_days` — bajarish muddati (to'langandan) |
+  | `service_groups[].services[]` | array | Guruhning xizmatlari: `{category, organization_service_id?, educational_course_id?, notary_*_price_id?, insurance_country_price_id?, price?, currency?, service_name?, duration_text?, notes?, sort_order?}`. Har xizmat o'z `category` siga ega (bir kategoriya faqat bitta tashkilotda bo'lishi mumkin). `educational_course_id` faqat `category="training"` da majburiy. `organization_service_id` berilsa narx/nom snapshot qilinadi (override `price`/`service_name` orqali) |
+  | `single_payment` | bool | `1 tada 100% lik to'lov` toggle |
+  | `payment_steps[]` | array | `{step_type, title, amount, currency, sort_order}` (faqat `single_payment=false` da) |
 
-  | `services[]` | array | `{category, organization_id, organization_service_id, educational_course_id,
-  price, currency, service_name, duration_text, notes}` — `educational_course_id`
-  faqat `category="training"` da majburiy; berilganda `service_name`, `price`, `currency`
-  kursdan avtomatik olinadi (override qilmoqchi bo''lsangiz yuborsa bo''ladi) |
-
-  | `single_payment` | bool | `1 tada 100% lik to''lov` toggle |
-
-  | `payment_steps[]` | array | `{step_type, title, amount, currency, sort_order}`
-  (faqat `single_payment=false` da) |
-
-
-  **Snapshot:** har bir `services[]` elementi uchun `organization_service_id` berilsa,
-  narx va nom shu xizmatdan olinadi (override `price` yoki `service_name` orqali ham
-  bo''ladi).
-
-
-  **⚠️ Agentlik xizmati (majburiy):** `services[]` ichida `category = "agency"` bo''lgan
-  **aniq bitta** qator bo''lishi shart. Uning `organization_id` vakansiyaning `organization_id`
-  ga teng bo''lishi, `service_name` to''ldirilgan va `price` 0 dan katta bo''lishi
-  zarur. `organization_service_id` berilmaydi (agentlik o''z xizmati — katalog yozuvi
-  shart emas). Agentlik narxi `total_service_amount` ga kiritiladi.
-
+  **⚠️ Agentlik xizmati (majburiy):** xizmatlar orasida **aniq bitta** `category = "agency"` xizmati bo'lishi shart, va uning guruhi (`organization_id`) vakansiyaning `organization_id` ga teng bo'lishi kerak; agentlik xizmatining `service_name` to'ldirilgan va `price > 0` bo'lishi zarur. Agentlik narxi `total_service_amount` ga kiritiladi.
 
   ### 📤 Response (`data`)
 
-
-  Full detail DTO (View bilan bir xil). `status` = `draft`, `total_service_amount`
-  snapshot narxlar yig''indisi (shu jumladan agentlik xizmati narxi).
-
+  Full detail DTO (View bilan bir xil). `status` = `draft`, `total_service_amount` snapshot narxlar yig'indisi (agentlik narxi bilan). `service_groups[]` nested `services[]` bilan qaytadi.
 
   ### ⚠️ Errors
 
-
   | Code | Reason |
-
   |---|---|
-
   | `422` | Validatsiya xatosi |
-
-  | `400` | Snapshot xatosi (Organization service topilmadi yoki tegishli organizatsiyaga
-  emas), yoki `services[]` da `agency` qatori yo''q / narxi 0 / boshqa tashkilotga
-  tegishli |
-
+  | `400` | Snapshot xatosi (Organization service topilmadi / boshqa tashkilotga tegishli); `agency` xizmati yo'q yoki narxi 0; **service_groups** xatosi (tashkilot takrorlangan, bir kategoriya ikki tashkilotda, organization yo'q, muddat 0/yo'q, yoki guruhda xizmat yo'q) |
   | `403` | Boshqa tashkilot uchun yaratish |
-
-  '
 settings:
   encodeUrl: true
   timeout: 0

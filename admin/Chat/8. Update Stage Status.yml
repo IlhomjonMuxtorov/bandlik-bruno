@@ -19,11 +19,12 @@ docs: |
 
   `status=completed` qilinganda `completed_at` avtomatik yoziladi va chat'da `type=system` xabar paydo bo'ladi (`{kind: stage_completed, stage_id, stage_category, completed_at}`).
 
-  ### 💰 Pul ta'siri (Faza B)
-  - **`in_progress`ga o'tkazish** — stage **funded** bo'lishi shart (nomzod taklifni qabul qilib,
-    shu xizmat summasini band qilgan bo'lishi kerak). Funded bo'lmasa `400` ("not funded yet") —
-    "balans yetmasa tashkilot xizmatni boshlamaydi". `deadline_at` berilmasa avtomatik
-    `now + vacancy_service.deadline_days` o'rnatiladi.
+  ### 💰 Pul ta'siri (Start → Pay → Execute)
+  - **Boshlash (Start)** — guruhni boshlash alohida endpoint orqali: `POST /admin/chats/{id}/groups/{groupId}/start`
+    (bosqich `pending → awaiting_payment`, to'lov oynasi ochiladi). Bu yerda (`update-stage`) emas.
+  - **`in_progress`** — odatda **kandidat to'lov qilganda avtomatik** o'rnatiladi (Pay → Execute);
+    o'shanda ijro `deadline_at = now + group.execution_deadline_days` (to'langan kundan). Bu yerda
+    qo'lda `in_progress` qilinsa, stage **funded** bo'lishi shart (aks holda `400`).
   - **`completed`ga o'tkazish** — nomzod hold'idan shu xizmat summasi **capture** qilinadi:
     komissiya platformaga, qolgani tashkilot balansiga. Idempotent (`captured_at`).
 
@@ -33,7 +34,7 @@ docs: |
 
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `status` | string | ✅ | `pending` \| `in_progress` \| `completed` \| `overdue` \| `skipped` |
+  | `status` | string | ✅ | `pending` \| `awaiting_payment` \| `in_progress` \| `completed` \| `overdue` \| `payment_overdue` \| `skipped` |
   | `progress_percent` | int | ➖ | 0–100. `completed` da avtomatik 100 |
   | `deadline_at` | int | ➖ | unix ts |
 

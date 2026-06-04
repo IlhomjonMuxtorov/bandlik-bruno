@@ -67,7 +67,9 @@ docs: 'Nomzodning hozirgi **faol qabul qilingan taklifini** (bitta vakansiya) va
 
   | `offer.funded_amount` | int | To''langan (hold qilingan) summa |
 
-  | `offer.awaiting_amount` | int | Yana to''lanishi kerak bo''lgan summa |
+  | `offer.awaiting_amount` | int | **Boshlangan** (awaiting_payment) — hozir to''lash mumkin summa |
+
+  | `offer.pending_amount` | int | Hali boshlanmagan guruhlar summasi (hali to''lab bo''lmaydi) |
 
   | `offer.reserved_amount` | int | Rezerv qilingan |
 
@@ -75,10 +77,10 @@ docs: 'Nomzodning hozirgi **faol qabul qilingan taklifini** (bitta vakansiya) va
 
   | `offer.remaining_hold` | int | Qolgan hold (`offer` faqat jami ko''rsatkichlar) |
 
-  | `service_groups` | array | (Yuqori daraja) Xizmatlar **tashkilot bo''yicha guruhlangan** + guruh bo''yicha
-  ketma-ket to''lov holati: `{organization, responsible_user, stages[], required_amount,
-  funded_amount, awaiting_amount, currency, fully_funded, is_current, paid_percent, progress_percent}`.
-  To''lov guruh bo''yicha ketma-ket — `is_current=true` bo''lgan guruh hozir to''lanadi |
+  | `service_groups` | array | (Yuqori daraja) Xizmatlar **tashkilot bo''yicha guruhlangan** + Start→Pay→Execute
+  holati: `{organization, responsible_user, stages[], required_amount, funded_amount, awaiting_amount,
+  currency, started, awaiting_start, fully_funded, is_current, payment_deadline_at, paid_percent,
+  progress_percent}`. `started=false` → guruh hali boshlanmagan; `is_current=true` → hozir to''lanadi |
 
   | `vacancy.id` | int | Vakansiya ID |
 
@@ -94,7 +96,7 @@ docs: 'Nomzodning hozirgi **faol qabul qilingan taklifini** (bitta vakansiya) va
 
   | `service_groups[].stages[].category_label` | string | Lokalizatsiya qilingan nom |
 
-  | `service_groups[].stages[].status` | string | `pending`, `in_progress`, `completed`, `skipped`, `overdue` |
+  | `service_groups[].stages[].status` | string | `pending`, `awaiting_payment`, `in_progress`, `completed`, `overdue`, `payment_overdue`, `skipped` |
 
   | `service_groups[].stages[].status_label` | string | Lokalizatsiya qilingan status |
 
@@ -104,9 +106,15 @@ docs: 'Nomzodning hozirgi **faol qabul qilingan taklifini** (bitta vakansiya) va
 
   | `service_groups[].stages[].progress_percent` | int | 0–100 |
 
-  | `service_groups[].stages[].deadline_at` | int \| null | Muddat (UNIX) |
+  | `service_groups[].stages[].started_at` | int \| null | Guruh boshlangan vaqt (UNIX) |
 
-  | `service_groups[].stages[].time_left_text` | string \| null | Qolgan vaqt (`3 d, 2 h`) |
+  | `service_groups[].stages[].payment_deadline_at` | int \| null | To''lov muddati (UNIX) — awaiting_payment da |
+
+  | `service_groups[].stages[].payment_time_left_text` | string \| null | To''lovgacha qolgan vaqt |
+
+  | `service_groups[].stages[].deadline_at` | int \| null | Ijro muddati (UNIX) — to''langan kundan |
+
+  | `service_groups[].stages[].time_left_text` | string \| null | Aktiv soat bo''yicha qolgan vaqt (`3 d, 2 h`) |
 
 
   ### ⚠️ Errors

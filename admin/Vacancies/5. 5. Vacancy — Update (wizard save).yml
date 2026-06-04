@@ -10,53 +10,68 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"organization_id\": 1,\n  \"title\": \"Restoran Xizmatchisi (yangilangan)\"\
-      ,\n  \"employment_type\": \"full_time\",\n  \"hiring_quota\": 15,\n  \"country_id\"\
-      : 1,\n  \"requirements\": [{\"title\": \"Polsha tili A2\", \"is_required\":\
-      \ true}],\n  \"benefits\": [{\"title\": \"Bepul turar joy\"}],\n  \"documents\"\
-      : [{\"title\": \"Sudlanmaganlik\", \"is_required\": true}],\n  \"services\"\
-      : [{\"category\": \"agency\", \"organization_id\": 1, \"service_name\": \"Agentlik\
-      \ xizmati\", \"price\": 1500000, \"currency\": \"UZS\", \"sort_order\": 0}, {\"\
-      category\": \"training\", \"organization_id\": 4, \"educational_course_id\":\
-      \ 12, \"sort_order\": 1}],\n\
-      \  \"single_payment\": true,\n  \"payment_steps\": []\n}"
+    data: |
+      {
+        "organization_id": 1,
+        "title": "Restoran Xizmatchisi (yangilangan)",
+        "employment_type": "full_time",
+        "hiring_quota": 15,
+        "country_id": 1,
+        "requirements": [{ "id": 1, "sort_order": 0 }],
+        "benefits": [{ "id": 1, "sort_order": 0 }],
+        "documents": [{ "id": 1, "sort_order": 0 }],
+        "service_groups": [
+          {
+            "organization_id": 1,
+            "payment_deadline_days": 3,
+            "execution_deadline_days": 7,
+            "sort_order": 0,
+            "services": [
+              { "category": "agency", "service_name": "Agentlik xizmati", "price": 1500000, "currency": "UZS", "sort_order": 0 }
+            ]
+          },
+          {
+            "organization_id": 4,
+            "payment_deadline_days": 5,
+            "execution_deadline_days": 14,
+            "sort_order": 1,
+            "services": [
+              { "category": "training", "educational_course_id": 12 }
+            ]
+          }
+        ],
+        "single_payment": true,
+        "payment_steps": []
+      }
   auth: inherit
-docs: 'Vakansiyani to''liq qayta saqlaydi — barcha child kolleksiyalar (requirements/benefits/documents/services/payment_steps)
-  **butunlay almashtiriladi** (delete + insert).
-
+docs: |
+  Vakansiyani to'liq qayta saqlaydi — barcha child kolleksiyalar
+  (requirements/benefits/documents/service_groups+services/payment_steps) **butunlay
+  almashtiriladi** (delete + insert).
 
   **Auth:** `admin_token` yoki vakansiya egasi.
-
 
   > **Eslatma:** faqat `draft` yoki `rejected` statusdagi vakansiyalarni Employer/Recruiter
   tahrirlay oladi. `approved` / `closed` — faqat admin orqali.
 
-
   ### 📥 Request Body
 
+  Create bilan bir xil (yuqorida) — `service_groups[]` (bitta tashkilot = bitta guruh, bir
+  kategoriya faqat bitta tashkilotda, ikki muddat, nested `services[]` har biri o'z `category`
+  si bilan) bu yerda ham majburiy.
 
-  Create bilan bir xil (yuqorida).
-
-
-  **⚠️ Agentlik xizmati (majburiy):** Update so''rovida ham `services[]` ichida `category
-  = "agency"` qatori (vakansiyaning `organization_id` ga tegishli, `price > 0`, `service_name`
-  to''ldirilgan) bo''lishi shart — aks holda 400 qaytadi.
-
+  **⚠️ Agentlik xizmati (majburiy):** Update'da ham aniq bitta `category = "agency"` xizmati
+  (vakansiya `organization_id` guruhiga tegishli, `price > 0`, `service_name` to'ldirilgan)
+  bo'lishi shart — aks holda 400.
 
   ### ⚠️ Errors
 
-
   | Code | Reason |
-
   |---|---|
-
   | `404` | Vakansiya topilmadi |
-
   | `403` | Approved/closed vakansiyalar tahrirlanmaydi (egasi uchun) |
-
   | `422` | Validatsiya xatosi |
-
-  '
+  | `400` | Agentlik guruhi/xizmati yoki service_groups validatsiyasi xatosi |
 settings:
   encodeUrl: true
   timeout: 0

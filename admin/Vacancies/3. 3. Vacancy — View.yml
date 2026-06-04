@@ -66,6 +66,7 @@ docs: |-
   | `documents` | array | `[{ id: int, title: string, description: string\|null, sort_order: int }]` |
   | `services` | array | Biriktirilgan xizmatlar (snapshot) — service object ro'yxati (quyida) |
   | `services_by_category` | object | Kategoriya kaliti → service object massivi |
+  | `service_groups` | array | **Tashkilot guruhlari** (bitta tashkilot = bitta guruh; guruh bir nechta kategoriyani qamrashi mumkin), nested xizmatlar bilan: `[{ id, organization: {id, name}, payment_deadline_days, execution_deadline_days, sort_order, services: [service object] }]`. Har nested xizmat o'z `category` siga ega |
   | `payment_steps` | array | `[{ id: int, step_type: string, step_type_label: string, title: string, amount: int, currency: string, sort_order: int }]` |
 
   ### 🏢 `organization` (object — har doim mavjud)

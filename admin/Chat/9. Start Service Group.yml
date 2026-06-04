@@ -1,0 +1,61 @@
+info:
+  name: Start Service Group
+  type: http
+  seq: 9
+http:
+  method: POST
+  url: '{{base_url}}/admin/chats/1/groups/1/start'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: none
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+docs: |
+  Tashkilot guruhini **boshlaydi** (Start qadami): guruhning `pending` bosqichlarini
+  `awaiting_payment` ga o'tkazadi va kandidatning **to'lov oynasini** ochadi
+  (`payment_deadline_at = now + group.payment_deadline_days`). Chatga `type=system` xabar
+  (`kind: group_started`) yuboriladi.
+
+  Oqim: **Start → Pay → Execute**. Boshlangandan keyin kandidat shu guruhni to'laydi
+  (guruh bo'yicha, all-or-nothing); to'langach bosqichlar `in_progress` ga o'tadi va
+  ijro muddati (`deadline_at = now + group.execution_deadline_days`) to'langan kundan boshlanadi.
+
+  **Guruh = tashkilot.** Bir guruh bir nechta kategoriyani qamrashi mumkin (masalan notarius
+  tashkilotning notary_translation / notary_apostille / notary_other xizmatlari bir guruhda).
+
+  **To'lov rejimi:**
+  - **Ketma-ket (single_payment=false):** guruhni faqat undan oldingi barcha guruhlar (tartib
+    bo'yicha) to'liq to'langandan keyin boshlash mumkin — aks holda `400`. Start'da balans
+    talab qilinmaydi (kandidat `payment_deadline_days` ichida to'ldiradi).
+  - **Bitta to'lov (single_payment=true):** bitta `start` chaqiruvi (`groupId` ahamiyatsiz)
+    **barcha** guruhlarni birga ochadi — lekin faqat kandidat hamyonidagi mavjud balans umumiy
+    summaga yetsa; yetmasa `400`. Hammasiga bitta `payment_deadline_at` (guruhlar muddatining
+    eng kattasi) qo'yiladi.
+
+  **Auth:** `admin_token`. Guruh shu chatning `vacancy_candidate` piplayniga tegishli bo'lishi shart.
+
+  **Qayta ochish:** to'lov muddati o'tib `payment_overdue` bo'lgan guruhni shu endpoint
+  qayta boshlaydi (yangi to'lov muddati bilan). Faqat `pending` va `payment_overdue` bosqichlar
+  o'zgaradi; `awaiting_payment`/`in_progress`/`completed` tegilmaydi (idempotent).
+
+  ### 📤 Response
+
+  `{ success, data: service_groups[], message: "Service group started" }` — yangilangan
+  guruhlangan ko'rinish (chat detaildagi `service_groups` bilan bir xil struktura;
+  boshlangan guruh `started=true`, `is_current=true`).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Ketma-ket rejimda oldingi guruh hali to'lanmagan; yoki single_payment'da kandidat balansi umumiy summaga yetmaydi |
+  | `403` | Foydalanuvchi xodim emas yoki guruh boshqa piplaynga tegishli |
+  | `404` | Chat yoki qabul qilingan piplayn topilmadi / guruh shu nomzodga tegishli emas |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
