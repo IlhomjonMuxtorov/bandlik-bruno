@@ -78,9 +78,10 @@ docs: 'Nomzodning hozirgi **faol qabul qilingan taklifini** (bitta vakansiya) va
   | `offer.remaining_hold` | int | Qolgan hold (`offer` faqat jami ko''rsatkichlar) |
 
   | `service_groups` | array | (Yuqori daraja) Xizmatlar **tashkilot bo''yicha guruhlangan** + Start→Pay→Execute
-  holati: `{organization, responsible_user, stages[], required_amount, funded_amount, awaiting_amount,
+  holati: `{service_group_id, organization, responsible_user, stages[], required_amount, funded_amount, awaiting_amount,
   currency, started, awaiting_start, fully_funded, is_current, payment_deadline_at, paid_percent,
-  progress_percent}`. `started=false` → guruh hali boshlanmagan; `is_current=true` → hozir to''lanadi |
+  progress_percent}`. `service_group_id` (int|null) — guruhning `VacancyServiceGroup.id`''si (start uchun);
+  `started=false` → guruh hali boshlanmagan; `is_current=true` → hozir to''lanadi |
 
   | `vacancy.id` | int | Vakansiya ID |
 

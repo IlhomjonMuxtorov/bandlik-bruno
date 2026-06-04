@@ -54,6 +54,7 @@ docs: |
 
   | Field | Type | Description |
   |---|---|---|
+  | `service_group_id` | int \| null | Guruhning `VacancyServiceGroup.id`'si — `POST /admin/chats/<id>/groups/{groupId}/start` uchun ishlatiladi. Eski/guruhlanmagan bosqichlar uchun `null` |
   | `organization` | object \| null | `{id, name, type, type_label, logo_url}` — xizmatni beruvchi tashkilot |
   | `responsible_user` | object \| null | Tashkilotning mas'ul useri: `{id, username, full_name, phone, photo_url}` |
   | `stages` | array | Shu guruhdagi bosqichlar (quyidagi `stages[]` struktura) |

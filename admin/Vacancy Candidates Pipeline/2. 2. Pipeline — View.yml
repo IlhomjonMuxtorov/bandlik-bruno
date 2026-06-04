@@ -22,8 +22,9 @@ docs: 'Pipeline yozuvi tafsiloti.
   (`{id, name, type, type_label, logo_url}`) bilan boyitilgan.
 
   - `service_groups[]` — bosqichlar **tashkilot bo''yicha guruhlangan** + guruh bo''yicha
-  ketma-ket to''lov holati: `{organization, responsible_user, stages[], required_amount,
+  ketma-ket to''lov holati: `{service_group_id, organization, responsible_user, stages[], required_amount,
   funded_amount, awaiting_amount, currency, started, awaiting_start, fully_funded, is_current, payment_deadline_at, paid_percent, progress_percent}`.
+  `service_group_id` (int|null) — guruhning `VacancyServiceGroup.id`''si.
 
   '
 settings:

@@ -45,7 +45,8 @@ docs: |
 
   `{ success, data: service_groups[], message: "Service group started" }` — yangilangan
   guruhlangan ko'rinish (chat detaildagi `service_groups` bilan bir xil struktura;
-  boshlangan guruh `started=true`, `is_current=true`).
+  boshlangan guruh `started=true`, `is_current=true`). Har `service_groups[]` elementida
+  `service_group_id` (int|null) bor — bu URL'dagi `{groupId}` ga mos guruh id'si.
 
   ### ⚠️ Errors
 
