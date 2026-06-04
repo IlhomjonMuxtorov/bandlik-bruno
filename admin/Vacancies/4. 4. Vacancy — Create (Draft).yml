@@ -14,6 +14,7 @@ http:
     type: json
     data: |
       {
+        "save_as_template": false,
         "organization_id": 1,
         "industry_id": 1,
         "title": "Restoran Xizmatchisi",
@@ -129,6 +130,8 @@ docs: |
   | `payment_steps[]` | array | `{step_type, title, amount, currency, sort_order}` (faqat `single_payment=false` da) |
 
   **⚠️ Agentlik xizmati (majburiy):** xizmatlar orasida **aniq bitta** `category = "agency"` xizmati bo'lishi shart, va uning guruhi (`organization_id`) vakansiyaning `organization_id` ga teng bo'lishi kerak; agentlik xizmatining `service_name` to'ldirilgan va `price > 0` bo'lishi zarur. Agentlik narxi `total_service_amount` ga kiritiladi.
+
+  **🔖 Shablon sifatida saqlash (wizard checkboxi):** `save_as_template = true` (bool, ➖) yuborilsa, vakansiya yaratilgach shu wizard formasi `vacancy_template` sifatida ham saqlanadi — **xuddi shu tranzaksiyada** (shablon saqlash xato bo'lsa vakansiya ham yaratilmaydi). Shablon nomi `template_name` (string, ➖); berilmasa vakansiya `title`'i ishlatiladi (200 belgigacha qisqartiriladi). Shablon vakansiyaning `organization_id`'iga biriktiriladi va keyin `GET /admin/vacancy-templates` da ko'rinadi.
 
   ### 📤 Response (`data`)
 
