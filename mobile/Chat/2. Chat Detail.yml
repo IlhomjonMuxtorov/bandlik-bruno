@@ -26,8 +26,7 @@ docs: |
   | Field | Type | Description |
   |---|---|---|
   | `candidate_card` | object \| null | Pinlangan obyektivka. `{candidate_id, application_id, full_name, photo_url, phone, cv_id, cv_title, cover_message}`. Conversation ochilishda system message sifatida birinchi xabar sifatida |
-  | `service_stages` | array | Stage tracker (tekis ro'yxat, orqaga moslik uchun). Bo'sh massiv — ariza hali Accepted emas |
-  | `service_groups` | array | **Xizmatlar tashkilot bo'yicha guruhlangan** + guruh bo'yicha ketma-ket to'lov holati. Bo'sh massiv — pipeline yo'q. (Quyida tuzilishi) |
+  | `service_groups` | array | **Xizmatlar tashkilot bo'yicha guruhlangan** + guruh bo'yicha ketma-ket to'lov holati (bosqichlar guruh ichida `stages[]` da). Bo'sh massiv — pipeline yo'q. (Quyida tuzilishi) |
   | `offer` | object \| null | **Taklif + funding holati**. `null` — tashkilot arizani hali qabul qilmagan (pipeline yo'q). Nomzod taklifni shu yerdan **qabul/rad/bekor** qiladi: `POST /mobile/chats/<id>/offer/{accept,decline,fund,cancel}` |
   | `active_call` | object \| null | **Aktiv (davom etayotgan/jiringlayotgan) qo'ng'iroq**. `null` — qo'shiladigan qo'ng'iroq yo'q. Push kelmagan / chat qayta ochilgan holatda mijoz shu maydon orqali "Join" tugmasini ko'rsatadi va `POST /mobile/chats/<id>/video-call/join` chaqiradi. Obyekt: `{call_message_id, room_name, domain, started_by, started_at}` |
 
@@ -46,7 +45,7 @@ docs: |
   | `captured_amount` | int | Xizmatlarga yechib o'tkazilgan |
   | `remaining_hold` | int | Hali band'da turgan (bekor qilishda qaytadigan) |
 
-  > `offer` faqat **jami** ko'rsatkichlar. Per-xizmat detal `service_stages[]` da; tashkilot bo'yicha guruhlangan to'lov holati esa yuqori darajadagi `service_groups[]` da.
+  > `offer` faqat **jami** ko'rsatkichlar. Per-xizmat detal va tashkilot bo'yicha guruhlangan to'lov holati yuqori darajadagi `service_groups[]` (va undagi `stages[]`) da.
 
   ### 🗂 `service_groups[]` — tashkilot bo'yicha guruh
 
@@ -56,7 +55,7 @@ docs: |
   |---|---|---|
   | `organization` | object \| null | `{id, name, type, type_label, logo_url}` — xizmatni beruvchi tashkilot |
   | `responsible_user` | object \| null | Tashkilotning mas'ul useri: `{id, username, full_name, phone, photo_url}` |
-  | `stages` | array | Shu guruhdagi `service_stages[]` elementlari (quyidagi struktura) |
+  | `stages` | array | Shu guruhdagi bosqichlar (quyidagi `stages[]` struktura) |
   | `required_amount` | int | Guruh jami (so'm) |
   | `funded_amount` | int | Guruhda band qilingan (so'm) |
   | `awaiting_amount` | int | Guruhni to'lash uchun yetishmayotgan (so'm) |
@@ -66,7 +65,7 @@ docs: |
   | `paid_percent` | int | **Guruh uchun necha foiz to'langani** (`funded_amount / required_amount`, 0–100) |
   | `progress_percent` | int | Guruh o'rtacha bajarilish progressi (0–100) |
 
-  Har `service_stages[]` elementi:
+  Har `service_groups[].stages[]` elementi:
 
   | Field | Type | Description |
   |---|---|---|
