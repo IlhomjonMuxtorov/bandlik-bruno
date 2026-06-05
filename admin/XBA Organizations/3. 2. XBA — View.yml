@@ -18,7 +18,9 @@ docs: |-
   | `total_revenue` | int | Yakunlangan buyurtmalar summasi (UZS). |
   | `clients_count` | int | Tashkilot xizmatlaridan foydalangan distinct nomzodlar. |
   | `services_count` | int | Tashkilot xizmatlari soni. |
-  | `employees_count` | int | Faol xodimlar soni. |
+  | `employees_count` | int | Faol xodimlar soni (Xodimlar tab badge'i). |
+  | `active_vacancies_count` | int | Arxivlanmagan vakansiyalar (Aktiv vakansiyalar tab badge'i). |
+  | `archived_vacancies_count` | int | Arxivlangan vakansiyalar (Arxiv vakansiyalar tab badge'i). |
   | `this_month_candidates` | int | Joriy oyda tashkilot vakansiyalariga kelgan nomzodlar (distinct). |
   | `this_month_vacancies` | int | Joriy oyda yaratilgan vakansiyalar. |
   | `refunded_amount` | int | Tashkilotga tegishli yakunlangan refund summasi. |
