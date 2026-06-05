@@ -1,0 +1,64 @@
+info:
+  name: Vacancy Salary Range
+  type: http
+  seq: 12
+http:
+  method: GET
+  url: '{{base_url}}/mobile/vacancies/salary-range'
+  auth: inherit
+docs: |-
+  Tanlangan (maoshdan tashqari) filterlarga mos keladigan tasdiqlangan (`status=approved`) vakansiyalar bo'yicha **brutto maoshning eng kichik va eng katta qiymatini** qaytaradi — mobil filter ekranidagi **Maosh** slayderining chegaralarini shu yerdan o'rnatish uchun. Diapazon bitta valyutaga taalluqli (default `UZS`), chunki aralash valyutalar min/max'i ma'nosiz bo'ladi.
+
+  Slayder chegaralarini olgandan keyin, haqiqiy filtrlash feed (`GET /mobile/vacancies`) va count (`GET /mobile/vacancies/count`) dagi `salary_min` / `salary_max` paramlari orqali qilinadi.
+
+  **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi).
+
+  > Diapazon **boshqa tanlangan filtrlarga moslashadi** — masalan `country_id` berilsa, faqat shu davlat vakansiyalari bo'yicha min/max qaytadi. Hech qanday filtr berilmasa — barcha tasdiqlangan vakansiyalar bo'yicha global diapazon. Maoshi (`salary_gross`) ko'rsatilmagan vakansiyalar hisobga olinmaydi.
+
+  ### 🔎 Query Parameters
+
+  Feed bilan bir xil (maoshdan tashqari) filtr paramlari. `salary_min`, `salary_max`, `sort`, `page`, `per-page` bu endpoint uchun **e'tiborga olinmaydi**.
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `salary_currency` | string | ➖ | `UZS` \| `USD` \| `EUR`. Diapazon shu valyuta bo'yicha. Default: `UZS`. |
+  | `q` | string | ➖ | Sarlavha bo'yicha qidiruv (ILIKE). |
+  | `country_id` | int | ➖ | Davlat ID. |
+  | `city_id` | int \| int[] | ➖ | Shahar ID. Bir nechta: `city_id[]=1&city_id[]=2` yoki `city_id=1,2` (OR bo'yicha). |
+  | `industry_id` | int | ➖ | Soha ID. |
+  | `organization_id` | int | ➖ | Tashkilot bo'yicha. |
+  | `employment_type` | string | ➖ | `full_time` \| `part_time` \| `seasonal` \| `contract`. |
+  | `experience_level` | string | ➖ | `none` \| `one_to_three` \| `three_to_six`. |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer <access_token>` (mehmon tokeni ham). |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `min` | int \| null | Eng kichik brutto maosh. Mos keladigan maoshli vakansiya bo'lmasa `null`. |
+  | `max` | int \| null | Eng katta brutto maosh. Mos keladigan maoshli vakansiya bo'lmasa `null`. |
+  | `currency` | string | Diapazon valyutasi (so'ralgan yoki default `UZS`). |
+  | `count` | int | Diapazonga hissa qo'shgan (maoshi ko'rsatilgan) vakansiyalar soni. |
+
+  ```json
+  { "min": 1000000, "max": 25000000, "currency": "UZS", "count": 87 }
+  ```
+
+  > Mos keladigan maoshli vakansiya bo'lmasa: `{ "min": null, "max": null, "currency": "UZS", "count": 0 }`. Bunday holatda frontend default diapazonni qo'llaydi yoki slayderni yashiradi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki yaroqsiz. |
+  | `500` | Server xatosi. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
