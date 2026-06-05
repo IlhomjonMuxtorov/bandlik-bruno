@@ -6,32 +6,34 @@ http:
   method: GET
   url: '{{base_url}}/admin/xba/1'
   auth: inherit
-docs: 'Bitta XBA tashkiloti haqida to''liq ma''lumot + `stats` (`total_revenue`, `clients_count`,
-  `services_count`, `employees_count`).
-
-
-  > **Ko''p tillilik:** `name`, `description`, `address` xom `{uz, ru, en}` obyekt sifatida,
-  qo''shimcha `name_localized` / `description_localized` / `address_localized` esa joriy til
-  (`Accept-Language`, fallback `uz`) uchun string bilan qaytadi.
-
-
-  > Cross-type isolation: agar `id` boshqa partner turidagi yozuvga tegishli bo''lsa
-  — `404`.
-
+docs: |-
+  Bitta XBA tashkiloti haqida to'liq ma'lumot + `stats` blok.
 
   **Auth:** `admin_token`.
 
+  ### 📤 `stats` (detal sahifa kartochkalari)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `total_revenue` | int | Yakunlangan buyurtmalar summasi (UZS). |
+  | `clients_count` | int | Tashkilot xizmatlaridan foydalangan distinct nomzodlar. |
+  | `services_count` | int | Tashkilot xizmatlari soni. |
+  | `employees_count` | int | Faol xodimlar soni. |
+  | `this_month_candidates` | int | Joriy oyda tashkilot vakansiyalariga kelgan nomzodlar (distinct). |
+  | `this_month_vacancies` | int | Joriy oyda yaratilgan vakansiyalar. |
+  | `refunded_amount` | int | Tashkilotga tegishli yakunlangan refund summasi. |
+
+  > **Ko'p tillilik:** `name`, `description`, `address` xom `{uz, ru, en}` obyekt sifatida,
+  > qo'shimcha `name_localized` / `description_localized` / `address_localized` esa joriy til
+  > (`Accept-Language`, fallback `uz`) uchun string bilan qaytadi.
+
+  > Cross-type isolation: agar `id` boshqa partner turidagi yozuvga tegishli bo'lsa — `404`.
 
   ### ⚠️ Errors
 
-
   | Code | Reason |
-
   |---|---|
-
   | `404` | XBA topilmadi |
-
-  '
 settings:
   encodeUrl: true
   timeout: 0

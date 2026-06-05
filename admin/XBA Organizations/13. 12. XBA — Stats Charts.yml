@@ -1,0 +1,51 @@
+info:
+  name: 12. XBA — Stats Charts
+  type: http
+  seq: 13
+http:
+  method: GET
+  url: '{{base_url}}/admin/xba/1/stats-charts'
+  auth: inherit
+docs: |-
+  XBA tashkilotning **Statistika** tabidagi 4 ta grafik (bitta javobda).
+
+  **Auth:** `admin_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `year` | int | ➖ | Grafik yili (default — joriy yil). Jan..Dek bo'yicha. |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {{ _.admin_token }}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` — davlat / kategoriya nomlari shu tilda |
+
+  ### 📤 Response (`data` — `OrganizationStatsChartsDTO`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `year` | int | Tanlangan yil |
+  | `candidate_growth` | array | Nomzodlar o'sishi — `[{month:1..12, count}]` (12 ta element). |
+  | `engagement_trend` | object | `{views:[{month,count}], responses:[{month,count}]}` — ko'rishlar va munosabat bildirganlar. |
+  | `by_country` | array | Davlatlar bo'yicha — `[{country_id, name, count}]`, kamayish tartibida. |
+  | `by_category` | array | Kategoriya (kasb) bo'yicha — `[{industry_id, name, count, percent}]`. |
+
+  > **Eslatma:** maketdagi "Oylik daromad tendensiyasi" sarlavhasi ostida legenda
+  > "Ko'rishlar soni" / "Munosabat bildirganlar" ko'rsatilgan — endpoint legendaga
+  > mos ravishda `engagement_trend.views` (`vacancy_view_log`) va
+  > `engagement_trend.responses` (`vacancy_candidate`) seriyalarini qaytaradi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | XBA topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

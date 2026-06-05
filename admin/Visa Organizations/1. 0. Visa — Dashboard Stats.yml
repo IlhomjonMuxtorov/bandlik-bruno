@@ -6,33 +6,22 @@ http:
   method: GET
   url: '{{base_url}}/admin/visa/stats'
   auth: inherit
-docs: 'Visa modulining yuqori statistika kartochkalari (sahifa ustida 4 ta karta).
-
+docs: |-
+  Visa modulining yuqori statistika kartochkalari (ro'yxat sahifasi ustidagi 4 ta karta).
 
   **Auth:** `admin_token`.
 
-
   ### 📤 Response (`data`)
 
-
   | Field | Type | Description |
-
   |---|---|---|
+  | `total_revenue` | int | Barcha vaqtlar uchun yakunlangan buyurtmalar summasi (UZS). |
+  | `this_month_candidates` | int | Joriy oyda shu tur vakansiyalariga kelgan nomzodlar (distinct). |
+  | `this_month_vacancies` | int | Joriy oyda yaratilgan shu tur vakansiyalari. |
+  | `refunded_amount` | int | Yakunlangan refund summasi (`transaction.type = REFUND`, `status = COMPLETED`). |
 
-  | `total_revenue` | int | Barcha vaqtlar uchun yakunlangan buyurtmalar summasi (UZS)
-  |
-
-  | `holding_amount` | int | Hozircha `0` placeholder — transaction moduli kelganda
-  integratsiya |
-
-  | `this_month_revenue` | int | Joriy oydagi yakunlangan buyurtmalar summasi |
-
-  | `refunded_amount` | int | Hozircha `0` placeholder |
-
-
-  > Faqat `type = NOTARIUS (2)` yozuvlari bo''yicha hisoblanadi.
-
-  '
+  > Faqat `type = VISA (5)` yozuvlari bo'yicha hisoblanadi. Vakansiyaga ega bo'lmagan
+  > turlarda `this_month_candidates` / `this_month_vacancies` `0` bo'lishi mumkin.
 settings:
   encodeUrl: true
   timeout: 0

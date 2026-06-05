@@ -6,108 +6,66 @@ http:
   method: GET
   url: '{{base_url}}/admin/xba?per-page=20'
   auth: inherit
-docs: 'XBA tashkilotlari ro''yxati (paginatsiya + filtrlar). Faqat `type = 1` yozuvlar
-  qaytadi.
-
+docs: |-
+  XBA tashkilotlari ro'yxati (paginatsiya + filtrlar). Faqat `type = 1` yozuvlar qaytadi.
 
   **Auth:** `admin_token`.
 
-
   ### 🔎 Query Parameters
 
-
   | Param | Type | Required | Description |
-
   |---|---|:---:|---|
-
-  | `q` | string | ➖ | Nom / brand / yuridik nom / litsenziya / mas''ul shaxs / telefon
-  bo''yicha `ILIKE` qidiruv. |
-
+  | `q` | string | ➖ | Nom / brand / yuridik nom / litsenziya / mas'ul shaxs / telefon bo'yicha `ILIKE` qidiruv. |
   | `region_id` | int | ➖ | Viloyat filtri. |
-
   | `district_id` | int | ➖ | Tuman filtri. |
-
-  | `is_active` | int (0\|1) | ➖ | Faolligi bo''yicha filtr. |
-
+  | `is_active` | int (0\|1) | ➖ | Faolligi bo'yicha filtr. |
   | `page` | int | ➖ | Sahifa raqami. |
-
   | `per-page` | int | ➖ | Sahifa hajmi (1–100). |
-
 
   ### 📋 Headers
 
-
   | Header | Required | Description |
-
   |---|:---:|---|
-
   | `Authorization` | ✅ | `Bearer {{ _.admin_token }}` |
-
   | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` |
-
 
   ### 📤 Response (`data.items[]` — `OrganizationOutputDTO`)
 
-
   | Field | Type | Description |
-
   |---|---|---|
-
   | `id` | int | |
-
   | `type` | int | `1` (XBA) |
-
   | `type_label` | string | `"XBA"` |
-
   | `name` | string | |
-
   | `brand_name` | string \| null | Brend nomi ("... MChJ") |
-
   | `legal_name` | string \| null | Yuridik nomi ("... OOO") |
-
   | `description` | string \| null | Tashkilot haqida |
-
-  | `license_number` | string | Unique (`type` bo''yicha) |
-
+  | `license_number` | string | Unique (`type` bo'yicha) |
   | `region` | object | `{id, name, is_active, sort_order}` |
-
   | `district` | object | `{id, region_id, name, is_active, sort_order}` |
-
   | `address` | string | |
-
   | `phone` | string | Call-center |
-
   | `email` | string \| null | |
-
   | `website_url` | string \| null | |
-
   | `responsible_person` | string | F.I.SH. |
-
-  | `login` | string \| null | XBA egasining login''i |
-
-  | `license_file_url` | string \| null | To''liq URL |
-
-  | `logo_url` | string \| null | To''liq URL |
-
+  | `login` | string \| null | XBA egasining login'i |
+  | `license_file_url` | string \| null | To'liq URL |
+  | `logo_url` | string \| null | To'liq URL |
   | `telegram_url` | string \| null | |
-
   | `instagram_url` | string \| null | |
-
   | `facebook_url` | string \| null | |
-
   | `x_url` | string \| null | |
-
   | `is_active` | bool | |
-
+  | `counts` | object | Har bir qator uchun agregat: `{agents_count, vacancies_count, candidates_count}`. Joriy sahifa uchun batch hisoblanadi (N+1 yo'q). |
   | `created_at` | int | Unix timestamp |
-
   | `created_at_formatted` | string | `d.m.Y H:i` (Asia/Tashkent) |
-
   | `updated_at` | int | Unix timestamp |
-
   | `updated_at_formatted` | string | `d.m.Y H:i` (Asia/Tashkent) |
 
-  '
+  > **`counts`** — `agents_count` = faol xodimlar; `vacancies_count` = tashkilot
+  > vakansiyalari; `candidates_count` = tashkilot vakansiyalariga bog'langan distinct
+  > nomzodlar. Ro'yxat (Index) javobida har bir elementga qo'shiladi; detal (`View`)
+  > javobida esa `stats` ichida kengaytirilgan ko'rsatkichlar bo'ladi.
 settings:
   encodeUrl: true
   timeout: 0
