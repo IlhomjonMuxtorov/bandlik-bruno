@@ -1,0 +1,25 @@
+info:
+  name: 11c. Document Pool — Delete
+  type: http
+  seq: 22
+http:
+  method: DELETE
+  url: '{{base_url}}/mobile/candidate/document/{{document_id}}'
+  headers:
+  - name: Accept
+    value: application/json
+  auth: inherit
+docs: |
+  Hujjatni pooldan butunlay o'chirish: yozuv + fayl o'chadi va CASCADE orqali
+  barcha CV biriktirmalari (pivot) yo'qoladi. `204 No Content`.
+
+  > ⚠️ Bitta CVdan olib tashlash (poolda qoldirish) kerak bo'lsa — buni emas,
+  > CV qismidagi `Document — Detach` (`DELETE /mobile/cv/{cvId}/document/{id}`)
+  > endpointini ishlating.
+
+  **Auth:** `access_token`.
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

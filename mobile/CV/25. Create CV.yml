@@ -13,7 +13,8 @@ http:
   body:
     type: json
     data: "{\n    \"title\": \"Haydovchi CVim\",\n    \"is_primary\": false,\n   \
-      \ \"status\": null\n}"
+      \ \"status\": null,\n    \"document_ids\": null,\n    \"driver_certificate_ids\"\
+      : null\n}"
   auth: inherit
 docs: 'Yangi CV yaratish.
 
@@ -39,6 +40,13 @@ docs: 'Yangi CV yaratish.
   | `status` | string \| null | ➖ | CV holati: `draft` (sukut) yoki `active`. Yangisi
   boshlang''ich `draft` — oxirgi bosqichda `active` o''rnatiladi |
 
+  | `document_ids` | int[] \| null | ➖ | CVga biriktiriladigan profil hujjat ID-lari.
+  `null`/yuborilmasa — nomzodning **barcha** profil hujjatlari biriktiriladi (default);
+  `[]` — hech biri; `[1,5]` — faqat shular |
+
+  | `driver_certificate_ids` | int[] \| null | ➖ | Xuddi shu mantiq haydovchilik
+  sertifikatlari uchun |
+
 
   ### 📤 Response
 
@@ -60,6 +68,13 @@ docs: 'Yangi CV yaratish.
 
   > ✨ **Auto-save:** yaratilgan CV ning `id` si avtomatik `cv_id` sifatida saqlanadi.
   CV qismidagi barcha endpointlar shu `{{cv_id}}` ni ishlatadi.
+
+
+  > 📎 **Hujjat/sertifikat pooli:** hujjat va haydovchilik sertifikatlari endi
+  > candidate (profil) darajasida saqlanadi (`/mobile/candidate/document`,
+  > `/mobile/candidate/driver-certificate`). CV ulardan tanlangan qismini
+  > biriktiradi — yangi CVda default barchasi biriktiriladi. Keyin CV qismidagi
+  > `Document/Driver Certificate — Attach/Detach` orqali boshqariladi.
 
 
   > 🔄 **MVD avtomatik sinxronlash** (server background):

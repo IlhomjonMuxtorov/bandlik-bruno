@@ -1,0 +1,42 @@
+info:
+  name: 12b. Driver Certificate Pool — Update
+  type: http
+  seq: 25
+http:
+  method: PATCH
+  url: '{{base_url}}/mobile/candidate/driver-certificate/{{driver_certificate_id}}'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n    \"type\": \"adr\",\n    \"title\": \"ADR sertifikati\",\n    \"certificate_number\": \"ADR-789-2024\",\n    \"issue_date\": \"15.06.2024\",\n    \"expiry_date\": \"15.06.2029\",\n    \"file_id\": null\n}"
+  auth: inherit
+docs: |
+  Pool sertifikatini yangilash. `file_id` yuborilsa, eski fayl o'chiriladi.
+
+  **Auth:** `access_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `type` | string | ✅ | `code_95` \| `adr` \| `chip_card` |
+  | `title` | string | ✅ | Sertifikat nomi |
+  | `certificate_number` | string | ➖ | Raqam |
+  | `issue_date` | date | ➖ | `DD.MM.YYYY` |
+  | `expiry_date` | date | ➖ | `DD.MM.YYYY` |
+  | `file_id` | int | ➖ | Yangi fayl ID; berilmasa hozirgi fayl saqlanadi |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Sertifikat topilmadi (yoki boshqa nomzodga tegishli) |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

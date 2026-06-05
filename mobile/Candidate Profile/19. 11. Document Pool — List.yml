@@ -1,18 +1,18 @@
 info:
-  name: 8. Document — List
+  name: 11. Document Pool — List
   type: http
-  seq: 13
+  seq: 19
 http:
   method: GET
-  url: '{{base_url}}/mobile/cv/{{cv_id}}/document'
+  url: '{{base_url}}/mobile/candidate/document'
   headers:
   - name: Accept
     value: application/json
   auth: inherit
 docs: |
-  Shu CVga biriktirilgan hujjatlar ro'yxati. Hujjatlar candidate'ning profil
-  pooliga tegishli (`/mobile/candidate/document`); bu yerda CVga biriktirilgan
-  qismi ko'rinadi.
+  Nomzodning hujjat "pool"i (profil darajasida). Bu hujjatlar candidate'ga
+  tegishli; har bir CV ulardan tanlangan qismini biriktiradi (CV qismidagi
+  `Document — Attach/Detach`ga qarang).
 
   **Auth:** `access_token`.
 
@@ -20,7 +20,7 @@ docs: |
 
   | Field | Type | Description |
   |---|---|---|
-  | `id` | int | Hujjat ID (pooldagi) |
+  | `id` | int | Hujjat ID |
   | `type` | string | `passport_scan` \| `foreign_passport_scan` \| `criminal_record_scan` \| `photo_3x4_scan` |
   | `title` | string | Fayl nomi |
   | `file_url` | string \| null | Fayl URL |

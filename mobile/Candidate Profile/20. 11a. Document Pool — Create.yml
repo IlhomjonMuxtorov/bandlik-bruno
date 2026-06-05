@@ -1,0 +1,51 @@
+info:
+  name: 11a. Document Pool — Create
+  type: http
+  seq: 20
+http:
+  method: POST
+  url: '{{base_url}}/mobile/candidate/document'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n    \"type\": \"passport_scan\",\n    \"title\": \"Passport.pdf\",\n    \"file_id\": 42\n}"
+  auth: inherit
+docs: |
+  Profil pooliga yangi hujjat qo'shish.
+
+  **Auth:** `access_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `type` | string | ✅ | `passport_scan` \| `foreign_passport_scan` \| `criminal_record_scan` \| `photo_3x4_scan` |
+  | `title` | string | ✅ | Fayl nomi |
+  | `file_id` | int | ✅ | `/mobile/upload` orqali yuklangan fayl ID (hujjatda fayl majburiy) |
+
+  ### 📤 Response (`201 Created`)
+
+  List endpointi bilan bir xil maydonlar.
+
+  > ✨ **Auto-save:** yaratilgan hujjat `id` si `document_id` env'ga saqlanadi —
+  > CV qismidagi `Document — Attach/Detach` shu `{{document_id}}` ni ishlatadi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Validatsiya xatosi (noto'g'ri `type`, fayl yo'q va h.k.) |
+  | `401` | Token yo'q yoki muddati o'tgan |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+runtime:
+  scripts:
+  - type: after-response
+    code: "const body = res.getBody();\nif (body && body.id) {\n  bru.setEnvVar('document_id', String(body.id));\n  console.log('document_id saved: ' + body.id);\n}"

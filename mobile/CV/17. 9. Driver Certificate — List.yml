@@ -1,0 +1,37 @@
+info:
+  name: 9. Driver Certificate — List
+  type: http
+  seq: 17
+http:
+  method: GET
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/driver-certificate'
+  headers:
+  - name: Accept
+    value: application/json
+  auth: inherit
+docs: |
+  Shu CVga biriktirilgan haydovchilik sertifikatlari ro'yxati. Sertifikatlar
+  candidate poolida saqlanadi (`/mobile/candidate/driver-certificate`); bu yerda
+  CVga biriktirilgan qismi ko'rinadi.
+
+  **Auth:** `access_token`.
+
+  ### 📤 Response *(massiv elementi)*
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Sertifikat ID (pooldagi) |
+  | `type` | string | `code_95` \| `adr` \| `chip_card` |
+  | `title` | string | Sertifikat nomi |
+  | `certificate_number` | string \| null | Raqam |
+  | `issue_date` | date \| null | Berilgan sana |
+  | `expiry_date` | date \| null | Amal qilish muddati |
+  | `file_url` | string \| null | Fayl URL |
+  | `file_size` | int \| null | Bayt |
+  | `file_kind` | string \| null | `pdf` \| `image` \| `word` \| `excel` \| `other` |
+  | `file_kind_icon_url` | string \| null | Standart ikonkaga to'liq URL |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

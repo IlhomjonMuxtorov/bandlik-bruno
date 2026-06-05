@@ -1,0 +1,25 @@
+info:
+  name: 12c. Driver Certificate Pool — Delete
+  type: http
+  seq: 26
+http:
+  method: DELETE
+  url: '{{base_url}}/mobile/candidate/driver-certificate/{{driver_certificate_id}}'
+  headers:
+  - name: Accept
+    value: application/json
+  auth: inherit
+docs: |
+  Sertifikatni pooldan butunlay o'chirish: yozuv + fayl o'chadi va CASCADE
+  orqali barcha CV biriktirmalari yo'qoladi. `204 No Content`.
+
+  > ⚠️ Bitta CVdan olib tashlash (poolda qoldirish) uchun CV qismidagi
+  > `Driver Certificate — Detach` (`DELETE /mobile/cv/{cvId}/driver-certificate/{id}`)
+  > endpointini ishlating.
+
+  **Auth:** `access_token`.
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

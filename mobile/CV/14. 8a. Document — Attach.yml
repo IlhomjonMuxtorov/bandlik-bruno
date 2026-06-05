@@ -1,0 +1,39 @@
+info:
+  name: 8a. Document — Attach
+  type: http
+  seq: 14
+http:
+  method: POST
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/document/{{document_id}}'
+  headers:
+  - name: Accept
+    value: application/json
+  auth: inherit
+docs: |
+  Profil pooldagi hujjatni shu CVga biriktirish (idempotent — qayta biriktirish
+  xato bermaydi). Hujjatning o'zi `/mobile/candidate/document` orqali yaratiladi.
+
+  **Auth:** `access_token`.
+
+  ### 🔎 Path Parameters
+
+  | Param | Type | Description |
+  |---|---|---|
+  | `cv_id` | int | CV ID |
+  | `id` | int | Pool hujjat ID (`/mobile/candidate/document` dan) |
+
+  ### 📤 Response (`201 Created`)
+
+  Biriktirilgan hujjat (List elementi bilan bir xil maydonlar).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `403` | Hujjat boshqa nomzodga tegishli |
+  | `404` | CV yoki hujjat topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

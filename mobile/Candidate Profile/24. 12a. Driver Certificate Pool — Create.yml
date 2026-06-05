@@ -1,0 +1,54 @@
+info:
+  name: 12a. Driver Certificate Pool — Create
+  type: http
+  seq: 24
+http:
+  method: POST
+  url: '{{base_url}}/mobile/candidate/driver-certificate'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n    \"type\": \"code_95\",\n    \"title\": \"Code 95 sertifikati\",\n    \"certificate_number\": \"CRT-2024-001\",\n    \"issue_date\": \"15.01.2024\",\n    \"expiry_date\": \"15.01.2029\",\n    \"file_id\": null\n}"
+  auth: inherit
+docs: |
+  Profil pooliga yangi haydovchilik sertifikati qo'shish.
+
+  **Auth:** `access_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `type` | string | ✅ | `code_95` \| `adr` \| `chip_card` |
+  | `title` | string | ✅ | Sertifikat nomi |
+  | `certificate_number` | string | ➖ | Raqam |
+  | `issue_date` | date | ➖ | `DD.MM.YYYY` |
+  | `expiry_date` | date | ➖ | `DD.MM.YYYY` |
+  | `file_id` | int | ➖ | `/mobile/upload` orqali yuklangan sertifikat fayl ID |
+
+  ### 📤 Response (`201 Created`)
+
+  List endpointi bilan bir xil maydonlar.
+
+  > ✨ **Auto-save:** yaratilgan sertifikat `id` si `driver_certificate_id` env'ga
+  > saqlanadi — CV qismidagi `Driver Certificate — Attach/Detach` shuni ishlatadi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Validatsiya xatosi (noto'g'ri `type` va h.k.) |
+  | `401` | Token yo'q yoki muddati o'tgan |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+runtime:
+  scripts:
+  - type: after-response
+    code: "const body = res.getBody();\nif (body && body.id) {\n  bru.setEnvVar('driver_certificate_id', String(body.id));\n  console.log('driver_certificate_id saved: ' + body.id);\n}"

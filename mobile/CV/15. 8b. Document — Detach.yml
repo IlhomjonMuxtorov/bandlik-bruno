@@ -1,0 +1,30 @@
+info:
+  name: 8b. Document — Detach
+  type: http
+  seq: 15
+http:
+  method: DELETE
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/document/{{document_id}}'
+  headers:
+  - name: Accept
+    value: application/json
+  auth: inherit
+docs: |
+  Hujjatni shu CVdan olib tashlash (faqat biriktirma uziladi). Hujjat candidate
+  poolida qoladi, fayl o'chmaydi, boshqa CVlarga ta'sir qilmaydi. `204 No Content`.
+
+  > ⚠️ Hujjatni profildan **butunlay** o'chirish kerak bo'lsa —
+  > `DELETE /mobile/candidate/document/{id}` (Document Pool — Delete).
+
+  **Auth:** `access_token`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | CV topilmadi yoki bu hujjat shu CVga biriktirilmagan |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

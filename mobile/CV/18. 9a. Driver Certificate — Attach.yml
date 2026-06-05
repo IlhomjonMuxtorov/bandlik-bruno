@@ -1,0 +1,39 @@
+info:
+  name: 9a. Driver Certificate — Attach
+  type: http
+  seq: 18
+http:
+  method: POST
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/driver-certificate/{{driver_certificate_id}}'
+  headers:
+  - name: Accept
+    value: application/json
+  auth: inherit
+docs: |
+  Profil pooldagi sertifikatni shu CVga biriktirish (idempotent). Sertifikatning
+  o'zi `/mobile/candidate/driver-certificate` orqali yaratiladi.
+
+  **Auth:** `access_token`.
+
+  ### 🔎 Path Parameters
+
+  | Param | Type | Description |
+  |---|---|---|
+  | `cv_id` | int | CV ID |
+  | `id` | int | Pool sertifikat ID |
+
+  ### 📤 Response (`201 Created`)
+
+  Biriktirilgan sertifikat (List elementi bilan bir xil maydonlar).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `403` | Sertifikat boshqa nomzodga tegishli |
+  | `404` | CV yoki sertifikat topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

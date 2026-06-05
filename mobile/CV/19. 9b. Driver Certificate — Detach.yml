@@ -1,0 +1,30 @@
+info:
+  name: 9b. Driver Certificate — Detach
+  type: http
+  seq: 19
+http:
+  method: DELETE
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/driver-certificate/{{driver_certificate_id}}'
+  headers:
+  - name: Accept
+    value: application/json
+  auth: inherit
+docs: |
+  Sertifikatni shu CVdan olib tashlash (faqat biriktirma uziladi). Sertifikat
+  candidate poolida qoladi, fayl o'chmaydi. `204 No Content`.
+
+  > ⚠️ Sertifikatni profildan **butunlay** o'chirish kerak bo'lsa —
+  > `DELETE /mobile/candidate/driver-certificate/{id}` (Pool — Delete).
+
+  **Auth:** `access_token`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | CV topilmadi yoki bu sertifikat shu CVga biriktirilmagan |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
