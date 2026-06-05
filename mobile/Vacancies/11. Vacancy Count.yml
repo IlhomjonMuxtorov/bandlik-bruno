@@ -1,0 +1,60 @@
+info:
+  name: Vacancy Count
+  type: http
+  seq: 11
+http:
+  method: GET
+  url: '{{base_url}}/mobile/vacancies/count'
+  auth: inherit
+docs: |-
+  Tanlangan filterlarga mos keladigan tasdiqlangan (`status=approved`) vakansiyalar **umumiy sonini** qaytaradi — mobil filter ekranidagi "N ta vakansiyani ko'rsatish" tugmasi uchun. Feed (`GET /mobile/vacancies`) bilan **aynan bir xil** filtr mantig'ini ishlatadi, shuning uchun son va ro'yxat har doim mos keladi.
+
+  **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi). `is_favorite` filtri nomzod profili hali yo'q bo'lsa (mehmon) e'tiborga olinmaydi — feed bilan bir xil.
+
+  ### 🔎 Query Parameters
+
+  Feed bilan bir xil filtr paramlari. `sort`, `per-page`, `page` count uchun ahamiyatsiz va e'tiborga olinmaydi.
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `q` | string | ➖ | Sarlavha bo'yicha qidiruv (ILIKE). |
+  | `country_id` | int | ➖ | Davlat ID. |
+  | `city_id` | int \| int[] | ➖ | Shahar ID. Bir nechta: `city_id[]=1&city_id[]=2` yoki `city_id=1,2` (OR bo'yicha). |
+  | `industry_id` | int | ➖ | Soha ID. |
+  | `organization_id` | int | ➖ | Tashkilot bo'yicha. |
+  | `employment_type` | string | ➖ | `full_time` \| `part_time` \| `seasonal` \| `contract`. |
+  | `experience_level` | string | ➖ | `none` \| `one_to_three` \| `three_to_six`. |
+  | `salary_min` | int | ➖ | Minimal brutto maosh (`salary_gross >=`). |
+  | `salary_max` | int | ➖ | Maksimal brutto maosh (`salary_gross <=`). |
+  | `salary_currency` | string | ➖ | `UZS` \| `USD` \| `EUR`. Range berilganda default `USD`. |
+  | `is_favorite` | bool | ➖ | Faqat sevimli (`true`) yoki sevimli emas (`false`). Mehmon uchun no-op. |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer <access_token>` (mehmon tokeni ham). |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `count` | int | Tanlangan filterlarga mos keladigan tasdiqlangan vakansiyalar soni. |
+
+  ```json
+  { "count": 42 }
+  ```
+
+  > `count` qiymati feed (`GET /mobile/vacancies`) javobidagi `X-Pagination-Total-Count` header bilan bir xil bo'ladi (bir xil filtrlar berilganda).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki yaroqsiz. |
+  | `500` | Server xatosi. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
