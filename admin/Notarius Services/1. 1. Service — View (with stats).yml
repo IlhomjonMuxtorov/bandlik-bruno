@@ -9,6 +9,10 @@ http:
 docs: 'Bitta xizmat + stats. **Auth:** `admin_token`.
 
 
+  > **Ko''p tillilik:** `name`, `description` xom `{uz, ru, en}` obyekt + joriy til
+  (`Accept-Language`, fallback `uz`) uchun `name_localized` / `description_localized` string bilan qaytadi.
+
+
   ### ⚠️ Errors
 
 

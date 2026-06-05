@@ -31,9 +31,9 @@ docs: 'Yangi Visa xizmatini yaratadi.
   | `organization_id` | int | ✅ | Visa `organization.id` (type = 2 bo''lishi shart)
   |
 
-  | `name` | string | ✅ | Max 200 |
+  | `name` | object | ✅ | Ko''p tilli `{uz, ru, en}` (har biri max 200). Oddiy string → `{uz}`. |
 
-  | `description` | string | ➖ | |
+  | `description` | object | ➖ | Ko''p tilli `{uz, ru, en}` |
 
   | `price` | int | ✅ | UZS so''mda (≥0) |
 
@@ -45,7 +45,7 @@ docs: 'Yangi Visa xizmatini yaratadi.
   ### 📤 Response
 
 
-  `201` — `OrganizationServiceOutputDTO`.
+  `201` — `OrganizationServiceOutputDTO`. Ko''p tilli maydonlar xom `{uz, ru, en}` + joriy til uchun `name_localized` / `description_localized` string bilan qaytadi.
 
 
   ### ⚠️ Errors

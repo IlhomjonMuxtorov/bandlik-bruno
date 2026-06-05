@@ -10,7 +10,7 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"organization_id\": 1,\n  \"name\": \"Hujjatlarni notarial tasdiqlash\"\
+    data: "{\n  \"organization_id\": 1,\n  \"name\": {\"uz\": \"Hujjatlarni notarial tasdiqlash\", \"ru\": \"Нотариальное заверение документов\", \"en\": \"Notarial certification\"}\
       ,\n  \"description\": \"Pasport nusxasi, diplom, sertifikat va boshqa hujjatlarni\
       \ tasdiqlash\",\n  \"price\": 123456000,\n  \"is_active\": 1,\n  \"sort_order\"\
       : 0\n}"
@@ -31,9 +31,10 @@ docs: 'Yangi Visa xizmatini yaratadi.
   | `organization_id` | int | ✅ | Visa `organization.id` (type = 2 bo''lishi shart)
   |
 
-  | `name` | string | ✅ | Max 200 |
+  | `name` | object | ✅ | Ko''p tilli `{uz, ru, en}` (har biri max 200). Oddiy string ham
+  qabul qilinadi → `{uz}`. |
 
-  | `description` | string | ➖ | |
+  | `description` | object | ➖ | Ko''p tilli `{uz, ru, en}` |
 
   | `price` | int | ✅ | UZS so''mda (≥0) |
 
@@ -42,10 +43,16 @@ docs: 'Yangi Visa xizmatini yaratadi.
   | `sort_order` | int | ➖ | Default `0` |
 
 
+  > **Ko''p tillilik:** `name`, `description` — JSONB `{uz, ru, en}` obyekt sifatida saqlanadi
+  (oddiy string yuborilsa `{uz}` ga o''raladi). Misol:
+  `"name": { "uz": "...", "ru": "...", "en": "..." }`.
+
+
   ### 📤 Response
 
 
-  `201` — `OrganizationServiceOutputDTO`.
+  `201` — `OrganizationServiceOutputDTO`. Ko''p tilli maydonlar xom `{uz, ru, en}` obyekt +
+  joriy til (`Accept-Language`) uchun `name_localized` / `description_localized` string bilan qaytadi.
 
 
   ### ⚠️ Errors
