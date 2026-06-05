@@ -1,0 +1,44 @@
+info:
+  name: 25. 5. Cities — Create
+  type: http
+  seq: 25
+http:
+  method: POST
+  url: '{{base_url}}/admin/cities'
+  body:
+    type: multipartForm
+    data:
+    - name: country_id
+      value: '1'
+    - name: name
+      value: '{"uz": "Toshkent", "ru": "Ташкент", "en": "Tashkent"}'
+    - name: is_active
+      value: '1'
+    - name: sort_order
+      value: '0'
+  auth: inherit
+docs: |
+  Yangi shahar qo'shadi.
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body (multipart/form-data)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `country_id` | int | ✅ | Davlat ID. Davlat mavjud bo'lishi kerak. |
+  | `name` | object (JSON) | ✅ | `{"uz": "...", "ru": "...", "en": "..."}` |
+  | `is_active` | int (0\|1) | ➖ | Default: 1 |
+  | `sort_order` | int | ➖ | Default: 0 |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `country_id` ko'rsatilgan, lekin davlat topilmadi |
+  | `422` | Validatsiya xatosi (`country_id` / `name` talab qilinadi) |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

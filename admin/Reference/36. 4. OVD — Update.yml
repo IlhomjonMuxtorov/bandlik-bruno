@@ -1,0 +1,45 @@
+info:
+  name: 36. 4. OVD — Update
+  type: http
+  seq: 36
+http:
+  method: POST
+  url: '{{base_url}}/admin/ovd/1'
+  body:
+    type: multipartForm
+    data:
+    - name: region_id
+      value: '10'
+    - name: district_id
+      value: '1001'
+    - name: name
+      value: '{"uz": "Uchtepa tuman IIB (yangilandi)", "ru": "ОВД Учтепинского района (обновлено)", "en": "Uchtepa District Police Dept (updated)"}'
+    - name: is_active
+      value: '1'
+  auth: inherit
+docs: |
+  OVD ma'lumotlarini yangilash (qisman update — faqat yuborilgan maydonlar o'zgaradi).
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body (multipart/form-data)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `country_id` | int | ➖ | Davlat ID. Berilsa — mavjud bo'lishi kerak. |
+  | `region_id` | int | ➖ | Viloyat ID. Berilsa — mavjud bo'lishi kerak. |
+  | `district_id` | int | ➖ | Tuman ID. Berilsa — mavjud bo'lishi kerak. |
+  | `name` | object (JSON) | ➖ | `{"uz": "...", "ru": "...", "en": "..."}` |
+  | `is_active` | int (0\|1) | ➖ | |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `country_id` / `region_id` / `district_id` ko'rsatilgan, lekin topilmadi |
+  | `404` | OVD topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

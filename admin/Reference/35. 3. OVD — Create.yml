@@ -1,0 +1,53 @@
+info:
+  name: 35. 3. OVD — Create
+  type: http
+  seq: 35
+http:
+  method: POST
+  url: '{{base_url}}/admin/ovd'
+  body:
+    type: multipartForm
+    data:
+    - name: id
+      value: '1001'
+    - name: country_id
+      value: '1'
+    - name: region_id
+      value: '10'
+    - name: district_id
+      value: '1001'
+    - name: name
+      value: '{"uz": "Uchtepa tuman IIB", "ru": "ОВД Учтепинского района", "en": "Uchtepa District Police Dept"}'
+    - name: is_active
+      value: '1'
+  auth: inherit
+docs: |
+  Yangi OVD (pasport beruvchi organ) qo'shadi. `country_id` / `region_id` / `district_id`
+  ixtiyoriy — elchixonalar uchun ular `null` qoldiriladi.
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body (multipart/form-data)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `id` | int | ✅ | GCP SP_ID (manual PK) |
+  | `country_id` | int | ➖ | Davlat ID. Berilsa — mavjud bo'lishi kerak. |
+  | `region_id` | int | ➖ | Viloyat ID. Berilsa — mavjud bo'lishi kerak. |
+  | `district_id` | int | ➖ | Tuman ID. Berilsa — mavjud bo'lishi kerak. |
+  | `name` | object (JSON) | ✅ | `{"uz": "...", "ru": "...", "en": "..."}` |
+  | `is_active` | int (0\|1) | ➖ | Default: 1 |
+
+  > Eslatma: OVD jadvalida `sort_order` ustuni yo'q.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `country_id` / `region_id` / `district_id` ko'rsatilgan, lekin topilmadi |
+  | `422` | Validatsiya xatosi (`id` / `name` talab qilinadi) |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

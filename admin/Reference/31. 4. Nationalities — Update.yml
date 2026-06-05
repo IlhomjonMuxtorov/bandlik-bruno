@@ -1,0 +1,40 @@
+info:
+  name: 31. 4. Nationalities — Update
+  type: http
+  seq: 31
+http:
+  method: POST
+  url: '{{base_url}}/admin/nationalities/19'
+  body:
+    type: multipartForm
+    data:
+    - name: name
+      value: '{"uz": "Qozoq (yangilandi)", "ru": "Казах (обновлено)", "en": "Kazakh (updated)"}'
+    - name: is_active
+      value: '1'
+    - name: sort_order
+      value: '1'
+  auth: inherit
+docs: |
+  Millat ma'lumotlarini yangilash (qisman update — faqat yuborilgan maydonlar o'zgaradi).
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body (multipart/form-data)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `name` | object (JSON) | ➖ | `{"uz": "...", "ru": "...", "en": "..."}` |
+  | `is_active` | int (0\|1) | ➖ | |
+  | `sort_order` | int | ➖ | |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Millat topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

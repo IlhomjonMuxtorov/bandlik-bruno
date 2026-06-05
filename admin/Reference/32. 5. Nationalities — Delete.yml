@@ -1,0 +1,23 @@
+info:
+  name: 32. 5. Nationalities — Delete
+  type: http
+  seq: 32
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/nationalities/19'
+  auth: inherit
+docs: |
+  Millatni o'chirish.
+
+  **Auth:** `admin_token`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Millat topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

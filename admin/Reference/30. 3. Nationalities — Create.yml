@@ -1,0 +1,43 @@
+info:
+  name: 30. 3. Nationalities — Create
+  type: http
+  seq: 30
+http:
+  method: POST
+  url: '{{base_url}}/admin/nationalities'
+  body:
+    type: multipartForm
+    data:
+    - name: id
+      value: '19'
+    - name: name
+      value: '{"uz": "Qozoq", "ru": "Казах", "en": "Kazakh"}'
+    - name: is_active
+      value: '1'
+    - name: sort_order
+      value: '0'
+  auth: inherit
+docs: |
+  Yangi millat qo'shadi.
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body (multipart/form-data)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `id` | int | ✅ | GCP SP_ID (manual PK) |
+  | `name` | object (JSON) | ✅ | `{"uz": "...", "ru": "...", "en": "..."}` |
+  | `is_active` | int (0\|1) | ➖ | Default: 1 |
+  | `sort_order` | int | ➖ | Default: 0 |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `422` | Validatsiya xatosi (`id` / `name` talab qilinadi) |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,23 @@
+info:
+  name: 37. 5. OVD — Delete
+  type: http
+  seq: 37
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/ovd/1'
+  auth: inherit
+docs: |
+  OVD'ni o'chirish.
+
+  **Auth:** `admin_token`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | OVD topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

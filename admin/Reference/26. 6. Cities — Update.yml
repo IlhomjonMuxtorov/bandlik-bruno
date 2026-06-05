@@ -1,0 +1,44 @@
+info:
+  name: 26. 6. Cities — Update
+  type: http
+  seq: 26
+http:
+  method: POST
+  url: '{{base_url}}/admin/cities/1'
+  body:
+    type: multipartForm
+    data:
+    - name: country_id
+      value: '1'
+    - name: name
+      value: '{"uz": "Toshkent (yangilandi)", "ru": "Ташкент (обновлено)", "en": "Tashkent (updated)"}'
+    - name: is_active
+      value: '1'
+    - name: sort_order
+      value: '1'
+  auth: inherit
+docs: |
+  Shahar ma'lumotlarini yangilash (qisman update — faqat yuborilgan maydonlar o'zgaradi).
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body (multipart/form-data)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `country_id` | int | ➖ | Davlat ID. Davlat mavjud bo'lishi kerak. |
+  | `name` | object (JSON) | ➖ | `{"uz": "...", "ru": "...", "en": "..."}` |
+  | `is_active` | int (0\|1) | ➖ | |
+  | `sort_order` | int | ➖ | |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `country_id` ko'rsatilgan, lekin davlat topilmadi |
+  | `404` | Shahar topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
