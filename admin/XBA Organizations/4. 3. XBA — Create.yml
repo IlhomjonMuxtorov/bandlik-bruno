@@ -10,7 +10,7 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"name\": \"XBA Tashkent\",\n  \"brand_name\": \"XBA Tashkent MChJ\"\
+    data: "{\n  \"name\": {\"uz\": \"XBA Tashkent\", \"ru\": \"XBA Ташкент\", \"en\": \"XBA Tashkent\"},\n  \"brand_name\": \"XBA Tashkent MChJ\"\
       ,\n  \"legal_name\": \"XBA Tashkent OOO\",\n  \"description\": \"Toshkent shahar\
       \ XBA tashkiloti\",\n  \"license_number\": \"LIC-001-2026\",\n  \"region_id\"\
       : 10,\n  \"district_id\": 1001,\n  \"address\": \"Toshkent sh., Yunusobod tumani,\
@@ -43,13 +43,13 @@ docs: 'Yangi XBA tashkilotini yaratadi. `application/json` so''rov.
 
   |---|---|:---:|---|
 
-  | `name` | string | ✅ | XBA nomi (max 200) |
+  | `name` | object | ✅ | XBA nomi — ko''p tilli `{uz, ru, en}` (har biri max 200). Oddiy string ham qabul qilinadi → `{uz}`. |
 
   | `brand_name` | string | ➖ | Brend nomi (max 200) |
 
   | `legal_name` | string | ➖ | Yuridik nomi (max 200) |
 
-  | `description` | string | ➖ | Tashkilot haqida |
+  | `description` | object | ➖ | Tashkilot haqida — ko''p tilli `{uz, ru, en}` |
 
   | `license_number` | string | ✅ | `type + license_number` unique (max 64) |
 
@@ -57,7 +57,7 @@ docs: 'Yangi XBA tashkilotini yaratadi. `application/json` so''rov.
 
   | `district_id` | int | ✅ | FK `district.id` — tuman |
 
-  | `address` | string | ✅ | Manzil (max 500) |
+  | `address` | object | ✅ | Manzil — ko''p tilli `{uz, ru, en}` (har biri max 500) |
 
   | `phone` | string | ✅ | Call-center raqami (max 20) |
 
@@ -87,6 +87,12 @@ docs: 'Yangi XBA tashkilotini yaratadi. `application/json` so''rov.
   | `logo_id` | int | ➖ | `/admin/upload` orqali oldindan yuklangan fayl ID |
 
 
+  > **Ko''p tillilik:** `name`, `description`, `address` — JSONB `{uz, ru, en}` obyekt sifatida
+  saqlanadi. Obyekt yuborilsa o''sha tillar yoziladi; oddiy string yuborilsa `{uz}` ga
+  o''raladi (orqaga moslik). Misol: `"name": { "uz": "XBA Toshkent", "ru": "XBA Ташкент",
+  "en": "XBA Tashkent" }`.
+
+
   ### 📋 Headers
 
 
@@ -100,7 +106,9 @@ docs: 'Yangi XBA tashkilotini yaratadi. `application/json` so''rov.
   ### 📤 Response
 
 
-  `201` — yaratilgan XBA `OrganizationOutputDTO` formatida.
+  `201` — yaratilgan XBA `OrganizationOutputDTO` formatida. Ko''p tilli maydonlar (`name`,
+  `description`, `address`) xom `{uz, ru, en}` obyekt + joriy til (`Accept-Language`) uchun
+  `name_localized` / `description_localized` / `address_localized` string bilan qaytadi.
 
 
   ### ⚠️ Errors

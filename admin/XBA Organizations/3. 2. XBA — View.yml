@@ -10,6 +10,11 @@ docs: 'Bitta XBA tashkiloti haqida to''liq ma''lumot + `stats` (`total_revenue`,
   `services_count`, `employees_count`).
 
 
+  > **Ko''p tillilik:** `name`, `description`, `address` xom `{uz, ru, en}` obyekt sifatida,
+  qo''shimcha `name_localized` / `description_localized` / `address_localized` esa joriy til
+  (`Accept-Language`, fallback `uz`) uchun string bilan qaytadi.
+
+
   > Cross-type isolation: agar `id` boshqa partner turidagi yozuvga tegishli bo''lsa
   — `404`.
 

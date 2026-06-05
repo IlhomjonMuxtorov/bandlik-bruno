@@ -35,13 +35,13 @@ docs: 'Yangi O''quv markazi yaratadi. `application/json` so''rov. `type` avtomat
 
   |---|---|:---:|---|
 
-  | `name` | string | ✅ | Max 200 |
+  | `name` | object | ✅ | Ko''p tilli `{uz, ru, en}` (har biri max 200). Oddiy string → `{uz}`. |
 
   | `brand_name` | string | ➖ | Brend nomi (mockup''da "Thompson School filial Oybek") |
 
   | `legal_name` | string | ➖ | Yuridik nomi |
 
-  | `description` | string | ➖ | |
+  | `description` | object | ➖ | Ko''p tilli `{uz, ru, en}` |
 
   | `license_number` | string | ✅ | Unique `(type, license_number)` — max 64 |
 
@@ -49,7 +49,7 @@ docs: 'Yangi O''quv markazi yaratadi. `application/json` so''rov. `type` avtomat
 
   | `district_id` | int | ✅ | Tuman ID |
 
-  | `address` | string | ✅ | Max 500 |
+  | `address` | object | ✅ | Ko''p tilli `{uz, ru, en}` (har biri max 500) |
 
   | `phone` | string | ✅ | Max 20 |
 
