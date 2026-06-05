@@ -1,0 +1,63 @@
+info:
+  name: 6. Finance — Distribution
+  type: http
+  seq: 6
+http:
+  method: GET
+  url: '{{base_url}}/admin/reports/finance/distribution?from=1735603200&to=1738281600&currency=UZS'
+  auth: inherit
+docs: |
+  "To'lovlar → Taqsimlash" tabi uchun — pul hamkor tashkilot kategoriyalari bo'yicha
+  qanday taqsimlanganini ko'rsatadi (pie + bar chart). Har bir kategoriya uchun
+  **To'lovlar** (`paid`) va **Ushlab turishda** (`held`).
+
+  **Auth:** `admin_token` (faqat `UserType::Admin`).
+
+  ### 🔎 Query Params
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `from` | int | ➖ | Default: oy boshi (`paid` uchun) |
+  | `to` | int | ➖ | Default: hozir (`paid` uchun) |
+  | `currency` | string | ➖ | Default `UZS` |
+
+  ### 📤 Response
+
+  `distribution` — XBA, Sug'urta, Viza, O'quv markazi, Notarius, Logistika kategoriyalari.
+
+  ```json
+  {
+    "from": 1735603200,
+    "to": 1738281600,
+    "currency": "UZS",
+    "distribution": [
+      { "type": 1, "type_label": "XBA",          "paid": 123400000, "held": 53700000 },
+      { "type": 4, "type_label": "Sug'urta",      "paid": 42000000,  "held": 12000000 },
+      { "type": 5, "type_label": "Viza",          "paid": 88000000,  "held": 21000000 },
+      { "type": 8, "type_label": "O'quv markazi", "paid": 31000000,  "held": 7000000 },
+      { "type": 2, "type_label": "Notarius",      "paid": 9000000,   "held": 2500000 },
+      { "type": 3, "type_label": "Logistika",     "paid": 15000000,  "held": 2300000 }
+    ]
+  }
+  ```
+
+  **Maydonlar:**
+
+  | Field | Hisob |
+  |---|---|
+  | `paid` | To'lovlar — davrda shu turdagi tashkilot hamyonlariga tushgan summa (balance CREDIT) |
+  | `held` | Ushlab turishda — shu turga tegishli joriy platforma escrow'i (release qilinmagan buyurtmalar, `served_at IS NULL`) |
+
+  > `held` joriy snapshot (davrga bog'liq emas), `paid` esa davr ichidagi yig'indi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Admin emas |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

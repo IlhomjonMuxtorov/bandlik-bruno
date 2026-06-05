@@ -6,114 +6,97 @@ http:
   method: GET
   url: '{{base_url}}/admin/transactions?per-page=20&type=1&status=2'
   auth: inherit
-docs: 'Barcha Transaction''lar (jami pul harakati birliklari) — filtrlangan ro''yxat.
-
+docs: |
+  Barcha Transaction'lar (jami pul harakati birliklari) — filtrlangan ro'yxat.
+  "To'lovlar" sahifasidagi **Barcha tranzaksiyalar** va **Ushlab turilmoqda** (`held=1`)
+  tablari shu endpointdan foydalanadi.
 
   **Auth:** `admin_token` (faqat `UserType::Admin`).
 
-
   ### 🔎 Query Params
 
-
   | Param | Type | Description |
-
   |---|---|---|
-
-  | `organization_id` | int | Tashkilot bo''yicha |
-
-  | `candidate_id` | int | Nomzod bo''yicha |
-
-  | `vacancy_id` | int | Vakansiya bo''yicha |
-
-  | `service_order_id` | int | Buyurtma bo''yicha |
-
-  | `educational_course_id` | int | Kurs bo''yicha (JOIN orqali) |
-
-  | `type` | int | 1..6 (CandidatePayment, OrganizationPayout, PlatformExpense, Refund,
-  Adjustment, InternalTransfer) |
-
+  | `q` | string | Erkin qidiruv — nomzod ismi (latin) / username / telefon, yoki transaction `id` (raqam bo'lsa). |
+  | `held` | bool | `1` → faqat platforma escrow'ida ushlab turilgan (hali tashkilotga release qilinmagan) to'lovlar — "Ushlab turilmoqda" tabi. |
+  | `region_id` | int | Tashkilot viloyati (`organization.region_id`) bo'yicha. ⚠️ OCHIQ SAVOL — manba (tashkilot vs nomzod viloyati) keyin aniqlanadi. |
+  | `organization_id` | int | Tashkilot bo'yicha |
+  | `candidate_id` | int | Nomzod bo'yicha |
+  | `vacancy_id` | int | Vakansiya bo'yicha |
+  | `service_order_id` | int | Buyurtma bo'yicha |
+  | `educational_course_id` | int | Kurs bo'yicha (JOIN orqali) |
+  | `type` | int | 1..7 (CandidatePayment, OrganizationPayout, PlatformExpense, Refund, Adjustment, InternalTransfer, CandidateTopup) |
   | `status` | int | 1..5 (Pending, Completed, Failed, Refunded, Cancelled) |
-
   | `provider` | string | `click` \| `payme` \| `uzum` \| `manual` |
-
   | `from` / `to` | int | Unix timestamp (created_at) |
-
   | `per-page` | int | 1..100 |
-
   | `sort` | string | `id`, `created_at`, `amount` |
-
 
   ### 📤 Response
 
+  Har bir element nomzod ismi/telefoni, tashkilot nomi va xizmat kategoriyasi
+  ("To'lov turi" ustuni — `category_label`) bilan boyitilgan.
 
   ```json
-
   {
-
     "items": [
-
       {
-
         "id": 305,
-
         "type": 1,
-
         "type_label": "Candidate payment",
-
         "status": 2,
-
         "status_label": "Completed",
-
-        "amount": 1000000,
-
+        "amount": 12000000,
         "currency": "UZS",
-
         "organization_id": 3,
-
+        "organization_name": "Visa Express",
         "candidate_id": 7,
-
+        "candidate_name": "Alimov Jasur",
+        "candidate_phone": "+998941234400",
         "vacancy_id": null,
-
         "service_order_id": 1,
-
+        "category": "visa",
+        "category_label": "Visa",
         "reference_type": "oso",
-
         "reference_id": 1,
-
         "gateway_provider": "payme",
-
         "gateway_ref": "65a2d6b89c2f4d3b8e9f1234",
-
         "description": "Candidate payment for order #1",
-
         "paid_at": 1735647500,
-
-        "created_at": 1735647500
-
+        "paid_at_formatted": "31.12.2024 12:00",
+        "created_at": 1735647500,
+        "created_at_formatted": "31.12.2024 12:00"
       }
-
     ],
-
-    "pagination": { "page": 1, "page_size": 20, "total_count": 152, "page_count":
-  8 }
-
+    "pagination": { "page": 1, "page_size": 20, "total_count": 152, "page_count": 8 }
   }
-
   ```
 
+  **Yangi maydonlar:**
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `organization_name` | string \| null | To'lovni qabul qiluvchi tashkilot nomi (Accept-Language). |
+  | `candidate_name` | string \| null | Pasport latin ismi, bo'lmasa username. |
+  | `candidate_phone` | string \| null | Nomzod telefoni. |
+  | `category` | string \| null | Xizmat kategoriyasi kodi (`visa`, `training`, `insurance`, ...). Top-up/refund'da `null`. |
+  | `category_label` | string | "To'lov turi" ustuni — kategoriya yorlig'i, yoki transaction turi (top-up/refund). |
+
+  > `held=1` tabida frontend `status` ustunini ko'rsatmaydi; "To'lov turi" sifatida `category_label` chiqadi.
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {admin_token}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz` (tashkilot nomi tili) |
 
   ### ⚠️ Errors
 
-
   | Code | Reason |
-
   |---|---|
-
-  | `401` | Token yo''q |
-
+  | `401` | Token yo'q |
   | `403` | Admin emas |
-
-  '
 settings:
   encodeUrl: true
   timeout: 0
