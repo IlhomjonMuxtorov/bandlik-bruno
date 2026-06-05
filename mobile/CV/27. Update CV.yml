@@ -12,10 +12,9 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"title\": \"Haydovchi CVim — yangilangan\",\n    \"status\": \"\
-      active\",\n    \"document_ids\": null,\n    \"driver_certificate_ids\": null\n}"
+    data: "{\n    \"title\": \"Haydovchi CVim — yangilangan\",\n    \"document_ids\": null,\n    \"driver_certificate_ids\": null\n}"
   auth: inherit
-docs: 'CV meta ma''lumotlarini yangilash (title, photo, is_primary, status).
+docs: 'CV meta ma''lumotlarini yangilash (title, photo, is_primary).
 
 
   **Auth:** `access_token`.
@@ -35,9 +34,6 @@ docs: 'CV meta ma''lumotlarini yangilash (title, photo, is_primary, status).
   | `is_primary` | bool \| null | ➖ | `true` bo''lsa boshqa CV-larda `is_primary`
   avtomatik `false` bo''ladi |
 
-  | `status` | string \| null | ➖ | CV holati: `draft` yoki `active`. Oxirgi bosqichda
-  `active` yuboring |
-
   | `document_ids` | int[] \| null | ➖ | Biriktirilgan hujjatlar to''plamini to''liq
   almashtiradi. `null`/yuborilmasa — tegilmaydi; `[]` — hammasi uziladi; `[1,5]` —
   faqat shular qoladi |
@@ -48,6 +44,11 @@ docs: 'CV meta ma''lumotlarini yangilash (title, photo, is_primary, status).
   > 📎 Bitta hujjatni qo''shish/olib tashlash uchun bu yerda butun ro''yxat
   > yubormay, `Document/Driver Certificate — Attach/Detach` endpointlaridan
   > foydalaning.
+
+
+  > ⚙️ **status — read-only:** `status` endi yuborilmaydi (yuborilsa e''tiborsiz
+  > qoldiriladi). U bo''limlar to''ldirilishidan avtomatik hisoblanadi — qarang
+  > `header.completion`. Barcha majburiy bandlar to''lganda CV `active` bo''ladi.
 
 
   ### 📤 Response

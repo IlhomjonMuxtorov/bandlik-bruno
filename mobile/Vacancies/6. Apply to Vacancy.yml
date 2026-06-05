@@ -10,11 +10,13 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"cv_id\": null,\n  \"cover_message\": \"Men bu ish o'rni uchun motivatsiyalanganman\"\
+    data: "{\n  \"cv_id\": 1,\n  \"cover_message\": \"Men bu ish o'rni uchun motivatsiyalanganman\"\
       ,\n  \"hotel_preference\": true\n}"
   auth: inherit
 docs: |-
   Nomzod tasdiqlangan vakansiyaga ariza topshiradi. Vakansiya `status = approved` bo'lishi va shu nomzoddan **birinchi ariza** bo'lishi shart (unique).
+
+  > **Muhim:** `cv_id` endi **majburiy** va ko'rsatilgan CV **to'liq (active)** bo'lishi shart. Rezyume chala (`draft`) bo'lsa ariza qabul qilinmaydi. To'liqlik 11 ta band asosida hisoblanadi (kursdan tashqari 10 ta band majburiy) — qarang `GET /mobile/cv/{id}` → `header.completion`.
 
   **Auth:** `access_token`.
 
@@ -22,7 +24,7 @@ docs: |-
 
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `cv_id` | int | ➖ | Qaysi CV bilan ariza topshirilayotgani |
+  | `cv_id` | int | ✅ | Qaysi CV bilan ariza topshirilayotgani. CV `active` (to'liq to'ldirilgan) bo'lishi va shu nomzodga tegishli bo'lishi shart. |
   | `cover_message` | string | ➖ | Qo'shimcha izoh |
   | `hotel_preference` | bool | ➖ | Mehmonxonada turish istagi (default `false`) |
 
@@ -35,6 +37,9 @@ docs: |-
   | Code | Reason |
   |---|---|
   | `400` | Vakansiya `approved` emas |
+  | `400` | `cv_id` yuborilmagan ("Please select a CV to apply") |
+  | `400` | CV topilmadi yoki boshqa nomzodga tegishli ("CV not found") |
+  | `400` | CV to'liq emas / `draft` ("Your CV is incomplete...") |
   | `409` | Allaqachon ariza topshirilgan |
   | `401` | Token yo'q |
   | `404` | Vakansiya yoki nomzod topilmadi |

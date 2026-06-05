@@ -12,9 +12,7 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"title\": \"Haydovchi CVim\",\n    \"is_primary\": false,\n   \
-      \ \"status\": null,\n    \"document_ids\": null,\n    \"driver_certificate_ids\"\
-      : null\n}"
+    data: "{\n    \"title\": \"Haydovchi CVim\",\n    \"is_primary\": false,\n    \"document_ids\": null,\n    \"driver_certificate_ids\": null\n}"
   auth: inherit
 docs: 'Yangi CV yaratish.
 
@@ -37,9 +35,6 @@ docs: 'Yangi CV yaratish.
   | `is_primary` | bool \| null | ➖ | `true` bo''lsa, eski primary CV avtomatik `false`
   bo''ladi. Birinchi CV bo''lsa, server avtomatik `true` qiladi |
 
-  | `status` | string \| null | ➖ | CV holati: `draft` (sukut) yoki `active`. Yangisi
-  boshlang''ich `draft` — oxirgi bosqichda `active` o''rnatiladi |
-
   | `document_ids` | int[] \| null | ➖ | CVga biriktiriladigan profil hujjat ID-lari.
   `null`/yuborilmasa — nomzodning **barcha** profil hujjatlari biriktiriladi (default);
   `[]` — hech biri; `[1,5]` — faqat shular |
@@ -52,6 +47,14 @@ docs: 'Yangi CV yaratish.
 
 
   `201 Created` + to''liq CV (`/cv/{id}` formatida).
+
+
+  > ⚙️ **status — read-only:** CV `status` (`draft`/`active`) endi mijoz tomonidan
+  > yuborilmaydi. U 11 ta bo''limning to''ldirilganligidan avtomatik hisoblanadi
+  > (10 ta majburiy band; qisqa muddatli kurs majburiy emas). Barcha majburiy
+  > bandlar to''ldirilganda CV `active` bo''ladi va shundagina vakansiyaga ariza
+  > topshirish mumkin. Foiz va qaysi band yetishmasligini `header.completion` da
+  > ko''rish mumkin.
 
 
   ### ⚠️ Errors

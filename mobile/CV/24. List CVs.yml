@@ -42,7 +42,13 @@ docs: 'Joriy nomzodning **barcha CV** ro''yxati — "Rezumelarim" ekrani uchun. 
   | `photo_url` | string \| null | CV rasmi (CV → candidate → passport tartibida)
   |
 
-  | `status` | string | CV holati: `draft` yoki `active` |
+  | `status` | string | CV holati: `draft` yoki `active`. To''liqlikdan avtomatik
+  hisoblanadi (mijoz o''rnatmaydi) |
+
+  | `completion_percent` | int | 0–100. 10 ta majburiy band asosida (kurs hisobga
+  olinmaydi) |
+
+  | `is_complete` | bool | `true` bo''lganda CV `active` va ariza topshirish mumkin |
 
   | `is_primary` | bool | Primary CV bayrog''i |
 

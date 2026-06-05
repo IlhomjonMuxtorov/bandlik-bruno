@@ -34,7 +34,20 @@ docs: 'Bitta CV-ning to''liq tafsilotlari (education, experience, languages va h
   |---|---|---|
 
   | `header` | object | `{ cv_id, title, status, is_primary, photo_url, full_name,
-  completion_percent, stats }` |
+  completion_percent, is_complete, completion, stats }` |
+
+  | `header.status` | string | `draft` yoki `active` — to''liqlikdan avtomatik
+  hisoblanadi (mijoz o''rnatmaydi) |
+
+  | `header.completion_percent` | int | 0–100. 10 ta majburiy band asosida (qisqa
+  muddatli kurs bandi hisobga olinmaydi) |
+
+  | `header.is_complete` | bool | `true` bo''lganda CV `active` va vakansiyaga ariza
+  topshirish mumkin |
+
+  | `header.completion` | object | `{ percent, is_complete, missing[], sections[] }`.
+  `missing[]` — to''ldirilmagan majburiy band kalitlari; `sections[]` har bandda
+  `{ key, label, required, filled }` (UI checklist uchun) |
 
   | `personal` | object | Passport asosida (CV-dan qat''iy nazar bir xil) |
 
