@@ -37,9 +37,11 @@ docs: |-
   | `organization` | object \| null | O'quv markazi: `{ id, name, logo_url }` |
   | `is_purchased` | bool | Nomzod kursni sotib olganmi (mehmonda/sotib olinmaganda `false`) |
   | `completion_percent` | float | Kursni tugatish foizi (darslar progressi o'rtachasi; sotib olinmaganda `0`) |
-  | `lessons` | array | Darslar ro'yxati (har element: `id, name, type, sort_order, progress, is_passed, is_locked`) |
+  | `lessons` | array | Darslar ro'yxati (har element: `id, name, type, sort_order, progress, is_passed, is_locked, play_url, modules`) |
+  | `lessons[].is_locked` | bool | Qulflangan dars (sotib olish kerak) |
+  | `lessons[].play_url` | string \| null | O'ynatish URL; **qulflangan darsda `null`** (paid kontent maxfiy URL'i berilmaydi) |
 
-  > **Darslar ro'yxati** kurs sahifasida doim ko'rinadi. Sotib olinmaganda har bir dars `is_locked=true` (qulflangan, ochib bo'lmaydi) va `is_purchased=false` — UI to'lov qutisini (`price`) ko'rsatadi. Sotib olingach `is_locked=false`, `progress`/`is_passed` to'ladi va `completion_percent` progress barini boshqaradi. Darsni ochish (play_url) uchun: `GET /mobile/lessons/{id}`.
+  > **Darslar ro'yxati** kurs sahifasida doim ko'rinadi. Sotib olinmaganda **boshidagi 2 ta dars bepul ochiq** (`is_locked=false`, `play_url` to'la) — qolgan darslar `is_locked=true` va `play_url=null`. Sotib olingach barcha darslar `is_locked=false`, hammasida `play_url` bo'ladi, `progress`/`is_passed` to'ladi va `completion_percent` progress barini boshqaradi. Darsni ochish (play_url) uchun: `GET /mobile/lessons/{id}` (ochiq darslarda ishlaydi).
 
   ### ⚠️ Errors
 

@@ -7,11 +7,11 @@ http:
   url: '{{base_url}}/mobile/courses/1/lessons'
   auth: inherit
 docs: |-
-  Sotib olingan kursning darslari (darslar) ro'yxati — har bir dars uchun joriy nomzod progressi bilan. Faqat faol + e'lon qilingan darslar (`is_active=true`, `status=active`) qaytariladi.
+  Kursning darslari (darslar) ro'yxati — har bir dars uchun joriy nomzod progressi bilan. Faqat faol + e'lon qilingan darslar (`is_active=true`, `status=active`) qaytariladi.
 
-  > Eslatma: darslar ro'yxati kurs tafsiloti javobida ham (`GET /mobile/courses/{id}` → `lessons`) qaytadi; bu endpoint enrolled holatda to'liq ro'yxat uchun.
+  > Eslatma: darslar ro'yxati kurs tafsiloti javobida ham (`GET /mobile/courses/{id}` → `lessons`) qaytadi.
 
-  **Auth:** `access_token` (Bearer). Nomzod kursni **sotib olgan** bo'lishi shart.
+  **Auth:** `access_token` (Bearer). Sotib olish **shart emas** — sotib olinmaganda **boshidagi 2 ta dars bepul ochiq**, qolganlari qulflangan.
 
   ### 📤 Response
 
@@ -25,14 +25,14 @@ docs: |-
   | `sort_order` | int | Tartib |
   | `progress` | float | Tugatish foizi (0–100) |
   | `is_passed` | bool | Dars o'tilgan/o'tilmagan |
-  | `is_locked` | bool | Bu endpointda doim `false` (enrolled) |
+  | `is_locked` | bool | Qulflangan dars. Sotib olingach hammasi `false`; sotib olinmaganda boshidagi 2 tasi `false`, qolgani `true` |
+  | `play_url` | string \| null | O'ynatish URL; **qulflangan darsda `null`** |
 
   ### ⚠️ Errors
 
   | Code | Reason |
   |---|---|
   | `401` | Token yo'q yoki yaroqsiz |
-  | `403` | Kurs sotib olinmagan (`You have not purchased this course`) |
   | `404` | Kurs topilmadi yoki faol emas |
 settings:
   encodeUrl: true

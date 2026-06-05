@@ -12,7 +12,7 @@ docs: |-
   - `type=2` (xAPI / index_api) bo'lsa `play_url` ga `?endpoint=.../mobile/articulate&auth=Bearer <token>&actor={"name":<lessonId>}` qo'shiladi — kontent statement/state'larni shu endpointga yuboradi.
   - `type=1` (lms.js) bo'lsa `play_url` oddiy statik URL; kontent `postMessage` hodisalarini chiqaradi, ularni front `mobile/articulate/*` event endpointlariga uzatadi.
 
-  **Auth:** `access_token` (Bearer). Nomzod kursni **sotib olgan** bo'lishi shart.
+  **Auth:** `access_token` (Bearer). Dars **ochiq** bo'lishi shart: kurs sotib olingan bo'lsa har qanday dars, aks holda faqat boshidagi 2 ta bepul dars. Qulflangan darsda `403`.
 
   ### 📤 Response
 
@@ -34,7 +34,7 @@ docs: |-
   | Code | Reason |
   |---|---|
   | `401` | Token yo'q yoki yaroqsiz |
-  | `403` | Kurs sotib olinmagan |
+  | `403` | Dars qulflangan (kurs sotib olinmagan va bu bepul darslardan emas) |
   | `404` | Dars topilmadi yoki faol emas |
 settings:
   encodeUrl: true
