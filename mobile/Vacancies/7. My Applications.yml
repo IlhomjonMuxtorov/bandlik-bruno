@@ -15,6 +15,7 @@ docs: |-
 
   | Param | Type | Required | Description |
   |---|---|:---:|---|
+  | `q` | string | ➖ | Vakansiya nomi (`title`) bo'yicha qidiruv (ILIKE, case-insensitive). `status` bilan birga ishlatish mumkin. |
   | `status` | string | ➖ | `applied` \| `reviewed` \| `accepted` \| `rejected` |
   | `per-page` | int | ➖ | 1..100, default 20 |
 

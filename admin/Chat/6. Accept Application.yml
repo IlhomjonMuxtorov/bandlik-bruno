@@ -43,6 +43,7 @@ docs: |
   | `400` | Application allaqachon Accepted/Rejected |
   | `403` | Foydalanuvchi shu XBA xodimi emas |
   | `404` | Chat yoki application topilmadi |
+  | `409` | Nomzodda allaqachon aktiv (qabul qilingan) offer mavjud |
 settings:
   encodeUrl: true
   timeout: 0
