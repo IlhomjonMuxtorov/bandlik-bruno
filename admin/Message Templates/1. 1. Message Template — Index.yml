@@ -28,7 +28,9 @@ docs: |
   | `id` | int | Shablon ID |
   | `organization_id` / `organization_name` | int\|string | Tashkilot |
   | `title` | object | `{ "uz": "...", "ru": "...", "en": "..." }` |
+  | `title_localized` | string | Joriy til (`Accept-Language`, fallback `uz`) |
   | `body` | object | `{ "uz": "...", "ru": "...", "en": "..." }` |
+  | `body_localized` | string | Joriy til (`Accept-Language`, fallback `uz`) |
   | `is_active` | bool | Faollik holati |
 settings:
   encodeUrl: true

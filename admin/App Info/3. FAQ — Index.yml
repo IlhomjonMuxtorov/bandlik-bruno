@@ -11,6 +11,8 @@ http:
 docs: |
   FAQ yozuvlari ro'yxati (aktiv + nofaol), `sort_order` bo'yicha. Sahifalangan (`per-page`, `page` query paramlari). Har bir yozuv uch tilda to'liq qaytariladi.
 
+  > **Ko'p tillilik:** `question` / `answer` xom `{uz, ru, en}` obyekt; qo'shimcha `question_localized` / `answer_localized` joriy til (`Accept-Language`, fallback `uz`) uchun string.
+
   **Auth:** `admin_token`.
 
   ### 📤 Response
@@ -23,7 +25,9 @@ docs: |
         {
           "id": 1,
           "question": {"uz": "...", "ru": "...", "en": "..."},
+          "question_localized": "...",
           "answer": {"uz": "...", "ru": "...", "en": "..."},
+          "answer_localized": "...",
           "sort_order": 1,
           "is_active": true,
           "created_at": 1739000000,

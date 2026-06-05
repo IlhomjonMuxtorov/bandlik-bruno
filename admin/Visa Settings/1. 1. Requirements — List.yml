@@ -6,7 +6,7 @@ http:
   method: GET
   url: '{{base_url}}/admin/visa-requirements'
   auth: inherit
-docs: "Viza talablari ro'yxati (pagination).\n\n**Auth:** `admin_token`.\n\n### \U0001F4E4\
+docs: "Viza talablari ro'yxati (pagination).\n\n> Ko'p tillilik: `name` / `description` xom {uz, ru, en} obyekt; qo'shimcha `name_localized` / `description_localized` joriy til (Accept-Language, fallback uz) uchun string. Benefits/Documents ham shunday.\n\n**Auth:** `admin_token`.\n\n### \U0001F4E4\
   \ Response\n\n```json\n{\n  \"success\": true,\n  \"data\": {\n    \"items\": [\n\
   \      {\n        \"id\": 1,\n        \"name\": {\"uz\": \"...\", \"ru\": \"...\"\
   , \"en\": \"...\"},\n        \"description\": {\"uz\": \"...\", \"ru\": \"...\"\

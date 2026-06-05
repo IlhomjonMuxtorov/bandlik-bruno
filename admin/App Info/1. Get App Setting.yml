@@ -11,6 +11,8 @@ http:
 docs: |
   Platforma sozlamalari singletonini (support + about) uch tilda to'liq qaytaradi. Admin panelda tahrirlash uchun.
 
+  > **Ko'p tillilik:** `support_address` / `about_text` xom `{uz, ru, en}` obyekt; qo'shimcha `support_address_localized` / `about_text_localized` joriy til (`Accept-Language`, fallback `uz`) uchun string.
+
   **Auth:** `admin_token`.
 
   ### 📤 Response
@@ -21,10 +23,12 @@ docs: |
     "data": {
       "id": 1,
       "support_address": {"uz": "Afrosiyob ko'chasi, 14/1", "ru": "Улица Афросиаб, 14/1", "en": "Afrosiyob street, 14/1"},
+      "support_address_localized": "Afrosiyob ko'chasi, 14/1",
       "support_phone": "+998 55 172 00 00",
       "support_website": "https://bandlik.uz",
       "support_telegram": "@bandlik_uz",
       "about_text": {"uz": "...", "ru": "...", "en": "..."},
+      "about_text_localized": "...",
       "about_logo_upload_file_id": null,
       "logo_url": "https://storage.bandlik.uz/icons/logo/logo.png",
       "created_at": 1739000000,
