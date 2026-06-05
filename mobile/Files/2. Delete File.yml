@@ -37,6 +37,10 @@ docs: 'Foydalanuvchi o''zi yuklagan faylni o''chiradi. `204 No Content`.
   - `204 No Content` — muvaffaqiyatli o''chirildi
 
 
+  > Xato javoblari mobil envelope''da qaytadi: `{ "status_code": 403, "message": "You
+  can only delete your own files", "errors": [] }`.
+
+
   ### ⚠️ Xatolar
 
 
