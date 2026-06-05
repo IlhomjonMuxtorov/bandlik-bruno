@@ -31,6 +31,8 @@ docs: |
   | `title_localized` | string | Joriy til (`Accept-Language`, fallback `uz`) |
   | `body` | object | `{ "uz": "...", "ru": "...", "en": "..." }` |
   | `body_localized` | string | Joriy til (`Accept-Language`, fallback `uz`) |
+  | `event` | string \| null | Bog'langan tizim hodisasi (`application_accepted` \| `application_rejected` \| `service_group_started` \| `payment_overdue` \| `service_stage_started` \| `service_stage_completed`) yoki `null` |
+  | `event_label` | string \| null | `event` ning tarjima qilingan nomi (`Accept-Language`); `event` `null` bo'lsa `null` |
   | `is_active` | bool | Faollik holati |
 settings:
   encodeUrl: true

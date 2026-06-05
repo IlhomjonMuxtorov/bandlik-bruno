@@ -10,7 +10,7 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"organization_id\": 1,\n  \"title_uz\": \"Hujjat yetarli emas\",\n  \"title_ru\": \"Документы недостаточны\",\n  \"title_en\": \"Documents insufficient\",\n  \"body_uz\": \"Siz yuborgan hujjatlar yetarli emas. Iltimos, to'liq to'plamni qayta yuboring.\",\n  \"body_ru\": \"Отправленные вами документы недостаточны. Пожалуйста, отправьте полный комплект.\",\n  \"body_en\": \"The documents you submitted are insufficient. Please resend the full set.\",\n  \"is_active\": true\n}"
+    data: "{\n  \"organization_id\": 1,\n  \"title_uz\": \"Hujjat yetarli emas\",\n  \"title_ru\": \"Документы недостаточны\",\n  \"title_en\": \"Documents insufficient\",\n  \"body_uz\": \"Siz yuborgan hujjatlar yetarli emas. Iltimos, to'liq to'plamni qayta yuboring.\",\n  \"body_ru\": \"Отправленные вами документы недостаточны. Пожалуйста, отправьте полный комплект.\",\n  \"body_en\": \"The documents you submitted are insufficient. Please resend the full set.\",\n  \"event\": \"application_rejected\",\n  \"is_active\": true\n}"
   auth: inherit
 docs: |
   Yangi javob xabari shablonini yaratadi. `title` va `body` 3 tilda alohida
@@ -25,6 +25,7 @@ docs: |
   | `organization_id` | int | ✅ | Tashkilot ID |
   | `title_uz` / `title_ru` / `title_en` | string | ✅ | Sarlavha (3 til) |
   | `body_uz` / `body_ru` / `body_en` | string | ✅ | Xabar matni (3 til) |
+  | `event` | string \| null | ➖ | Bog'langan tizim hodisasi. `null` = erkin/manual shablon. Qiymatlar: `application_accepted` \| `application_rejected` \| `service_group_started` \| `payment_overdue` \| `service_stage_started` \| `service_stage_completed`. |
   | `is_active` | bool | ➖ | Default `true` |
 
   ### ⚠️ Errors
