@@ -7,7 +7,7 @@ http:
   url: '{{base_url}}/mobile/vacancies/1/payments'
   auth: inherit
 docs: |-
-  Detail ekranining **2-tabi ("To'lovlar")**: jami summa + kategoriya bo'yicha guruhlangan xizmatlar + to'lov bosqichlari. `training` kategoriyasi bu yerda **chiqarib tashlangan** (u 3-tab "Tayyorlov kursi"da).
+  Detail ekranining **2-tabi ("To'lovlar")**: jami summa + **hamkor tashkilot bo'yicha guruhlangan** xizmatlar + to'lov bosqichlari. Har bir guruh — bitta xizmat ko'rsatuvchi tashkilot (`VacancyServiceGroup`): nomi/logosi, to'lov muddati va xizmat satrlari. `training` kategoriyasi bu yerda **chiqarib tashlangan** (u 3-tab "Tayyorlov kursi"da); faqat training'dan iborat bo'lib qolgan guruh ham tushirib qoldiriladi.
 
   **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi).
 
@@ -16,27 +16,30 @@ docs: |-
   | Header | Required | Description |
   |---|:---:|---|
   | `Authorization` | ✅ | `Bearer <access_token>`. |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Tashkilot nomi shu til bo'yicha qaytadi. Default: `uz`. |
 
   ### 📤 Response
 
   | Field | Type | Description |
   |---|---|---|
-  | `total_service_amount` | int | Umumiy to'lash kerak bo'lgan summa |
+  | `total_service_amount` | int | Umumiy to'lash kerak bo'lgan summa (so'm). Vakansiyaning **barcha** xizmatlari (training ham) yig'indisi — guruhlar yig'indisidan katta bo'lishi mumkin. |
   | `total_service_currency` | string | `UZS` ... |
   | `single_payment` | bool | "1 tada 100% to'lov" rejimi |
-  | `groups` | array | Kategoriya guruhlari (quyida) |
+  | `groups` | array | Tashkilot guruhlari (quyida) |
   | `payment_steps` | array | `[{ id, step_type, step_type_label, title, amount, currency, sort_order }]` |
 
   **`groups[]` element:**
 
   | Field | Type | Description |
   |---|---|---|
-  | `category` | string | `notarius` \| `insurance` \| `logistics` \| `visa` \| `agency` \| `translation_apostille` |
-  | `category_label` | string | Lokalizatsiyalangan nom (masalan "Notarius") |
-  | `deadline_text` | null | "Boshlangan kundan N kun ichida" — **hozircha doim `null`** (DB ustuni hali yo'q, manba aniqlanmoqda). |
-  | `items` | array | `[{ id, service_name, price, currency, duration_text, notes }]` |
+  | `group_id` | int | `VacancyServiceGroup` id'si |
+  | `organization` | object | `{ id, name, type, type_label, logo_url }` — guruh kartasi sarlavhasi (nomi `Accept-Language` bo'yicha) |
+  | `payment_deadline_days` | int | Nomzodning to'lov oynasi (kun) |
+  | `deadline_text` | string | Lokalizatsiyalangan "{n} kun ichida" (masalan "7 kun ichida") |
+  | `group_total` | int | Guruh item narxlari yig'indisi (so'm) |
+  | `items` | array | `[{ id, service_name, price, currency, duration_text, notes }]` (`notes` — xizmat tavsifi) |
 
-  > Bo'sh kategoriyalar (item'i yo'q) javobga kiritilmaydi.
+  > Item'i yo'q (yoki faqat training'dan iborat) guruhlar javobga kiritilmaydi.
 
   ### ⚠️ Errors
 
