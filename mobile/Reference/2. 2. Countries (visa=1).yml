@@ -42,6 +42,8 @@ docs: 'Faqat viza rasmiylashtirish mumkin bo''lgan davlatlar (`is_visa_available
 
 
   **Countries List** bilan bir xil format — faqat `is_visa_available=true` bo''lganlar.
+  Jami natijalar soni `X-Pagination-Total-Count` header''ida (badge uchun, CORS orqali
+  ochiq).
 
 
   ### ⚠️ Errors

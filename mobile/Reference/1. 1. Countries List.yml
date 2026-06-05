@@ -62,6 +62,17 @@ docs: 'Barcha aktiv davlatlar ro''yxatini qaytaradi.
   | `is_visa_available` | bool | `true` — viza rasmiylashtirish mumkin |
 
 
+  ### 📋 Response Headers
+
+
+  | Header | Description |
+
+  |---|---|
+
+  | `X-Pagination-Total-Count` | Qidiruv/filtrga mos jami natijalar soni (badge uchun).
+  CORS `Access-Control-Expose-Headers` orqali ochiq, frontend o''qiy oladi. |
+
+
   ### ⚠️ Errors
 
 

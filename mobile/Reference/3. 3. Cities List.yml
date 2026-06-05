@@ -57,6 +57,17 @@ docs: 'Aktiv shaharlar ro''yxati. `country_id` bo''yicha filterlash va/yoki `q` 
   | `name` | string | Tilga mos nom. Fallback → `en` → `uz`. |
 
 
+  ### 📋 Response Headers
+
+
+  | Header | Description |
+
+  |---|---|
+
+  | `X-Pagination-Total-Count` | Qidiruv/filtrga mos jami natijalar soni (badge uchun).
+  CORS `Access-Control-Expose-Headers` orqali ochiq, frontend o''qiy oladi. |
+
+
   ### ⚠️ Errors
 
 

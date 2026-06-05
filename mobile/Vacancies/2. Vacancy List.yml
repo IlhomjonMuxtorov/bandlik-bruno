@@ -39,7 +39,7 @@ docs: |-
 
   ### 📤 Response
 
-  Massiv (mobile format — metadata yo'q; sahifalash `X-Pagination-*` header'larida). Har bir element:
+  Massiv (mobile format — metadata yo'q; sahifalash `X-Pagination-*` header'larida — jumladan `X-Pagination-Total-Count` = qidiruv/filtrga mos jami natijalar soni, "badge" uchun. Header CORS `Access-Control-Expose-Headers` orqali ochiq, frontend o'qiy oladi). Har bir element:
 
   | Field | Type | Description |
   |---|---|---|
