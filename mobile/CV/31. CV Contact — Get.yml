@@ -1,0 +1,45 @@
+info:
+  name: CV Contact — Get
+  type: http
+  seq: 31
+http:
+  method: GET
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/contact'
+  headers:
+  - name: Accept
+    value: application/json
+  auth: inherit
+docs: |-
+  Shu CV-ning aloqa ma'lumotlari (telefon + email). CV o'z aloqa raqamiga ega
+  bo'lishi mumkin — bu profil (login) raqamidan farq qilishi, lekin profil
+  raqamini o'zgartirmasligi mumkin. Override bo'lmasa profil qiymati qaytadi
+  (`cv.contact_phone ?? user.phone`).
+
+  **Auth:** `access_token`.
+
+  ### 📋 Path Params
+
+  | Param | Type | Description |
+  |---|---|---|
+  | `cv_id` | int | CV ID |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `phone` | string \| null | Resolved raqam (CV override yoki profil raqami) |
+  | `email` | string \| null | Resolved email (CV override yoki profil emaili) |
+  | `phone_is_custom` | bool | `true` — CV-ga xos raqam o'rnatilgan |
+  | `email_is_custom` | bool | `true` — CV-ga xos email o'rnatilgan |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `404` | CV topilmadi yoki boshqa nomzodga tegishli |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

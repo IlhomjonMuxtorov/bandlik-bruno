@@ -58,7 +58,7 @@ docs: 'Bitta CV-ning to''liq tafsilotlari (education, experience, languages va h
 
   | `courses` | array | Faqat shu CV |
 
-  | `contact` | object | `{ phone, email }` |
+  | `contact` | object | `{ phone, email, phone_is_custom, email_is_custom }` (CV override yoki profil qiymati) |
 
 
   ### ⚠️ Errors

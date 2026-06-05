@@ -1,0 +1,53 @@
+info:
+  name: 13a. Phone — Update
+  type: http
+  seq: 28
+http:
+  method: PATCH
+  url: '{{base_url}}/mobile/candidate/phone'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n    \"phone\": \"+998901234567\",\n    \"code\": \"1234\"\n}"
+  auth: inherit
+docs: |-
+  Profil (login) telefon raqamini o'zgartirish — 2-qadam. **Faqat** telefonni
+  yangilaydi (email tegilmaydi).
+
+  ⚠️ Yangi raqamga yuborilgan SMS kod talab qilinadi. Avval
+  `POST /mobile/candidate/phone/request-otp` bilan kod oling, so'ng shu yerda
+  `phone` + `code` ni yuboring. Joriy raqamni qayta yuborish — kod kerak bo'lmaydigan
+  no-op.
+
+  **Auth:** `access_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `phone` | string | ✅ | `+998901234567` yoki `901234567`. Server `+998XXXXXXXXX` ga normallashtiradi. |
+  | `code` | string | ➖ | 4 xonali SMS kod. Raqam joriy raqamdan farq qilsa **majburiy**. |
+
+  ### 📤 Response
+
+  Yangilangan `{ phone }`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `phone` yuborilmagan |
+  | `400` | `phone` o'zgargan, lekin `code` yuborilmagan |
+  | `400` | SMS kod noto'g'ri yoki muddati o'tgan |
+  | `400` | Raqam allaqachon boshqa foydalanuvchida band |
+  | `401` | Token yo'q |
+  | `404` | Nomzod topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

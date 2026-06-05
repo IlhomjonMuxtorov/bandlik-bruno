@@ -1,0 +1,61 @@
+info:
+  name: CV Contact — Update
+  type: http
+  seq: 33
+http:
+  method: PATCH
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/contact'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n    \"phone\": \"+998901234567\",\n    \"code\": \"1234\",\n    \"email\": \"cv@example.com\"\n}"
+  auth: inherit
+docs: |-
+  Shu CV-ga xos aloqa telefoni/emailini o'rnatadi. **Profil (login) raqami
+  o'zgarmaydi** — bu faqat CV ichidagi aloqa ma'lumotidir.
+
+  Har ikkala maydon ham ixtiyoriy — faqat yuborilgan maydon yangilanadi.
+
+  > **Tasdiqlash qoidasi:** agar `phone` nomzodning profil raqami bo'lsa — `code`
+  > **kerak emas** (override saqlanmaydi, CV profil raqamini ko'rsatadi). `phone`
+  > **boshqa** raqam bo'lsa — avval `POST .../contact/request-otp` bilan kod oling
+  > va shu yerda `code` ni yuboring. `email` uchun kod hech qachon kerak emas.
+
+  **Auth:** `access_token`.
+
+  ### 📋 Path Params
+
+  | Param | Type | Description |
+  |---|---|---|
+  | `cv_id` | int | CV ID |
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `phone` | string | ➖ | `+998901234567` yoki `901234567`. Profil raqamidan farq qilsa `code` majburiy. |
+  | `code` | string | ➖ | 4 xonali SMS kod. **Faqat** profil raqamidan farqli `phone` uchun majburiy. |
+  | `email` | string | ➖ | CV-ga xos email. Profil emaili bilan bir xil bo'lsa override saqlanmaydi. |
+
+  ### 📤 Response
+
+  Yangilangan `{ phone, email, phone_is_custom, email_is_custom }`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `phone` profil raqamidan farqli, lekin `code` yuborilmagan |
+  | `400` | SMS kod noto'g'ri yoki muddati o'tgan |
+  | `400` | Email noto'g'ri formatda |
+  | `401` | Token yo'q |
+  | `404` | CV topilmadi yoki boshqa nomzodga tegishli |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,63 @@
+info:
+  name: CV Contact — Request OTP
+  type: http
+  seq: 32
+http:
+  method: POST
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/contact/request-otp'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n    \"phone\": \"+998901234567\"\n}"
+  auth: inherit
+docs: |-
+  CV-ga **yangi** aloqa raqamini biriktirish uchun SMS tasdiqlash kodini (4 xonali)
+  shu raqamga yuboradi.
+
+  Oqim: avval shu endpoint bilan kod so'raladi, so'ng
+  `PATCH /mobile/cv/{cv_id}/contact` ga `phone` + `code` yuboriladi.
+
+  > **Telefon o'zgarmasa SMS yuborilmaydi.** Agar `phone` nomzodning profil raqami
+  > bo'lsa — javob `verification_required=false`, `sms_sent=false` qaytaradi va SMS
+  > umuman jo'natilmaydi (tasdiqlash shart emas). CV aloqa raqami login krediti
+  > emas, shu sabab boshqa foydalanuvchida band bo'lsa ham xato bermaydi.
+
+  **Auth:** `access_token`.
+
+  ### 📋 Path Params
+
+  | Param | Type | Description |
+  |---|---|---|
+  | `cv_id` | int | CV ID |
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `phone` | string | ✅ | Aloqa raqami. `+998901234567` yoki `901234567`. |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `phone_masked` | string | `+998 ** *** 4567` ko'rinishida |
+  | `expires_in` | int | Kod amal qilish muddati (soniya, 0 — tasdiqlash kerak bo'lmaganda) |
+  | `sms_sent` | bool | SMS haqiqatda yuborildimi (sandbox raqamda `false`) |
+  | `verification_required` | bool | Tasdiqlash kerakmi. Profil raqami kiritilsa `false` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Raqam noto'g'ri yoki rate limit (juda ko'p so'rov) |
+  | `401` | Token yo'q |
+  | `404` | CV topilmadi yoki boshqa nomzodga tegishli |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

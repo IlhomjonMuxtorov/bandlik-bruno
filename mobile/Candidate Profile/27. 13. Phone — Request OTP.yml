@@ -1,10 +1,10 @@
 info:
-  name: 10a. Contact — Request OTP
+  name: 13. Phone — Request OTP
   type: http
-  seq: 17
+  seq: 27
 http:
   method: POST
-  url: '{{base_url}}/mobile/candidate/contact/request-otp'
+  url: '{{base_url}}/mobile/candidate/phone/request-otp'
   headers:
   - name: Accept
     value: application/json
@@ -15,15 +15,15 @@ http:
     data: "{\n    \"phone\": \"+998901234567\"\n}"
   auth: inherit
 docs: |-
-  Telefon raqamini o'zgartirish uchun SMS tasdiqlash kodini (4 xonali)
-  **yangi** raqamga yuboradi.
+  Profil (login) telefon raqamini o'zgartirish — 1-qadam. **Yangi** raqamga
+  4 xonali SMS tasdiqlash kodini yuboradi.
 
-  Oqim: avval shu endpoint bilan kod so'raladi, so'ng `PATCH /mobile/candidate/contact`
-  ga `phone` + `code` yuboriladi. Email-ni o'zgartirish uchun kod **kerak emas**.
+  Oqim: avval shu endpoint bilan kod so'raladi, so'ng `PATCH /mobile/candidate/phone`
+  ga `phone` + `code` yuboriladi.
 
-  > **Telefon o'zgarmasa SMS yuborilmaydi.** Agar `phone` joriy profil raqami bo'lsa —
-  > javob `verification_required=false`, `sms_sent=false` qaytaradi va SMS umuman
-  > jo'natilmaydi (avval bu holatda xato qaytarardi).
+  > **Telefon o'zgarmasa SMS yuborilmaydi.** `phone` joriy profil raqami bo'lsa —
+  > javob `verification_required=false`, `sms_sent=false` qaytaradi va SMS
+  > jo'natilmaydi.
 
   **Auth:** `access_token`.
 
@@ -38,7 +38,7 @@ docs: |-
   | Field | Type | Description |
   |---|---|---|
   | `phone_masked` | string | `+998 ** *** 4567` ko'rinishida |
-  | `expires_in` | int | Kod amal qilish muddati (soniya, odatda 180; tasdiqlash kerak bo'lmasa 0) |
+  | `expires_in` | int | Kod amal qilish muddati (soniya, 0 — tasdiqlash kerak bo'lmaganda) |
   | `sms_sent` | bool | SMS haqiqatda yuborildimi (sandbox raqamda `false`) |
   | `verification_required` | bool | Tasdiqlash kerakmi. Joriy raqam kiritilsa `false` |
 
@@ -46,8 +46,7 @@ docs: |-
 
   | Code | Reason |
   |---|---|
-  | `400` | Raqam noto'g'ri yoki boshqa foydalanuvchida band |
-  | `400` | Juda ko'p so'rov (rate limit) — biroz kutib qayta urinib ko'ring |
+  | `400` | Raqam noto'g'ri, boshqa foydalanuvchida band yoki rate limit |
   | `401` | Token yo'q |
 settings:
   encodeUrl: true
