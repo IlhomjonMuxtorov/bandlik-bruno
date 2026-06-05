@@ -5,20 +5,36 @@ info:
 http:
   method: POST
   url: '{{base_url}}/mobile/chats/1/read'
-  headers: []
+  headers:
+  - name: Content-Type
+    value: application/json
   body:
-    type: none
+    type: json
+    data: "{\n  \"up_to_message_id\": 12\n}"
   auth: inherit
 docs: |
-  Chatdagi nomzod yubormagan barcha o'qilmagan xabarlarni `read` deb belgilaydi. Conversation'ning `candidate_unread_count` qiymati `0` ga tushiriladi.
+  Chatdagi nomzod yubormagan o'qilmagan xabarlarni `read` deb belgilaydi.
+
+  - `up_to_message_id` **berilsa** — faqat shu va undan oldingi (`id <=`) xabarlar o'qilgan bo'ladi ("read up to" kursor, Telegram uslubi); undan keyingi yangi xabarlar o'qilmagan bo'lib qoladi.
+  - `up_to_message_id` **berilmasa** — chatdagi barcha o'qilmagan xabarlar o'qildi deb belgilanadi.
+
+  Conversation'ning `candidate_unread_count` qiymati **0 ga tushirilmaydi**, balki qolgan haqiqiy o'qilmaganlar soniga qayta hisoblanadi.
 
   **Auth:** `access_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `up_to_message_id` | int | ➖ | Shu `message_id` gacha (shu jumladan) o'qildi deb belgilanadi. Berilmasa — hammasi. |
 
   ### 📤 Response
 
   | Field | Type | Description |
   |---|---|---|
   | `marked_read` | int | Bu chaqiruvda o'qilgan deb belgilangan xabarlar soni |
+  | `conversation_unread` | int | Shu chatda qolgan o'qilmagan xabarlar soni (kursordan keyingilar) |
+  | `total_unread` | int | Nomzodning barcha ko'rinadigan chatlari bo'yicha umumiy o'qilmaganlar (badge) |
 
   ### ⚠️ Errors
 

@@ -5,22 +5,37 @@ info:
 http:
   method: POST
   url: '{{base_url}}/admin/chats/1/read'
-  headers: []
+  headers:
+  - name: Content-Type
+    value: application/json
   body:
-    type: none
+    type: json
+    data: "{\n  \"up_to_message_id\": 12\n}"
   auth:
     mode: bearer
     bearer: '{{ admin_token }}'
 docs: |
-  XBA tomonidagi o'qilmagan xabarlarni o'qilgan deb belgilaydi va `xba_unread_count` ni `0` ga tushiradi.
+  XBA tomonidagi o'qilmagan xabarlarni o'qilgan deb belgilaydi.
+
+  - `up_to_message_id` **berilsa** — faqat shu va undan oldingi (`id <=`) xabarlar o'qiladi ("read up to" kursor); keyingilari o'qilmagan qoladi.
+  - `up_to_message_id` **berilmasa** — barcha o'qilmagan xabarlar o'qildi deb belgilanadi.
+
+  `xba_unread_count` **0 ga tushirilmaydi**, balki qolgan haqiqiy o'qilmaganlar soniga qayta hisoblanadi.
 
   **Auth:** `admin_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `up_to_message_id` | int | ➖ | Shu `message_id` gacha (shu jumladan) o'qildi deb belgilanadi. Berilmasa — hammasi. |
 
   ### 📤 Response
 
   | Field | Type | Description |
   |---|---|---|
   | `marked_read` | int | Belgilangan xabarlar soni |
+  | `conversation_unread` | int | Shu chatda qolgan o'qilmagan xabarlar soni |
 
   ### ⚠️ Errors
 
