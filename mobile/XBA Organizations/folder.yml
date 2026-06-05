@@ -1,0 +1,6 @@
+info:
+  name: XBA Organizations
+  type: folder
+  seq: 16
+request:
+  auth: inherit

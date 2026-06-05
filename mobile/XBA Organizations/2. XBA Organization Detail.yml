@@ -1,0 +1,52 @@
+info:
+  name: XBA Organization Detail
+  type: http
+  seq: 2
+http:
+  method: GET
+  url: '{{base_url}}/mobile/xba-organizations/1'
+  auth: inherit
+docs: |-
+  Bitta **XBA tashkilot** to'liq ma'lumoti (ro'yxatdan ochilganda): logotip + nom + joylashuv + aloqa + ijtimoiy tarmoqlar + litsenziya hujjati. Faqat `is_active = true` va `type = XBA` tashkilot qaytadi.
+
+  **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi). `region` / `district` nomlari so'rovchi qurilma tiliga ko'ra (uz/ru/en) qaytadi.
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer <access_token>` (mehmon tokeni ham). |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Tashkilot ID |
+  | `name` | string | Tashkilot nomi |
+  | `brand_name` | string \| null | Brend nomi |
+  | `legal_name` | string \| null | Yuridik nom |
+  | `description` | string \| null | Tavsif |
+  | `logo_url` | string \| null | Logotip URL |
+  | `address` | string | Manzil |
+  | `region` | object \| null | `{ id, name }` — viloyat |
+  | `district` | object \| null | `{ id, name }` — tuman |
+  | `phone` | string | Telefon |
+  | `email` | string \| null | Email |
+  | `website_url` | string \| null | Veb-sayt |
+  | `telegram_url` | string \| null | Telegram |
+  | `instagram_url` | string \| null | Instagram |
+  | `facebook_url` | string \| null | Facebook |
+  | `x_url` | string \| null | X (Twitter) |
+  | `license_file_url` | string \| null | Litsenziya fayli URL |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki noto'g'ri |
+  | `404` | Tashkilot topilmadi, nofaol, yoki XBA turi emas |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

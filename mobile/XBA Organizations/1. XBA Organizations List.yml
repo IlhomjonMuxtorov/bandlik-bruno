@@ -1,0 +1,51 @@
+info:
+  name: XBA Organizations List
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/mobile/xba-organizations'
+  auth: inherit
+docs: |-
+  Faol **XBA tashkilotlar** ro'yxati — mobil **kartochka** ko'rinishi (yengil DTO: faqat ro'yxat satrida ko'rinadigan maydonlar). Faqat `is_active = true` XBA tashkilotlar qaytadi. Default tartib: `id DESC`. Tartibni `sort` parametri bilan o'zgartirish mumkin.
+
+  **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi).
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `q` | string | ➖ | Qidiruv (ILIKE) — `name`, `brand_name`, `legal_name`, `license_number`, `responsible_person`, `phone`. |
+  | `region_id` | int | ➖ | Viloyat bo'yicha filtr. |
+  | `district_id` | int | ➖ | Tuman bo'yicha filtr. |
+  | `sort` | string | ➖ | Saralash atributi: `id` (default, DESC) \| `created_at` \| `name`. Old qo'shimcha `-` teskari tartib (masalan `sort=name`). |
+  | `per-page` | int | ➖ | 1..100, default 20. |
+  | `page` | int | ➖ | Sahifa raqami. |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer <access_token>` (mehmon tokeni ham). |
+
+  ### 📤 Response
+
+  Massiv (mobile format — metadata yo'q; sahifalash `X-Pagination-*` header'larida: `X-Pagination-Total-Count`, `X-Pagination-Page-Count`, `X-Pagination-Current-Page`, `X-Pagination-Per-Page`). Har bir element:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Tashkilot ID |
+  | `name` | string | Tashkilot nomi |
+  | `logo_url` | string \| null | Logotip URL (logotip yuklanmagan bo'lsa `null`) |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki noto'g'ri |
+  | `500` | Server xatosi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

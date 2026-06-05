@@ -1,0 +1,82 @@
+info:
+  name: 12. Countries with Active Vacancies
+  type: http
+  seq: 12
+http:
+  method: GET
+  url: '{{base_url}}/mobile/countries/with-vacancies'
+  headers:
+  - name: Accept
+    value: application/json
+  auth:
+    type: bearer
+    token: '{{guest_token}}'
+docs: 'Bosh ekran (Asosiy) davlatlar lentasi uchun: faqat kamida 1 ta aktiv
+  (`approved`) vakansiyasi bor davlatlar, har birida aktiv vakansiyalar soni
+  (badge) bilan qaytadi.
+
+
+  Davlatlar `sort_order`, `id` bo''yicha tartiblangan. Vakansiyasi yo''q davlatlar
+  ro''yxatda umuman bo''lmaydi.
+
+
+  **Auth:** har qanday yaroqli JWT (`guest_token` yoki `access_token`).
+
+
+  ### 📋 Headers
+
+
+  | Header | Required | Description |
+
+  |---|:---:|---|
+
+  | `Authorization` | ✅ | `Bearer {token}` |
+
+
+  ### 🔎 Query Parameters
+
+
+  Yo''q.
+
+
+  ### 📤 Response *(massiv elementi)*
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `id` | int | Davlat ID |
+
+  | `name` | string | Tanlangan tilga mos. Fallback → `uz`. |
+
+  | `iso_code` | string | ISO 3166-1 alpha-2 (`DE`, `KR`, `PL`, …). |
+
+  | `flag_url` | string \| null | Bayroq rasmi |
+
+  | `image_url` | string \| null | Banner/cover rasmi |
+
+  | `is_visa_available` | bool | `true` — viza rasmiylashtirish mumkin |
+
+  | `active_vacancy_count` | int | Shu davlatdagi aktiv (`approved`) vakansiyalar soni
+  (badge). Har doim ≥ 1. |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q, noto''g''ri yoki muddati o''tgan |
+
+
+  > Aktiv vakansiyali davlat bo''lmasa bo''sh massiv `[]` qaytadi.
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
