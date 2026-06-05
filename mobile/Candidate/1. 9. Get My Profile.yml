@@ -65,6 +65,12 @@ docs: 'Ro''yxatdan o''tgan nomzodning o''z profili va **MVD** dan olingan paspor
 
   | `photo_url` | string \| null | Pasport rasmi URL. `null` — MVD da rasm yo''q |
 
+  | `balance` | float | Joriy (sarflanadigan) balans, so''m. Hold''ni o''z ichiga
+  olmaydi |
+
+  | `hold_balance` | float | Hold (band) qilingan balans, so''m. Xizmat bosqichlari
+  uchun zahiraga olingan summa |
+
   | `passport_issued_by` | string \| null | Pasport bergan organ nomi |
 
   | `passport_valid_from` | string \| null | Berilgan sana (`DD.MM.YYYY`) |
