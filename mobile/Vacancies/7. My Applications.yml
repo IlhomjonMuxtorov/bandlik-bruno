@@ -25,6 +25,7 @@ docs: |-
   | Field | Type | Description |
   |---|---|---|
   | `id` | int | Application ID |
+  | `chat_id` | int \| null | Tegishli chat (conversation) id. `null` — agar chat ochilmagan bo'lsa (vakansiya tashkiloti XBA emas). `GET /mobile/chats/{chat_id}` bilan ochiladi. |
   | `vacancy` | object | `{id, title}` |
   | `status` / `status_label` | string | `applied` ... |
   | `cv` | object \| null | `{id, title}` |
