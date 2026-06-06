@@ -10,13 +10,18 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"pin\": \"1234\"\n}"
+    data: "{\n  \"pin\": \"1234\",\n  \"device_id\": \"{{device_id}}\"\n}"
   auth: inherit
-docs: 'Birinchi marta PIN-kod o''rnatish yoki pasport orqali qayta kirgandan so''ng
-  yangilash.
+docs: 'PIN yaratishning **1-bosqichi** ("Pin kod yarating"). Kiritilgan PIN serverда
+  vaqtincha (cache, **hash** holida, 5 daqiqa) saqlanadi — hali yakuniy emas.
 
 
-  > PIN DB da **hash** ko''rinishida saqlanadi (bcrypt).
+  > PIN **har qurilmага alohida** saqlanadi (`user_devices.pin_code_hash`). Shu sabab
+  `device_id` majburiy — PIN qaysi qurilмага tegishliligini bildiradi.
+
+
+  > PIN faqat **2-bosqich** — `confirm-pin` — qayta kiritilgan PIN bilan mos kelganda
+  saqlanadi. `confirm-pin` chaqirilmasa, PIN o''rnatilmaydi.
 
 
   **Auth:** `access_token` majburiy.
@@ -31,6 +36,9 @@ docs: 'Birinchi marta PIN-kod o''rnatish yoki pasport orqali qayta kirgandan so'
 
   | `pin` | string | ✅ | 4 xonali raqam (`0000`–`9999`). Boshqa belgilar `400`. |
 
+  | `device_id` | string | ✅ | UUID. PIN shu qurilмага o''rnatiladi (token egasiniki
+  bo''lishi shart). |
+
 
   ### 📤 Response
 
@@ -39,7 +47,7 @@ docs: 'Birinchi marta PIN-kod o''rnatish yoki pasport orqali qayta kirgandan so'
 
   |---|---|---|
 
-  | `is_pin_set` | bool | Har doim `true` |
+  | `pending` | bool | Har doim `true` — PIN tasdiqlash kutilmoqda |
 
 
   ### ⚠️ Errors
@@ -49,11 +57,11 @@ docs: 'Birinchi marta PIN-kod o''rnatish yoki pasport orqali qayta kirgandan so'
 
   |---|---|
 
-  | `400` | `pin` yo''q / raqam emas / 4 ta emas |
+  | `400` | `pin`/`device_id` yo''q yoki format xato |
+
+  | `400` | `Device not found.` — qurilma topilmadi yoki bu user''ники emas |
 
   | `401` | `access_token` yo''q yoki muddati o''tgan |
-
-  | `500` | DB da saqlashda xatolik |
 
   '
 settings:

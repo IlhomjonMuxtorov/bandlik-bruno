@@ -1,7 +1,7 @@
 info:
   name: 5.3. Change PIN
   type: http
-  seq: 9
+  seq: 10
 http:
   method: POST
   url: '{{base_url}}/mobile/auth/change-pin'
@@ -10,13 +10,19 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"old_pin\": \"1234\",\n  \"new_pin\": \"5678\"\n}"
+    data: "{\n  \"old_pin\": \"1234\",\n  \"new_pin\": \"5678\",\n  \"device_id\": \"\
+      {{device_id}}\"\n}"
   auth: inherit
-docs: 'Mavjud PIN-kodni yangilash. Eski PIN tekshirilgandan so''ng yangi PIN saqlanadi.
+docs: 'Shu qurilманинг PIN-kodини yangilash. Eski PIN tekshirilgandan so''ng yangi
+  PIN saqlanadi.
+
+
+  > PIN **har qurilмага alohida** — `device_id` majburiy. O''zgartirish faqat shu
+  qurilманинг PIN''ига ta''sir qiladi.
 
 
   > Har noto''g''ri `old_pin` urinish hisoblanadi (xuddi `login-with-pin` kabi). 3
-  marta xato → hisob 10 daqiqaga bloklanadi.
+  marta xato → shu qurilма 10 daqiqага bloklanadi.
 
 
   **Auth:** `access_token` majburiy.
@@ -32,6 +38,8 @@ docs: 'Mavjud PIN-kodni yangilash. Eski PIN tekshirilgandan so''ng yangi PIN saq
   | `old_pin` | string | ✅ | Hozirgi 4 xonali PIN. |
 
   | `new_pin` | string | ✅ | Yangi 4 xonali PIN. |
+
+  | `device_id` | string | ✅ | UUID. PIN o''zgartiriladigan qurilма (token egасиники). |
 
 
   ### 📤 Response
@@ -51,7 +59,9 @@ docs: 'Mavjud PIN-kodni yangilash. Eski PIN tekshirilgandan so''ng yangi PIN saq
 
   |---|---|
 
-  | `400` | `old_pin`/`new_pin` yo''q yoki format xato |
+  | `400` | `old_pin`/`new_pin`/`device_id` yo''q yoki format xato |
+
+  | `400` | `Device not found.` |
 
   | `400` | PIN o''rnatilmagan |
 

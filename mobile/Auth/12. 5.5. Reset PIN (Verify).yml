@@ -1,0 +1,84 @@
+info:
+  name: 5.5. Reset PIN (Verify)
+  type: http
+  seq: 12
+http:
+  method: POST
+  url: '{{base_url}}/mobile/auth/reset-pin-verify'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"phone\": \"+998901234567\",\n  \"code\": \"1234\",\n  \"device_id\"\
+      : \"{{device_id}}\"\n}"
+  auth:
+    type: none
+docs: 'PIN tiklashning **2-bosqichi**. `reset-pin` da yuborilgan OTPni tasdiqlaydi,
+  qurilmani hisobga bog''laydi va to''liq token juft qaytaradi.
+
+
+  > Token olgandan so''ng `set-pin` + `confirm-pin` orqali yangi PIN o''rnatiladi.
+
+
+  **Auth:** talab qilinmaydi.
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `phone` | string | ✅ | `reset-pin` da ko''rsatilgan telefon. |
+
+  | `code` | string | ✅ | 4 xonali OTP kodi. |
+
+  | `device_id` | string | ✅ | UUID. Token shu qurilmaga bog''lanadi. |
+
+
+  ### 📤 Response
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `access_token` | string | To''liq foydalanuvchi JWT (15 daqiqa) |
+
+  | `refresh_token` | string | Yangilash tokeni (30 kun) |
+
+  | `expires_in` | int | `900` sek |
+
+  | `token_type` | string | `Bearer` |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `400` | Validatsiya xatosi |
+
+  | `400` | `No account found with this phone number.` |
+
+  | `400` | OTP noto''g''ri yoki muddati o''tgan (180 sek) |
+
+
+  > ✨ **Auto-save:** `access_token` va `refresh_token` avtomatik saqlanadi.
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+runtime:
+  scripts:
+  - type: after-response
+    code: "const body = res.getBody();\nif (body && body.access_token) {\n  bru.setEnvVar('access_token',\
+      \ body.access_token);\n  bru.setEnvVar('refresh_token', body.refresh_token);\n\
+      \  console.log('access_token and refresh_token saved');\n}"

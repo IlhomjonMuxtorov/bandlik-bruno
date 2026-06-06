@@ -1,0 +1,73 @@
+info:
+  name: 5.2.1. Confirm PIN
+  type: http
+  seq: 9
+http:
+  method: POST
+  url: '{{base_url}}/mobile/auth/confirm-pin'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"pin\": \"1234\",\n  \"device_id\": \"{{device_id}}\"\n}"
+  auth: inherit
+docs: 'PIN yaratishning **2-bosqichi** ("Pin kodni qayta kiriting"). Qayta kiritilgan
+  PIN `set-pin` da saqlangan pending PIN bilan mos kelsa — PIN shu qurilма uchun yakuniy
+  saqlanadi (`user_devices.pin_code_hash`, bcrypt).
+
+
+  > Pending PIN 5 daqiqa amal qiladi. Mos kelmasa pending o''chmaydi — shu muddat
+  ichida qayta urinish mumkin.
+
+
+  **Auth:** `access_token` majburiy.
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `pin` | string | ✅ | 4 xonali raqam. `set-pin` dagi PIN bilan bir xil bo''lishi
+  kerak. |
+
+  | `device_id` | string | ✅ | UUID. `set-pin` dagi qurilма bilan bir xil. |
+
+
+  ### 📤 Response
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `is_pin_set` | bool | Har doim `true` |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `400` | `pin`/`device_id` validatsiyasi xato |
+
+  | `400` | `Device not found.` |
+
+  | `400` | `PIN codes do not match.` — pending PIN bilan mos kelmadi |
+
+  | `400` | `PIN setup expired. Please start over.` — pending muddati o''tgan / `set-pin`
+  chaqirilmagan |
+
+  | `401` | `access_token` yo''q yoki muddati o''tgan |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

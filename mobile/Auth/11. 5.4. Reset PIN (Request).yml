@@ -1,0 +1,72 @@
+info:
+  name: 5.4. Reset PIN (Request)
+  type: http
+  seq: 11
+http:
+  method: POST
+  url: '{{base_url}}/mobile/auth/reset-pin'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"phone\": \"+998901234567\",\n  \"device_id\": \"{{device_id}}\"\n}"
+  auth:
+    type: none
+docs: 'PINni unutgan foydalanuvchi uchun **tiklash 1-bosqichi** ("Pin kod esingizdan
+  chiqdimi?"). Ro''yxatda turgan, tasdiqlangan foydalanuvchining telefoniga OTP yuboradi.
+  Passport qayta tekshirilmaydi — telefon egaligini OTP isbotlaydi.
+
+
+  > So''ngra `reset-pin-verify` bilan OTP tasdiqlanadi va token olinadi, keyin
+  `set-pin` + `confirm-pin` orqali yangi PIN o''rnatiladi.
+
+
+  **Auth:** talab qilinmaydi. Telefon bo''yicha soatiga 5 OTP cheklovi amal qiladi.
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `phone` | string | ✅ | Hisobga bog''langan telefon (`+998XXXXXXXXX`). |
+
+  | `device_id` | string | ✅ | UUID (max 36). |
+
+
+  ### 📤 Response
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `phone_masked` | string | Yashirilgan telefon raqami |
+
+  | `expires_in` | int | OTP muddati soniyalarda (`180`) |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `400` | Validatsiya: `phone`/`device_id` yo''q yoki format xato |
+
+  | `400` | `No account found with this phone number.` |
+
+  | `400` | OTP rate limit (soatiga 5) |
+
+  | `400` | SMS yuborishda xatolik |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
