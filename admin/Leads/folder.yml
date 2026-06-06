@@ -1,0 +1,6 @@
+info:
+  name: Leads
+  type: folder
+  seq: 58
+request:
+  auth: inherit

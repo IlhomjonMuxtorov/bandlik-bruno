@@ -1,0 +1,102 @@
+info:
+  name: 1. Leads List
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/leads?q=&status=&country_id=&organization_id=&per-page=20'
+  auth: inherit
+params:
+  query:
+    - name: q
+      value: ''
+      enabled: true
+    - name: status
+      value: ''
+      enabled: true
+    - name: country_id
+      value: ''
+      enabled: true
+    - name: organization_id
+      value: ''
+      enabled: true
+    - name: per-page
+      value: '20'
+      enabled: true
+docs: >
+  "Foydalanuvchilar" (super admin) / "Leadlar" (admin) ekrani — barcha
+  nomzod-tipidagi (`user.type = candidate`) leadlar. Bu to'liq funnel: ariza
+  bermagandan (Yangi) to rad etilgan / boshqa ishga o'tganlargacha. "Kandidatlar"
+  (`GET /admin/candidates`) shu ro'yxatning faqat *qabul qilingan* (pipeline)
+  kichik to'plamidir.
+
+
+  Funnel "Holati" mavjud ma'lumotdan **hisoblanadi** (saqlanmaydi) — lead erishgan
+  eng yuqori bosqich olinadi (precedence: `boshqa_ishga_otgan` > `tasdiqlangan` >
+  `suhbatda` > `ariza_topshirgan` > `rad_etilgan` > `yangi`).
+
+
+  **Auth:** `access_token` (admin). Faqat `user.type = admin` foydalanuvchilar.
+
+
+  ### 🔎 Query Parameters
+
+
+  | Param | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `q` | string | ➖ | FISH (pasport ism/familiya/otasining ismi) yoki `username` / `phone` bo'yicha qidiruv (ILIKE) |
+
+  | `status` | string | ➖ | Funnel "Holati" tab: `yangi` \| `ariza_topshirgan` \| `suhbatda` \| `tasdiqlangan` \| `boshqa_ishga_otgan` \| `rad_etilgan` |
+
+  | `country_id` | int | ➖ | Lead bog'langan (ariza yoki pipeline) vakansiya davlati bo'yicha filtr |
+
+  | `organization_id` | int | ➖ | Lead bog'langan vakansiya XBA tashkiloti (egasi yoki rekruteri) bo'yicha filtr |
+
+  | `sort` | string | ➖ | `id` \| `created_at` (oldiga `-` qo'yilsa kamayish; default `id DESC`) |
+
+  | `per-page` | int | ➖ | 1..100 (default 20) |
+
+  | `page` | int | ➖ | 1-indeksli |
+
+
+  ### 📤 Response (`data`)
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `items` | array | Leadlar |
+
+  | `pagination` | object | `{page, page_size, total_count, page_count}` |
+
+
+  Har bir element:
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `id` | int | User id |
+
+  | `candidate` | object | `{id, full_name, phone, photo_url, location}`. `id` `null` bo'lishi mumkin (hali candidate profili yaratilmagan lead). `full_name` — pasport ismi, yo'q bo'lsa `username` |
+
+  | `vacancy` | object \| null | Vakil vakansiya `{id, title}` — funnel bosqichi olingan ariza/pipeline vakansiyasi. "Yangi" leadda `null` |
+
+  | `experience_years` / `experience_months` / `experience_total_months` | int | Primary CV bo'yicha ish tajribasi (CV yo'q bo'lsa 0) |
+
+  | `match_score` | int \| null | Moslik darajasi — hozircha `null` (keyinchalik ulanadi) |
+
+  | `funnel_status` / `funnel_status_label` | string | Hisoblangan "Holati" + tarjima qilingan label |
+
+  | `source` / `source_label` | string \| null | Lead manbasi: `web` \| `telegram` \| `instagram` \| `tanish` \| `other` |
+
+  | `created_at` / `created_at_formatted` | int / string | Ro'yxatdan o'tgan vaqt |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
