@@ -6,56 +6,40 @@ http:
   method: GET
   url: '{{base_url}}/admin/employers/1/employees?per-page=20'
   auth: inherit
-docs: 'Ish beruvchi tashkilotning **Xodimlar** tabi.
-
+docs: |-
+  Ish beruvchi tashkilotning **Xodimlar** tabi.
 
   **Auth:** `admin_token`.
 
-
   ### 🔎 Query Parameters
 
-
   | Param | Type | Required | Description |
-
   |---|---|:---:|---|
-
-  | `q` | string | ➖ | F.I.SH / rol / telefon bo''yicha qidiruv |
-
+  | `q` | string | ➖ | F.I.SH / rol / telefon bo'yicha qidiruv |
   | `is_active` | int (0\|1) | ➖ | |
-
   | `page`, `per-page` | int | ➖ | Pagination |
-
 
   ### 📤 Response (`data.items[]` — `OrganizationEmployeeOutputDTO`)
 
-
   | Field | Type | Description |
-
   |---|---|---|
-
   | `id` | int | |
-
   | `organization_id` | int | |
-
   | `user_id` | int \| null | Agar xodim alohida login olsa |
-
   | `full_name` | string | |
-
   | `phone` | string \| null | |
-
-  | `role` | string | "XBA agenti 1", "XBA admin" va h.k. |
-
+  | `role` | string | "Ish beruvchi agenti 1", "Ish beruvchi admin" va h.k. |
+  | `profile_photo_url` | string \| null | To'liq URL |
+  | `vacancies_count` | int | Xodim ishtirok etgan distinct vakansiyalar (servis buyurtmalaridan) |
+  | `candidates_count` | int | Xodim xizmat ko'rsatgan distinct nomzodlar |
   | `joined_at` | int \| null | Unix timestamp |
-
   | `joined_at_formatted` | string \| null | `d.m.Y H:i` (Asia/Tashkent) |
-
   | `is_active` | bool | |
-
   | `created_at` / `updated_at` | int | |
-
   | `created_at_formatted` / `updated_at_formatted` | string | `d.m.Y H:i` (Asia/Tashkent) |
 
-  '
+  > `vacancies_count` / `candidates_count` butun tashkilot uchun bitta query'da batch
+  > hisoblanadi (N+1 yo'q) — `organization_service_order` dagi `employee_id` asosida.
 settings:
   encodeUrl: true
   timeout: 0

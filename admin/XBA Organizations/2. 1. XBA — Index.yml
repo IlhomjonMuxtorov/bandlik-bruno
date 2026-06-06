@@ -56,7 +56,7 @@ docs: |-
   | `facebook_url` | string \| null | |
   | `x_url` | string \| null | |
   | `is_active` | bool | |
-  | `counts` | object | Har bir qator uchun agregat: `{agents_count, vacancies_count, candidates_count}`. Joriy sahifa uchun batch hisoblanadi (N+1 yo'q). |
+  | `counts` | object | Har bir qator uchun agregat: `{agents_count, vacancies_count, candidates_count, revenue}`. Joriy sahifa uchun batch hisoblanadi (N+1 yo'q). |
   | `created_at` | int | Unix timestamp |
   | `created_at_formatted` | string | `d.m.Y H:i` (Asia/Tashkent) |
   | `updated_at` | int | Unix timestamp |
@@ -64,7 +64,9 @@ docs: |-
 
   > **`counts`** — `agents_count` = faol xodimlar; `vacancies_count` = tashkilot
   > vakansiyalari; `candidates_count` = tashkilot vakansiyalariga bog'langan distinct
-  > nomzodlar. Ro'yxat (Index) javobida har bir elementga qo'shiladi; detal (`View`)
+  > nomzodlar; `revenue` = yakunlangan servis buyurtmalari summasi (so'm). XBA uchun
+  > vakansiyalar `organization_id` bo'yicha hisoblanadi (XBA — vakansiyani boshqaruvchi
+  > agentlik). Ro'yxat (Index) javobida har bir elementga qo'shiladi; detal (`View`)
   > javobida esa `stats` ichida kengaytirilgan ko'rsatkichlar bo'ladi.
 settings:
   encodeUrl: true

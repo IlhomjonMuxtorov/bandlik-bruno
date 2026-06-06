@@ -6,13 +6,36 @@ http:
   method: GET
   url: '{{base_url}}/admin/employers/1'
   auth: inherit
-docs: "Bitta Ish beruvchi tashkiloti + `stats` sub-object:\n\n```json\n{\n  \"id\"\
-  : 1,\n  \"type\": 2,\n  \"type_label\": \"Ish beruvchi\",\n  \"name\": \"...\",\n\
-  \  ...\n  \"stats\": {\n    \"total_revenue\": 48000000,\n    \"clients_count\"\
-  : 1920,\n    \"services_count\": 10,\n    \"employees_count\": 12\n  }\n}\n```\n\
-  \n**Auth:** `admin_token`.\n\n### ⚠️ Errors\n\n| Code | Reason |\n|---|---|\n| `404`\
-  \ | Ish beruvchi topilmadi (cross-type isolation: XBA/Visa id'si bilan urinilganda\
-  \ ham 404) |\n"
+docs: |-
+  Bitta Ish beruvchi tashkiloti (`type = 6`) + `stats` sub-object.
+
+  **Auth:** `admin_token`.
+
+  ### 📤 Response — `stats`
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `total_revenue` | int | Yakunlangan servis buyurtmalari summasi (so'm) |
+  | `clients_count` | int | Distinct mijozlar (nomzodlar) |
+  | `services_count` | int | Xizmatlar soni |
+  | `employees_count` | int | Faol xodimlar |
+  | `active_vacancies_count` | int | Arxivlanmagan vakansiyalar (badge) |
+  | `archived_vacancies_count` | int | Arxiv vakansiyalar (badge) |
+  | `this_month_candidates` | int | Shu oydagi nomzodlar |
+  | `this_month_vacancies` | int | Shu oydagi vakansiyalar |
+  | `refunded_amount` | int | Qaytarilgan to'lovlar summasi |
+
+  > **Bog'lanish qoidasi:** vakansiyaga oid ko'rsatkichlar (`active_vacancies_count`,
+  > `archived_vacancies_count`, `this_month_candidates`, `this_month_vacancies`)
+  > **`recruiter_id = <employer id>`** bo'yicha hisoblanadi (`vacancy.organization_id`
+  > doim XBA agentligi). `total_revenue` / `clients_count` / `services_count` /
+  > `employees_count` / `refunded_amount` esa tashkilotning o'z id'si bo'yicha.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Ish beruvchi topilmadi (cross-type isolation: XBA/Visa id'si bilan urinilganda ham 404) |
 settings:
   encodeUrl: true
   timeout: 0

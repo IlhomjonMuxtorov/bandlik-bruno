@@ -16,6 +16,7 @@ http:
       {
         "save_as_template": false,
         "organization_id": 1,
+        "recruiter_id": 6,
         "industry_id": 1,
         "title": "Restoran Xizmatchisi",
         "description": "Zamonaviy restoranda ofitsiant.",
@@ -98,8 +99,8 @@ docs: |
 
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `organization_id` | int | ✅ | Ish beruvchi yoki rekruter tashkiloti |
-  | `recruiter_id` | int | ➖ | Employer yaratayotgan bo'lsa biriktirilgan rekruter |
+  | `organization_id` | int | ✅ | **XBA** tashkiloti (boshqaruvchi agentlik). Faqat `XBA`-type org qabul qilinadi — aks holda `422`. |
+  | `recruiter_id` | int | ➖ | Biriktirilgan **ish beruvchi YOKI rekruter** ("Ish beruvchi / Rekruter" tanlovi). Faqat `EMPLOYER` yoki `RECRUITER`-type org qabul qilinadi — aks holda `422`. |
   | `industry_id` | int | ➖ | Soha ID |
   | `title` | string | ✅ | Sarlavha |
   | `description` | string | ➖ | Tavsif (HTML/markdown) |
@@ -141,9 +142,9 @@ docs: |
 
   | Code | Reason |
   |---|---|
-  | `422` | Validatsiya xatosi |
+  | `422` | Validatsiya xatosi. Jumladan: `organization_id` XBA-type emas; `recruiter_id` EMPLOYER/RECRUITER-type emas |
   | `400` | Snapshot xatosi (Organization service topilmadi / boshqa tashkilotga tegishli); `agency` xizmati yo'q yoki narxi 0; **service_groups** xatosi (tashkilot takrorlangan, bir kategoriya ikki tashkilotda, organization yo'q, muddat 0/yo'q, yoki guruhda xizmat yo'q) |
-  | `403` | Boshqa tashkilot uchun yaratish |
+  | `403` | Non-admin: aktyorning org'i na `organization_id` (XBA) na `recruiter_id` ga mos kelmasa |
 settings:
   encodeUrl: true
   timeout: 0

@@ -20,7 +20,10 @@ docs: |-
   | `this_month_vacancies` | int | Joriy oyda yaratilgan shu tur vakansiyalari. |
   | `refunded_amount` | int | Yakunlangan refund summasi (`transaction.type = REFUND`, `status = COMPLETED`). |
 
-  > Faqat `type = EMPLOYER (6)` yozuvlari bo'yicha hisoblanadi.
+  > Faqat `type = EMPLOYER (6)` yozuvlari bo'yicha hisoblanadi. Vakansiya/nomzod count'lari
+  > **`vacancy.recruiter_id`** bo'yicha bog'lanadi (ish beruvchiga biriktirilgan vakansiyalar;
+  > `vacancy.organization_id` doim XBA agentligi). `total_revenue` / `refunded_amount` esa
+  > tashkilotning o'z buyurtma/tranzaksiyalari bo'yicha.
 settings:
   encodeUrl: true
   timeout: 0

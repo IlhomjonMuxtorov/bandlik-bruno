@@ -1,0 +1,63 @@
+info:
+  name: '10. Ish beruvchi — Tab: Active Vacancies'
+  type: http
+  seq: 11
+http:
+  method: GET
+  url: '{{base_url}}/admin/employers/1/vacancies?per-page=20'
+  auth: inherit
+docs: |-
+  Ish beruvchi tashkilotning **Aktiv vakansiyalar** tabi — arxivlanmagan
+  (`status <> archived`) barcha vakansiyalar (Faol / Kutilayotgan / Qoralama / Yopilgan).
+
+  > **Bog'lanish qoidasi:** `vacancy.organization_id` doim **XBA** agentligi; vakansiyaga
+  > biriktirilgan **ish beruvchi YOKI rekruter** esa `vacancy.recruiter_id` da turadi
+  > ("Ish beruvchi / Rekruter" tanlovi ikkala turni ham qabul qiladi). Shu sababli bu tab
+  > vakansiyalarni **`recruiter_id = <employer id>`** bo'yicha filtrlaydi — `organization_id`
+  > emas.
+
+  **Auth:** `admin_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `q` | string | ➖ | Vakansiya sarlavhasi bo'yicha `ILIKE` qidiruv. |
+  | `status` | string | ➖ | `draft` \| `pending_approval` \| `approved` \| `rejected` \| `closed`. |
+  | `country_id` | int | ➖ | Davlat filtri. |
+  | `city_id` | int \| int[] | ➖ | Shahar(lar) filtri. |
+  | `page`, `per-page` | int | ➖ | Pagination. |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {{ _.admin_token }}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` |
+
+  ### 📤 Response (`data.items[]` — `OrganizationVacancyListItemOutputDTO`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | |
+  | `title` | string | Vakansiya nomi |
+  | `country` | string \| null | Joriy tildagi davlat nomi |
+  | `city` | string \| null | Joriy tildagi shahar nomi |
+  | `location` | string \| null | `"Shahar, Davlat"` (mavjud bo'lganlaridan tuziladi) |
+  | `salary_gross` | int \| null | Maosh (gross) |
+  | `salary_gross_currency` | string \| null | `USD` \| `UZS` … |
+  | `salary_net` | int \| null | Maosh (net) |
+  | `salary_net_currency` | string \| null | |
+  | `candidates_count` | int | Pipeline'dagi nomzodlar soni (`vacancy_candidate`) |
+  | `filled` | int | Jo'nab ketgan (`departed`) nomzodlar — to'ldirilgan kvota |
+  | `hiring_quota` | int | Umumiy kvota → "Kvota hajmi" = `filled`/`hiring_quota` |
+  | `status` | string | `draft` \| `pending_approval` \| `approved` \| `closed` … |
+  | `status_label` | string | Joriy tildagi status yorlig'i |
+
+  > `candidates_count` / `filled` joriy sahifa uchun batch hisoblanadi (N+1 yo'q).
+  > "Kvota hajmi" indikatori (masalan `46/100`) = `filled` / `hiring_quota`.
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

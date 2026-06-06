@@ -6,24 +6,33 @@ http:
   method: GET
   url: '{{base_url}}/admin/recruiters?per-page=20'
   auth: inherit
-docs: 'Rekruter tashkilotlari ro''yxati. Faqat `type = 2` yozuvlar qaytadi.
-
+docs: |-
+  Rekruter tashkilotlari ro'yxati. Faqat `type = 7` (RECRUITER) yozuvlar qaytadi.
 
   **Auth:** `admin_token`.
 
-
   ### 🔎 Query Parameters
 
+  XBA Index bilan bir xil: `q`, `region_id`, `district_id`, `country_id`, `city_id`,
+  `is_active`, `page`, `per-page`.
 
-  XBA Index bilan bir xil: `q`, `region_id`, `district_id`, `is_active`, `page`, `per-page`.
+  ### 📤 Response (`data.items[]` — `OrganizationOutputDTO`)
 
+  XBA Index bilan bir xil maydonlar (`type = 7`, `type_label = "Rekruter"`), plyus
+  har bir qatorga **`counts`** obyekti qo'shiladi:
 
-  ### 📤 Response
+  | Field | Type | Description |
+  |---|---|---|
+  | `counts.agents_count` | int | Faol xodimlar soni |
+  | `counts.vacancies_count` | int | Tashkilotga biriktirilgan vakansiyalar (`recruiter_id` bo'yicha) |
+  | `counts.candidates_count` | int | O'sha vakansiyalardagi distinct nomzodlar |
+  | `counts.revenue` | int | **Daromadi** — yakunlangan servis buyurtmalari summasi (so'm) |
 
-
-  `data.items[]` — `OrganizationOutputDTO` (`type = 2`, `type_label = "Rekruter"`).
-
-  '
+  > **Bog'lanish qoidasi:** vakansiya/nomzod hisobi `recruiter_id = <recruiter id>` bo'yicha
+  > olinadi (`vacancy.organization_id` doim XBA agentligi). **`revenue`** esa tashkilotning
+  > o'z `organization_service_order` lari bo'yicha (org id), turdan qat'i nazar. `counts`
+  > joriy sahifa uchun batch hisoblanadi (N+1 yo'q); detal (`View`) javobida `stats` ichida
+  > kengaytirilgan ko'rsatkichlar bo'ladi.
 settings:
   encodeUrl: true
   timeout: 0
