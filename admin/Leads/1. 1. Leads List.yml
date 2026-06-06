@@ -48,10 +48,12 @@ params:
       value: '20'
       enabled: true
 docs: >
-  "Foydalanuvchilar" (super admin) / "Leadlar" (admin) ekrani — barcha
-  nomzod-tipidagi (`user.type = candidate`) leadlar. To'liq funnel: ariza
-  bermagandan (Yangi) to rad etilgan / boshqa ishga o'tganlargacha. "Kandidatlar"
-  (`GET /admin/candidates`) shu ro'yxatning *qabul qilingan* (pipeline) qismi.
+  "Foydalanuvchilar" (super admin) / "Leadlar" (admin) ekrani — nomzod-tipidagi
+  (`user.type = candidate`) real leadlar. **Anonim guestlar** (`status = Guest` —
+  ilova ochgan, lekin passport/profil to'ldirmagan) ro'yxatdan **chiqariladi**.
+  To'liq funnel: ariza bermagandan (Yangi) to rad etilgan / boshqa ishga
+  o'tganlargacha. "Kandidatlar" (`GET /admin/candidates`) shu ro'yxatning *qabul
+  qilingan* (pipeline) qismi.
 
 
   Funnel "Holati" mavjud ma'lumotdan **hisoblanadi** (saqlanmaydi).
