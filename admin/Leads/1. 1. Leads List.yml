@@ -71,7 +71,7 @@ docs: >
 
   | `q` | string | ➖ | FISH (pasport ism/familiya/otasining ismi) yoki `username` / `phone` (ILIKE) |
 
-  | `status` | string | ➖ | Funnel tab: `yangi` \| `ariza_topshirgan` \| `suhbatda` \| `tasdiqlangan` \| `boshqa_ishga_otgan` \| `rad_etilgan` |
+  | `status` | string | ➖ | Funnel tab: `new` \| `applied` \| `in_interview` \| `confirmed` \| `moved_to_other_job` \| `rejected` |
 
   | `country_id` | int | ➖ | Lead bog'langan vakansiya davlati |
 

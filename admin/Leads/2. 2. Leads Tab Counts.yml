@@ -39,17 +39,17 @@ docs: >
 
   | `all` | int | Barcha leadlar (filtr bilan) |
 
-  | `yangi` | int | Hali ariza bermagan |
+  | `new` | int | Hali ariza bermagan |
 
-  | `ariza_topshirgan` | int | Arizasi `applied` |
+  | `applied` | int | Arizasi `applied` |
 
-  | `suhbatda` | int | Arizasi `reviewed` |
+  | `in_interview` | int | Arizasi `reviewed` |
 
-  | `tasdiqlangan` | int | Faol (terminal bo'lmagan) pipeline'da |
+  | `confirmed` | int | Faol (terminal bo'lmagan) pipeline'da |
 
-  | `boshqa_ishga_otgan` | int | Pipeline'da `departed` |
+  | `moved_to_other_job` | int | Pipeline'da `departed` |
 
-  | `rad_etilgan` | int | Arizasi `rejected` yoki pipeline terminal-fail |
+  | `rejected` | int | Arizasi `rejected` yoki pipeline terminal-fail |
 settings:
   encodeUrl: true
   timeout: 0
