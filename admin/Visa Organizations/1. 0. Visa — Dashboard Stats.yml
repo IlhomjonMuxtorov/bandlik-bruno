@@ -15,13 +15,17 @@ docs: |-
 
   | Field | Type | Description |
   |---|---|---|
-  | `total_revenue` | int | Barcha vaqtlar uchun yakunlangan buyurtmalar summasi (UZS). |
+  | `total_revenue` | int | Barcha vaqtlar uchun yakunlangan buyurtmalar summasi, UZS ("Umumiy daromad"). |
   | `this_month_candidates` | int | Joriy oyda shu tur vakansiyalariga kelgan nomzodlar (distinct). |
   | `this_month_vacancies` | int | Joriy oyda yaratilgan shu tur vakansiyalari. |
-  | `refunded_amount` | int | Yakunlangan refund summasi (`transaction.type = REFUND`, `status = COMPLETED`). |
+  | `refunded_amount` | int | Yakunlangan refund summasi (`transaction.type = REFUND`, `status = COMPLETED`) ("Qaytarilgan to'lovlar"). |
+  | `this_month_revenue` | int | Joriy oyda yakunlangan buyurtmalar summasi, UZS ("Shu oydagi daromad"). |
+  | `holding_amount` | int | Shu tur tashkilot hamyonlaridagi eskrou (`wallet.hold_balance`) summasi, UZS ("Holdingdagi summa"). |
 
   > Faqat `type = VISA (5)` yozuvlari bo'yicha hisoblanadi. Vakansiyaga ega bo'lmagan
   > turlarda `this_month_candidates` / `this_month_vacancies` `0` bo'lishi mumkin.
+  > `this_month_revenue` va `holding_amount` xizmat-tipdagi tashkilotlar (Visa/Notarius/...)
+  > pul kartalari uchun; faqat to'ldirilganda qaytadi.
 settings:
   encodeUrl: true
   timeout: 0

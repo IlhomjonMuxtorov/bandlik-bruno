@@ -6,22 +6,31 @@ http:
   method: GET
   url: '{{base_url}}/admin/visa/1'
   auth: inherit
-docs: 'Bitta Viza tashkiloti haqida to''liq ma''lumot + `stats`.
-
+docs: |-
+  Bitta Viza tashkiloti haqida to'liq ma'lumot + `stats`.
 
   **Auth:** `admin_token`.
 
+  ### 📤 Response (`data` — `OrganizationOutputDTO`)
+
+  Asosiy maydonlardan tashqari audit maydonlari ham qaytadi (detal sahifasidagi
+  "Kim tomonidan yaratilgan" uchun):
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `created_by` | int \| null | Yaratuvchi foydalanuvchi `id`. |
+  | `created_by_name` | string \| null | Yaratuvchi ismi (admin profil F.I.SH, aks holda login/email). |
+  | `updated_by` | int \| null | Oxirgi tahrirlovchi `id`. |
+  | `updated_by_name` | string \| null | Oxirgi tahrirlovchi ismi. |
+
+  `stats` obyektida `total_revenue`, `clients_count`, `services_count`, `employees_count`
+  kabi detal kartalari bo'ladi.
 
   ### ⚠️ Errors
 
-
   | Code | Reason |
-
   |---|---|
-
   | `404` | Viza tashkilot topilmadi |
-
-  '
 settings:
   encodeUrl: true
   timeout: 0

@@ -6,60 +6,44 @@ http:
   method: GET
   url: '{{base_url}}/admin/visa/1/clients?per-page=20'
   auth: inherit
-docs: 'Visa tashkilotning **Mijozlar** tabi — DISTINCT kandidatlar bo''yicha oxirgi
-  xizmat ma''lumotlari.
-
+docs: |-
+  Visa tashkilotning **Mijozlar** tabi — DISTINCT kandidatlar bo'yicha oxirgi
+  xizmat ma'lumotlari.
 
   Query murakkab: `organization_service_order` → kandidat → `passport_data` (F.I.SH)
-  + `user.phone`, har bir kandidat uchun **oxirgi** buyurtma (`MAX(served_at|created_at)`).
-
+  + `user.phone`, kandidatning yashash joyi (`candidates.registration_region/district`,
+  bo'sh bo'lsa `birth_*` ga fallback) va oxirgi buyurtma vakansiyasi (`vacancy_id` →
+  `vacancy`), har bir kandidat uchun **oxirgi** buyurtma (`MAX(served_at|created_at)`).
 
   **Auth:** `admin_token`.
 
-
   ### 🔎 Query Parameters
 
-
   | Param | Type | Required | Description |
-
   |---|---|:---:|---|
-
-  | `q` | string | ➖ | Kandidat F.I.SH / telefon bo''yicha qidiruv |
-
-  | `status` | int (1\|2\|3) | ➖ | Buyurtma statusi bo''yicha filtr |
-
+  | `q` | string | ➖ | Kandidat F.I.SH / telefon bo'yicha qidiruv |
+  | `status` | int (1\|2\|3) | ➖ | Buyurtma statusi bo'yicha filtr |
   | `page`, `per-page` | int | ➖ | |
 
+  Lokalizatsiya: `Accept-Language` (`uz` \| `ru` \| `en`, default `uz`) vakansiya agentligi nomiga ta'sir qiladi. Region/district matnli (free-text) saqlangan.
 
   ### 📤 Response (`data.items[]` — `OrganizationClientOutputDTO`)
 
-
   | Field | Type | Description |
-
   |---|---|---|
-
   | `candidate_id` | int | |
-
-  | `full_name` | string | Latin yoki Cyrillic (passport ma''lumotidan) |
-
+  | `full_name` | string | Latin yoki Cyrillic (passport ma'lumotidan) |
   | `phone` | string \| null | |
-
-  | `region_name` | string \| null | Hozircha `null` (kelajakda kandidat passport
-  joyidan hisoblanadi) |
-
-  | `district_name` | string \| null | Hozircha `null` |
-
-  | `last_amount` | int \| null | Oxirgi xizmat to''lovi (UZS) |
-
+  | `region_name` | string \| null | Kandidat yashash viloyati (matn; registration, fallback birth) |
+  | `district_name` | string \| null | Kandidat yashash tumani (matn; registration, fallback birth) |
+  | `vacancy_id` | int \| null | Oxirgi buyurtma bog'langan vakansiya |
+  | `vacancy_title` | string \| null | Vakansiya nomi ("Topshirgan vakansiya") |
+  | `vacancy_agency` | string \| null | Vakansiya egasi agentlik nomi (XBA), lokalizatsiyalangan |
+  | `last_amount` | int \| null | Oxirgi xizmat to'lovi (UZS) |
   | `last_served_at` | int \| null | Oxirgi xizmat sanasi (Unix ts) |
-
   | `last_served_at_formatted` | string \| null | `d.m.Y H:i` (Asia/Tashkent) |
-
   | `last_status` | int | Oxirgi buyurtma statusi (1/2/3) |
-
   | `orders_count` | int | Shu org-ga jami buyurtmalar soni |
-
-  '
 settings:
   encodeUrl: true
   timeout: 0
