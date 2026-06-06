@@ -1,0 +1,58 @@
+info:
+  name: 1. Dashboard — Candidates
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/dashboard/candidates?year=2026'
+  auth: inherit
+docs: |
+  Dashboard "Foydalanuvchilar" tab — barcha kartochka va chartlar bitta javobda.
+  Kandidat holatlari `vacancy_candidate.journey_status` bo'yicha (pipeline yozuvi
+  bo'yicha — bir kandidat bir nechta vakansiyada bo'lsa har biri alohida sanaladi).
+  Lead = ro'yxatdan o'tgan foydalanuvchi (`user`, type=candidate).
+
+  **Auth:** `admin_token`. Faqat admin.
+
+  ### 🔎 Query Params
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `year` | int | ➖ | Time-series chartlar uchun yil. Default: joriy yil. |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {admin_token}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz`. |
+
+  ### 📤 Response (`data`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `year` | int | So'ralgan yil |
+  | `summary.new_users_this_month` | int | Shu oy yangi ro'yxatdan o'tgan leadlar |
+  | `summary.candidates_in_process` | int | Jarayondagi (pending/course/visa_pending) |
+  | `summary.departed_candidates` | int | Jo'nab ketgan (departed) |
+  | `summary.rejected_candidates` | int | Rad etilgan (course_failed/visa_rejected/dropped_out) |
+  | `candidate_growth` | object | 3 seriya: `xba`, `employer`, `recruiter` — har biri 12 oy `[{month,count}]` |
+  | `conversion_funnel` | array | `[{stage,count}]`: `ariza`→`tasdiqlangan`→`tolov`→`viza`→`jonab` (kumulyativ) |
+  | `status_distribution` | array | `[{key,count,percent}]`: `awaiting`,`in_process`,`success`,`stopped` |
+  | `leads_growth` | array | 12 oy `[{month,count}]` — yangi lead registratsiyalari |
+  | `leads_by_source` | object | `{today, total, sources:[{source,label,count,percent}]}` |
+
+  > **Eslatma:** `conversion_funnel.tolov` journey'da to'lov holati yo'qligi sababli
+  > `course_passed` proxy milestone bo'yicha hisoblanadi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q / eskirgan |
+  | `403` | Admin emas |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

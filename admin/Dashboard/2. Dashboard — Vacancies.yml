@@ -1,0 +1,52 @@
+info:
+  name: 2. Dashboard — Vacancies
+  type: http
+  seq: 2
+http:
+  method: GET
+  url: '{{base_url}}/admin/dashboard/vacancies?year=2026'
+  auth: inherit
+docs: |
+  Dashboard "Vakansiyalar" tab — kartochkalar + chartlar bitta javobda.
+  Vakansiya holatlari `vacancy.status` bo'yicha. Country/job-type nomlari
+  `Accept-Language` ga qarab lokalizatsiya qilinadi.
+
+  **Auth:** `admin_token`. Faqat admin.
+
+  ### 🔎 Query Params
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `year` | int | ➖ | `vacancy_growth` chart uchun yil. Default: joriy yil. |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {admin_token}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz`. |
+
+  ### 📤 Response (`data`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `year` | int | So'ralgan yil |
+  | `summary.created_today` | int | Bugun yaratilgan vakansiyalar |
+  | `summary.in_process` | int | Jarayondagi (`approved`) |
+  | `summary.successfully_completed` | int | Muvaffaqiyatli tugatilgan (`closed`) |
+  | `summary.unsuccessfully_closed` | int | Muvaffaqiyatsiz yopilgan (`archived`) |
+  | `vacancy_growth` | object | 3 seriya: `xba`, `employer`, `recruiter` — har biri 12 oy `[{month,count}]` |
+  | `by_country` | array | `[{country_id,name,count}]` — davlat bo'yicha (top 10, ko'pdan-kamga) |
+  | `by_job_type` | array | `[{industry_id,name,count,percent}]` — ish turi (soha) bo'yicha |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q / eskirgan |
+  | `403` | Admin emas |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

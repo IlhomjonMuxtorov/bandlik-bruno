@@ -1,0 +1,50 @@
+info:
+  name: 3. Dashboard — Partners
+  type: http
+  seq: 3
+http:
+  method: GET
+  url: '{{base_url}}/admin/dashboard/partners?year=2026'
+  auth: inherit
+docs: |
+  Dashboard "Hamkor tashkilotlar" tab — kartochkalar + stacked chart.
+  Kartochkalar — faol (`is_active`) partner tashkilotlar soni tur bo'yicha.
+  Chart — muvaffaqiyatli yakunlangan kandidat xizmatlari (`vacancy_candidate_service`
+  `status=completed`), oy × partner-tur bo'yicha (`category` ustuni bo'yicha guruhlangan).
+
+  **Auth:** `admin_token`. Faqat admin.
+
+  ### 🔎 Query Params
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `year` | int | ➖ | `closed_candidates_chart` uchun yil. Default: joriy yil. |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {admin_token}` |
+
+  ### 📤 Response (`data`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `year` | int | So'ralgan yil |
+  | `summary.logistics` | int | Faol logistika tashkilotlari soni |
+  | `summary.notarius` | int | Faol notarius tashkilotlari soni |
+  | `summary.insurance` | int | Faol sug'urta tashkilotlari soni |
+  | `summary.visa` | int | Faol viza tashkilotlari soni |
+  | `closed_candidates_chart` | object | 4 seriya: `logistics`, `notarius`, `insurance`, `visa` — har biri 12 oy `[{month,count}]` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q / eskirgan |
+  | `403` | Admin emas |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
