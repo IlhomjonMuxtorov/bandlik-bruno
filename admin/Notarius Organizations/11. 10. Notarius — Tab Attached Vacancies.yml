@@ -1,0 +1,64 @@
+info:
+  name: '10. Notarius — Tab: Attached Vacancies'
+  type: http
+  seq: 11
+http:
+  method: GET
+  url: '{{base_url}}/admin/notarius/1/attached-vacancies?per-page=20'
+  auth: inherit
+docs: |-
+  Notarius tashkilotning **Biriktirilgan vakansiyalar** tabi — bu tashkilot xizmat
+  ko'rsatuvchi sifatida biriktirilgan vakansiyalar (har qanday status). Biriktirish
+  `vacancy_service_group` (unique `vacancy_id` + `organization_id`) orqali aniqlanadi —
+  ya'ni vakansiya egasi emas, balki unga xizmat ko'rsatuvchi tashkilot.
+
+  **Auth:** `admin_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `q` | string | ➖ | Vakansiya sarlavhasi bo'yicha `ILIKE` qidiruv. |
+  | `status` | string | ➖ | `draft` \| `pending_approval` \| `approved` \| `rejected` \| `closed`. |
+  | `country_id` | int | ➖ | Davlat filtri. |
+  | `city_id` | int \| int[] | ➖ | Shahar(lar) filtri. |
+  | `page`, `per-page` | int | ➖ | Pagination. |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {{ _.admin_token }}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` |
+
+  ### 📤 Response (`data.items[]` — `OrganizationVacancyListItemOutputDTO`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | |
+  | `title` | string | Vakansiya nomi |
+  | `country` | string \| null | Joriy tildagi davlat nomi |
+  | `city` | string \| null | Joriy tildagi shahar nomi |
+  | `location` | string \| null | `"Shahar, Davlat"` |
+  | `salary_gross` | int \| null | Maosh (gross) |
+  | `salary_gross_currency` | string \| null | `USD` \| `UZS` … |
+  | `salary_net` | int \| null | Maosh (net) |
+  | `salary_net_currency` | string \| null | |
+  | `candidates_count` | int | Pipeline'dagi nomzodlar soni (`vacancy_candidate`) |
+  | `filled` | int | Jo'nab ketgan (`departed`) nomzodlar — to'ldirilgan kvota |
+  | `hiring_quota` | int | Umumiy kvota → "Kvota hajmi" = `filled`/`hiring_quota` |
+  | `status` | string | `draft` \| `pending_approval` \| `approved` \| `closed` … |
+  | `status_label` | string | Joriy tildagi status yorlig'i |
+
+  > `candidates_count` / `filled` joriy sahifa uchun batch hisoblanadi (N+1 yo'q).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Notarius tashkilot topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

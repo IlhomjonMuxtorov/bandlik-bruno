@@ -6,24 +6,25 @@ http:
   method: GET
   url: '{{base_url}}/admin/logistics?per-page=20'
   auth: inherit
-docs: 'Logistika tashkilotlari ro''yxati. Faqat `type = 2` yozuvlar qaytadi.
-
+docs: |-
+  Logistika tashkilotlari ro'yxati. Faqat `type = 3` yozuvlar qaytadi.
 
   **Auth:** `admin_token`.
 
-
   ### 🔎 Query Parameters
-
 
   XBA Index bilan bir xil: `q`, `region_id`, `district_id`, `is_active`, `page`, `per-page`.
 
-
   ### 📤 Response
 
+  `data.items[]` — `OrganizationOutputDTO` (`type = 3`, `type_label = "Logistika"`). Har bir
+  qatorga service-org `counts` obyekti qo'shiladi (batched, N+1 siz):
 
-  `data.items[]` — `OrganizationOutputDTO` (`type = 2`, `type_label = "Logistika"`).
-
-  '
+  | Field | Type | Description |
+  |---|---|---|
+  | `counts.employees_count` | int | Faol xodimlar soni ("Xodimlar"). |
+  | `counts.clients_count` | int | Xizmat ko'rsatilgan distinct kandidatlar ("Mijozlar"). |
+  | `counts.revenue` | int | Yakunlangan buyurtmalar summasi, UZS ("Daromadi"). |
 settings:
   encodeUrl: true
   timeout: 0
