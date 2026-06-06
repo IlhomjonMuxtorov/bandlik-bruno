@@ -161,6 +161,19 @@ variables:
 ✅ Request/response examples  
 ✅ Error handling documentation  
 
+## 💱 Currency — UZS only
+
+Butun platforma summalarni **UZS** da saqlaydi. Pul qabul qiluvchi **barcha**
+endpointlarda `currency` maydoni faqat `UZS` bo'lishi mumkin (yoki umuman
+yuborilmaydi — default `UZS`). Boshqa valyuta (`USD` / `EUR`) yuborilsa:
+
+- **v1 / admin**: `422` — `{ "errors": { "currency": ["Only UZS currency is accepted"] } }`
+- **mobile**: `400` — `{ "status_code": 400, "errors": ["Only UZS currency is accepted"] }`
+
+`USD`/`EUR` enum case'lari faqat tarixiy ma'lumotni o'qish uchun qoladi; yangi
+yozuvlar uchun ishlatilmaydi. Tegishli endpointlar: Wallet (Payout/Top-up/Pay),
+Payment, Expenses, Vacancy (salary), va Notary/Insurance/Educational narx CRUD'lari.
+
 ## 📖 Documentation
 
 - Full guide: See `/var/www/xba/docs/BRUNO_CONVERSION_SUMMARY.md`
@@ -170,6 +183,7 @@ variables:
 
 - **2026-05-20**: Initial conversion from Insomnia JSON to Bruno YAML format
 - **2026-06-13**: Added App Info — mobile Support/About/FAQ (3) + admin App Setting & FAQ CRUD (7)
+- **2026-06-06**: Platform-wide UZS-only — money endpoints reject non-UZS `currency` (422/admin·v1, 400/mobile)
 - **Format**: Bruno 3.3+ OpenCollection YAML
 - **Conversion Tool**: Python script (automatic)
 

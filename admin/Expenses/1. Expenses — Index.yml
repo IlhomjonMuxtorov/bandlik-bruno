@@ -44,7 +44,7 @@ docs: 'Platforma operatsion xarajatlari ro''yxati (maoshlar, marketing, SMS, ofi
 
   | `category` | string | yuqoridagi kodlardan biri |
 
-  | `currency` | string | `UZS` \| `USD` \| `EUR` |
+  | `currency` | string | Faqat `UZS` (default; boshqasi → `422`) |
 
   | `from` / `to` | int | `occurred_at` unix timestamp |
 

@@ -45,8 +45,8 @@ docs: 'Partner tashkilot o''z wallet balansidan bank hisobiga pul yechib olish s
 
   | `amount` | int | ✅ | Tiyin/sentda (UZS uchun so''m * 100). `> 0` va `<= available` |
 
-  | `currency` | string | ✅ | `UZS` \| `USD` \| `EUR` (shu valyutada wallet bo''lishi
-  shart) |
+  | `currency` | string | ➖ | Faqat `UZS` (default `UZS`). Boshqa valyuta yuborilsa
+  `422`. |
 
   | `bank_details` | object | ✅ | Bank rekvizitlari (free-form jsonb). Kamida `account`
   bo''lishi tavsiya etiladi |
