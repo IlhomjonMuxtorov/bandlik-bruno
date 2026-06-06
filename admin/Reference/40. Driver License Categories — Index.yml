@@ -1,0 +1,25 @@
+info:
+  name: Driver License Categories — Index
+  type: http
+  seq: 40
+http:
+  method: GET
+  url: '{{base_url}}/admin/driver-license-categories'
+  auth: inherit
+params: {}
+docs: >
+  Haydovchilik guvohnomasi kategoriyalari ro'yxati (enum'dan) — leadlar Filter
+  panelidagi "Haydovchilik guvohnomasi" tanlovi uchun.
+
+
+  **Auth:** `access_token` (admin).
+
+
+  ### 📤 Response (`data`)
+
+  Massiv: `[{ value, label }]` — `A`, `B`, `C`, `D`, `E`, `BE`, `CE`, `DE`, `TM`, `TB`.
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

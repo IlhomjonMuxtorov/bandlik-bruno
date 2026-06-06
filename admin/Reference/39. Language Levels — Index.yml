@@ -1,0 +1,30 @@
+info:
+  name: Language Levels — Index
+  type: http
+  seq: 39
+http:
+  method: GET
+  url: '{{base_url}}/admin/language-levels'
+  auth: inherit
+params: {}
+headers:
+  - name: Accept-Language
+    value: uz
+    enabled: true
+docs: >
+  Til bilish darajalari ro'yxati (A1..C2, native) — leadlar Filter panelidagi
+  "Tillar" daraja dropdowni uchun.
+
+
+  **Auth:** `access_token` (admin).
+
+
+  ### 📤 Response (`data`)
+
+  Massiv: `[{ id, code, name }]` (`code` masalan `A1`/`B2`/`native`; `name` —
+  `Accept-Language` bo'yicha string).
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

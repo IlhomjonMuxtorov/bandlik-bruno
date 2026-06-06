@@ -1,0 +1,62 @@
+info:
+  name: 5. Bulk Status
+  type: http
+  seq: 5
+http:
+  method: POST
+  url: '{{base_url}}/admin/leads/bulk-status'
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: "{\n  \"lead_ids\": [1, 2, 3],\n  \"action\": \"review\",\n  \"reason\": \"\"\n}"
+  auth: inherit
+docs: >
+  Tanlangan leadlarga ommaviy amal — "N ta tanlangan: Suhbatga taklif / Tasdiqlash /
+  Rad etish". Har lead'ning **vakil arizasi** (funnel statusi olingan ariza) ustida
+  ishlaydi; mavjud `VacancyApplicationService::updateStatus()` qayta ishlatiladi
+  (accept → pipeline yaratiladi, "one active offer" qoidasi, reject → sabab majburiy).
+
+
+  **Auth:** `access_token` (admin).
+
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `lead_ids` | int[] | ✅ | User id'lar ro'yxati |
+
+  | `action` | string | ✅ | `review` (Suhbatga taklif) \| `accept` (Tasdiqlash) \| `reject` (Rad etish) |
+
+  | `reason` | string | ➖ | `reject` uchun **majburiy** (hammaga umumiy matn) |
+
+
+  ### 📤 Response (`data`)
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `processed` | int | Muvaffaqiyatli o'zgartirilgan arizalar soni |
+
+  | `skipped` | array | `[{lead_id, reason}]` — vakil arizasi yo'q ("Yangi") yoki allaqachon hal qilingan |
+
+  | `failed` | array | `[{lead_id, error}]` — topilmadi yoki xato (masalan "one active offer") |
+
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `422` | `lead_ids` bo'sh, noto'g'ri `action`, yoki `reject` da `reason` yo'q |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

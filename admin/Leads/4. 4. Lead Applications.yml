@@ -1,0 +1,73 @@
+info:
+  name: 4. Lead Applications
+  type: http
+  seq: 4
+http:
+  method: GET
+  url: '{{base_url}}/admin/leads/1/applications?status=&per-page=20'
+  auth: inherit
+params:
+  query:
+    - name: status
+      value: ''
+      enabled: true
+    - name: per-page
+      value: '20'
+      enabled: true
+headers:
+  - name: Accept-Language
+    value: uz
+    enabled: true
+docs: >
+  Lead'ning barcha vakansiyalarga topshirgan arizalari — detal sahifasidagi
+  "Topshirgan vakansiyalari" / "Arizalar tarixi" tablari. `id` = **user id**.
+
+
+  Frontend tablarni `status` bo'yicha ajratishi mumkin (yoki barchasini olib client
+  tarafda). Har element vakansiya detali (maosh, bandlik turi, ish jadvali/vaqti,
+  davomiyligi, davlat/shahar) + `chat_id` + accepted bo'lsa `pipeline` bilan.
+
+
+  **Auth:** `access_token` (admin).
+
+
+  ### 🔎 Query Parameters
+
+
+  | Param | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `status` | string | ➖ | `applied` \| `reviewed` \| `accepted` \| `rejected` |
+
+  | `per-page` | int | ➖ | 1..100 (default 20) |
+
+
+  ### 📤 Response (`data`)
+
+
+  `items[]` + `pagination`. Har element:
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `id` | int | Ariza id |
+
+  | `status` / `status_label` | string | `applied`/`reviewed`/`accepted`/`rejected` |
+
+  | `rejection_reason` | string \| null | |
+
+  | `chat_id` | int \| null | "Chat" tugmasi → `GET /admin/chats/<chat_id>` |
+
+  | `applied_at` / `reviewed_at` / `decided_at` (+`_formatted`) | int / string | |
+
+  | `vacancy` | object | `{id, title, country{id,name,iso_code,flag_url}, city{id,name}, salary_gross, salary_gross_currency, salary_net, salary_net_currency, employment_type(+_label), work_schedule(+_label), work_time_from, work_time_to, duration_months_min, duration_months_max}` |
+
+  | `pipeline` | object \| null | Accepted bo'lsa: `{id, journey_status(+_label), course_progress_percent, collected_amount, collected_currency, accepted_at(+_formatted), departed_at(+_formatted)}` |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
