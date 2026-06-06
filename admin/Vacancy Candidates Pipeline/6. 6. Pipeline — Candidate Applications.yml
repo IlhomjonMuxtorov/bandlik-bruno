@@ -1,0 +1,48 @@
+info:
+  name: 6. Pipeline — Candidate Applications
+  type: http
+  seq: 6
+http:
+  method: GET
+  url: '{{base_url}}/admin/vacancy-candidates/1/applications?status=&per-page=20'
+  auth: inherit
+params:
+  query:
+    - name: status
+      value: ''
+      enabled: true
+    - name: per-page
+      value: '20'
+      enabled: true
+headers:
+  - name: Accept-Language
+    value: uz
+    enabled: true
+docs: >
+  Kandidatning barcha vakansiyalarga arizalari ("Tasdiqlangan arizasi" + "Arizalar
+  tarixi"). Lead applications endpoint bilan bir xil DTO.
+
+
+  **Auth:** `access_token` (admin yoki o'z tashkiloti aktyori).
+
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `status` | string | ➖ | `applied` \| `reviewed` \| `accepted` \| `rejected` |
+
+  | `per-page` | int | ➖ | 1..100 (default 20) |
+
+
+  ### 📤 Response (`data`)
+
+  `items[]` (`{id, status(+label), vacancy{maosh/bandlik/jadval/davlat...}, chat_id,
+  pipeline{journey_status...}}`) + `pagination`.
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

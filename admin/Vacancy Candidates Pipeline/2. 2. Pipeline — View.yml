@@ -14,12 +14,16 @@ docs: 'Pipeline yozuvi tafsiloti.
 
   ### 📤 Response
 
-  Global Index elementi bilan bir xil shakl (`id, vacancy, candidate, journey_status,
-  course_progress_percent, collected_amount, stages[], service_groups[]`).
+  Global Index elementi bilan bir xil shakl (`id, vacancy, candidate, match_score,
+  journey_status, course_progress_percent, collected_amount, stages[], service_groups[]`).
+
+  - `match_score` (int|null) — "Mos kelish darajasi": kandidatning visa-survey foizi
+  vakansiya davlati bo''yicha (survey yo''q bo''lsa `null`).
 
   - `stages[]` — tekis ro''yxat; har biri `responsible_user` (xizmatni beruvchi tashkilot
-  useri: `{id, username, full_name, phone, photo_url}`) va `organization`
-  (`{id, name, type, type_label, logo_url}`) bilan boyitilgan.
+  useri: `{id, username, full_name, phone, photo_url}`), `organization`
+  (`{id, name, type, type_label, logo_url}`) va **`documents[]`** (bosqich hujjatlari:
+  `{id, type, title, upload_file:{url, original_name, file_size, ...}, created_at}`) bilan boyitilgan.
 
   - `service_groups[]` — bosqichlar **tashkilot bo''yicha guruhlangan** + guruh bo''yicha
   ketma-ket to''lov holati: `{service_group_id, organization, responsible_user, stages[], required_amount,

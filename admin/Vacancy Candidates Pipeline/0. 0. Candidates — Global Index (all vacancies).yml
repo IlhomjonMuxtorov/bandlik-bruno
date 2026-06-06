@@ -95,6 +95,8 @@ docs: 'Global "Kandidatlar" ekrani — barcha vakansiyalar bo''yicha nomzodlar (
 
   | `candidate` | object | `{id, full_name, phone, photo_url}` |
 
+  | `match_score` | int \| null | Mos kelish darajasi (visa-survey, vakansiya davlati bo''yicha; `null` agar survey yo''q) |
+
   | `journey_status` / `_label` | string | |
 
   | `course_progress_percent` | int | 0..100 — Kurs progressi |
@@ -103,9 +105,10 @@ docs: 'Global "Kandidatlar" ekrani — barcha vakansiyalar bo''yicha nomzodlar (
 
   | `stages` | array | "Joriy status" bosqichlari (`sort_order ASC`). Har biri: `{id,
   category, category_label, service_name, amount, currency, funded, status, status_label,
-  service_group_id, responsible_user, organization, started_at, payment_deadline_at, deadline_at, completed_at, progress_percent, sort_order}`.
+  service_group_id, responsible_user, organization, started_at, payment_deadline_at, deadline_at, completed_at, progress_percent, sort_order, documents[]}`.
   `responsible_user` = xizmatni beruvchi tashkilot useri `{id, username, full_name, phone,
-  photo_url}`; `organization` = `{id, name, type, type_label, logo_url}` |
+  photo_url}`; `organization` = `{id, name, type, type_label, logo_url}`;
+  `documents[]` = bosqich hujjatlari `{id, type, title, upload_file:{url, original_name, ...}, created_at}` |
 
   | `service_groups` | array | Bosqichlar **tashkilot bo''yicha guruhlangan** + guruh bo''yicha
   ketma-ket to''lov holati. Har biri: `{organization, responsible_user, stages[],

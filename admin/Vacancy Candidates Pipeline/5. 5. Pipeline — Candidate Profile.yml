@@ -1,0 +1,31 @@
+info:
+  name: 5. Pipeline — Candidate Profile
+  type: http
+  seq: 5
+http:
+  method: GET
+  url: '{{base_url}}/admin/vacancy-candidates/1/profile'
+  auth: inherit
+params: {}
+headers:
+  - name: Accept-Language
+    value: uz
+    enabled: true
+docs: >
+  Kandidat detal "Umumiy ma'lumot" tab — to'liq profil (mobil CV / lead profili
+  bilan bir xil shakl, `CvOutputDTO`). CV bor bo'lsa to'liq, yo'q bo'lsa minimal
+  (CV-scoped bo'limlar bo'sh).
+
+
+  **Auth:** `access_token` (admin yoki o'z tashkiloti aktyori).
+
+
+  ### 📤 Response (`data`)
+
+  `header, personal, birth_place, passport, registration, education[], experience[],
+  family, languages[], documents[], driver, courses[], visas[], contact`.
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

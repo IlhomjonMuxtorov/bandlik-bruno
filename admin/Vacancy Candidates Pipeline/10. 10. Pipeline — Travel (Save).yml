@@ -1,0 +1,36 @@
+info:
+  name: 10. Pipeline — Travel (Save)
+  type: http
+  seq: 10
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancy-candidates/1/travel'
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: "{\n  \"departure_country\": \"O'zbekiston\",\n  \"departure_city\": \"Toshkent\",\n  \"departure_airport\": \"Toshkent xalqaro aeroporti\",\n  \"departure_at\": 1806240600,\n  \"arrival_country\": \"Rossiya\",\n  \"arrival_city\": \"Moskva\",\n  \"arrival_airport\": \"Sheremetyevo (SVO)\",\n  \"arrival_at\": 1806261000,\n  \"airline\": \"Uzbekistan Airways\",\n  \"flight_number\": \"DP-6823\",\n  \"aircraft\": \"BOEING 737-800\",\n  \"sender_name\": \"Timur Rustamov\",\n  \"sender_phone\": \"+998 94 233 99 88\",\n  \"sender_address\": \"Toshkent\",\n  \"sender_at\": 1806240600,\n  \"receiver_name\": \"Timur Rustamov\",\n  \"receiver_phone\": \"+998 94 233 99 88\",\n  \"receiver_pickup_address\": \"Sheremetyevo (SVO)\",\n  \"receiver_pickup_at\": 1806261000,\n  \"notes\": \"\"\n}"
+  auth: inherit
+docs: >
+  "Safar ma'lumotlari" ni saqlash (upsert — to'liq almashtirish; bir kandidatga
+  bitta yozuv). Sana maydonlari unix timestamp (sekund).
+
+
+  **Auth:** `access_token` (admin yoki o'z tashkiloti aktyori).
+
+
+  ### 📥 Request Body (barchasi ixtiyoriy)
+
+  Parvoz: `departure_country/city/airport`, `departure_at`, `arrival_country/city/airport`,
+  `arrival_at`. Bilet: `airline`, `flight_number`, `aircraft`. Kuzatuvchi:
+  `sender_name/phone/address`, `sender_at`. Kutib oluvchi: `receiver_name/phone`,
+  `receiver_pickup_address`, `receiver_pickup_at`. `notes`.
+
+
+  ### 📤 Response (`data`) — saqlangan travel obyekti (Get bilan bir xil shakl).
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,49 @@
+info:
+  name: 12. Stage Document — Create
+  type: http
+  seq: 12
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancy-candidate-services/1/documents'
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: "{\n  \"upload_file_id\": 1,\n  \"title\": \"Sayohat sug'urtasi (VZR)\",\n  \"type\": \"insurance_policy\"\n}"
+  auth: inherit
+docs: >
+  Bosqichga (xizmat) hujjat biriktirish (Progress tab). **Ikki qadam:** avval
+  `POST /admin/upload` faylni yuklaydi → `upload_file_id`, keyin shu endpoint biriktiradi.
+
+
+  > Yaratilgandan so'ng hujjat **chatga ham** `Document` xabar bo'lib yuboriladi
+  (nomzod chatdan yuklab oladi); chatdan tashqarida esa active-offer/Progress
+  `stages[].documents[]` da ko'rinadi.
+
+
+  **Auth:** `access_token` (admin yoki o'z tashkiloti aktyori). `<serviceId>` =
+  `vacancy_candidate_service.id`.
+
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `upload_file_id` | int | ✅ | `/admin/upload` qaytargan fayl id |
+
+  | `title` | string | ✅ | Hujjat nomi |
+
+  | `type` | string | ➖ | Masalan `insurance_policy`, `visa`, `translation` |
+
+
+  ### 📤 Response (`data`)
+
+  `{id, service_id, type, title, upload_file:{url,...}, created_at(+formatted)}`.
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

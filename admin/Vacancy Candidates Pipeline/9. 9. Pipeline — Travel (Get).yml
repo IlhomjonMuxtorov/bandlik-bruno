@@ -1,0 +1,28 @@
+info:
+  name: 9. Pipeline — Travel (Get)
+  type: http
+  seq: 9
+http:
+  method: GET
+  url: '{{base_url}}/admin/vacancy-candidates/1/travel'
+  auth: inherit
+params: {}
+docs: >
+  Kandidat detal "Safar ma'lumotlari" tab — parvoz + avia bilet + kuzatuvchi/kutib
+  oluvchi shaxs. Hali kiritilmagan bo'lsa `data: null`.
+
+
+  **Auth:** `access_token` (admin yoki o'z tashkiloti aktyori).
+
+
+  ### 📤 Response (`data`)
+
+  `{id, flight:{departure{country,city,airport,at(+formatted)}, arrival{...}, airline,
+  flight_number, aircraft}, sender{name,phone,address,at(+formatted)},
+  receiver{name,phone,pickup_address,pickup_at(+formatted)}, notes, created_at, updated_at}`
+  yoki `null`.
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

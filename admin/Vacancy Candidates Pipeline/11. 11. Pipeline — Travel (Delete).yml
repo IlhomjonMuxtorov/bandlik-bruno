@@ -1,0 +1,19 @@
+info:
+  name: 11. Pipeline — Travel (Delete)
+  type: http
+  seq: 11
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/vacancy-candidates/1/travel'
+  auth: inherit
+params: {}
+docs: >
+  Kandidatning "Safar ma'lumotlari" yozuvini o'chirish.
+
+
+  **Auth:** `access_token` (admin yoki o'z tashkiloti aktyori).
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

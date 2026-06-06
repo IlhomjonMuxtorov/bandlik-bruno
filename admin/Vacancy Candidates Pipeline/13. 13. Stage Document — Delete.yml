@@ -1,0 +1,20 @@
+info:
+  name: 13. Stage Document — Delete
+  type: http
+  seq: 13
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/vacancy-candidate-service-documents/1'
+  auth: inherit
+params: {}
+docs: >
+  Bosqich hujjatini o'chirish. `<id>` = `vacancy_candidate_service_document.id`.
+  Chatga yuborilgan xabar tarixiy qoladi (o'chirilmaydi).
+
+
+  **Auth:** `access_token` (admin yoki o'z tashkiloti aktyori).
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

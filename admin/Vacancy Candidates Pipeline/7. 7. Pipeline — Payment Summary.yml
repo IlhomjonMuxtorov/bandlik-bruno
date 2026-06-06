@@ -1,0 +1,37 @@
+info:
+  name: 7. Pipeline — Payment Summary
+  type: http
+  seq: 7
+http:
+  method: GET
+  url: '{{base_url}}/admin/vacancy-candidates/1/payment-summary'
+  auth: inherit
+params: {}
+docs: >
+  Kandidat detal "To'lovlar" tab — wallet jami + xizmat kategoriyasi bo'yicha
+  guruhlangan to'lov tarixi (mavjud `transaction` ledger ustida).
+
+
+  **Auth:** `access_token` (admin yoki o'z tashkiloti aktyori).
+
+
+  ### 📤 Response (`data`)
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `total` | int | `collected_amount` (umumiy summa) |
+
+  | `held` | int | reserved − captured (holddagi summa) |
+
+  | `reserved` / `captured` | int | |
+
+  | `currency` | string | |
+
+  | `groups` | array | `[{category, label, total, transactions:[{id, amount, currency, provider(+label), status(+label), paid_at(+formatted), created_at(+formatted)}]}]` |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

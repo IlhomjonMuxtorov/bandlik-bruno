@@ -1,0 +1,27 @@
+info:
+  name: 8. Pipeline — Courses
+  type: http
+  seq: 8
+http:
+  method: GET
+  url: '{{base_url}}/admin/vacancy-candidates/1/courses'
+  auth: inherit
+params: {}
+docs: >
+  Kandidat detal "Kurs progressi" tab — kandidat ro'yxatdan o'tgan o'quv kurslari
+  (OrganizationServiceOrder orqali) + har biri uchun progress % (CourseLessonProgress
+  o'rtachasi).
+
+
+  **Auth:** `access_token` (admin yoki o'z tashkiloti aktyori).
+
+
+  ### 📤 Response (`data`)
+
+  Massiv: `[{course_id, name, level, duration_hours, lessons_count, cover_url,
+  progress_percent}]`.
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
