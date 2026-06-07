@@ -37,6 +37,9 @@ docs: |-
   | `id` | int | Tashkilot ID |
   | `name` | string | Tashkilot nomi |
   | `logo_url` | string \| null | Logotip URL (logotip yuklanmagan bo'lsa `null`) |
+  | `vacancy_count` | int | Tasdiqlangan (approved) vakansiyalar soni |
+  | `phone` | string | Telefon raqami |
+  | `address` | string | Manzil (`Accept-Language` tiliga ko'ra lokalizatsiya) |
 
   ### ⚠️ Errors
 
