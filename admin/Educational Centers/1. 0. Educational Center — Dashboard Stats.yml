@@ -7,7 +7,8 @@ http:
   url: '{{base_url}}/admin/educational-centers/stats'
   auth: inherit
 docs: |-
-  O'quv markazlari modulining yuqori statistika kartochkalari (ro'yxat sahifasi ustidagi 4 ta karta).
+  O'quv markazlari modulining yuqori statistika kartochkalari (ro'yxat sahifasi ustidagi 4 ta karta):
+  **Umumiy daromad**, **Shu oydagi bitiruvchilar**, **Shu oydagi daromad**, **Shu oydagi yangi qo'shilganlar**.
 
   **Auth:** `admin_token`.
 
@@ -15,15 +16,14 @@ docs: |-
 
   | Field | Type | Description |
   |---|---|---|
-  | `total_revenue` | int | Barcha vaqtlar uchun yakunlangan buyurtmalar summasi (UZS). |
-  | `this_month_candidates` | int | Joriy oyda shu tur vakansiyalariga kelgan nomzodlar (distinct). |
-  | `this_month_vacancies` | int | Joriy oyda yaratilgan shu tur vakansiyalari. |
-  | `refunded_amount` | int | Yakunlangan refund summasi (`transaction.type = REFUND`, `status = COMPLETED`). |
+  | `total_revenue` | int | Barcha vaqtlar uchun yakunlangan kurs buyurtmalari summasi (UZS). |
+  | `this_month_graduates` | int | Joriy oyda yakunlangan (`status = completed`, `served_at` shu oyda) kurs buyurtmalari soni. |
+  | `this_month_revenue` | int | Joriy oyda yakunlangan kurs buyurtmalari summasi. |
+  | `this_month_new_students` | int | Joriy oyda qo'shilgan (`created_at` shu oyda) distinct kandidatlar. |
 
-  > Faqat `type = EDUCATIONAL_CENTER (8)` yozuvlari bo'yicha hisoblanadi. O'quv markazlari
-  > vakansiyaga ega bo'lmagani uchun `this_month_candidates` / `this_month_vacancies`
-  > odatda `0`. Markazga xos batafsil ko'rsatkichlar uchun **Center Stats** endpointidan
-  > foydalaning (`students_count`, `courses_count`, `this_month_revenue`).
+  > Barcha ko'rsatkichlar `educational_course` ga bog'langan `organization_service_order`
+  > yozuvlaridan, har bir o'quv markazi bo'yicha yig'iladi (`getCenterStats()` bilan bir xil
+  > manba). Bitta markaz kesimidagi ko'rsatkichlar uchun **Center Stats** endpointidan foydalaning.
 settings:
   encodeUrl: true
   timeout: 0

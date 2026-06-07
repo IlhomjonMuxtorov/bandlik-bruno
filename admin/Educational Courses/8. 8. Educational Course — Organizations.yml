@@ -1,0 +1,51 @@
+info:
+  name: 8. Educational Course — Organizations
+  type: http
+  seq: 8
+http:
+  method: GET
+  url: '{{base_url}}/admin/educational-courses/1/organizations?per-page=20'
+  auth: inherit
+docs: |-
+  Kurs detali sahifasidagi "Tashkilotlar" ro'yxati. Kursni Training xizmati sifatida
+  biriktirgan vakansiyalarga ega XBA tashkilotlari (`vacancy.organization_id`) bo'yicha
+  guruhlanadi.
+
+  Zanjir: `vacancy_service` (`educational_course_id`, `category = training`)
+  → `vacancy` (egasi agentlik) → `vacancy_candidate` → `vacancy_candidate_service`.
+
+  **Auth:** `admin_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `q` | string | ➖ | Tashkilot nomi bo'yicha qidiruv. |
+  | `region_id` | int | ➖ | Viloyat bo'yicha filtr. |
+  | `page`, `per-page` | int | ➖ | Pagination (max per-page = 100). |
+
+  ### 📤 Response (`data.items[]`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `organization_id` | int | XBA tashkilot ID. |
+  | `name` | string | Tashkilot nomi (lokalizatsiyalangan). |
+  | `region_name` | string \| null | Viloyat nomi. |
+  | `district_name` | string \| null | Tuman nomi. |
+  | `location` | string | `region, district` birlashmasi. |
+  | `attached_vacancies` | int | Kurs biriktirilgan vakansiyalar soni ("Biriktirilgan vakansiyalar"). |
+  | `in_progress` | int | Jarayondagilar — status `pending` \| `awaiting_payment` \| `in_progress`. |
+  | `completed` | int | Tugatganlar — status `completed`. |
+  | `not_finished` | int | Yakunlamaganlar — status `overdue` \| `payment_overdue` \| `skipped`. |
+  | `paid_sum` | int | To'langan summalar — `vacancy_candidate_service.amount`, `funded_at IS NOT NULL` (UZS). |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Kurs topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

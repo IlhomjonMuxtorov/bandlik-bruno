@@ -1,0 +1,50 @@
+info:
+  name: 9. Educational Course — Organization Candidates
+  type: http
+  seq: 9
+http:
+  method: GET
+  url: '{{base_url}}/admin/educational-courses/1/organizations/1/candidates?status=in_progress&per-page=20'
+  auth: inherit
+docs: |-
+  "Tashkilotlar" qatoridan ochiladigan modal: bitta agentlik (`vacancy.organization_id = orgId`)
+  ning shu kursning Training bosqichidagi kandidatlari. Modal tablari: **Jarayondagi** /
+  **Tugatgan** / **Yakunlay olmaganlar** — `status` query param orqali filtrlanadi. Tab
+  sanoqlari **Organizations** endpointidagi qatordan olinadi (`in_progress` / `completed` /
+  `not_finished`).
+
+  **Auth:** `admin_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `status` | string | ➖ | Tab filtri: `in_progress` \| `completed` \| `not_finished`. Bo'sh bo'lsa — barchasi. |
+  | `q` | string | ➖ | F.I.SH yoki telefon bo'yicha qidiruv. |
+  | `page`, `per-page` | int | ➖ | Pagination (max per-page = 100). |
+
+  ### 📤 Response (`data.items[]`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `candidate_id` | int | Kandidat ID. |
+  | `full_name` | string | F.I.SH (lotin, fallback kirill). |
+  | `phone` | string \| null | Telefon raqam. |
+  | `started_at` | int \| null | Boshlagan vaqti (`vacancy_candidate_service.started_at`, fallback `created_at`), unix. |
+  | `started_at_formatted` | string \| null | Inson o'qiy oladigan format. |
+  | `course_progress` | float | Kurs progressi (%) — Articulate darslari o'rtachasi (`course_lesson_progress`). |
+  | `payment` | int | Kursga to'lovi — `vacancy_candidate_service.amount` (UZS). |
+  | `status` | string | Bosqich statusi (`vacancy_candidate_service.status`). |
+  | `status_label` | string | Lokalizatsiyalangan status nomi. |
+  | `exam` | null | Imtixon — hozircha placeholder (`null`). |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Kurs topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

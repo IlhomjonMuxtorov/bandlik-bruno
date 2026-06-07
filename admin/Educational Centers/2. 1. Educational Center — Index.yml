@@ -35,6 +35,19 @@ docs: 'O''quv markazlari ro''yxati. Faqat `type = 8` (EDUCATIONAL_CENTER) yozuvl
 
   `data.items[]` — `OrganizationOutputDTO` (`type = 8`, `type_label = "O''quv markazi"`).
 
+  Har bir qatorga ro''yxat sahifasi ustunlari uchun `counts` ob''ekti qo''shiladi (batched, faqat shu sahifa uchun):
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `counts.courses_count` | int | Markazning kurslari soni ("Kurslar"). |
+
+  | `counts.students_count` | int | Distinct o''quvchilar soni ("O''quvchilar"). |
+
+  | `counts.revenue` | int | Yakunlangan buyurtmalar daromadi, UZS ("Daromad"). |
+
 
   '
 settings:
