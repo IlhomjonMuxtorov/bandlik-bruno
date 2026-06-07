@@ -1,0 +1,80 @@
+info:
+  name: 6. Verify Identity (MVD)
+  type: http
+  seq: 13
+http:
+  method: POST
+  url: '{{base_url}}/mobile/auth/verify-identity'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"passport_series\": \"AA\",\n  \"passport_number\": \"1234567\",\n\
+      \  \"birth_date\": \"01.01.1990\"\n}"
+  auth:
+    type: bearer
+    token: '{{access_token}}'
+docs: 'Ro''yxatdan o''tgan, lekin MVD orqali tasdiqlanmagan (`is_verified: false`)
+  aktiv foydalanuvchi shaxsini qayta tasdiqlaydi. Pasport ma''lumotlari MVD''dan qayta
+  so''raladi; muvaffaqiyatli bo''lsa hisob `is_verified: true` bo''ladi va xizmatlar
+  ochiladi.
+
+
+  > MVD ro''yxatdan o''tishda ma''lumot bermaganda foydalanuvchi *tasdiqlanmagan mijoz*
+  sifatida tizimga kiradi (browsing/profil ochiq), lekin to''lov, hamyon, vakansiyaga
+  ariza va kurs sotib olish kabi **xizmatlar** uchun shu endpoint orqali tasdiqlanishi
+  shart.
+
+
+  **Auth:** `access_token`. Mehmon (guest) → `456`.
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `passport_series` | string | ✅ | 2 harf. Avtomatik katta harfga o''tkaziladi. |
+
+  | `passport_number` | string | ✅ | 7 raqam. |
+
+  | `birth_date` | string | ✅ | `d.m.Y` (masalan `01.01.1990`). |
+
+
+  ### 📤 Response
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `is_verified` | bool | Doim `true` (muvaffaqiyatli tasdiqlandi). |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `400` | Validatsiya xatosi |
+
+  | `400` | MVD ma''lumot bermadi (OneID blok / topilmadi / server xatosi) — tasdiqlanmagan
+  qoladi |
+
+  | `400` | Pasport boshqa tasdiqlangan hisobga tegishli |
+
+  | `401` | `access_token` yo''q yoki muddati o''tgan |
+
+  | `456` | Mehmon (guest) — avval passport → verify-phone orqali ro''yxatdan o''tish kerak |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -16,8 +16,14 @@ http:
   auth:
     type: bearer
     token: '{{guest_token}}'
-docs: 'Pasport ma''lumotlarini **MVD GCP API** orqali tekshiradi. Muvaffaqiyatli bo''lsa,
-  ko''rsatilgan telefonga 6 xonali OTP yuboriladi.
+docs: 'Pasport ma''lumotlarini **MVD GCP API** orqali tekshiradi va ko''rsatilgan
+  telefonga 6 xonali OTP yuboradi.
+
+
+  > **MVD ma''lumot bermasa (OneID blok / topilmadi / server xatosi) ham ro''yxatdan
+  o''tish RAD ETILMAYDI.** Foydalanuvchi OTP orqali davom etadi va *tasdiqlanmagan
+  mijoz* (`is_verified: false`) sifatida tizimga kiradi. Xizmatlardan foydalanish uchun
+  keyin `POST /mobile/auth/verify-identity` orqali tasdiqlanishi kerak.
 
 
   **Auth:** `guest_token` (1-qadamdan olingan).
@@ -69,9 +75,7 @@ docs: 'Pasport ma''lumotlarini **MVD GCP API** orqali tekshiradi. Muvaffaqiyatli
 
   | `400` | Validatsiya xatosi |
 
-  | `400` | MVD: pasport topilmadi yoki ma''lumotlar mos kelmadi |
-
-  | `400` | MVD: pasport muddati o''tgan |
+  | `400` | MVD: pasport muddati o''tgan (ma''lumot bor, lekin amal qilmaydi) |
 
   | `400` | OTP rate limit (telefon uchun so''rovlar oshdi) |
 

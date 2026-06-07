@@ -77,7 +77,10 @@ docs: 'Nomzod xizmat buyurtmasi uchun to''lov sessiyasini ochadi. Tanlangan gate
 
   | `401` | Token yo''q |
 
-  | `403` | Boshqa nomzod orderi |
+  | `403` | Boshqa nomzod orderi, yoki shaxs tasdiqlanmagan (`verification_required:
+  true`) — avval `POST /mobile/auth/verify-identity` |
+
+  | `456` | Mehmon (guest) — to''liq ro''yxatdan o''tish kerak |
 
   | `404` | Buyurtma topilmadi |
 

@@ -42,6 +42,8 @@ docs: |-
   | `400` | CV to'liq emas / `draft` ("Your CV is incomplete...") |
   | `409` | Allaqachon ariza topshirilgan |
   | `401` | Token yo'q |
+  | `403` | Shaxs tasdiqlanmagan (`verification_required: true`) — avval `POST /mobile/auth/verify-identity` |
+  | `456` | Mehmon (guest) — to'liq ro'yxatdan o'tish kerak |
   | `404` | Vakansiya yoki nomzod topilmadi |
 settings:
   encodeUrl: true

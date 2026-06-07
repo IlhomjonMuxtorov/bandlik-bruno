@@ -23,6 +23,12 @@ docs: 'SMS orqali kelgan OTP kodni tasdiqlaydi. Muvaffaqiyatli bo''lsa guest his
   guest o''chiriladi.
 
 
+  > **`is_verified`:** 2-qadamda (Passport Auth) MVD ma''lumot bergan bo''lsa hisob
+  `is_verified: true` bo''ladi; MVD ma''lumot bermagan bo''lsa hisob aktiv, lekin
+  `is_verified: false` (tasdiqlanmagan) — xizmatlar uchun `verify-identity` talab qilinadi.
+  Profil holatini `GET /mobile/candidate/...` (`is_verified`) orqali tekshiring.
+
+
   **Auth:** `guest_token` (1-qadamdan olingan).
 
 

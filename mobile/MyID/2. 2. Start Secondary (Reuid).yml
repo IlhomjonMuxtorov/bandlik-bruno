@@ -15,11 +15,15 @@ http:
   auth:
     type: bearer
     token: '{{guest_token}}'
-docs: "# Reuid orqali session yaratish\n\nOldin qilgan identifikatsiyaning reuid-i\
-  \ bilan qayta session yaratish. Parol tiklash yoki boshqa qurilmadan kirish uchun.\n\
-  \n**Auth:** `guest_token` (kamida guest token kerak)  \n**Returns:** `{ session_id }`\n\n### \U0001F4E5 Request Body\n\
+docs: "# Reuid orqali session yaratish\n\nOldin birlamchi (primary) identifikatsiyadan\
+  \ olingan reuid bilan qayta session yaratish — qaytgan foydalanuvchi faqat yuzini\
+  \ skanerlab kiradi (passport qayta kiritilmaydi). So'ngra `verify` chaqiriladi va u\
+  \ to'g'ridan-to'g'ri token juftligini qaytaradi (qarang \"3. Verify\").\n\n> reuid\
+  \ `Candidate.myid_reuid` da saqlanadi (primary verify paytida). Muddati o'tgan bo'lsa\
+  \ secondary ishlamaydi — primary (passport) orqali qayta tasdiqlash kerak.\n\n**Auth:**\
+  \ `guest_token` (kamida guest token kerak)  \n**Returns:** `{ session_id }`\n\n### \U0001F4E5 Request Body\n\
   \n| Field | Type | Required | Description |\n|---|---|:---:|---|\n| `reuid` | string\
-  \ | ✅ | Qayta foydalanish uchun ID (oldin olingan) |\n| `phone` | string | ➖ | Telefon\
+  \ | ✅ | Qayta foydalanish uchun ID (primary verify'dan olingan) |\n| `phone` | string | ➖ | Telefon\
   \ raqami |\n| `threshold` | number | ➖ | Yuz moslik progi, default: 0.85 |\n"
 settings:
   encodeUrl: true

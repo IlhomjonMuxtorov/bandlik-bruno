@@ -20,6 +20,7 @@ docs: |-
   | Code | Reason |
   |---|---|
   | `401` | Token yo'q |
+  | `403` | Shaxs tasdiqlanmagan (`verification_required: true`) — avval `POST /mobile/auth/verify-identity` |
   | `404` | Vakansiya topilmadi yoki `approved` emas / nomzod topilmadi |
   | `456` | Mehmon foydalanuvchi — ro'yxatdan o'tish talab qilinadi |
 settings:

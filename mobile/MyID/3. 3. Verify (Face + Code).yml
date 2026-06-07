@@ -18,7 +18,18 @@ http:
 docs: "# Yuz tanishni va kodni tasdiqlash\n\nMyID SDK tarafidan qaytarilgan yuz rasmini\
   \ va kodni yuboradi. Backend identifikatsiyani tasdiqlaydi, passport bo'yicha foydalanuvchini\
   \ topadi/yaratadi va tizimga kiritadi. Javob `verify-phone` bilan bir xil — token juftligi.\n\
-  \n**Auth:** `guest_token` (kamida guest token kerak)  \n**Returns:** `{ access_token, refresh_token, expires_in, token_type\
+  \n> **MVD + `is_verified`:** Yuz mosligi o'tgach backend pasport ma'lumotini **MVD'dan**\
+  \ ham olib keladi. MVD muvaffaqiyatli javob bersa hisob `is_verified: true` (to'liq\
+  \ pasport ma'lumoti yoziladi). **MVD xato bersa, yuz mosligi o'tgan bo'lsa ham hisob\
+  \ `is_verified: false` (tasdiqlanmagan) qoladi** — token qaytadi, foydalanuvchi kiradi,\
+  \ lekin xizmatlar uchun keyin `verify-identity` yoki qayta MyID kerak.\n\n> **Primary\
+  \ vs Secondary:** Primary (passport) session profil qaytaradi → yuqoridagi MVD oqimi\
+  \ ishlaydi. Secondary (reuid, faqat-yuz, qaytgan foydalanuvchi) session profil\
+  \ qaytarmaydi — backend foydalanuvchini saqlangan `Candidate.myid_reuid` orqali topib,\
+  \ yuz-moslik asosida login qiladi va **xuddi shu token juftligini** qaytaradi.\
+  \ Secondary'da MVD chaqirilmaydi, `is_verified` o'zgarmaydi. reuid topilmasa/muddati\
+  \ o'tgan bo'lsa → `400` (passport orqali tasdiqlash so'raladi).\n\n**Auth:**\
+  \ `guest_token` (kamida guest token kerak)  \n**Returns:** `{ access_token, refresh_token, expires_in, token_type\
   \ }`\n\n### \U0001F4E5 Request Body\n\n| Field | Type | Required | Description |\n\
   |---|---|:---:|---|\n| `session_id` | string | ✅ | `start-primary` yoki `start-secondary`-dan\
   \ olingan session ID |\n| `image_base64` | string | ✅ | Base64 kodlangan yuz rasmi\
