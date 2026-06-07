@@ -1,0 +1,38 @@
+info:
+  name: 2. Admin — Logout
+  type: http
+  seq: 2
+http:
+  method: POST
+  url: '{{base_url}}/admin/auth/logout'
+  headers:
+  - name: Content-Type
+    value: application/json
+  auth: inherit
+docs: |
+  Profildan chiqish. Joriy access tokenni bekor qiladi (token o'z muddati
+  tugaguncha cache-asosli "blacklist"ga qo'shiladi). Shu tokendan keyingi
+  so'rovlar `401` qaytaradi.
+
+  **Auth:** `admin_token` (Bearer).
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {admin_token}` |
+
+  ### 📤 Response
+
+  Standart success: `{ success: true, data: null, message: "Logged out successfully" }`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q / eskirgan / allaqachon bekor qilingan |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

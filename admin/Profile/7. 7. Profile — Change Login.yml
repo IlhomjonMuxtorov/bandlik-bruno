@@ -1,0 +1,45 @@
+info:
+  name: 7. Profile — Change Login
+  type: http
+  seq: 7
+http:
+  method: PATCH
+  url: '{{base_url}}/admin/me/login'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"username\": \"super_admin\",\n  \"current_password\": \"secret\"\n}"
+  auth: inherit
+docs: |
+  Login (username) ni o'zgartiradi. Tasdiqlash uchun joriy parol talab qilinadi.
+  Username takrorlanmasligi (`unique`) model qoidalari bilan kafolatlanadi.
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `username` | string | ✅ | Yangi login. Max **64** belgi, takrorlanmas |
+  | `current_password` | string | ✅ | Joriy parol (tekshiriladi) |
+
+  ### 📤 Response (`data`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `username` | string | Yangilangan login |
+
+  ### ⚠️ Errors
+
+  | Code | Field | Reason |
+  |---|---|---|
+  | `422` | `current_password` | Joriy parol noto'g'ri / bo'sh |
+  | `422` | `username` | Bo'sh, 64 belgidan uzun yoki band |
+  | `401` | — | Token yo'q / eskirgan |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

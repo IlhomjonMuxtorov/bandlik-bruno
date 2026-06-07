@@ -1,0 +1,52 @@
+info:
+  name: 5. Profile — Phone Request OTP
+  type: http
+  seq: 5
+http:
+  method: POST
+  url: '{{base_url}}/admin/me/phone/request-otp'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"phone\": \"+998901234567\"\n}"
+  auth: inherit
+docs: |
+  Telefon raqamni o'zgartirish — **1-qadam**. Yangi raqamga 4 xonali SMS kod yuboradi
+  (raqam egasi ekanligini tasdiqlash uchun). Mobil moduldagi oqim bilan bir xil
+  `ContactVerificationService` ishlatiladi.
+
+  **Auth:** `admin_token`.
+
+  > Agar so'ralgan raqam joriy raqam bilan bir xil bo'lsa — SMS **yuborilmaydi** va
+  > `verification_required: false` qaytadi (mijoz 2-qadamni kodsiz bajaradi).
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `phone` | string | ✅ | Yangi telefon raqam. Format: `+998XXXXXXXXX` |
+
+  ### 📤 Response (`data`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `phone_masked` | string | Niqoblangan raqam, masalan `+998 ** *** 4567` |
+  | `expires_in` | int | Kod amal qilish muddati (soniya, odatda `180`) |
+  | `sms_sent` | bool | SMS haqiqatan yuborildimi (sandbox raqamlar uchun `false`) |
+  | `verification_required` | bool | Tasdiqlash kerakmi (joriy raqam bo'lsa `false`) |
+
+  ### ⚠️ Errors
+
+  | Code | Field | Reason |
+  |---|---|---|
+  | `422` | `phone` | Raqam bo'sh / noto'g'ri format |
+  | `422` | — | Raqam boshqa foydalanuvchida band |
+  | `422` | — | Juda ko'p so'rov (soatiga 5 tadan ortiq) |
+  | `401` | — | Token yo'q / eskirgan |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

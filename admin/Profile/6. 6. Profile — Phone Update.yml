@@ -1,0 +1,49 @@
+info:
+  name: 6. Profile — Phone Update
+  type: http
+  seq: 6
+http:
+  method: PATCH
+  url: '{{base_url}}/admin/me/phone'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"phone\": \"+998901234567\",\n  \"code\": \"1234\"\n}"
+  auth: inherit
+docs: |
+  Telefon raqamni o'zgartirish — **2-qadam**. Yangi raqamga yuborilgan SMS kod bilan
+  raqamni saqlaydi. Raqam `user` jadvalida saqlanadi; tashkilot xodimi (Partner/Employee)
+  bo'lsa `organization_employee.phone` ham sinxronlanadi.
+
+  **Auth:** `admin_token`.
+
+  > Joriy raqamni qayta yuborish — no-op (kod talab qilinmaydi). Yangi raqam uchun
+  > avval [5. Profile — Phone Request OTP](#) chaqirilishi shart.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `phone` | string | ✅ | Yangi telefon raqam. Format: `+998XXXXXXXXX` |
+  | `code` | string | ➖ | SMS kod. Raqam joriydan farq qilsa **majburiy** |
+
+  ### 📤 Response (`data`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `phone` | string | Yangilangan telefon raqam |
+
+  ### ⚠️ Errors
+
+  | Code | Field | Reason |
+  |---|---|---|
+  | `422` | `phone` | Raqam bo'sh / noto'g'ri format |
+  | `422` | `code` | Kod talab qilinadi / noto'g'ri yoki muddati o'tgan |
+  | `401` | — | Token yo'q / eskirgan |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
