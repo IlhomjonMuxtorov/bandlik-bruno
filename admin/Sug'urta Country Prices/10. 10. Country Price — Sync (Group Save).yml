@@ -62,8 +62,10 @@ docs: |
 
   | Code | Reason |
   |---|---|
-  | `422` | `organization_id` / `country_id` berilmagan; `organization_id` sug'urta turida emas ("Organization must be an insurance company"); payloadda takroriy `(service_type, coverage)` (`services.<index>`); satr validatsiyasi xatosi (`services.<index>.<field>`); DB unique-kalit to'qnashuvi |
-  | `404` | `country_id` mavjud emas |
+  | `422` | `organization_id` / `country_id` berilmagan; `organization_id` sug'urta turida emas ("Organization must be an insurance company"); `country_id` mavjud emas ("Country not found"); payloadda takroriy `(service_type, coverage)` (`services.<index>`); satr validatsiyasi xatosi (`services.<index>.<field>`); DB unique-kalit to'qnashuvi |
+
+  > Eslatma: `sync` barcha xatolarni `sendError` (`422`) orqali qaytaradi — `Group Read` /
+  > `By Organization` dan farqli (ular org/davlat topilmasa `404` beradi).
 settings:
   encodeUrl: true
   timeout: 0
