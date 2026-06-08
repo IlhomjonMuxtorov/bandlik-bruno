@@ -1,0 +1,66 @@
+info:
+  name: CV Completion
+  type: http
+  seq: 34
+http:
+  method: GET
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/completion'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: 'CV to''ldirilganlik foizini (`completion_percent`) va bo''limlar bo''yicha
+  checklist''ni qaytaradi. Foiz 10 ta majburiy bo''limdan to''ldirilganlari asosida
+  hisoblanadi (`courses` bo''limi ixtiyoriy — foizga kirmaydi).
+
+
+  **Auth:** `access_token`.
+
+
+  ### 📋 Headers
+
+
+  | Header | Required | Description |
+
+  |---|:---:|---|
+
+  | `Authorization` | ✅ | `Bearer {access_token}` |
+
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz` (bo''lim `label`-lari uchun) |
+
+
+  ### 📤 Response
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `percent` | int | To''ldirilganlik foizi (0–100) |
+
+  | `is_complete` | bool | Barcha majburiy bo''limlar to''ldirilganmi |
+
+  | `missing` | string[] | To''ldirilmagan majburiy bo''limlar kalitlari |
+
+  | `sections` | object[] | Har bir bo''lim: `key`, `label`, `required`, `filled` |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q yoki eskirgan |
+
+  | `404` | CV topilmadi yoki boshqa nomzodga tegishli |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
