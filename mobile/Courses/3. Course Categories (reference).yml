@@ -7,7 +7,7 @@ http:
   url: '{{base_url}}/mobile/course-categories'
   auth: inherit
 docs: |-
-  "Kurs turi" filtri uchun ma'lumotnoma — barcha mavjud kurs turlari (`value` + lokalizatsiya qilingan `label`). Filtr oynasidagi "Kurs turi" ro'yxatini to'ldirish uchun ishlatiladi.
+  "Kurs turi" filtri uchun ma'lumotnoma — admin tomonidan boshqariladigan faol (`is_active=true`) kurs turlari, `course_type` jadvalidan, `sort_order` bo'yicha. Filtr oynasidagi "Kurs turi" ro'yxatini to'ldirish uchun ishlatiladi.
 
   **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi).
 
@@ -16,6 +16,7 @@ docs: |-
   | Header | Required | Description |
   |---|:---:|---|
   | `Authorization` | ✅ | `Bearer <access_token>` (mehmon tokeni ham). |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz`. |
 
   ### 📤 Response
 
@@ -23,8 +24,8 @@ docs: |-
 
   | Field | Type | Description |
   |---|---|---|
-  | `value` | string | `interview_prep` \| `language` \| `living_abroad` |
-  | `label` | string | Lokalizatsiya qilingan nomi (`Accept-Language` / qurilma tiliga qarab) |
+  | `id` | int | Kurs turi ID (`category_id` filtrida va kursning `category_id` da ishlatiladi) |
+  | `name` | string | Lokalizatsiya qilingan nomi (`Accept-Language` ga qarab) |
 
   ### ⚠️ Errors
 

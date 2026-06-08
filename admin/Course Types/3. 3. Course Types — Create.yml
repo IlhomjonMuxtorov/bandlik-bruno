@@ -1,0 +1,38 @@
+info:
+  name: 3. Course Types — Create
+  type: http
+  seq: 3
+http:
+  method: POST
+  url: '{{base_url}}/admin/course-types'
+  body:
+    type: multipartForm
+    data:
+    - name: name
+      value: '{"uz": "IELTS tayyorgarlik", "ru": "Подготовка к IELTS", "en": "IELTS preparation"}'
+    - name: is_active
+      value: '1'
+    - name: sort_order
+      value: '10'
+  auth: inherit
+docs: |-
+  Yangi kurs turi qo'shadi. Admin yangi "Kurs turi" larni shu yerda boshqaradi.
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body (multipart/form-data)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `name` | object (JSON) | ✅ | `{"uz": "...", "ru": "...", "en": "..."}` |
+  | `is_active` | int (0\|1) | ➖ | Default: 1 |
+  | `sort_order` | int | ➖ | Default: 0 |
+
+  ### 📤 Response
+
+  `201` — `AdminCourseTypeOutputDTO` (`id`, `name`, `is_active`, `sort_order`).
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

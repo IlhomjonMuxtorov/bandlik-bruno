@@ -1,0 +1,40 @@
+info:
+  name: 4. Course Types — Update
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{base_url}}/admin/course-types/1'
+  body:
+    type: multipartForm
+    data:
+    - name: name
+      value: '{"uz": "Til kurslari", "ru": "Языковые курсы", "en": "Language courses"}'
+    - name: is_active
+      value: '1'
+    - name: sort_order
+      value: '1'
+  auth: inherit
+docs: |-
+  Kurs turini tahrirlaydi. Faqat yuborilgan maydonlar yangilanadi (qisman update).
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body (multipart/form-data)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `name` | object (JSON) | ➖ | `{"uz": "...", "ru": "...", "en": "..."}` |
+  | `is_active` | int (0\|1) | ➖ | |
+  | `sort_order` | int | ➖ | |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Kurs turi topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

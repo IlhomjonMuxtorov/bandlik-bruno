@@ -26,7 +26,7 @@ docs: 'Barcha o''quv kurslari ro''yxati. Markaz bo''yicha filtrlash uchun `organ
 
   | `language_id` | int | ➖ | Til bo''yicha filtr |
 
-  | `category` | string | ➖ | Kurs turi: `interview_prep` \| `language` \| `living_abroad` |
+  | `category_id` | int | ➖ | Kurs turi ID bo''yicha filtr (`course_type.id`) |
 
   | `status` | string | ➖ | `draft` \| `active` \| `archived` |
 
@@ -53,7 +53,7 @@ docs: 'Barcha o''quv kurslari ro''yxati. Markaz bo''yicha filtrlash uchun `organ
 
   | `description` | string \| null | |
 
-  | `category` | string \| null | `interview_prep` \| `language` \| `living_abroad` |
+  | `category_id` | int \| null | Kurs turi ID (`course_type.id`) |
 
   | `category_label` | string \| null | Lokalizatsiyalangan kurs turi nomi |
 

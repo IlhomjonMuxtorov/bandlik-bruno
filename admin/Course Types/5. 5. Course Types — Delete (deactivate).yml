@@ -1,0 +1,27 @@
+info:
+  name: 5. Course Types — Delete (deactivate)
+  type: http
+  seq: 5
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/course-types/1'
+  auth: inherit
+docs: |-
+  Kurs turini **o'chirmaydi**, balki `is_active = false` qiladi (soft-deactivate). Shu turga bog'langan kurslar `category_id` FK'si buzilmaydi; deaktiv tur mobil "Kurs turi" filtrida ko'rinmaydi, lekin eski kurslarda saqlanib qoladi.
+
+  **Auth:** `admin_token`.
+
+  ### 📤 Response
+
+  `200` — `data: null`, `message: "Course type deactivated"`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Kurs turi topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,39 @@
+info:
+  name: 2. Course Type — View
+  type: http
+  seq: 2
+http:
+  method: GET
+  url: '{{base_url}}/admin/course-types/1'
+  auth: inherit
+docs: |-
+  Bitta kurs turini ko'rsatadi.
+
+  **Auth:** `admin_token`.
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {{ _.admin_token }}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz`. |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | |
+  | `name` | string | Lokalizatsiya qilingan nom |
+  | `is_active` | bool | |
+  | `sort_order` | int | |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Kurs turi topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

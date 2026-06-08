@@ -25,7 +25,7 @@ docs: |-
   | `name` | string | Kurs nomi |
   | `slug` | string | URL slug |
   | `description` | string \| null | To'liq tavsif |
-  | `category` | string \| null | `interview_prep` \| `language` \| `living_abroad` |
+  | `category_id` | int \| null | Kurs turi ID (`course_type`) |
   | `category_label` | string \| null | Lokalizatsiya qilingan kurs turi nomi |
   | `language` | object \| null | `{ id, iso_code, name }` |
   | `level` | string \| null | Daraja (`A1` ...) |
