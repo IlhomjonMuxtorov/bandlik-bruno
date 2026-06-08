@@ -1,0 +1,78 @@
+info:
+  name: 1. Organization Balance
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/organizations/1/wallet'
+  auth: inherit
+docs: |
+  Bitta tashkilotning (XBA, Viza, Notarius, Logistika, Sug'urta va boshqalar) hamyon
+  balansi — valyuta bo'yicha alohida qator. Tashkilotlar o'zi login qila olmaydi
+  (Task 13), shu sabab balans **admin paneldan** tashkilot `id` bo'yicha ko'riladi.
+  (Tashkilot o'zini ko'rishi uchun `/v1/wallet/balance` alohida mavjud.)
+
+  **Auth:** `admin_token` (faqat `UserType::Admin`).
+
+  ### 🔎 Path Params
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `id` | int | ✅ | Tashkilot `id`. |
+
+  ### 📤 Response
+
+  `balances` — har bir valyuta uchun bitta wallet. Summalar **xom tiyin** (so'm × 100);
+  `available = balance − hold_balance` (escrow ushlab turilgani alohida `hold_balance`).
+
+  ```json
+  {
+    "organization": {
+      "id": 1,
+      "type": 1,
+      "type_label": "XBA",
+      "name": "Global XBA"
+    },
+    "balances": [
+      {
+        "id": 12,
+        "owner_type": "organization",
+        "owner_id": 1,
+        "currency": "UZS",
+        "balance": 5000000,
+        "hold_balance": 1000000,
+        "available": 4000000,
+        "is_active": true
+      }
+    ]
+  }
+  ```
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `organization.type_label` | string | Tashkilot turi yorlig'i (Accept-Language). |
+  | `balances[].balance` | int | Joriy umumiy balans (tiyin). |
+  | `balances[].hold_balance` | int | Escrow'da ushlab turilgan summa (tiyin). |
+  | `balances[].available` | int | Sarflashga tayyor = `balance − hold_balance` (tiyin). |
+
+  > Tashkilotda hech qanday wallet bo'lmasa `balances` bo'sh massiv qaytadi.
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {admin_token}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q / eskirgan |
+  | `403` | Admin emas |
+  | `404` | Tashkilot topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

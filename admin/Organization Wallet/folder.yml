@@ -1,0 +1,6 @@
+info:
+  name: Organization Wallet
+  type: folder
+  seq: 59
+request:
+  auth: inherit

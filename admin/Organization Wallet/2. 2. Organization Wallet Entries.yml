@@ -1,0 +1,85 @@
+info:
+  name: 2. Organization Wallet Entries
+  type: http
+  seq: 2
+http:
+  method: GET
+  url: '{{base_url}}/admin/organizations/1/wallet/entries?per-page=20'
+  auth: inherit
+docs: |
+  Tashkilot hamyonidagi pul harakatlari (ledger) tarixi — paginatsiyalangan.
+  Har bir qator kirim/chiqim (`direction`), summa va harakatdan keyingi balansni
+  ko'rsatadi va manba `transaction`ga bog'langan.
+
+  **Auth:** `admin_token` (faqat `UserType::Admin`).
+
+  ### 🔎 Path & Query Params
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `id` | int | ✅ | Tashkilot `id` (path). |
+  | `currency` | string | ➖ | Valyuta bo'yicha filtr (`UZS` \| `USD` \| `EUR`). Berilmasa — barcha valyutalar. |
+  | `per-page` | int | ➖ | 1..100. Default: 20. |
+  | `page` | int | ➖ | Sahifa raqami. |
+  | `sort` | string | ➖ | `id`, `created_at`. Default: `-id` (eng yangi avval). |
+
+  ### 📤 Response
+
+  Summalar **xom tiyin**. `signed_amount` — kirim `+`, chiqim `−` (`direction` belgisi
+  bilan). `transaction_type_label` — manba tranzaksiya turi yorlig'i.
+
+  ```json
+  {
+    "items": [
+      {
+        "id": 88,
+        "wallet_id": 12,
+        "transaction_id": 305,
+        "currency": "UZS",
+        "direction": 1,
+        "direction_label": "Credit",
+        "bucket": "balance",
+        "amount": 1200000,
+        "signed_amount": 1200000,
+        "balance_after": 5000000,
+        "hold_after": 0,
+        "transaction_type": 1,
+        "transaction_type_label": "Candidate payment",
+        "description": "Capture for order #1",
+        "created_at": 1735647500,
+        "created_at_formatted": "31.12.2024 12:00"
+      }
+    ],
+    "pagination": { "page": 1, "page_size": 20, "total_count": 42, "page_count": 3 }
+  }
+  ```
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `direction` | int | `1` = Credit (kirim), `2` = Debit (chiqim). |
+  | `direction_label` | string | Yorliq (Accept-Language). |
+  | `bucket` | string | `balance` (sarflanadigan) \| `hold_balance` (escrow). |
+  | `signed_amount` | int | Belgili summa: Credit `+`, Debit `−`. |
+  | `transaction_type_label` | string \| null | Manba tranzaksiya turi yorlig'i. |
+
+  > Tashkilotda wallet bo'lmasa yoki `currency` mos kelmasa — `items` bo'sh, pagination meta standart.
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {admin_token}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q / eskirgan |
+  | `403` | Admin emas |
+  | `404` | Tashkilot topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
