@@ -1,0 +1,32 @@
+info:
+  name: 5. Template — Delete
+  type: http
+  seq: 5
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/vacancy-templates/1'
+  auth: inherit
+docs: |
+  Shablonni butunlay o'chiradi (hard delete).
+
+  **Auth:** `admin_token` yoki shablon egasi tashkilot foydalanuvchisi.
+
+  - **Admin** — istalgan shablonni o'chira oladi.
+  - **Tashkilot foydalanuvchisi** — faqat **o'z tashkiloti** shablonini; boshqasi → `403`.
+
+  ### 📤 Response
+
+  `200 OK`, `data: null`, `message: "Template deleted"`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki eskirgan |
+  | `403` | Non-admin boshqa tashkilot shablonini o'chirmoqchi |
+  | `404` | Shablon topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

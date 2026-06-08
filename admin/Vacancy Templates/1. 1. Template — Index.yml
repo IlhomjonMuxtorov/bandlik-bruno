@@ -6,12 +6,56 @@ http:
   method: GET
   url: '{{base_url}}/admin/vacancy-templates'
   auth: inherit
-docs: 'Shablonlar ro''yxati. Admin barchasini, org foydalanuvchi faqat o''zinikini.
+docs: |
+  Vakansiya shablonlari ro'yxati (paginatsiya bilan). Har bir element — `vacancy_template`
+  yozuvi, ya'ni avval saqlangan Vacancy Create wizard formasining to'liq snapshot'i.
 
+  **Auth:** `admin_token` yoki tashkilot foydalanuvchisi (Employer / Recruiter / partner).
 
-  **Auth:** Admin yoki org foydalanuvchi.
+  **Ko'rinish doirasi (scoping):**
 
-  '
+  - **Admin** — barcha tashkilotlarning barcha shablonlarini ko'radi (`is_active` holatidan qat'i nazar).
+  - **Tashkilot foydalanuvchisi** — faqat **o'z tashkiloti**ning va faqat `is_active = true` shablonlarini ko'radi.
+
+  Tartiblash standart `id DESC` (eng yangi birinchi).
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `per-page` | int | ➖ | Sahifa hajmi. Default `20`, oraliq `1`–`100`. |
+  | `page` | int | ➖ | Sahifa raqami (1 dan boshlanadi). Default `1`. |
+  | `sort` | string | ➖ | Tartiblash maydoni. Ruxsat etilgan: `id` \| `updated_at` \| `created_at`. Kamayish uchun `-` prefiks (masalan `-updated_at`). Default `-id`. |
+
+  ### 📤 Response (`data`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `items[]` | array | Shablonlar massivi (quyidagi maydonlar bilan) |
+  | `pagination` | object | `{ page, page_size, total_count, page_count }` |
+
+  **`items[]` elementi:**
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Shablon ID |
+  | `organization_id` | int | Tashkilot ID |
+  | `organization_name` | string \| null | Tashkilot nomi (`Accept-Language` bo'yicha locale; bog'lanmagan bo'lsa `null`) |
+  | `name` | string | Shablon nomi |
+  | `description` | string \| null | Tavsif (`null` bo'lishi mumkin) |
+  | `payload` | object | Vacancy form JSON snapshot (erkin sxema) |
+  | `is_active` | bool | Faol/nofaol holat |
+  | `created_at` | int | Unix timestamp |
+  | `created_at_formatted` | string | `d.m.Y H:i` (masalan `25.06.2024 14:30`) |
+  | `updated_at` | int | Unix timestamp |
+  | `updated_at_formatted` | string | `d.m.Y H:i` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki eskirgan |
+  | `403` | Foydalanuvchi na admin, na biror tashkilotga bog'langan |
 settings:
   encodeUrl: true
   timeout: 0

@@ -1,0 +1,68 @@
+info:
+  name: 3. Template — Create
+  type: http
+  seq: 3
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancy-templates'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: |
+      {
+        "organization_id": 1,
+        "name": "Restoran Xizmatchisi (Polsha)",
+        "description": "Standart shablon Polsha bo'yicha",
+        "is_active": true,
+        "payload": {
+          "industry_id": 1,
+          "title": "Restoran Xizmatchisi",
+          "employment_type": "full_time",
+          "hiring_quota": 12,
+          "country_id": 1
+        }
+      }
+  auth: inherit
+docs: |
+  Yangi vakansiya shablonini yaratadi. `payload` — Vacancy Create body'sining to'liq erkin
+  JSON snapshot'i; keyinchalik yangi vakansiya yaratishda formaga qayta yuklash uchun saqlanadi.
+
+  **Auth:** `admin_token` yoki tashkilot foydalanuvchisi (faqat **o'z** `organization_id` uchun).
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {admin_token}` |
+  | `Content-Type` | ✅ | `application/json` |
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `organization_id` | int | ✅ | Tashkilot ID — `organization` jadvalida mavjud bo'lishi shart. Non-admin uchun o'zining tashkiloti bo'lishi kerak. |
+  | `name` | string | ✅ | Shablon nomi (≤ 200 belgi). |
+  | `description` | string | ➖ | Tavsif. Default `null`. |
+  | `payload` | object | ✅ | Vacancy form JSON snapshot (erkin sxema). Bo'sh `{}` ham qabul qilinadi. |
+  | `is_active` | bool | ➖ | Faollik holati. Default `true`. |
+
+  ### 📤 Response
+
+  `201 Created`, `message: "Template created"`. `data` — yaratilgan shablonning to'liq DTO'si
+  (View bilan bir xil maydonlar: `id`, `organization_id`, `organization_name`, `name`,
+  `description`, `payload`, `is_active`, `created_at(_formatted)`, `updated_at(_formatted)`).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki eskirgan |
+  | `403` | Non-admin o'ziga tegishli bo'lmagan `organization_id` uchun yaratmoqchi |
+  | `422` | Validatsiya xatosi: `name`/`organization_id`/`payload` bo'sh, `name` 200 belgidan uzun, yoki `organization_id` mavjud emas |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

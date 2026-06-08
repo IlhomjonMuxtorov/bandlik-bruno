@@ -1,0 +1,72 @@
+info:
+  name: 4. Template — Update
+  type: http
+  seq: 4
+http:
+  method: PUT
+  url: '{{base_url}}/admin/vacancy-templates/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: |
+      {
+        "name": "Restoran Xizmatchisi (Polsha) — v2",
+        "description": "Yangilangan tavsif",
+        "is_active": true,
+        "payload": {
+          "industry_id": 1,
+          "title": "Restoran Xizmatchisi",
+          "employment_type": "full_time",
+          "hiring_quota": 15,
+          "country_id": 1
+        }
+      }
+  auth: inherit
+docs: |
+  Mavjud shablonning ma'lumotlari va `payload` JSON snapshot'ini yangilaydi. `PUT` yoki `PATCH`
+  ishlatilishi mumkin.
+
+  **Auth:** `admin_token` yoki shablon egasi tashkilot foydalanuvchisi.
+
+  - **Admin** — istalgan shablonni yangilay oladi.
+  - **Tashkilot foydalanuvchisi** — faqat **o'z tashkiloti** shablonini; boshqasi → `403`.
+
+  > **Eslatma:** `organization_id` body'da yuborilsa ham **e'tiborga olinmaydi** — shablonning
+  > tashkiloti o'zgarmaydi (faqat `create`da belgilanadi).
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {admin_token}` |
+  | `Content-Type` | ✅ | `application/json` |
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `name` | string | ✅ | Shablon nomi (≤ 200 belgi). |
+  | `description` | string | ➖ | Tavsif. Yuborilmasa `null` bo'ladi. |
+  | `payload` | object | ✅ | Vacancy form JSON snapshot (erkin sxema). |
+  | `is_active` | bool | ➖ | Faollik holati. Default `true`. |
+
+  ### 📤 Response
+
+  `200 OK`, `message: "Template updated"`. `data` — yangilangan shablonning to'liq DTO'si
+  (View bilan bir xil maydonlar).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki eskirgan |
+  | `403` | Non-admin boshqa tashkilot shablonini yangilamoqchi |
+  | `404` | Shablon topilmadi |
+  | `422` | Validatsiya xatosi: `name`/`payload` bo'sh yoki `name` 200 belgidan uzun |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
