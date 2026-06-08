@@ -110,8 +110,8 @@ docs: |
   | `duration_months_min` / `_max` | int | ➖ | Ish davomiyligi |
   | `work_schedule` | string | ➖ | `5_2` \| `6_1` \| `2_2` \| `shift` \| `flexible` |
   | `work_time_from` / `_to` | string | ➖ | `HH:MM` |
-  | `salary_gross` / `_currency` | int / string | ➖ | Faqat `UZS` (boshqasi → `422`) |
-  | `salary_net` / `_currency` | int / string | ➖ | |
+  | `salary_gross` / `_currency` | int / string | ➖ | Maosh (tavsifiy). Valyuta: `UZS` \| `USD` \| `EUR` (boshqasi → `422`). Default `UZS`. Xizmat narxlari valyutasiga ta'sir qilmaydi — ular `UZS`-da qoladi. |
+  | `salary_net` / `_currency` | int / string | ➖ | Valyuta: `UZS` \| `USD` \| `EUR`. |
   | `country_id` | int | ✅ | |
   | `city_id` | int | ➖ | |
   | `address` | string | ➖ | |
