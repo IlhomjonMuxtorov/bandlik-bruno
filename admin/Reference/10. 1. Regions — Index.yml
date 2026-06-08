@@ -49,7 +49,7 @@ docs: 'Viloyatlar ro''yxati (paginatsiya bilan).
 
   | `id` | int | GCP SP_ID |
 
-  | `name` | string | Til bo''yicha tarjima |
+  | `name` | object | Barcha tillar: `{"uz": "...", "ru": "...", "en": "..."}` |
 
   | `is_active` | bool | |
 

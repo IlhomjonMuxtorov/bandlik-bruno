@@ -33,7 +33,7 @@ docs: 'Bitta viloyat ma''lumotlarini olish.
 
   | `id` | int | GCP SP_ID |
 
-  | `name` | string | Til bo''yicha tarjima |
+  | `name` | object | Barcha tillar: `{"uz": "...", "ru": "...", "en": "..."}` |
 
   | `is_active` | bool | |
 

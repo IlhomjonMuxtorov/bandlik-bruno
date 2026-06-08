@@ -26,7 +26,7 @@ docs: |
   | `country_id` | int \| null | |
   | `region_id` | int \| null | |
   | `district_id` | int \| null | |
-  | `name` | string | Til bo'yicha tarjima |
+  | `name` | object | Barcha tillar: `{"uz": "...", "ru": "...", "en": "..."}` |
   | `is_active` | bool | |
 
   ### ⚠️ Errors

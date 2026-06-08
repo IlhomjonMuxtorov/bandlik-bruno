@@ -38,7 +38,7 @@ docs: |
   | `country_id` | int \| null | Elchixonalar uchun `null` bo'lishi mumkin |
   | `region_id` | int \| null | Elchixonalar uchun `null` |
   | `district_id` | int \| null | Elchixonalar uchun `null` |
-  | `name` | string | Til bo'yicha tarjima |
+  | `name` | object | Barcha tillar: `{"uz": "...", "ru": "...", "en": "..."}` |
   | `is_active` | bool | |
   | `created_at` | int | Unix timestamp |
   | `created_at_formatted` | string | `d.m.Y H:i` (Asia/Tashkent) |
