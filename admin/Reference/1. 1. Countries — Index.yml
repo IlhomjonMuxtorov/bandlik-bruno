@@ -56,7 +56,7 @@ docs: 'Davlatlar ro''yxati (paginatsiya bilan).
 
   | `id` | int | |
 
-  | `name` | string | Til bo''yicha tarjima |
+  | `name` | object | Barcha tillar: `{"uz": "...", "ru": "...", "en": "..."}` |
 
   | `iso_code` | string \| null | ISO 3166-1 alpha-2 (`UZ`) |
 

@@ -53,7 +53,7 @@ docs: 'Tumanlar ro''yxati (region bo''yicha paginatsiya bilan).
 
   | `region_id` | int | |
 
-  | `name` | string | Til bo''yicha tarjima |
+  | `name` | object | Barcha tillar: `{"uz": "...", "ru": "...", "en": "..."}` |
 
   | `is_active` | bool | |
 

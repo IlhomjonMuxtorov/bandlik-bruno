@@ -41,7 +41,7 @@ docs: 'Shaharlar ro''yxati. Odatda `country_id` bo''yicha filterlanadi.
 
   | `country_id` | int | |
 
-  | `name` | string | Til bo''yicha tarjima |
+  | `name` | object | Barcha tillar: `{"uz": "...", "ru": "...", "en": "..."}` |
 
   | `is_active` | bool | |
 

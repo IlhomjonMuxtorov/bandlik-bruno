@@ -9,7 +9,11 @@ http:
 docs: "Bitta Notarius tashkiloti + `stats` sub-object:\n\n```json\n{\n  \"id\": 1,\n\
   \  \"type\": 2,\n  \"type_label\": \"Notarius\",\n  \"name\": \"...\",\n  ...\n\
   \  \"stats\": {\n    \"total_revenue\": 48000000,\n    \"clients_count\": 1920,\n\
-  \    \"services_count\": 10,\n    \"employees_count\": 12\n  }\n}\n```\n\n**Auth:**\
+  \    \"services_count\": 17,\n    \"employees_count\": 12\n  }\n}\n```\n\n> **Eslatma:**\
+  \ Notarius xizmatlari uchta per-org narx jadvalida saqlanadi — Tarjima\
+  \ (`notary_translation_price`), Apostil (`notary_apostille_price`) va Boshqa\
+  \ (`notary_other_service_price`). `stats.services_count` shu tashkilotning uchchala\
+  \ jadval bo'yicha **aktiv** (`is_active = true`) narx qatorlari yig'indisini qaytaradi.\n\n**Auth:**\
   \ `admin_token`.\n\n### ⚠️ Errors\n\n| Code | Reason |\n|---|---|\n| `404` | Notarius\
   \ topilmadi (cross-type isolation: XBA/Visa id'si bilan urinilganda ham 404) |\n"
 settings:
