@@ -66,7 +66,8 @@ docs: 'Barcha o''quv kurslari ro''yxati. Markaz bo''yicha filtrlash uchun `organ
 
   | `lessons_count` | int \| null | Darslar soni |
 
-  | `price` | int | UZS so''mda (`currency` ham qaytadi) |
+  | `price` | int | Butun birlikda — **so''m** (tiyin EMAS), `currency` valyutasida. Mobil API
+  bilan bir xil birlik. |
 
   | `currency` | string | `UZS` \| `USD` \| `EUR` |
 

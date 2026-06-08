@@ -13,7 +13,8 @@ http:
     data: "{\n  \"price\": 150000,\n  \"lessons_count\": 24\n}"
   auth: inherit
 docs: 'Mavjud kursni yangilaydi — faqat o''zgaradigan maydonlarni yuborish kifoya.
-  Maydonlar ro''yxati `Create` bilan bir xil. `organization_id` o''zgartirilsa, yangi
+  Maydonlar ro''yxati `Create` bilan bir xil — narx (`price`) butun **so''m**da (tiyin EMAS).
+  `organization_id` o''zgartirilsa, yangi
   markaz turi ham EDUCATIONAL_CENTER bo''lishi shart.
 
 

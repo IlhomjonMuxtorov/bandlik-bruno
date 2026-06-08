@@ -54,7 +54,7 @@ docs: 'Yangi o''quv kursini yaratadi. `slug` avtomatik generatsiya qilinadi (`na
 
   | `lessons_count` | int | ➖ | Mockup''da "20 dars" |
 
-  | `price` | int | ✅ | Tanlangan valyutada, min 0 |
+  | `price` | int | ✅ | Butun birlikda — **so''m** (tiyin EMAS), `currency` valyutasida. Min 0. Admin va mobil API bir xil birlik. |
 
   | `currency` | string | ✅ | `UZS` \| `USD` \| `EUR` (default `UZS`) |
 

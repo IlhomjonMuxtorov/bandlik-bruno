@@ -31,7 +31,7 @@ docs: |-
   | `level` | string \| null | Daraja (`A1` ...) |
   | `duration_hours` | int \| null | Davomiylik, soat |
   | `lessons_count` | int \| null | Darslar soni |
-  | `price` | int | Narx (butun, `currency` valyutasida) |
+  | `price` | int | Narx — butun **so'm** (tiyin EMAS), `currency` valyutasida. Admin API bilan bir xil birlik. |
   | `currency` | string | `UZS` \| `USD` \| `EUR` |
   | `cover_url` | string \| null | Muqova rasmi URL |
   | `organization` | object \| null | O'quv markazi: `{ id, name, logo_url }` |

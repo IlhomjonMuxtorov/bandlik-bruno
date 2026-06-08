@@ -24,7 +24,7 @@ docs: "Bitta kurs + `stats` sub-object + `lessons` (har bir lesson ichida `modul
   \         \"is_interaction\": false,\n          \"sort_order\": 0,\n          \"\
   quizzes\": [\n            {\"id\": 101, \"quiz_key\": \"q_01\", \"name\": \"Q1\"\
   , \"type\": \"choice\"}\n          ]\n        }\n      ]\n    }\n  ]\n}\n```\n\n\
-  **Auth:** `admin_token`.\n\n### ⚠️ Errors\n\n| Code | Reason |\n|---|---|\n| `404`\
+  **Auth:** `admin_token`.\n\n> **Narx:** `price` butun so'mda (tiyin EMAS) — admin va mobil bir xil birlik.\n\n### ⚠️ Errors\n\n| Code | Reason |\n|---|---|\n| `404`\
   \ | Kurs topilmadi |\n"
 settings:
   encodeUrl: true
