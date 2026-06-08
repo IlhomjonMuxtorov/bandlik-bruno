@@ -35,7 +35,9 @@ docs: |-
   | `salary` | object | `{ gross, gross_currency, net, net_currency }` |
   | `experience_level` / `_label` | string | `none` \| `one_to_three` \| `three_to_six` + lokalizatsiya |
   | `employment_type` / `_label` | string | `full_time` ... + lokalizatsiya |
-  | `hiring_quota` | int | Ishga qabul kvotasi |
+  | `hiring_quota` | int | Ishga qabul kvotasi (jami o'rin soni) |
+  | `accepted_count` | int | Hozircha band qilingan o'rinlar — pipeline'dagi nomzodlar (chiqib ketgan / kursdan yiqilgan / vizasi rad etilganlar hisobga olinmaydi). |
+  | `remaining_quota` | int | Qolgan bo'sh o'rin = `hiring_quota − accepted_count` (manfiy bo'lmaydi). Kvota to'lganda yangi nomzod qabul qilinmaydi. |
   | `duration_months_min` / `_max` | int \| null | Ish davomiyligi (oy) |
   | `work_schedule` / `_label` | string \| null | Ish jadvali |
   | `work_time_from` / `_to` | string \| null | `HH:MM` |
