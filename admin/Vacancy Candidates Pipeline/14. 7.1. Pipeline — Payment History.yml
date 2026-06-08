@@ -1,0 +1,68 @@
+info:
+  name: 7.1. Pipeline — Payment History
+  type: http
+  seq: 14
+http:
+  method: GET
+  url: '{{base_url}}/admin/vacancy-candidates/1/payment-history'
+  auth: inherit
+params: {}
+docs: >
+  Kandidatning **butun faoliyati bo'yicha** hisob tarixi ("Hisob tarixi") —
+  hamyon to'ldirishlari (sana, summa, usul), barcha vakansiyalar bo'yicha
+  sarflar (xizmat kategoriyasi bo'yicha guruhlangan) va joriy hamyon balansi.
+  `transaction` ledger ustida quriladi (yangi saqlash yo'q).
+
+
+  URL'dagi `id` — pipeline (`vacancy_candidate`) ID'si (boshqa kandidat detal
+  tablari bilan bir xil); xizmat undan kandidatni aniqlab, balansni **bitta
+  vakansiya emas**, butun faoliyat bo'yicha jamlaydi.
+
+
+  **Auth:** `access_token` — **faqat admin/superadmin**. Tashkilot aktyorlari
+  bu endpointga kira olmaydi (kandidatning boshqa vakansiyalardagi moliyaviy
+  ma'lumotini ko'rmasligi uchun) → `403`.
+
+
+  ### 📤 Response (`data`)
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `currency` | string | Hamyon valyutasi (`UZS`) |
+
+  | `balance` | int | Joriy hamyon balansi (tiyin) |
+
+  | `available` | int | `balance − held` (sarflashga tayyor) |
+
+  | `held` | int | Band qilingan summa (`hold_balance`) |
+
+  | `topup_total` | int | Jami muvaffaqiyatli to'ldirishlar |
+
+  | `spent_total` | int | Jami muvaffaqiyatli sarflar |
+
+  | `topups` | array | To'ldirishlar: `[{id, amount, currency, provider(+label), status(+label), paid_at(+formatted), created_at(+formatted)}]` |
+
+  | `spending_groups` | array | Sarflar kategoriya bo'yicha: `[{category, label, total, transactions:[...]}]` — `transactions` elementi `topups` bilan bir xil shaklda |
+
+
+  > **Eslatma:** `total` / `topup_total` / `spent_total` faqat `Completed`
+  > (settled) tranzaksiyalarni hisoblaydi; `topups` va `transactions`
+  > ro'yxatlari esa barcha holatdagi yozuvlarni (Pending/Failed ham) ko'rsatadi.
+
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `403` | Aktyor admin emas |
+
+  | `404` | Pipeline yozuvi yoki kandidat topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
