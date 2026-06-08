@@ -24,12 +24,14 @@ docs: |
 
   - `service_groups[]` — bosqichlar **tashkilot bo'yicha guruhlangan** + Start→Pay→Execute
   holati: `{service_group_id, organization, responsible_user, stages[], required_amount, funded_amount, awaiting_amount,
-  currency, started, awaiting_start, fully_funded, is_current, payment_deadline_at, paid_percent,
+  discount_amount, currency, started, awaiting_start, fully_funded, is_current, payment_deadline_at, paid_percent,
   progress_percent}`. `service_group_id` (int|null) — guruhning `VacancyServiceGroup.id`'si,
   `POST /admin/chats/<id>/groups/{groupId}/start` uchun. Har `stages[]` elementi `service_group_id`, `started_at`, `payment_deadline_at`,
-  `payment_time_left_text`, boyitilgan `responsible_user` (`{id, username, full_name, phone, photo_url}`)
+  `payment_time_left_text`, `amount`, `discount_amount`, `original_amount` (=`amount + discount_amount`), boyitilgan `responsible_user` (`{id, username, full_name, phone, photo_url}`)
   va `organization` (`{id, name, type, type_label, logo_url}`) bilan; status'lar: `pending`,
   `awaiting_payment`, `in_progress`, `completed`, `overdue`, `payment_overdue`, `skipped`.
+
+  > **Kurs chegirmasi (Task 21):** `training` bosqichidagi kursni nomzod **avval to'liq sotib olgan** bo'lsa, bosqich bepul bo'ladi (`amount = 0`, `discount_amount = original_amount`); guruh `discount_amount` shu chegirmalar yig'indisi.
 
   **Xabarlar (`messages` maydonidagi xabarlar):**
   - Xabar muallifi (sender) XBA xodimi bo'lsa, sender maydonida `full_name` va `profile_photo_url` (agar mavjud bo'lsa) qo'shiladi

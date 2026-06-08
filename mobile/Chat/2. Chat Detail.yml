@@ -52,15 +52,18 @@ docs: |
 
   Oqim: **Start → Pay → Execute**. Admin/tashkilot guruhni boshlaydi (`started`), shunda kandidat to'lay oladi. To'lov **guruh bo'yicha, ketma-ket** (sort tartibida; oldingi to'lanmaguncha keyingisi `is_current` bo'lmaydi). Guruh ichida — hammasi yoki hech narsa.
 
+  > **Kurs chegirmasi (Task 21):** agar nomzod vakansiyaning `training` bosqichidagi kursni **avval to'liq sotib olgan** bo'lsa (mustaqil mobil xarid yoki boshqa vakansiya doirasida), o'sha bosqich avtomatik **bepul** bo'ladi: `amount = 0`, `discount_amount = original_amount`. Chegirma bosqich yaratilganda (taklif qabulida) bir marta hisoblanadi.
+
   | Field | Type | Description |
   |---|---|---|
   | `service_group_id` | int \| null | Guruhning `VacancyServiceGroup.id`'si — `POST /admin/chats/<id>/groups/{groupId}/start` uchun ishlatiladi. Eski/guruhlanmagan bosqichlar uchun `null` |
   | `organization` | object \| null | `{id, name, type, type_label, logo_url}` — xizmatni beruvchi tashkilot |
   | `responsible_user` | object \| null | Tashkilotning mas'ul useri: `{id, username, full_name, phone, photo_url}` |
   | `stages` | array | Shu guruhdagi bosqichlar (quyidagi `stages[]` struktura) |
-  | `required_amount` | int | Guruh jami (so'm) |
+  | `required_amount` | int | Guruh jami — **chegirmadan keyingi** to'lanadigan summa (so'm) |
   | `funded_amount` | int | Guruhda band qilingan (so'm) |
   | `awaiting_amount` | int | Guruhni to'lash uchun yetishmayotgan (so'm) |
+  | `discount_amount` | int | **Guruhdagi jami chegirma** (so'm) — avval to'liq sotib olingan kurslar bepul bo'lganda > 0 |
   | `currency` | string | Valyuta (UZS) |
   | `started` | bool | Admin/tashkilot guruhni boshlaganmi (to'lov oynasi ochilganmi) |
   | `awaiting_start` | bool | Guruh hali boshlanmagan (kandidat boshlanishini kutmoqda) |
@@ -79,7 +82,9 @@ docs: |
   | `category` | string | `agency` \| `notarius` \| `insurance` \| `logistics` \| `visa` \| `translation_apostille` \| `training` |
   | `category_label` | string | tarjima qilingan label |
   | `service_name` | string \| null | vacancy_service snapshot nomi |
-  | `amount` | int | **Xizmat summasi** (so'm) — qabul paytida snapshot qilinadi |
+  | `amount` | int | **To'lanadigan summa** (so'm) — qabul paytida snapshot. Avval to'liq sotib olingan kurs uchun `0` (chegirma) |
+  | `discount_amount` | int | **Chegirma** (so'm). `training` bosqichida, nomzod o'sha kursni avval to'liq sotib olgan bo'lsa = `original_amount` (bosqich bepul); aks holda `0` |
+  | `original_amount` | int | Chegirmagacha bo'lgan asl narx (so'm) = `amount + discount_amount` |
   | `currency` | string | Valyuta (UZS) |
   | `funded` | bool | Nomzod puli shu xizmat uchun band qilinganmi (to'langanmi) |
   | `status` | string | `pending` \| `awaiting_payment` \| `in_progress` \| `completed` \| `overdue` \| `payment_overdue` \| `skipped` |
