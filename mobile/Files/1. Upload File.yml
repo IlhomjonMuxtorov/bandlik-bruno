@@ -42,6 +42,12 @@ docs: 'Faylni serverga yuklaydi va keyinchalik entity yaratish/yangilashda ishla
   **Rasm maksimal o''lchami:** 8000×8000 px
 
 
+  **Audio → Ogg:** Yuklangan audio fayllar (mp3, m4a, aac, wav, webm, opus) server tomonida
+  Opus-in-Ogg (`.ogg`, mono ~32 kbps) formatiga avtomatik konvertatsiya qilinadi — `url` `.ogg`
+  bilan tugaydi, `file_kind` = `audio`. Allaqachon `.ogg` bo''lsa qayta konvertatsiya qilinmaydi;
+  ffmpeg mavjud bo''lmasa fayl as-is saqlanadi.
+
+
   ### 📥 Request Body (multipart/form-data)
 
 

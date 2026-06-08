@@ -20,6 +20,8 @@ docs: |
 
   Maksimum hajm: 10 MB (audio uchun 25 MB).
 
+  > **Audio avtomatik konvertatsiya:** yuklangan audio (ovozli xabar) server tomonida **Opus-in-Ogg** (`.ogg`, mono ~32 kbps) formatiga o'tkaziladi. Shu sabab javobdagi `url` `.ogg` bilan tugaydi, `mime_type` = `audio/ogg`, `file_kind` = `audio`. Allaqachon `.ogg` bo'lsa qayta konvertatsiya qilinmaydi; ffmpeg mavjud bo'lmasa fayl as-is saqlanadi (xatosiz).
+
   **Auth:** `access_token`.
 
   ### 📥 Request Body (multipart/form-data)
