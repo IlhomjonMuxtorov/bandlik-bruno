@@ -64,6 +64,9 @@ docs: |
   (vakansiya `organization_id` guruhiga tegishli, `price > 0`, `service_name` to'ldirilgan)
   bo'lishi shart — aks holda 400.
 
+  **⚠️ Kurs (majburiy):** Update'da ham kamida bitta `category = "training"` xizmati +
+  `educational_course_id` bo'lishi shart — aks holda `400` `At least one training service with a course is required`.
+
   ### ⚠️ Errors
 
   | Code | Reason |
@@ -71,7 +74,7 @@ docs: |
   | `404` | Vakansiya topilmadi |
   | `403` | Approved/closed vakansiyalar tahrirlanmaydi (egasi uchun) |
   | `422` | Validatsiya xatosi. Jumladan: `organization_id` XBA-type emas; `recruiter_id` EMPLOYER/RECRUITER-type emas |
-  | `400` | Agentlik guruhi/xizmati yoki service_groups validatsiyasi xatosi |
+  | `400` | Agentlik guruhi/xizmati; **kurs yo'q** (`training` xizmati yoki `educational_course_id` yo'q); yoki service_groups validatsiyasi xatosi |
 settings:
   encodeUrl: true
   timeout: 0
