@@ -19,6 +19,12 @@ docs: |
 
   **Auth:** `access_token`. Chat `pending` taklifga ega bo'lishi shart.
 
+  > 🔁 **Bir aktiv taklif:** taklif qabul qilinganda nomzodning **boshqa barcha ochiq
+  > (qabul qilinmagan) takliflari avtomatik bekor qilinadi** — har biri `dropped_out`
+  > holatiga o'tadi, ochiq bosqichlari `skipped` bo'ladi va tegishli chatlari yopiladi.
+  > Bu qabul bilan **bitta tranzaksiyada** (atomik) bajariladi. Pending taklifda pul
+  > ushlanmagani uchun qaytariladigan mablag' yo'q.
+
   ## Funding (faqat boshlangan guruhlar)
   - To'lov **guruh bo'yicha** (all-or-nothing). `single_payment = false` → boshlangan guruhlar
     **navbat bilan** to'lanadi (`is_current`).
