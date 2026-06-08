@@ -1,0 +1,44 @@
+info:
+  name: Confirm Stage (XBA)
+  type: http
+  seq: 9
+http:
+  method: POST
+  url: '{{base_url}}/admin/chats/1/stages/1/confirm'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: none
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+docs: |
+  XBA bajarilgan (`completed`) xizmat bosqichini **tasdiqlaydi**. Faqat shu tasdiqdan keyin
+  nomzodning hold'idagi summa tashkilot balansiga **capture** qilinadi (komissiya platformaga —
+  hozir 0). Tashkilot daromadi shu nuqtada tan olinadi.
+
+  Idempotent: `captured_at` mavjud bo'lsa qayta capture qilinmaydi.
+
+  > **XBA `agency` xizmatini bu endpoint bilan tasdiqlab bo'lmaydi (`400`)** — u nomzod jo'nab
+  > ketganda (departure) avtomatik XBA balansiga settle bo'ladi.
+
+  **Auth:** `admin_token`. Stage shu chatning `vacancy_candidate` ga tegishli bo'lishi shart.
+
+  ### 📤 Response
+
+  `{ success, data: ChatServiceStageOutputDTO, message: "Stage confirmed" }`.
+  `data.status = "xba_confirmed"`, `xba_confirmed_at` to'ldiriladi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Stage `completed` emas, yoki bu `agency` xizmati (departure'da settle bo'ladi) |
+  | `403` | Foydalanuvchi xodim emas yoki stage boshqa application'ga tegishli |
+  | `404` | Chat yoki stage topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

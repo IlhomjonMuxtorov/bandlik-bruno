@@ -1,0 +1,39 @@
+info:
+  name: Reject Stage (XBA)
+  type: http
+  seq: 10
+http:
+  method: POST
+  url: '{{base_url}}/admin/chats/1/stages/1/reject'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: none
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+docs: |
+  XBA bajarilgan (`completed`) xizmat bosqichini **rad etadi** — ish sifatsiz, tashkilot qayta
+  bajarishi uchun bosqich `in_progress` ga qaytariladi. Pul **capture qilinmaydi**, nomzod hold'i
+  joyida qoladi. `completed_at` tozalanadi.
+
+  **Auth:** `admin_token`. Stage shu chatning `vacancy_candidate` ga tegishli bo'lishi shart.
+
+  ### 📤 Response
+
+  `{ success, data: ChatServiceStageOutputDTO, message: "Stage rejected" }`.
+  `data.status = "in_progress"`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Stage `completed` emas |
+  | `403` | Foydalanuvchi xodim emas yoki stage boshqa application'ga tegishli |
+  | `404` | Chat yoki stage topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

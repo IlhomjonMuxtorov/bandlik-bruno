@@ -25,8 +25,11 @@ docs: |
   - **`in_progress`** — odatda **kandidat to'lov qilganda avtomatik** o'rnatiladi (Pay → Execute);
     o'shanda ijro `deadline_at = now + group.execution_deadline_days` (to'langan kundan). Bu yerda
     qo'lda `in_progress` qilinsa, stage **funded** bo'lishi shart (aks holda `400`).
-  - **`completed`ga o'tkazish** — nomzod hold'idan shu xizmat summasi **capture** qilinadi:
-    komissiya platformaga, qolgani tashkilot balansiga. Idempotent (`captured_at`).
+  - **`completed`ga o'tkazish** — xizmat **bajarildi** deb belgilanadi, lekin pul **capture
+    QILINMAYDI**. Daromad endi faqat XBA tasdiqlaganda o'tadi:
+    `POST /admin/chats/{id}/stages/{stageId}/confirm` (pastga qarang).
+  - **`xba_confirmed`** ni bu endpoint orqali o'rnatib bo'lmaydi (`400`) — `confirm` endpointini
+    ishlating. XBA o'zining `agency` xizmati esa nomzod **jo'nab ketganda** (departure) settle bo'ladi.
 
   **Auth:** `admin_token`. Stage shu chatning `vacancy_candidate` ga tegishli bo'lishi shart (aks holda 403).
 
@@ -51,7 +54,7 @@ docs: |
 
   | Code | Reason |
   |---|---|
-  | `400` | Invalid `status` qiymati |
+  | `400` | Invalid `status` qiymati, yoki `status=xba_confirmed` (confirm endpointini ishlating) |
   | `403` | Foydalanuvchi xodim emas yoki stage boshqa application'ga tegishli |
   | `404` | Chat yoki stage topilmadi |
 settings:
