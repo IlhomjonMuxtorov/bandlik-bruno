@@ -18,12 +18,14 @@ docs: |
 
   Qabul qilinadigan foydalanuvchi turlari:
 
-  | `type` | Kim |
-  |:---:|---|
-  | `1` | `TYPE_ADMIN` — Super-admin |
-  | `5` | `TYPE_PARTNER` — Tashkilot admini (XBA / Notarius / Logistika / Sug'urta / Visa) |
-  | `6` | `TYPE_EMPLOYEE` — Tashkilot sub-xodimi (`organization_employee`) |
+  | `type` | Kim | Kirish |
+  |:---:|---|---|
+  | `1` | `TYPE_ADMIN` — Super-admin | ✅ Doim |
+  | `6` | `TYPE_EMPLOYEE` — Tashkilot sub-xodimi (`organization_employee`) | ✅ Doim |
+  | `5` | `TYPE_PARTNER` — Tashkilot admini (XBA / Notarius / Logistika / Sug'urta / Visa) | ⛔ Bloklangan |
 
+  > **Tashkilotlar login qila olmaydi.** `TYPE_PARTNER` (tashkilot egasi) akkaunti faqat o'z `OrganizationType`'i login whitelist'ida bo'lsa kira oladi — hozircha **hech bir tur** whitelist'da emas, shu sabab barcha tashkilotlar (jumladan XBA) `403` oladi. Whitelist `OrganizationType::canLogIn()` da boshqariladi; keyingi bosqichda XBA / Visa shu yerga qo'shiladi (boshqa kod o'zgarmaydi). Ruxsat qarori `AuthService::canAccessAdminPanel()` da.
+  >
   > Tashkilot admini uchun `username` + `password` `OrganizationService::create()` ichida `dto->login` / `dto->password` qiymatlaridan yaratiladi; shu bilan birga `organization_employee` (role=`admin`) yozuvi ham yaratiladi.
 
   **Auth:** talab qilinmaydi.
