@@ -10,9 +10,7 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"organization_id\": 2,\n  \"country_id\": 1,\n  \"insurance_service_type_id\"\
-      : 1,\n  \"coverage_amount\": 50000000,\n  \"price\": 350000,\n  \"currency\"\
-      : \"UZS\",\n  \"is_active\": 1,\n  \"sort_order\": 0\n}"
+    data: "{\n  \"organization_id\": 2,\n  \"country_id\": 1,\n  \"insurance_service_type_id\": 1,\n  \"coverage_amount\": 50000000,\n  \"coverage_currency\": \"USD\",\n  \"price\": 350000,\n  \"currency\": \"UZS\",\n  \"is_active\": 1,\n  \"sort_order\": 0\n}"
   auth: inherit
 docs: 'Yangi davlat-narxi satrini yaratadi — **granular (bitta satr)** operatsiya.
 
@@ -39,6 +37,9 @@ docs: 'Yangi davlat-narxi satrini yaratadi — **granular (bitta satr)** operats
   | `insurance_service_type_id` | int | ✅ | Global katalog xizmat turi |
 
   | `coverage_amount` | int | ✅ | Qoplash summasi, ≥ 0 |
+
+  | `coverage_currency` | string | ➖ | Qoplash summasi valyutasi. Default `UZS`. Variantlar:
+  `UZS` \| `USD` \| `EUR` (narx valyutasidan mustaqil) |
 
   | `price` | int | ✅ | Narx, ≥ 0 |
 

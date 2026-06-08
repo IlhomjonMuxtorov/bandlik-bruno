@@ -34,6 +34,7 @@ docs: |
         "insurance_service_type_id": 1,
         "service_type": { "id": 1, "code": "kasko", "name_localized": "KASKO (To'liq avto sug'urtasi)" },
         "coverage_amount": 50000000,
+        "coverage_currency": "USD",
         "price": 350000,
         "currency": "UZS",
         "is_active": true,

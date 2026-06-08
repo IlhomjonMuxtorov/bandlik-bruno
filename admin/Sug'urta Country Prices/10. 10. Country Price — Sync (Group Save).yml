@@ -15,8 +15,8 @@ http:
         "organization_id": 2,
         "country_id": 1,
         "services": [
-          { "id": 7, "insurance_service_type_id": 1, "coverage_amount": 50000000, "currency": "UZS", "price": 350000 },
-          { "insurance_service_type_id": 2, "coverage_amount": 20000000, "currency": "UZS", "price": 180000 }
+          { "id": 7, "insurance_service_type_id": 1, "coverage_amount": 50000000, "coverage_currency": "USD", "currency": "UZS", "price": 350000 },
+          { "insurance_service_type_id": 2, "coverage_amount": 20000000, "coverage_currency": "UZS", "currency": "UZS", "price": 180000 }
         ]
       }
   auth: inherit
@@ -48,6 +48,7 @@ docs: |
   | `services[].id` | int | ➖ | Mavjud satrni yangilash uchun. Yo'q bo'lsa — yangi satr |
   | `services[].insurance_service_type_id` | int | ✅ | Global katalog xizmat turi |
   | `services[].coverage_amount` | int | ✅ | Qoplash summasi, ≥ 0 |
+  | `services[].coverage_currency` | string | ➖ | Qoplash valyutasi. Default `UZS`. `UZS` \| `USD` \| `EUR` (narx valyutasidan mustaqil) |
   | `services[].price` | int | ✅ | Narx, ≥ 0 |
   | `services[].currency` | string | ➖ | Faqat `UZS` (default; boshqasi → `422`) |
   | `services[].is_active` | bool (0\|1) | ➖ | Default `1` |

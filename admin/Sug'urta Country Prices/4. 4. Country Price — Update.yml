@@ -10,8 +10,7 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"price\": 420000,\n  \"coverage_amount\": 75000000,\n  \"sort_order\"\
-      : 1\n}"
+    data: "{\n  \"price\": 420000,\n  \"coverage_amount\": 75000000,\n  \"coverage_currency\": \"USD\",\n  \"sort_order\": 1\n}"
   auth: inherit
 docs: 'Mavjud davlat-narxi satrini tahrirlaydi — **granular (bitta satr)** operatsiya.
   Faqat berilgan maydonlar yangilanadi (partial update).
@@ -35,6 +34,10 @@ docs: 'Mavjud davlat-narxi satrini tahrirlaydi — **granular (bitta satr)** ope
 
   Yaratish (Create) bilan bir xil maydonlar, lekin barchasi optional. Unique cheklov
   (org+country+type+coverage) saqlanadi.
+
+
+  `coverage_currency` (qoplash valyutasi) ham shu yerda yangilanadi — `UZS` \| `USD`
+  \| `EUR`, narx valyutasidan mustaqil.
 
 
   ### 📤 Response
