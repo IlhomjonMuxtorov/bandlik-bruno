@@ -51,11 +51,11 @@ docs: 'Bitta CV-ning to''liq tafsilotlari (education, experience, languages va h
 
   | `personal` | object | Passport asosida (CV-dan qat''iy nazar bir xil) |
 
-  | `birth_place` | object | `{ region, district, address, country }` |
+  | `birth_place` | object | `{ region, district, address, country }`. `region`/`district` faqat foydalanuvchi kiritgan qiymatdan (pasport bergan IIB'dan taxmin qilinmaydi); `country` MVD `birthcountry`; `address` MVD `birthplace` erkin matni |
 
   | `passport` | object | TIN, foreign passport, visa info |
 
-  | `registration` | object | Manzil ma''lumotlari |
+  | `registration` | object | Propiska: `{ region, district, country, address, postal_code, registration_date }`. `region`/`district`/`country` MVD `MVDAddressInfoService` propiskasidan `region`/`district` jadvallariga bog'lanadi (erkin matn fallback) |
 
   | `education` | array | Faqat shu CV-ga tegishli |
 
