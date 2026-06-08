@@ -22,7 +22,9 @@ docs: |-
   Darsni yangilaydi. Ikki narsani qila oladi (ikkalasi ham ixtiyoriy):
 
   1. **Zip almashtirish** — `file` yuborilsa: yangi paket extract qilinadi, eski modullar/quizlar (va progress) o'chiriladi, yangi tincan strukturasi yaratiladi, eski extract papkasi o'chadi.
-  2. **Meta yangilash** — `name`, `description`, `passing_score`, `status`, `is_active`, `sort_order`.
+  2. **Meta yangilash** — `name`, `description`, `passing_score`, `status`, `is_active`, `is_free`, `sort_order`.
+
+  > **`is_free`** — o'quv markazi shu darsni kursni sotib olmasdan bepul ko'rsa bo'ladimi-yo'qmi o'zi belgilaydi. `true` bo'lsa dars enrollment'siz ham ochiq (`is_locked=false`, `play_url` beriladi). Avvalgi avtomatik "birinchi 2 ta dars bepul" mantiq olib tashlandi — endi faqat shu flag hal qiladi.
 
   **Auth:** `admin_token`. **Content-Type:** `multipart/form-data` (faqat meta bo'lsa JSON ham bo'ladi).
 
@@ -36,6 +38,7 @@ docs: |-
   | `passing_score` | number | ➖ |
   | `status` | string | ➖ `draft` \| `active` \| `archived` |
   | `is_active` | bool (0\|1) | ➖ |
+  | `is_free` | bool (0\|1) | ➖ Dars bepul ko'rinsinmi (kurssiz). Default: `false` |
   | `sort_order` | int | ➖ |
 
   ### 📤 Response

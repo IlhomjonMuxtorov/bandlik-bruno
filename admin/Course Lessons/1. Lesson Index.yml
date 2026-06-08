@@ -28,6 +28,7 @@ docs: |-
   | `passing_score` | float \| null | O'tish bali |
   | `status` | string | `draft` \| `active` \| `archived` |
   | `is_active` | bool | Faolmi |
+  | `is_free` | bool | Kurssiz bepul ko'rinadimi (o'quv markazi belgilaydi) |
   | `sort_order` | int | Tartib |
   | `modules_count` | int | Modullar soni (tincan) |
   | `quizzes_count` | int | Quizlar soni (tincan) |

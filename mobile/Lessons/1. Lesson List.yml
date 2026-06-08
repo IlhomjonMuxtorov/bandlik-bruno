@@ -11,7 +11,7 @@ docs: |-
 
   > Eslatma: darslar ro'yxati kurs tafsiloti javobida ham (`GET /mobile/courses/{id}` → `lessons`) qaytadi.
 
-  **Auth:** `access_token` (Bearer). Sotib olish **shart emas** — sotib olinmaganda **boshidagi 2 ta dars bepul ochiq**, qolganlari qulflangan.
+  **Auth:** `access_token` (Bearer). Sotib olish **shart emas** — sotib olinmaganda **o'quv markazi `is_free=true` deb belgilagan darslar bepul ochiq**, qolganlari qulflangan. (Avvalgi avtomatik "boshidagi 2 ta" mantiq olib tashlandi.)
 
   ### 📤 Response
 
@@ -25,7 +25,8 @@ docs: |-
   | `sort_order` | int | Tartib |
   | `progress` | float | Tugatish foizi (0–100) |
   | `is_passed` | bool | Dars o'tilgan/o'tilmagan |
-  | `is_locked` | bool | Qulflangan dars. Sotib olingach hammasi `false`; sotib olinmaganda boshidagi 2 tasi `false`, qolgani `true` |
+  | `is_locked` | bool | Qulflangan dars. Sotib olingach hammasi `false`; sotib olinmaganda `is_free=true` darslar `false`, qolgani `true` |
+  | `is_free` | bool | O'quv markazi shu darsni bepul deb belgilaganmi |
   | `play_url` | string \| null | O'ynatish URL; **qulflangan darsda `null`** |
 
   ### ⚠️ Errors
