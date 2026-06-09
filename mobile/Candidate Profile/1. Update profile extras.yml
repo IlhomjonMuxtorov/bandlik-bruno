@@ -26,6 +26,13 @@ docs: 'Nomzodning **passport / birth / registration** qo''shimcha maydonlarini y
   > avtomatik `married` ga o''rnatiladi. Mavjud qiymat response ichida qaytariladi.
 
 
+  > **`foreign_passport_number` ham QABUL QILINMAYDI.** Xorijiy passport (загранпаспорт)
+  > MVD `documents[]` dan turi bo''yicha avtomatik aniqlanadi — faqat aktiv
+  > `IDMS_RECV_IP_DOCUMENTS` hujjati bo''lsa. Aktiv xorijiy passport bo''lmasa
+  > `null` qaytadi (boshqa turdagi passport hech qachon xorijiy deb belgilanmaydi).
+  > Read-only qiymat response ichida qaytariladi.
+
+
   **Auth:** `access_token`.
 
 
@@ -39,8 +46,6 @@ docs: 'Nomzodning **passport / birth / registration** qo''shimcha maydonlarini y
   | `photo_file_id` | int | `/mobile/upload` qaytargan fayl ID si |
 
   | `tin` | string | TIN/INN |
-
-  | `foreign_passport_number` | string | Xorijiy passport raqami |
 
   | `had_visa_before` | bool | Avval viza olinganmi? |
 
