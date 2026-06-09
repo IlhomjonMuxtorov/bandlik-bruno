@@ -12,10 +12,11 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"type\": \"code_95\",\n    \"title\": \"Code 95 sertifikati\",\n    \"certificate_number\": \"CRT-2024-001\",\n    \"issue_date\": \"15.01.2024\",\n    \"expiry_date\": \"15.01.2029\",\n    \"file_id\": null\n}"
+    data: "{\n    \"type\": \"code_95\",\n    \"title\": \"Code 95 sertifikati\",\n    \"certificate_number\": \"CRT-2024-001\",\n    \"issue_date\": \"15.01.2024\",\n    \"expiry_date\": \"15.01.2029\",\n    \"file_id\": null,\n    \"cv_id\": null\n}"
   auth: inherit
 docs: |
-  Profil pooliga yangi haydovchilik sertifikati qo'shish.
+  Profil pooliga yangi haydovchilik sertifikati qo'shish. Ixtiyoriy `cv_id`
+  berilsa, sertifikat poolga qo'shilishi bilan birga shu CVga ham biriktiriladi.
 
   **Auth:** `access_token`.
 
@@ -29,6 +30,7 @@ docs: |
   | `issue_date` | date | ➖ | `DD.MM.YYYY` |
   | `expiry_date` | date | ➖ | `DD.MM.YYYY` |
   | `file_id` | int | ➖ | `/mobile/upload` orqali yuklangan sertifikat fayl ID |
+  | `cv_id` | int | ➖ | CV ID — berilsa, sertifikat shu CVga ham avtomatik biriktiriladi |
 
   ### 📤 Response (`201 Created`)
 
@@ -43,6 +45,7 @@ docs: |
   |---|---|
   | `400` | Validatsiya xatosi (noto'g'ri `type` va h.k.) |
   | `401` | Token yo'q yoki muddati o'tgan |
+  | `404` | `cv_id` berilgan, lekin CV topilmadi yoki boshqa kandidatga tegishli |
 settings:
   encodeUrl: true
   timeout: 0
