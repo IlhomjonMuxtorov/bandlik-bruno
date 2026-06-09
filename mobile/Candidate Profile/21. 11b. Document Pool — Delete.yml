@@ -1,7 +1,7 @@
 info:
-  name: 11c. Document Pool — Delete
+  name: 11b. Document Pool — Delete
   type: http
-  seq: 22
+  seq: 21
 http:
   method: DELETE
   url: '{{base_url}}/mobile/candidate/document/{{document_id}}'

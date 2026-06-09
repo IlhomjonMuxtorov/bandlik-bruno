@@ -1,5 +1,5 @@
 info:
-  name: 11a. Document Pool — Create
+  name: 11a. Document Pool — Upsert
   type: http
   seq: 20
 http:
@@ -15,10 +15,18 @@ http:
     data: "{\n    \"type\": \"passport_scan\",\n    \"title\": \"Passport.pdf\",\n    \"file_id\": 42,\n    \"cv_id\": null\n}"
   auth: inherit
 docs: |
-  Profil pooliga yangi hujjat qo'shish. Ixtiyoriy `cv_id` berilsa, hujjat
-  poolga qo'shilishi bilan birga shu CVga ham biriktiriladi.
+  Profil pooliga hujjat qo'shish yoki mavjudini yangilash (`type` bo'yicha upsert —
+  yagona create/update endpoint). Ixtiyoriy `cv_id` berilsa, hujjat poolga qo'shilishi
+  bilan birga shu CVga ham biriktiriladi.
 
   **Auth:** `access_token`.
+
+  > 🔁 **Upsert (har type'dan bitta):** pool har bir nomzod uchun `type` bo'yicha
+  > yagona — har `type`dan faqat bitta hujjat saqlanadi. Agar shu `type`'dagi hujjat
+  > allaqachon mavjud bo'lsa, **yangi qator yaratilmaydi**; mavjud hujjat yangi
+  > `title`/`file_id` bilan yangilanadi va eski fayl o'chiriladi. Shu sababli alohida
+  > "update" endpoint yo'q — yangilash uchun ham shu POST ishlatiladi (hujjat `id` si
+  > shart emas, `type` kalit).
 
   ### 📥 Request Body
 
@@ -26,12 +34,13 @@ docs: |
   |---|---|:---:|---|
   | `type` | string | ✅ | `passport_scan` \| `foreign_passport_scan` \| `criminal_record_scan` \| `photo_3x4_scan` |
   | `title` | string | ✅ | Fayl nomi |
-  | `file_id` | int | ✅ | `/mobile/upload` orqali yuklangan fayl ID (hujjatda fayl majburiy) |
+  | `file_id` | int | ✅/➖ | `/mobile/upload` orqali yuklangan fayl ID. Yangi hujjatda **majburiy**; mavjud hujjatni yangilashda ixtiyoriy — berilmasa hozirgi fayl saqlanadi |
   | `cv_id` | int | ➖ | CV ID — berilsa, hujjat shu CVga ham avtomatik biriktiriladi |
 
   ### 📤 Response (`201 Created`)
 
-  List endpointi bilan bir xil maydonlar.
+  List endpointi bilan bir xil maydonlar. Mavjud hujjat upsert qilinganda ham
+  o'sha (yangilangan) hujjat qaytariladi.
 
   > ✨ **Auto-save:** yaratilgan hujjat `id` si `document_id` env'ga saqlanadi —
   > CV qismidagi `Document — Attach/Detach` shu `{{document_id}}` ni ishlatadi.
