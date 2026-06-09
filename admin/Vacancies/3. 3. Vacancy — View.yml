@@ -61,6 +61,8 @@ docs: |-
   | `created_at_formatted` | string | Inson o'qiy oladigan |
   | `updated_at` | int | Unix timestamp |
   | `updated_at_formatted` | string | Inson o'qiy oladigan |
+  | `created_by` | object \| null | Vakansiyani yaratgan foydalanuvchi `{ id: int, name: string\|null }` (yo'q bo'lsa `null`). `name` — `username`, yo'q bo'lsa `email` |
+  | `updated_by` | object \| null | Oxirgi marta o'zgartirgan foydalanuvchi `{ id: int, name: string\|null }` (yo'q bo'lsa `null`). `name` — `username`, yo'q bo'lsa `email` |
   | `requirements` | array | `[{ id: int, title: string, description: string\|null, sort_order: int }]` |
   | `benefits` | array | `[{ id: int, title: string, description: string\|null, sort_order: int }]` |
   | `documents` | array | `[{ id: int, title: string, description: string\|null, sort_order: int }]` |

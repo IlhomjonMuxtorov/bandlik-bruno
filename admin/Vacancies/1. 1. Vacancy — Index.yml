@@ -67,6 +67,12 @@ docs: 'Vakansiyalar ro''yxati. Admin barchasini ko''radi; Employer/Recruiter faq
   | `pagination` | object | `{ page, page_size, total_count, page_count }` |
 
 
+  > Har bir `items[]` elementida `created_by` va `updated_by` maydonlari bor:
+  `{ id: int, name: string\|null }` (yo''q bo''lsa `null`). `name` — `username`,
+  yo''q bo''lsa `email`. Vakansiyani kim yaratgani va kim oxirgi marta o''zgartirgani
+  shu maydonlarda ko''rinadi.
+
+
   ### ⚠️ Errors
 
 

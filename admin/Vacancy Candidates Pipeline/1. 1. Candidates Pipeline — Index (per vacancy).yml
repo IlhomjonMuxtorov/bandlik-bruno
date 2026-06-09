@@ -4,8 +4,28 @@ info:
   seq: 1
 http:
   method: GET
-  url: '{{base_url}}/admin/vacancies/1/candidates'
+  url: '{{base_url}}/admin/vacancies/1/candidates?q=&district=&status=&stage_category=&stage_status=&per-page=10'
   auth: inherit
+params:
+  query:
+    - name: q
+      value: ''
+      enabled: true
+    - name: district
+      value: ''
+      enabled: true
+    - name: status
+      value: ''
+      enabled: true
+    - name: stage_category
+      value: ''
+      enabled: true
+    - name: stage_status
+      value: ''
+      enabled: true
+    - name: per-page
+      value: '10'
+      enabled: true
 docs: 'Vakansiya pipeline''idagi nomzodlar (`accepted_at DESC`).
 
 
@@ -19,10 +39,33 @@ docs: 'Vakansiya pipeline''idagi nomzodlar (`accepted_at DESC`).
 
   |---|---|:---:|---|
 
-  | `status` | string | ➖ | `pending` \| `course_in_progress` \| `course_passed` \|
-  `course_failed` \| `visa_pending` \| `departed` \| `dropped_out` |
+  | `q` | string | ➖ | FISH (pasport ism/familiya/otasining ismi) yoki telefon/username bo''yicha qidiruv (ILIKE) |
+
+  | `district` | string | ➖ | `candidates.registration_district` bo''yicha aniq moslik (free-text) |
+
+  | `status` | string | ➖ | Journey status: `pending` \| `course_in_progress` \|
+  `course_passed` \| `course_failed` \| `visa_pending` \| `visa_rejected` \|
+  `departed` \| `dropped_out`. Yaroqsiz qiymat e''tiborsiz qoldiriladi (filtr qo''llanmaydi) |
+
+  | `stage_category` | string | ➖ | Bosqich (Joriy status ikonkasi) kategoriyasi:
+  `agency` \| `notarius` \| `insurance` \| `logistics` \| `visa` \|
+  `translation_apostille` \| `training` \| `notary_translation` \|
+  `notary_apostille` \| `notary_other` |
+
+  | `stage_status` | string | ➖ | Bosqich holati: `pending` \| `awaiting_payment` \| `in_progress` \|
+  `completed` \| `overdue` \| `payment_overdue` \| `skipped` |
+
+  | `sort` | string | ➖ | `id` \| `accepted_at` \| `course_progress_percent` \|
+  `collected_amount` (oldiga `-` qo''yilsa kamayish tartibida) |
 
   | `per-page` | int | ➖ | 1..100 |
+
+  | `page` | int | ➖ | 1-indeksli |
+
+
+  > Eslatma: `stage_category` va `stage_status` birga yoki alohida berilishi mumkin —
+  nomzodda mos bosqich mavjud bo''lsa (EXISTS) filtrlanadi. Qidiruv (`q`) FISH va
+  telefon/username ustidan ILIKE bilan ishlaydi.
 
 
   ### 📤 Response (`data`)

@@ -1,0 +1,59 @@
+info:
+  name: 5. Course Duration Range
+  type: http
+  seq: 5
+http:
+  method: GET
+  url: '{{base_url}}/mobile/courses/duration-range'
+  auth: inherit
+docs: |-
+  Tanlangan (davomiylikdan tashqari) filterlarga mos keladigan faol kurslar bo'yicha **kurs davomiyligining eng kichik va eng katta qiymatini soatlarda** qaytaradi — mobil filter ekranidagi **Davomiyligi** slayderining chegaralarini shu yerdan o'rnatish uchun. Vakansiyalardagi maosh diapazoni (`GET /mobile/vacancies/salary-range`) endpoint'iga o'xshash ishlaydi.
+
+  Slayder chegaralarini olgandan keyin, haqiqiy filtrlash feed (`GET /mobile/courses`) va count (`GET /mobile/courses/count`) dagi `duration_min` / `duration_max` paramlari orqali qilinadi.
+
+  **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi).
+
+  > Diapazon **boshqa tanlangan filtrlarga moslashadi** — masalan `category_id` berilsa, faqat shu turdagi kurslar bo'yicha min/max qaytadi. Hech qanday filtr berilmasa — barcha faol kurslar bo'yicha global diapazon. Davomiyligi (`duration_hours`) ko'rsatilmagan kurslar hisobga olinmaydi.
+
+  ### 🔎 Query Parameters
+
+  Feed bilan bir xil (davomiylikdan tashqari) filtr paramlari. `duration_min`, `duration_max`, `sort`, `page`, `per-page` bu endpoint uchun **e'tiborga olinmaydi**.
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `q` | string | ➖ | Nomi/tavsif bo'yicha qidiruv (ILIKE). |
+  | `category_id` | int \| int[] | ➖ | Kurs turi ID. Multi: `category_id[]=3&category_id[]=7` yoki `category_id=3,7` (OR). |
+  | `language_id` | int \| int[] | ➖ | Til ID. Multi: `language_id[]=1&language_id[]=2` yoki `language_id=1,2` (OR). |
+  | `level` | string | ➖ | Daraja (masalan `A1`, `B2`). |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer <access_token>` (mehmon tokeni ham). |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `min` | int \| null | Eng qisqa kurs davomiyligi (soat). Mos keladigan davomiylikli kurs bo'lmasa `null`. |
+  | `max` | int \| null | Eng uzun kurs davomiyligi (soat). Mos keladigan davomiylikli kurs bo'lmasa `null`. |
+  | `count` | int | Diapazonga hissa qo'shgan (davomiyligi ko'rsatilgan) kurslar soni. |
+
+  ```json
+  { "min": 8, "max": 240, "count": 42 }
+  ```
+
+  > Mos keladigan davomiylikli kurs bo'lmasa: `{ "min": null, "max": null, "count": 0 }`. Bunday holatda frontend default diapazonni qo'llaydi yoki slayderni yashiradi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki yaroqsiz. |
+  | `500` | Server xatosi. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
