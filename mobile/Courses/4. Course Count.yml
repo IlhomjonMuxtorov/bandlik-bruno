@@ -1,0 +1,55 @@
+info:
+  name: 4. Course Count
+  type: http
+  seq: 4
+http:
+  method: GET
+  url: '{{base_url}}/mobile/courses/count'
+  auth: inherit
+docs: |-
+  Tanlangan filterlarga mos keladigan faol kurslar **umumiy sonini** qaytaradi — mobil filter ekranidagi "N ta kursni ko'rsatish" tugmasi uchun. Feed (`GET /mobile/courses`) bilan **aynan bir xil** filtr mantig'ini ishlatadi, shuning uchun son va ro'yxat har doim mos keladi.
+
+  **Auth:** `access_token` (mehmon tokeni ham yaraydi).
+
+  ### 🔎 Query Parameters
+
+  Feed bilan bir xil filtr paramlari. `sort`, `per-page`, `page` count uchun ahamiyatsiz va e'tiborga olinmaydi.
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `q` | string | ➖ | Nomi/tavsif bo'yicha qidiruv (ILIKE). |
+  | `category_id` | int \| int[] | ➖ | Kurs turi ID. Multi: `category_id[]=3&category_id[]=7` yoki `category_id=3,7` (OR). |
+  | `language_id` | int \| int[] | ➖ | Til ID. Multi: `language_id[]=1&language_id[]=2` yoki `language_id=1,2` (OR). |
+  | `level` | string | ➖ | Daraja (masalan `A1`, `B2`). |
+  | `duration_min` | int | ➖ | Min davomiylik soatlarda (`duration_hours >=`). |
+  | `duration_max` | int | ➖ | Max davomiylik soatlarda (`duration_hours <=`). |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer <access_token>` (mehmon tokeni ham). |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `count` | int | Tanlangan filterlarga mos keladigan faol kurslar soni. |
+
+  ```json
+  { "count": 25 }
+  ```
+
+  > `count` qiymati feed (`GET /mobile/courses`) javobidagi `X-Pagination-Total-Count` header bilan bir xil bo'ladi (bir xil filtrlar berilganda).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki yaroqsiz. |
+  | `500` | Server xatosi. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
