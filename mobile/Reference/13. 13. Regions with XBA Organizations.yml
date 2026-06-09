@@ -1,0 +1,53 @@
+info:
+  name: 13. Regions with XBA Organizations
+  type: http
+  seq: 13
+http:
+  method: GET
+  url: '{{base_url}}/mobile/regions/with-xba-organizations'
+  headers:
+  - name: Accept
+    value: application/json
+  auth:
+    type: bearer
+    token: '{{access_token}}'
+docs: |-
+  XBA tashkilotlar ro'yxati filtri (viloyat dropdown) uchun: faqat kamida 1 ta faol
+  XBA tashkiloti bor viloyatlar, har birida faol XBA tashkilotlar soni (badge) bilan
+  qaytadi. Viloyatlari `sort_order`, `id` bo'yicha tartiblangan. XBA tashkiloti yo'q
+  viloyatlar ro'yxatda umuman bo'lmaydi — xuddi `countries/with-vacancies` kabi.
+
+  **Auth:** har qanday yaroqli JWT (`access_token` yoki `guest_token`).
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {token}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz`. `name` lokalizatsiyasi. |
+
+  ### 🔎 Query Parameters
+
+  Yo'q.
+
+  ### 📤 Response *(massiv elementi)*
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Viloyat ID |
+  | `name` | string | Viloyat nomi (`Accept-Language` tiliga mos, fallback → `uz`). |
+  | `xba_organization_count` | int | Shu viloyatdagi faol XBA tashkilotlar soni (badge). Har doim ≥ 1. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q, noto'g'ri yoki muddati o'tgan |
+  | `500` | Server xatosi |
+
+  > Faol XBA tashkiloti bor viloyat bo'lmasa bo'sh massiv `[]` qaytadi.
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
