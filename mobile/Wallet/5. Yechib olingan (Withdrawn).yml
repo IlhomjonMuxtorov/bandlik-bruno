@@ -1,0 +1,61 @@
+info:
+  name: 5. Yechib olingan (Withdrawn)
+  type: http
+  seq: 5
+http:
+  method: GET
+  url: '{{base_url}}/mobile/wallet/payments?per-page=20'
+  auth: inherit
+docs: |
+  # GET /mobile/wallet/payments — "Yechib olingan" tab
+
+  Hamyondan amalga oshirilgan xizmat to'lovlari — ledger'dagi
+  `type=CandidatePayment`, `status=Completed` bo'lgan `Transaction` yozuvlari,
+  `id` bo'yicha kamayish tartibida (yangi → eski). Har bir qator real chiqim
+  harakatini bildiradi (qizil `-` summa).
+
+  **Auth:** `access_token` (nomzod).
+
+  ## Query parametrlari (paginatsiya)
+  | Param | Default | Izoh |
+  |---|---|---|
+  | `per-page` | 20 | Sahifadagi yozuvlar (1–100). |
+  | `page` | 1 | Sahifa raqami. |
+
+  Meta header'larda: `X-Pagination-Total-Count`, `X-Pagination-Page-Count`,
+  `X-Pagination-Current-Page`, `X-Pagination-Per-Page`.
+
+  ## Response (200) — hamyon tarixi qatorlari (amount so'mda)
+  ```json
+  [
+    {
+      "id": 120,
+      "title": "O'quv kursi",
+      "amount": 560000,
+      "currency": "UZS",
+      "direction": "out",
+      "date": "12.12.2026",
+      "created_at": 1735650500
+    }
+  ]
+  ```
+
+  | Maydon | Tip | Izoh |
+  |---|---|---|
+  | `id` | int | Transaction id. |
+  | `title` | string\|null | Xizmat nomi (`OrganizationService.name`, qurilma tiliga ko'ra lokalizatsiya). Topilmasa `"Payment"`. |
+  | `amount` | int | To'lov summasi, **musbat** (so'm). |
+  | `currency` | string | `UZS`. |
+  | `direction` | string | Doim `out` (chiqim — qizil `-`). |
+  | `date` | string | `d.m.Y` (Asia/Tashkent), masalan `12.12.2026`. |
+  | `created_at` | int | Unix timestamp. |
+
+  ## Errors
+  | Code | Sabab |
+  |---|---|
+  | `401` | Token yo'q. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
