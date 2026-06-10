@@ -15,7 +15,8 @@ docs: |-
 
   | Param | Type | Required | Description |
   |---|---|:---:|---|
-  | `year` | int | ➖ | Grafik yili (default — joriy yil). Jan..Dek bo'yicha. |
+  | `date_from` | string | ➖ | Boshlanish sanasi `YYYY-MM-DD`. Default — joriy yilning 1-yanvari. |
+  | `date_to` | string | ➖ | Tugash sanasi `YYYY-MM-DD`. Default — bugungi sana. |
 
   ### 📋 Headers
 
@@ -28,9 +29,10 @@ docs: |-
 
   | Field | Type | Description |
   |---|---|---|
-  | `year` | int | Tanlangan yil |
-  | `candidate_growth` | array | Nomzodlar o'sishi — `[{month:1..12, count}]` (12 ta element). |
-  | `engagement_trend` | object | `{views:[{month,count}], responses:[{month,count}]}` — ko'rishlar va munosabat bildirganlar. |
+  | `date_from` | string | Tanlangan boshlanish sanasi (`YYYY-MM-DD`). |
+  | `date_to` | string | Tanlangan tugash sanasi (`YYYY-MM-DD`). |
+  | `candidate_growth` | array | Nomzodlar o'sishi — `[{year, month:1..12, count}]`. Diapazon ichidagi har bir oy uchun element. |
+  | `engagement_trend` | object | `{views:[{year,month,count}], responses:[{year,month,count}]}` — ko'rishlar va munosabat bildirganlar. |
   | `by_country` | array | Davlatlar bo'yicha — `[{country_id, name, count}]`, kamayish tartibida. |
   | `by_category` | array | Kategoriya (kasb) bo'yicha — `[{industry_id, name, count, percent}]`. |
 
@@ -38,6 +40,10 @@ docs: |-
   > "Ko'rishlar soni" / "Munosabat bildirganlar" ko'rsatilgan — endpoint legendaga
   > mos ravishda `engagement_trend.views` (`vacancy_view_log`) va
   > `engagement_trend.responses` (`vacancy_candidate`) seriyalarini qaytaradi.
+
+  > Ko'p yillik diapazon (masalan `date_from=2025-01-01&date_to=2026-06-10`) berilganda
+  > `candidate_growth` va `engagement_trend` seriyalarida 18 ta element bo'ladi, har birida
+  > `year` va `month` maydoni mavjud.
 
   ### ⚠️ Errors
 
