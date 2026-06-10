@@ -31,7 +31,7 @@ docs: 'Pipeline yozuvini yangilaydi (partial — faqat berilgan maydonlar o''zga
 
   | `course_progress_percent` | int | ➖ | 0..100 |
 
-  | `collected_amount` | int | ➖ | Minor units (UZS so''m yoki USD dollar) |
+  | `collected_amount` | int | ➖ | Odatiy birlikda (so''m / dollar / evro) |
 
   | `collected_currency` | string | ➖ | `UZS` \| `USD` \| `EUR` |
 
