@@ -1,0 +1,47 @@
+info:
+  name: Candidate CV
+  type: http
+  seq: 13
+http:
+  method: GET
+  url: '{{base_url}}/admin/chats/1/cv'
+  headers:
+  - name: Accept-Language
+    value: uz
+  body:
+    type: none
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+docs: |
+  Chat ortidagi kandidatning to'liq CV'si — chat info panelida "CV" ko'rinishi uchun.
+  `GET /admin/vacancy-applications/<id>/cv` bilan bir xil struktura (mobil
+  `GET /mobile/cv/:id` shape'i — ta'lim, ish tajribasi, tillar, hujjatlar, oila,
+  vizalar, haydovchilik guvohnomasi, kurslar, kontakt).
+
+  **Auth:** `admin_token`. Admin yoki shu chat tashkilotining xodimi.
+
+  **Til:** `Accept-Language` orqali lokalizatsiya qilinadi (`uz` | `ru` | `en`).
+
+  ### 📤 Response
+
+  CV manbasi quyidagi tartibda tanlanadi (javob shape'i barchasida bir xil):
+
+  1. Arizaga biriktirilgan CV (`vacancy_application.cv_id`) bo'lsa — o'sha CV.
+  2. Bo'lmasa — kandidatning **primary** CV'si.
+  3. CV umuman yo'q bo'lsa — minimal profil (pasport/shaxsiy ma'lumotlar to'ldirilgan,
+     `education`, `experience`, `documents`, `courses` bo'sh; `header.cv_id = null`).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Foydalanuvchi bu tashkilot xodimi emas |
+  | `404` | Chat topilmadi |
+  | `404` | Ariza yoki kandidat topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
