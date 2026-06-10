@@ -10,12 +10,13 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"organization_id\": 1,\n  \"full_name\": \"Rustam Qodirov\",\n  \"\
-      phone\": \"+998942030000\",\n  \"role\": \"XBA agenti 1\",\n  \"language\": \"\
-      uz\",\n  \"profile_photo_file_id\": null,\n  \"is_active\": 1\n}"
+    data: "{\n  \"organization_id\": 1,\n  \"full_name\": \"Rustam Qodirov\",\n  \"phone\": \"+998942030000\",\n  \"role\": \"XBA agenti 1\",\n  \"language\": \"uz\",\n  \"profile_photo_file_id\": null,\n  \"region_id\": 1,\n  \"district_id\": 101,\n  \"is_active\": 1\n}"
   auth: inherit
 docs: |-
   Yangi xodim qo'shadi. `joined_at` yuborilmasa hozirgi vaqt sifatida o'rnatiladi.
+  Joylashuv maydonlaridan (`region_id`, `district_id`) hech biri yuborilmasa —
+  tashkilotning joylashuvi avtomatik olinadi (bittasi yuborilsa meros ishlamaydi).
+  `district_id` tanlangan `region_id`ga tegishli bo'lishi tekshiriladi.
 
   **Auth:** `admin_token`.
 
@@ -30,12 +31,15 @@ docs: |-
   | `role` | string | ✅ | "XBA agenti 1", "XBA admin", ... (max 50, erkin string) |
   | `language` | string | ➖ | `uz` \| `ru` \| `en`. Default `uz` |
   | `profile_photo_file_id` | int | ➖ | Pre-upload qilingan rasm `upload_file.id` (READY holatda) |
+  | `region_id` | int | ➖ | Viloyat `region.id`. Yuborilmasa tashkilotniki olinadi |
+  | `district_id` | int | ➖ | Tuman `district.id`. Yuborilmasa tashkilotniki olinadi |
   | `joined_at` | int | ➖ | Unix timestamp. Default = hozir |
   | `is_active` | bool (0\|1) | ➖ | Default `1` |
 
   ### 📤 Response
 
   `201` — `OrganizationEmployeeOutputDTO` (`language`, `profile_photo_url`,
+  `region` / `district` obyektlari — `{id, name: {uz, ru, en}}` yoki `null`,
   `vacancies_count`, `candidates_count` bilan).
 
   ### ⚠️ Errors

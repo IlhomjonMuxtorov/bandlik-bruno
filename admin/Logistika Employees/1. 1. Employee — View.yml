@@ -6,7 +6,8 @@ http:
   method: GET
   url: '{{base_url}}/admin/logistics-employees/1'
   auth: inherit
-docs: 'Bitta xodim. **Auth:** `admin_token`.
+docs: 'Bitta xodim. Javobda `region` / `district` obyektlari ham bor (`{id, name: {uz, ru, en}}`
+  yoki `null`). **Auth:** `admin_token`.
 
 
   ### ⚠️ Errors

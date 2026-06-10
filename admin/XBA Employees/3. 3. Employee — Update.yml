@@ -10,13 +10,15 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"role\": \"XBA admin\",\n  \"language\": \"ru\",\n  \"profile_photo_file_id\"\
-      : null\n}"
+    data: "{\n  \"role\": \"XBA admin\",\n  \"language\": \"ru\",\n  \"profile_photo_file_id\": null,\n  \"region_id\": 2,\n  \"district_id\": 201\n}"
   auth: inherit
 docs: |-
   Xodim ma'lumotlarini yangilaydi (partial). Faqat yuborilgan maydonlar o'zgaradi.
   `profile_photo_file_id` yuborilsa — yangi rasm biriktiriladi va eski rasm (agar bo'lsa)
   muvaffaqiyatli saqlangach o'chiriladi. `language` — `uz` \| `ru` \| `en`.
+  `region_id` / `district_id` yuborilsa xodim joylashuvi yangilanadi; `null` yuborish
+  qiymatni o'chirmaydi. `organization_id` almashtirilsa va joylashuv yuborilmasa —
+  yangi tashkilot joylashuvi avtomatik olinadi.
 
   **Auth:** `admin_token`.
 settings:

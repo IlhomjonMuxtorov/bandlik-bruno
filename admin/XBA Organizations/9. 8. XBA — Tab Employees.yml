@@ -17,6 +17,8 @@ docs: |-
   |---|---|:---:|---|
   | `q` | string | ➖ | F.I.SH / rol / telefon bo'yicha qidiruv |
   | `is_active` | int (0\|1) | ➖ | |
+  | `region_id` | int | ➖ | Viloyat bo'yicha filter |
+  | `district_id` | int | ➖ | Tuman bo'yicha filter |
   | `page`, `per-page` | int | ➖ | Pagination |
 
   ### 📤 Response (`data.items[]` — `OrganizationEmployeeOutputDTO`)
@@ -31,6 +33,8 @@ docs: |-
   | `role` | string | "XBA agenti 1", "XBA admin" va h.k. |
   | `language` | string | `uz` \| `ru` \| `en` (default `uz`) |
   | `profile_photo_url` | string \| null | To'liq URL (pre-upload qilingan rasm) |
+  | `region` | object \| null | `{id, name: {uz, ru, en}}` |
+  | `district` | object \| null | `{id, name: {uz, ru, en}}` |
   | `vacancies_count` | int | Xodim ishlagan distinct vakansiyalar (xizmat buyurtmalari orqali) |
   | `candidates_count` | int | Xodim xizmat ko'rsatgan distinct nomzodlar |
   | `joined_at` | int \| null | Unix timestamp |

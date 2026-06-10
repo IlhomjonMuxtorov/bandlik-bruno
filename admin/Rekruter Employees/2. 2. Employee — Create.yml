@@ -10,11 +10,12 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"organization_id\": 1,\n  \"full_name\": \"Rustam Qodirov\",\n  \"\
-      phone\": \"+998942030000\",\n  \"role\": \"XBA agenti 1\",\n  \"is_active\"\
-      : 1\n}"
+    data: "{\n  \"organization_id\": 1,\n  \"full_name\": \"Rustam Qodirov\",\n  \"phone\": \"+998942030000\",\n  \"role\": \"XBA agenti 1\",\n  \"country_id\": 1,\n  \"city_id\": 1,\n  \"is_active\": 1\n}"
   auth: inherit
 docs: 'Yangi xodim qo''shadi. `joined_at` yuborilmasa hozirgi vaqt sifatida o''rnatiladi.
+  Joylashuv maydonlaridan (`country_id`, `city_id`) hech biri yuborilmasa — tashkilotning
+  joylashuvi avtomatik olinadi (bittasi yuborilsa meros ishlamaydi). `city_id` tanlangan
+  `country_id`ga tegishli bo''lishi tekshiriladi.
 
 
   **Auth:** `admin_token`.
@@ -38,6 +39,10 @@ docs: 'Yangi xodim qo''shadi. `joined_at` yuborilmasa hozirgi vaqt sifatida o''r
   | `role` | string | ✅ | "XBA agenti 1", "XBA admin", ... (max 50, erkin string)
   |
 
+  | `country_id` | int | ➖ | Davlat `country.id`. Yuborilmasa tashkilotniki olinadi |
+
+  | `city_id` | int | ➖ | Shahar `city.id`. Yuborilmasa tashkilotniki olinadi |
+
   | `joined_at` | int | ➖ | Unix timestamp. Default = hozir |
 
   | `is_active` | bool (0\|1) | ➖ | Default `1` |
@@ -46,7 +51,8 @@ docs: 'Yangi xodim qo''shadi. `joined_at` yuborilmasa hozirgi vaqt sifatida o''r
   ### 📤 Response
 
 
-  `201` — `OrganizationEmployeeOutputDTO`.
+  `201` — `OrganizationEmployeeOutputDTO` (`country` / `city` obyektlari — `{id,
+  name: {uz, ru, en}}` yoki `null`).
 
 
   ### ⚠️ Errors

@@ -10,9 +10,12 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"role\": \"XBA admin\"\n}"
+    data: "{\n  \"role\": \"XBA admin\",\n  \"country_id\": 1,\n  \"city_id\": 2\n}"
   auth: inherit
-docs: 'Xodim ma''lumotlarini yangilaydi.
+docs: 'Xodim ma''lumotlarini yangilaydi (partial — faqat yuborilgan maydonlar o''zgaradi).
+  `country_id` / `city_id` yuborilsa xodim joylashuvi yangilanadi; `null` yuborish
+  qiymatni o''chirmaydi. `organization_id` almashtirilsa va joylashuv yuborilmasa —
+  yangi tashkilot joylashuvi avtomatik olinadi.
 
 
   **Auth:** `admin_token`.

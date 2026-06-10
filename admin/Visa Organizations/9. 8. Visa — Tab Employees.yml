@@ -23,6 +23,10 @@ docs: 'Visa tashkilotning **Xodimlar** tabi.
 
   | `is_active` | int (0\|1) | ➖ | |
 
+  | `region_id` | int | ➖ | Viloyat bo''yicha filter |
+
+  | `district_id` | int | ➖ | Tuman bo''yicha filter |
+
   | `page`, `per-page` | int | ➖ | Pagination |
 
 
@@ -44,6 +48,10 @@ docs: 'Visa tashkilotning **Xodimlar** tabi.
   | `phone` | string \| null | |
 
   | `role` | string | "XBA agenti 1", "XBA admin" va h.k. |
+
+  | `region` | object \| null | `{id, name: {uz, ru, en}}` |
+
+  | `district` | object \| null | `{id, name: {uz, ru, en}}` |
 
   | `joined_at` | int \| null | Unix timestamp |
 

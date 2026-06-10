@@ -17,6 +17,8 @@ docs: |-
   |---|---|:---:|---|
   | `q` | string | ➖ | F.I.SH / rol / telefon bo'yicha qidiruv |
   | `is_active` | int (0\|1) | ➖ | |
+  | `country_id` | int | ➖ | Davlat bo'yicha filter |
+  | `city_id` | int | ➖ | Shahar bo'yicha filter |
   | `page`, `per-page` | int | ➖ | Pagination |
 
   ### 📤 Response (`data.items[]` — `OrganizationEmployeeOutputDTO`)
@@ -30,6 +32,8 @@ docs: |-
   | `phone` | string \| null | |
   | `role` | string | "Rekruter agenti 1", "Rekruter admin" va h.k. |
   | `profile_photo_url` | string \| null | To'liq URL |
+  | `country` | object \| null | `{id, name: {uz, ru, en}}` |
+  | `city` | object \| null | `{id, name: {uz, ru, en}}` |
   | `vacancies_count` | int | Xodim ishtirok etgan distinct vakansiyalar (servis buyurtmalaridan) |
   | `candidates_count` | int | Xodim xizmat ko'rsatgan distinct nomzodlar |
   | `joined_at` | int \| null | Unix timestamp |
