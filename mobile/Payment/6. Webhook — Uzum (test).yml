@@ -80,6 +80,11 @@ docs: 'Uzum Pay webhook. Signature `X-Uzum-Signature` header''ida HMAC-SHA256:
   ```
 
 
+  > **Summa tekshiruvi:** success status''dagi callback''da `amount` saqlangan
+  `Payment.amount` (tiyin) bilan solishtiriladi — mos kelmasa to''lov `failed`
+  deb belgilanadi va balans kreditlanmaydi.
+
+
   ### ⚠️ Errors
 
 

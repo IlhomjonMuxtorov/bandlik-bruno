@@ -124,6 +124,14 @@ docs: 'Click webhook endpoint. Auth bypass — har gateway o''z signature''ini t
   ```
 
 
+  > **Summa tekshiruvi (Prepare va Complete''da):** `merchant_trans_id` bo''yicha
+  to''lov topilmasa javobda `error: -5` (Payment not found), `amount` (so''m)
+  saqlangan `Payment.amount` (tiyin) bilan mos kelmasa `error: -2` (Incorrect
+  amount) qaytariladi. Bunday rad etishda to''lov holati o''zgarmaydi — to''g''ri
+  summa bilan qayta urinish mumkin. Bundan tashqari, success callback''da ham
+  summa mos kelmasa to''lov `failed` deb belgilanadi va balans kreditlanmaydi.
+
+
   ### ⚠️ Errors
 
 
