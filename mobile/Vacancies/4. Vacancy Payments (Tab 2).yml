@@ -7,7 +7,7 @@ http:
   url: '{{base_url}}/mobile/vacancies/1/payments'
   auth: inherit
 docs: |-
-  Detail ekranining **2-tabi ("To'lovlar")**: jami summa + **hamkor tashkilot bo'yicha guruhlangan** xizmatlar + to'lov bosqichlari. Har bir guruh — bitta xizmat ko'rsatuvchi tashkilot (`VacancyServiceGroup`): nomi/logosi, to'lov muddati va xizmat satrlari. `training` kategoriyasi bu yerda **chiqarib tashlangan** (u 3-tab "Tayyorlov kursi"da); faqat training'dan iborat bo'lib qolgan guruh ham tushirib qoldiriladi.
+  Detail ekranining **2-tabi ("To'lovlar")**: jami summa + **hamkor tashkilot bo'yicha guruhlangan** xizmatlar. Har bir guruh — bitta xizmat ko'rsatuvchi tashkilot (`VacancyServiceGroup`): nomi/logosi, to'lov muddati va xizmat satrlari. `training` kategoriyasi bu yerda **chiqarib tashlangan** (u 3-tab "Tayyorlov kursi"da); faqat training'dan iborat bo'lib qolgan guruh ham tushirib qoldiriladi.
 
   **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi).
 
@@ -26,7 +26,6 @@ docs: |-
   | `total_service_currency` | string | `UZS` ... |
   | `single_payment` | bool | "1 tada 100% to'lov" rejimi |
   | `groups` | array | Tashkilot guruhlari (quyida) |
-  | `payment_steps` | array | `[{ id, step_type, step_type_label, title, amount, currency, sort_order }]` |
 
   **`groups[]` element:**
 
