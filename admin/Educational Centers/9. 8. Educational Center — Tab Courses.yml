@@ -34,8 +34,51 @@ docs: 'O''quv markazining **Kurslar** tabi (mockup''dagi "A1 Ingliz tili", "A2 R
   ### 📤 Response (`data.items[]` — `EducationalCourseOutputDTO`)
 
 
-  Sahifa formati [Educational Courses / Index](#) bilan bir xil — `language`, `level`,
-  `duration_hours`, `lessons_count`, `price`, `currency`, `cover_url`, `status`, `status_label`.
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `id` | int | Kurs identifikatori |
+
+  | `name` | string | Kurs nomi |
+
+  | `slug` | string | URL-friendly kurs nomasi |
+
+  | `description` | string \| null | Kurs tavsifi |
+
+  | `category_id` | int \| null | Kurs turi identifikatori |
+
+  | `category_label` | string \| null | Kurs turi nomi |
+
+  | `language` | object \| null | Til ma''lumoti (`id`, `iso_code`, `name`) |
+
+  | `level` | string \| null | CEFR darajasi (A1, B2, va h.k.) |
+
+  | `duration_hours` | int \| null | Kursning davomiyligi (soatlarda) |
+
+  | `lessons_count` | int \| null | Darslar soni |
+
+  | `price` | int | Kurs narxi (so''m) |
+
+  | `currency` | string | Valyuta kodi (UZS, USD, EUR) |
+
+  | `cover_url` | string \| null | Kurs qopqog''i rasmi URL manzili |
+
+  | `status` | string | Status (`draft` \| `active` \| `archived`) |
+
+  | `status_label` | string | Status tarjimasi |
+
+  | `sort_order` | int | Saralash tartibi |
+
+  | `student_count` | int | Ushbu kursga ro''yxatdan o''tgan o''quvchilar soni |
+
+  | `created_at` | int | Unix timestamp (yaratilgan vaqti) |
+
+  | `created_at_formatted` | string | Insonga qarab format (O''zbekcha) |
+
+  | `updated_at` | int | Unix timestamp (yangilangan vaqti) |
+
+  | `updated_at_formatted` | string | Insonga qarab format (O''zbekcha) |
 
   '
 settings:
