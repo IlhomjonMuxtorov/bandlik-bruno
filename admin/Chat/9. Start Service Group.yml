@@ -19,17 +19,21 @@ docs: |
   (`payment_deadline_at = now + group.payment_deadline_days`). Chatga `type=system` xabar
   (`kind: group_started`) yuboriladi.
 
-  Oqim: **Start → Pay → Execute**. Boshlangandan keyin kandidat shu guruhni to'laydi
-  (guruh bo'yicha, all-or-nothing); to'langach bosqichlar `in_progress` ga o'tadi va
-  ijro muddati (`deadline_at = now + group.execution_deadline_days`) to'langan kundan boshlanadi.
+  Oqim: **Start → Pay → Execute**. Pay qadami avtomatik: start muvaffaqiyatli bo'lsa,
+  boshlangan bosqichlar uchun kandidat hamyonidan pul darhol **hold** qilinadi (alohida
+  `/offer/fund` chaqiruvi shart emas), bosqichlar `in_progress` ga o'tadi va ijro muddati
+  (`deadline_at = now + group.execution_deadline_days`) boshlanadi.
+
+  > Agar offer hali qabul qilinmagan bo'lsa, start bosqichlarni `awaiting_payment` da
+  > qoldiradi — hold offer qabul qilinganda (`/offer/accept`) qo'yiladi.
 
   **Guruh = tashkilot.** Bir guruh bir nechta kategoriyani qamrashi mumkin (masalan notarius
   tashkilotning notary_translation / notary_apostille / notary_other xizmatlari bir guruhda).
 
   **To'lov rejimi:**
   - **Ketma-ket (single_payment=false):** guruhni faqat undan oldingi barcha guruhlar (tartib
-    bo'yicha) to'liq to'langandan keyin boshlash mumkin — aks holda `400`. Start'da balans
-    talab qilinmaydi (kandidat `payment_deadline_days` ichida to'ldiradi).
+    bo'yicha) to'liq to'langandan keyin boshlash mumkin — aks holda `400`. Kandidat hamyonidagi
+    mavjud balans **shu guruh summasiga** yetishi shart; yetmasa `400` va guruh boshlanmaydi.
   - **Bitta to'lov (single_payment=true):** bitta `start` chaqiruvi (`groupId` ahamiyatsiz)
     **barcha** guruhlarni birga ochadi — lekin faqat kandidat hamyonidagi mavjud balans umumiy
     summaga yetsa; yetmasa `400`. Hammasiga bitta `payment_deadline_at` (guruhlar muddatining
@@ -52,7 +56,7 @@ docs: |
 
   | Code | Reason |
   |---|---|
-  | `400` | Ketma-ket rejimda oldingi guruh hali to'lanmagan; yoki single_payment'da kandidat balansi umumiy summaga yetmaydi |
+  | `400` | Ketma-ket rejimda oldingi guruh hali to'lanmagan yoki kandidat balansi guruh summasiga yetmaydi; single_payment'da balans umumiy summaga yetmaydi |
   | `403` | Foydalanuvchi xodim emas yoki guruh boshqa piplaynga tegishli |
   | `404` | Chat yoki qabul qilingan piplayn topilmadi / guruh shu nomzodga tegishli emas |
 settings:
