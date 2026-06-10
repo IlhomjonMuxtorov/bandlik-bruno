@@ -40,6 +40,11 @@ docs: 'Mavjud davlat-narxi satrini tahrirlaydi — **granular (bitta satr)** ope
   \| `EUR`, narx valyutasidan mustaqil.
 
 
+  > **Birlik:** client `price` va `coverage_amount` ni major unitda yuboradi (`price` —
+  `currency`, `coverage_amount` — `coverage_currency` valyutasida); backend tiyinda
+  saqlaydi va javobda yana major unitda qaytaradi.
+
+
   ### 📤 Response
 
 

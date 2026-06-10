@@ -30,7 +30,7 @@ docs: 'Admin gateway''dan tashqari (naqd pul, bank o''tkazmasi) qabul qilingan t
 
   | `service_order_id` | int | ✅ | Qaysi buyurtma uchun to''lov |
 
-  | `amount` | int | ✅ | Tiyin/sentda, > 0 |
+  | `amount` | int | ✅ | **So''m/dollarda** (valyutaga mos major unit), > 0 |
 
   | `currency` | string | ✅ | `UZS` \| `USD` \| `EUR` |
 

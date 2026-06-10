@@ -47,12 +47,16 @@ docs: |
   | `services` | array | ✅ | Xizmat satrlari (quyidagi maydonlar bilan) |
   | `services[].id` | int | ➖ | Mavjud satrni yangilash uchun. Yo'q bo'lsa — yangi satr |
   | `services[].insurance_service_type_id` | int | ✅ | Global katalog xizmat turi |
-  | `services[].coverage_amount` | int | ✅ | Qoplash summasi, ≥ 0 |
+  | `services[].coverage_amount` | int | ✅ | Qoplash summasi, ≥ 0 — major unit, `coverage_currency` valyutasida |
   | `services[].coverage_currency` | string | ➖ | Qoplash valyutasi. Default `UZS`. `UZS` \| `USD` \| `EUR` (narx valyutasidan mustaqil) |
-  | `services[].price` | int | ✅ | Narx, ≥ 0 |
+  | `services[].price` | int | ✅ | Narx, ≥ 0 — so'mda (major unit), `currency` valyutasida |
   | `services[].currency` | string | ➖ | Faqat `UZS` (default; boshqasi → `422`) |
   | `services[].is_active` | bool (0\|1) | ➖ | Default `1` |
   | `services[].sort_order` | int | ➖ | Default `0` |
+
+  > **Birlik:** client `price` va `coverage_amount` ni major unitda yuboradi (`price` —
+  > `currency`, `coverage_amount` — `coverage_currency` valyutasida); backend tiyinda
+  > saqlaydi va javobda yana major unitda qaytaradi.
 
   ### 📤 Response (`data`)
 

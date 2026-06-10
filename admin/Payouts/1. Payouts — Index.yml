@@ -36,7 +36,8 @@ docs: 'Barcha payout so''rovlari — admin tomonidan ko''rib chiqilishi kerak bo
   ### 📤 Response
 
 
-  PayoutRequest DTO ro''yxati (V1 list bilan bir xil shape).
+  PayoutRequest DTO ro''yxati (V1 list bilan bir xil shape). `amount` — **so''m**da
+  (valyutaga mos major unit; DB tiyinda saqlaydi).
 
 
   ### ⚠️ Errors

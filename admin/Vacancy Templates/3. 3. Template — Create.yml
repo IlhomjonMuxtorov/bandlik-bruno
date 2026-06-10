@@ -48,6 +48,11 @@ docs: |
   | `payload` | object | ✅ | Vacancy form JSON snapshot (erkin sxema). Bo'sh `{}` ham qabul qilinadi. |
   | `is_active` | bool | ➖ | Faollik holati. Default `true`. |
 
+  > **Birlik:** `payload` ichidagi `service_groups[].services[].price` va
+  > `insurance_coverage_amount` endi **so'mda (major unit)** yuboriladi va saqlanadi —
+  > eski tiyin payloadlar migratsiya bilan so'mga o'tkazilgan; shablonni qayta qo'llash
+  > (replay) so'mda ishlaydi.
+
   ### 📤 Response
 
   `201 Created`, `message: "Template created"`. `data` — yaratilgan shablonning to'liq DTO'si

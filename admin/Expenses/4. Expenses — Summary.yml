@@ -28,6 +28,10 @@ docs: 'Berilgan davr uchun xarajatlar yig''indisi — kategoriya × valyuta bo''
   ### 📤 Response
 
 
+  > Yig''indilar **so''m**da (valyutaga mos major unit — `USD` uchun dollar;
+  DB tiyinda saqlaydi).
+
+
   ```json
 
   {

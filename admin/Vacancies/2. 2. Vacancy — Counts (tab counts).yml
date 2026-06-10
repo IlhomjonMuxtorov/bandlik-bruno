@@ -49,7 +49,7 @@ docs: 'Vakansiyalar ro''yxati sahifasidagi tablar uchun statuslar bo''yicha sonl
 
   | `experience_level` | string | ➖ | `none` \| `one_to_three` \| `three_to_six`. |
 
-  | `salary_min` / `salary_max` | int | ➖ | Maosh oralig''i. |
+  | `salary_min` / `salary_max` | int | ➖ | Maosh oralig''i — major unitda (so''m/dollar). |
 
 
   ### 📋 Headers

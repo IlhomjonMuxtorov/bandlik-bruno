@@ -56,7 +56,7 @@ docs: 'Notarius tashkilotining tarjima narx-katalogi: har bir
 
   | `target_language` | object | `{id, iso_code, name}` |
 
-  | `price` | int | UZS so''mda |
+  | `price` | int | So''mda — major unit, `currency` valyutasida (tiyin EMAS) |
 
   | `currency` | string | `UZS` \| `USD` \| `EUR` |
 

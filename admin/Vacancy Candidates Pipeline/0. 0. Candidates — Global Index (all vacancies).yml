@@ -112,7 +112,7 @@ docs: 'Global "Kandidatlar" ekrani — barcha vakansiyalar bo''yicha nomzodlar (
 
   | `service_groups` | array | Bosqichlar **tashkilot bo''yicha guruhlangan** + guruh bo''yicha
   ketma-ket to''lov holati. Har biri: `{organization, responsible_user, stages[],
-  required_amount, funded_amount, awaiting_amount, currency, started, awaiting_start, fully_funded, is_current, payment_deadline_at, paid_percent, progress_percent}` (admin summalar minor unit / tiyinda) |
+  required_amount, funded_amount, awaiting_amount, currency, started, awaiting_start, fully_funded, is_current, payment_deadline_at, paid_percent, progress_percent}` (admin summalar ham **so''m**da — major unit) |
 
   '
 settings:

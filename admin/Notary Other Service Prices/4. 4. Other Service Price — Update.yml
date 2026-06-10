@@ -15,6 +15,10 @@ http:
 docs: 'Boshqa xizmat narxini yangilash. PATCH semantikasi.
 
 
+  > **Birlik:** client `price` ni so''mda (major unit) yuboradi — backend uni tiyinda
+  saqlaydi va javobda yana so''mda qaytaradi.
+
+
   **Auth:** `admin_token`.
 
   '

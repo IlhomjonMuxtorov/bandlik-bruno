@@ -16,7 +16,8 @@ docs: 'Bitta xarajat haqida to''liq ma''lumot. Bog''langan Transaction `transact
   ### 📤 Response
 
 
-  OperationalExpense DTO.
+  OperationalExpense DTO. `amount` — **so''m**da (valyutaga mos major unit; DB
+  tiyinda saqlaydi).
 
 
   ### ⚠️ Errors

@@ -24,8 +24,8 @@ docs: |-
   | `organization_id` | int | ➖ | Tashkilot bo'yicha (tashkilot kartasidagi "Barcha vakansiyalar"dan o'tilganda). |
   | `employment_type` | string | ➖ | `full_time` \| `part_time` \| `seasonal` \| `contract`. |
   | `experience_level` | string | ➖ | `none` \| `one_to_three` \| `three_to_six`. |
-  | `salary_min` | int | ➖ | Minimal brutto maosh (`salary_gross >=`). |
-  | `salary_max` | int | ➖ | Maksimal brutto maosh (`salary_gross <=`). |
+  | `salary_min` | int | ➖ | Minimal brutto maosh (`salary_gross >=`) — major unitda (so'm/dollar). |
+  | `salary_max` | int | ➖ | Maksimal brutto maosh (`salary_gross <=`) — major unitda (so'm/dollar). |
   | `salary_currency` | string | ➖ | `UZS` \| `USD` \| `EUR`. Range berilganda default `USD`. |
   | `is_favorite` | bool | ➖ | Faqat sevimli vakansiyalar (`true`) yoki sevimli emaslari (`false`). Default: barcha vakansiyalar. Mehmon `true` so'rasa → `456`. |
   | `cv_id` | int | ➖ | CV ID — "mos vakansiyalar" uchun. **Hozircha qabul qilinadi, lekin filtr qo'llanmaydi (no-op);** `cv_id` bo'yicha real moslik filtri keyinroq qo'shiladi. |
@@ -50,7 +50,7 @@ docs: |-
   | `slug` | string | URL slug |
   | `country` | object | `{ id, name, flag_url }` |
   | `city` | object \| null | `{ id, name }` |
-  | `salary` | object | `{ gross, gross_currency, net, net_currency }` |
+  | `salary` | object | `{ gross, gross_currency, net, net_currency }` — summalar major unitda (so'm/dollar, o'z valyutasida) |
   | `employment_type` / `employment_type_label` | string | `full_time` ... + lokalizatsiya |
   | `duration_months_min` / `_max` | int \| null | Ish davomiyligi (oy) |
   | `match_score` | int \| null | "Sizga moslik darajasi %" — viza so'rovnomasi natijasidan, vakansiya davlati bo'yicha. Token yo'q yoki so'rovnoma to'ldirilmagan bo'lsa `null`. |

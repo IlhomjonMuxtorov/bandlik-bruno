@@ -67,9 +67,10 @@ docs: 'Sug''urta tashkilotining davlat-bo''yicha narx-katalogining **tekis (flat
 
   | `service_type` | object | `{id, code, name, name_localized}` |
 
-  | `coverage_amount` | int | Qoplash summasi |
+  | `coverage_amount` | int | Qoplash summasi — major unit, `coverage_currency` valyutasida
+  (tiyin EMAS) |
 
-  | `price` | int | |
+  | `price` | int | So''mda — major unit, `currency` valyutasida (tiyin EMAS) |
 
   | `currency` | string | |
 

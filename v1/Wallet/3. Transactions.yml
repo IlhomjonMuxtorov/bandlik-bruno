@@ -11,6 +11,11 @@ docs: 'Partner tashkilotga tegishli barcha Transaction''lar (yuqori darajadagi p
   jami yozuvlar ko''rinadi.
 
 
+  > **Breaking change:** `amount` endi **so''m**da (valyutaga mos major unit) qaytadi
+  — avval tiyinda edi (1 so''m = 100 tiyin). DB tiyinda saqlaydi, backend chegarada
+  konvertatsiya qiladi.
+
+
   **Type kodlari:**
 
 

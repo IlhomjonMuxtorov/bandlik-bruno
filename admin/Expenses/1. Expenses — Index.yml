@@ -56,6 +56,9 @@ docs: 'Platforma operatsion xarajatlari ro''yxati (maoshlar, marketing, SMS, ofi
   ### 📤 Response
 
 
+  > `amount` — **so''m**da (valyutaga mos major unit; DB tiyinda saqlaydi).
+
+
   ```json
 
   {

@@ -30,6 +30,10 @@ docs: 'Davr uchun moliyaviy umumiy ko''rsatkichlar — kirim, chiqim, komissiya,
   ### 📤 Response
 
 
+  > Barcha pul yig''indilari **so''m**da (valyutaga mos major unit; DB tiyinda
+  saqlaydi).
+
+
   ```json
 
   {

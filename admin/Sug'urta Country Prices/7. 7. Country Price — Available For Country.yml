@@ -39,6 +39,11 @@ docs: '**Vakansiya formasi uchun helper endpoint.** Vakansiya yaratish jarayonid
   `200` — `InsuranceCountryPriceOutputDTO[]` (array, Index bilan bir xil item shakli).
 
 
+  > **Birlik:** javobdagi `price` va `coverage_amount` — major unit (so''m; har biri
+  o''z valyutasida: `price` — `currency`, `coverage_amount` — `coverage_currency`),
+  tiyin EMAS.
+
+
   ### Vakansiyaga biriktirish
 
 

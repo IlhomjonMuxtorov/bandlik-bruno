@@ -30,6 +30,9 @@ docs: 'Bitta tashkilot uchun davr bo''yicha kassir ko''chirmasi (statement) — 
   ### 📤 Response
 
 
+  > `amount` — **so''m**da (valyutaga mos major unit; DB tiyinda saqlaydi).
+
+
   ```json
 
   {

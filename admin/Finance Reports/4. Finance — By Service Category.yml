@@ -28,6 +28,9 @@ docs: 'Xarajatlar kategoriyalar bo''yicha pie chart uchun. (Hozircha faqat opera
   ### 📤 Response
 
 
+  > Yig''indilar **so''m**da (valyutaga mos major unit; DB tiyinda saqlaydi).
+
+
   ```json
 
   {

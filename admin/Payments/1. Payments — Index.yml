@@ -38,6 +38,7 @@ docs: 'Gateway to''lov urinishlari ro''yxati — har bir nomzod payme/click/uzum
 
 
   Payment DTO (mobile/payment History bilan bir xil shape) ro''yxati paginate qilingan.
+  `amount` — **so''m**da (valyutaga mos major unit; DB tiyinda saqlaydi).
 
 
   ### ⚠️ Errors

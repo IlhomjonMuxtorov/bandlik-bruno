@@ -10,6 +10,11 @@ docs: 'Partner tashkilot tomonidan yuborilgan barcha payout so''rovlari ro''yxat
   status bo''yicha filtrlash mumkin.
 
 
+  > **Breaking change:** `amount` endi **so''m**da (valyutaga mos major unit) qaytadi
+  — avval tiyinda edi (1 so''m = 100 tiyin). DB tiyinda saqlaydi, backend chegarada
+  konvertatsiya qiladi.
+
+
   **Status kodlari:**
 
 

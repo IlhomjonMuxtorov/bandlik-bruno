@@ -73,6 +73,12 @@ docs: |
   > To'lov rejasi alohida yuborilmaydi — `service_groups[]` ning o'zi to'lov rejasi.
   Eski `payment_steps[]` maydoni olib tashlangan; yuborilsa e'tiborga olinmaydi.
 
+  > **Birlik (breaking):** `service_groups[].services[].price` override'i va
+  `insurance_coverage_amount` endi **so'mda (major unit)** yuboriladi — avvalgi tiyin EMAS.
+  Backend tiyinda saqlaydi; javobdagi `price`, `insurance_coverage_amount` va
+  `total_service_amount` ham so'mda qaytadi. Admin frontend uchun breaking change.
+  `salary_gross` / `salary_net` esa avvalgidek major unitda (client uchun o'zgarish yo'q).
+
   ### ⚠️ Errors
 
   | Code | Reason |

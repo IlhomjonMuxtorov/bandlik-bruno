@@ -124,6 +124,11 @@ docs: 'Bitta Transaction''ning to''liq ma''lumoti — `entries[]` array bilan bi
   qat''iy invariant.
 
 
+  > Pul maydonlari (`amount`, `entries[].amount`, `balance_after`, `hold_after`) —
+  **so''m**da (valyutaga mos major unit; DB tiyinda saqlaydi, backend chegarada
+  konvertatsiya qiladi).
+
+
   ### ⚠️ Errors
 
 

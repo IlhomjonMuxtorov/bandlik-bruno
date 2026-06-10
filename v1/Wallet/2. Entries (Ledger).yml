@@ -15,6 +15,11 @@ docs: 'Wallet entry — har wallet ustida qo''yilgan har bir credit/debit yozuvi
   wallet''iga tegishli qatorlar ko''rinadi.
 
 
+  > **Breaking change:** summalar (`amount`, `balance_after`, `hold_after`) endi
+  **so''m**da (valyutaga mos major unit) qaytadi — avval tiyinda edi (1 so''m = 100
+  tiyin). DB tiyinda saqlaydi, backend chegarada konvertatsiya qiladi.
+
+
   **Auth:** `partner_token`.
 
 

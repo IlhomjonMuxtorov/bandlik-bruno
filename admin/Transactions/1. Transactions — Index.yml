@@ -37,6 +37,9 @@ docs: |
   Har bir element nomzod ismi/telefoni, tashkilot nomi va xizmat kategoriyasi
   ("To'lov turi" ustuni — `category_label`) bilan boyitilgan.
 
+  > `amount` — **so'm**da (valyutaga mos major unit; DB tiyinda saqlaydi,
+  > backend chegarada konvertatsiya qiladi).
+
   ```json
   {
     "items": [

@@ -19,6 +19,11 @@ docs: 'Partner tashkilot o''z wallet balansidan bank hisobiga pul yechib olish s
   yuboradi. Tekshiruv: `amount <= wallet.available (balance - hold_balance)`.
 
 
+  > **Breaking change:** `amount` endi **ikkala yo''nalishda ham so''m**da (valyutaga
+  mos major unit) — request body''da ham, response''da ham. Avval tiyinda edi (1 so''m
+  = 100 tiyin). DB tiyinda saqlaydi, backend chegarada konvertatsiya qiladi.
+
+
   Lifecycle:
 
   - **Pending** (yangi yaratildi)
@@ -43,7 +48,7 @@ docs: 'Partner tashkilot o''z wallet balansidan bank hisobiga pul yechib olish s
 
   |---|---|:---:|---|
 
-  | `amount` | int | ✅ | Tiyin/sentda (UZS uchun so''m * 100). `> 0` va `<= available` |
+  | `amount` | int | ✅ | **So''m/dollarda** (valyutaga mos major unit). `> 0` va `<= available` |
 
   | `currency` | string | ➖ | Faqat `UZS` (default `UZS`). Boshqa valyuta yuborilsa
   `422`. |

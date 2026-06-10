@@ -30,6 +30,10 @@ docs: |
   | `updated_at` | int | Unix timestamp |
   | `updated_at_formatted` | string | `d.m.Y H:i` |
 
+  > **Birlik:** `payload` ichidagi `service_groups[].services[].price` va
+  > `insurance_coverage_amount` endi **so'mda (major unit)** — eski tiyin payloadlar
+  > migratsiya bilan so'mga o'tkazilgan; shablonni qayta qo'llash (replay) so'mda ishlaydi.
+
   ### ⚠️ Errors
 
   | Code | Reason |

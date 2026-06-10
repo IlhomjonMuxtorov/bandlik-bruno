@@ -51,7 +51,7 @@ docs: 'Notarius tashkilotining "Apostil va notarial tasdiqlash" narx-katalogi:
 
   | `service_type` | object | `{id, category, code, name, name_localized}` — `category=apostille` |
 
-  | `price` | int | |
+  | `price` | int | So''mda — major unit, `currency` valyutasida (tiyin EMAS) |
 
   | `currency` | string | |
 

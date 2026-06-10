@@ -17,6 +17,9 @@ docs: >
 
   ### 📤 Response (`data`)
 
+  > Barcha pul summalari (`total`, `held`, `reserved`, `captured`, `amount`) —
+  > **so'm**da (valyutaga mos major unit; DB tiyinda saqlaydi).
+
   | Field | Type | Description |
 
   |---|---|---|

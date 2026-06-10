@@ -33,6 +33,8 @@ docs: |
 
   > **Kurs chegirmasi (Task 21):** `training` bosqichidagi kursni nomzod **avval to'liq sotib olgan** bo'lsa, bosqich bepul bo'ladi (`amount = 0`, `discount_amount = original_amount`); guruh `discount_amount` shu chegirmalar yig'indisi.
 
+  > **Pul birligi:** barcha summalar (`amount`, `discount_amount`, `original_amount`, `required_amount`, `funded_amount`, `awaiting_amount`) — **so'm**da (valyutaga mos major unit; avval tiyin qaytarilar edi, endi DB tiyinda saqlab backend chegarada konvertatsiya qiladi).
+
   **Xabarlar (`messages` maydonidagi xabarlar):**
   - Xabar muallifi (sender) XBA xodimi bo'lsa, sender maydonida `full_name` va `profile_photo_url` (agar mavjud bo'lsa) qo'shiladi
   - Kandidat xabarlari sender to'liq ma'lumotlari bilan qaytadi

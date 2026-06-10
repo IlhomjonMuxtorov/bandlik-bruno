@@ -24,8 +24,8 @@ docs: |-
   | `organization_id` | int | ➖ | Tashkilot bo'yicha. |
   | `employment_type` | string | ➖ | `full_time` \| `part_time` \| `seasonal` \| `contract`. |
   | `experience_level` | string | ➖ | `none` \| `one_to_three` \| `three_to_six`. |
-  | `salary_min` | int | ➖ | Minimal brutto maosh (`salary_gross >=`). |
-  | `salary_max` | int | ➖ | Maksimal brutto maosh (`salary_gross <=`). |
+  | `salary_min` | int | ➖ | Minimal brutto maosh (`salary_gross >=`) — major unitda (so'm/dollar). |
+  | `salary_max` | int | ➖ | Maksimal brutto maosh (`salary_gross <=`) — major unitda (so'm/dollar). |
   | `salary_currency` | string | ➖ | `UZS` \| `USD` \| `EUR`. Range berilganda default `USD`. |
   | `is_favorite` | bool | ➖ | Faqat sevimli (`true`) yoki sevimli emas (`false`). Mehmon `true` so'rasa → `456`. |
 

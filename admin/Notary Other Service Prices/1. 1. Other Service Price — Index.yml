@@ -47,7 +47,7 @@ docs: 'Notarius tashkilotining "Boshqa xizmatlar" narx-katalogi: faqat
 
   | `service_type` | object | `{id, category, code, name, name_localized}` — `category=other` |
 
-  | `price` | int | |
+  | `price` | int | So''mda — major unit, `currency` valyutasida (tiyin EMAS) |
 
   | `currency` | string | |
 

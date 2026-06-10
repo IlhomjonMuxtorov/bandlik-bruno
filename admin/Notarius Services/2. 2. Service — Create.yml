@@ -36,11 +36,15 @@ docs: 'Yangi Visa xizmatini yaratadi.
 
   | `description` | object | ➖ | Ko''p tilli `{uz, ru, en}` |
 
-  | `price` | int | ✅ | UZS so''mda (≥0) |
+  | `price` | int | ✅ | UZS so''mda — major unit (≥0), tiyin EMAS |
 
   | `is_active` | bool (0\|1) | ➖ | Default `1` |
 
   | `sort_order` | int | ➖ | Default `0` |
+
+
+  > **Birlik:** client `price` ni so''mda (major unit) yuboradi — backend uni tiyinda
+  saqlaydi va javobda yana so''mda qaytaradi.
 
 
   > **Ko''p tillilik:** `name`, `description` — JSONB `{uz, ru, en}` obyekt sifatida saqlanadi

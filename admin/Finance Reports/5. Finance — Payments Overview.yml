@@ -23,6 +23,9 @@ docs: |
 
   ### 📤 Response
 
+  > Pul ko'rsatkichlari (`total_income`, `total_held`, `total_released`) —
+  > **so'm**da (valyutaga mos major unit; DB tiyinda saqlaydi).
+
   ```json
   {
     "from": 1735603200,

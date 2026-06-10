@@ -53,6 +53,7 @@ docs: 'Kunlik cash flow grafikasi — har kun uchun kirim/chiqim summasi. Dashbo
   ```
 
 
+  `income` / `expense` — **so''m**da (valyutaga mos major unit; DB tiyinda saqlaydi).
   `date` — kun boshining unix timestamp''i (UTC 00:00:00). Faqat tranzaksiya bo''lgan
   kunlar ko''rinadi (bo''sh kunlar yo''q — frontend o''zi to''ldirishi kerak agar
   kerak bo''lsa).

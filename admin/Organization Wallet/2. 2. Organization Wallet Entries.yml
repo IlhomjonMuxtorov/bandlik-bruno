@@ -25,7 +25,8 @@ docs: |
 
   ### 📤 Response
 
-  Summalar **xom tiyin**. `signed_amount` — kirim `+`, chiqim `−` (`direction` belgisi
+  Summalar **so'm**da (major unit; DB tiyinda saqlaydi, backend chegarada
+  konvertatsiya qiladi). `signed_amount` — kirim `+`, chiqim `−` (`direction` belgisi
   bilan). `transaction_type_label` — manba tranzaksiya turi yorlig'i.
 
   ```json

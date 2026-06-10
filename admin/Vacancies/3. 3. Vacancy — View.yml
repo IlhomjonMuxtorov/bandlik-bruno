@@ -42,14 +42,14 @@ docs: |-
   | `work_schedule` | string \| null | Ish jadvali kodi |
   | `work_schedule_label` | string \| null | Lokalizatsiyalangan |
   | `work_time_from` / `_to` | string \| null | `HH:MM:SS` |
-  | `salary` | object | `{ gross: int\|null, gross_currency: string\|null, net: int\|null, net_currency: string\|null }` — summalar minor unitlarda, valyuta ISO 4217 |
+  | `salary` | object | `{ gross: int\|null, gross_currency: string\|null, net: int\|null, net_currency: string\|null }` — summalar **major unitda** (so'm/dollar, o'z valyutasida), valyuta ISO 4217 |
   | `country` | object | Davlat — quyida |
   | `city` | object \| null | Shahar — quyida |
   | `address` | string \| null | To'liq manzil |
   | `hide_address_from_clients` | bool | Manzil mijozlardan yashirilganmi |
   | `deadline_at` | string \| null | `DD.MM.YYYY` |
   | `single_payment` | bool | `1 tada 100% lik to'lov` rejimi |
-  | `total_service_amount` | int | Snapshot narxlar yig'indisi (minor units) |
+  | `total_service_amount` | int | Snapshot narxlar yig'indisi — **so'mda (major unit)** |
   | `total_service_currency` | string | ISO 4217 (default `UZS`) |
   | `saved_from_template_id` | int \| null | Qaysi shablondan saqlangan |
   | `views_count` | int | Ko'rishlar soni |
@@ -122,7 +122,7 @@ docs: |-
   | `organization_logo_url` | string \| null | |
   | `organization_service_id` | int \| null | Manba xizmat ID (snapshotgacha) |
   | `service_name` | string | Xizmat nomi (snapshot) |
-  | `price` | int | Narx (minor units) |
+  | `price` | int | Narx — **so'mda (major unit)** |
   | `currency` | string | ISO 4217 |
   | `duration_text` | string \| null | Muddat matni |
   | `notes` | string \| null | Izoh |

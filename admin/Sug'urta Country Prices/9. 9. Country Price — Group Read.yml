@@ -47,6 +47,9 @@ docs: |
   `services[].id` ni saqlab qo'ying — `POST .../sync` da o'sha `id` qaytarilsa satr
   yangilanadi, `id` siz yuborilsa yangi satr yaratiladi.
 
+  > **Birlik:** javobdagi `price` va `coverage_amount` — major unit (so'm; har biri o'z
+  > valyutasida: `price` — `currency`, `coverage_amount` — `coverage_currency`), tiyin EMAS.
+
   ### ⚠️ Errors
 
   | Code | Reason |

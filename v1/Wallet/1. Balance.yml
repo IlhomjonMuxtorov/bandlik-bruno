@@ -11,6 +11,11 @@ docs: 'Partner tashkilotning wallet balansi (UZS, USD, EUR — har valyuta uchun
   summa.
 
 
+  > **Breaking change:** summalar (`balance`, `hold_balance`, `available`) endi **so''m**da
+  (valyutaga mos major unit) qaytadi — avval tiyinda edi (1 so''m = 100 tiyin). DB
+  tiyinda saqlaydi, backend chegarada konvertatsiya qiladi.
+
+
   **Auth:** `partner_token` (bearer). Token ortidagi `User` `OrganizationEmployee.is_active=true`
   bilan birorta tashkilotga biriktirilgan bo''lishi shart.
 

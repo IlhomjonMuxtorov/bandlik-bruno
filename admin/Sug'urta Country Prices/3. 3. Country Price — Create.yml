@@ -36,18 +36,24 @@ docs: 'Yangi davlat-narxi satrini yaratadi — **granular (bitta satr)** operats
 
   | `insurance_service_type_id` | int | ✅ | Global katalog xizmat turi |
 
-  | `coverage_amount` | int | ✅ | Qoplash summasi, ≥ 0 |
+  | `coverage_amount` | int | ✅ | Qoplash summasi, ≥ 0 — major unit, `coverage_currency`
+  valyutasida |
 
   | `coverage_currency` | string | ➖ | Qoplash summasi valyutasi. Default `UZS`. Variantlar:
   `UZS` \| `USD` \| `EUR` (narx valyutasidan mustaqil) |
 
-  | `price` | int | ✅ | Narx, ≥ 0 |
+  | `price` | int | ✅ | Narx, ≥ 0 — so''mda (major unit), `currency` valyutasida |
 
   | `currency` | string | ➖ | Default `UZS`. Variantlar: `UZS`, `USD`, `EUR` |
 
   | `is_active` | bool (0\|1) | ➖ | Default `1` |
 
   | `sort_order` | int | ➖ | Default `0` |
+
+
+  > **Birlik:** client `price` va `coverage_amount` ni major unitda yuboradi (`price` —
+  `currency`, `coverage_amount` — `coverage_currency` valyutasida); backend tiyinda
+  saqlaydi va javobda yana major unitda qaytaradi.
 
 
   ### 📤 Response

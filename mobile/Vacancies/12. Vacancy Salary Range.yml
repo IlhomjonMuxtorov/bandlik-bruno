@@ -9,7 +9,7 @@ http:
 docs: |-
   Tanlangan (maoshdan tashqari) filterlarga mos keladigan tasdiqlangan (`status=approved`) vakansiyalar bo'yicha **brutto maoshning eng kichik va eng katta qiymatini** qaytaradi — mobil filter ekranidagi **Maosh** slayderining chegaralarini shu yerdan o'rnatish uchun. Diapazon bitta valyutaga taalluqli (default `UZS`), chunki aralash valyutalar min/max'i ma'nosiz bo'ladi.
 
-  Slayder chegaralarini olgandan keyin, haqiqiy filtrlash feed (`GET /mobile/vacancies`) va count (`GET /mobile/vacancies/count`) dagi `salary_min` / `salary_max` paramlari orqali qilinadi.
+  Slayder chegaralarini olgandan keyin, haqiqiy filtrlash feed (`GET /mobile/vacancies`) va count (`GET /mobile/vacancies/count`) dagi `salary_min` / `salary_max` paramlari orqali qilinadi — ular ham major unitda (so'm/dollar).
 
   **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi).
 
@@ -40,8 +40,8 @@ docs: |-
 
   | Field | Type | Description |
   |---|---|---|
-  | `min` | int \| null | Eng kichik brutto maosh. Mos keladigan maoshli vakansiya bo'lmasa `null`. |
-  | `max` | int \| null | Eng katta brutto maosh. Mos keladigan maoshli vakansiya bo'lmasa `null`. |
+  | `min` | int \| null | Eng kichik brutto maosh — major unitda (so'm/dollar, `currency` valyutasida). Mos keladigan maoshli vakansiya bo'lmasa `null`. |
+  | `max` | int \| null | Eng katta brutto maosh — major unitda (so'm/dollar, `currency` valyutasida). Mos keladigan maoshli vakansiya bo'lmasa `null`. |
   | `currency` | string | Diapazon valyutasi (so'ralgan yoki default `UZS`). |
   | `count` | int | Diapazonga hissa qo'shgan (maoshi ko'rsatilgan) vakansiyalar soni. |
 

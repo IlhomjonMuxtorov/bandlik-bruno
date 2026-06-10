@@ -16,7 +16,8 @@ docs: 'Bitta Payment haqida to''liq ma''lumot — `callback_payload` (gateway ra
   ### 📤 Response
 
 
-  Payment DTO + `callback_payload` (jsonb).
+  Payment DTO + `callback_payload` (jsonb). `amount` — **so''m**da (valyutaga mos
+  major unit; DB tiyinda saqlaydi).
 
 
   ### ⚠️ Errors

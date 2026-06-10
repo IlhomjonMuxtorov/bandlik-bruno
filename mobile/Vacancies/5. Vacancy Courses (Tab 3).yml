@@ -24,7 +24,7 @@ docs: |-
   | Field | Type | Description |
   |---|---|---|
   | `service_id` | int | `vacancy_service` qatori ID (snapshot narx shu yerdan) |
-  | `price` | int | Kurs narxi (snapshot) |
+  | `price` | int | Kurs narxi (snapshot) — so'mda (major unit), `currency` valyutasida |
   | `currency` | string | `UZS` ... |
   | `course` | object \| null | Bog'langan kurs ma'lumotlari (quyida). Kurs o'chirilgan bo'lsa `null`. |
 

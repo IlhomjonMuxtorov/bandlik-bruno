@@ -22,7 +22,8 @@ docs: |
 
   ### 📤 Response
 
-  `balances` — har bir valyuta uchun bitta wallet. Summalar **xom tiyin** (so'm × 100);
+  `balances` — har bir valyuta uchun bitta wallet. Summalar **so'm**da (major unit;
+  DB tiyinda saqlaydi, backend chegarada konvertatsiya qiladi);
   `available = balance − hold_balance` (escrow ushlab turilgani alohida `hold_balance`).
 
   ```json
@@ -51,9 +52,9 @@ docs: |
   | Field | Type | Description |
   |---|---|---|
   | `organization.type_label` | string | Tashkilot turi yorlig'i (Accept-Language). |
-  | `balances[].balance` | int | Joriy umumiy balans (tiyin). |
-  | `balances[].hold_balance` | int | Escrow'da ushlab turilgan summa (tiyin). |
-  | `balances[].available` | int | Sarflashga tayyor = `balance − hold_balance` (tiyin). |
+  | `balances[].balance` | int | Joriy umumiy balans (so'm). |
+  | `balances[].hold_balance` | int | Escrow'da ushlab turilgan summa (so'm). |
+  | `balances[].available` | int | Sarflashga tayyor = `balance − hold_balance` (so'm). |
 
   > Tashkilotda hech qanday wallet bo'lmasa `balances` bo'sh massiv qaytadi.
 

@@ -105,8 +105,8 @@ docs: |
   | `duration_months_min` / `_max` | int | ➖ | Ish davomiyligi |
   | `work_schedule` | string | ➖ | `5_2` \| `6_1` \| `2_2` \| `shift` \| `flexible` |
   | `work_time_from` / `_to` | string | ➖ | `HH:MM` |
-  | `salary_gross` / `_currency` | int / string | ➖ | Maosh (tavsifiy). Valyuta: `UZS` \| `USD` \| `EUR` (boshqasi → `422`). Default `UZS`. Xizmat narxlari valyutasiga ta'sir qilmaydi — ular `UZS`-da qoladi. |
-  | `salary_net` / `_currency` | int / string | ➖ | Valyuta: `UZS` \| `USD` \| `EUR`. |
+  | `salary_gross` / `_currency` | int / string | ➖ | Maosh (tavsifiy) — **major unitda** (so'm/dollar, o'z valyutasida; client uchun o'zgarish yo'q). Valyuta: `UZS` \| `USD` \| `EUR` (boshqasi → `422`). Default `UZS`. Xizmat narxlari valyutasiga ta'sir qilmaydi — ular `UZS`-da qoladi. |
+  | `salary_net` / `_currency` | int / string | ➖ | **Major unitda** (so'm/dollar, o'z valyutasida). Valyuta: `UZS` \| `USD` \| `EUR`. |
   | `country_id` | int | ✅ | |
   | `city_id` | int | ➖ | |
   | `address` | string | ➖ | |
@@ -126,6 +126,8 @@ docs: |
 
   > To'lov rejasi alohida yuborilmaydi — `service_groups[]` (har guruh o'z xizmat narxlari snapshot'i bilan) to'lov rejasining o'zidir. Eski `payment_steps[]` maydoni olib tashlangan; yuborilsa e'tiborga olinmaydi.
 
+  > **Birlik (breaking):** `service_groups[].services[].price` override'i va `insurance_coverage_amount` endi **so'mda (major unit)** yuboriladi — avvalgi tiyin EMAS. Backend tiyinda saqlaydi; javobdagi `price`, `insurance_coverage_amount` va `total_service_amount` ham so'mda qaytadi. Admin frontend uchun breaking change.
+
   **⚠️ Agentlik xizmati (majburiy):** xizmatlar orasida **aniq bitta** `category = "agency"` xizmati bo'lishi shart, va uning guruhi (`organization_id`) vakansiyaning `organization_id` ga teng bo'lishi kerak; agentlik xizmatining `service_name` to'ldirilgan va `price > 0` bo'lishi zarur. Agentlik narxi `total_service_amount` ga kiritiladi.
 
   **⚠️ Kurs (majburiy):** har bir vakansiyada **kamida bitta** `category = "training"` xizmati bo'lishi va unga `educational_course_id` biriktirilgan bo'lishi shart. Aks holda `400` — `At least one training service with a course is required`.
@@ -134,7 +136,7 @@ docs: |
 
   ### 📤 Response (`data`)
 
-  Full detail DTO (View bilan bir xil). `status` = `draft`, `total_service_amount` snapshot narxlar yig'indisi (agentlik narxi bilan). `service_groups[]` nested `services[]` bilan, `sort_order` bo'yicha tartiblangan (reorderable oldinda, visa→agency→logistics oxirida) va har biri `is_reorderable` (bool) maydonini qaytaradi — FE shu flag bo'yicha sudraladigan/qulflangan elementlarni ajratadi.
+  Full detail DTO (View bilan bir xil). `status` = `draft`, `total_service_amount` snapshot narxlar yig'indisi (agentlik narxi bilan) — **so'mda (major unit)**. `service_groups[]` nested `services[]` bilan, `sort_order` bo'yicha tartiblangan (reorderable oldinda, visa→agency→logistics oxirida) va har biri `is_reorderable` (bool) maydonini qaytaradi — FE shu flag bo'yicha sudraladigan/qulflangan elementlarni ajratadi.
 
   ### ⚠️ Errors
 

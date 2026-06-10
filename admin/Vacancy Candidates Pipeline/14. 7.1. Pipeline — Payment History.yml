@@ -26,13 +26,17 @@ docs: >
 
   ### 📤 Response (`data`)
 
+  > Barcha pul summalari (`balance`, `available`, `held`, `topup_total`,
+  > `spent_total`, `amount`, `total`) **so'm**da (major unit; DB tiyinda
+  > saqlaydi, backend chegarada konvertatsiya qiladi).
+
   | Field | Type | Description |
 
   |---|---|---|
 
   | `currency` | string | Hamyon valyutasi (`UZS`) |
 
-  | `balance` | int | Joriy hamyon balansi (tiyin) |
+  | `balance` | int | Joriy hamyon balansi (so'm) |
 
   | `available` | int | `balance − held` (sarflashga tayyor) |
 

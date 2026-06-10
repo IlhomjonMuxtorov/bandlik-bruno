@@ -40,7 +40,7 @@ docs: 'Admin tomonidan to''lovni qaytarish. Original Transaction''ning teskari y
 
   | `transaction_id` | int | ✅ | Refund qilinayotgan original Transaction ID |
 
-  | `amount` | int | ➖ | Tiyin/sentda; berilmasa — to''liq summa |
+  | `amount` | int | ➖ | **So''m/dollarda** (valyutaga mos major unit); berilmasa — to''liq summa |
 
   | `reason` | string | ✅ | Refund sababi (audit logga yoziladi) |
 

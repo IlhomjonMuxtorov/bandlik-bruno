@@ -64,6 +64,9 @@ docs: |
   Pagination birligi — **davlat** (`items[]` har biri bitta davlat bloki). Faqat narx
   kiritilgan davlatlar qaytadi.
 
+  > **Birlik:** javobdagi `price` va `coverage_amount` — major unit (so'm; har biri o'z
+  > valyutasida: `price` — `currency`, `coverage_amount` — `coverage_currency`), tiyin EMAS.
+
   Har bir `items[]` blokini tahrirlash/saqlash uchun `POST .../sync` (Group Save)
   ishlatiladi. Bitta davlat blokini qayta yuklash uchun `GET .../group` ishlatiladi.
 
