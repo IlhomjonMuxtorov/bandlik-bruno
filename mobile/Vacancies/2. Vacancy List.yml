@@ -11,6 +11,8 @@ docs: |-
 
   **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi). `match_score` viza so'rovnomasi to'ldirilmagan bo'lsa `null`; `is_favorite` nomzod profili hali yo'q bo'lsa `false`.
 
+  > **Mehmon + sevimlilar:** mehmon (guest) token bilan `is_favorite=true` so'ralsa endpoint `456` qaytaradi — sevimlilar ro'yxati ro'yxatdan o'tishni talab qiladi.
+
   ### 🔎 Query Parameters
 
   | Param | Type | Required | Description |
@@ -25,7 +27,7 @@ docs: |-
   | `salary_min` | int | ➖ | Minimal brutto maosh (`salary_gross >=`). |
   | `salary_max` | int | ➖ | Maksimal brutto maosh (`salary_gross <=`). |
   | `salary_currency` | string | ➖ | `UZS` \| `USD` \| `EUR`. Range berilganda default `USD`. |
-  | `is_favorite` | bool | ➖ | Faqat sevimli vakansiyalar (`true`) yoki sevimli emaslari (`false`). Default: barcha vakansiyalar. |
+  | `is_favorite` | bool | ➖ | Faqat sevimli vakansiyalar (`true`) yoki sevimli emaslari (`false`). Default: barcha vakansiyalar. Mehmon `true` so'rasa → `456`. |
   | `cv_id` | int | ➖ | CV ID — "mos vakansiyalar" uchun. **Hozircha qabul qilinadi, lekin filtr qo'llanmaydi (no-op);** `cv_id` bo'yicha real moslik filtri keyinroq qo'shiladi. |
   | `sort` | string | ➖ | Saralash. `newest` (Yaqinda qo'shilganlar, default) \| `salary_asc` (Maosh o'sish tartibida) \| `salary_desc` (Maosh kamayish tartibida). Maoshsiz vakansiyalar har doim oxirida. Noma'lum qiymat → `newest`. |
   | `per-page` | int | ➖ | 1..100, default 20. |
@@ -58,6 +60,7 @@ docs: |-
 
   | Code | Reason |
   |---|---|
+  | `456` | Mehmon (guest) token bilan `is_favorite=true` so'raldi — ro'yxatdan o'tish talab qilinadi. |
   | `500` | Server xatosi |
 settings:
   encodeUrl: true

@@ -9,7 +9,7 @@ http:
 docs: |-
   Tanlangan filterlarga mos keladigan tasdiqlangan (`status=approved`) vakansiyalar **umumiy sonini** qaytaradi — mobil filter ekranidagi "N ta vakansiyani ko'rsatish" tugmasi uchun. Feed (`GET /mobile/vacancies`) bilan **aynan bir xil** filtr mantig'ini ishlatadi, shuning uchun son va ro'yxat har doim mos keladi.
 
-  **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi). `is_favorite` filtri nomzod profili hali yo'q bo'lsa (mehmon) e'tiborga olinmaydi — feed bilan bir xil.
+  **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi). Mehmon (guest) token bilan `is_favorite=true` so'ralsa `456` qaytadi (ro'yxatdan o'tish talab qilinadi) — feed bilan bir xil. Ro'yxatdan o'tgan, lekin nomzod profili hali yo'q foydalanuvchi uchun `is_favorite` filtri e'tiborga olinmaydi.
 
   ### 🔎 Query Parameters
 
@@ -27,7 +27,7 @@ docs: |-
   | `salary_min` | int | ➖ | Minimal brutto maosh (`salary_gross >=`). |
   | `salary_max` | int | ➖ | Maksimal brutto maosh (`salary_gross <=`). |
   | `salary_currency` | string | ➖ | `UZS` \| `USD` \| `EUR`. Range berilganda default `USD`. |
-  | `is_favorite` | bool | ➖ | Faqat sevimli (`true`) yoki sevimli emas (`false`). Mehmon uchun no-op. |
+  | `is_favorite` | bool | ➖ | Faqat sevimli (`true`) yoki sevimli emas (`false`). Mehmon `true` so'rasa → `456`. |
 
   ### 📋 Headers
 
@@ -52,6 +52,7 @@ docs: |-
   | Code | Reason |
   |---|---|
   | `401` | Token yo'q yoki yaroqsiz. |
+  | `456` | Mehmon (guest) token bilan `is_favorite=true` so'raldi — ro'yxatdan o'tish talab qilinadi. |
   | `500` | Server xatosi. |
 settings:
   encodeUrl: true
