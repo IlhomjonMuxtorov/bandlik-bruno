@@ -20,7 +20,11 @@ docs: |
   - `vacancy_application.status = accepted`, `decided_at` yoziladi
   - `vacancy_candidate` (pipeline) qatori yaratiladi (idempotent)
   - **`vacancy_candidate_service` qatorlari hosil qilinadi** — har bir `vacancy_service` uchun bittadan (stages tracker uchun)
-  - Chat'da `type=offer` system message paydo bo'ladi (yashil "Ishga taklif" bloki)
+  - Chat'da `type=offer` system message paydo bo'ladi ("XBA bilan ish boshlashga taklif" bloki)
+  - **XBA xizmat ko'rsatish shartnomasi PDF** generatsiya qilinib, shu `offer` xabariga
+    `attachment` (`application/pdf`) sifatida ilanadi. Buyurtmachi (nomzod) va Ijrochi (XBA)
+    maydonlari avtomatik to'ldiriladi; summalar/raqam/sanalar bo'sh. Generatsiya
+    muvaffaqiyatsiz bo'lsa — taklif baribir (ilovasiz) yuboriladi
   - Nomzodga `application_accepted` FCM push yuboriladi
 
   **Auth:** `admin_token`. Idempotent emas — qayta chaqirish `Application is already decided` (400) qaytaradi.

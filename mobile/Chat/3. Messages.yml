@@ -48,6 +48,14 @@ docs: |
   | `created_at` | int | unix ts |
   | `created_at_formatted` | string | `d.m.Y H:i` (Asia/Tashkent) |
 
+  > **`offer` xabari (= "XBA bilan ish boshlashga taklif"):** ariza qabul qilinganda
+  > yuboriladi. `type_label` endi **"XBA bilan ish boshlashga taklif"** (ilgari "Job offer").
+  > Bu xabarga **XBA xizmat ko'rsatish shartnomasi PDF** `attachment` sifatida ilanadi
+  > (`mime_type: application/pdf`) — nomzod uni ochib o'qiydi va so'ng taklifni qabul qiladi.
+  > Shartnomada Buyurtmachi (nomzod) va Ijrochi (XBA tashkiloti) maydonlari avtomatik
+  > to'ldiriladi; moliyaviy summalar, raqam, sanalar va imzolar bo'sh qoldiriladi.
+  > PDF generatsiyasi muvaffaqiyatsiz bo'lsa, xabar `attachment` siz keladi.
+
   ### ⚠️ Errors
 
   | Code | Reason |
