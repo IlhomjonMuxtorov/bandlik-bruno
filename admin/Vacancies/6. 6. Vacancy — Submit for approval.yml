@@ -22,7 +22,7 @@ docs: 'Draft yoki rejected vakansiyani SuperAdmin tasdiqlashiga yuboradi. Status
 
   - 1+ hujjat (`documents`)
 
-  - Yo `single_payment = true`, yoki 1+ payment_step
+  - `price > 0` bo''lgan agentlik (`agency`) xizmati
 
 
   ### ⚠️ Errors
