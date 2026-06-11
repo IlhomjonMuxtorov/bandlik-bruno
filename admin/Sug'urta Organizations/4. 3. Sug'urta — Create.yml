@@ -20,7 +20,7 @@ http:
       : \"Sardor Karimov\",\n  \"login\": \"insurance_credo\",\n  \"password\": \"\
       secret123\",\n  \"telegram_url\": \"https://t.me/credo\",\n  \"instagram_url\"\
       : \"https://instagram.com/credo\",\n  \"facebook_url\": \"https://facebook.com/credo\"\
-      ,\n  \"is_active\": 1,\n  \"license_file_id\": 10,\n  \"logo_id\": 11\n}"
+      ,\n  \"is_active\": 1,\n  \"license_file_id\": 10,\n  \"logo_id\": 11,\n  \"latitude\": 41.3111,\n  \"longitude\": 69.2797\n}"
   auth: inherit
 docs: 'Yangi Sug''urta tashkilotini yaratadi. `application/json` so''rov — xatti-harakat
   XBA `Create` bilan bir xil, yagona farq: `type = 4`.

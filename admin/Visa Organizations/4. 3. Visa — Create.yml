@@ -16,7 +16,7 @@ http:
       : \"+998901112233\",\n  \"email\": \"info@visa-express.uz\",\n  \"website_url\"\
       : \"https://visa-express.uz\",\n  \"responsible_person\": \"Aziz Karimov\",\n\
       \  \"login\": \"visa_express\",\n  \"password\": \"secret123\",\n  \"is_active\"\
-      : 1,\n  \"license_file_id\": 10,\n  \"logo_id\": 11\n}"
+      : 1,\n  \"license_file_id\": 10,\n  \"logo_id\": 11,\n  \"latitude\": 41.3111,\n  \"longitude\": 69.2797\n}"
   auth: inherit
 docs: 'Yangi Viza tashkilotini yaratadi. `application/json` so''rov — xatti-harakat
   XBA `Create` bilan bir xil, yagona farq: `type = 5`.

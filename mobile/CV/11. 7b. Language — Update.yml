@@ -17,7 +17,7 @@ http:
 docs: 'Til darajasini yangilash.
 
 
-  **Auth:** `access_token`.
+  **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
 
   '
 settings:

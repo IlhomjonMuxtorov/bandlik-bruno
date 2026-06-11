@@ -17,7 +17,7 @@ http:
 docs: 'Yangi til qo''shish.
 
 
-  **Auth:** `access_token`.
+  **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
 
 
   ### 📥 Request Body
@@ -38,6 +38,10 @@ docs: 'Yangi til qo''shish.
   | Code | Reason |
 
   |---|---|
+
+  | `403` | Shaxs tasdiqlanmagan (`is_verified=false`) — javobda `verification_required: true` |
+
+  | `456` | Guest — registratsiya tugatilmagan |
 
   | `400` | Bir til ikki marta qo''shilmaydi (UNIQUE) |
 

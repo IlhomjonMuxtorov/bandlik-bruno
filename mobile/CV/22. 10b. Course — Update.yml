@@ -19,7 +19,7 @@ http:
 docs: 'Kursni yangilash. Maydonlar `create` bilan bir xil.
 
 
-  **Auth:** `access_token`.
+  **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
 
   '
 settings:

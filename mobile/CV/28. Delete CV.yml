@@ -18,7 +18,7 @@ docs: 'CV-ni o''chirish. Shu CV-ga tegishli education/experience/language/docume
   Agar primary CV o''chsa — boshqa eng yangilangan CV avtomatik primary bo''ladi.
 
 
-  **Auth:** `access_token`.
+  **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
 
 
   ### 📤 Response
@@ -33,6 +33,10 @@ docs: 'CV-ni o''chirish. Shu CV-ga tegishli education/experience/language/docume
   | Code | Reason |
 
   |---|---|
+
+  | `403` | Shaxs tasdiqlanmagan (`is_verified=false`) — javobda `verification_required: true` |
+
+  | `456` | Guest — registratsiya tugatilmagan |
 
   | `400` | Cannot delete the last CV |
 

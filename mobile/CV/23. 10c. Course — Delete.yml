@@ -12,7 +12,7 @@ http:
 docs: 'Kursni o''chirish. `204 No Content`.
 
 
-  **Auth:** `access_token`.
+  **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
 
   '
 settings:

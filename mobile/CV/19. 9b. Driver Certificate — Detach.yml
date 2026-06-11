@@ -16,12 +16,16 @@ docs: |
   > ⚠️ Sertifikatni profildan **butunlay** o'chirish kerak bo'lsa —
   > `DELETE /mobile/candidate/driver-certificate/{id}` (Pool — Delete).
 
-  **Auth:** `access_token`.
+  **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
 
   ### ⚠️ Errors
 
   | Code | Reason |
   |---|---|
+
+  | `403` | Shaxs tasdiqlanmagan (`is_verified=false`) — javobda `verification_required: true` |
+
+  | `456` | Guest — registratsiya tugatilmagan |
   | `404` | CV topilmadi yoki bu sertifikat shu CVga biriktirilmagan |
 settings:
   encodeUrl: true

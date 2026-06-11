@@ -12,7 +12,7 @@ http:
 docs: 'Ta''limni o''chirish. `204 No Content` qaytaradi.
 
 
-  **Auth:** `access_token`.
+  **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
 
 
   ### ⚠️ Errors
@@ -21,6 +21,10 @@ docs: 'Ta''limni o''chirish. `204 No Content` qaytaradi.
   | Code | Reason |
 
   |---|---|
+
+  | `403` | Shaxs tasdiqlanmagan (`is_verified=false`) — javobda `verification_required: true` |
+
+  | `456` | Guest — registratsiya tugatilmagan |
 
   | `403` | Boshqa nomzod resursi |
 

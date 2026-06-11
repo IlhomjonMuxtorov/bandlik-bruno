@@ -26,7 +26,7 @@ docs: |-
   > umuman jo'natilmaydi (tasdiqlash shart emas). CV aloqa raqami login krediti
   > emas, shu sabab boshqa foydalanuvchida band bo'lsa ham xato bermaydi.
 
-  **Auth:** `access_token`.
+  **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
 
   ### 📋 Path Params
 
@@ -53,6 +53,10 @@ docs: |-
 
   | Code | Reason |
   |---|---|
+
+  | `403` | Shaxs tasdiqlanmagan (`is_verified=false`) — javobda `verification_required: true` |
+
+  | `456` | Guest — registratsiya tugatilmagan |
   | `400` | Raqam noto'g'ri yoki rate limit (juda ko'p so'rov) |
   | `401` | Token yo'q |
   | `404` | CV topilmadi yoki boshqa nomzodga tegishli |

@@ -20,7 +20,7 @@ http:
       ,\n  \"password\": \"secret123\",\n  \"telegram_url\": \"https://t.me/xba_tashkent\"\
       ,\n  \"instagram_url\": \"https://instagram.com/xba_tashkent\",\n  \"facebook_url\"\
       : \"https://facebook.com/xba_tashkent\",\n  \"x_url\": \"https://x.com/xba_tashkent\"\
-      ,\n  \"is_active\": 1,\n  \"license_file_id\": 10,\n  \"logo_id\": 11\n}"
+      ,\n  \"is_active\": 1,\n  \"license_file_id\": 10,\n  \"logo_id\": 11,\n  \"latitude\": 41.3111,\n  \"longitude\": 69.2797\n}"
   auth: inherit
 docs: 'Yangi XBA tashkilotini yaratadi. `application/json` so''rov.
 
@@ -56,6 +56,10 @@ docs: 'Yangi XBA tashkilotini yaratadi. `application/json` so''rov.
   | `region_id` | int | ✅ | FK `region.id` — viloyat |
 
   | `district_id` | int | ✅ | FK `district.id` — tuman |
+
+  | `latitude` | float | ➖ | Geo kenglik (lat) — barcha turlar uchun ixtiyoriy. Oraliq `-90`..`90`. |
+
+  | `longitude` | float | ➖ | Geo uzunlik (lng) — barcha turlar uchun ixtiyoriy. Oraliq `-180`..`180`. |
 
   | `address` | object | ✅ | Manzil — ko''p tilli `{uz, ru, en}` (har biri max 500) |
 

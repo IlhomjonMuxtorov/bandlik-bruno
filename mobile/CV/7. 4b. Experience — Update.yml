@@ -24,7 +24,7 @@ docs: 'Mavjud tajribani yangilash. Maydonlar `create` bilan bir xil.
   jim e''tiborga olinmaydi.
 
 
-  **Auth:** `access_token`.
+  **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
 
 
   ### 📥 Request Body

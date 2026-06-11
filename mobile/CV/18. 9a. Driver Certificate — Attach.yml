@@ -13,7 +13,7 @@ docs: |
   Profil pooldagi sertifikatni shu CVga biriktirish (idempotent). Sertifikatning
   o'zi `/mobile/candidate/driver-certificate` orqali yaratiladi.
 
-  **Auth:** `access_token`.
+  **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
 
   ### 🔎 Path Parameters
 
@@ -30,6 +30,10 @@ docs: |
 
   | Code | Reason |
   |---|---|
+
+  | `403` | Shaxs tasdiqlanmagan (`is_verified=false`) — javobda `verification_required: true` |
+
+  | `456` | Guest — registratsiya tugatilmagan |
   | `403` | Sertifikat boshqa nomzodga tegishli |
   | `404` | CV yoki sertifikat topilmadi |
 settings:

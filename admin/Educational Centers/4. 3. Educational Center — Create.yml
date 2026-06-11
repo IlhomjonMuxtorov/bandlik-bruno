@@ -19,7 +19,7 @@ http:
       ,\n  \"responsible_person\": \"Timurbek Azizov\",\n  \"login\": \"thompson\"\
       ,\n  \"password\": \"secret123\",\n  \"telegram_url\": \"https://t.me/global_skillhub\"\
       ,\n  \"instagram_url\": \"https://instagram.com/global_skillhub\",\n  \"is_active\"\
-      : 1,\n  \"license_file_id\": 10,\n  \"logo_id\": 11\n}"
+      : 1,\n  \"license_file_id\": 10,\n  \"logo_id\": 11,\n  \"latitude\": 41.3111,\n  \"longitude\": 69.2797\n}"
   auth: inherit
 docs: 'Yangi O''quv markazi yaratadi. `application/json` so''rov. `type` avtomatik
   `8` (EDUCATIONAL_CENTER) o''rnatiladi.
@@ -48,6 +48,10 @@ docs: 'Yangi O''quv markazi yaratadi. `application/json` so''rov. `type` avtomat
   | `region_id` | int | ✅ | Viloyat ID (O''zbekiston) |
 
   | `district_id` | int | ✅ | Tuman ID |
+
+  | `latitude` | float | ➖ | Geo kenglik (lat) — ixtiyoriy. Oraliq `-90`..`90`. |
+
+  | `longitude` | float | ➖ | Geo uzunlik (lng) — ixtiyoriy. Oraliq `-180`..`180`. |
 
   | `address` | object | ✅ | Ko''p tilli `{uz, ru, en}` (har biri max 500) |
 

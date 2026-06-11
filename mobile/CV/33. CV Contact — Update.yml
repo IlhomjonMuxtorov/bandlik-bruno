@@ -25,7 +25,7 @@ docs: |-
   > **boshqa** raqam bo'lsa — avval `POST .../contact/request-otp` bilan kod oling
   > va shu yerda `code` ni yuboring. `email` uchun kod hech qachon kerak emas.
 
-  **Auth:** `access_token`.
+  **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
 
   ### 📋 Path Params
 
@@ -49,6 +49,10 @@ docs: |-
 
   | Code | Reason |
   |---|---|
+
+  | `403` | Shaxs tasdiqlanmagan (`is_verified=false`) — javobda `verification_required: true` |
+
+  | `456` | Guest — registratsiya tugatilmagan |
   | `400` | `phone` profil raqamidan farqli, lekin `code` yuborilmagan |
   | `400` | SMS kod noto'g'ri yoki muddati o'tgan |
   | `400` | Email noto'g'ri formatda |

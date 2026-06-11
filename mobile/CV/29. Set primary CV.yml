@@ -13,7 +13,7 @@ docs: 'Berilgan CV-ni primary qiladi. Eski primary CV avtomatik `is_primary = fa
   bo''ladi.
 
 
-  **Auth:** `access_token`.
+  **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
 
 
   ### 📤 Response
@@ -28,6 +28,10 @@ docs: 'Berilgan CV-ni primary qiladi. Eski primary CV avtomatik `is_primary = fa
   | Code | Reason |
 
   |---|---|
+
+  | `403` | Shaxs tasdiqlanmagan (`is_verified=false`) — javobda `verification_required: true` |
+
+  | `456` | Guest — registratsiya tugatilmagan |
 
   | `404` | CV topilmadi |
 

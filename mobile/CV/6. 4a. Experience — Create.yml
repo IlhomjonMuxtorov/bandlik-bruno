@@ -18,7 +18,7 @@ http:
 docs: 'Yangi ish tajribasi qo''shish.
 
 
-  **Auth:** `access_token`.
+  **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
 
 
   ### 📥 Request Body

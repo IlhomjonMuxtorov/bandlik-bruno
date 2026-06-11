@@ -26,7 +26,7 @@ docs: 'Mavjud ta''limni yangilash. Maydonlar tarkibi `POST` bilan bir xil (`dipl
   e''tiborga olinmaydi.
 
 
-  **Auth:** `access_token`.
+  **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
 
 
   ### ⚠️ Errors
@@ -35,6 +35,10 @@ docs: 'Mavjud ta''limni yangilash. Maydonlar tarkibi `POST` bilan bir xil (`dipl
   | Code | Reason |
 
   |---|---|
+
+  | `403` | Shaxs tasdiqlanmagan (`is_verified=false`) — javobda `verification_required: true` |
+
+  | `456` | Guest — registratsiya tugatilmagan |
 
   | `400` | Validatsiya |
 
