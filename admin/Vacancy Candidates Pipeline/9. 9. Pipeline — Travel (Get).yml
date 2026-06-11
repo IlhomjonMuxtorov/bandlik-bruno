@@ -23,7 +23,7 @@ docs: >
   ### 📤 Response (`data`)
 
   `{id, flight:{departure{country,city,airport,at(+formatted)}, arrival{...}, airline,
-  flight_number, flight_class, baggage, air_ticket}, sender{name,phone,address,at(+formatted)},
+  flight_number, baggage, air_ticket}, sender{name,phone,address,at(+formatted)},
   receiver{name,phone,pickup_address,pickup_at(+formatted)}, created_at, updated_at}`
   yoki `null`.
 settings:

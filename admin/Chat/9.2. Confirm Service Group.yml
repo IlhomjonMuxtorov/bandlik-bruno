@@ -23,7 +23,6 @@ http:
         "arrival_at": 1773500400,
         "airline": "Uzbekistan Airways",
         "flight_number": "HY 271",
-        "flight_class": "Business",
         "baggage": 23,
         "sender_name": "Dilshod Karimov",
         "sender_phone": "+998901112233",
@@ -62,7 +61,6 @@ docs: |
   | `departure_*` / `arrival_*` | string/int | ➖ | Parvoz: davlat / shahar / aeroport / vaqt (unix ts). |
   | `airline` | string | ➖ | Aviakompaniya. |
   | `flight_number` | string | ➖ | Reys raqami. |
-  | `flight_class` | string | ➖ | Klass (masalan `Economy` / `Business`). |
   | `baggage` | int | ➖ | Parvoz bagaji (kg). |
   | `sender_name` / `sender_phone` | string | ➖ | Kuzatuvchi shaxs F.I.Sh / telefon. |
   | `sender_address` / `sender_at` | string / int | ➖ | Kuzatuvchi manzili / vaqti. |
