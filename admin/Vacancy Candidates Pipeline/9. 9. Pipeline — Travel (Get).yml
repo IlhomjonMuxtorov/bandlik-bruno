@@ -8,9 +8,8 @@ http:
   auth: inherit
 params: {}
 docs: >
-  Kandidat detal "Safar ma'lumotlari" tab — parvoz + avia bilet + kuzatuvchi/kutib
-  oluvchi shaxs + logistika (kompaniya/litsenziya/avia chipta). Hali kiritilmagan
-  bo'lsa `data: null`.
+  Kandidat detal "Safar ma'lumotlari" tab — parvoz + avia bilet (klass, bagaj, avia
+  chipta) + kuzatuvchi/kutib oluvchi shaxs. Hali kiritilmagan bo'lsa `data: null`.
 
 
   > **Faqat o'qish.** Safar ma'lumotlari endi alohida saqlanmaydi — **Logistika guruhini
@@ -24,9 +23,8 @@ docs: >
   ### 📤 Response (`data`)
 
   `{id, flight:{departure{country,city,airport,at(+formatted)}, arrival{...}, airline,
-  flight_number, aircraft}, sender{name,phone,address,at(+formatted)},
-  receiver{name,phone,pickup_address,pickup_at(+formatted)},
-  logistics{company_name, company_license_number, air_ticket}, notes, created_at, updated_at}`
+  flight_number, flight_class, baggage, air_ticket}, sender{name,phone,address,at(+formatted)},
+  receiver{name,phone,pickup_address,pickup_at(+formatted)}, created_at, updated_at}`
   yoki `null`.
 settings:
   encodeUrl: true

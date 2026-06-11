@@ -12,13 +12,7 @@ http:
     type: json
     data: |-
       {
-        "company_name": "ACME Logistics LLC",
-        "company_license_number": "LIC-2026-00123",
         "air_ticket_upload_file_id": 42,
-        "receiver_name": "Ali Valiyev",
-        "receiver_phone": "+998901234567",
-        "receiver_pickup_address": "Frankfurt Airport, Terminal 1",
-        "receiver_pickup_at": 1773500400,
         "departure_country": "Uzbekistan",
         "departure_city": "Tashkent",
         "departure_airport": "TAS",
@@ -28,7 +22,17 @@ http:
         "arrival_airport": "FRA",
         "arrival_at": 1773500400,
         "airline": "Uzbekistan Airways",
-        "flight_number": "HY 271"
+        "flight_number": "HY 271",
+        "flight_class": "Business",
+        "baggage": 23,
+        "sender_name": "Dilshod Karimov",
+        "sender_phone": "+998901112233",
+        "sender_address": "Tashkent",
+        "sender_at": 1773486000,
+        "receiver_name": "Ali Valiyev",
+        "receiver_phone": "+998901234567",
+        "receiver_pickup_address": "Frankfurt Airport, Terminal 1",
+        "receiver_pickup_at": 1773500400
       }
   auth:
     mode: bearer
@@ -54,17 +58,18 @@ docs: |
 
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `company_name` | string | ✅ | Logistika kompaniyasi nomi (LOGISTIKA modali "Kompaniya nomi"). |
   | `air_ticket_upload_file_id` | int | ✅ | Avia chipta — avval `POST /admin/upload` orqali yuklangan `upload_file.id`. |
-  | `company_license_number` | string | ➖ | Litsenziya raqami. |
-  | `receiver_name` | string | ➖ | Kutib oluvchi shaxs F.I.Sh. |
-  | `receiver_phone` | string | ➖ | Kutib oluvchi telefoni. |
-  | `receiver_pickup_address` | string | ➖ | Kutib olish manzili. |
-  | `receiver_pickup_at` | int | ➖ | Kutib olish vaqti (unix ts). |
-  | `departure_*` / `arrival_*` | string/int | ➖ | Parvoz ma'lumotlari (davlat/shahar/airport/at). |
-  | `airline`, `flight_number`, `aircraft` | string | ➖ | Reys ma'lumotlari. |
+  | `departure_*` / `arrival_*` | string/int | ➖ | Parvoz: davlat / shahar / aeroport / vaqt (unix ts). |
+  | `airline` | string | ➖ | Aviakompaniya. |
+  | `flight_number` | string | ➖ | Reys raqami. |
+  | `flight_class` | string | ➖ | Klass (masalan `Economy` / `Business`). |
+  | `baggage` | int | ➖ | Parvoz bagaji (kg). |
+  | `sender_name` / `sender_phone` | string | ➖ | Kuzatuvchi shaxs F.I.Sh / telefon. |
+  | `sender_address` / `sender_at` | string / int | ➖ | Kuzatuvchi manzili / vaqti. |
+  | `receiver_name` / `receiver_phone` | string | ➖ | Kutib oluvchi shaxs F.I.Sh / telefon. |
+  | `receiver_pickup_address` / `receiver_pickup_at` | string / int | ➖ | Kutib olish manzili / vaqti. |
 
-  > Logistika guruhi `company_name` yoki `air_ticket_upload_file_id` siz tasdiqlansa — `400`.
+  > Logistika guruhi `air_ticket_upload_file_id` (avia chipta) siz tasdiqlansa — `400`.
 
   **Auth:** `admin_token`. Guruh shu chatning `vacancy_candidate` piplayniga tegishli bo'lishi shart.
 
@@ -77,7 +82,7 @@ docs: |
 
   | Code | Reason |
   |---|---|
-  | `400` | Guruhda yakunlanmagan bosqich bor; yoki logistika guruhi safar ma'lumotlari (kompaniya nomi + avia chipta) siz tasdiqlanmoqda |
+  | `400` | Guruhda yakunlanmagan bosqich bor; yoki logistika guruhi avia chipta (`air_ticket_upload_file_id`) siz tasdiqlanmoqda |
   | `403` | Foydalanuvchi xodim emas yoki guruh boshqa piplaynga tegishli |
   | `404` | Chat / qabul qilingan piplayn topilmadi yoki guruh shu nomzodga tegishli emas |
 settings:
