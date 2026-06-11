@@ -97,6 +97,15 @@ docs: 'Yangi XBA tashkilotini yaratadi. `application/json` so''rov.
   "en": "XBA Tashkent" }`.
 
 
+  > **Avto-geokod (lat/lng):** `latitude`/`longitude` yuborilmasa, backend `address`
+  matnidan Yandex Geocoder orqali koordinatani avtomatik aniqlaydi. Ikkalasi ham yuborilsa
+  — qo''lda kiritilgan qiymat ustun turadi (geokod ishlamaydi). Geokod so''rovi tashkilot
+  turiga moslashtiriladi (O''zbek turlari: viloyat + tuman; xalqaro turlar: davlat + shahar
+  konteksti). Kalit (`YANDEX_GEOCODER_KEY`) sozlanmagan yoki manzil topilmasa — koordinata
+  `null` qoladi, saqlash baribir muvaffaqiyatli bo''ladi. Bu barcha tashkilot turlari uchun
+  amal qiladi.
+
+
   ### 📋 Headers
 
 

@@ -33,6 +33,11 @@ docs: 'Mavjud XBA tashkilotini yangilaydi. `application/json` — faqat o''zgart
   — `Create` endpointidagi kabi. Fayl maydonlari: `license_file_id`, `logo_id`.
 
 
+  > **Avto-geokod (lat/lng):** koordinata yuborilmasa va `address` o''zgartirilsa (yoki
+  tashkilotda koordinata umuman yo''q bo''lsa), backend yangi manzildan koordinatani qayta
+  aniqlaydi. `latitude`/`longitude` aniq yuborilsa — qo''lda kiritilgan qiymat ustun turadi.
+
+
   ### ⚠️ Errors
 
 

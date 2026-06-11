@@ -1,0 +1,51 @@
+info:
+  name: 1. Geocode Address
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/geocode?address=Toshkent, Chilonzor tumani, Bunyodkor 1'
+  auth: inherit
+docs: |-
+  Erkin ko'rinishdagi manzil matnini geografik koordinataga (lat/lng) aylantiradi —
+  Yandex Geocoder HTTP API orqali (server kaliti backendda turadi). Tashkilot
+  yaratish/tahrirlash formasida xaritada markerni joylash/markazlash uchun ishlatiladi.
+
+  > Server kaliti (`YANDEX_GEOCODER_KEY`) sozlanmagan bo'lsa yoki manzil topilmasa —
+  > `200` qaytadi, lekin `latitude`/`longitude` `null` va `message` to'ldiriladi.
+
+  **Auth:** `admin_token` (Bearer).
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `address` | string | ✅ | Geokodlanadigan manzil matni (masalan `"Toshkent, Chilonzor tumani, Bunyodkor 1"`). Aniqlik uchun shahar/viloyat kontekstini qo'shish tavsiya etiladi. |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {{ _.admin_token }}` |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `success` | bool | Doim `true` (geokod muvaffaqiyatsiz bo'lsa ham). |
+  | `data.latitude` | float \| null | Kenglik (`-90..90`). Topilmasa `null`. |
+  | `data.longitude` | float \| null | Uzunlik (`-180..180`). Topilmasa `null`. |
+  | `message` | string | Topilmaganda sabab matni; aks holda bo'sh. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki muddati o'tgan. |
+  | `403` | Admin ruxsat yo'q. |
+  | `422` | `address` query parametri yuborilmagan. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
