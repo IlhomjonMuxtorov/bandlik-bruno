@@ -23,6 +23,7 @@ docs: |-
   |---|---|:---:|---|
   | `q` | string | ➖ | Kandidat F.I.SH / telefon bo'yicha qidiruv |
   | `status` | int (1\|2\|3) | ➖ | Buyurtma statusi bo'yicha filtr |
+  | `district_id` | int | ➖ | Kandidat propiska tumani (`registration_district_id`) bo'yicha filtr |
   | `page`, `per-page` | int | ➖ | |
 
   Lokalizatsiya: `Accept-Language` (`uz` \| `ru` \| `en`, default `uz`) vakansiya agentligi nomiga ta'sir qiladi. Region/district matnli (free-text) saqlangan.

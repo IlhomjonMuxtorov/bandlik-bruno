@@ -28,6 +28,9 @@ docs: 'O''quv markazining **Mijozlar** tabi — DISTINCT o''quvchilar bo''yicha 
 
   | `status` | int (1\|2\|3) | ➖ | Buyurtma statusi bo''yicha filtr |
 
+  | `district_id` | int | ➖ | O''quvchi propiska tumani (`registration_district_id`)
+  bo''yicha filtr |
+
   | `page`, `per-page` | int | ➖ | |
 
 
