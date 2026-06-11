@@ -44,6 +44,16 @@ docs: 'Pipeline yozuvini yangilaydi (partial — faqat berilgan maydonlar o''zga
   bo''sh bo''lsa).
 
 
+  > **Terminal holatdan chiqib bo''lmaydi.** Pipeline allaqachon yakunlangan
+  (`departed` / `dropped_out` / `course_failed` / `visa_rejected`) bo''lsa, `journey_status`
+  ni boshqa qiymatga o''zgartirishga urinish `400` qaytaradi — yopilgan jarayonni qayta
+  ochish mexanizmi yo''q.
+
+
+  > **Eslatma:** `departed` ga o''tish endi XBA (agency) holdini **avtomatik settle
+  qilmaydi** — XBA xizmati alohida tasdiqlanadi (group `confirm`).
+
+
   ### 📤 Response
 
 
@@ -59,7 +69,7 @@ docs: 'Pipeline yozuvini yangilaydi (partial — faqat berilgan maydonlar o''zga
 
   |---|---|
 
-  | `400` | Noto''g''ri status / progress diapazoni / valyuta |
+  | `400` | Noto''g''ri status / progress diapazoni / valyuta; yoki yakunlangan (terminal) pipeline ni qayta ochishga urinish |
 
   | `403` | Boshqa tashkilot |
 

@@ -14,49 +14,49 @@ http:
     mode: bearer
     bearer: '{{ admin_token }}'
 docs: |
-  Tashkilot guruhini **boshlaydi** (Start qadami): guruhning `pending` bosqichlarini
-  `awaiting_payment` ga o'tkazadi va kandidatning **to'lov oynasini** ochadi
-  (`payment_deadline_at = now + group.payment_deadline_days`). Chatga `type=system` xabar
+  Guruh **ijrosini boshlaydi** (Start qadami). Chatga `type=system` xabar
   (`kind: group_started`) yuboriladi.
 
-  Oqim: **Start → Pay → Execute**. Pay qadami avtomatik: start muvaffaqiyatli bo'lsa,
-  boshlangan bosqichlar uchun kandidat hamyonidan pul darhol **hold** qilinadi (alohida
-  `/offer/fund` chaqiruvi shart emas), bosqichlar `in_progress` ga o'tadi va ijro muddati
-  (`deadline_at = now + group.execution_deadline_days`) boshlanadi.
+  Oqim: **Start → Pay → Execute → Complete → Confirm**.
+  - Guruhning bosqichlari **allaqachon to'langan** bo'lsa (single_payment=true upfront hold),
+    ular qo'shimcha to'lovsiz darhol `in_progress` ga o'tadi.
+  - To'lanmagan bosqichlar uchun **to'lov oynasi** ochiladi
+    (`awaiting_payment`, `payment_deadline_at = now + group.payment_deadline_days`); kandidat
+    hamyonida summa bo'lsa hold qo'yilib `in_progress` ga o'tadi.
+  - Ijro muddati (`deadline_at = now + group.execution_deadline_days`) **ijro boshlanganda**
+    boshlanadi (hold paytida emas).
 
-  > Agar offer hali qabul qilinmagan bo'lsa, start bosqichlarni `awaiting_payment` da
-  > qoldiradi — hold offer qabul qilinganda (`/offer/accept`) qo'yiladi.
+  **Ijro DOIM ketma-ket (group-by-group).** Guruh N ni faqat undan oldingi barcha guruhlar
+  **tasdiqlangandan** (`xba_confirmed`/`skipped`) keyin boshlash mumkin — aks holda `400`.
+  (Eslatma: oldin gate "to'langan" edi; endi "tasdiqlangan".)
+
+  **`single_payment` endi faqat HOLD strategiyasini belgilaydi (ketma-ketlikni emas):**
+  - **`true`** → kandidat butun vakansiya summasini bir marta to'laydi, barcha bosqichlar
+    oldindan hold qilinadi; guruhlar ketma-ket, qo'shimcha to'lovsiz ijro etiladi.
+  - **`false`** → har guruh o'z navbatida alohida to'lanadi/hold qilinadi.
 
   **Guruh = tashkilot.** Bir guruh bir nechta kategoriyani qamrashi mumkin (masalan notarius
   tashkilotning notary_translation / notary_apostille / notary_other xizmatlari bir guruhda).
 
-  **To'lov rejimi:**
-  - **Ketma-ket (single_payment=false):** guruhni faqat undan oldingi barcha guruhlar (tartib
-    bo'yicha) to'liq to'langandan keyin boshlash mumkin — aks holda `400`. Kandidat hamyonidagi
-    mavjud balans **shu guruh summasiga** yetishi shart; yetmasa `400` va guruh boshlanmaydi.
-  - **Bitta to'lov (single_payment=true):** bitta `start` chaqiruvi (`groupId` ahamiyatsiz)
-    **barcha** guruhlarni birga ochadi — lekin faqat kandidat hamyonidagi mavjud balans umumiy
-    summaga yetsa; yetmasa `400`. Hammasiga bitta `payment_deadline_at` (guruhlar muddatining
-    eng kattasi) qo'yiladi.
-
   **Auth:** `admin_token`. Guruh shu chatning `vacancy_candidate` piplayniga tegishli bo'lishi shart.
 
   **Qayta ochish:** to'lov muddati o'tib `payment_overdue` bo'lgan guruhni shu endpoint
-  qayta boshlaydi (yangi to'lov muddati bilan). Faqat `pending` va `payment_overdue` bosqichlar
-  o'zgaradi; `awaiting_payment`/`in_progress`/`completed` tegilmaydi (idempotent).
+  qayta boshlaydi. Faqat `pending` / `awaiting_payment` / `payment_overdue` bosqichlar
+  o'zgaradi; `in_progress`/`completed`/`xba_confirmed` tegilmaydi (idempotent).
 
   ### 📤 Response
 
   `{ success, data: service_groups[], message: "Service group started" }` — yangilangan
   guruhlangan ko'rinish (chat detaildagi `service_groups` bilan bir xil struktura;
-  boshlangan guruh `started=true`, `is_current=true`). Har `service_groups[]` elementida
-  `service_group_id` (int|null) bor — bu URL'dagi `{groupId}` ga mos guruh id'si.
+  boshlangan guruh `is_current=true`). Har `service_groups[]` elementida:
+  `service_group_id`, `paid_percent`, `fully_funded`, `started`, `is_current`,
+  `skipped`, `fully_completed`, `confirmed`, `can_start`, `can_complete`, `can_confirm`.
 
   ### ⚠️ Errors
 
   | Code | Reason |
   |---|---|
-  | `400` | Ketma-ket rejimda oldingi guruh hali to'lanmagan yoki kandidat balansi guruh summasiga yetmaydi; single_payment'da balans umumiy summaga yetmaydi |
+  | `400` | Oldingi guruh hali **tasdiqlanmagan** (`Confirm the previous service group before starting this one`) |
   | `403` | Foydalanuvchi xodim emas yoki guruh boshqa piplaynga tegishli |
   | `404` | Chat yoki qabul qilingan piplayn topilmadi / guruh shu nomzodga tegishli emas |
 settings:

@@ -9,7 +9,13 @@ http:
 params: {}
 docs: >
   Kandidat detal "Safar ma'lumotlari" tab — parvoz + avia bilet + kuzatuvchi/kutib
-  oluvchi shaxs. Hali kiritilmagan bo'lsa `data: null`.
+  oluvchi shaxs + logistika (kompaniya/litsenziya/avia chipta). Hali kiritilmagan
+  bo'lsa `data: null`.
+
+
+  > **Faqat o'qish.** Safar ma'lumotlari endi alohida saqlanmaydi — **Logistika guruhini
+  > tasdiqlash** (`POST /admin/chats/{id}/groups/{groupId}/confirm`) so'rovi ichida inline
+  > yoziladi. Eski standalone `POST/PATCH/DELETE .../travel` endpointlari olib tashlangan.
 
 
   **Auth:** `access_token` (admin yoki o'z tashkiloti aktyori).
@@ -19,7 +25,8 @@ docs: >
 
   `{id, flight:{departure{country,city,airport,at(+formatted)}, arrival{...}, airline,
   flight_number, aircraft}, sender{name,phone,address,at(+formatted)},
-  receiver{name,phone,pickup_address,pickup_at(+formatted)}, notes, created_at, updated_at}`
+  receiver{name,phone,pickup_address,pickup_at(+formatted)},
+  logistics{company_name, company_license_number, air_ticket}, notes, created_at, updated_at}`
   yoki `null`.
 settings:
   encodeUrl: true

@@ -1,0 +1,46 @@
+info:
+  name: Complete Service Group
+  type: http
+  seq: 10
+http:
+  method: POST
+  url: '{{base_url}}/admin/chats/1/groups/1/complete'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: none
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+docs: |
+  Tashkilot guruhdagi **barcha xizmatlarni bir martada yakunlaydi** ("Tugatish"):
+  guruhning `in_progress` / `overdue` bosqichlari **birvarakayiga** `completed` ga
+  o'tadi. Bitta guruhga tegishli xizmatlar bittalab emas, **birgalikda** yakunlanadi.
+  Chatga `type=system` xabar (`kind: group_completed`) yuboriladi.
+
+  Oqim: **Start → Pay → Execute → Complete → Confirm**. Bu — `Complete` qadami; pul
+  hali tashkilotga o'tmaydi (settlement faqat `Confirm` da bo'ladi).
+
+  **Shartlar:** guruh **to'liq to'langan** (har bosqich `funded`) va **ijroda**
+  (`in_progress`/`overdue`) bo'lishi shart — aks holda `400`.
+
+  **Auth:** `admin_token`. Guruh shu chatning `vacancy_candidate` piplayniga tegishli bo'lishi shart.
+
+  ### 📤 Response
+
+  `{ success, data: service_groups[], message: "Service group completed" }` — yangilangan
+  guruhlangan ko'rinish. Yakunlangan guruhda `fully_completed=true`, `can_confirm=true`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Guruh to'liq to'lanmagan yoki ijroda emas / yakunlanadigan bosqich yo'q |
+  | `403` | Foydalanuvchi xodim emas yoki guruh boshqa piplaynga tegishli |
+  | `404` | Chat / qabul qilingan piplayn topilmadi yoki guruh shu nomzodga tegishli emas |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
