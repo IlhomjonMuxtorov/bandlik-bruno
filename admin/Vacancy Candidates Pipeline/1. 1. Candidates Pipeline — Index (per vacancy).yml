@@ -97,8 +97,6 @@ docs: 'Vakansiya pipeline''idagi nomzodlar (`accepted_at DESC`).
 
   | `collected_amount` / `_currency` | int / string | To''plangan summa |
 
-  | `hotel_preference` | bool | |
-
   | `accepted_at` / `departed_at` | int \| null | |
 
   | `stages` | array | "Joriy status" bosqichlari (`sort_order ASC`). Har biri: `{id,

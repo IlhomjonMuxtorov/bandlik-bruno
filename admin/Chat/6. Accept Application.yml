@@ -34,7 +34,6 @@ docs: |
   | Field | Type | Required | Description |
   |---|---|:---:|---|
   | `notes` | string | ➖ | Pipeline notes |
-  | `hotel_preference` | bool | ➖ | Override |
 
   ### 📤 Response
 

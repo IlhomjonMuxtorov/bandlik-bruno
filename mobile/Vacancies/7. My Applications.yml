@@ -31,7 +31,6 @@ docs: |-
   | `status` / `status_label` | string | `applied` ... |
   | `cv` | object \| null | `{id, title}` |
   | `cover_message` | string \| null | |
-  | `hotel_preference` | bool | |
   | `applied_at` | int | Unix timestamp |
   | `applied_at_formatted` | string | `d.m.Y H:i` (Asia/Tashkent) |
   | `reviewed_at` / `decided_at` | int \| null | |
