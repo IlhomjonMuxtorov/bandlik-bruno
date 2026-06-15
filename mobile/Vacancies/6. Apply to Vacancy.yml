@@ -10,8 +10,7 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"cv_id\": 1,\n  \"cover_message\": \"Men bu ish o'rni uchun motivatsiyalanganman\"\
-      \n}"
+    data: "{\n  \"cv_id\": 1\n}"
   auth: inherit
 docs: |-
   Nomzod tasdiqlangan vakansiyaga ariza topshiradi. Vakansiya `status = approved` bo'lishi va shu nomzoddan **birinchi ariza** bo'lishi shart (unique).
@@ -25,7 +24,6 @@ docs: |-
   | Field | Type | Required | Description |
   |---|---|:---:|---|
   | `cv_id` | int | ✅ | Qaysi CV bilan ariza topshirilayotgani. CV `active` (to'liq to'ldirilgan) bo'lishi va shu nomzodga tegishli bo'lishi shart. |
-  | `cover_message` | string | ➖ | Qo'shimcha izoh |
 
   ### 📤 Response
 

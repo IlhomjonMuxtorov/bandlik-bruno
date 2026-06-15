@@ -40,7 +40,7 @@ docs: |
   - Kandidat xabarlari sender to'liq ma'lumotlari bilan qaytadi
 
   **Candidate Card:**
-  - `{candidate_id, application_id, full_name, photo_url, phone, cv_id, cv_title, cover_message}`
+  - `{candidate_id, application_id, full_name, photo_url, phone, cv_id, cv_title}`
   - `vacancy_candidate_id` (int | null) — pipeline (`vacancy_candidate.id`); `POST /admin/vacancy-candidates/<id>/update-journey` uchun. Ariza hali qabul qilinmagan bo'lsa `null`.
   - `pipeline_outcome` (string | null) — `active` \| `completed` \| `cancelled`. Snapshot emas, **jonli** o'qiladi.
   - `pipeline_outcome_label` (string | null) — outcome'ning tarjima qilingan nomi (`Accept-Language` bo'yicha).
