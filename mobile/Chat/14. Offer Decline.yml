@@ -17,7 +17,7 @@ docs: |
 
   ### 📤 Response (200)
 
-  Yangilangan `offer` obyekti — `journey_status = dropped_out`.
+  Yangilangan `offer` obyekti — `pipeline_outcome = cancelled`, `current_stage = cancelled`.
 
   ### ⚠️ Errors
 

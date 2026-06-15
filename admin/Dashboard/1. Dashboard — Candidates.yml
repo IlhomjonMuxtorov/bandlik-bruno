@@ -8,8 +8,9 @@ http:
   auth: inherit
 docs: |
   Dashboard "Foydalanuvchilar" tab — barcha kartochka va chartlar bitta javobda.
-  Kandidat holatlari `vacancy_candidate.journey_status` bo'yicha (pipeline yozuvi
-  bo'yicha — bir kandidat bir nechta vakansiyada bo'lsa har biri alohida sanaladi).
+  Kandidat holatlari `vacancy_candidate.pipeline_outcome` (kartalar) va `current_stage`
+  (funnel/pie) bo'yicha (pipeline yozuvi bo'yicha — bir kandidat bir nechta vakansiyada
+  bo'lsa har biri alohida sanaladi).
   Lead = ro'yxatdan o'tgan foydalanuvchi (`user`, type=candidate).
 
   **Auth:** `admin_token`. Faqat admin.

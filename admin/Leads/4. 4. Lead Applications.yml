@@ -65,7 +65,7 @@ docs: >
 
   | `vacancy` | object | `{id, title, country{id,name,iso_code,flag_url}, city{id,name}, salary_gross, salary_gross_currency, salary_net, salary_net_currency, employment_type(+_label), work_schedule(+_label), work_time_from, work_time_to, duration_months_min, duration_months_max}` |
 
-  | `pipeline` | object \| null | Accepted bo'lsa: `{id, journey_status(+_label), course_progress_percent, collected_amount, collected_currency, accepted_at(+_formatted), departed_at(+_formatted)}` |
+  | `pipeline` | object \| null | Accepted bo'lsa: `{id, pipeline_outcome(+_label), current_stage(+_label), course_progress_percent, collected_amount, collected_currency, accepted_at(+_formatted), departed_at(+_formatted)}` |
 settings:
   encodeUrl: true
   timeout: 0

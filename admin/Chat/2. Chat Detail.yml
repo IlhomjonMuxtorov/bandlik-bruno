@@ -42,8 +42,10 @@ docs: |
   **Candidate Card:**
   - `{candidate_id, application_id, full_name, photo_url, phone, cv_id, cv_title, cover_message}`
   - `vacancy_candidate_id` (int | null) — pipeline (`vacancy_candidate.id`); `POST /admin/vacancy-candidates/<id>/update-journey` uchun. Ariza hali qabul qilinmagan bo'lsa `null`.
-  - `journey_status` (string | null) — joriy journey enum qiymati (`pending` … `dropped_out`). Snapshot emas, **jonli** o'qiladi.
-  - `journey_status_label` (string | null) — joriy status'ning tarjima qilingan nomi (`Accept-Language` bo'yicha).
+  - `pipeline_outcome` (string | null) — `active` \| `completed` \| `cancelled`. Snapshot emas, **jonli** o'qiladi.
+  - `pipeline_outcome_label` (string | null) — outcome'ning tarjima qilingan nomi (`Accept-Language` bo'yicha).
+  - `current_stage` (string | null) — joriy guruhdan derive qilingan bosqich (`awaiting` … `completed` / `cancelled`).
+  - `current_stage_label` (string | null) — stage'ning tarjima qilingan nomi.
 
   **Active Call:**
   - `active_call` (object | null) — aktiv (davom etayotgan/jiringlayotgan) qo'ng'iroq. `null` — qo'shiladigan qo'ng'iroq yo'q. Admin shu maydon orqali `POST /admin/chats/<id>/video-call/join` bilan qayta qo'shiladi. Obyekt: `{call_message_id, room_name, domain, started_by, started_at}`

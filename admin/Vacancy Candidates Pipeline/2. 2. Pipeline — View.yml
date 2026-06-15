@@ -15,7 +15,8 @@ docs: 'Pipeline yozuvi tafsiloti.
   ### 📤 Response
 
   Global Index elementi bilan bir xil shakl (`id, vacancy, candidate, match_score,
-  journey_status, course_progress_percent, collected_amount, stages[], service_groups[]`).
+  pipeline_outcome(+_label), current_stage(+_label), course_progress_percent,
+  collected_amount, stages[], service_groups[]`).
 
   - `match_score` (int|null) — "Mos kelish darajasi": kandidatning visa-survey foizi
   vakansiya davlati bo''yicha (survey yo''q bo''lsa `null`).

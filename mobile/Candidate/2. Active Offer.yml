@@ -55,7 +55,9 @@ docs: 'Nomzodning hozirgi **faol qabul qilingan taklifini** (bitta vakansiya) va
 
   | `offer.vacancy` | object | `{ id, title }` |
 
-  | `offer.journey_status` | string | `course_in_progress`, `visa_pending`, ... |
+  | `offer.pipeline_outcome` | string | `active` \| `completed` \| `cancelled` |
+
+  | `offer.current_stage` | string | `awaiting` \| `training` \| … \| `completed` \| `cancelled` |
 
   | `offer.confirmed` | bool | Taklif qabul qilingan |
 

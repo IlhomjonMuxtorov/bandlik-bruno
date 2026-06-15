@@ -35,7 +35,8 @@ docs: |
   | Field | Type | Description |
   |---|---|---|
   | `id` | int | Pipeline (taklif) id |
-  | `journey_status` | string | `pending` (qabul kutilmoqda) / `course_in_progress` (qabul qilingan) / ... |
+  | `pipeline_outcome` | string | `active` \| `completed` \| `cancelled` |
+  | `current_stage` | string | `awaiting` (qabul kutilmoqda) / `training` / … / `completed` / `cancelled` |
   | `confirmed` | bool | Taklif qabul qilinganmi (pul band qilish boshlanganmi) |
   | `currency` | string | Band qilish valyutasi (UZS) |
   | `required_amount` | int | Barcha xizmatlar jami (so'm) |

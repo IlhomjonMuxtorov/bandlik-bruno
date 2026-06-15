@@ -12,13 +12,13 @@ http:
     type: json
     data: |-
       {
-        "journey_status": "course_in_progress",
         "collected_amount": 1500000,
         "collected_currency": "UZS",
-        "notes": "Kurs muvaffaqiyatli boshlandi"
+        "notes": "Naqd to'lov qabul qilindi"
       }
   auth: inherit
-docs: 'Pipeline yozuvini yangilaydi (partial — faqat berilgan maydonlar o''zgaradi).
+docs: 'Pipeline yozuvining **naqd-pul hisobi va izohini** yangilaydi (partial — faqat
+  berilgan maydonlar o''zgaradi).
 
 
   **Auth:** Admin yoki vakansiya egasi.
@@ -31,8 +31,6 @@ docs: 'Pipeline yozuvini yangilaydi (partial — faqat berilgan maydonlar o''zga
 
   |---|---|:---:|---|
 
-  | `journey_status` | string | ➖ | Yangi status |
-
   | `collected_amount` | int | ➖ | Odatiy birlikda (so''m / dollar / evro) |
 
   | `collected_currency` | string | ➖ | `UZS` \| `USD` \| `EUR` |
@@ -40,32 +38,23 @@ docs: 'Pipeline yozuvini yangilaydi (partial — faqat berilgan maydonlar o''zga
   | `notes` | string | ➖ | Bo''sh string yuborilsa `null` ga o''rnatiladi |
 
 
-  > **`course_progress_percent` bu yerda QABUL QILINMAYDI.** Kurs progressi nomzodning
-  haqiqiy kurs tugatishi (LMS) orqali boshqariladi — rekruter yoki admin uni qo''lda
-  o''zgartira olmaydi. Progress 100% ga yetganda Training guruhi avtomatik tasdiqlanadi
+  > **`journey_status` BU YERDA QABUL QILINMAYDI** — u butunlay olib tashlandi. Pipeline
+  holati endi xizmat guruhlaridan kelib chiqadi: `pipeline_outcome` (`active` \| `completed`
+  \| `cancelled`) oxirgi guruh tasdiqlanganda yoki bekor qilinganda avtomatik o''rnatiladi,
+  `current_stage` esa joriy guruhdan hisoblanadi. Pipeline''ni **bekor qilish** uchun alohida
+  `drop-out` endpointidan foydalaning.
+
+
+  > **`course_progress_percent` ham QABUL QILINMAYDI** — kurs progressi LMS orqali
+  boshqariladi (rekruter/admin emas). 100% ga yetganda Training guruhi avtomatik tasdiqlanadi
   va keyingi guruh ochiladi.
-
-
-  > `journey_status = departed` qilinganda `departed_at` avtomatik o''rnatiladi (agar
-  bo''sh bo''lsa).
-
-
-  > **Terminal holatdan chiqib bo''lmaydi.** Pipeline allaqachon yakunlangan
-  (`departed` / `dropped_out` / `course_failed` / `visa_rejected`) bo''lsa, `journey_status`
-  ni boshqa qiymatga o''zgartirishga urinish `400` qaytaradi — yopilgan jarayonni qayta
-  ochish mexanizmi yo''q.
-
-
-  > **Eslatma:** `departed` ga o''tish endi XBA (agency) holdini **avtomatik settle
-  qilmaydi** — XBA xizmati alohida tasdiqlanadi (group `confirm`).
 
 
   ### 📤 Response
 
 
-  Yangilangan pipeline yozuvi — `Pipeline — View` bilan bir xil shakl (`stages[]` +
-  `service_groups[]`; `responsible_user` xizmatni beruvchi tashkilotdan: `{id, username,
-  full_name, phone, photo_url}`).
+  Yangilangan pipeline yozuvi — `Pipeline — View` bilan bir xil shakl. Holat maydonlari:
+  `pipeline_outcome` (+`_label`), `current_stage` (+`_label`); `stages[]` + `service_groups[]`.
 
 
   ### ⚠️ Errors
@@ -75,7 +64,7 @@ docs: 'Pipeline yozuvini yangilaydi (partial — faqat berilgan maydonlar o''zga
 
   |---|---|
 
-  | `400` | Noto''g''ri status / progress diapazoni / valyuta; yoki yakunlangan (terminal) pipeline ni qayta ochishga urinish |
+  | `400` | Noto''g''ri summa / valyuta |
 
   | `403` | Boshqa tashkilot |
 

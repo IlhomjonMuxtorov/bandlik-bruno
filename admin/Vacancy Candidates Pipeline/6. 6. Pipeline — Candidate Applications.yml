@@ -40,7 +40,7 @@ docs: >
   ### 📤 Response (`data`)
 
   `items[]` (`{id, status(+label), vacancy{maosh/bandlik/jadval/davlat...}, chat_id,
-  pipeline{journey_status...}}`) + `pagination`.
+  pipeline{pipeline_outcome(+_label), current_stage(+_label)...}}`) + `pagination`.
 settings:
   encodeUrl: true
   timeout: 0

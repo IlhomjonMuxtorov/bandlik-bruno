@@ -4,7 +4,7 @@ info:
   seq: 0
 http:
   method: GET
-  url: '{{base_url}}/admin/candidates?q=&district=&status=&stage_category=&stage_status=&per-page=20'
+  url: '{{base_url}}/admin/candidates?q=&district=&status=&stage=&stage_category=&stage_status=&per-page=20'
   auth: inherit
 params:
   query:
@@ -15,6 +15,9 @@ params:
       value: ''
       enabled: true
     - name: status
+      value: ''
+      enabled: true
+    - name: stage
       value: ''
       enabled: true
     - name: stage_category
@@ -46,9 +49,11 @@ docs: 'Global "Kandidatlar" ekrani — barcha vakansiyalar bo''yicha nomzodlar (
 
   | `district` | string | ➖ | `candidates.registration_district` bo''yicha aniq moslik (free-text) |
 
-  | `status` | string | ➖ | Journey status: `pending` \| `course_in_progress` \|
-  `course_passed` \| `course_failed` \| `visa_pending` \| `visa_rejected` \|
-  `departed` \| `dropped_out` |
+  | `status` | string | ➖ | Pipeline outcome: `active` \| `completed` \| `cancelled` |
+
+  | `stage` | string | ➖ | Derive qilingan bosqich: `awaiting` \| `training` \|
+  `translation_apostil` \| `insurance` \| `visa` \| `xba` \| `logistics` \|
+  `completed` \| `cancelled` |
 
   | `stage_category` | string | ➖ | Bosqich (Joriy status ikonkasi) kategoriyasi:
   `agency` \| `notarius` \| `insurance` \| `logistics` \| `visa` \|
@@ -97,7 +102,9 @@ docs: 'Global "Kandidatlar" ekrani — barcha vakansiyalar bo''yicha nomzodlar (
 
   | `match_score` | int \| null | Mos kelish darajasi (visa-survey, vakansiya davlati bo''yicha; `null` agar survey yo''q) |
 
-  | `journey_status` / `_label` | string | |
+  | `pipeline_outcome` / `_label` | string | `active` \| `completed` \| `cancelled` |
+
+  | `current_stage` / `_label` | string | `awaiting` \| `training` \| `translation_apostil` \| `insurance` \| `visa` \| `xba` \| `logistics` \| `completed` \| `cancelled` (joriy guruhdan derive qilinadi) |
 
   | `course_progress_percent` | int | 0..100 — Kurs progressi |
 

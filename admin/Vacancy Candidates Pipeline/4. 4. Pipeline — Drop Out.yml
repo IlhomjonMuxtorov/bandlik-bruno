@@ -12,7 +12,13 @@ http:
     type: json
     data: "{\n  \"reason\": \"Nomzod muddatni o'tkazdi\"\n}"
   auth: inherit
-docs: 'This endpoint handles POST request.
+docs: 'Pipeline''ni **bekor qiladi** (erta chiqish): `pipeline_outcome = cancelled`,
+  `current_stage = cancelled`, `cancel_reason` saqlanadi, hali band qilingan (settle
+  qilinmagan) mablag'' kandidatga qaytariladi va ochiq bosqichlar `skipped` ga o''tadi,
+  chat yopiladi. Allaqachon yakunlangan/bekor qilingan pipeline uchun no-op.
+
+
+  **Auth:** Admin yoki vakansiya egasi.
 
 
   ### 📥 Request Body
@@ -22,7 +28,7 @@ docs: 'This endpoint handles POST request.
 
   |---|---|:---:|---|
 
-  | `reason` | string | ✅ | — |
+  | `reason` | string | ✅ | Bekor qilish sababi — `cancel_reason` ga yoziladi |
 
 
   ### 📤 Response
@@ -34,7 +40,7 @@ docs: 'This endpoint handles POST request.
 
   | `success` | boolean | Request success status |
 
-  | `data` | object | Yangilangan pipeline yozuvi — `Pipeline — View` bilan bir xil shakl (`stages[]` + `service_groups[]`) |
+  | `data` | object | Yangilangan pipeline yozuvi — `Pipeline — View` bilan bir xil shakl (`pipeline_outcome=cancelled`, `current_stage=cancelled`; `stages[]` + `service_groups[]`) |
 
 
   ### ⚠️ Errors

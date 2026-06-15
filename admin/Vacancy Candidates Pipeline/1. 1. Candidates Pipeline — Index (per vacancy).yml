@@ -91,7 +91,9 @@ docs: 'Vakansiya pipeline''idagi nomzodlar (`accepted_at DESC`).
 
   | `candidate` | object | `{id, full_name, phone, photo_url}` |
 
-  | `journey_status` / `_label` | string | |
+  | `pipeline_outcome` / `_label` | string | `active` \| `completed` \| `cancelled` |
+
+  | `current_stage` / `_label` | string | `awaiting` \| `training` \| … \| `completed` \| `cancelled` (joriy guruhdan derive) |
 
   | `course_progress_percent` | int | 0..100 |
 
