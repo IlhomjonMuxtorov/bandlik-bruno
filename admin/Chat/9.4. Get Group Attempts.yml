@@ -1,0 +1,57 @@
+info:
+  name: Get Group Attempts
+  type: http
+  seq: 13
+http:
+  method: GET
+  url: '{{base_url}}/admin/chats/1/groups/1/attempts'
+  headers: []
+  body:
+    type: none
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+docs: |
+  Guruhning **bajarilish urinishlari tarixi** — standart guruhlarda (Translation /
+  Insurance / Visa / Logistics) tashkilot har marta `complete` qilganida yozuv yaratiladi.
+  Har bir yozuvda: bajaruvchi, vaqt, status, rad etish sababi, viza natijasi va biriktirgan
+  hujjatlar.
+
+  **Auth:** `admin_token`.
+
+  ### 🔎 Query Parameters
+
+  Yo'q — barcha urinishlar, yangilaridan eskigacha tartibda.
+
+  ### 📤 Response
+
+  `{ success, data: attempts[], message: "" }`
+
+  Har bir urinish ob'ekti:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Urinish ID si. |
+  | `status` | string | `pending_confirmation` \| `confirmed` \| `rejected` |
+  | `completed_by` | int | Bajaruvchi foydalanuvchi ID. |
+  | `completed_at` | int | Bajarilish unix timestamp. |
+  | `completed_at_formatted` | string | Formatlangan sana. |
+  | `confirmed_by` | int \| null | Tasdiqlagan admin ID. |
+  | `confirmed_at` | int \| null | Tasdiqlash unix timestamp. |
+  | `confirmed_at_formatted` | string \| null | Formatlangan sana. |
+  | `rejection_reason` | string \| null | Rad etish sababi (faqat `rejected` da). |
+  | `visa_granted` | bool \| null | Viza natijasi (faqat Visa guruhi). |
+  | `visa_notes` | string \| null | Viza izohi (faqat Visa guruhi). |
+  | `documents` | array | Biriktirgan hujjatlar ro'yxati (`id`, `title`, `upload_file`). |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `403` | Foydalanuvchi xodim emas yoki guruh boshqa piplaynga tegishli |
+  | `404` | Chat / piplayn / guruh topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

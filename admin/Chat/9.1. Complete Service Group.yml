@@ -9,36 +9,79 @@ http:
   - name: Content-Type
     value: application/json
   body:
-    type: none
+    type: json
+    data: |-
+      {
+        "document_ids": [1, 2],
+        "visa_granted": true,
+        "visa_notes": "Viza berildi, 2 yillik"
+      }
   auth:
     mode: bearer
     bearer: '{{ admin_token }}'
 docs: |
-  Tashkilot guruhdagi **barcha xizmatlarni bir martada yakunlaydi** ("Tugatish"):
-  guruhning `in_progress` / `overdue` bosqichlari **birvarakayiga** `completed` ga
-  o'tadi. Bitta guruhga tegishli xizmatlar bittalab emas, **birgalikda** yakunlanadi.
-  Chatga `type=system` xabar (`kind: group_completed`) yuboriladi.
+  Tashkilot guruhdagi **barcha xizmatlarni bir martada yakunlaydi**: guruhning
+  `in_progress` / `overdue` bosqichlari **birvarakayiga** `completed` ga o'tadi.
 
-  Oqim: **Start → Pay → Execute → Complete → Confirm**. Bu — `Complete` qadami; pul
-  hali tashkilotga o'tmaydi (settlement faqat `Confirm` da bo'ladi).
+  **Guruh turi bo'yicha oqim:**
 
-  **Shartlar:** guruh **to'liq to'langan** (har bosqich `funded`) va **ijroda**
-  (`in_progress`/`overdue`) bo'lishi shart — aks holda `400`.
+  - **Training (`auto`)** — bu endpoint ishlatilmaydi; kurs progressi 100% ga yetganda
+    guruh avtomatik `xba_confirmed` ga o'tadi.
+  - **XBA (`single`)** — yakunlash = darhol `xba_confirmed` + settlement (alohida tasdiqlash
+    qadami yo'q).
+  - **Standart (Translation/Insurance/Visa/Logistics, `standard`)** — yakunlash
+    `pending_confirmation` urinish yozuvi yaratadi; admin keyinchalik `confirm` yoki
+    `reject` qiladi.
+
+  **Shartlar:** guruh **to'liq to'langan** (`funded`) va **ijroda** (`in_progress`/`overdue`)
+  bo'lishi shart — aks holda `400`.
 
   **Auth:** `admin_token`. Guruh shu chatning `vacancy_candidate` piplayniga tegishli bo'lishi shart.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `document_ids` | int[] | ➖ | Oldindan yuklangan `upload_file.id` lar — urinishga bog'lanadi. |
+  | `visa_granted` | bool | ➖ | **Faqat Visa guruhi.** `true` = viza berildi, `false` = rad etildi. |
+  | `visa_notes` | string | ➖ | **Faqat Visa guruhi.** Viza natijasi haqida izoh. |
+  | `travel.*` | object | ➖ | **Faqat Logistika guruhi.** Safar ma'lumotlari (avia chipta majburiy). |
+  | `travel.air_ticket_upload_file_id` | int | ✅ (Logistics) | Avia chipta — `POST /admin/upload` id. |
+  | `travel.departure_country` | string | ➖ | Jo'nab ketish davlati. |
+  | `travel.departure_city` | string | ➖ | Jo'nab ketish shahri. |
+  | `travel.departure_airport` | string | ➖ | Aeroport kodi (masalan `TAS`). |
+  | `travel.departure_at` | int | ➖ | Jo'nab ketish vaqti (unix ts). |
+  | `travel.arrival_country` | string | ➖ | Kelish davlati. |
+  | `travel.arrival_city` | string | ➖ | Kelish shahri. |
+  | `travel.arrival_airport` | string | ➖ | Aeroport kodi (masalan `FRA`). |
+  | `travel.arrival_at` | int | ➖ | Kelish vaqti (unix ts). |
+  | `travel.airline` | string | ➖ | Aviakompaniya. |
+  | `travel.flight_number` | string | ➖ | Reys raqami. |
+  | `travel.baggage` | int | ➖ | Bagaj og'irligi (kg). |
+  | `travel.sender_name` | string | ➖ | Kuzatuvchi F.I.Sh. |
+  | `travel.sender_phone` | string | ➖ | Kuzatuvchi telefon. |
+  | `travel.sender_address` | string | ➖ | Kuzatuvchi manzili. |
+  | `travel.sender_at` | int | ➖ | Kuzatish vaqti (unix ts). |
+  | `travel.receiver_name` | string | ➖ | Kutib oluvchi F.I.Sh. |
+  | `travel.receiver_phone` | string | ➖ | Kutib oluvchi telefon. |
+  | `travel.receiver_pickup_address` | string | ➖ | Kutib olish manzili. |
+  | `travel.receiver_pickup_at` | int | ➖ | Kutib olish vaqti (unix ts). |
+
+  > Logistika guruhi `travel.air_ticket_upload_file_id` siz yakunlansa — `400`.
 
   ### 📤 Response
 
   `{ success, data: service_groups[], message: "Service group completed" }` — yangilangan
-  guruhlangan ko'rinish. Yakunlangan guruhda `fully_completed=true`, `can_confirm=true`.
+  guruhlangan ko'rinish. Standart guruhda `can_confirm=true`, `can_reject=true`; XBA guruhda
+  `confirmed=true`.
 
   ### ⚠️ Errors
 
   | Code | Reason |
   |---|---|
-  | `400` | Guruh to'liq to'lanmagan yoki ijroda emas / yakunlanadigan bosqich yo'q |
+  | `400` | Guruh to'liq to'lanmagan yoki ijroda emas; Training guruhida chaqirilgan; Logistika guruhida avia chipta yo'q |
   | `403` | Foydalanuvchi xodim emas yoki guruh boshqa piplaynga tegishli |
-  | `404` | Chat / qabul qilingan piplayn topilmadi yoki guruh shu nomzodga tegishli emas |
+  | `404` | Chat / piplayn / guruh topilmadi |
 settings:
   encodeUrl: true
   timeout: 0

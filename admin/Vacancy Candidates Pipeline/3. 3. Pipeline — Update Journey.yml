@@ -10,10 +10,13 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"journey_status\": \"course_in_progress\",\n  \"course_progress_percent\"\
-      : 40,\n  \"collected_amount\": 1500000,\n  \"collected_currency\": \"UZS\",\n\
-      \  \"notes\": \"Kurs muvaffaqiyatli boshlandi\"\n}"
-
+    data: |-
+      {
+        "journey_status": "course_in_progress",
+        "collected_amount": 1500000,
+        "collected_currency": "UZS",
+        "notes": "Kurs muvaffaqiyatli boshlandi"
+      }
   auth: inherit
 docs: 'Pipeline yozuvini yangilaydi (partial — faqat berilgan maydonlar o''zgaradi).
 
@@ -30,13 +33,17 @@ docs: 'Pipeline yozuvini yangilaydi (partial — faqat berilgan maydonlar o''zga
 
   | `journey_status` | string | ➖ | Yangi status |
 
-  | `course_progress_percent` | int | ➖ | 0..100 |
-
   | `collected_amount` | int | ➖ | Odatiy birlikda (so''m / dollar / evro) |
 
   | `collected_currency` | string | ➖ | `UZS` \| `USD` \| `EUR` |
 
   | `notes` | string | ➖ | Bo''sh string yuborilsa `null` ga o''rnatiladi |
+
+
+  > **`course_progress_percent` bu yerda QABUL QILINMAYDI.** Kurs progressi nomzodning
+  haqiqiy kurs tugatishi (LMS) orqali boshqariladi — rekruter yoki admin uni qo''lda
+  o''zgartira olmaydi. Progress 100% ga yetganda Training guruhi avtomatik tasdiqlanadi
+  va keyingi guruh ochiladi.
 
 
   > `journey_status = departed` qilinganda `departed_at` avtomatik o''rnatiladi (agar

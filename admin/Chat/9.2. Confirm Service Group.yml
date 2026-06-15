@@ -12,64 +12,30 @@ http:
     type: json
     data: |-
       {
-        "air_ticket_upload_file_id": 42,
-        "departure_country": "Uzbekistan",
-        "departure_city": "Tashkent",
-        "departure_airport": "TAS",
-        "departure_at": 1773486000,
-        "arrival_country": "Germany",
-        "arrival_city": "Frankfurt",
-        "arrival_airport": "FRA",
-        "arrival_at": 1773500400,
-        "airline": "Uzbekistan Airways",
-        "flight_number": "HY 271",
-        "baggage": 23,
-        "sender_name": "Dilshod Karimov",
-        "sender_phone": "+998901112233",
-        "sender_address": "Tashkent",
-        "sender_at": 1773486000,
-        "receiver_name": "Ali Valiyev",
-        "receiver_phone": "+998901234567",
-        "receiver_pickup_address": "Frankfurt Airport, Terminal 1",
-        "receiver_pickup_at": 1773500400
+        "attempt_id": null
       }
   auth:
     mode: bearer
     bearer: '{{ admin_token }}'
 docs: |
-  XBA **butun guruhni bir martada tasdiqlaydi** ("Keyingi bosqich"): guruhdagi barcha
-  bosqichlar `xba_confirmed` ga o'tadi va guruhning **umumiy holdi xizmat ko'rsatgan
-  tashkilot hamyoniga** bir martada o'tkaziladi (settlement). Tasdiqdan keyin **keyingi
-  guruh** ochilishi mumkin (sequential gate). Chatga `type=system` xabar
-  (`kind: group_confirmed`) yuboriladi.
+  Admin **standart guruhni tasdiqlaydi** (Translation/Insurance/Visa/Logistics): oxirgi
+  `pending_confirmation` urinishi `confirmed` ga o'tadi, barcha bosqichlar `xba_confirmed`
+  ga o'tadi va hold settlement qilinadi. Tasdiqdan keyin keyingi guruh `is_current=true`
+  bo'ladi (sequential gate).
 
-  Bu — **XBA xizmati (agency)** uchun ham yagona settlement nuqtasi: agency holdi endi
-  departure'da avtomatik yechilmaydi, faqat shu **alohida tasdiq** orqali XBAga o'tadi.
+  > **XBA guruhi** bu endpointdan foydalanmaydi — u single-step: `complete` = darhol
+  > `xba_confirmed`. **Training guruhi** — avtomatik (kurs progressi orqali).
 
-  **Shart:** guruhning har bir (skip qilinmagan) bosqichi `completed` bo'lishi kerak — aks
-  holda `400`. Idempotent: allaqachon `xba_confirmed` bosqich qayta capture qilinmaydi.
+  **Shart:** guruhda `pending_confirmation` statusdagi urinish mavjud bo'lishi kerak —
+  aks holda `400`.
 
-  ### 📥 Request Body — faqat LOGISTIKA guruhi uchun (inline safar ma'lumotlari)
+  **Auth:** `admin_token`.
 
-  Logistika guruhini tasdiqlashda safar ma'lumotlari **shu so'rov ichida** (bitta call)
-  yuboriladi va `vacancy_candidate_travel` ga upsert qilinadi. Boshqa guruhlar uchun body
-  **bo'sh** bo'lishi mumkin (e'tiborga olinmaydi).
+  ### 📥 Request Body
 
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `air_ticket_upload_file_id` | int | ✅ | Avia chipta — avval `POST /admin/upload` orqali yuklangan `upload_file.id`. |
-  | `departure_*` / `arrival_*` | string/int | ➖ | Parvoz: davlat / shahar / aeroport / vaqt (unix ts). |
-  | `airline` | string | ➖ | Aviakompaniya. |
-  | `flight_number` | string | ➖ | Reys raqami. |
-  | `baggage` | int | ➖ | Parvoz bagaji (kg). |
-  | `sender_name` / `sender_phone` | string | ➖ | Kuzatuvchi shaxs F.I.Sh / telefon. |
-  | `sender_address` / `sender_at` | string / int | ➖ | Kuzatuvchi manzili / vaqti. |
-  | `receiver_name` / `receiver_phone` | string | ➖ | Kutib oluvchi shaxs F.I.Sh / telefon. |
-  | `receiver_pickup_address` / `receiver_pickup_at` | string / int | ➖ | Kutib olish manzili / vaqti. |
-
-  > Logistika guruhi `air_ticket_upload_file_id` (avia chipta) siz tasdiqlansa — `400`.
-
-  **Auth:** `admin_token`. Guruh shu chatning `vacancy_candidate` piplayniga tegishli bo'lishi shart.
+  | `attempt_id` | int \| null | ➖ | Tasdiqlanadigan urinish ID si. `null` yoki ko'rsatilmasa — oxirgi `pending_confirmation` urinish. |
 
   ### 📤 Response
 
@@ -80,9 +46,9 @@ docs: |
 
   | Code | Reason |
   |---|---|
-  | `400` | Guruhda yakunlanmagan bosqich bor; yoki logistika guruhi avia chipta (`air_ticket_upload_file_id`) siz tasdiqlanmoqda |
+  | `400` | Guruhda `pending_confirmation` urinish topilmadi; yoki guruh allaqachon tasdiqlangan |
   | `403` | Foydalanuvchi xodim emas yoki guruh boshqa piplaynga tegishli |
-  | `404` | Chat / qabul qilingan piplayn topilmadi yoki guruh shu nomzodga tegishli emas |
+  | `404` | Chat / piplayn / guruh topilmadi |
 settings:
   encodeUrl: true
   timeout: 0

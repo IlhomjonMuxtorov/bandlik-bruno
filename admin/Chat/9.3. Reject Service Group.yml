@@ -1,0 +1,54 @@
+info:
+  name: Reject Service Group
+  type: http
+  seq: 12
+http:
+  method: POST
+  url: '{{base_url}}/admin/chats/1/groups/1/reject'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "reason": "Hujjatlar to'liq emas, qayta yuklang"
+      }
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+docs: |
+  Admin **standart guruhning bajarilish urinishini rad etadi**: oxirgi
+  `pending_confirmation` urinishi `rejected` ga o'tadi, `rejection_reason` saqlanadi va
+  guruhning barcha bosqichlari `completed` → `in_progress` ga qaytadi. Tashkilot qayta
+  `complete` qilishi uchun guruh ochiq holda qoladi.
+
+  > **XBA** va **Training** guruhlari uchun ishlatilmaydi (ular alohida oqimga ega).
+
+  **Shart:** guruhda `pending_confirmation` statusdagi urinish mavjud bo'lishi kerak.
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `reason` | string | ✅ | Rad etish sababi — tashkilotga ko'rsatiladigan izoh. |
+
+  ### 📤 Response
+
+  `{ success, data: null, message: "Service group rejected" }` — guruh yana
+  `in_progress` holatida, tashkilot qayta yakunlashi mumkin.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `reason` ko'rsatilmagan; yoki guruhda `pending_confirmation` urinish topilmadi |
+  | `403` | Foydalanuvchi xodim emas yoki guruh boshqa piplaynga tegishli |
+  | `404` | Chat / piplayn / guruh topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
