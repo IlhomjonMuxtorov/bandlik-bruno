@@ -49,6 +49,11 @@ docs: 'Haydovchilik guvohnomasini yaratish yoki yangilash (`PUT` — upsert).
 
   Yangilangan guvohnoma + sertifikatlar (`GET` bilan bir xil shaklda).
 
+
+  > Qo''lda upsert qilinganda yozuv `source=manual` deb belgilanadi. Shu sababli
+  keyingi CV yaratishlarda MVD/GIBDD avto-sync bu yozuvni **ustiga yozmaydi** —
+  qo''lda kiritilgan ma''lumot saqlanib qoladi.
+
   '
 settings:
   encodeUrl: true

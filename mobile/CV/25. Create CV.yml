@@ -94,6 +94,13 @@ docs: 'Yangi CV yaratish.
   > `candidate.marital_status` (`married` / `divorced` / `widowed`) avtomatik
   > o''rnatiladi. Foydalanuvchi `marital_status` ni qo''lda o''zgartirmaydi.
 
+  > - Propiska manzil — MVD address servisidan kelib `candidate.registration_*`
+  > maydonlariga yoziladi (faqat bo''sh bo''lganda).
+
+  > - Haydovchilik guvohnomasi — MVD/GIBDD dan kelib `candidate_driver_license` ga
+  > yoziladi (`source=mvd_gibdd`). Qo''lda kiritilgan yozuv (`source=manual`)
+  > **ustiga yozilmaydi**; yuklangan skan fayl saqlanadi.
+
   >
 
   > Agar tegishli MVD xizmat topa olmasa yoki xato bersa — log ga yoziladi,

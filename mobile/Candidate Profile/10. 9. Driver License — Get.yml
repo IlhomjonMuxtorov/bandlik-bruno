@@ -43,8 +43,17 @@ docs: 'Haydovchilik guvohnomasi + sertifikatlar.
 
   | `file_kind_icon_url` | string \| null | Fayl turi ikonkasi |
 
+  | `source` | string \| null | Yozuv manbasi: `manual` (foydalanuvchi qo''lda kiritgan)
+  \| `mvd_gibdd` (CV yaratishda MVD/GIBDD''dan avtomatik olingan) |
+
   | `certificates` | array | `[{ id, type, title, … }]` — Code 95 / ADR / Chip karta
   sertifikatlari |
+
+
+  > CV birinchi marta yaratilganda haydovchilik guvohnomasi MVD/GIBDD servisidan
+  avtomatik to''ldiriladi (`source=mvd_gibdd`). Foydalanuvchi `PUT` orqali qo''lda
+  tahrir qilsa, `source=manual` bo''ladi va keyingi CV yaratishlarda MVD uni
+  ustiga yozmaydi.
 
   '
 settings:
