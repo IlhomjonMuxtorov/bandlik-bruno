@@ -1,0 +1,66 @@
+info:
+  name: 5.1. Pipeline — Refresh Background Checks
+  type: http
+  seq: 10
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancy-candidates/1/refresh-background-checks'
+  auth: inherit
+params: {}
+headers:
+  - name: Accept-Language
+    value: uz
+    enabled: true
+docs: >
+  Kandidatning **huquqiy va tibbiy** tekshiruvlarini tashqi davlat servislaridan
+  (МВД судимость, МИБ insofsiz/chet elga chiqish taqiqi, Минздрав narkologiya/ruhiy)
+  qayta tortib keladi va profil `legal`/`medical` bo'limlarini qaytaradi.
+
+
+  Bu **sinxron**, admin tomonidan qo'lda chaqiriladigan yangilash — ariza topshirilganda
+  avtomatik ishlaydigan navbat (queue) jobidan farqli. Sudlanganlik servisi asinxron
+  bo'lgani uchun u `pending` qaytib, keyinroq hal bo'lishi mumkin.
+
+
+  **Auth:** `access_token` (admin yoki o'z tashkiloti aktyori).
+
+
+  > Tekshiruvlar bo'sh PINFL bo'lsa o'tkazib yuboriladi. Har bir tashqi chaqiruv
+  > best-effort: xato `status = error` sifatida yoziladi va boshqalarini bloklamaydi.
+
+
+  ### 📤 Response (`data`)
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `legal.criminal_record` | object | `status` (`clean` \| `has_record` \| `pending` \| `not_checked` \| `error`), `has_record`, `message`, `checked_at` |
+
+  | `legal.insolvent` | object | `status`, `has_record`, `debtor_name`, `execution_docs[]` |
+
+  | `legal.travel_ban` | object | `status`, `has_record`, `debtor_name`, `bans[]` (`ban_date`, `work_number`, `outdoc_org`, `content`, `residual_balance` (so'm), `branch_name`, `branch_phone`, `executor_fio`, `executor_phone`) |
+
+  | `medical.narcology` | object | `status`, `is_registered`, `med_org`, `status_change_date`, `registered_at` |
+
+  | `medical.psychiatry` | object | `status`, `is_registered`, `med_org`, `status_change_date`, `registered_at` |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Unauthorized |
+
+  | `403` | Boshqa tashkilot vakansiyasi |
+
+  | `404` | Pipeline yoki kandidat topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

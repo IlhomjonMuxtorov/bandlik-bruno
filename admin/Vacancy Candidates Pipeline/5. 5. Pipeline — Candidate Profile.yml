@@ -23,7 +23,22 @@ docs: >
   ### 📤 Response (`data`)
 
   `header, personal, birth_place, passport, registration, education[], experience[],
-  family, languages[], documents[], driver, courses[], visas[], contact`.
+  family, languages[], documents[], driver, courses[], visas[], contact, legal, medical`.
+
+
+  **`legal`** (Huquqiy holat — МВД/МИБ'dan): `criminal_record` (Sudlanganlik),
+  `insolvent` (Insofsiz/to'lovga qobiliyatsiz ro'yxati), `travel_ban` (Chet elga
+  chiqish taqiqi). Har biri `status` (`clean` \| `has_record` \| `pending` \|
+  `not_checked` \| `error`) + `has_record` + tafsilotlar (`execution_docs[]` /
+  `bans[]` — `residual_balance` so'mda).
+
+
+  **`medical`** (Tibbiy ma'lumotlar — Минздрав'dan): `narcology`, `psychiatry`.
+  Har biri `status` + `is_registered` + `med_org` + `registered_at`.
+
+
+  > `legal`/`medical` kandidat **ariza topshirganda** avtomatik tortib kelinadi
+  > (navbat jobi). Qo'lda yangilash: `POST .../refresh-background-checks`.
 settings:
   encodeUrl: true
   timeout: 0
