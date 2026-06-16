@@ -38,7 +38,9 @@ docs: 'Vakansiyalar ro''yxati. Admin barchasini ko''radi; Employer/Recruiter faq
 
   | `employment_type` | string | ➖ | `full_time` \| `part_time` \| `seasonal` \| `contract`. |
 
-  | `experience_level` | string | ➖ | `none` \| `one_to_three` \| `three_to_six`. |
+  | `experience_months_min` | int | ➖ | Talab qilinadigan tajriba (oy) shu qiymatdan **kam bo'lmagan** vakansiyalar (`experience_months >=`). |
+
+  | `experience_months_max` | int | ➖ | Talab qilinadigan tajriba (oy) shu qiymatdan **katta bo'lmagan** vakansiyalar (`experience_months <=`). |
 
   | `per-page` | int | ➖ | 1..100, default 20. |
 

@@ -23,7 +23,8 @@ docs: |-
   | `industry_id` | int | ➖ | Soha ID. |
   | `organization_id` | int | ➖ | Tashkilot bo'yicha (tashkilot kartasidagi "Barcha vakansiyalar"dan o'tilganda). |
   | `employment_type` | string | ➖ | `full_time` \| `part_time` \| `seasonal` \| `contract`. |
-  | `experience_level` | string | ➖ | `none` \| `one_to_three` \| `three_to_six`. |
+  | `experience_months_min` | int | ➖ | Talab qilinadigan tajriba (oy) shu qiymatdan **kam bo'lmagan** vakansiyalar (`experience_months >=`). |
+  | `experience_months_max` | int | ➖ | Talab qilinadigan tajriba (oy) shu qiymatdan **katta bo'lmagan** vakansiyalar (`experience_months <=`). |
   | `salary_min` | int | ➖ | Minimal brutto maosh (`salary_gross >=`) — major unitda (so'm/dollar). |
   | `salary_max` | int | ➖ | Maksimal brutto maosh (`salary_gross <=`) — major unitda (so'm/dollar). |
   | `salary_currency` | string | ➖ | `UZS` \| `USD` \| `EUR`. Range berilganda default `USD`. |

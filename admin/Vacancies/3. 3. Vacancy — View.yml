@@ -33,8 +33,7 @@ docs: |-
   | `organization` | object | Ish beruvchi tashkilot — quyida |
   | `recruiter` | object \| null | Vositachi (recruiter) tashkilot — quyida |
   | `industry` | object \| null | Soha — quyida |
-  | `experience_level` | string | `none` \| `one_to_three` \| `three_to_six` |
-  | `experience_level_label` | string | Lokalizatsiyalangan |
+  | `experience_months` | int | Talab qilinadigan ish tajribasi (oylarda). `0` = talab qilinmaydi. |
   | `employment_type` | string | `full_time` \| `part_time` … |
   | `employment_type_label` | string | Lokalizatsiyalangan |
   | `hiring_quota` | int | Ishga qabul kvotasi |

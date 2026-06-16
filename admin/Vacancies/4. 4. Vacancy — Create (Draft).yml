@@ -20,7 +20,7 @@ http:
         "industry_id": 1,
         "title": "Restoran Xizmatchisi",
         "description": "Zamonaviy restoranda ofitsiant.",
-        "experience_level": "one_to_three",
+        "experience_months": 12,
         "employment_type": "full_time",
         "hiring_quota": 12,
         "duration_months_min": 6,
@@ -99,7 +99,7 @@ docs: |
   | `industry_id` | int | ➖ | Soha ID |
   | `title` | string | ✅ | Sarlavha |
   | `description` | string | ➖ | Tavsif (HTML/markdown) |
-  | `experience_level` | string | ➖ | `none` \| `one_to_three` \| `three_to_six` |
+  | `experience_months` | int | ➖ | Talab qilinadigan ish tajribasi (oylarda). `0` = tajriba talab qilinmaydi. Default: `0`. |
   | `employment_type` | string | ✅ | `full_time` \| `part_time` \| `seasonal` \| `contract` |
   | `hiring_quota` | int | ✅ | Necha kishi kerak (>=1) |
   | `duration_months_min` / `_max` | int | ➖ | Ish davomiyligi |
