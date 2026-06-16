@@ -105,8 +105,8 @@ docs: |
   | `duration_months_min` / `_max` | int | ➖ | Ish davomiyligi |
   | `work_schedule` | string | ➖ | `5_2` \| `6_1` \| `2_2` \| `shift` \| `flexible` |
   | `work_time_from` / `_to` | string | ➖ | `HH:MM` |
-  | `salary_gross` / `_currency` | int / string | ➖ | Maosh (tavsifiy) — **major unitda** (so'm/dollar, o'z valyutasida; client uchun o'zgarish yo'q). Valyuta: `UZS` \| `USD` \| `EUR` (boshqasi → `422`). Default `UZS`. Xizmat narxlari valyutasiga ta'sir qilmaydi — ular `UZS`-da qoladi. |
-  | `salary_net` / `_currency` | int / string | ➖ | **Major unitda** (so'm/dollar, o'z valyutasida). Valyuta: `UZS` \| `USD` \| `EUR`. |
+  | `salary_gross` / `_currency` | int / string | ➖ | Maosh (tavsifiy) — **major unitda** (o'z valyutasida; client uchun o'zgarish yo'q). Valyuta: `UZS` \| `USD` \| `EUR` \| `RUB` \| `GBP` \| `KRW` \| `JPY` \| `TRY` \| `AED` \| `SAR` \| `KZT` \| `PLN` \| `QAR` \| `KWD` (boshqasi → `422`). To'liq ro'yxat: `GET /admin/vacancies/salary-currencies`. Default `UZS`. Xizmat narxlari valyutasiga ta'sir qilmaydi — ular `UZS`-da qoladi. |
+  | `salary_net` / `_currency` | int / string | ➖ | **Major unitda** (o'z valyutasida). Valyuta: yuqoridagi bilan bir xil ro'yxat. |
   | `country_id` | int | ✅ | |
   | `city_id` | int | ➖ | |
   | `address` | string | ➖ | |

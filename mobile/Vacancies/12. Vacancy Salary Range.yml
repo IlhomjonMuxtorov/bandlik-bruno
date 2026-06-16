@@ -21,7 +21,7 @@ docs: |-
 
   | Param | Type | Required | Description |
   |---|---|:---:|---|
-  | `salary_currency` | string | ➖ | `UZS` \| `USD` \| `EUR`. Diapazon shu valyuta bo'yicha. Default: `UZS`. |
+  | `salary_currency` | string | ➖ | Qo'llab-quvvatlanadigan har qanday valyuta kodi (`UZS`, `USD`, `EUR`, `RUB`, `GBP`, `KRW`, `JPY`, `TRY`, `AED`, `SAR`, `KZT`, `PLN`, `QAR`, `KWD` — to'liq ro'yxat: `GET /admin/vacancies/salary-currencies`). Diapazon **shu bitta valyuta** bo'yicha; javobdagi `currency` shu qiymatni qaytaradi — frontend slayderni va feed'dagi `salary_min/max` filtrini xuddi shu valyutada yuborishi kerak. Default: `UZS`. |
   | `q` | string | ➖ | Sarlavha bo'yicha qidiruv (ILIKE). |
   | `country_id` | int | ➖ | Davlat ID. |
   | `city_id` | int \| int[] | ➖ | Shahar ID. Bir nechta: `city_id[]=1&city_id[]=2` yoki `city_id=1,2` (OR bo'yicha). |

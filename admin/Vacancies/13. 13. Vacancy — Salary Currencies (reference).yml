@@ -1,0 +1,36 @@
+info:
+  name: 13. Vacancy — Salary Currencies (reference)
+  type: http
+  seq: 13
+http:
+  method: GET
+  url: '{{base_url}}/admin/vacancies/salary-currencies'
+  headers:
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: |-
+  Vakansiyaning brutto/netto maoshi uchun qabul qilinadigan valyutalar ro'yxati —
+  yaratish/tahrirlash formasidagi valyuta tanlagichini to'ldiradi. Manba: `Currency`
+  enum (`Currency::salaryInputValues()`).
+
+  **Auth:** `admin_token` yoki Employer/Recruiter token.
+
+  ### 📤 Response (`data`)
+
+  Massiv. Har bir element:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `code` | string | ISO 4217 kodi (`UZS`, `USD`, `EUR`, `RUB`, `GBP`, `KRW`, `JPY`, `TRY`, `AED`, `SAR`, `KZT`, `PLN`, `QAR`, `KWD`) |
+  | `symbol` | string | Ko'rsatish belgisi (`so'm`, `$`, `€`, `₽`, `₩` ...; mos glif bo'lmaganda ISO kod) |
+  | `label` | string | Lokalizatsiyalangan nomi (`Accept-Language`) — masalan `US Dollar`, `South Korean Won` |
+
+  > Maosh tavsifiy — bu valyutalar **ledger** (hamyon/to'lov/xizmat narxi) valyutasiga
+  > ta'sir qilmaydi (ular `UZS`-only). Mobil API har maoshni qo'shimcha ravishda shu kungi
+  > CBU kursi bo'yicha UZS ga aylantirib ham qaytaradi (`salary.gross_uzs` / `net_uzs`).
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

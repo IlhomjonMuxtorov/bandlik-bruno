@@ -27,7 +27,7 @@ docs: |-
   | `experience_months_max` | int | ➖ | Talab qilinadigan tajriba (oy) shu qiymatdan **katta bo'lmagan** vakansiyalar (`experience_months <=`). |
   | `salary_min` | int | ➖ | Minimal brutto maosh (`salary_gross >=`) — major unitda (so'm/dollar). |
   | `salary_max` | int | ➖ | Maksimal brutto maosh (`salary_gross <=`) — major unitda (so'm/dollar). |
-  | `salary_currency` | string | ➖ | `UZS` \| `USD` \| `EUR`. Range berilganda default `USD`. |
+  | `salary_currency` | string | ➖ | Qo'llab-quvvatlanadigan har qanday valyuta kodi (`UZS`, `USD`, `EUR`, `RUB`, `GBP`, `KRW`, `JPY`, `TRY`, `AED`, `SAR`, `KZT`, `PLN`, `QAR`, `KWD` — to'liq ro'yxat: `GET /admin/vacancies/salary-currencies`). Range berilganda default `USD`. Filtr bitta valyuta bo'yicha — `salary_min/max` shu valyuta birligida solishtiriladi. |
   | `is_favorite` | bool | ➖ | Faqat sevimli vakansiyalar (`true`) yoki sevimli emaslari (`false`). Default: barcha vakansiyalar. Mehmon `true` so'rasa → `456`. |
   | `cv_id` | int | ➖ | CV ID — "mos vakansiyalar" uchun. **Hozircha qabul qilinadi, lekin filtr qo'llanmaydi (no-op);** `cv_id` bo'yicha real moslik filtri keyinroq qo'shiladi. |
   | `sort` | string | ➖ | Saralash. `newest` (Yaqinda qo'shilganlar, default) \| `salary_asc` (Maosh o'sish tartibida) \| `salary_desc` (Maosh kamayish tartibida). Maoshsiz vakansiyalar har doim oxirida. Noma'lum qiymat → `newest`. |
@@ -51,7 +51,7 @@ docs: |-
   | `slug` | string | URL slug |
   | `country` | object | `{ id, name, flag_url }` |
   | `city` | object \| null | `{ id, name }` |
-  | `salary` | object | `{ gross, gross_currency, net, net_currency }` — summalar major unitda (so'm/dollar, o'z valyutasida) |
+  | `salary` | object | `{ gross, gross_currency, gross_uzs, net, net_currency, net_uzs }` — `gross`/`net` o'z valyutasida (major unit); `gross_uzs`/`net_uzs` — **shu kungi Markaziy bank (CBU) kursi** bo'yicha UZS ekvivalenti. UZS valyutali vakansiyada `*_uzs == gross`/`net`; kurs mavjud bo'lmaganda (CBU sinxronlanmagan noma'lum valyuta) `*_uzs == null`. |
   | `employment_type` / `employment_type_label` | string | `full_time` ... + lokalizatsiya |
   | `duration_months_min` / `_max` | int \| null | Ish davomiyligi (oy) |
   | `match_score` | int \| null | "Sizga moslik darajasi %" — viza so'rovnomasi natijasidan, vakansiya davlati bo'yicha. Token yo'q yoki so'rovnoma to'ldirilmagan bo'lsa `null`. |
