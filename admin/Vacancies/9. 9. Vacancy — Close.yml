@@ -10,9 +10,11 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"reason\": \"Hammasini topdik\"\n}"
+    data: "{\n  \"reason\": \"Barcha o'rinlar to'ldirildi\"\n}"
   auth: inherit
-docs: 'Vakansiyani yopadi (`closed`). Mobile feed''da ko''rinmay qoladi.
+docs: 'Vakansiyani yopadi/bekor qiladi (`closed`). Mobile feed''da ko''rinmay qoladi.
+  Sabab (`reason`) **majburiy**: `rejection_reason` ga saqlanadi (detalda ko''rinadi,
+  rad etish bilan bir xil) va status log tarixiga yoziladi.
 
 
   **Auth:** Admin yoki vakansiya egasi.
@@ -25,7 +27,25 @@ docs: 'Vakansiyani yopadi (`closed`). Mobile feed''da ko''rinmay qoladi.
 
   |---|---|:---:|---|
 
-  | `reason` | string | ➖ | Yopish sababi (log uchun). |
+  | `reason` | string | ✅ | Yopish/bekor qilish sababi (bo''sh emas). |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `422` | `reason` bo''sh |
+
+  | `403` | Vakansiya egasi ham, admin ham emas |
+
+  | `404` | Vakansiya topilmadi |
+
+
+  > Allaqachon `closed` / `archived` vakansiyani qayta yopish — no-op (o''zgarishsiz
+  qaytadi).
 
   '
 settings:

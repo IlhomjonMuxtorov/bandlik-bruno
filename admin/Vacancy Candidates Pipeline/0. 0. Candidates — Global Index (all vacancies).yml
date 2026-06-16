@@ -104,6 +104,8 @@ docs: 'Global "Kandidatlar" ekrani — barcha vakansiyalar bo''yicha nomzodlar (
 
   | `pipeline_outcome` / `_label` | string | `active` \| `completed` \| `cancelled` |
 
+  | `cancel_reason` | string \| null | Drop Out sababi; faqat `cancelled` holatida, aks holda `null` |
+
   | `current_stage` / `_label` | string | `awaiting` \| `training` \| `translation_apostil` \| `insurance` \| `visa` \| `xba` \| `logistics` \| `completed` \| `cancelled` (joriy guruhdan derive qilinadi) |
 
   | `course_progress_percent` | int | 0..100 — Kurs progressi |

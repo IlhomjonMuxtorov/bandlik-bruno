@@ -55,7 +55,9 @@ docs: 'Ariza statusini o''zgartiradi:
 
   |---|---|
 
-  | `400` | Allaqachon hal qilingan / `reason` bo''sh / noto''g''ri status |
+  | `422` | `rejected` uchun `reason` bo''sh (field-level xato) |
+
+  | `400` | Allaqachon hal qilingan / noto''g''ri status |
 
   | `403` | Boshqa tashkilot |
 

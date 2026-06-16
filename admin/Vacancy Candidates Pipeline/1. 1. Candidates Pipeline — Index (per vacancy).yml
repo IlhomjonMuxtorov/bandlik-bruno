@@ -93,6 +93,8 @@ docs: 'Vakansiya pipeline''idagi nomzodlar (`accepted_at DESC`).
 
   | `pipeline_outcome` / `_label` | string | `active` \| `completed` \| `cancelled` |
 
+  | `cancel_reason` | string \| null | Drop Out sababi; faqat `cancelled` holatida, aks holda `null` |
+
   | `current_stage` / `_label` | string | `awaiting` \| `training` \| … \| `completed` \| `cancelled` (joriy guruhdan derive) |
 
   | `course_progress_percent` | int | 0..100 |

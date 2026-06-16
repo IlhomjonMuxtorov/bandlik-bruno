@@ -73,6 +73,11 @@ docs: 'Vakansiyalar ro''yxati. Admin barchasini ko''radi; Employer/Recruiter faq
   shu maydonlarda ko''rinadi.
 
 
+  > Har bir `items[]` elementida `rejection_reason` (string\|null) bor — `rejected`
+  yoki `closed` vakansiya uchun rad etish/yopish sababi. Admin ro''yxatdayoq (masalan
+  Rejected/Closed tablarda) sababni ochmasdan ko''radi; boshqa statuslarda `null`.
+
+
   ### ⚠️ Errors
 
 

@@ -15,11 +15,15 @@ docs: 'Pipeline yozuvi tafsiloti.
   ### 📤 Response
 
   Global Index elementi bilan bir xil shakl (`id, vacancy, candidate, match_score,
-  pipeline_outcome(+_label), current_stage(+_label), course_progress_percent,
+  pipeline_outcome(+_label), cancel_reason, current_stage(+_label), course_progress_percent,
   collected_amount, stages[], service_groups[]`).
 
   - `match_score` (int|null) — "Mos kelish darajasi": kandidatning visa-survey foizi
   vakansiya davlati bo''yicha (survey yo''q bo''lsa `null`).
+
+  - `cancel_reason` (string|null) — nomzod pipeline''dan chiqarilgan (Drop Out) sababi.
+  Faqat `pipeline_outcome = cancelled` holatida to''ladi, aks holda `null`. Admin
+  ro''yxat va detalda nega bekor qilinganini ko''radi.
 
   - `stages[]` — tekis ro''yxat; har biri `responsible_user` (xizmatni beruvchi tashkilot
   useri: `{id, username, full_name, phone, photo_url}`), `organization`

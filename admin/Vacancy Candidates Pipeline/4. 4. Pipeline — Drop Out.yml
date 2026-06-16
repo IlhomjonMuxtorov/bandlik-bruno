@@ -40,7 +40,7 @@ docs: 'Pipeline''ni **bekor qiladi** (erta chiqish): `pipeline_outcome = cancell
 
   | `success` | boolean | Request success status |
 
-  | `data` | object | Yangilangan pipeline yozuvi — `Pipeline — View` bilan bir xil shakl (`pipeline_outcome=cancelled`, `current_stage=cancelled`; `stages[]` + `service_groups[]`) |
+  | `data` | object | Yangilangan pipeline yozuvi — `Pipeline — View` bilan bir xil shakl (`pipeline_outcome=cancelled`, `current_stage=cancelled`, `cancel_reason` to''ldirilgan; `stages[]` + `service_groups[]`) |
 
 
   ### ⚠️ Errors
