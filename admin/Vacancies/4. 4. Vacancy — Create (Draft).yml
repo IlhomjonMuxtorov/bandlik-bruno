@@ -111,7 +111,7 @@ docs: |
   | `city_id` | int | ➖ | |
   | `address` | string | ➖ | |
   | `hide_address_from_clients` | bool | ➖ | Default `false` |
-  | `deadline_at` | string | ➖ | `DD.MM.YYYY` |
+  | `deadline_at` | string | ➖ | `DD.MM.YYYY`. O'tmishdagi (orqa) sana bo'lmasligi kerak — bugun ruxsat, kechagi va undan oldingi sana → `422`. |
 
   **Child kolleksiyalar:**
 
@@ -142,7 +142,7 @@ docs: |
 
   | Code | Reason |
   |---|---|
-  | `422` | Validatsiya xatosi. Jumladan: `organization_id` XBA-type emas; `recruiter_id` EMPLOYER/RECRUITER-type emas |
+  | `422` | Validatsiya xatosi. Jumladan: `organization_id` XBA-type emas; `recruiter_id` EMPLOYER/RECRUITER-type emas; `deadline_at` o'tmishdagi (orqa) sana — `Deadline cannot be in the past` |
   | `400` | Snapshot xatosi (Organization service topilmadi / boshqa tashkilotga tegishli); `agency` xizmati yo'q yoki narxi 0; **kurs yo'q** — `training` xizmati yoki uning `educational_course_id` si yo'q; **service_groups** xatosi (tashkilot takrorlangan, bir kategoriya ikki tashkilotda, organization yo'q, muddat 0/yo'q, yoki guruhda xizmat yo'q) |
   | `403` | Non-admin: aktyorning org'i na `organization_id` (XBA) na `recruiter_id` ga mos kelmasa |
 settings:
