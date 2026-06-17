@@ -1,0 +1,46 @@
+info:
+  name: 43. 3. Vacancy Industries — Create
+  type: http
+  seq: 43
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancy-industries'
+  body:
+    type: multipartForm
+    data:
+    - name: code
+      value: hospitality
+    - name: name
+      value: '{"uz": "Mehmonxona", "ru": "Гостиничный бизнес", "en": "Hospitality"}'
+    - name: icon
+      value: bed
+    - name: is_active
+      value: '1'
+    - name: sort_order
+      value: '2'
+  auth: inherit
+docs: |
+  Yangi vakansiya sohasi qo'shadi.
+
+  **Auth:** `admin_token` (faqat `admin`).
+
+  ### 📥 Request Body (multipart/form-data)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `code` | string (max 50) | ✅ | Unikal mashina kaliti. Pattern: `^[a-z][a-z0-9_]*$` (masalan `hospitality`). |
+  | `name` | object (JSON) | ✅ | `{"uz": "...", "ru": "...", "en": "..."}` (har biri max 100). |
+  | `icon` | string (max 100) | ➖ | Ikonka nomi (masalan `bed`). |
+  | `is_active` | int (0\|1) | ➖ | Default: `1`. |
+  | `sort_order` | int (≥ 0) | ➖ | Default: `0`. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `422` | Validatsiya xatosi (bo'sh/dublikat `code`, noto'g'ri pattern, bo'sh `name`). |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

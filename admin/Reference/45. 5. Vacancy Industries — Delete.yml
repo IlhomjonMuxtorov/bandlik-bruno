@@ -1,0 +1,26 @@
+info:
+  name: 45. 5. Vacancy Industries — Delete
+  type: http
+  seq: 45
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/vacancy-industries/1'
+  auth: inherit
+docs: |
+  Vakansiya sohasini o'chiradi.
+
+  **Auth:** `admin_token` (faqat `admin`).
+
+  > Soha o'chirilganda unga bog'langan vakansiyalarning `industry_id` maydoni `NULL` ga
+  > o'rnatiladi (FK `ON DELETE SET NULL`) — vakansiyalar o'chmaydi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Soha topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

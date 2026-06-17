@@ -1,0 +1,38 @@
+info:
+  name: 42. 2. Vacancy Industry — View
+  type: http
+  seq: 42
+http:
+  method: GET
+  url: '{{base_url}}/admin/vacancy-industries/1'
+  headers:
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: |
+  Bitta vakansiya sohasini ID bo'yicha qaytaradi (barcha tillar bilan).
+
+  **Auth:** `admin_token` (faqat `admin`).
+
+  ### 📤 Response (`data`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | |
+  | `code` | string | Mashina kaliti |
+  | `name` | object | `{"uz": "...", "ru": "...", "en": "..."}` |
+  | `icon` | string \| null | Ikonka nomi |
+  | `is_active` | bool | |
+  | `sort_order` | int | |
+  | `created_at` / `updated_at` | int | Unix timestamp (+ `_formatted`) |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Soha topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

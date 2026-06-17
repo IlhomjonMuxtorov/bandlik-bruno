@@ -1,0 +1,43 @@
+info:
+  name: 44. 4. Vacancy Industries — Update
+  type: http
+  seq: 44
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancy-industries/1'
+  body:
+    type: multipartForm
+    data:
+    - name: name
+      value: '{"uz": "Restoran", "ru": "Ресторан", "en": "Restaurant"}'
+    - name: is_active
+      value: '0'
+    - name: sort_order
+      value: '5'
+  auth: inherit
+docs: |
+  Vakansiya sohasini yangilaydi. Faqat yuborilgan maydonlar o'zgaradi (partial update).
+
+  **Auth:** `admin_token` (faqat `admin`).
+
+  ### 📥 Request Body (multipart/form-data)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `code` | string (max 50) | ➖ | Unikal mashina kaliti. Pattern: `^[a-z][a-z0-9_]*$`. |
+  | `name` | object (JSON) | ➖ | `{"uz": "...", "ru": "...", "en": "..."}`. |
+  | `icon` | string (max 100) | ➖ | Ikonka nomi. |
+  | `is_active` | int (0\|1) | ➖ | Faollik holati. |
+  | `sort_order` | int (≥ 0) | ➖ | Tartib raqami. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Soha topilmadi |
+  | `422` | Validatsiya xatosi (dublikat `code`, noto'g'ri pattern). |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

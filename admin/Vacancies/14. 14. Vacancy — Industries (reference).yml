@@ -1,0 +1,43 @@
+info:
+  name: 14. Vacancy — Industries (reference)
+  type: http
+  seq: 14
+http:
+  method: GET
+  url: '{{base_url}}/admin/vacancies/industries'
+  headers:
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: |-
+  Vakansiya sohalari (sektorlar) ro'yxati — yaratish/tahrirlash formasidagi soha
+  tanlagichini to'ldiradi. Faqat faol yozuvlar, `sort_order` bo'yicha tartiblangan,
+  paginatsiyasiz tekis massiv.
+
+  **Auth:** `admin_token` yoki Employer/Recruiter token.
+
+  > Sohalarni **boshqarish** (qo'shish/tahrirlash/o'chirish) admin-only — `Reference`
+  > kolleksiyasidagi `Vacancy Industries — Create/Update/Delete` ga qarang
+  > (`/admin/vacancy-industries`).
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {token}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz`. |
+
+  ### 📤 Response (`data[]`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | |
+  | `code` | string | Mashina kaliti (masalan `restaurant`) |
+  | `name` | string | `Accept-Language` bo'yicha tarjima (fallback: `uz`) |
+  | `icon` | string \| null | Ikonka nomi (masalan `utensils`) |
+  | `sort_order` | int | |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
