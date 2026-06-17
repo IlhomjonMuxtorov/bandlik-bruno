@@ -30,6 +30,10 @@ docs: |-
   | `description` | string \| null | HTML/markdown matn |
   | `country` | object | `{ id, name, flag_url }` |
   | `city` | object \| null | `{ id, name }` |
+  | `address` | string \| null | Manzil (1-qator). Vakansiyada `hide_address_from_clients = true` bo'lsa `null`. |
+  | `address2` | string \| null | Manzil (2-qator) — kvartira / ofis va h.k. Yashirilgan bo'lsa `null`. |
+  | `state` | string \| null | Shtat / viloyat / o'lka nomi. Yashirilgan bo'lsa `null`. |
+  | `postal_code` | string \| null | Pochta indeksi. Yashirilgan bo'lsa `null`. |
   | `visa_chance` | int \| null | "Sizga Viza chiqish darajasi %" — viza so'rovnomasidan, shu davlat bo'yicha. `match_score` bilan bir xil manba. `null` agar token yo'q / so'rovnoma to'ldirilmagan. |
   | `is_favorite` | bool | Joriy foydalanuvchi shu vakansiyani sevimlilarga qo'shganmi. Mehmon / kandidat topilmasa `false`. |
   | `salary` | object | `{ gross, gross_currency, gross_uzs, net, net_currency, net_uzs }` — `gross`/`net` o'z valyutasida (major unit); `gross_uzs`/`net_uzs` — **shu kungi Markaziy bank (CBU) kursi** bo'yicha UZS ekvivalenti. UZS valyutali vakansiyada `*_uzs == gross`/`net`; kurs mavjud bo'lmaganda `*_uzs == null`. |

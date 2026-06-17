@@ -33,7 +33,10 @@ http:
         "salary_net": 15000000,
         "salary_net_currency": "UZS",
         "country_id": 1,
-        "address": "Warszawa, Marszalkowska 1",
+        "address": "Marszalkowska 1",
+        "address2": "Apt 4B",
+        "state": "Mazowieckie",
+        "postal_code": "00-001",
         "hide_address_from_clients": true,
         "deadline_at": "01.07.2026",
         "requirements": [{ "id": 1, "sort_order": 0 }, { "id": 2, "sort_order": 1 }],
@@ -109,8 +112,11 @@ docs: |
   | `salary_net` / `_currency` | int / string | ➖ | **Major unitda** (o'z valyutasida). Valyuta: yuqoridagi bilan bir xil ro'yxat. |
   | `country_id` | int | ✅ | |
   | `city_id` | int | ➖ | |
-  | `address` | string | ➖ | |
-  | `hide_address_from_clients` | bool | ➖ | Default `false` |
+  | `address` | string | ➖ | Manzil (1-qator) — max 500 |
+  | `address2` | string | ➖ | Manzil (2-qator) — kvartira / ofis va h.k. (max 500) |
+  | `state` | string | ➖ | Shtat / viloyat / o'lka nomi (max 150) |
+  | `postal_code` | string | ➖ | Pochta indeksi (max 30) |
+  | `hide_address_from_clients` | bool | ➖ | Default `false`. `true` bo'lsa barcha manzil maydonlari (`address`, `address2`, `state`, `postal_code`) nomzodga ko'rsatilmaydi |
   | `deadline_at` | string | ➖ | `DD.MM.YYYY`. O'tmishdagi (orqa) sana bo'lmasligi kerak — bugun ruxsat, kechagi va undan oldingi sana → `422`. |
 
   **Child kolleksiyalar:**

@@ -27,7 +27,10 @@ docs: |-
   | `legal_name` | string \| null | Yuridik nom |
   | `description` | string \| null | Tavsif |
   | `logo_url` | string \| null | Logotip URL |
-  | `address` | string | Manzil |
+  | `address` | string | Manzil (1-qator) |
+  | `address2` | string \| null | Manzil (2-qator) — kvartira / ofis va h.k. |
+  | `state` | string \| null | Shtat / viloyat / o'lka nomi |
+  | `postal_code` | string \| null | Pochta indeksi |
   | `region` | object \| null | `{ id, name }` — viloyat |
   | `district` | object \| null | `{ id, name }` — tuman |
   | `phone` | string | Telefon |

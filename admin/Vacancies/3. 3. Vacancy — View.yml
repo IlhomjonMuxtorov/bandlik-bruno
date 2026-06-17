@@ -44,7 +44,10 @@ docs: |-
   | `salary` | object | `{ gross: int\|null, gross_currency: string\|null, net: int\|null, net_currency: string\|null }` — summalar **major unitda** (so'm/dollar, o'z valyutasida), valyuta ISO 4217 |
   | `country` | object | Davlat — quyida |
   | `city` | object \| null | Shahar — quyida |
-  | `address` | string \| null | To'liq manzil |
+  | `address` | string \| null | Manzil (1-qator) |
+  | `address2` | string \| null | Manzil (2-qator) — kvartira / ofis va h.k. |
+  | `state` | string \| null | Shtat / viloyat / o'lka nomi |
+  | `postal_code` | string \| null | Pochta indeksi |
   | `hide_address_from_clients` | bool | Manzil mijozlardan yashirilganmi |
   | `deadline_at` | string \| null | `DD.MM.YYYY` |
   | `single_payment` | bool | `1 tada 100% lik to'lov` rejimi |
