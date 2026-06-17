@@ -1,25 +1,26 @@
 info:
-  name: 41. 1. Vacancy Industries — Index
+  name: 46. 1. Vacancy Industry Categories — Index
   type: http
-  seq: 41
+  seq: 46
 http:
   method: GET
-  url: '{{base_url}}/admin/vacancy-industries'
+  url: '{{base_url}}/admin/vacancy-industry-categories'
   auth: inherit
 docs: |
-  Vakansiya sohalarini boshqarish ro'yxati (paginatsiya bilan). Faol va nofaol
-  yozuvlar ham qaytadi, barcha tillar bilan.
+  Vakansiya sohasi kategoriyalarini boshqarish ro'yxati (paginatsiya bilan).
+  Faol va nofaol yozuvlar ham qaytadi, barcha tillar bilan. Kategoriya bir nechta
+  sohani (`vacancy_industry`) guruhlaydi.
 
   **Auth:** `admin_token` (faqat `admin`).
 
   > Forma uchun yengil dropdown kerak bo'lsa — `Vacancies` kolleksiyasidagi
-  > `GET /admin/vacancies/industries` (admin + org user uchun ochiq) dan foydalaning.
+  > `GET /admin/vacancies/industry-categories` (admin + org user uchun ochiq) dan foydalaning.
 
   ### 🔎 Query Parameters
 
   | Param | Type | Required | Description |
   |---|---|:---:|---|
-  | `q` | string | ➖ | `code`, nom, **izoh** yoki bog'langan **kategoriya nomi** (`uz`/`ru`/`en`) bo'yicha qidiruv (`ILIKE`). Izohga yozilgan matn bo'yicha ham soha topiladi. |
+  | `q` | string | ➖ | Nom (`uz`/`ru`/`en`) bo'yicha qidiruv (`ILIKE`). |
   | `is_active` | int (0\|1) | ➖ | Faolligi bo'yicha filtr. |
   | `page` | int | ➖ | Sahifa raqami (default `1`). |
   | `per-page` | int | ➖ | Sahifa hajmi (1–100, default `20`). |
@@ -35,11 +36,7 @@ docs: |
   | Field | Type | Description |
   |---|---|---|
   | `id` | int | |
-  | `code` | string | Mashina kaliti (masalan `restaurant`) |
   | `name` | object | Barcha tillar: `{"uz": "...", "ru": "...", "en": "..."}` |
-  | `category_id` | int \| null | Bog'langan kategoriya ID (yo'q bo'lsa `null`) |
-  | `category` | object \| null | Bog'langan kategoriya: `{"id", "name": {"uz","ru","en"}}` yoki `null` |
-  | `description` | object | Izoh, barcha tillar: `{"uz": "...", "ru": "...", "en": "..."}` (bo'sh bo'lsa qiymatlar `""`) |
   | `is_active` | bool | |
   | `sort_order` | int | |
   | `created_at` | int | Unix timestamp |

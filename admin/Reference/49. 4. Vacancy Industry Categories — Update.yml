@@ -1,0 +1,41 @@
+info:
+  name: 49. 4. Vacancy Industry Categories — Update
+  type: http
+  seq: 49
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancy-industry-categories/1'
+  body:
+    type: multipartForm
+    data:
+    - name: name
+      value: '{"uz": "Xizmat", "ru": "Услуги", "en": "Service"}'
+    - name: is_active
+      value: '0'
+    - name: sort_order
+      value: '5'
+  auth: inherit
+docs: |
+  Kategoriyani yangilaydi. Faqat yuborilgan maydonlar o'zgaradi (partial update).
+
+  **Auth:** `admin_token` (faqat `admin`).
+
+  ### 📥 Request Body (multipart/form-data)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `name` | object (JSON) | ➖ | `{"uz": "...", "ru": "...", "en": "..."}`. |
+  | `is_active` | int (0\|1) | ➖ | Faollik holati. |
+  | `sort_order` | int (≥ 0) | ➖ | Tartib raqami. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Kategoriya topilmadi |
+  | `422` | Validatsiya xatosi (bo'sh `name`). |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

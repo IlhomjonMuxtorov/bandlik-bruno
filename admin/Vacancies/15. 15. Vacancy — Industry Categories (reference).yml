@@ -1,0 +1,41 @@
+info:
+  name: 15. Vacancy — Industry Categories (reference)
+  type: http
+  seq: 15
+http:
+  method: GET
+  url: '{{base_url}}/admin/vacancies/industry-categories'
+  headers:
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: |-
+  Vakansiya sohasi kategoriyalari ro'yxati — soha yaratish/tahrirlash formasidagi
+  kategoriya tanlagichini to'ldiradi. Faqat faol yozuvlar, `sort_order` bo'yicha
+  tartiblangan, paginatsiyasiz tekis massiv.
+
+  **Auth:** `admin_token` yoki Employer/Recruiter token.
+
+  > Kategoriyalarni **boshqarish** (qo'shish/tahrirlash/o'chirish) admin-only —
+  > `Reference` kolleksiyasidagi `Vacancy Industry Categories — Create/Update/Delete`
+  > ga qarang (`/admin/vacancy-industry-categories`).
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {token}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz`. |
+
+  ### 📤 Response (`data[]`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | |
+  | `name` | string | `Accept-Language` bo'yicha tarjima (fallback: `uz`) |
+  | `sort_order` | int | |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

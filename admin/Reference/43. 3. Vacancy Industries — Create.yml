@@ -12,8 +12,10 @@ http:
       value: hospitality
     - name: name
       value: '{"uz": "Mehmonxona", "ru": "Гостиничный бизнес", "en": "Hospitality"}'
-    - name: icon
-      value: bed
+    - name: category_id
+      value: '1'
+    - name: description
+      value: '{"uz": "Mehmonxona va restoran xizmati xodimlari", "ru": "Персонал гостиниц и ресторанов", "en": "Hotel and restaurant service staff"}'
     - name: is_active
       value: '1'
     - name: sort_order
@@ -30,7 +32,8 @@ docs: |
   |---|---|:---:|---|
   | `code` | string (max 50) | ✅ | Unikal mashina kaliti. Pattern: `^[a-z][a-z0-9_]*$` (masalan `hospitality`). |
   | `name` | object (JSON) | ✅ | `{"uz": "...", "ru": "...", "en": "..."}` (har biri max 100). |
-  | `icon` | string (max 100) | ➖ | Ikonka nomi (masalan `bed`). |
+  | `category_id` | int | ➖ | Bog'langan kategoriya ID (`vacancy_industry_category`). Mavjud bo'lishi shart, aks holda `422`. |
+  | `description` | object (JSON) | ➖ | Izoh, 3 til `{"uz": "...", "ru": "...", "en": "..."}` (har biri max 1000). Index `q` qidiruvi shu matn bo'yicha ham qidiradi. |
   | `is_active` | int (0\|1) | ➖ | Default: `1`. |
   | `sort_order` | int (≥ 0) | ➖ | Default: `0`. |
 

@@ -39,7 +39,11 @@ docs: 'Tasdiqlangan vakansiyalar uchun mavjud sohalar ro''yxati (Restoran, Quril
 
   | `name` | string | Lokalizatsiyalangan nom |
 
-  | `icon` | string \| null | UI ikon kaliti |
+  | `category_id` | int \| null | Bog''langan kategoriya ID (yo''q bo''lsa `null`) |
+
+  | `category` | string \| null | Lokalizatsiyalangan kategoriya nomi (yo''q bo''lsa `null`) |
+
+  | `description` | string | Lokalizatsiyalangan izoh (bo''sh bo''lsa `""`) |
 
   | `sort_order` | int | Tartib |
 

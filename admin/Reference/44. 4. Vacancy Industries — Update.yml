@@ -10,6 +10,10 @@ http:
     data:
     - name: name
       value: '{"uz": "Restoran", "ru": "Ресторан", "en": "Restaurant"}'
+    - name: category_id
+      value: '1'
+    - name: description
+      value: '{"uz": "Oshpaz, ofitsiant, barmen", "ru": "Повар, официант, бармен", "en": "Cook, waiter, bartender"}'
     - name: is_active
       value: '0'
     - name: sort_order
@@ -26,7 +30,8 @@ docs: |
   |---|---|:---:|---|
   | `code` | string (max 50) | ➖ | Unikal mashina kaliti. Pattern: `^[a-z][a-z0-9_]*$`. |
   | `name` | object (JSON) | ➖ | `{"uz": "...", "ru": "...", "en": "..."}`. |
-  | `icon` | string (max 100) | ➖ | Ikonka nomi. |
+  | `category_id` | int \| "" | ➖ | Bog'langan kategoriya ID. Bo'sh string (`""`) yuborilsa kategoriya ajratiladi (`null`). |
+  | `description` | object (JSON) | ➖ | Izoh, 3 til (har biri max 1000). |
   | `is_active` | int (0\|1) | ➖ | Faollik holati. |
   | `sort_order` | int (≥ 0) | ➖ | Tartib raqami. |
 

@@ -34,7 +34,9 @@ docs: |-
   | `id` | int | |
   | `code` | string | Mashina kaliti (masalan `restaurant`) |
   | `name` | string | `Accept-Language` bo'yicha tarjima (fallback: `uz`) |
-  | `icon` | string \| null | Ikonka nomi (masalan `utensils`) |
+  | `category_id` | int \| null | Bog'langan kategoriya ID (yo'q bo'lsa `null`) |
+  | `category` | string \| null | Kategoriya nomi, `Accept-Language` bo'yicha tarjima (yo'q bo'lsa `null`) |
+  | `description` | string | Izoh, `Accept-Language` bo'yicha tarjima (bo'sh bo'lsa `""`) |
   | `sort_order` | int | |
 settings:
   encodeUrl: true

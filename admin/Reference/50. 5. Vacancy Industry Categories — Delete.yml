@@ -1,0 +1,26 @@
+info:
+  name: 50. 5. Vacancy Industry Categories — Delete
+  type: http
+  seq: 50
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/vacancy-industry-categories/1'
+  auth: inherit
+docs: |
+  Kategoriyani o'chiradi.
+
+  **Auth:** `admin_token` (faqat `admin`).
+
+  > Kategoriyaga bog'langan sohalar avtomatik ajratiladi — ularning `category_id`
+  > qiymati `NULL` ga o'rnatiladi (FK `ON DELETE SET NULL`). Sohalar o'chmaydi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Kategoriya topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

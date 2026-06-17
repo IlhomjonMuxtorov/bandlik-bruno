@@ -1,16 +1,16 @@
 info:
-  name: 42. 2. Vacancy Industry — View
+  name: 47. 2. Vacancy Industry Category — View
   type: http
-  seq: 42
+  seq: 47
 http:
   method: GET
-  url: '{{base_url}}/admin/vacancy-industries/1'
+  url: '{{base_url}}/admin/vacancy-industry-categories/1'
   headers:
   - name: Accept-Language
     value: uz
   auth: inherit
 docs: |
-  Bitta vakansiya sohasini ID bo'yicha qaytaradi (barcha tillar bilan).
+  Bitta kategoriyani ID bo'yicha qaytaradi (barcha tillar bilan).
 
   **Auth:** `admin_token` (faqat `admin`).
 
@@ -19,11 +19,7 @@ docs: |
   | Field | Type | Description |
   |---|---|---|
   | `id` | int | |
-  | `code` | string | Mashina kaliti |
   | `name` | object | `{"uz": "...", "ru": "...", "en": "..."}` |
-  | `category_id` | int \| null | Bog'langan kategoriya ID |
-  | `category` | object \| null | Bog'langan kategoriya: `{"id", "name": {"uz","ru","en"}}` yoki `null` |
-  | `description` | object | Izoh (3 til): `{"uz": "...", "ru": "...", "en": "..."}` |
   | `is_active` | bool | |
   | `sort_order` | int | |
   | `created_at` / `updated_at` | int | Unix timestamp (+ `_formatted`) |
@@ -32,7 +28,7 @@ docs: |
 
   | Code | Reason |
   |---|---|
-  | `404` | Soha topilmadi |
+  | `404` | Kategoriya topilmadi |
 settings:
   encodeUrl: true
   timeout: 0

@@ -1,0 +1,40 @@
+info:
+  name: 48. 3. Vacancy Industry Categories — Create
+  type: http
+  seq: 48
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancy-industry-categories'
+  body:
+    type: multipartForm
+    data:
+    - name: name
+      value: '{"uz": "Xizmat ko''rsatish", "ru": "Услуги", "en": "Service"}'
+    - name: is_active
+      value: '1'
+    - name: sort_order
+      value: '1'
+  auth: inherit
+docs: |
+  Yangi vakansiya sohasi kategoriyasini qo'shadi.
+
+  **Auth:** `admin_token` (faqat `admin`).
+
+  ### 📥 Request Body (multipart/form-data)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `name` | object (JSON) | ✅ | `{"uz": "...", "ru": "...", "en": "..."}` (har biri max 100). |
+  | `is_active` | int (0\|1) | ➖ | Default: `1`. |
+  | `sort_order` | int (≥ 0) | ➖ | Default: `0`. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `422` | Validatsiya xatosi (bo'sh `name`). |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
