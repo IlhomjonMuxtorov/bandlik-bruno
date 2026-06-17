@@ -44,6 +44,12 @@ docs: 'Mavjud XBA tashkilotini yangilaydi. `application/json` — faqat o''zgart
   aniqlaydi. `latitude`/`longitude` aniq yuborilsa — qo''lda kiritilgan qiymat ustun turadi.
 
 
+  > **`auto_approve_vacancies`** (bool, ➖) — XBA vakansiya timeout avto-tasdiq trust flagi
+  override. Org birinchi vakansiyasi qo''lda tasdiqlangach avtomatik `true` bo''ladi; admin bu
+  yerda qo''lda `true` (oldindan ishonchli) yoki `false` (avto-tasdiqni o''chirish) qila oladi.
+  Yuborilmasa o''zgarmaydi.
+
+
   ### ⚠️ Errors
 
 

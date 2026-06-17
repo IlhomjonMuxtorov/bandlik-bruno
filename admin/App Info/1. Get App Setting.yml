@@ -31,6 +31,8 @@ docs: |
       "about_text_localized": "...",
       "about_logo_upload_file_id": null,
       "logo_url": "https://storage.bandlik.uz/icons/logo/logo.png",
+      "vacancy_auto_approve_enabled": true,
+      "vacancy_auto_approve_window_minutes": 180,
       "created_at": 1739000000,
       "updated_at": 1739000000
     },
@@ -40,6 +42,8 @@ docs: |
   ```
 
   > `about_logo_upload_file_id = null` bo'lsa `logo_url` default logoni ko'rsatadi.
+
+  > `vacancy_auto_approve_enabled` / `vacancy_auto_approve_window_minutes` — vakansiya timeout avto-tasdiq siyosati (global toggle + kutish oynasi daqiqada, default `180`). Faqat admin/internal — mobil `support`/`about` javoblarida chiqmaydi.
 settings:
   encodeUrl: true
   timeout: 0

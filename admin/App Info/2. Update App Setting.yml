@@ -17,7 +17,9 @@ http:
         "support_website": "https://bandlik.uz",
         "support_telegram": "@bandlik_uz",
         "about_text": {"uz": "Global Skill App — ...", "ru": "Global Skill App — ...", "en": "Global Skill App — ..."},
-        "about_logo_id": 0
+        "about_logo_id": 0,
+        "vacancy_auto_approve_enabled": true,
+        "vacancy_auto_approve_window_minutes": 180
       }
   auth: inherit
 docs: |
@@ -35,8 +37,10 @@ docs: |
   | `support_telegram` | string | ➖ | Telegram handle |
   | `about_text` | object (JSON) | ➖ | `{"uz": "...", "ru": "...", "en": "..."}` |
   | `about_logo_id` | int | ➖ | `/admin/upload` orqali yuklangan logo fayl ID. `0` — default logoga qaytarish. |
+  | `vacancy_auto_approve_enabled` | bool | ➖ | Vakansiya timeout avto-tasdiq global toggle'i. Default `true`. |
+  | `vacancy_auto_approve_window_minutes` | int | ➖ | Submit'dan keyin ishonchli org vakansiyasi avto-tasdiqlanadigan kutish oynasi (daqiqa, >=1). Default `180` (3 soat). |
 
-  Yangilangandan keyin mobil `support`/`about` keshi avtomatik tozalanadi.
+  Yangilangandan keyin mobil `support`/`about` keshi avtomatik tozalanadi. (Avto-tasdiq maydonlari faqat admin/internal — mobil `support`/`about` javoblarida chiqmaydi.)
 
   ### ⚠️ Errors
 

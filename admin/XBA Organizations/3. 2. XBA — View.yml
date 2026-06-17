@@ -33,6 +33,13 @@ docs: |-
   > **Mas'ul shaxs:** `responsible_first_name` / `responsible_last_name` /
   > `responsible_middle_name` bo'laklari va ulardan yig'ilgan yaxlit `responsible_person` bilan qaytadi.
 
+  > **`auto_approve_vacancies`** (bool) — vakansiya timeout avto-tasdiq trust flagi. `true` bo'lsa
+  > org submit qilgan vakansiyalar standart oynadan keyin avtomatik chop etiladi. Birinchi qo'lda
+  > tasdiqdan keyin avtomatik `true`; `Update` orqali override qilinadi.
+  > **`vacancy_trusted_at`** (int \| null, `_formatted` bilan) — org ishonchli bo'lgan unix vaqt.
+  > Avto-tasdiq oynasi `max(vacancy.submitted_at, vacancy_trusted_at)`dan hisoblanadi (trust berilishi
+  > eski pending vakansiyalarni darhol chop etmaydi). Trust o'chirilsa `null` bo'ladi.
+
   > Cross-type isolation: agar `id` boshqa partner turidagi yozuvga tegishli bo'lsa — `404`.
 
   ### ⚠️ Errors

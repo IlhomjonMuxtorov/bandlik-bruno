@@ -144,6 +144,18 @@ docs: |
 
   Full detail DTO (View bilan bir xil). `status` = `draft`, `total_service_amount` snapshot narxlar yig'indisi (agentlik narxi bilan) — **so'mda (major unit)**. `service_groups[]` nested `services[]` bilan, `sort_order` bo'yicha tartiblangan (reorderable oldinda, visa→agency→logistics oxirida) va har biri `is_reorderable` (bool) maydonini qaytaradi — FE shu flag bo'yicha sudraladigan/qulflangan elementlarni ajratadi.
 
+  **`auto_approval`** (object) — vakansiya keyin avtomatik chop etilishi haqida ma'lumot (FE "submit'dan keyin N daqiqada avto-chop etiladi" deb ko'rsatishi uchun):
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `enabled` | bool | Global avto-tasdiq yoqilganmi (`AppSetting`) |
+  | `window_minutes` | int | Standart kutish oynasi (daqiqa). Default `180` (3 soat) |
+  | `eligible` | bool | XBA org ishonchlimi (`organization.auto_approve_vacancies`) — birinchi vakansiya qo'lda tasdiqlangach `true` bo'ladi |
+  | `estimated_publish_at` | int \| null | Avto-chop etilish vaqti (unix). **Faqat** `enabled && eligible && status=pending_approval` bo'lganda qiymat; create'da (draft) `null`, chunki hali submit qilinmagan |
+  | `estimated_publish_at_formatted` | string \| null | `DD.MM.YYYY HH:MM` yoki `null` |
+
+  > Create javobida vakansiya hali `draft` — shu sabab `estimated_publish_at` `null`. Aniq vaqt **Submit** javobida (pending_approval) qaytadi.
+
   ### ⚠️ Errors
 
   | Code | Reason |

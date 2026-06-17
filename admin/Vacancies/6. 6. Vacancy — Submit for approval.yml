@@ -6,37 +6,41 @@ http:
   method: POST
   url: '{{base_url}}/admin/vacancies/1/submit'
   auth: inherit
-docs: 'Draft yoki rejected vakansiyani SuperAdmin tasdiqlashiga yuboradi. Status `pending_approval`
-  ga o''tadi va `vacancy_status_log` ga yozuv qo''shiladi.
-
+docs: |
+  Draft yoki rejected vakansiyani SuperAdmin tasdiqlashiga yuboradi. Status `pending_approval`
+  ga o'tadi, `submitted_at` (submit vaqti) yoziladi va `vacancy_status_log` ga yozuv qo'shiladi.
 
   **Auth:** Employer / Recruiter (vakansiya egasi) yoki Admin.
 
-
   ### ⚠️ Validation
 
-
-  Kamida quyidagilar to''ldirilgan bo''lishi kerak (aks holda 400):
-
+  Kamida quyidagilar to'ldirilgan bo'lishi kerak (aks holda 400):
   - 1+ talab (`requirements`)
-
   - 1+ hujjat (`documents`)
+  - `price > 0` bo'lgan agentlik (`agency`) xizmati
 
-  - `price > 0` bo''lgan agentlik (`agency`) xizmati
+  ### 📤 Response (`data`)
 
+  Full detail DTO (View bilan bir xil), `status` = `pending_approval`. Javobda **`auto_approval`** (object) bo'ladi — bu yerda `submitted_at` mavjud, shu sabab `estimated_publish_at` aniq qiymat qaytaradi (ishonchli org + global toggle yoniq bo'lsa):
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `enabled` | bool | Global avto-tasdiq yoqilganmi |
+  | `window_minutes` | int | Kutish oynasi (daqiqa), default `180` |
+  | `eligible` | bool | XBA org ishonchlimi (`organization.auto_approve_vacancies`) |
+  | `estimated_publish_at` | int \| null | Avto-chop etilish vaqti (unix) = `max(submitted_at, org.vacancy_trusted_at) + window_minutes*60`. `enabled && eligible` bo'lmasa `null` |
+  | `estimated_publish_at_formatted` | string \| null | `DD.MM.YYYY HH:MM` yoki `null` |
+
+  > Org ishonchsiz (`eligible=false`) yoki global toggle o'chiq bo'lsa — vakansiya faqat qo'lda tasdiqlanadi, `estimated_publish_at = null`.
+
+  > **Oyna boshlanishi:** `max(submitted_at, trusted_at)`. Org ishonchli bo'lishidan oldin submit qilingan vakansiya, trust berilgach **darhol** avto-chop etilmaydi — trust vaqtidan to'liq yangi oyna hisoblanadi.
 
   ### ⚠️ Errors
 
-
   | Code | Reason |
-
   |---|---|
-
-  | `400` | Draft/Rejected emas, yoki majburiy bo''limlar bo''sh |
-
+  | `400` | Draft/Rejected emas, yoki majburiy bo'limlar bo'sh |
   | `403` | Boshqa tashkilotning vakansiyasi |
-
-  '
 settings:
   encodeUrl: true
   timeout: 0
