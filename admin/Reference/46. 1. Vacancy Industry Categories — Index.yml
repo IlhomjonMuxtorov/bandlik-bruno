@@ -39,6 +39,7 @@ docs: |
   | `name` | object | Barcha tillar: `{"uz": "...", "ru": "...", "en": "..."}` |
   | `is_active` | bool | |
   | `sort_order` | int | |
+  | `industries_count` | int | Shu kategoriyaga tegishli sohalar (`vacancy_industry`) soni. |
   | `created_at` | int | Unix timestamp |
   | `created_at_formatted` | string | `d.m.Y H:i` (Asia/Tashkent) |
   | `updated_at` | int | Unix timestamp |

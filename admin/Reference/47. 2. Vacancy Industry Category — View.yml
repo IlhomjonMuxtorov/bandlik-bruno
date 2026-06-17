@@ -22,6 +22,7 @@ docs: |
   | `name` | object | `{"uz": "...", "ru": "...", "en": "..."}` |
   | `is_active` | bool | |
   | `sort_order` | int | |
+  | `industries_count` | int | Shu kategoriyaga tegishli sohalar (`vacancy_industry`) soni. |
   | `created_at` / `updated_at` | int | Unix timestamp (+ `_formatted`) |
 
   ### ⚠️ Errors
