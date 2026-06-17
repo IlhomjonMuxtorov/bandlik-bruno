@@ -10,17 +10,7 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"name\": {\"uz\": \"XBA Tashkent\", \"ru\": \"XBA Ташкент\", \"en\": \"XBA Tashkent\"},\n  \"brand_name\": \"XBA Tashkent MChJ\"\
-      ,\n  \"legal_name\": \"XBA Tashkent OOO\",\n  \"description\": \"Toshkent shahar\
-      \ XBA tashkiloti\",\n  \"license_number\": \"LIC-001-2026\",\n  \"region_id\"\
-      : 10,\n  \"district_id\": 1001,\n  \"address\": \"Toshkent sh., Yunusobod tumani,\
-      \ Amir Temur ko'chasi 1\",\n  \"phone\": \"+998941202200\",\n  \"email\": \"\
-      info@xba-tashkent.uz\",\n  \"website_url\": \"https://xba-tashkent.uz\",\n \
-      \ \"responsible_person\": \"Kamolbek Sardorov\",\n  \"login\": \"xba_tashkent\"\
-      ,\n  \"password\": \"secret123\",\n  \"telegram_url\": \"https://t.me/xba_tashkent\"\
-      ,\n  \"instagram_url\": \"https://instagram.com/xba_tashkent\",\n  \"facebook_url\"\
-      : \"https://facebook.com/xba_tashkent\",\n  \"x_url\": \"https://x.com/xba_tashkent\"\
-      ,\n  \"is_active\": 1,\n  \"license_file_id\": 10,\n  \"logo_id\": 11,\n  \"latitude\": 41.3111,\n  \"longitude\": 69.2797\n}"
+    data: "{\n  \"name\": \"XBA Tashkent\",\n  \"brand_name\": \"XBA Tashkent MChJ\",\n  \"legal_name\": \"XBA Tashkent OOO\",\n  \"description\": \"Toshkent shahar XBA tashkiloti\",\n  \"license_number\": \"LIC-001-2026\",\n  \"region_id\": 10,\n  \"district_id\": 1001,\n  \"address\": \"Toshkent sh., Yunusobod tumani, Amir Temur ko'chasi 1\",\n  \"phone\": \"+998941202200\",\n  \"email\": \"info@xba-tashkent.uz\",\n  \"website_url\": \"https://xba-tashkent.uz\",\n  \"responsible_first_name\": \"Kamolbek\",\n  \"responsible_last_name\": \"Sardorov\",\n  \"login\": \"xba_tashkent\",\n  \"password\": \"secret123\",\n  \"telegram_url\": \"https://t.me/xba_tashkent\",\n  \"instagram_url\": \"https://instagram.com/xba_tashkent\",\n  \"facebook_url\": \"https://facebook.com/xba_tashkent\",\n  \"x_url\": \"https://x.com/xba_tashkent\",\n  \"is_active\": 1,\n  \"license_file_id\": 10,\n  \"logo_id\": 11,\n  \"latitude\": 41.3111,\n  \"longitude\": 69.2797\n}"
   auth: inherit
 docs: 'Yangi XBA tashkilotini yaratadi. `application/json` so''rov.
 
@@ -43,7 +33,7 @@ docs: 'Yangi XBA tashkilotini yaratadi. `application/json` so''rov.
 
   |---|---|:---:|---|
 
-  | `name` | object | ✅ | XBA nomi — ko''p tilli `{uz, ru, en}` (har biri max 200). Oddiy string ham qabul qilinadi → `{uz}`. |
+  | `name` | string | ✅ | XBA nomi — bitta tilli (max 200) |
 
   | `brand_name` | string | ➖ | Brend nomi (max 200) |
 
@@ -69,7 +59,11 @@ docs: 'Yangi XBA tashkilotini yaratadi. `application/json` so''rov.
 
   | `website_url` | string | ➖ | URL (https sxema avtomatik qo''shiladi) |
 
-  | `responsible_person` | string | ✅ | Mas''ul shaxs F.I.SH. |
+  | `responsible_first_name` | string | ✅ | Mas''ul shaxs ismi (max 100) |
+
+  | `responsible_last_name` | string | ✅ | Mas''ul shaxs familiyasi (max 100) |
+
+  | `responsible_middle_name` | string | ➖ | Mas''ul shaxs otasining ismi / sharifi (max 100) |
 
   | `login` | string | ✅ | Min 3 belgi. Unique. |
 
@@ -91,10 +85,10 @@ docs: 'Yangi XBA tashkilotini yaratadi. `application/json` so''rov.
   | `logo_id` | int | ➖ | `/admin/upload` orqali oldindan yuklangan fayl ID |
 
 
-  > **Ko''p tillilik:** `name`, `description`, `address` — JSONB `{uz, ru, en}` obyekt sifatida
+  > **Ko''p tillilik:** `description`, `address` — JSONB `{uz, ru, en}` obyekt sifatida
   saqlanadi. Obyekt yuborilsa o''sha tillar yoziladi; oddiy string yuborilsa `{uz}` ga
-  o''raladi (orqaga moslik). Misol: `"name": { "uz": "XBA Toshkent", "ru": "XBA Ташкент",
-  "en": "XBA Tashkent" }`.
+  o''raladi (orqaga moslik). `name` esa **bitta tilli** oddiy string (registratsion nom,
+  tarjima qilinmaydi).
 
 
   > **Avto-geokod (lat/lng):** `latitude`/`longitude` yuborilmasa, backend `address`
@@ -119,9 +113,11 @@ docs: 'Yangi XBA tashkilotini yaratadi. `application/json` so''rov.
   ### 📤 Response
 
 
-  `201` — yaratilgan XBA `OrganizationOutputDTO` formatida. Ko''p tilli maydonlar (`name`,
-  `description`, `address`) xom `{uz, ru, en}` obyekt + joriy til (`Accept-Language`) uchun
-  `name_localized` / `description_localized` / `address_localized` string bilan qaytadi.
+  `201` — yaratilgan XBA `OrganizationOutputDTO` formatida. `name` — bitta tilli string.
+  Ko''p tilli maydonlar (`description`, `address`) xom `{uz, ru, en}` obyekt + joriy til
+  (`Accept-Language`) uchun `description_localized` / `address_localized` string bilan qaytadi.
+  Mas''ul shaxs `responsible_first_name` / `responsible_last_name` / `responsible_middle_name`
+  bo''laklari va yaxlit `responsible_person` bilan qaytadi.
 
 
   ### ⚠️ Errors

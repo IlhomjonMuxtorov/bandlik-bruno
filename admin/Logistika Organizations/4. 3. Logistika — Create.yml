@@ -10,17 +10,7 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"name\": \"Abdiraxmanova Sadoqat Sulaymanovna xususiy logistics\"\
-      ,\n  \"brand_name\": \"CREDO CONSULTING MChJ\",\n  \"legal_name\": \"CREDO CONSULTING\
-      \ OOO\",\n  \"description\": \"Notarial xizmatlar va hujjat tasdiqlash\",\n\
-      \  \"license_number\": \"LOG-001-2026\",\n  \"region_id\": 10,\n  \"district_id\"\
-      : 1001,\n  \"address\": \"Toshkent sh., Yakkasaroy tumani, At-Termiziy ko'chasi\
-      \ 51/136\",\n  \"phone\": \"+998944452323\",\n  \"email\": \"construction.global@gmail.com\"\
-      ,\n  \"website_url\": \"https://credoconsultion.uz\",\n  \"responsible_person\"\
-      : \"Sardor Karimov\",\n  \"login\": \"logistics_credo\",\n  \"password\": \"\
-      secret123\",\n  \"telegram_url\": \"https://t.me/credo\",\n  \"instagram_url\"\
-      : \"https://instagram.com/credo\",\n  \"facebook_url\": \"https://facebook.com/credo\"\
-      ,\n  \"is_active\": 1,\n  \"license_file_id\": 10,\n  \"logo_id\": 11,\n  \"latitude\": 41.3111,\n  \"longitude\": 69.2797\n}"
+    data: "{\n  \"name\": \"Abdiraxmanova Sadoqat Sulaymanovna xususiy logistics\",\n  \"brand_name\": \"CREDO CONSULTING MChJ\",\n  \"legal_name\": \"CREDO CONSULTING OOO\",\n  \"description\": \"Notarial xizmatlar va hujjat tasdiqlash\",\n  \"license_number\": \"LOG-001-2026\",\n  \"region_id\": 10,\n  \"district_id\": 1001,\n  \"address\": \"Toshkent sh., Yakkasaroy tumani, At-Termiziy ko'chasi 51/136\",\n  \"phone\": \"+998944452323\",\n  \"email\": \"construction.global@gmail.com\",\n  \"website_url\": \"https://credoconsultion.uz\",\n  \"responsible_first_name\": \"Sardor\",\n  \"responsible_last_name\": \"Karimov\",\n  \"login\": \"logistics_credo\",\n  \"password\": \"secret123\",\n  \"telegram_url\": \"https://t.me/credo\",\n  \"instagram_url\": \"https://instagram.com/credo\",\n  \"facebook_url\": \"https://facebook.com/credo\",\n  \"is_active\": 1,\n  \"license_file_id\": 10,\n  \"logo_id\": 11,\n  \"latitude\": 41.3111,\n  \"longitude\": 69.2797\n}"
   auth: inherit
 docs: 'Yangi Logistika tashkilotini yaratadi. `application/json` so''rov — xatti-harakat
   XBA `Create` bilan bir xil, yagona farq: `type = 3`.

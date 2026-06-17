@@ -25,9 +25,13 @@ docs: |-
   | `this_month_vacancies` | int | Joriy oyda yaratilgan vakansiyalar. |
   | `refunded_amount` | int | Tashkilotga tegishli yakunlangan refund summasi. |
 
-  > **Ko'p tillilik:** `name`, `description`, `address` xom `{uz, ru, en}` obyekt sifatida,
-  > qo'shimcha `name_localized` / `description_localized` / `address_localized` esa joriy til
-  > (`Accept-Language`, fallback `uz`) uchun string bilan qaytadi.
+  > **Ko'p tillilik:** `description`, `address` xom `{uz, ru, en}` obyekt sifatida,
+  > qo'shimcha `description_localized` / `address_localized` esa joriy til
+  > (`Accept-Language`, fallback `uz`) uchun string bilan qaytadi. `name` esa **bitta tilli**
+  > oddiy string (registratsion nom, tarjima qilinmaydi).
+
+  > **Mas'ul shaxs:** `responsible_first_name` / `responsible_last_name` /
+  > `responsible_middle_name` bo'laklari va ulardan yig'ilgan yaxlit `responsible_person` bilan qaytadi.
 
   > Cross-type isolation: agar `id` boshqa partner turidagi yozuvga tegishli bo'lsa — `404`.
 
