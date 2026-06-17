@@ -30,7 +30,13 @@ docs: 'Mavjud XBA tashkilotini yangilaydi. `application/json` — faqat o''zgart
 
 
   Barcha maydonlar **ixtiyoriy** (faqat o''zgaradiganlarini yuboring). To''liq ro''yxat
-  — `Create` endpointidagi kabi. Fayl maydonlari: `license_file_id`, `logo_id`.
+  — `Create` endpointidagi kabi. Fayl maydonlari: `license_file_ids` (massiv), `logo_id`.
+
+
+  > **Litsenziya fayllari (`license_file_ids`):** to''liq to''plam semantikasi. Yuborilgan
+  massiv yangi to''plamga aylanadi — ro''yxatda qolmagan eski litsenziya fayllari o''chiriladi
+  (orphan tozalanadi), yangilari biriktiriladi. `[]` yuborilsa barcha litsenziyalar olib
+  tashlanadi. Maydon umuman yuborilmasa — mavjud litsenziyalar o''zgarmaydi.
 
 
   > **Avto-geokod (lat/lng):** koordinata yuborilmasa va `address` o''zgartirilsa (yoki

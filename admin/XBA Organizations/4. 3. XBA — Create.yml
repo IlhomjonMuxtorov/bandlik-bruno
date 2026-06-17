@@ -10,7 +10,7 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"name\": \"XBA Tashkent\",\n  \"brand_name\": \"XBA Tashkent MChJ\",\n  \"legal_name\": \"XBA Tashkent OOO\",\n  \"description\": \"Toshkent shahar XBA tashkiloti\",\n  \"license_number\": \"LIC-001-2026\",\n  \"region_id\": 10,\n  \"district_id\": 1001,\n  \"address\": \"Amir Temur ko'chasi 1\",\n  \"address2\": \"3-qavat, 12-ofis\",\n  \"state\": \"Toshkent\",\n  \"postal_code\": \"100000\",\n  \"phone\": \"+998941202200\",\n  \"email\": \"info@xba-tashkent.uz\",\n  \"website_url\": \"https://xba-tashkent.uz\",\n  \"responsible_first_name\": \"Kamolbek\",\n  \"responsible_last_name\": \"Sardorov\",\n  \"login\": \"xba_tashkent\",\n  \"password\": \"secret123\",\n  \"telegram_url\": \"https://t.me/xba_tashkent\",\n  \"instagram_url\": \"https://instagram.com/xba_tashkent\",\n  \"facebook_url\": \"https://facebook.com/xba_tashkent\",\n  \"x_url\": \"https://x.com/xba_tashkent\",\n  \"is_active\": 1,\n  \"license_file_id\": 10,\n  \"logo_id\": 11,\n  \"latitude\": 41.3111,\n  \"longitude\": 69.2797\n}"
+    data: "{\n  \"name\": \"XBA Tashkent\",\n  \"brand_name\": \"XBA Tashkent MChJ\",\n  \"legal_name\": \"XBA Tashkent OOO\",\n  \"description\": \"Toshkent shahar XBA tashkiloti\",\n  \"license_number\": \"LIC-001-2026\",\n  \"region_id\": 10,\n  \"district_id\": 1001,\n  \"address\": \"Amir Temur ko'chasi 1\",\n  \"address2\": \"3-qavat, 12-ofis\",\n  \"state\": \"Toshkent\",\n  \"postal_code\": \"100000\",\n  \"phone\": \"+998941202200\",\n  \"email\": \"info@xba-tashkent.uz\",\n  \"website_url\": \"https://xba-tashkent.uz\",\n  \"responsible_first_name\": \"Kamolbek\",\n  \"responsible_last_name\": \"Sardorov\",\n  \"login\": \"xba_tashkent\",\n  \"password\": \"secret123\",\n  \"telegram_url\": \"https://t.me/xba_tashkent\",\n  \"instagram_url\": \"https://instagram.com/xba_tashkent\",\n  \"facebook_url\": \"https://facebook.com/xba_tashkent\",\n  \"x_url\": \"https://x.com/xba_tashkent\",\n  \"is_active\": 1,\n  \"license_file_ids\": [10, 12],\n  \"logo_id\": 11,\n  \"latitude\": 41.3111,\n  \"longitude\": 69.2797\n}"
   auth: inherit
 docs: 'Yangi XBA tashkilotini yaratadi. `application/json` so''rov.
 
@@ -85,8 +85,11 @@ docs: 'Yangi XBA tashkilotini yaratadi. `application/json` so''rov.
 
   | `is_active` | bool (0\|1) | ➖ | Default `1` |
 
-  | `license_file_id` | int | ➖ | `/admin/upload` orqali oldindan yuklangan fayl ID
-  |
+  | `license_file_ids` | int[] | ➖ | `/admin/upload` orqali oldindan yuklangan litsenziya
+  fayl ID''lari massivi. Bir nechta litsenziya hujjati biriktirish mumkin. To''liq to''plam
+  semantikasi: yuborilgan ro''yxat yangi to''plamga aylanadi, ro''yxatda yo''q eski fayllar
+  o''chiriladi (orphan). `[]` yuborilsa — barcha litsenziyalar tozalanadi. Yuborilmasa —
+  o''zgarmaydi. |
 
   | `logo_id` | int | ➖ | `/admin/upload` orqali oldindan yuklangan fayl ID |
 
@@ -136,7 +139,7 @@ docs: 'Yangi XBA tashkilotini yaratadi. `application/json` so''rov.
   | `422` | Validatsiya xatosi (`license_number` band, `region_id`/`district_id` topilmadi,
   parol qisqa va h.k.) |
 
-  | `400` | `license_file_id` yoki `logo_id` topilmadi yoki `status=uploading` |
+  | `400` | `license_file_ids` yoki `logo_id` topilmadi yoki `status=uploading` |
 
   | `401` | Token yo''q yoki yaroqsiz |
 

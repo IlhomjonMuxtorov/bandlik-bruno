@@ -52,7 +52,7 @@ docs: |-
   | `responsible_last_name` | string | Mas'ul shaxs familiyasi |
   | `responsible_middle_name` | string \| null | Mas'ul shaxs otasining ismi / sharifi |
   | `login` | string \| null | XBA egasining login'i |
-  | `license_file_url` | string \| null | To'liq URL |
+  | `license_files` | object[] | Litsenziya hujjatlari (0+). Har element: `id`, `uuid`, `url`, `original_name`, `file_size`, `file_kind`, `file_kind_icon_url` |
   | `logo_url` | string \| null | To'liq URL |
   | `telegram_url` | string \| null | |
   | `instagram_url` | string \| null | |

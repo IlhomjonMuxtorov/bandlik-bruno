@@ -10,7 +10,7 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"name\": \"Thompson School\",\n  \"brand_name\": \"Thompson School filial Oybek\",\n  \"legal_name\": \"Thompson School OOO\",\n  \"description\": \"Til kurslari va imtihonga tayyorlov\",\n  \"license_number\": \"EDU-001-2026\",\n  \"region_id\": 14,\n  \"district_id\": 240,\n  \"address\": \"Yunusobod tumani, Amir Temur 12\",\n  \"address2\": \"2-qavat\",\n  \"state\": \"Toshkent\",\n  \"postal_code\": \"100084\",\n  \"phone\": \"+998944452323\",\n  \"email\": \"info@thompson-school.uz\",\n  \"website_url\": \"https://thompson-school.uz\",\n  \"responsible_first_name\": \"Timurbek\",\n  \"responsible_last_name\": \"Azizov\",\n  \"login\": \"thompson\",\n  \"password\": \"secret123\",\n  \"telegram_url\": \"https://t.me/global_skillhub\",\n  \"instagram_url\": \"https://instagram.com/global_skillhub\",\n  \"is_active\": 1,\n  \"license_file_id\": 10,\n  \"logo_id\": 11,\n  \"latitude\": 41.3111,\n  \"longitude\": 69.2797\n}"
+    data: "{\n  \"name\": \"Thompson School\",\n  \"brand_name\": \"Thompson School filial Oybek\",\n  \"legal_name\": \"Thompson School OOO\",\n  \"description\": \"Til kurslari va imtihonga tayyorlov\",\n  \"license_number\": \"EDU-001-2026\",\n  \"region_id\": 14,\n  \"district_id\": 240,\n  \"address\": \"Yunusobod tumani, Amir Temur 12\",\n  \"address2\": \"2-qavat\",\n  \"state\": \"Toshkent\",\n  \"postal_code\": \"100084\",\n  \"phone\": \"+998944452323\",\n  \"email\": \"info@thompson-school.uz\",\n  \"website_url\": \"https://thompson-school.uz\",\n  \"responsible_first_name\": \"Timurbek\",\n  \"responsible_last_name\": \"Azizov\",\n  \"login\": \"thompson\",\n  \"password\": \"secret123\",\n  \"telegram_url\": \"https://t.me/global_skillhub\",\n  \"instagram_url\": \"https://instagram.com/global_skillhub\",\n  \"is_active\": 1,\n  \"license_file_ids\": [10, 12],\n  \"logo_id\": 11,\n  \"latitude\": 41.3111,\n  \"longitude\": 69.2797\n}"
   auth: inherit
 docs: 'Yangi O''quv markazi yaratadi. `application/json` so''rov. `type` avtomatik
   `8` (EDUCATIONAL_CENTER) o''rnatiladi.
@@ -72,7 +72,7 @@ docs: 'Yangi O''quv markazi yaratadi. `application/json` so''rov. `type` avtomat
 
   | `is_active` | bool (0\|1) | ➖ | Default `1` |
 
-  | `license_file_id` | int | ➖ | Oldindan `/admin/upload` orqali yuklangan litsenziya fayl ID |
+  | `license_file_ids` | int[] | ➖ | Oldindan `/admin/upload` orqali yuklangan litsenziya fayl ID''lari massivi. Bir nechta hujjat biriktirish mumkin (to''liq to''plam; `[]` — tozalash). |
 
   | `logo_id` | int | ➖ | Logo fayl ID |
 
