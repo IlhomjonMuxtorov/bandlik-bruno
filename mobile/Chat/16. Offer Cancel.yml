@@ -14,6 +14,10 @@ docs: |
   qaytariladi. Allaqachon xizmatlarga yechib o'tkazilgan pul (`captured_amount`)
   **qaytarilmaydi**. Yetkazilmagan xizmatlar (`awaiting_funds`/`in_progress`) `cancelled` bo'ladi.
 
+  > Chatga `type=system` (`kind: offer_declined`) xabar yoziladi va **push faqat XBA**
+  > tomonga (nomzod taklifni bekor qildi). Matn `offer_declined` template'idan
+  > (yo'q bo'lsa standart matn).
+
   **Auth:** `access_token`. Taklif `confirmed` bo'lishi va terminal bo'lmasligi shart.
 
   ### 📤 Response (200)

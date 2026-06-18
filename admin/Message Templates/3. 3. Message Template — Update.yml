@@ -24,22 +24,27 @@ docs: |
   |---|---|:---:|---|
   | `title_uz` / `title_ru` / `title_en` | string | ✅ | Sarlavha (3 til) |
   | `body_uz` / `body_ru` / `body_en` | string | ✅ | Xabar matni (3 til) |
-  | `event` | string \| null | ➖ | Bog'langan tizim hodisasi (yoki `null`). Qiymatlar: `application_accepted` \| `application_rejected` \| `service_group_started` \| `payment_overdue` \| `service_stage_started` \| `service_stage_completed`. |
+  | `event` | string \| null | ➖ | Bog'langan tizim hodisasi (yoki `null`). Qiymatlar: `application_accepted` \| `application_rejected` \| `service_group_started` \| `service_group_completed` \| `service_group_confirmed` \| `service_group_rejected` \| `pipeline_completed` \| `payment_overdue` \| `offer_accepted` \| `offer_declined` \| `offer_funded`. |
   | `is_active` | bool | ➖ | Faollik holati |
 
   ### 🔔 Auto-reply (event bog'langanda)
 
   `event` + `is_active=true` bo'lsa, hodisa sodir bo'lganda shablon avtomatik
-  nomzod chatiga yuboriladi. `body` ichidagi `{placeholder}` lar event bo'yicha:
+  chatga system-xabar + push sifatida yuboriladi. Shablon yo'q bo'lsa o'rnatilgan
+  standart matn ishlatiladi. To'liq event/placeholder/`push kimga` jadvali
+  **Create** endpointi `docs` ida. `body` ichidagi `{placeholder}` lar event bo'yicha:
 
   | Event | Placeholderlar |
   |---|---|
   | `application_accepted` | `{candidate_name}`, `{vacancy_title}` |
   | `application_rejected` | `{candidate_name}`, `{vacancy_title}`, `{rejection_reason}` |
-  | `service_group_started` | `{candidate_name}`, `{vacancy_title}`, `{stage_category}`, `{payment_deadline}` |
-  | `service_stage_started` | `{candidate_name}`, `{vacancy_title}`, `{stage_category}`, `{deadline}` |
-  | `service_stage_completed` | `{candidate_name}`, `{vacancy_title}`, `{stage_category}` |
-  | `payment_overdue` | `{candidate_name}`, `{vacancy_title}`, `{stage_category}`, `{amount}`, `{payment_deadline}` |
+  | `service_group_started` | `{candidate_name}`, `{vacancy_title}`, `{service_name}`, `{amount}`, `{currency}`, `{payment_deadline}` |
+  | `service_group_completed` | `{candidate_name}`, `{vacancy_title}`, `{service_name}` |
+  | `service_group_confirmed` | `{candidate_name}`, `{vacancy_title}`, `{service_name}` |
+  | `service_group_rejected` | `{candidate_name}`, `{vacancy_title}`, `{service_name}`, `{rejection_reason}` |
+  | `pipeline_completed` | `{candidate_name}`, `{vacancy_title}` |
+  | `payment_overdue` | `{candidate_name}`, `{vacancy_title}`, `{service_name}`, `{amount}`, `{currency}`, `{payment_deadline}` |
+  | `offer_accepted` / `offer_declined` / `offer_funded` | `{candidate_name}`, `{vacancy_title}` |
 
   ### ⚠️ Errors
 

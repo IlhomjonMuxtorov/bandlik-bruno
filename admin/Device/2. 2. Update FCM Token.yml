@@ -1,0 +1,38 @@
+info:
+  name: 2. Update FCM Token
+  type: http
+  seq: 2
+http:
+  method: PATCH
+  url: '{{base_url}}/admin/device/fcm'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"device_id\": \"web-1a2b3c4d-5e6f-7890-abcd-ef1234567890\",\n  \"fcm_token\": \"REPLACE_WITH_REFRESHED_WEB_FCM_TOKEN\"\n}"
+  auth: inherit
+docs: |
+  Mavjud brauzer qurilmasining web push token'ini yangilaydi (FCM token
+  rotatsiyasi / refresh paytida). Token o'zgarsa frontend shu endpointni chaqiradi.
+
+  **Auth:** `admin_token` (yoki org foydalanuvchi token'i).
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `device_id` | string | ✅ | Ro'yxatdan o'tgan brauzer UUID. |
+  | `fcm_token` | string | ✅ | Yangi web push token. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q/eskirgan |
+  | `422` | `device_id` topilmadi yoki maydonlar bo'sh |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -15,7 +15,8 @@ http:
     bearer: '{{ admin_token }}'
 docs: |
   Guruh **ijrosini boshlaydi** (Start qadami). Chatga `type=system` xabar
-  (`kind: group_started`) yuboriladi.
+  (`kind: group_started`) yoziladi va **push** yuboriladi (nomzod + XBA). Matn
+  `service_group_started` message-template'idan (shablon yo'q bo'lsa standart matn).
 
   Oqim: **Start → Pay → Execute → Complete → Confirm**.
   - Guruhning bosqichlari **allaqachon to'langan** bo'lsa (single_payment=true upfront hold),

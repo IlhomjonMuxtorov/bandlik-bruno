@@ -25,28 +25,41 @@ docs: |
   | `organization_id` | int | ✅ | Tashkilot ID |
   | `title_uz` / `title_ru` / `title_en` | string | ✅ | Sarlavha (3 til) |
   | `body_uz` / `body_ru` / `body_en` | string | ✅ | Xabar matni (3 til) |
-  | `event` | string \| null | ➖ | Bog'langan tizim hodisasi. `null` = erkin/manual shablon. Qiymatlar: `application_accepted` \| `application_rejected` \| `service_group_started` \| `payment_overdue` \| `service_stage_started` \| `service_stage_completed`. |
+  | `event` | string \| null | ➖ | Bog'langan tizim hodisasi. `null` = erkin/manual shablon. Qiymatlar: `application_accepted` \| `application_rejected` \| `service_group_started` \| `service_group_completed` \| `service_group_confirmed` \| `service_group_rejected` \| `pipeline_completed` \| `payment_overdue` \| `offer_accepted` \| `offer_declined` \| `offer_funded`. |
   | `is_active` | bool | ➖ | Default `true` |
 
   ### 🔔 Auto-reply (event bog'langanda)
 
   `event` to'ldirilgan va `is_active=true` bo'lsa, o'sha hodisa sodir bo'lganda
-  shablon **avtomatik** nomzod bilan chat thread'iga xabar sifatida yuboriladi
-  (nomzod tilida — qurilma tili, fallback `uz`). `body` ichida quyidagi
-  `{placeholder}` lar ishlatilishi mumkin (almashtiriladi):
+  shablon **avtomatik** chat thread'iga system-xabar sifatida yoziladi va push
+  notification yuboriladi (nomzod tilida — qurilma tili, fallback `uz`). `body`
+  ichida quyidagi `{placeholder}` lar ishlatilishi mumkin (almashtiriladi):
 
-  | Event | Placeholderlar |
-  |---|---|
-  | `application_accepted` | `{candidate_name}`, `{vacancy_title}` |
-  | `application_rejected` | `{candidate_name}`, `{vacancy_title}`, `{rejection_reason}` |
-  | `service_group_started` | `{candidate_name}`, `{vacancy_title}`, `{stage_category}`, `{payment_deadline}` |
-  | `service_stage_started` | `{candidate_name}`, `{vacancy_title}`, `{stage_category}`, `{deadline}` |
-  | `service_stage_completed` | `{candidate_name}`, `{vacancy_title}`, `{stage_category}` |
-  | `payment_overdue` | `{candidate_name}`, `{vacancy_title}`, `{stage_category}`, `{amount}`, `{payment_deadline}` |
+  | Event | Placeholderlar | Push kimga |
+  |---|---|---|
+  | `application_accepted` | `{candidate_name}`, `{vacancy_title}` | nomzod + XBA |
+  | `application_rejected` | `{candidate_name}`, `{vacancy_title}`, `{rejection_reason}` | nomzod + XBA |
+  | `service_group_started` | `{candidate_name}`, `{vacancy_title}`, `{service_name}`, `{amount}`, `{currency}`, `{payment_deadline}` | nomzod + XBA |
+  | `service_group_completed` | `{candidate_name}`, `{vacancy_title}`, `{service_name}` | faqat XBA |
+  | `service_group_confirmed` | `{candidate_name}`, `{vacancy_title}`, `{service_name}` | nomzod + XBA |
+  | `service_group_rejected` | `{candidate_name}`, `{vacancy_title}`, `{service_name}`, `{rejection_reason}` | faqat XBA |
+  | `pipeline_completed` | `{candidate_name}`, `{vacancy_title}` | nomzod + XBA |
+  | `payment_overdue` | `{candidate_name}`, `{vacancy_title}`, `{service_name}`, `{amount}`, `{currency}`, `{payment_deadline}` | nomzod + XBA |
+  | `offer_accepted` | `{candidate_name}`, `{vacancy_title}` | faqat XBA |
+  | `offer_declined` | `{candidate_name}`, `{vacancy_title}` | faqat XBA |
+  | `offer_funded` | `{candidate_name}`, `{vacancy_title}` | faqat XBA |
 
-  > `service_stage_started` va `payment_overdue` xabarlari **faqat** mos faol
-  > shablon mavjud bo'lganda yuboriladi. Qolgan event'larda system xabar har doim
-  > ketadi; shablon faqat uning matnini (`body`) boyitadi.
+  > **Standart matn (default).** Tashkilotda mos faol shablon bo'lmasa ham xabar
+  > **har doim** yuboriladi — o'rnatilgan i18n standart matn ishlatiladi. Shablon
+  > qo'yilsa, uning matni standart matn o'rnini bosadi.
+  >
+  > **Push kimga.** System-xabar har doim umumiy chat tasmasida ikkala tomonga
+  > ko'rinadi; "Push kimga" ustuni faqat push notification kimga yuborilishini
+  > bildiradi (admin-ichki va nomzod amallari nomzodga push qilmaydi).
+  >
+  > Eski `service_stage_started` / `service_stage_completed` event'lari
+  > **eskirgan** (815aa95 refaktoridan keyin ishlatilmaydi) — yangi
+  > `service_group_*` event'larini ishlating.
 
   ### ⚠️ Errors
 

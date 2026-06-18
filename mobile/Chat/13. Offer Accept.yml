@@ -12,6 +12,10 @@ docs: |
   Nomzod chat ichidagi taklifni (Offer system-xabari) **qabul qiladi**. Bosqichlar
   yaratiladi, lekin **qabulda avtomatik to'lov (hold) bo'lmaydi** (Start → Pay → Execute).
 
+  > Chatga `type=system` (`kind: offer_accepted`) xabar yoziladi va **push faqat XBA**
+  > tomonga (nomzodning o'z amali — admin bilib tursin). Matn `offer_accepted`
+  > template'idan (yo'q bo'lsa standart matn).
+
   > ⚠️ **O'zgarish:** to'lov endi faqat admin/tashkilot guruhni **boshlagandan** keyin
   amalga oshadi. Qabuldan so'ng guruh `pending` holatda turadi; admin uni
   `POST /admin/chats/{id}/groups/{groupId}/start` orqali boshlaydi → guruh `awaiting_payment`

@@ -1,0 +1,50 @@
+info:
+  name: 1. Register Web Device
+  type: http
+  seq: 1
+http:
+  method: POST
+  url: '{{base_url}}/admin/device/register'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"device_id\": \"web-1a2b3c4d-5e6f-7890-abcd-ef1234567890\",\n  \"fcm_token\": \"REPLACE_WITH_WEB_FCM_TOKEN\",\n  \"app_version\": \"1.0.0\",\n  \"language\": \"uz\"\n}"
+  auth: inherit
+docs: |
+  Admin panel (browser) FCM **web** push token'ini ro'yxatdan o'tkazadi (yoki
+  yangilaydi). Token saqlangach, jarayon/chat bildirishnomalari mavjud
+  notification pipeline (NotificationService → FCM) orqali brauzerga ham
+  yetkaziladi. `os` doim `web` (so'rovda yuborilmaydi).
+
+  > **Frontend.** Next.js admin panel `firebase-messaging-sw.js` service worker +
+  > `getToken()` (VAPID key) orqali web token oladi va shu endpointga yuboradi.
+  > `device_id` — brauzer yaratgan barqaror UUID (localStorage'da saqlanadi).
+
+  **Auth:** `admin_token` (yoki org foydalanuvchi token'i).
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `device_id` | string | ✅ | Brauzer UUID (maks. 36 belgi). Bir brauzer = bir `device_id`. |
+  | `fcm_token` | string | ✅ | Firebase web push registration token. |
+  | `app_version` | string | ➖ | Admin panel versiyasi. |
+  | `language` | string | ➖ | `uz` \| `ru` \| `en`. Default `uz`. Push tili shu bo'yicha. |
+
+  ### 📤 Response
+
+  `201` — `{ "registered": true }`
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q/eskirgan |
+  | `422` | `device_id` yoki `fcm_token` bo'sh |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

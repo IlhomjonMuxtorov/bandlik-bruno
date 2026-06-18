@@ -43,6 +43,10 @@ docs: |
   Tashkilot guruhdagi **barcha xizmatlarni bir martada yakunlaydi**: guruhning
   `in_progress` / `overdue` bosqichlari **birvarakayiga** `completed` ga o'tadi.
 
+  > Chatga `type=system` (`kind: group_completed`) xabar yoziladi; **push faqat XBA**
+  > tomonga (admin tasdiqi kutilmoqda — admin-ichki bildirishnoma). Matn
+  > `service_group_completed` template'idan (yo'q bo'lsa standart matn).
+
   **Guruh turi bo'yicha oqim:**
 
   - **Training (`auto`)** — bu endpoint ishlatilmaydi (`400`); kurs progressi 100% ga yetganda

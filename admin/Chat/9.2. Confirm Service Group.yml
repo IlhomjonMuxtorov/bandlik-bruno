@@ -21,6 +21,12 @@ docs: |
   Admin **guruhni tasdiqlaydi**: barcha bosqichlar `xba_confirmed` ga o'tadi, hold settlement
   qilinadi va keyingi guruh `is_current=true` bo'ladi (sequential gate). Guruh turiga qarab:
 
+  > Chatga `type=system` (`kind: group_confirmed`) xabar yoziladi va **push** yuboriladi
+  > (nomzod + XBA) — "xizmat bajarildi". Bu oxirgi guruh bo'lsa, qo'shimcha
+  > `pipeline_completed` xabar+push ham ketadi; keyingi guruh avtomatik boshlansa, uning
+  > `group_started` xabari ham keladi. Matn `service_group_confirmed` /
+  > `pipeline_completed` template'idan (yo'q bo'lsa standart matn).
+
   - **Standart (Translation/Insurance/Visa/Logistics)** — oxirgi `pending_confirmation`
     urinishi `confirmed` ga o'tadi (avval `complete` qilingan bo'lishi shart). `attempt_id` bilan
     aniq urinish, yoki `null` — oxirgi pending.

@@ -23,6 +23,10 @@ docs: |
   guruhning barcha bosqichlari `completed` → `in_progress` ga qaytadi. Tashkilot qayta
   `complete` qilishi uchun guruh ochiq holda qoladi.
 
+  > Chatga `type=system` (`kind: group_rejected`) xabar yoziladi; **push faqat XBA**
+  > tomonga (tashkilot qayta topshirishi kerak — admin-ichki). Matn
+  > `service_group_rejected` template'idan (`{rejection_reason}` bilan; yo'q bo'lsa standart matn).
+
   > **XBA** va **Training** guruhlari uchun ishlatilmaydi (ular alohida oqimga ega).
 
   **Shart:** guruhda `pending_confirmation` statusdagi urinish mavjud bo'lishi kerak.

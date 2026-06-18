@@ -15,6 +15,10 @@ docs: |
   bilan** (guruh bo'yicha all-or-nothing); `single_payment = true` → barcha boshlangan guruhlar
   to'liq summa yetganda birga. To'langach bosqich `in_progress` va ijro muddati to'langan kundan boshlanadi.
 
+  > Bu chaqiruvda haqiqatan summa hold qilinsa (balans yetsa), chatga `type=system`
+  > (`kind: offer_funded`) xabar yoziladi va **push faqat XBA** tomonga (nomzod to'ladi).
+  > Matn `offer_funded` template'idan (yo'q bo'lsa standart matn).
+
   **Auth:** `access_token`. Taklif `confirmed` (qabul qilingan) bo'lishi shart.
   Idempotent — bir necha bor chaqirish xavfsiz. Balans hali yetmasa hech narsa o'zgarmaydi.
 
