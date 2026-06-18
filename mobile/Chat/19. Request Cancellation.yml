@@ -1,0 +1,63 @@
+info:
+  name: 19. Request Cancellation
+  type: http
+  seq: 19
+http:
+  method: POST
+  url: '{{base_url}}/mobile/chats/1/cancellation-request'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "reason": "Oilaviy sabablarga ko'ra jarayonni to'xtatmoqchiman"
+      }
+  auth: inherit
+docs: |
+  # POST /mobile/chats/&lt;id&gt;/cancellation-request
+
+  Nomzod **jarayonni to'xtatish** uchun sabab yozib so'rov yuboradi. So'rov chatda
+  `cancellation_requested` system-message sifatida ko'rinadi. Keyin **super admin yoki
+  XBA tashkilot** uni tasdiqlaydi yoki rad etadi — nomzod o'zi to'g'ridan-to'g'ri to'xtata olmaydi.
+
+  **Bir vaqtda faqat bitta** kutilayotgan so'rov bo'lishi mumkin. Chat detalidagi
+  `can_request_cancellation` (bool) maydoni so'rov yuborish mumkinligini **oldindan**
+  bildiradi; `cancellation_block_reason` esa nima uchun bloklanganini izohlaydi
+  (`request_pending` | `awaiting_service_confirmation` | `pipeline_finished` | `chat_closed`).
+
+  **Auth:** `access_token`. Chat shu nomzodga tegishli va piplayni faol bo'lishi shart.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `reason` | string | ✅ | To'xtatish sababi — chatga chiqadi. |
+
+  ### 📤 Response (201)
+
+  Yaratilgan so'rov obyekti:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | So'rov ID |
+  | `status` | string | `pending` |
+  | `source` | string | `candidate` |
+  | `reason` | string | Yuborilgan sabab |
+  | `decision_reason` | string \| null | Hozircha `null` |
+  | `refunded_amount` | int \| null | Tasdiqlanmaguncha `null` |
+  | `requested_at` | int | Unix ts |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `reason` bo'sh; allaqachon kutilayotgan so'rov bor; yoki jarayon yakunlangan |
+  | `403` | Chat boshqa nomzodga tegishli |
+  | `404` | Chat topilmadi yoki unda taklif yo'q |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

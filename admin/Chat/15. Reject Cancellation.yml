@@ -1,0 +1,52 @@
+info:
+  name: Reject Cancellation
+  type: http
+  seq: 15
+http:
+  method: POST
+  url: '{{base_url}}/admin/chats/1/cancellation-request/reject'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "reason": "Hozircha to'xtata olmaymiz — viza bosqichi yakunlanmoqda"
+      }
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+docs: |
+  # POST /admin/chats/&lt;id&gt;/cancellation-request/reject
+
+  Super admin / XBA tashkilot nomzodning **kutilayotgan to'xtatish so'rovini rad etadi**.
+  Rad sababi chatga `cancellation_rejected` system-message sifatida chiqadi. Piplayn
+  **ishlashda davom etadi** va chat ochiq qoladi — nomzod keyinroq **qayta** so'rov
+  yuborishi mumkin (bir vaqtda bitta so'rov cheklovi bo'shaydi).
+
+  **Auth:** `admin_token` — super admin yoki chatning XBA tashkiloti xodimi.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `reason` | string | ✅ | Rad etish sababi — nomzodga chatda ko'rsatiladi. |
+
+  ### 📤 Response
+
+  `{ success, data: <cancellation_request>, message: "Cancellation rejected" }` —
+  `status = rejected`, `decision_reason` to'ldirilgan.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `reason` bo'sh; kutilayotgan so'rov yo'q; yoki so'rov endi `pending` emas |
+  | `403` | Foydalanuvchi bu chatning XBA tomoniga kirolmaydi |
+  | `404` | Chat / piplayn topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

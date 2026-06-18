@@ -98,6 +98,9 @@ docs: |
   **Active Call:**
   - `active_call` (object | null) — aktiv (davom etayotgan/jiringlayotgan) qo'ng'iroq. `null` — qo'shiladigan qo'ng'iroq yo'q. Admin shu maydon orqali `POST /admin/chats/<id>/video-call/join` bilan qayta qo'shiladi. Obyekt: `{call_message_id, room_name, domain, started_by, started_at}`
 
+  **Cancellation (jarayonni to'xtatish so'rovi):**
+  - `pending_cancellation_request` (object | null) — nomzodning kutilayotgan to'xtatish so'rovi (bo'lsa): `{id, status, source, reason, decision_reason, refunded_amount, requested_at, decided_at}`. Super admin / XBA uni `POST /admin/chats/<id>/cancellation-request/approve` yoki `.../reject` orqali hal qiladi.
+
   ### ⚠️ Errors
 
   | Code | Reason |

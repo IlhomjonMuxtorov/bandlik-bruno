@@ -1,0 +1,41 @@
+info:
+  name: Approve Cancellation
+  type: http
+  seq: 14
+http:
+  method: POST
+  url: '{{base_url}}/admin/chats/1/cancellation-request/approve'
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+docs: |
+  # POST /admin/chats/&lt;id&gt;/cancellation-request/approve
+
+  Super admin / XBA tashkilot nomzodning **kutilayotgan to'xtatish so'rovini tasdiqlaydi**.
+  Natijada: hold qilingan, lekin xizmatlarga sarflanmagan (`reserved − captured`) mablag'
+  nomzod balansiga **qaytariladi**, ochiq guruhlar `skipped` bo'ladi, piplayn `cancelled`
+  ga o'tadi va **chat yopiladi**. Chatga `cancellation_approved` system-message qo'shiladi.
+
+  > **Bloklash:** agar biror guruh `completed` (tashkilot yetkazgan, lekin XBA hali
+  > tasdiqlamagan) holatda bo'lsa — avval o'sha guruhni `confirm` yoki `reject` qilish kerak;
+  > aks holda `400` qaytadi.
+
+  **Auth:** `admin_token` — super admin yoki chatning XBA tashkiloti xodimi.
+
+  ### 📤 Response
+
+  `{ success, data: <cancellation_request>, message: "Cancellation approved" }` —
+  `status = approved`, `refunded_amount` (so'mda) to'ldirilgan.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Kutilayotgan so'rov yo'q; so'rov endi `pending` emas; yoki yetkazilgan guruh tasdiqlanmagan |
+  | `403` | Foydalanuvchi bu chatning XBA tomoniga kirolmaydi |
+  | `404` | Chat / piplayn topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

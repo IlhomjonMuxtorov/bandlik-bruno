@@ -34,6 +34,9 @@ docs: |
   | `service_groups` | array | **Xizmat guruhlari = kuzatiladigan birlik** + guruh bo'yicha ketma-ket to'lov/bajarish holati. Guruh ichidagi xizmatlar `services[]` (billing line-item) da. Bo'sh massiv — pipeline yo'q. (Quyida tuzilishi) |
   | `offer` | object \| null | **Taklif + funding holati**. `null` — tashkilot arizani hali qabul qilmagan (pipeline yo'q). Nomzod taklifni shu yerdan **qabul/rad/bekor** qiladi: `POST /mobile/chats/<id>/offer/{accept,decline,fund,cancel}` |
   | `active_call` | object \| null | **Aktiv (davom etayotgan/jiringlayotgan) qo'ng'iroq**. `null` — qo'shiladigan qo'ng'iroq yo'q. Push kelmagan / chat qayta ochilgan holatda mijoz shu maydon orqali "Join" tugmasini ko'rsatadi va `POST /mobile/chats/<id>/video-call/join` chaqiradi. Obyekt: `{call_message_id, room_name, domain, started_by, started_at}` |
+  | `can_request_cancellation` | bool | Hozir **jarayonni to'xtatish so'rovi** yuborish mumkinmi (`POST /mobile/chats/<id>/cancellation-request`). Mijoz tugmani shu flag bilan oldindan yoqadi/o'chiradi |
+  | `cancellation_block_reason` | string \| null | Bloklangan bo'lsa sabab kodi: `request_pending` (kutilayotgan so'rov bor) \| `pipeline_finished` \| `chat_closed` \| `no_pipeline`. `can=true` da `null`. (Yetkazilgan-lekin-tasdiqlanmagan guruh **yuborishni** bloklamaydi — bu approval'da tekshiriladi) |
+  | `pending_cancellation_request` | object \| null | Kutilayotgan to'xtatish so'rovi (bo'lsa): `{id, status, source, reason, decision_reason, refunded_amount, requested_at, decided_at}` |
 
   `offer` obyekti (mavjud bo'lsa):
 

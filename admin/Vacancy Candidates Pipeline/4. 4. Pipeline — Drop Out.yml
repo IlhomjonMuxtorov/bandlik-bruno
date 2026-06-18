@@ -12,13 +12,23 @@ http:
     type: json
     data: "{\n  \"reason\": \"Nomzod muddatni o'tkazdi\"\n}"
   auth: inherit
-docs: 'Pipeline''ni **bekor qiladi** (erta chiqish): `pipeline_outcome = cancelled`,
-  `current_stage = cancelled`, `cancel_reason` saqlanadi, hali band qilingan (settle
-  qilinmagan) mablag'' kandidatga qaytariladi va ochiq bosqichlar `skipped` ga o''tadi,
-  chat yopiladi. Allaqachon yakunlangan/bekor qilingan pipeline uchun no-op.
+docs: 'Pipeline''ni **bekor qiladi** (erta chiqish). Endi to''g''ridan-to''g''ri emas —
+  to''xtatish so''rovi/approval **gateway**idan o''tadi: admin-manbali (`source=admin`)
+  cancellation request yaratilib **o''sha zahoti tasdiqlanadi** (`approve`). Natija:
+  `pipeline_outcome = cancelled`, `current_stage = cancelled`, `cancel_reason` saqlanadi,
+  hali band qilingan (settle qilinmagan) mablag'' kandidatga qaytariladi, ochiq guruhlar
+  `skipped` ga o''tadi, chat yopiladi. Agar nomzod allaqachon **kutilayotgan so''rov** yuborgan
+  bo''lsa — yangi so''rov yaratilmay, o''sha tasdiqlanadi.
 
 
-  **Auth:** Admin yoki vakansiya egasi.
+  > **Faqat super admin.** Vakansiya egasi / rekruter bu yerdan to''g''ridan-to''g''ri
+  > to''xtata olmaydi (`403`). Nomzod esa mobil ilovadagi so''rov oqimidan foydalanadi.
+
+  > **Bloklash:** biror guruh `completed` (yetkazilgan, XBA tasdiqlamagan) bo''lsa — avval
+  > o''sha guruhni `confirm`/`reject` qilish kerak, aks holda `400`.
+
+
+  **Auth:** Faqat super admin (`admin_token`, `UserType::Admin`).
 
 
   ### 📥 Request Body
@@ -28,7 +38,7 @@ docs: 'Pipeline''ni **bekor qiladi** (erta chiqish): `pipeline_outcome = cancell
 
   |---|---|:---:|---|
 
-  | `reason` | string | ✅ | Bekor qilish sababi — `cancel_reason` ga yoziladi |
+  | `reason` | string | ✅ | Bekor qilish sababi — `cancel_reason` ga yoziladi. (Kutilayotgan so''rov bo''lsa shart emas — o''sha so''rov sababi ishlatiladi) |
 
 
   ### 📤 Response
@@ -50,9 +60,11 @@ docs: 'Pipeline''ni **bekor qiladi** (erta chiqish): `pipeline_outcome = cancell
 
   |---|---|
 
-  | `400` | Invalid request data |
+  | `400` | `reason` bo''sh; yoki yetkazilgan guruh hali tasdiqlanmagan |
 
   | `401` | Unauthorized |
+
+  | `403` | Super admin emas |
 
   | `404` | Not found |
 
