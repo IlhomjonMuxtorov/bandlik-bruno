@@ -12,9 +12,29 @@ http:
     type: json
     data: |-
       {
-        "document_ids": [1, 2],
-        "visa_granted": true,
-        "visa_notes": "Viza berildi, 2 yillik"
+        "document_ids": [101, 102],
+        "travel": {
+          "departure_country": "Uzbekistan",
+          "departure_city": "Tashkent",
+          "departure_airport": "TAS",
+          "departure_at": 1782034200,
+          "arrival_country": "Germany",
+          "arrival_city": "Frankfurt",
+          "arrival_airport": "FRA",
+          "arrival_at": 1782057600,
+          "airline": "Uzbekistan Airways",
+          "flight_number": "HY 271",
+          "baggage": 30,
+          "sender_name": "Global SkillHub Logistics",
+          "sender_phone": "+998901234567",
+          "sender_address": "Tashkent, Amir Temur ko'chasi 12",
+          "sender_at": 1782028800,
+          "receiver_name": "Hans Müller",
+          "receiver_phone": "+4915112345678",
+          "receiver_pickup_address": "Frankfurt, Hauptbahnhof 1",
+          "receiver_pickup_at": 1782061200,
+          "air_ticket_upload_file_id": 555
+        }
       }
   auth:
     mode: bearer
@@ -25,10 +45,10 @@ docs: |
 
   **Guruh turi bo'yicha oqim:**
 
-  - **Training (`auto`)** — bu endpoint ishlatilmaydi; kurs progressi 100% ga yetganda
-    guruh avtomatik `xba_confirmed` ga o'tadi.
-  - **XBA (`single`)** — yakunlash = darhol `xba_confirmed` + settlement (alohida tasdiqlash
-    qadami yo'q).
+  - **Training (`auto`)** — bu endpoint ishlatilmaydi (`400`); kurs progressi 100% ga yetganda
+    guruh avtomatik `xba_confirmed` ga o'tadi (yoki admin `confirm` orqali qo'lda tasdiqlaydi).
+  - **XBA (`single`)** — bu endpoint ishlatilmaydi (`400`); XBA'da alohida `complete` qadami
+    yo'q — `confirm` (9.2) to'g'ridan-to'g'ri settle qiladi.
   - **Standart (Translation/Insurance/Visa/Logistics, `standard`)** — yakunlash
     `pending_confirmation` urinish yozuvi yaratadi; admin keyinchalik `confirm` yoki
     `reject` qiladi.
@@ -68,6 +88,60 @@ docs: |
   | `travel.receiver_pickup_at` | int | ➖ | Kutib olish vaqti (unix ts). |
 
   > Logistika guruhi `travel.air_ticket_upload_file_id` siz yakunlansa — `400`.
+
+  ### 📦 Body misollar (guruh turi bo'yicha)
+
+  Body **guruh turiga qarab farq qiladi** — quyidagi variantlardan mosini yuboring:
+
+  **Standart (Translation / Insurance va boshqa standart guruhlar)** — faqat proof fayllar
+  (tarjima qilingan hujjat / sug'urta polisi `upload_file.id` lari):
+
+  ```json
+  { "document_ids": [101, 102] }
+  ```
+
+  **Visa guruhi** — viza natijasi + proof:
+
+  ```json
+  {
+    "document_ids": [101],
+    "visa_granted": true,
+    "visa_notes": "Viza berildi, 2 yillik"
+  }
+  ```
+
+  **Logistika guruhi** — safar ma'lumotlari (`travel.air_ticket_upload_file_id` **majburiy**):
+
+  ```json
+  {
+    "document_ids": [101, 102],
+    "travel": {
+      "departure_country": "Uzbekistan",
+      "departure_city": "Tashkent",
+      "departure_airport": "TAS",
+      "departure_at": 1782034200,
+      "arrival_country": "Germany",
+      "arrival_city": "Frankfurt",
+      "arrival_airport": "FRA",
+      "arrival_at": 1782057600,
+      "airline": "Uzbekistan Airways",
+      "flight_number": "HY 271",
+      "baggage": 30,
+      "sender_name": "Global SkillHub Logistics",
+      "sender_phone": "+998901234567",
+      "sender_address": "Tashkent, Amir Temur ko'chasi 12",
+      "sender_at": 1782028800,
+      "receiver_name": "Hans Müller",
+      "receiver_phone": "+4915112345678",
+      "receiver_pickup_address": "Frankfurt, Hauptbahnhof 1",
+      "receiver_pickup_at": 1782061200,
+      "air_ticket_upload_file_id": 555
+    }
+  }
+  ```
+
+  > **Training** (`auto`) va **XBA** (`single`) guruhlarida bu endpoint chaqirilmaydi (`400`) —
+  > body yuborilmaydi. Training avtomatik, XBA esa to'g'ridan-to'g'ri `confirm` (9.2) orqali.
 
   ### 📤 Response
 

@@ -18,16 +18,19 @@ http:
     mode: bearer
     bearer: '{{ admin_token }}'
 docs: |
-  Admin **standart guruhni tasdiqlaydi** (Translation/Insurance/Visa/Logistics): oxirgi
-  `pending_confirmation` urinishi `confirmed` ga o'tadi, barcha bosqichlar `xba_confirmed`
-  ga o'tadi va hold settlement qilinadi. Tasdiqdan keyin keyingi guruh `is_current=true`
-  bo'ladi (sequential gate).
+  Admin **guruhni tasdiqlaydi**: barcha bosqichlar `xba_confirmed` ga o'tadi, hold settlement
+  qilinadi va keyingi guruh `is_current=true` bo'ladi (sequential gate). Guruh turiga qarab:
 
-  > **XBA guruhi** bu endpointdan foydalanmaydi — u single-step: `complete` = darhol
-  > `xba_confirmed`. **Training guruhi** — avtomatik (kurs progressi orqali).
+  - **Standart (Translation/Insurance/Visa/Logistics)** — oxirgi `pending_confirmation`
+    urinishi `confirmed` ga o'tadi (avval `complete` qilingan bo'lishi shart). `attempt_id` bilan
+    aniq urinish, yoki `null` — oxirgi pending.
+  - **XBA (`single`)** — alohida `complete` qadami **yo'q**: bu endpoint to'g'ridan-to'g'ri
+    settle qiladi. Guruh `is_current`, to'liq to'langan va `in_progress`/`overdue` bo'lishi shart.
+  - **Training (`auto`)** — odatda kurs 100% da avtomatik tasdiqlanadi; admin shu endpoint orqali
+    **qo'lda** ham tasdiqlashi mumkin (kurs tugamasa ham), guruh to'langan + `in_progress` bo'lsa.
 
-  **Shart:** guruhda `pending_confirmation` statusdagi urinish mavjud bo'lishi kerak —
-  aks holda `400`.
+  **Shart:** standart guruhda `pending_confirmation` urinish mavjud bo'lishi kerak; XBA/Training'da
+  urinish shart emas, lekin guruh to'langan va ijroda bo'lishi kerak — aks holda `400`.
 
   **Auth:** `admin_token`.
 

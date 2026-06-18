@@ -103,15 +103,18 @@ docs: 'Vakansiya pipeline''idagi nomzodlar (`accepted_at DESC`).
 
   | `accepted_at` / `departed_at` | int \| null | |
 
-  | `stages` | array | "Joriy status" bosqichlari (`sort_order ASC`). Har biri: `{id,
-  category, category_label, service_name, amount, currency, funded, status, status_label,
-  service_group_id, responsible_user, organization, started_at, payment_deadline_at, deadline_at, completed_at, progress_percent, sort_order}`.
-  `responsible_user` = xizmatni beruvchi tashkilot useri `{id, username, full_name, phone,
-  photo_url}`; `organization` = `{id, name, type, type_label, logo_url}` |
+  | `service_groups` | array | **Xizmat GURUHI = kuzatiladigan birlik**; Start→Pay→Execute→Complete→Confirm
+  holatini guruh darajasida olib yuradi (eski top-level `stages[]` massiv olib tashlangan). Har biri:
+  `{service_group_id, group_type, completion_flow, organization, responsible_user, services[], status,
+  status_label, required_amount, funded_amount, awaiting_amount, discount_amount, currency, started,
+  awaiting_start, fully_funded, is_current, started_at, payment_deadline_at, execution_deadline_at,
+  completed_at, time_left_text, skipped, fully_completed, confirmed, can_start, can_complete,
+  can_confirm, can_reject, last_attempt, documents[]}`.
+  `responsible_user` = `{id, username, full_name, phone, photo_url}`; `organization` = `{id, name, type, type_label, logo_url}` |
 
-  | `service_groups` | array | Bosqichlar **tashkilot bo''yicha guruhlangan** + guruh bo''yicha
-  ketma-ket to''lov holati: `{organization, responsible_user, stages[], required_amount,
-  funded_amount, awaiting_amount, currency, started, awaiting_start, fully_funded, is_current, payment_deadline_at, paid_percent, progress_percent}` |
+  | `service_groups[].services` | array | Guruh ichidagi billing line-item''lar: `{id, service_id,
+  category, category_label, service_name, amount, discount_amount, original_amount, currency, sort_order,
+  course_progress_percent}`. `course_progress_percent` (int\|null) — `training` kursning jonli progressi (0–100); kursga bog''lanmagan line uchun `null` |
 
   '
 settings:

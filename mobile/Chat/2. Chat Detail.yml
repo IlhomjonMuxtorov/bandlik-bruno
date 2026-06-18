@@ -9,7 +9,12 @@ http:
     type: none
   auth: inherit
 docs: |
-  Bir chatning to'liq detali — list summary + pinlangan **candidate_card** snapshot + **service stages** tracker (faqat ariza qabul qilingan bo'lsa).
+  Bir chatning to'liq detali — list summary + pinlangan **candidate_card** snapshot + **service GROUP** tracker (faqat ariza qabul qilingan bo'lsa).
+
+  > **18.06 refactor:** xizmat GURUHI = kuzatiladigan birlik. Status / to'lov muddati /
+  > bajarish muddati / boshlanish vaqti endi **guruh** darajasida (`service_groups[]`).
+  > Guruh ichidagi alohida xizmatlar — `services[]` (faqat billing line-item, alohida
+  > bajarildi belgilanmaydi). Eski `service_groups[].stages[]` → `service_groups[].services[]`.
 
   **Auth:** `access_token`.
 
@@ -26,7 +31,7 @@ docs: |
   | Field | Type | Description |
   |---|---|---|
   | `candidate_card` | object \| null | Pinlangan obyektivka. `{candidate_id, application_id, full_name, photo_url, phone, cv_id, cv_title}`. Conversation ochilishda system message sifatida birinchi xabar sifatida |
-  | `service_groups` | array | **Xizmatlar tashkilot bo'yicha guruhlangan** + guruh bo'yicha ketma-ket to'lov holati (bosqichlar guruh ichida `stages[]` da). Bo'sh massiv — pipeline yo'q. (Quyida tuzilishi) |
+  | `service_groups` | array | **Xizmat guruhlari = kuzatiladigan birlik** + guruh bo'yicha ketma-ket to'lov/bajarish holati. Guruh ichidagi xizmatlar `services[]` (billing line-item) da. Bo'sh massiv — pipeline yo'q. (Quyida tuzilishi) |
   | `offer` | object \| null | **Taklif + funding holati**. `null` — tashkilot arizani hali qabul qilmagan (pipeline yo'q). Nomzod taklifni shu yerdan **qabul/rad/bekor** qiladi: `POST /mobile/chats/<id>/offer/{accept,decline,fund,cancel}` |
   | `active_call` | object \| null | **Aktiv (davom etayotgan/jiringlayotgan) qo'ng'iroq**. `null` — qo'shiladigan qo'ng'iroq yo'q. Push kelmagan / chat qayta ochilgan holatda mijoz shu maydon orqali "Join" tugmasini ko'rsatadi va `POST /mobile/chats/<id>/video-call/join` chaqiradi. Obyekt: `{call_message_id, room_name, domain, started_by, started_at}` |
 
@@ -47,61 +52,58 @@ docs: |
   | `captured_amount` | int | Xizmatlarga yechib o'tkazilgan |
   | `remaining_hold` | int | Hali band'da turgan (bekor qilishda qaytadigan) |
 
-  > `offer` faqat **jami** ko'rsatkichlar. Per-xizmat detal va tashkilot bo'yicha guruhlangan to'lov holati yuqori darajadagi `service_groups[]` (va undagi `stages[]`) da.
+  > `offer` faqat **jami** ko'rsatkichlar. To'lov/bajarish holati guruh darajasida `service_groups[]` da; guruh ichidagi xizmatlar `services[]` (billing line-item).
 
-  ### 🗂 `service_groups[]` — tashkilot bo'yicha guruh
+  ### 🗂 `service_groups[]` — xizmat guruhi (kuzatiladigan birlik)
 
-  Oqim: **Start → Pay → Execute**. Admin/tashkilot guruhni boshlaydi (`started`), shunda kandidat to'lay oladi. To'lov **guruh bo'yicha, ketma-ket** (sort tartibida; oldingi to'lanmaguncha keyingisi `is_current` bo'lmaydi). Guruh ichida — hammasi yoki hech narsa.
+  Oqim: **Start → Pay → Execute → Complete → Confirm**. Admin/tashkilot guruhni boshlaydi (`started`), shunda kandidat to'lay oladi. To'lov **guruh bo'yicha, ketma-ket** (sort tartibida; oldingi tasdiqlanmaguncha keyingisi `is_current` bo'lmaydi). Guruh ichida — hammasi yoki hech narsa. Status / muddatlar / boshlanish vaqti **guruh** darajasida.
 
-  > **Kurs chegirmasi (Task 21):** agar nomzod vakansiyaning `training` bosqichidagi kursni **avval to'liq sotib olgan** bo'lsa (mustaqil mobil xarid yoki boshqa vakansiya doirasida), o'sha bosqich avtomatik **bepul** bo'ladi: `amount = 0`, `discount_amount = original_amount`. Chegirma bosqich yaratilganda (taklif qabulida) bir marta hisoblanadi.
+  > **Kurs chegirmasi (Task 21):** agar nomzod vakansiyaning `training` guruhidagi kursni **avval to'liq sotib olgan** bo'lsa, o'sha xizmat avtomatik **bepul** bo'ladi: `amount = 0`, `discount_amount = original_amount`. Chegirma guruh yaratilganda (taklif qabulida) bir marta hisoblanadi.
 
   | Field | Type | Description |
   |---|---|---|
-  | `service_group_id` | int \| null | Guruhning `VacancyServiceGroup.id`'si — `POST /admin/chats/<id>/groups/{groupId}/start` uchun ishlatiladi. Eski/guruhlanmagan bosqichlar uchun `null` |
+  | `service_group_id` | int \| null | Guruhning `VacancyServiceGroup.id`'si — `POST /admin/chats/<id>/groups/{groupId}/start\|complete\|confirm\|reject` uchun |
+  | `group_type` | string | `training` \| `translation_apostil` \| `insurance` \| `visa` \| `xba` \| `logistics` |
+  | `completion_flow` | string | `auto` (training) \| `single` (xba) \| `standard` (qolganlari) |
   | `organization` | object \| null | `{id, name, type, type_label, logo_url}` — xizmatni beruvchi tashkilot |
   | `responsible_user` | object \| null | Tashkilotning mas'ul useri: `{id, username, full_name, phone, photo_url}` |
-  | `stages` | array | Shu guruhdagi bosqichlar (quyidagi `stages[]` struktura) |
+  | `services` | array | Guruh ichidagi xizmatlar = billing line-item (quyidagi `services[]` struktura) |
+  | `status` | string | `pending` \| `awaiting_payment` \| `in_progress` \| `completed` \| `xba_confirmed` \| `overdue` \| `payment_overdue` \| `skipped` |
+  | `status_label` | string | tarjima qilingan status |
   | `required_amount` | int | Guruh jami — **chegirmadan keyingi** to'lanadigan summa (so'm) |
   | `funded_amount` | int | Guruhda band qilingan (so'm) |
   | `awaiting_amount` | int | Guruhni to'lash uchun yetishmayotgan (so'm) |
-  | `discount_amount` | int | **Guruhdagi jami chegirma** (so'm) — avval to'liq sotib olingan kurslar bepul bo'lganda > 0 |
+  | `discount_amount` | int | **Guruhdagi jami chegirma** (so'm) |
   | `currency` | string | Valyuta (UZS) |
   | `started` | bool | Admin/tashkilot guruhni boshlaganmi (to'lov oynasi ochilganmi) |
-  | `awaiting_start` | bool | Guruh hali boshlanmagan (kandidat boshlanishini kutmoqda) |
-  | `fully_funded` | bool | Guruhning barcha (skipped emas) bosqichlari to'langanmi |
-  | `is_current` | bool | **Hozir to'lanishi mumkin** (boshlangan + to'lanmagan). Ketma-ket vakansiyada faqat birinchi shunday guruh; `single_payment` da barcha boshlangan to'lanmagan guruhlar |
-  | `payment_deadline_at` | int \| null | Guruhning to'lov muddati (unix ts; boshlangach o'rnatiladi) |
-  | `paid_percent` | int | **Guruh uchun necha foiz to'langani** (`funded_amount / required_amount`, 0–100) |
-  | `progress_percent` | int | Guruh o'rtacha bajarilish progressi (0–100) |
+  | `awaiting_start` | bool | Guruh hali boshlanmagan |
+  | `fully_funded` | bool | Guruh to'liq to'langanmi (hold qo'yilgan) |
+  | `is_current` | bool | Ketma-ket pipeline'da hozir aktiv guruh (oldingilar tasdiqlangan, bu hali emas) |
+  | `started_at` | int \| null | Guruh boshlangan vaqt (unix ts) |
+  | `payment_deadline_at` | int \| null | Guruhning to'lov muddati (unix ts) |
+  | `execution_deadline_at` | int \| null | Guruhning bajarish muddati (unix ts; to'langan kundan) |
+  | `completed_at` | int \| null | Tashkilot guruhni bajarildi belgilagan vaqt |
+  | `time_left_text` | string \| null | Aktiv guruh soatining qolgan vaqti, status'ga qarab boshqa deadline'ga nisbatan: `awaiting_payment` da `payment_deadline_at`gacha, `in_progress`/`overdue` da `execution_deadline_at`gacha; boshqa statusda `null`. Format: "6 d, 23 h" / "7 d" / "23 h" / "{n} min" / "Deadline passed" |
+  | `skipped` / `fully_completed` / `confirmed` | bool | Guruh holati flaglari |
+  | `can_start` / `can_complete` / `can_confirm` / `can_reject` | bool | Guruh action affordance'lari (admin tomonidan bajariladi; hammasi faqat `is_current` da). `can_start` — boshlash; `can_complete` — tashkilot bajarildi belgilashi (faqat standart guruhlar); `can_confirm` — XBA tasdig'i (standard: pending attempt; training & xba: fund qilingan + `in_progress`, training'da kurs tugamasa ham); `can_reject` — pending completion attempt'ni rad etish (training/xba'da doim `false`). Batafsil: admin Chat Detail docs |
+  | `last_attempt` | object \| null | Oxirgi complete urinishi (`pending_confirmation`/`confirmed`/`rejected` + `rejection_reason` + `visa_granted`/`visa_notes`) |
+  | `documents` | array | Guruhga biriktirilgan isbot fayllari |
 
-  Har `service_groups[].stages[]` elementi:
+  Har `service_groups[].services[]` elementi (billing line-item — alohida bajarildi belgilanmaydi):
 
   | Field | Type | Description |
   |---|---|---|
-  | `id` | int | stage id |
-  | `service_group_id` | int \| null | tegishli kategoriya guruhi id |
+  | `id` | int | line-item id |
+  | `service_id` | int \| null | `vacancy_service.id` |
   | `category` | string | `agency` \| `notarius` \| `insurance` \| `logistics` \| `visa` \| `translation_apostille` \| `training` |
   | `category_label` | string | tarjima qilingan label |
   | `service_name` | string \| null | vacancy_service snapshot nomi |
-  | `amount` | int | **To'lanadigan summa** (so'm) — qabul paytida snapshot. Avval to'liq sotib olingan kurs uchun `0` (chegirma) |
-  | `discount_amount` | int | **Chegirma** (so'm). `training` bosqichida, nomzod o'sha kursni avval to'liq sotib olgan bo'lsa = `original_amount` (bosqich bepul); aks holda `0` |
-  | `original_amount` | int | Chegirmagacha bo'lgan asl narx (so'm) = `amount + discount_amount` |
+  | `amount` | int | **To'lanadigan summa** (so'm) — qabul paytida snapshot. Avval to'liq sotib olingan kurs uchun `0` |
+  | `discount_amount` | int | **Chegirma** (so'm) |
+  | `original_amount` | int | Chegirmagacha asl narx (so'm) = `amount + discount_amount` |
   | `currency` | string | Valyuta (UZS) |
-  | `funded` | bool | Nomzod puli shu xizmat uchun band qilinganmi (to'langanmi) |
-  | `status` | string | `pending` \| `awaiting_payment` \| `in_progress` \| `completed` \| `overdue` \| `payment_overdue` \| `skipped` |
-  | `status_label` | string | tarjima qilingan |
-  | `responsible_user` | object \| null | Tashkilotdan: `{id, username, full_name, phone, photo_url}` (mas'ul — xizmatni beruvchi tashkilot useri) |
-  | `organization` | object \| null | `{id, name, type, type_label, logo_url}` — xizmatni beruvchi tashkilot |
-  | `started_at` | int \| null | Guruh boshlangan vaqt (unix ts) |
-  | `payment_deadline_at` | int \| null | To'lov muddati (unix ts) — `awaiting_payment` da |
-  | `payment_time_left_text` | string \| null | To'lovgacha qolgan vaqt (server-localized) |
-  | `deadline_at` | int \| null | Ijro muddati (unix ts) — to'langan kundan |
-  | `deadline_at_formatted` | string \| null | `d.m.Y H:i` (Asia/Tashkent) |
-  | `completed_at` | int \| null | |
-  | `completed_at_formatted` | string \| null | `d.m.Y H:i` (Asia/Tashkent) |
-  | `progress_percent` | int | 0–100 |
-  | `time_left_text` | string \| null | "7 d", "1 d, 2 h", "Deadline passed" — server-localized |
   | `sort_order` | int | UI tartibi |
+  | `course_progress_percent` | int \| null | `training` kursning jonli progressi (0–100); kursga bog'lanmagan line-item uchun `null` |
 
   ### ⚠️ Errors
 

@@ -22,16 +22,64 @@ docs: |
 
   Mobile `Chat Detail` bilan bir xil shape, lekin `unread_count` XBA tomonidan.
 
-  - `service_groups[]` — bosqichlar **tashkilot bo'yicha guruhlangan** + Start→Pay→Execute
-  holati: `{service_group_id, organization, responsible_user, stages[], required_amount, funded_amount, awaiting_amount,
-  discount_amount, currency, started, awaiting_start, fully_funded, is_current, payment_deadline_at, paid_percent,
-  progress_percent}`. `service_group_id` (int|null) — guruhning `VacancyServiceGroup.id`'si,
-  `POST /admin/chats/<id>/groups/{groupId}/start` uchun. Har `stages[]` elementi `service_group_id`, `started_at`, `payment_deadline_at`,
-  `payment_time_left_text`, `amount`, `discount_amount`, `original_amount` (=`amount + discount_amount`), boyitilgan `responsible_user` (`{id, username, full_name, phone, photo_url}`)
-  va `organization` (`{id, name, type, type_label, logo_url}`) bilan; status'lar: `pending`,
-  `awaiting_payment`, `in_progress`, `completed`, `overdue`, `payment_overdue`, `skipped`.
+  - `service_groups[]` — **xizmat GURUHI = kuzatiladigan birlik** (ish birligi). Har bir guruh
+  Start→Pay→Execute→Complete→Confirm holatini **guruh darajasida** olib yuradi:
+  `{service_group_id, group_type, completion_flow, organization, responsible_user, services[],
+  status, status_label, required_amount, funded_amount, awaiting_amount, discount_amount, currency,
+  started, awaiting_start, fully_funded, is_current, started_at, payment_deadline_at,
+  execution_deadline_at, completed_at, time_left_text, skipped,
+  fully_completed, confirmed, can_start, can_complete, can_confirm, can_reject, last_attempt, documents[]}`.
+  `service_group_id` (int|null) — guruhning `VacancyServiceGroup.id`'si,
+  `POST /admin/chats/<id>/groups/{groupId}/start|complete|confirm|reject` uchun.
+  Guruh status'lari: `pending`, `awaiting_payment`, `in_progress`, `completed`, `xba_confirmed`,
+  `overdue`, `payment_overdue`, `skipped`.
+  `time_left_text` (string|null) — aktiv guruh soatining qolgan vaqti, status'ga qarab boshqa
+  deadline'ga nisbatan: `awaiting_payment` da `payment_deadline_at`gacha, `in_progress`/`overdue`
+  da `execution_deadline_at`gacha; boshqa statusda `null`. Format: `"6 d, 23 h"` / `"7 d"` /
+  `"23 h"` / `"{n} min"` (min 1) / muddat o'tgan bo'lsa `"Deadline passed"`.
+  - `services[]` — guruh ichidagi alohida xizmatlar = **faqat billing line-item**lar (alohida
+  bajarildi belgilanmaydi): `{id, service_id, category, category_label, service_name, amount,
+  discount_amount, original_amount (=amount + discount_amount), currency, sort_order,
+  course_progress_percent}`. `course_progress_percent` (int|null) — `training` kursning jonli
+  progressi (0–100, `CourseLessonProgress` dan); kursga bog'lanmagan line uchun `null`.
 
-  > **Kurs chegirmasi (Task 21):** `training` bosqichidagi kursni nomzod **avval to'liq sotib olgan** bo'lsa, bosqich bepul bo'ladi (`amount = 0`, `discount_amount = original_amount`); guruh `discount_amount` shu chegirmalar yig'indisi.
+  **Affordance flaglari (`can_*`) — admin UI tugmalari.** Hammasi faqat guruh joriy bo'lganda
+  (`is_current = true`, ya'ni avvalgi barcha guruhlar tasdiqlangan/skip) ishlaydi. Har biri mos
+  `POST /admin/chats/<id>/groups/{groupId}/{action}` endpointiga teng:
+
+  | Flag | `true` sharti | Action |
+  |---|---|---|
+  | `can_start` | guruh hali boshlanmagan, terminal emas (`!started && !confirmed && !skipped`) | `start` — guruhni boshlaydi (hold + `awaiting_payment`/`in_progress`) |
+  | `can_complete` | `fully_funded` + status `in_progress`/`overdue` + `completion_flow = standard` (faqat standart guruhlar; `training`/`xba` da hech qachon) | `complete` — tashkilot ishni bajarildi belgilaydi |
+  | `can_confirm` | **standard:** status `completed` + pending attempt bor (`last_attempt.status = pending_confirmation`). **training & xba:** `fully_funded` + status `in_progress`/`overdue` (attempt shart emas; training'da kurs %<100 bo'lsa ham) | `confirm` — XBA tasdiqlaydi, hold tashkilotga capture qilinadi, keyingi guruh ochiladi |
+  | `can_reject` | pending attempt bor (`last_attempt.status = pending_confirmation`) — faqat standart guruhlar | `reject` (+`rejection_reason`) — urinishni rad etadi |
+
+  **Complete → Confirm/Reject sikli (standard guruhlar):** tashkilot `complete` qiladi → `completed`
+  status + `pending_confirmation` attempt yaratiladi → admin `confirm` **yoki** `reject` qiladi:
+  - `confirm` → attempt `confirmed`, hold capture, keyingi guruh avtomatik ochiladi.
+  - `reject` → attempt `rejected` (+ sabab, tarix saqlanadi), guruh `completed` → qaytib `in_progress`
+    (`completed_at=null`, `progress_percent=0`), tashkilot qayta yuborishi mumkin.
+
+  Oxirgi urinish tafsiloti `last_attempt` da. `training`/`xba` guruhlarda completion attempt
+  yo'q, shuning uchun `can_reject` ularda doim `false`.
+
+  > **Eslatma (18.06 refactor):** to'lov muddati / bajarish muddati / boshlanish vaqti / status
+  endi `stages` (alohida xizmat) darajasida emas, **guruh** darajasida. Eski top-level `stages[]`
+  massiv va `POST /admin/chats/<id>/stages/{id}/status|confirm|reject` endpointlari **olib tashlandi**.
+
+  > **Training guruhni qo'lda tasdiqlash:** `training` (`completion_flow = auto`) odatda kurs
+  100% bo'lganda avtomatik tasdiqlanadi. Admin uni **qo'lda ham** tasdiqlashi mumkin — nomzod
+  kursni tugatmagan bo'lsa ham (`confirm` jarayonni keyingi guruhga o'tkazadi). Shuning uchun
+  `training` guruh joriy (`is_current`), to'liq fund qilingan va `in_progress`/`overdue` bo'lsa
+  `can_confirm = true` qaytadi (kurs progressidan qat'i nazar). Har bir kurs progressi
+  `services[].course_progress_percent` da ko'rinadi.
+
+  > **XBA guruh — confirm-only:** `xba` (`completion_flow = single`) da alohida `complete`
+  qadami **yo'q** (`complete` chaqirilsa `400`). XBA navbati kelganda (joriy, to'liq fund qilingan,
+  `in_progress`/`overdue`) admin to'g'ridan-to'g'ri `confirm` qiladi — guruh `xba_confirmed` ga
+  o'tadi, hold capture qilinadi, keyingi guruh ochiladi. `can_complete = false`, `can_reject = false`.
+
+  > **Kurs chegirmasi (Task 21):** `training` guruhidagi kursni nomzod **avval to'liq sotib olgan** bo'lsa, xizmat bepul bo'ladi (`amount = 0`, `discount_amount = original_amount`); guruh `discount_amount` shu chegirmalar yig'indisi.
 
   > **Pul birligi:** barcha summalar (`amount`, `discount_amount`, `original_amount`, `required_amount`, `funded_amount`, `awaiting_amount`) — **so'm**da (valyutaga mos major unit; avval tiyin qaytarilar edi, endi DB tiyinda saqlab backend chegarada konvertatsiya qiladi).
 

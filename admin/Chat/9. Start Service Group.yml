@@ -49,7 +49,7 @@ docs: |
   `{ success, data: service_groups[], message: "Service group started" }` — yangilangan
   guruhlangan ko'rinish (chat detaildagi `service_groups` bilan bir xil struktura;
   boshlangan guruh `is_current=true`). Har `service_groups[]` elementida:
-  `service_group_id`, `paid_percent`, `fully_funded`, `started`, `is_current`,
+  `service_group_id`, `fully_funded`, `started`, `is_current`,
   `skipped`, `fully_completed`, `confirmed`, `can_start`, `can_complete`, `can_confirm`.
 
   ### ⚠️ Errors

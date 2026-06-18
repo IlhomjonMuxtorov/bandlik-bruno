@@ -79,11 +79,13 @@ docs: 'Nomzodning hozirgi **faol qabul qilingan taklifini** (bitta vakansiya) va
 
   | `offer.remaining_hold` | int | Qolgan hold (`offer` faqat jami ko''rsatkichlar) |
 
-  | `service_groups` | array | (Yuqori daraja) Xizmatlar **tashkilot bo''yicha guruhlangan** + Start→Pay→Execute
-  holati: `{service_group_id, organization, responsible_user, stages[], required_amount, funded_amount, awaiting_amount,
-  currency, started, awaiting_start, fully_funded, is_current, payment_deadline_at, paid_percent,
-  progress_percent}`. `service_group_id` (int|null) — guruhning `VacancyServiceGroup.id`''si (start uchun);
-  `started=false` → guruh hali boshlanmagan; `is_current=true` → hozir to''lanadi |
+  | `service_groups` | array | (Yuqori daraja) **Xizmat guruhlari = kuzatiladigan birlik** + Start→Pay→Execute→Complete→Confirm
+  holati GURUH darajasida: `{service_group_id, group_type, completion_flow, organization, responsible_user, services[],
+  status, status_label, required_amount, funded_amount, awaiting_amount, discount_amount, currency, started,
+  awaiting_start, fully_funded, is_current, started_at, payment_deadline_at, execution_deadline_at, completed_at,
+  time_left_text, skipped, fully_completed, confirmed, documents[]}`.
+  `service_group_id` (int|null) — guruhning `VacancyServiceGroup.id`''si (start uchun);
+  `started=false` → guruh hali boshlanmagan; `is_current=true` → hozir aktiv |
 
   | `vacancy.id` | int | Vakansiya ID |
 
@@ -93,31 +95,23 @@ docs: 'Nomzodning hozirgi **faol qabul qilingan taklifini** (bitta vakansiya) va
 
   | `vacancy.city` | object \| null | `{ id, name }` (lokalizatsiya) |
 
-  | `service_groups[].stages[]` | array | Stepper bosqichlari (guruh ichida, `sort_order` bo''yicha) |
+  | `service_groups[].status` | string | `pending`, `awaiting_payment`, `in_progress`, `completed`, `xba_confirmed`, `overdue`, `payment_overdue`, `skipped` (GURUH darajasida) |
 
-  | `service_groups[].stages[].category` | string | `agency`, `training`, `visa`, ... |
+  | `service_groups[].services[]` | array | Guruh ichidagi xizmatlar = billing line-item (`sort_order` bo''yicha; alohida bajarildi belgilanmaydi) |
 
-  | `service_groups[].stages[].category_label` | string | Lokalizatsiya qilingan nom |
+  | `service_groups[].services[].category` | string | `agency`, `training`, `visa`, ... |
 
-  | `service_groups[].stages[].status` | string | `pending`, `awaiting_payment`, `in_progress`, `completed`, `overdue`, `payment_overdue`, `skipped` |
+  | `service_groups[].services[].category_label` | string | Lokalizatsiya qilingan nom |
 
-  | `service_groups[].stages[].status_label` | string | Lokalizatsiya qilingan status |
+  | `service_groups[].services[].service_name` | string \| null | vacancy_service snapshot nomi |
 
-  | `service_groups[].stages[].funded` | bool | Ushbu bosqich to''langan |
+  | `service_groups[].services[].amount` | int | Xizmat summasi (so''m) |
 
-  | `service_groups[].stages[].amount` | int | Bosqich summasi (so''m) |
+  | `service_groups[].services[].discount_amount` | int | Chegirma (so''m) |
 
-  | `service_groups[].stages[].progress_percent` | int | 0–100 |
+  | `service_groups[].services[].original_amount` | int | `amount + discount_amount` (so''m) |
 
-  | `service_groups[].stages[].started_at` | int \| null | Guruh boshlangan vaqt (UNIX) |
-
-  | `service_groups[].stages[].payment_deadline_at` | int \| null | To''lov muddati (UNIX) — awaiting_payment da |
-
-  | `service_groups[].stages[].payment_time_left_text` | string \| null | To''lovgacha qolgan vaqt |
-
-  | `service_groups[].stages[].deadline_at` | int \| null | Ijro muddati (UNIX) — to''langan kundan |
-
-  | `service_groups[].stages[].time_left_text` | string \| null | Aktiv soat bo''yicha qolgan vaqt (`3 d, 2 h`) |
+  | `service_groups[].services[].course_progress_percent` | int \| null | `training` kursning jonli progressi (0–100); kursga bog''lanmagan line uchun `null` |
 
 
   ### ⚠️ Errors
