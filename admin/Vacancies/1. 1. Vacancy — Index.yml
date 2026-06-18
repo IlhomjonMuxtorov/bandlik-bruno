@@ -38,9 +38,9 @@ docs: 'Vakansiyalar ro''yxati. Admin barchasini ko''radi; Employer/Recruiter faq
 
   | `employment_type` | string | ➖ | `full_time` \| `part_time` \| `seasonal` \| `contract`. |
 
-  | `experience_months_min` | int | ➖ | Talab qilinadigan tajriba (oy) shu qiymatdan **kam bo'lmagan** vakansiyalar (`experience_months >=`). |
+  | `experience_months_min` | int | ➖ | Talab qilinadigan tajriba (oy) shu qiymatdan **kam bo''lmagan** vakansiyalar (`experience_months >=`). |
 
-  | `experience_months_max` | int | ➖ | Talab qilinadigan tajriba (oy) shu qiymatdan **katta bo'lmagan** vakansiyalar (`experience_months <=`). |
+  | `experience_months_max` | int | ➖ | Talab qilinadigan tajriba (oy) shu qiymatdan **katta bo''lmagan** vakansiyalar (`experience_months <=`). |
 
   | `per-page` | int | ➖ | 1..100, default 20. |
 
@@ -78,6 +78,14 @@ docs: 'Vakansiyalar ro''yxati. Admin barchasini ko''radi; Employer/Recruiter faq
   > Har bir `items[]` elementida `rejection_reason` (string\|null) bor — `rejected`
   yoki `closed` vakansiya uchun rad etish/yopish sababi. Admin ro''yxatdayoq (masalan
   Rejected/Closed tablarda) sababni ochmasdan ko''radi; boshqa statuslarda `null`.
+
+
+  > Har bir `items[]` elementida approval maydonlari bor: `approved_by` (int\|null —
+  tasdiqlagan `user.id`), `approved_at` (int\|null — Unix ts), `approved_at_formatted`
+  (string\|null — `DD.MM.YYYY HH:MM`), `is_auto_approved` (bool). Tasdiqlanmaganda
+  uchalasi `null`, `is_auto_approved=false`. **Auto-approve** (cron timeout) bo''lsa
+  `approved_by` baribir `null` qoladi, `approved_at` to''ladi va
+  `is_auto_approved=true` — qo''lda tasdiqdan shu flag bilan farqlanadi.
 
 
   ### ⚠️ Errors

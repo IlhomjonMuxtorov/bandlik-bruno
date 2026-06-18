@@ -27,9 +27,10 @@ docs: |-
   | `status` | string | `draft` \| `pending_approval` \| `approved` \| `rejected` \| `closed` \| `archived` |
   | `status_label` | string | Lokalizatsiyalangan status |
   | `rejection_reason` | string \| null | Rad etilsa sababi |
-  | `approved_by` | int \| null | Tasdiqlagan `user.id` |
-  | `approved_at` | int \| null | Unix timestamp |
-  | `approved_at_formatted` | string | Inson o'qiy oladigan sana |
+  | `approved_by` | int \| null | Tasdiqlagan `user.id`. Auto-approve (cron) bo'lsa `null` |
+  | `approved_at` | int \| null | Unix timestamp. Tasdiqlanmaguncha `null` |
+  | `approved_at_formatted` | string \| null | Inson o'qiy oladigan sana (`DD.MM.YYYY HH:MM`) |
+  | `is_auto_approved` | bool | `true` — cron timeout bilan avtomatik publish qilingan (bunda `approved_by` = `null`); `false` — qo'lda yoki hali tasdiqlanmagan |
   | `organization` | object | Ish beruvchi tashkilot — quyida |
   | `recruiter` | object \| null | Vositachi (recruiter) tashkilot — quyida |
   | `industry` | object \| null | Soha — quyida |
