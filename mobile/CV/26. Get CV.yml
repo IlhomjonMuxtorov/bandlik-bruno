@@ -69,6 +69,10 @@ docs: 'Bitta CV-ning to''liq tafsilotlari (education, experience, languages va h
 
   | `driver` | object | License candidate-level, certificates CV-level |
 
+  | `licenses` | array | Candidate-level kasbiy/biznes litsenziyalar (AGU `/dxa/service/license/v1/pin`). Har element: `{ name, document_type, register_number, registration_date, expiry_date, organization, activity_addresses[], activity_types[], is_from_mvd }`. `is_from_mvd=true` — MVD'dan, read-only; bo''sh massiv — litsenziya yo''q |
+
+  | `education[].is_from_mvd` | bool | `true` — MVD'dan auto (oliy diplom yoki kolej/litsey), tahrirlanmaydi |
+
   | `courses` | array | Faqat shu CV |
 
   | `contact` | object | `{ phone, email, phone_is_custom, email_is_custom }` (CV override yoki profil qiymati) |
