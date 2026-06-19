@@ -39,7 +39,14 @@ http:
         "postal_code": "00-001",
         "hide_address_from_clients": true,
         "deadline_at": "01.07.2026",
-        "requirements": [{ "id": 1, "sort_order": 0 }, { "id": 2, "sort_order": 1 }],
+        "requirements": [
+          { "id": 1, "sort_order": 0, "is_mandatory": true, "value_int_min": 21, "value_int_max": 45 },
+          { "id": 7, "sort_order": 1, "is_mandatory": true, "value_refs": ["married"] },
+          { "id": 50, "sort_order": 2, "is_mandatory": false, "value_refs": ["B", "C"] }
+        ],
+        "language_requirements": [
+          { "language_id": 3, "min_language_level_id": 4, "is_mandatory": true, "certificate_type": "ielts", "certificate_min_score": "6.5", "sort_order": 0 }
+        ],
         "benefits": [{ "id": 1, "sort_order": 0 }, { "id": 2, "sort_order": 1 }],
         "documents": [{ "id": 1, "sort_order": 0 }, { "id": 2, "sort_order": 1 }],
         "service_groups": [
@@ -123,7 +130,8 @@ docs: |
 
   | Field | Type | Description |
   |---|---|---|
-  | `requirements[]` | array | `{id, sort_order}` — vacancy_requirement katalog IDsi |
+  | `requirements[]` | array | **Tiplangan talablar.** Har element: `{id, sort_order, is_mandatory?, …value}`. `id` — `vacancy_requirement` (definition) IDsi; qiymat maydoni definition `value_type`iga bog'liq: `integer_range` → `value_int_min`+`value_int_max`; `integer` → `value_int_min`; `boolean` → `value_bool`; `level` → `value_level_id`; `single_select`/`multi_select`/`reference_single`/`reference_multi` → `value_refs` (kod/id massiv); `text` → `value_text` (`{uz,ru,en}`). `is_mandatory` (bool, ➖, default `true`) — majburiy/afzal. Pickable definition'lar: `GET /admin/vacancies/requirement-definitions?industry_category_id=…`; tanlovlar: `GET /admin/vacancies/requirement-options/{id}` |
+  | `language_requirements[]` | array | **Til talablari** (alohida). Har element: `{language_id, min_language_level_id, is_mandatory?, certificate_type?, certificate_min_score?, sort_order?}`. `min_language_level_id` — `language_level` (CEFR/HSK/TOPIK shkalasi). `certificate_type` — `ielts`\|`toefl`\|`delf`\|`goethe`\|`hsk`\|`topik` (➖). `certificate_min_score` — string, masalan `6.5`/`B2`/`HSK5` (➖) |
   | `benefits[]` | array | `{id, sort_order}` — vacancy_benefit katalog IDsi |
   | `documents[]` | array | `{id, sort_order}` — vacancy_document katalog IDsi |
   | `service_groups[]` | array | **Xizmatlar TASHKILOT guruhlari bo'yicha (majburiy).** Har bir guruh: `{organization_id, payment_deadline_days, execution_deadline_days, sort_order, services:[…]}`. Bitta tashkilot = bitta guruh; guruh bir nechta kategoriyani qamrashi mumkin (masalan notarius tashkilotning `notary_translation` + `notary_apostille` + `notary_other` xizmatlari bitta guruhda). `organization_id` faqat guruhda — nested xizmatlar undan meros oladi. Ikkala muddat (kunlarda) > 0. `payment_deadline_days` — kandidatning to'lash muddati (guruh boshlangandan); `execution_deadline_days` — bajarish muddati (to'langandan). **Tartib:** saqlashda qayta tartiblanadi — reorderable guruhlar (course/insurance/notarius) boshida (yuborilgan `sort_order` bo'yicha), fixed guruhlar (visa→agency→logistics) oxirida (qat'iy). Guruhning turi uning xizmatlari kategoriyasidan aniqlanadi |

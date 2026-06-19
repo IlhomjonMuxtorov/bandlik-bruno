@@ -1,0 +1,28 @@
+info:
+  name: 57. 12. Requirement Definition — View
+  type: http
+  seq: 57
+http:
+  method: GET
+  url: '{{base_url}}/admin/requirement-definitions/1'
+  headers:
+  - name: Authorization
+    value: 'Bearer {{admin_token}}'
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: |-
+  Bitta talab andozasi — resolved `choices` (ref/enum/inline) bilan.
+
+  **Auth:** `admin_token` (faqat `admin`).
+
+  ### 📤 Response (qo'shimcha)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `choices` | array | `[{value,label}]` — `Accept-Language` bo'yicha tarjima. Scalar tiplar uchun bo'sh. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

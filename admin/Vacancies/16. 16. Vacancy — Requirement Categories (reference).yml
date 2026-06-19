@@ -1,0 +1,33 @@
+info:
+  name: 16. Vacancy — Requirement Categories (reference)
+  type: http
+  seq: 16
+http:
+  method: GET
+  url: '{{base_url}}/admin/vacancies/requirement-categories'
+  headers:
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: |-
+  Talab taksonomiyasi daraxti (faqat faol) — vakansiya sehrgaridagi talab
+  tanlagichini guruhlaydi. Tarjima `Accept-Language` bo'yicha.
+
+  **Auth:** `admin_token` yoki Employer/Recruiter token.
+
+  > Kategoriyalarni **boshqarish** admin-only — `Reference` kolleksiyasidagi
+  > `Requirement Categories — Create/Update/Delete`.
+
+  ### 📤 Response (`data[]`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | |
+  | `code` | string | Masalan `personal`, `industry.driver`. |
+  | `name` | string | `Accept-Language` tarjimasi. |
+  | `children` | array | Subgruplar (rekursiv). |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

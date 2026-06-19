@@ -1,0 +1,27 @@
+info:
+  name: 62. 17. Requirement Definitions — Delete
+  type: http
+  seq: 62
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/requirement-definitions/1'
+  headers:
+  - name: Authorization
+    value: 'Bearer {{admin_token}}'
+  auth: inherit
+docs: |-
+  Talab andozasini o'chiradi. Vakansiyalar tomonidan ishlatilayotgan bo'lsa
+  o'chmaydi (FK `RESTRICT`) — o'rniga `is_active=0` qilib deaktivlash tavsiya etiladi.
+
+  **Auth:** `admin_token` (faqat `admin`).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `422` | Definition vakansiya(lar)da ishlatilmoqda. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

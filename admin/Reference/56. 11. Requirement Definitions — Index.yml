@@ -1,0 +1,60 @@
+info:
+  name: 56. 11. Requirement Definitions — Index
+  type: http
+  seq: 56
+http:
+  method: GET
+  url: '{{base_url}}/admin/requirement-definitions'
+  params:
+  - name: category_id
+    value: ''
+    enabled: false
+  - name: industry_category_id
+    value: ''
+    enabled: false
+  - name: value_type
+    value: ''
+    enabled: false
+  - name: is_matchable
+    value: '1'
+    enabled: false
+  - name: q
+    value: ''
+    enabled: false
+  headers:
+  - name: Authorization
+    value: 'Bearer {{admin_token}}'
+  auth: inherit
+docs: |-
+  Talab andozalari (definition) katalogi — paginatsiyalangan ro'yxat. Admin to'liq
+  3-tilli `name`/`description` ko'radi.
+
+  **Auth:** `admin_token` (faqat `admin`).
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `category_id` | int | ➖ | Kategoriya bo'yicha filtr. |
+  | `industry_category_id` | int | ➖ | Global + shu sohaga tegishlilar. `''` — faqat global. |
+  | `value_type` | string | ➖ | `integer_range` \| `boolean` \| `level` \| `reference_single` ... |
+  | `is_matchable` | int (0\|1) | ➖ | Nomzodga moslanadiganlar. |
+  | `q` | string | ➖ | Nom bo'yicha qidiruv (uz/ru/en). |
+
+  ### 📤 Response (`data[]`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | |
+  | `code` | string \| null | Mashina kodi, masalan `age`, `cert.driving_license`. |
+  | `name` / `description` | object | `{uz,ru,en}`. |
+  | `value_type` | string | Qiymat tipi. |
+  | `reference_source` | string \| null | Ref jadval yoki `enum:Class`. |
+  | `unit` | string \| null | `years` \| `cm` \| `kg` ... |
+  | `industry_category_id` | int \| null | `null` — global. |
+  | `match_key` / `is_matchable` | string \| null / bool | Matching dispatch kaliti. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,26 @@
+info:
+  name: 61. 16. Requirement Definitions — Update
+  type: http
+  seq: 61
+http:
+  method: POST
+  url: '{{base_url}}/admin/requirement-definitions/1'
+  headers:
+  - name: Authorization
+    value: 'Bearer {{admin_token}}'
+  body:
+    type: multipartForm
+    data:
+    - name: is_active
+      value: '0'
+  auth: inherit
+docs: |-
+  Talab andozasini tahrirlaydi (yuborilgan maydonlar). Matching maydonlari
+  (`match_key`/`candidate_mapping`/`is_matchable`) bu yerdan o'zgartirilmaydi.
+
+  **Auth:** `admin_token` (faqat `admin`).
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

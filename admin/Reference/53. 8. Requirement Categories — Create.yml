@@ -1,0 +1,48 @@
+info:
+  name: 53. 8. Requirement Categories — Create
+  type: http
+  seq: 53
+http:
+  method: POST
+  url: '{{base_url}}/admin/requirement-categories'
+  headers:
+  - name: Authorization
+    value: 'Bearer {{admin_token}}'
+  body:
+    type: multipartForm
+    data:
+    - name: code
+      value: 'industry.custom'
+    - name: name
+      value: '{"uz": "Maxsus soha", "ru": "Спец. сфера", "en": "Custom"}'
+    - name: parent_id
+      value: '8'
+      enabled: false
+    - name: sort_order
+      value: '99'
+      enabled: false
+  auth: inherit
+docs: |-
+  Yangi talab kategoriyasi (guruh yoki subgrup) qo'shadi.
+
+  **Auth:** `admin_token` (faqat `admin`).
+
+  ### 📥 Request Body (multipart/form-data)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `code` | string | ✅ | Unikal mashina kodi, masalan `industry.custom` (max 60). |
+  | `name` | object (JSON) | ✅ | `{"uz","ru","en"}` (har biri max 200). |
+  | `parent_id` | int | ➖ | Yuqori guruh id. `null` — top-level guruh. |
+  | `sort_order` | int (≥ 0) | ➖ | Default: `0`. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `422` | Bo'sh/dublikat `code` yoki bo'sh `name`. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

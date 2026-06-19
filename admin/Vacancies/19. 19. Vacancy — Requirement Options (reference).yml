@@ -1,0 +1,28 @@
+info:
+  name: 19. Vacancy — Requirement Options (reference)
+  type: http
+  seq: 19
+http:
+  method: GET
+  url: '{{base_url}}/admin/vacancies/requirement-options/2'
+  headers:
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: |-
+  Bitta talab andozasi uchun resolved tanlovlar (ref jadval / enum / inline) —
+  select/reference/level tipidagi widgetni to'ldirish uchun lazy yuklanadi.
+
+  **Auth:** `admin_token` yoki Employer/Recruiter token.
+
+  ### 📤 Response (`data[]`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `value` | string | Tanlov kodi yoki ref id. |
+  | `label` | string | `Accept-Language` tarjimasi. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

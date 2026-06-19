@@ -1,0 +1,40 @@
+info:
+  name: 51. 6. Requirement Categories — Index (tree)
+  type: http
+  seq: 51
+http:
+  method: GET
+  url: '{{base_url}}/admin/requirement-categories'
+  params:
+  - name: active_only
+    value: '1'
+    enabled: false
+  headers:
+  - name: Authorization
+    value: 'Bearer {{admin_token}}'
+  auth: inherit
+docs: |-
+  Talab taksonomiyasi — 8 ta yuqori guruh va ularning subgruplari daraxt ko'rinishida.
+
+  **Auth:** `admin_token` (faqat `admin`).
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `active_only` | int (0\|1) | ➖ | `1` — faqat faol guruh/subgruplar. Default: hammasi. |
+
+  ### 📤 Response (`data[]`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | |
+  | `parent_id` | int \| null | Yuqori guruhda `null`. |
+  | `code` | string | Masalan `personal`, `industry.driver`. |
+  | `name` | object | `{uz,ru,en}`. |
+  | `children` | array | Subgruplar (rekursiv). |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

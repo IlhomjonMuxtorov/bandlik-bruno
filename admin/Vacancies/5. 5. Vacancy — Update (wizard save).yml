@@ -17,7 +17,8 @@ http:
         "employment_type": "full_time",
         "hiring_quota": 15,
         "country_id": 1,
-        "requirements": [{ "id": 1, "sort_order": 0 }],
+        "requirements": [{ "id": 1, "sort_order": 0, "is_mandatory": true, "value_int_min": 21, "value_int_max": 45 }],
+        "language_requirements": [{ "language_id": 3, "min_language_level_id": 4, "is_mandatory": true, "sort_order": 0 }],
         "benefits": [{ "id": 1, "sort_order": 0 }],
         "documents": [{ "id": 1, "sort_order": 0 }],
         "service_groups": [

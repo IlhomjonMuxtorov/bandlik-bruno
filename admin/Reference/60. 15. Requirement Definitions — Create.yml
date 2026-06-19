@@ -1,0 +1,60 @@
+info:
+  name: 60. 15. Requirement Definitions — Create
+  type: http
+  seq: 60
+http:
+  method: POST
+  url: '{{base_url}}/admin/requirement-definitions'
+  headers:
+  - name: Authorization
+    value: 'Bearer {{admin_token}}'
+  body:
+    type: multipartForm
+    data:
+    - name: category_id
+      value: '1'
+    - name: code
+      value: 'custom.flag'
+    - name: name
+      value: '{"uz": "Maxsus talab", "ru": "Спец. требование", "en": "Custom requirement"}'
+    - name: value_type
+      value: 'boolean'
+    - name: sort_order
+      value: '99'
+      enabled: false
+  auth: inherit
+docs: |-
+  Yangi talab andozasi (definition) qo'shadi.
+
+  **Auth:** `admin_token` (faqat `admin`).
+
+  > **Matching qulflangan:** bu yerda yaratilgan definition doim **display-only**
+  > (`is_matchable=false`). `match_key`/`candidate_mapping` faqat developer (seed
+  > migration + real matcher) orqali yoqiladi — admin paneli orqali emas.
+
+  ### 📥 Request Body (multipart/form-data)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `category_id` | int | ➖ | Taksonomiya kategoriyasi. |
+  | `code` | string | ➖ | Unikal mashina kodi (max 80). |
+  | `name` | object (JSON) | ✅ | `{uz,ru,en}`. |
+  | `description` | object (JSON) | ➖ | `{uz,ru,en}`. |
+  | `value_type` | string | ✅ | Qiymat tipi (Value Types ro'yxatidan). |
+  | `reference_source` | string | ➖ | Ref jadval yoki `enum:Class` (reference/level tiplari uchun). |
+  | `options` | array (JSON) | ➖ | Inline tanlovlar: `[{"code","name":{uz,ru,en}}]` (single/multi_select). |
+  | `unit` | string | ➖ | `years` \| `cm` \| `kg` \| `count` \| `hours` \| `minutes`. |
+  | `industry_category_id` | int | ➖ | `null` — global; aks holda shu sohaga xos. |
+  | `is_active` | int (0\|1) | ➖ | Default: `1`. |
+  | `sort_order` | int | ➖ | Default: `0`. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `422` | Bo'sh `name`, noto'g'ri `value_type`, yoki dublikat `code`. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

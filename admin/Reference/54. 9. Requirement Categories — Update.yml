@@ -1,0 +1,25 @@
+info:
+  name: 54. 9. Requirement Categories — Update
+  type: http
+  seq: 54
+http:
+  method: POST
+  url: '{{base_url}}/admin/requirement-categories/1'
+  headers:
+  - name: Authorization
+    value: 'Bearer {{admin_token}}'
+  body:
+    type: multipartForm
+    data:
+    - name: name
+      value: '{"uz": "Shaxsiy ma''lumotlar", "ru": "Личные данные", "en": "Personal info"}'
+  auth: inherit
+docs: |-
+  Talab kategoriyasini tahrirlaydi (yuborilgan maydonlar). 
+
+  **Auth:** `admin_token` (faqat `admin`).
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

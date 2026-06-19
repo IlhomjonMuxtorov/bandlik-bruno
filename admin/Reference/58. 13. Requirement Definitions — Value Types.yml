@@ -1,0 +1,27 @@
+info:
+  name: 58. 13. Requirement Definitions — Value Types
+  type: http
+  seq: 58
+http:
+  method: GET
+  url: '{{base_url}}/admin/requirement-definitions/value-types'
+  headers:
+  - name: Authorization
+    value: 'Bearer {{admin_token}}'
+  auth: inherit
+docs: |-
+  `value_type` enum ro'yxati — definition yaratish/tahrirlash formasidagi tanlagich.
+
+  **Auth:** `admin_token` (faqat `admin`).
+
+  ### 📤 Response (`data[]`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `value` | string | `integer_range` \| `integer` \| `boolean` \| `single_select` \| `multi_select` \| `reference_single` \| `reference_multi` \| `level` \| `text`. |
+  | `label` | string | Tarjima qilingan nom. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
