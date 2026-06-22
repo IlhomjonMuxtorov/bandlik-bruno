@@ -36,8 +36,11 @@ http:
             "payment_deadline_days": 5,
             "execution_deadline_days": 14,
             "sort_order": 1,
+            "combined_price": 2500000,
+            "combined_price_currency": "UZS",
             "services": [
-              { "category": "training", "educational_course_id": 12 }
+              { "category": "training", "educational_course_id": 12 },
+              { "category": "training", "educational_course_id": 15 }
             ]
           }
         ],
@@ -71,6 +74,12 @@ docs: |
 
   **⚠️ Kurs (majburiy):** Update'da ham kamida bitta `category = "training"` xizmati +
   `educational_course_id` bo'lishi shart — aks holda `400` `At least one training service with a course is required`.
+
+  **⚠️ Kurslar umumiy narxi (majburiy):** training guruhda `combined_price` (`> 0`, so'm) —
+  tanlangan kurslar uchun bitta umumiy narx. Yo'q/`<= 0` → `400` `Combined course price is required`.
+  Alohida kurs narxlari `total_service_amount` ga kirmaydi (faqat info; mobil'ga uzatilmaydi).
+  Javobda `service_groups[]` har biri `combined_price` / `combined_price_currency` qaytaradi
+  (training'da set, boshqalarda `null`).
 
   **⚠️ service_groups tartibi:** saqlashda qayta tartiblanadi (reorderable guruhlar —
   course/insurance/notarius — boshida, client tartibida; visa→agency→logistics oxirida, qat'iy).

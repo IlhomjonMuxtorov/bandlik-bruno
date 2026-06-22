@@ -7,9 +7,11 @@ http:
   url: '{{base_url}}/mobile/vacancies/1/courses'
   auth: inherit
 docs: |-
-  Detail ekranining **3-tabi ("Tayyorlov kursi")**: vakansiyaga biriktirilgan `training` kategoriyasidagi xizmatlar, har biri bog'langan `EducationalCourse` ma'lumotlari (rasm, soat, dars soni) bilan boyitilgan.
+  Detail ekranining **3-tabi ("Tayyorlov kursi")**: vakansiyaga biriktirilgan `training` kategoriyasidagi kurslar va ular uchun **bitta umumiy narx** (`combined_price`). Har kursning alohida narxi ko'rsatilmaydi — nomzod tanlangan kurslar to'plami uchun bitta umumiy narx to'laydi.
 
   **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi).
+
+  > **Breaking (shakl o'zgardi):** javob endi flat massiv emas — `{ combined_price, currency, courses[] }` obyekt. Har kurs elementidan `price` / `currency` **olib tashlandi**; narx faqat yuqori darajadagi `combined_price` da.
 
   ### 📋 Headers
 
@@ -19,13 +21,19 @@ docs: |-
 
   ### 📤 Response
 
-  `[ ... ]` — to'g'ridan-to'g'ri massiv, har bir element:
+  `{ ... }` — obyekt:
 
   | Field | Type | Description |
   |---|---|---|
-  | `service_id` | int | `vacancy_service` qatori ID (snapshot narx shu yerdan) |
-  | `price` | int | Kurs narxi (snapshot) — so'mda (major unit), `currency` valyutasida |
-  | `currency` | string | `UZS` ... |
+  | `combined_price` | int \| null | Tanlangan kurslar uchun umumiy narx — so'mda (major unit), `currency` valyutasida. `null` faqat eski (combined narxsiz) vakansiyalarda. |
+  | `currency` | string | `combined_price` valyutasi (default `UZS`) |
+  | `courses` | array | Biriktirilgan kurslar ro'yxati (quyida), har biri narxsiz |
+
+  **`courses[]` element:**
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `service_id` | int | `vacancy_service` qatori ID |
   | `course` | object \| null | Bog'langan kurs ma'lumotlari (quyida). Kurs o'chirilgan bo'lsa `null`. |
 
   **`course` object:**
