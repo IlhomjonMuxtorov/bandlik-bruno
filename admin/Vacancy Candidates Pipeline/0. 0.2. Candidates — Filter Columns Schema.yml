@@ -1,0 +1,83 @@
+info:
+  name: 0.2. Candidates — Filter Columns Schema
+  type: http
+  seq: 0
+http:
+  method: GET
+  url: '{{base_url}}/admin/candidates/columns'
+  headers:
+    - name: Accept-Language
+      value: uz
+      enabled: true
+  auth: inherit
+docs: 'Kandidatlar ro''yxati (`GET /admin/candidates`) uchun **filtrlanuvchi/sort qilinuvchi
+  ustunlar katalogi** — frontend Airtable uslubidagi filtr/sort UI''ni shundan render
+  qiladi. Yagona haqiqat manbai server tomonidagi `CandidateColumnCatalog`.
+
+
+  **Auth:** Admin yoki tashkilot aktyori (global index bilan bir xil).
+
+
+  ### 📋 Headers
+
+
+  | Header | Required | Description |
+
+  |---|:---:|---|
+
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` (label''lar tili). Default: `uz` |
+
+
+  ### 📤 Response (`data`)
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `columns` | array | Ustunlar ro''yxati |
+
+
+  Har bir ustun:
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `key` | string | Filtr daraxti / `sort` da ishlatiladigan ustun kaliti |
+
+  | `label` | string | Ko''rinadigan nom (`Accept-Language` tilida) |
+
+  | `value_type` | string | `text` \| `integer` \| `decimal` \| `date` \| `boolean` \| `single_select` \| `multi_select` \| `reference_single` \| `reference_multi` \| `level` |
+
+  | `filterable` | bool | `false` = faqat sort (operatorlar bo''sh) |
+
+  | `sortable` | bool | `sort` paramida ishlatish mumkinmi |
+
+  | `operators` | array | Ruxsat etilgan operatorlar `[{value, label}]` (`value_type`''dan kelib chiqadi) |
+
+  | `options` | object \| null | Kichik enum''lar: `{type:"inline", items:[{value,label}]}`; yirik reference''lar: `{type:"reference", source:"/admin/reference/..."}`; yoki `null` |
+
+
+  > `value`/`op` qiymatlari aynan shu yerdan olinadi — filtr daraxtida boshqa
+  qiymat yuborilsa `GET /admin/candidates` `422` qaytaradi.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q/eskirgan |
+
+  | `403` | Tashkilotsiz aktyor |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

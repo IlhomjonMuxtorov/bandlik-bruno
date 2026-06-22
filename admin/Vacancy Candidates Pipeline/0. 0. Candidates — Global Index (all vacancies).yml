@@ -4,7 +4,7 @@ info:
   seq: 0
 http:
   method: GET
-  url: '{{base_url}}/admin/candidates?q=&district=&status=&stage=&stage_category=&stage_status=&per-page=20'
+  url: '{{base_url}}/admin/candidates?q=&district=&status=&stage=&stage_category=&stage_status=&filter=&sort=&include=&per-page=20'
   auth: inherit
 params:
   query:
@@ -26,16 +26,28 @@ params:
     - name: stage_status
       value: ''
       enabled: true
+    - name: filter
+      value: ''
+      enabled: true
+    - name: sort
+      value: ''
+      enabled: true
+    - name: include
+      value: ''
+      enabled: true
     - name: per-page
       value: '20'
       enabled: true
-docs: 'Global "Kandidatlar" ekrani — barcha vakansiyalar bo''yicha nomzodlar (default `id
-  DESC` — eng yangi avval; `sort` orqali o''zgartiriladi).
+docs: 'Global "Kandidatlar" ekrani — barcha vakansiyalar bo''yicha nomzodlar. Endi har
+  nomzodning **CV ma''lumotlari ustun sifatida** (`candidate.cv`) qaytadi va Airtable
+  uslubidagi **ustunma-ustun filtr/sort** (`filter` daraxti + `sort`) qo''llab-quvvatlanadi.
+  Mavjud ustunlar/operatorlar ro''yxati: `GET /admin/candidates/columns`.
 
 
   **Auth:** Admin barcha nomzodlarni ko''radi; tashkilot aktyori (XBA/rekruter)
   faqat o''z tashkiloti vakansiyalari (egasi yoki rekruteri) nomzodlari bilan
-  cheklanadi.
+  cheklanadi. Tashkilot scope''i **majburiy tashqi AND** — `filter` daraxti uni
+  hech qachon kengaytira olmaydi.
 
 
   ### 🔎 Query Parameters
@@ -45,34 +57,58 @@ docs: 'Global "Kandidatlar" ekrani — barcha vakansiyalar bo''yicha nomzodlar (
 
   |---|---|:---:|---|
 
-  | `q` | string | ➖ | FISH (pasport ism/familiya/otasining ismi) yoki telefon/username bo''yicha qidiruv (ILIKE) |
+  | `q` | string | ➖ | Global qidiruv — FISH (pasport) yoki telefon/username (ILIKE). `filter` bilan AND |
 
-  | `district` | string | ➖ | `candidates.registration_district` bo''yicha aniq moslik (free-text) |
+  | `district` | string | ➖ | `candidates.registration_district` aniq moslik (legacy sugar) |
 
-  | `status` | string | ➖ | Pipeline outcome: `active` \| `completed` \| `cancelled` |
+  | `status` | string | ➖ | Legacy: pipeline outcome `active` \| `completed` \| `cancelled` |
 
-  | `stage` | string | ➖ | Derive qilingan bosqich: `awaiting` \| `training` \|
-  `translation_apostil` \| `insurance` \| `visa` \| `xba` \| `logistics` \|
-  `completed` \| `cancelled` |
+  | `stage` | string | ➖ | Legacy: `awaiting` \| `training` \| `translation_apostil` \| `insurance` \| `visa` \| `xba` \| `logistics` \| `completed` \| `cancelled` |
 
-  | `stage_category` | string | ➖ | Bosqich (Joriy status ikonkasi) kategoriyasi:
-  `agency` \| `notarius` \| `insurance` \| `logistics` \| `visa` \|
-  `translation_apostille` \| `training` \| `notary_translation` \|
-  `notary_apostille` \| `notary_other` |
+  | `stage_category` | string | ➖ | Legacy: `agency` \| `notarius` \| `insurance` \| `logistics` \| `visa` \| `translation_apostille` \| `training` \| `notary_translation` \| `notary_apostille` \| `notary_other` |
 
-  | `stage_status` | string | ➖ | Bosqich holati: `pending` \| `awaiting_payment` \| `in_progress` \|
-  `completed` \| `overdue` \| `payment_overdue` \| `skipped` |
+  | `stage_status` | string | ➖ | Legacy: `pending` \| `awaiting_payment` \| `in_progress` \| `completed` \| `overdue` \| `payment_overdue` \| `skipped` |
 
-  | `sort` | string | ➖ | `id` \| `accepted_at` \| `course_progress_percent` \|
-  `collected_amount` (oldiga `-` qo''yilsa kamayish tartibida) |
+  | `filter` | string (JSON) | ➖ | **Airtable filtr daraxti** (pastga qarang). `q` + legacy paramlar bilan AND. Noto''g''ri ustun/operator → `422` |
 
-  | `per-page` | int | ➖ | 1..100 (default 20) |
+  | `sort` | string | ➖ | Ko''p darajali sort: `col:dir,col2:dir2` (`dir` = `asc`\|`desc`). Faqat `sortable` ustunlar (`/columns` da `sortable=true`); aks holda `422`. Doim `id DESC` tiebreaker qo''shiladi |
+
+  | `include` | string | ➖ | `cv` berilsa har qatorga **to''liq nested CV** (`cv` obyekti) ham qo''shiladi; bu holda `per-page` 1..30 |
+
+  | `per-page` | int | ➖ | 1..100 (default 20); `include=cv` da 1..30 |
 
   | `page` | int | ➖ | 1-indeksli |
 
 
-  > Eslatma: `stage_category` va `stage_status` birga yoki alohida berilishi mumkin —
-  nomzodda mos bosqich mavjud bo''lsa (EXISTS) filtrlanadi.
+  ### 🌳 Filter daraxti (`filter`)
+
+
+  Rekursiv guruh: `{"conjunction":"and"|"or","conditions":[ <condition> | <group> ]}`.
+
+  Condition: `{"field":"<key>","op":"<operator>","value":<value>}`.
+
+  Maks chuqurlik 5, maks 50 condition. Operator ustunning `value_type`''iga mos
+  kelishi shart (`/columns` dan oling). Misol:
+
+
+  ```json
+
+  {"conjunction":"and","conditions":[
+    {"field":"age","op":"between","value":[21,45]},
+    {"field":"sex","op":"eq","value":1},
+    {"conjunction":"or","conditions":[
+      {"field":"languages","op":"has_any_of","value":[1,2]},
+      {"field":"education_level","op":"has_all_of","value":[3,4]}
+    ]}
+  ]}
+
+  ```
+
+
+  Operatorlar: `eq, ne, contains, not_contains, gt, gte, lt, lte, between,
+  is_empty, is_not_empty, is_any_of, is_none_of, has_any_of, has_all_of,
+  has_none_of, is_true, is_false`. Reference ustunlar **ID** bo''yicha filtrlanadi
+  (i18n matn emas). `age`/sana ustunlari kalendar qiymat qabul qiladi.
 
 
   ### 📤 Response (`data`)
@@ -87,44 +123,66 @@ docs: 'Global "Kandidatlar" ekrani — barcha vakansiyalar bo''yicha nomzodlar (
   | `pagination` | object | `{page, page_size, total_count, page_count}` |
 
 
-  Har bir element:
+  Har bir element (avvalgi maydonlar saqlangan: `id`, `vacancy`, `match_score`,
+  `pipeline_outcome`/`_label`, `cancel_reason`, `current_stage`/`_label`,
+  `course_progress_percent`, `collected_amount`/`_currency`, `service_groups[]`).
+  **Yangi:** `candidate.cv` — CV ustunlari:
 
 
-  | Field | Type | Description |
+  | Field (candidate.cv) | Type | Description |
 
   |---|---|---|
 
-  | `id` | int | Pipeline id |
+  | `cv_id` | int \| null | Tanlangan CV (ariza CV''si → fallback primary); `null` agar CV yo''q |
 
-  | `vacancy` | object | `{id, title, organization: {id, name}}` — topshirgan vakansiya + XBA tashkiloti |
+  | `cv_status` | string \| null | `draft` \| `active` |
 
-  | `candidate` | object | `{id, full_name, phone, photo_url}` |
+  | `cv_completion_percent` | int \| null | 0..100 |
 
-  | `match_score` | int \| null | Mos kelish darajasi (visa-survey, vakansiya davlati bo''yicha; `null` agar survey yo''q) |
+  | `age` | int \| null | Pasport `birth_date`''dan yosh |
 
-  | `pipeline_outcome` / `_label` | string | `active` \| `completed` \| `cancelled` |
+  | `sex` / `sex_label` | int \| null / string \| null | 1 = erkak, 2 = ayol |
 
-  | `cancel_reason` | string \| null | Drop Out sababi; faqat `cancelled` holatida, aks holda `null` |
+  | `marital_status` / `_label` | string \| null | `single` \| `married` \| `divorced` \| `widowed` |
 
-  | `current_stage` / `_label` | string | `awaiting` \| `training` \| `translation_apostil` \| `insurance` \| `visa` \| `xba` \| `logistics` \| `completed` \| `cancelled` (joriy guruhdan derive qilinadi) |
+  | `had_visa_before` | bool | |
 
-  | `course_progress_percent` | int | 0..100 — Kurs progressi |
+  | `foreign_passport_present` | bool | MVD aktiv zagran-pasport mavjudligi |
 
-  | `collected_amount` / `_currency` | int / string | To''lagan summa |
+  | `nationality_id` / `citizenship_id` | int \| null | |
 
-  | `service_groups` | array | **Xizmat GURUHI = kuzatiladigan birlik**; Start→Pay→Execute→Complete→Confirm
-  holatini guruh darajasida olib yuradi (eski top-level `stages[]` massiv olib tashlangan). Har biri:
-  `{service_group_id, group_type, completion_flow, organization, responsible_user, services[], status,
-  status_label, required_amount, funded_amount, awaiting_amount, discount_amount, currency, started,
-  awaiting_start, fully_funded, is_current, started_at, payment_deadline_at, execution_deadline_at,
-  completed_at, time_left_text, skipped, fully_completed, confirmed, can_start, can_complete,
-  can_confirm, can_reject, last_attempt, documents[]}` (admin summalar ham **so''m**da — major unit).
-  `responsible_user` = `{id, username, full_name, phone, photo_url}`; `organization` = `{id, name, type, type_label, logo_url}`;
-  `documents[]` = guruh hujjatlari `{id, type, title, upload_file:{url, original_name, ...}, created_at, created_at_formatted}` |
+  | `registration_region` / `registration_district` | object \| null | `{id, name}` |
 
-  | `service_groups[].services` | array | Guruh ichidagi billing line-item''lar: `{id, service_id,
-  category, category_label, service_name, amount, discount_amount, original_amount, currency, sort_order,
-  course_progress_percent}`. `course_progress_percent` (int\|null) — `training` kursning jonli progressi (0–100); kursga bog''lanmagan line uchun `null` |
+  | `education` | array | `[{id, name}]` — tanlangan CV''dagi ta''lim darajalari |
+
+  | `experience_years` | int | Umumiy ish staji (yil) |
+
+  | `languages` | array | `[{id, name, level_id, level_name}]` |
+
+  | `license_has` / `license_count` | bool / int | Kasbiy litsenziya |
+
+  | `driver_categories` | array | `["B","C",...]` |
+
+  | `driver_certificates` | array | `[{type, label}]` |
+
+  | `background` | object | `{criminal_record, insolvent_debtor, travel_ban, narcology, psychiatry}` — bool |
+
+
+  `include=cv` berilganda element''ga `cv` (to''liq nested CvOutput) ham qo''shiladi.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `400/401` | Token yo''q/eskirgan |
+
+  | `403` | Tashkilotsiz aktyor |
+
+  | `422` | `filter` JSON noto''g''ri, noma''lum ustun/operator, yoki sort qilib bo''lmaydigan ustun |
 
   '
 settings:
