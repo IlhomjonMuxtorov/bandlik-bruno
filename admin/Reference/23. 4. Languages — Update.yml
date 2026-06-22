@@ -13,6 +13,8 @@ http:
         (updated)"}'
     - name: iso_code
       value: uz
+    - name: scale
+      value: cefr
     - name: is_active
       value: '1'
     - name: sort_order
@@ -34,6 +36,8 @@ docs: 'Til ma''lumotlarini yangilash (qisman update).
   | `name` | object (JSON) | ➖ | `{"uz": "...", "ru": "...", "en": "..."}` |
 
   | `iso_code` | string (max 5) | ➖ | Unikal ISO kod |
+
+  | `scale` | string | ➖ | Daraja shkalasi: `cefr` \| `hsk` \| `topik`. |
 
   | `is_active` | int (0\|1) | ➖ | |
 

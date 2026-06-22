@@ -15,10 +15,19 @@ http:
       value: '0'
   auth: inherit
 docs: |-
-  Talab andozasini tahrirlaydi (yuborilgan maydonlar). Matching maydonlari
-  (`match_key`/`candidate_mapping`/`is_matchable`) bu yerdan o'zgartirilmaydi.
+  Talab andozasini tahrirlaydi (yuborilgan maydonlar). Matching/qulf maydonlari
+  (`match_key`/`candidate_mapping`/`is_matchable`/`is_system`/`is_resume_bound`) bu
+  yerdan o'zgartirilmaydi. `industry_id` berilsa — `value_type` majburan `boolean`.
 
   **Auth:** `admin_token` (faqat `admin`).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `403` | Definition **system-managed** (`is_system=true`) — tahrirlab bo'lmaydi. |
+  | `404` | Topilmadi. |
+  | `422` | Validatsiya xatosi (masalan dublikat `code`). |
 settings:
   encodeUrl: true
   timeout: 0

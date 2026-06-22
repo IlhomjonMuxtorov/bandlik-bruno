@@ -12,6 +12,8 @@ http:
       value: '{"uz": "Fransuz", "ru": "Французский", "en": "French"}'
     - name: iso_code
       value: fr
+    - name: scale
+      value: cefr
     - name: is_active
       value: '1'
     - name: sort_order
@@ -33,6 +35,8 @@ docs: 'Yangi til qo''shadi.
   | `name` | object (JSON) | ✅ | `{"uz": "...", "ru": "...", "en": "..."}` |
 
   | `iso_code` | string (max 5) | ✅ | Unikal ISO kod (masalan `fr`) |
+
+  | `scale` | string | ➖ | Daraja shkalasi: `cefr` \| `hsk` \| `topik`. Default: `cefr`. |
 
   | `is_active` | int (0\|1) | ➖ | Default: 1 |
 

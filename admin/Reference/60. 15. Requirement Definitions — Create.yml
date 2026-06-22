@@ -28,9 +28,13 @@ docs: |-
 
   **Auth:** `admin_token` (faqat `admin`).
 
-  > **Matching qulflangan:** bu yerda yaratilgan definition doim **display-only**
-  > (`is_matchable=false`). `match_key`/`candidate_mapping` faqat developer (seed
-  > migration + real matcher) orqali yoqiladi — admin paneli orqali emas.
+  > **Matching va qulf qulflangan:** bu yerda yaratilgan definition doim **display-only**
+  > (`is_matchable=false`) va **qulflanmagan** (`is_system=false`, `is_resume_bound=false`).
+  > `match_key`/`candidate_mapping` va qulf flaglari faqat developer (seed migration + real
+  > matcher) orqali — admin paneli orqali emas.
+  >
+  > **8-guruh (industry) = checkbox:** `industry_id` berilsa, definition **majburan boolean**
+  > qilinadi (`value_type=boolean`, `reference_source`/`options` tozalanadi).
 
   ### 📥 Request Body (multipart/form-data)
 
@@ -40,11 +44,11 @@ docs: |-
   | `code` | string | ➖ | Unikal mashina kodi (max 80). |
   | `name` | object (JSON) | ✅ | `{uz,ru,en}`. |
   | `description` | object (JSON) | ➖ | `{uz,ru,en}`. |
-  | `value_type` | string | ✅ | Qiymat tipi (Value Types ro'yxatidan). |
+  | `value_type` | string | ✅ | Qiymat tipi (Value Types ro'yxatidan). `industry_id` berilsa e'tiborga olinmaydi — `boolean`ga majburlanadi. |
   | `reference_source` | string | ➖ | Ref jadval yoki `enum:Class` (reference/level tiplari uchun). |
   | `options` | array (JSON) | ➖ | Inline tanlovlar: `[{"code","name":{uz,ru,en}}]` (single/multi_select). |
   | `unit` | string | ➖ | `years` \| `cm` \| `kg` \| `count` \| `hours` \| `minutes`. |
-  | `industry_category_id` | int | ➖ | `null` — global; aks holda shu sohaga xos. |
+  | `industry_id` | int | ➖ | Fine `vacancy_industry` id. Berilsa — 8-guruh checkbox'i (faqat shu sohada chiqadi, boolean). `null` — global. |
   | `is_active` | int (0\|1) | ➖ | Default: `1`. |
   | `sort_order` | int | ➖ | Default: `0`. |
 

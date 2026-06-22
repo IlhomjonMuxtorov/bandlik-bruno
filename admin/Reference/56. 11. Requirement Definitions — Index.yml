@@ -9,7 +9,7 @@ http:
   - name: category_id
     value: ''
     enabled: false
-  - name: industry_category_id
+  - name: industry_id
     value: ''
     enabled: false
   - name: value_type
@@ -36,8 +36,8 @@ docs: |-
   | Param | Type | Required | Description |
   |---|---|:---:|---|
   | `category_id` | int | ➖ | Kategoriya bo'yicha filtr. |
-  | `industry_category_id` | int | ➖ | Global + shu sohaga tegishlilar. `''` — faqat global. |
-  | `value_type` | string | ➖ | `integer_range` \| `boolean` \| `level` \| `reference_single` ... |
+  | `industry_id` | int | ➖ | Global + shu **fine `vacancy_industry`**ga (8-guruh) tegishlilar. `''` — faqat global. |
+  | `value_type` | string | ➖ | `integer_range` \| `boolean` \| `level` \| `reference_multi` ... |
   | `is_matchable` | int (0\|1) | ➖ | Nomzodga moslanadiganlar. |
   | `q` | string | ➖ | Nom bo'yicha qidiruv (uz/ru/en). |
 
@@ -51,7 +51,9 @@ docs: |-
   | `value_type` | string | Qiymat tipi. |
   | `reference_source` | string \| null | Ref jadval yoki `enum:Class`. |
   | `unit` | string \| null | `years` \| `cm` \| `kg` ... |
-  | `industry_category_id` | int \| null | `null` — global. |
+  | `industry_id` | int \| null | Fine `vacancy_industry` tie. `null` — global. |
+  | `is_system` | bool | `true` — kodga bog'langan, qulflangan (admin tahrir/o'chira olmaydi). |
+  | `is_resume_bound` | bool | `true` — nomzod rezyumesi maydoniga bog'langan (bo'y, vazn, surat, sog'liq, tavsiya-xat soni). |
   | `match_key` / `is_matchable` | string \| null / bool | Matching dispatch kaliti. |
 settings:
   encodeUrl: true

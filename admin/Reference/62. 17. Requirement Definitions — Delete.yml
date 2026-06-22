@@ -19,6 +19,8 @@ docs: |-
 
   | Code | Reason |
   |---|---|
+  | `403` | Definition **system-managed** (`is_system=true`) — o'chirib bo'lmaydi. |
+  | `404` | Topilmadi. |
   | `422` | Definition vakansiya(lar)da ishlatilmoqda. |
 settings:
   encodeUrl: true

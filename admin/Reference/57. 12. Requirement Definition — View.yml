@@ -21,6 +21,9 @@ docs: |-
   | Field | Type | Description |
   |---|---|---|
   | `choices` | array | `[{value,label}]` — `Accept-Language` bo'yicha tarjima. Scalar tiplar uchun bo'sh. |
+  | `industry_id` | int \| null | Fine `vacancy_industry` tie (8-guruh). `null` — global. |
+  | `is_system` | bool | `true` — qulflangan (tahrir/o'chirish 403). |
+  | `is_resume_bound` | bool | `true` — nomzod rezyumesi maydoniga bog'langan. |
 settings:
   encodeUrl: true
   timeout: 0

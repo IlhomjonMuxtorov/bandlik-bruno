@@ -6,7 +6,7 @@ http:
   method: GET
   url: '{{base_url}}/admin/vacancies/requirement-definitions'
   params:
-  - name: industry_category_id
+  - name: industry_id
     value: '1'
     enabled: false
   - name: category_id
@@ -18,9 +18,9 @@ http:
   auth: inherit
 docs: |-
   Vakansiya tanlashi mumkin bo'lgan faol talab andozalari — vakansiya sohasiga
-  ko'ra filtrlangan (global + shu `industry_category`ga tegishli). Tarjima
-  `Accept-Language` bo'yicha. `choices` bu ro'yxatda **qaytmaydi** — kerak bo'lganda
-  `Requirement Options` orqali lazy yuklang.
+  ko'ra filtrlangan (global + shu **fine `vacancy_industry`**ga tegishli 8-guruh
+  checkbox'lari). Tarjima `Accept-Language` bo'yicha. `choices` bu ro'yxatda
+  **qaytmaydi** — kerak bo'lganda `Requirement Options` orqali lazy yuklang.
 
   **Auth:** `admin_token` yoki Employer/Recruiter token.
 
@@ -28,7 +28,7 @@ docs: |-
 
   | Param | Type | Required | Description |
   |---|---|:---:|---|
-  | `industry_category_id` | int | ➖ | Global + shu sohaga tegishli. Berilmasa — faqat global. |
+  | `industry_id` | int | ➖ | Vakansiyaning `industry_id`si. Global + shu sohaga tegishli. Berilmasa — faqat global. |
   | `category_id` | int | ➖ | Kategoriya bo'yicha filtr. |
 
   ### 📤 Response (`data[]`)
@@ -43,7 +43,8 @@ docs: |-
   | `reference_source` | string \| null | Ref jadval / enum. |
   | `options` | array \| null | Inline tanlovlar (label `Accept-Language` bo'yicha). |
   | `unit` | string \| null | `years` \| `cm` \| `kg` ... |
-  | `industry_category_id` | int \| null | `null` — global. |
+  | `industry_id` | int \| null | Fine `vacancy_industry` tie. `null` — global. |
+  | `is_system` / `is_resume_bound` | bool | Qulflangan / rezyumga bog'langan ta'rif belgilari. |
 settings:
   encodeUrl: true
   timeout: 0

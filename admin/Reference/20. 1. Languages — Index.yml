@@ -53,6 +53,8 @@ docs: 'Tillar ro''yxati (paginatsiya bilan).
 
   | `iso_code` | string | ISO kod (masalan `uz`, `ru`, `en`) |
 
+  | `scale` | string | Daraja shkalasi: `cefr` \| `hsk` \| `topik`. |
+
   | `is_active` | bool | |
 
   | `sort_order` | int | |
