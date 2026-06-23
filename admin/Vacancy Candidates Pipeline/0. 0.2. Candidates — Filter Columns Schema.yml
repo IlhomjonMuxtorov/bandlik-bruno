@@ -57,7 +57,7 @@ docs: 'Kandidatlar ro''yxati (`GET /admin/candidates`) uchun **filtrlanuvchi/sor
 
   | `operators` | array | Ruxsat etilgan operatorlar `[{value, label}]` (`value_type`''dan kelib chiqadi) |
 
-  | `options` | object \| null | Kichik enum''lar: `{type:"inline", items:[{value,label}]}`; yirik reference''lar: `{type:"reference", source:"/admin/reference/..."}`; yoki `null` |
+  | `options` | object \| null | Kichik enum''lar: `{type:"inline", items:[{value,label}]}`; yirik reference''lar: `{type:"reference", source:"/admin/countries"}` (masalan `/admin/countries`, `/admin/regions`, `/admin/languages`, `/admin/vacancies/organizations`); yoki `null` |
 
 
   > `value`/`op` qiymatlari aynan shu yerdan olinadi — filtr daraxtida boshqa
