@@ -1,5 +1,5 @@
 info:
-  name: 1. Admin / Organization Login
+  name: 1. Admin - Organization Login
   type: http
   seq: 1
 http:

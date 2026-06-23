@@ -1,5 +1,5 @@
 info:
-  name: 6. Register / Update Device
+  name: 6. Register - Update Device
   type: http
   seq: 1
 http:
