@@ -126,7 +126,21 @@ docs: 'Global "Kandidatlar" ekrani — barcha vakansiyalar bo''yicha nomzodlar. 
   Har bir element (avvalgi maydonlar saqlangan: `id`, `vacancy`, `match_score`,
   `pipeline_outcome`/`_label`, `cancel_reason`, `current_stage`/`_label`,
   `course_progress_percent`, `collected_amount`/`_currency`, `service_groups[]`).
-  **Yangi:** `candidate.cv` — CV ustunlari:
+
+
+  **`candidate` ildizi** (`full_name`/`phone`/`photo_url` yonida):
+
+
+  | Field (candidate) | Type | Description |
+
+  |---|---|---|
+
+  | `age` | int \| null | Pasport `birth_date`''dan yosh; `null` — noma''lum |
+
+  | `location` | string \| null | "Viloyat, Tuman" propiska satri (Manzil ustuni); `null` — noma''lum |
+
+
+  **`candidate.cv`** — CV ustunlari (`age` va `location` bu yerda EMAS — ildizda):
 
 
   | Field (candidate.cv) | Type | Description |
@@ -139,8 +153,6 @@ docs: 'Global "Kandidatlar" ekrani — barcha vakansiyalar bo''yicha nomzodlar. 
 
   | `cv_completion_percent` | int \| null | 0..100 |
 
-  | `age` | int \| null | Pasport `birth_date`''dan yosh |
-
   | `sex` / `sex_label` | int \| null / string \| null | 1 = erkak, 2 = ayol |
 
   | `marital_status` / `_label` | string \| null | `single` \| `married` \| `divorced` \| `widowed` |
@@ -152,8 +164,6 @@ docs: 'Global "Kandidatlar" ekrani — barcha vakansiyalar bo''yicha nomzodlar. 
   | `nationality_id` / `citizenship_id` | int \| null | |
 
   | `registration_region` / `registration_district` | object \| null | `{id, name}` |
-
-  | `location` | string \| null | "Viloyat, Tuman" propiska satri (Manzil ustuni); `null` — noma''lum |
 
   | `education` | array | `[{id, name}]` — tanlangan CV''dagi ta''lim darajalari |
 
