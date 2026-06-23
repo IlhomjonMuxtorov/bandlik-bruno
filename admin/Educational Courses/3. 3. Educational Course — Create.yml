@@ -10,81 +10,46 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"organization_id\": 1,\n  \"name\": \"A2 Ingliz tili\",\n  \"description\"\
-      : \"Ingliz tili — boshlang'ich darajadan o'rtachaga\",\n  \"category_id\": 2\
-      ,\n  \"language_id\"\
-      : 2,\n  \"level\": \"A2\",\n  \"duration_hours\": 40,\n  \"lessons_count\":\
-      \ 20,\n  \"price\": 124000,\n  \"currency\": \"UZS\",\n  \"cover_file_id\":\
-      \ 11,\n  \"status\": \"active\",\n  \"sort_order\": 0\n\
-      }"
+    data: "{\n  \"organization_id\": 1,\n  \"name\": \"A2 Ingliz tili\",\n  \"description\": \"Ingliz tili — boshlang'ich darajadan o'rtachaga\",\n  \"category_id\": 2,\n  \"language_id\": 2,\n  \"level\": \"A2\",\n  \"duration_hours\": 40,\n  \"lessons_count\": 20,\n  \"price\": 124000,\n  \"currency\": \"UZS\",\n  \"scope\": \"vacancy_only\",\n  \"country_id\": 5,\n  \"cover_file_id\": 11,\n  \"status\": \"active\",\n  \"sort_order\": 0\n}"
   auth: inherit
-docs: 'Yangi o''quv kursini yaratadi. `slug` avtomatik generatsiya qilinadi (`name`
-  asosida, transliteratsiya + noyob qilish uchun suffix). Agar `slug` qo''lda yuborilsa
-  — shu qiymat ishlatiladi (lekin noyob va `/^[a-z0-9-]+$/` shartiga mos bo''lishi
-  shart).
+  docs: |
+    Yangi o'quv kursini yaratadi. `slug` avtomatik generatsiya qilinadi (`name` asosida,
+    transliteratsiya + noyob qilish uchun suffix). Agar `slug` qo'lda yuborilsa — shu
+    qiymat ishlatiladi (lekin noyob va `/^[a-z0-9-]+$/` shartiga mos bo'lishi shart).
 
+    **Auth:** `admin_token`.
 
-  **Auth:** `admin_token`.
+    ### 📥 Request Body (JSON)
 
+    | Field | Type | Required | Description |
+    |---|---|:---:|---|
+    | `organization_id` | int | ✅ | `organization.id` (type = 8 EDUCATIONAL_CENTER bo'lishi shart) |
+    | `name` | string | ✅ | Max 200 |
+    | `slug` | string | ➖ | Bo'sh bo'lsa avtomatik. Pattern `/^[a-z0-9-]+$/`, max 255 |
+    | `description` | string | ➖ | |
+    | `category_id` | int | ➖ | Kurs turi ID — `course_type.id` (faol bo'lishi shart) |
+    | `language_id` | int | ➖ | `language.id` (kurs tilga bog'liq bo'lmasa null) |
+    | `level` | string | ➖ | "A1", "B2" va h.k. — max 10 |
+    | `duration_hours` | int | ➖ | Soatlar soni |
+    | `lessons_count` | int | ➖ | Darslar soni |
+    | `price` | int | ✅ | Butun birlikda — **so'm** (tiyin EMAS). Min 0 |
+    | `currency` | string | ✅ | `UZS` \| `USD` \| `EUR` (default `UZS`) |
+    | `scope` | string | ➖ | `public` (default) \| `vacancy_only`. `public` — mobil katalogda ko'rinadi, alohida sotiladi; `vacancy_only` — faqat vakansiya ichida, alohida sotilmaydi |
+    | `country_id` | int | ➖ | Mo'ljal davlati `country.id`. `null` = davlatga bog'liq emas (faqat `public` uchun). **`scope=vacancy_only` bo'lsa majburiy** |
+    | `cover_file_id` | int | ➖ | `/admin/upload` orqali yuklangan kover rasm fayl ID |
+    | `status` | string | ➖ | `draft` (default) \| `active` \| `archived` |
+    | `sort_order` | int | ➖ | Default `0` |
 
-  ### 📥 Request Body (JSON)
+    ### 📤 Response
 
+    `201` — `EducationalCourseOutputDTO` (`scope`, `scope_label`, `country: {id,name}` bilan).
 
-  | Field | Type | Required | Description |
+    ### ⚠️ Errors
 
-  |---|---|:---:|---|
-
-  | `organization_id` | int | ✅ | `organization.id` (type = 8 EDUCATIONAL_CENTER bo''lishi
-  shart) |
-
-  | `name` | string | ✅ | Max 200 (mockup''da "A2 Ingliz tili") |
-
-  | `slug` | string | ➖ | Bo''sh bo''lsa avtomatik. Pattern `/^[a-z0-9-]+$/`, max 255 |
-
-  | `description` | string | ➖ | |
-
-  | `category_id` | int | ➖ | Kurs turi ID — `course_type.id` (faol bo''lishi shart).
-  Manba: `GET /admin/course-types`. Mobil "Kurs turi" filtri shu bo''yicha ishlaydi |
-
-  | `language_id` | int | ➖ | `language.id` (kurs tilga bog''liq bo''lmasa null) |
-
-  | `level` | string | ➖ | "A1", "B2" va h.k. — max 10 |
-
-  | `duration_hours` | int | ➖ | Mockup''da "40 soat" |
-
-  | `lessons_count` | int | ➖ | Mockup''da "20 dars" |
-
-  | `price` | int | ✅ | Butun birlikda — **so''m** (tiyin EMAS), `currency` valyutasida. Min 0. Admin va mobil API bir xil birlik. |
-
-  | `currency` | string | ✅ | `UZS` \| `USD` \| `EUR` (default `UZS`) |
-
-  | `cover_file_id` | int | ➖ | Oldindan `/admin/upload` orqali yuklangan kover rasm
-  fayl ID |
-
-  | `status` | string | ➖ | `draft` (default) \| `active` \| `archived`. Kurs ko''rinishini shu maydon boshqaradi: faqat `active` kurslar kandidatlarga ko''rinadi |
-
-  | `sort_order` | int | ➖ | Default `0` |
-
-
-  ### 📤 Response
-
-
-  `201` — `EducationalCourseOutputDTO`.
-
-
-  ### ⚠️ Errors
-
-
-  | Code | Reason |
-
-  |---|---|
-
-  | `422` | `organization_id` topilmadi yoki turi EDUCATIONAL_CENTER emas; slug duplicate;
-  validatsiya |
-
-  | `400` | `cover_file_id` topilmadi yoki `status != ready` |
-
-  '
+    | Code | Reason |
+    |---|---|
+    | `422` | `organization_id` topilmadi yoki turi EDUCATIONAL_CENTER emas; slug duplicate; `scope=vacancy_only` da `country_id` yo'q; validatsiya |
+    | `400` | `cover_file_id` topilmadi yoki `status != ready` |
 settings:
   encodeUrl: true
   timeout: 0

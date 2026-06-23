@@ -6,82 +6,51 @@ http:
   method: GET
   url: '{{base_url}}/admin/educational-courses?per-page=20&organization_id=1'
   auth: inherit
-docs: 'Barcha o''quv kurslari ro''yxati. Markaz bo''yicha filtrlash uchun `organization_id`
-  query parametri ishlatiladi.
+  docs: |
+    Barcha o'quv kurslari ro'yxati. Markaz bo'yicha filtrlash uchun `organization_id`
+    query parametri ishlatiladi.
 
+    **Auth:** `admin_token`.
 
-  **Auth:** `admin_token`.
+    ### 🔎 Query Parameters
 
+    | Param | Type | Required | Description |
+    |---|---|:---:|---|
+    | `organization_id` | int | ➖ | Faqat shu markaz kurslari |
+    | `q` | string | ➖ | Nom / slug / izoh / level bo'yicha qidiruv |
+    | `language_id` | int | ➖ | Til bo'yicha filtr |
+    | `category_id` | int | ➖ | Kurs turi ID bo'yicha filtr (`course_type.id`) |
+    | `status` | string | ➖ | `draft` \| `active` \| `archived` |
+    | `scope` | string | ➖ | `public` \| `vacancy_only` — sotuv/ko'rinish rejimi bo'yicha filtr |
+    | `country_id` | int | ➖ | Mo'ljal davlati bo'yicha filtr (aniq tenglik) |
+    | `page`, `per-page` | int | ➖ | Pagination |
+    | `sort` | string | ➖ | `id` \| `sort_order` \| `price` \| `created_at` \| `name` (`-` bilan teskari) |
 
-  ### 🔎 Query Parameters
+    ### 📤 Response (`data.items[]` — `EducationalCourseOutputDTO`)
 
-
-  | Param | Type | Required | Description |
-
-  |---|---|:---:|---|
-
-  | `organization_id` | int | ➖ | Faqat shu markaz kurslari |
-
-  | `q` | string | ➖ | Nom / slug / izoh / level bo''yicha qidiruv |
-
-  | `language_id` | int | ➖ | Til bo''yicha filtr |
-
-  | `category_id` | int | ➖ | Kurs turi ID bo''yicha filtr (`course_type.id`) |
-
-  | `status` | string | ➖ | `draft` \| `active` \| `archived` |
-
-  | `page`, `per-page` | int | ➖ | Pagination |
-
-  | `sort` | string | ➖ | `id` \| `sort_order` \| `price` \| `created_at` \| `name`
-  (`-` bilan teskari) |
-
-
-  ### 📤 Response (`data.items[]` — `EducationalCourseOutputDTO`)
-
-
-  | Field | Type | Description |
-
-  |---|---|---|
-
-  | `id` | int | |
-
-  | `organization_id` | int | |
-
-  | `name` | string | "A2 Ingliz tili" |
-
-  | `slug` | string | URL-safe — autogenerate qilinadi |
-
-  | `description` | string \| null | |
-
-  | `category_id` | int \| null | Kurs turi ID (`course_type.id`) |
-
-  | `category_label` | string \| null | Lokalizatsiyalangan kurs turi nomi |
-
-  | `language` | object \| null | `{id, iso_code, name}` — `Accept-Language` bo''yicha
-  lokalizatsiya |
-
-  | `level` | string \| null | "A1", "B2" va h.k. |
-
-  | `duration_hours` | int \| null | Kurs umumiy soati |
-
-  | `lessons_count` | int \| null | Darslar soni |
-
-  | `price` | int | Butun birlikda — **so''m** (tiyin EMAS), `currency` valyutasida. Mobil API
-  bilan bir xil birlik. |
-
-  | `currency` | string | `UZS` \| `USD` \| `EUR` |
-
-  | `cover_url` | string \| null | Kover rasm URL (mockup''dagi kartochkada) |
-
-  | `status` | string | `draft` \| `active` \| `archived` |
-
-  | `status_label` | string | Lokalizatsiyalangan label |
-
-  | `sort_order` | int | |
-
-  | `created_at` / `updated_at` | int | |
-
-  '
+    | Field | Type | Description |
+    |---|---|---|
+    | `id` | int | |
+    | `organization_id` | int | |
+    | `name` | string | |
+    | `slug` | string | URL-safe — autogenerate qilinadi |
+    | `description` | string \| null | |
+    | `category_id` | int \| null | Kurs turi ID (`course_type.id`) |
+    | `category_label` | string \| null | Lokalizatsiyalangan kurs turi nomi |
+    | `language` | object \| null | `{id, iso_code, name}` — `Accept-Language` bo'yicha lokalizatsiya |
+    | `level` | string \| null | "A1", "B2" va h.k. |
+    | `duration_hours` | int \| null | Kurs umumiy soati |
+    | `lessons_count` | int \| null | Darslar soni |
+    | `price` | int | Butun birlikda — **so'm** (tiyin EMAS), `currency` valyutasida |
+    | `currency` | string | `UZS` \| `USD` \| `EUR` |
+    | `scope` | string | `public` \| `vacancy_only` |
+    | `scope_label` | string | Lokalizatsiyalangan label |
+    | `country` | object \| null | `{id, name}` — mo'ljal davlati; `null` = davlatga bog'liq emas |
+    | `cover_url` | string \| null | Kover rasm URL |
+    | `status` | string | `draft` \| `active` \| `archived` |
+    | `status_label` | string | Lokalizatsiyalangan label |
+    | `sort_order` | int | |
+    | `created_at` / `updated_at` | int | |
 settings:
   encodeUrl: true
   timeout: 0

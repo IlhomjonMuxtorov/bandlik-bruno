@@ -6,53 +6,59 @@ http:
   method: GET
   url: '{{base_url}}/mobile/vacancies/1/courses'
   auth: inherit
-docs: |-
-  Detail ekranining **3-tabi ("Tayyorlov kursi")**: vakansiyaga biriktirilgan `training` kategoriyasidagi kurslar va ular uchun **bitta umumiy narx** (`combined_price`). Har kursning alohida narxi ko'rsatilmaydi — nomzod tanlangan kurslar to'plami uchun bitta umumiy narx to'laydi.
+  docs: |-
+    Detail ekranining **3-tabi ("Tayyorlov kursi")**: vakansiyaga biriktirilgan `training`
+    kategoriyasidagi kurslar, har birining narxi va **umumiy summa** (`total_price` = kurslar
+    narxlari yig'indisi). Eski yagona "umumiy narx" (`combined_price`) bekor qilindi — nomzod
+    tanlangan kurslar narxlarining yig'indisini to'laydi.
 
-  **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi).
+    **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi).
 
-  > **Breaking (shakl o'zgardi):** javob endi flat massiv emas — `{ combined_price, currency, courses[] }` obyekt. Har kurs elementidan `price` / `currency` **olib tashlandi**; narx faqat yuqori darajadagi `combined_price` da.
+    > **Breaking (shakl o'zgardi):** `combined_price` olib tashlandi, o'rniga `total_price`
+    > (kurslar yig'indisi). Har `courses[]` elementiga `price` / `currency` **qaytarildi**.
 
-  ### 📋 Headers
+    ### 📋 Headers
 
-  | Header | Required | Description |
-  |---|:---:|---|
-  | `Authorization` | ✅ | `Bearer <access_token>`. |
+    | Header | Required | Description |
+    |---|:---:|---|
+    | `Authorization` | ✅ | `Bearer <access_token>`. |
 
-  ### 📤 Response
+    ### 📤 Response
 
-  `{ ... }` — obyekt:
+    `{ ... }` — obyekt:
 
-  | Field | Type | Description |
-  |---|---|---|
-  | `combined_price` | int \| null | Tanlangan kurslar uchun umumiy narx — so'mda (major unit), `currency` valyutasida. `null` faqat eski (combined narxsiz) vakansiyalarda. |
-  | `currency` | string | `combined_price` valyutasi (default `UZS`) |
-  | `courses` | array | Biriktirilgan kurslar ro'yxati (quyida), har biri narxsiz |
+    | Field | Type | Description |
+    |---|---|---|
+    | `total_price` | int | Biriktirilgan kurslar narxlari yig'indisi — so'mda (major unit), `currency` valyutasida |
+    | `currency` | string | `total_price` valyutasi (default `UZS`) |
+    | `courses` | array | Biriktirilgan kurslar ro'yxati (quyida), har biri narx bilan |
 
-  **`courses[]` element:**
+    **`courses[]` element:**
 
-  | Field | Type | Description |
-  |---|---|---|
-  | `service_id` | int | `vacancy_service` qatori ID |
-  | `course` | object \| null | Bog'langan kurs ma'lumotlari (quyida). Kurs o'chirilgan bo'lsa `null`. |
+    | Field | Type | Description |
+    |---|---|---|
+    | `service_id` | int | `vacancy_service` qatori ID |
+    | `price` | int | Kurs snapshot narxi — so'mda (major unit) |
+    | `currency` | string | Kurs valyutasi |
+    | `course` | object \| null | Bog'langan kurs ma'lumotlari (quyida). Kurs o'chirilgan bo'lsa `null`. |
 
-  **`course` object:**
+    **`course` object:**
 
-  | Field | Type | Description |
-  |---|---|---|
-  | `id` | int | EducationalCourse ID |
-  | `name` | string | Kurs nomi (masalan "Nemis tili A1 darajasi") |
-  | `description` | string \| null | Tavsif |
-  | `level` | string \| null | Daraja (masalan `A1`) |
-  | `duration_hours` | int \| null | Soat ("40 soat") |
-  | `lessons_count` | int \| null | Darslar soni ("20 dars") |
-  | `cover_url` | string \| null | Muqova rasm URL |
+    | Field | Type | Description |
+    |---|---|---|
+    | `id` | int | EducationalCourse ID |
+    | `name` | string | Kurs nomi |
+    | `description` | string \| null | Tavsif |
+    | `level` | string \| null | Daraja (masalan `A1`) |
+    | `duration_hours` | int \| null | Soat |
+    | `lessons_count` | int \| null | Darslar soni |
+    | `cover_url` | string \| null | Muqova rasm URL |
 
-  ### ⚠️ Errors
+    ### ⚠️ Errors
 
-  | Code | Reason |
-  |---|---|
-  | `404` | Vakansiya topilmadi yoki `approved` emas |
+    | Code | Reason |
+    |---|---|
+    | `404` | Vakansiya topilmadi yoki `approved` emas |
 settings:
   encodeUrl: true
   timeout: 0

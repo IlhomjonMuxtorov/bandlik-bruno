@@ -10,17 +10,23 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"price\": 150000,\n  \"lessons_count\": 24\n}"
+    data: "{\n  \"price\": 150000,\n  \"lessons_count\": 24,\n  \"scope\": \"public\",\n  \"country_id\": 5\n}"
   auth: inherit
-docs: 'Mavjud kursni yangilaydi — faqat o''zgaradigan maydonlarni yuborish kifoya.
-  Maydonlar ro''yxati `Create` bilan bir xil — narx (`price`) butun **so''m**da (tiyin EMAS).
-  `organization_id` o''zgartirilsa, yangi
-  markaz turi ham EDUCATIONAL_CENTER bo''lishi shart.
+  docs: |
+    Mavjud kursni yangilaydi — faqat o'zgaradigan maydonlarni yuborish kifoya.
+    Maydonlar ro'yxati `Create` bilan bir xil — narx (`price`) butun **so'm**da (tiyin EMAS).
+    `organization_id` o'zgartirilsa, yangi markaz turi ham EDUCATIONAL_CENTER bo'lishi shart.
 
+    `scope` va `country_id` ham yangilanishi mumkin. `scope=vacancy_only` ga o'tkazilsa,
+    `country_id` (joriy yoki yangi) bo'lishi shart.
 
-  **Auth:** `admin_token`.
+    **Auth:** `admin_token`.
 
-  '
+    ### ⚠️ Errors
+
+    | Code | Reason |
+    |---|---|
+    | `422` | `scope=vacancy_only` da `country_id` yo'q; slug duplicate; validatsiya |
 settings:
   encodeUrl: true
   timeout: 0

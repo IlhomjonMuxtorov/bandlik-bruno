@@ -1,0 +1,47 @@
+info:
+  name: 6. Course Purchase
+  type: http
+  seq: 6
+http:
+  method: POST
+  url: '{{base_url}}/mobile/courses/1/purchase'
+  headers:
+  - name: Content-Type
+    value: application/json
+  auth: inherit
+  docs: |-
+    Kursni hamyon (wallet) balansidan sotib oladi: order yaratadi va to'lovni amalga oshiradi.
+    Faqat **tasdiqlangan** (MVD-verified) nomzod sotib oladi — mehmon (`456`), tasdiqlanmagan (`403`).
+
+    Narx **to'liqligicha o'quv markazga** o'tadi (platforma komissiyasi 0%).
+
+    > **Eslatma:** `vacancy_only` (vakansiya uchun maxsus) kurslar **alohida sotib olinmaydi** —
+    > `403` qaytadi. Bunday kurslar faqat vakansiya orqali biriktiriladi.
+
+    **Auth:** `access_token` (verified candidate).
+
+    ### 📤 Response
+
+    `201` — muvaffaqiyatli to'lov:
+
+    | Field | Type | Description |
+    |---|---|---|
+    | `order_id` | int | `organization_service_order` ID |
+    | `transaction_id` | int | To'lov tranzaksiyasi ID |
+    | `amount` | int | To'langan summa — so'mda (major unit) |
+    | `currency` | string | Valyuta |
+    | `paid` | bool | `true` |
+
+    ### ⚠️ Errors
+
+    | Code | Reason |
+    |---|---|
+    | `402` | Balans yetarli emas — `{ insufficient_balance, required, available, shortfall }` (so'mda) |
+    | `403` | Tasdiqlanmagan nomzod **yoki** kurs `vacancy_only` (alohida sotib bo'lmaydi) |
+    | `404` | Kurs topilmadi yoki `active` emas |
+    | `456` | Mehmon tokeni — verified akkaunt kerak |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

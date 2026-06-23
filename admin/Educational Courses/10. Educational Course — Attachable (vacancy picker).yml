@@ -1,0 +1,39 @@
+info:
+  name: 10. Educational Course — Attachable (vacancy picker)
+  type: http
+  seq: 10
+http:
+  method: GET
+  url: '{{base_url}}/admin/educational-courses/attachable?organization_id=1&country_id=5'
+  auth: inherit
+  docs: |
+    Vakansiya wizardi kurs picker'i: berilgan o'quv markazning (`organization_id`)
+    **active** kurslari, vakansiya davlatiga (`country_id`) mos bo'lganlari — ya'ni
+    kurs o'sha davlatni mo'ljallagan YOKI davlatga bog'liq emas (`country_id IS NULL`).
+    Ham `public`, ham `vacancy_only` kurslar qaytadi.
+
+    **Auth:** `admin_token`.
+
+    ### 🔎 Query Parameters
+
+    | Param | Type | Required | Description |
+    |---|---|:---:|---|
+    | `organization_id` | int | ✅ | O'quv markaz `organization.id` |
+    | `country_id` | int | ✅ | Vakansiya davlati `country.id` |
+    | `page`, `per-page` | int | ➖ | Pagination |
+    | `sort` | string | ➖ | `id` \| `sort_order` \| `price` \| `name` |
+
+    ### 📤 Response
+
+    `data.items[]` — `EducationalCourseOutputDTO` (Index bilan bir xil shakl).
+
+    ### ⚠️ Errors
+
+    | Code | Reason |
+    |---|---|
+    | `422` | `organization_id` yoki `country_id` yo'q/0 |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

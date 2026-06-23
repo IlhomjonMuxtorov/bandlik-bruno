@@ -84,8 +84,6 @@ http:
             "payment_deadline_days": 5,
             "execution_deadline_days": 14,
             "sort_order": 3,
-            "combined_price": 2500000,
-            "combined_price_currency": "UZS",
             "services": [
               { "category": "training", "educational_course_id": 12 },
               { "category": "training", "educational_course_id": 15 }
@@ -138,9 +136,7 @@ docs: |
   | `benefits[]` | array | `{id, sort_order}` — vacancy_benefit katalog IDsi |
   | `documents[]` | array | `{id, sort_order}` — vacancy_document katalog IDsi |
   | `service_groups[]` | array | **Xizmatlar TASHKILOT guruhlari bo'yicha (majburiy).** Har bir guruh: `{organization_id, payment_deadline_days, execution_deadline_days, sort_order, services:[…]}`. Bitta tashkilot = bitta guruh; guruh bir nechta kategoriyani qamrashi mumkin (masalan notarius tashkilotning `notary_translation` + `notary_apostille` + `notary_other` xizmatlari bitta guruhda). `organization_id` faqat guruhda — nested xizmatlar undan meros oladi. Ikkala muddat (kunlarda) > 0. `payment_deadline_days` — kandidatning to'lash muddati (guruh boshlangandan); `execution_deadline_days` — bajarish muddati (to'langandan). **Tartib:** saqlashda qayta tartiblanadi — reorderable guruhlar (course/insurance/notarius) boshida (yuborilgan `sort_order` bo'yicha), fixed guruhlar (visa→agency→logistics) oxirida (qat'iy). Guruhning turi uning xizmatlari kategoriyasidan aniqlanadi |
-  | `service_groups[].services[]` | array | Guruhning xizmatlari: `{category, organization_service_id?, educational_course_id?, notary_*_price_id?, insurance_country_price_id?, price?, currency?, service_name?, duration_text?, notes?, sort_order?}`. Har xizmat o'z `category` siga ega (bir kategoriya faqat bitta tashkilotda bo'lishi mumkin). `educational_course_id` `category="training"` da majburiy — va vakansiya darajasida kamida bitta `training` xizmati + kurs **har doim** talab qilinadi (pastga qarang). `organization_service_id` berilsa narx/nom snapshot qilinadi (override `price`/`service_name` orqali) |
-  | `service_groups[].combined_price` | int | **Training (kurslar) guruhi uchun umumiy narx — majburiy** (`> 0`). Major unitda (so'm). Tanlangan barcha kurslar uchun BITTA umumiy narx; har kursning alohida narxi `total_service_amount` ga **kirmaydi** (faqat info bo'lib qoladi, mobil'ga uzatilmaydi). Backend tiyinda saqlaydi; javobda so'mda qaytadi. Training-dan boshqa guruhlarda yuborilmaydi |
-  | `service_groups[].combined_price_currency` | string | `combined_price` valyutasi (➖, default `UZS`). Vakansiya xizmat valyutasiga (`UZS`) mos bo'lishi kerak — aks holda umumiy summaga kirmaydi |
+  | `service_groups[].services[]` | array | Guruhning xizmatlari: `{category, organization_service_id?, educational_course_id?, notary_*_price_id?, insurance_country_price_id?, price?, currency?, service_name?, duration_text?, notes?, sort_order?}`. Har xizmat o'z `category` siga ega (bir kategoriya faqat bitta tashkilotda bo'lishi mumkin). `educational_course_id` `category="training"` da majburiy — va vakansiya darajasida kamida bitta `training` xizmati + kurs **har doim** talab qilinadi (pastga qarang). `organization_service_id` berilsa narx/nom snapshot qilinadi (override `price`/`service_name` orqali). **Training kurslari uchun `price` override e'tiborga olinmaydi** — narx kursdan snapshot qilinadi (ADR 0005) |
   | `single_payment` | bool | `1 tada 100% lik to'lov` toggle. `false` bo'lsa to'lov rejasi `service_groups[]` ning o'zi — guruhlar ketma-ket (yuqoridagi tartibda) to'lanadi |
 
   > To'lov rejasi alohida yuborilmaydi — `service_groups[]` (har guruh o'z xizmat narxlari snapshot'i bilan) to'lov rejasining o'zidir. Eski `payment_steps[]` maydoni olib tashlangan; yuborilsa e'tiborga olinmaydi.
@@ -151,13 +147,13 @@ docs: |
 
   **⚠️ Kurs (majburiy):** har bir vakansiyada **kamida bitta** `category = "training"` xizmati bo'lishi va unga `educational_course_id` biriktirilgan bo'lishi shart. Aks holda `400` — `At least one training service with a course is required`.
 
-  **⚠️ Kurslar umumiy narxi (majburiy):** training guruhda `combined_price` (`> 0`, so'm) yuborilishi shart — tanlangan kurslar uchun bitta umumiy narx. Yo'q yoki `<= 0` bo'lsa `400` — `Combined course price is required`. Bu narx `total_service_amount` ga kiritiladi; alohida kurs narxlari hisoblanmaydi.
+  **⚠️ Kurslar narxi (ADR 0005):** eski yagona `combined_price` **bekor qilindi**. Training summasi = biriktirilgan kurslar snapshot narxlari **yig'indisi** (boshqa guruhlar kabi). Narx kursda belgilanadi, vakansiyada o'zgartirilmaydi (override yo'q). Kurs valyutasi vakansiya valyutasiga mos bo'lishi shart — aks holda `400` `Course currency must match the vacancy currency`.
 
   **🔖 Shablon sifatida saqlash (wizard checkboxi):** `save_as_template = true` (bool, ➖) yuborilsa, vakansiya yaratilgach shu wizard formasi `vacancy_template` sifatida ham saqlanadi — **xuddi shu tranzaksiyada** (shablon saqlash xato bo'lsa vakansiya ham yaratilmaydi). Shablon nomi `template_name` (string, ➖); berilmasa vakansiya `title`'i ishlatiladi (200 belgigacha qisqartiriladi). Shablon vakansiyaning `organization_id`'iga biriktiriladi va keyin `GET /admin/vacancy-templates` da ko'rinadi.
 
   ### 📤 Response (`data`)
 
-  Full detail DTO (View bilan bir xil). `status` = `draft`, `total_service_amount` = (training'dan boshqa xizmatlar narxi) + training guruh `combined_price` — **so'mda (major unit)**. `service_groups[]` nested `services[]` bilan, `sort_order` bo'yicha tartiblangan (reorderable oldinda, visa→agency→logistics oxirida) va har biri `is_reorderable` (bool) hamda `combined_price` / `combined_price_currency` (training guruhda set, boshqalarda `null`) maydonlarini qaytaradi — FE shu flag bo'yicha sudraladigan/qulflangan elementlarni ajratadi.
+  Full detail DTO (View bilan bir xil). `status` = `draft`, `total_service_amount` = **barcha** xizmatlar narxi yig'indisi (training kurslar ham per-service qo'shiladi) — **so'mda (major unit)**. `service_groups[]` nested `services[]` bilan, `sort_order` bo'yicha tartiblangan (reorderable oldinda, visa→agency→logistics oxirida) va har biri `is_reorderable` (bool) maydonini qaytaradi — FE shu flag bo'yicha sudraladigan/qulflangan elementlarni ajratadi. (`combined_price` maydoni olib tashlandi — ADR 0005.)
 
   **`auto_approval`** (object) — vakansiya keyin avtomatik chop etilishi haqida ma'lumot (FE "submit'dan keyin N daqiqada avto-chop etiladi" deb ko'rsatishi uchun):
 
