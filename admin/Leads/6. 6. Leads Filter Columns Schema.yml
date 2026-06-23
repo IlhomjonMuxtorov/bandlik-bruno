@@ -1,0 +1,88 @@
+info:
+  name: 6. Leads Filter Columns Schema
+  type: http
+  seq: 6
+http:
+  method: GET
+  url: '{{base_url}}/admin/leads/columns'
+  headers:
+    - name: Accept-Language
+      value: uz
+      enabled: true
+  auth: inherit
+docs: >
+  Leads ro'yxati (`GET /admin/leads`) uchun **filtrlanuvchi/sort qilinuvchi ustunlar
+  katalogi** — frontend Airtable uslubidagi filtr/sort UI'ni shundan render qiladi.
+  Yagona haqiqat manbai server tomonidagi `LeadColumnCatalog`. Kandidatlar katalogi
+  bilan bir xil format (`GET /admin/candidates/columns`).
+
+
+  **Auth:** `access_token` (admin).
+
+
+  ### 📋 Headers
+
+
+  | Header | Required | Description |
+
+  |---|:---:|---|
+
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` (label'lar tili). Default: `uz` |
+
+
+  ### 📤 Response (`data`)
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `columns` | array | Ustunlar ro'yxati |
+
+
+  Har bir ustun: `key`, `label`, `value_type`, `filterable`, `sortable`, `operators`
+  (`[{value, label}]`, `value_type`'dan kelib chiqadi), `options` (`{type:"inline", items}`
+  kichik enumlar uchun yoki `{type:"reference", source}` yirik ro'yxatlar uchun, yoki `null`).
+
+
+  Kandidatlar katalogidan **farqlari**:
+
+
+  | Ustun | Izoh |
+
+  |---|---|
+
+  | `vacancy_id` / `country_id` / `organization_id` | **Opportunity** — "lead'ning birorta arizasi/pipeline'i mos" (per-`vacancy_candidate` qatori EMAS) |
+
+  | `funnel_status` | `single_select` — hisoblangan funnel bosqichi (`new` \| `applied` \| `in_interview` \| `confirmed` \| `moved_to_other_job` \| `rejected`). "Holati" tab + `/counts` bilan parallel |
+
+  | `source` | `single_select` — lead manbasi (`web` \| `telegram` \| `instagram` \| `tanish` \| `other`) |
+
+  | `applications_count` | `integer`, sortable — topshirilgan arizalar soni |
+
+  | `created_at` | `date`, sortable — ro'yxatdan o'tgan sana |
+
+  | `match_score` | `integer` — viza-survey moslik. Filtr = **birorta surveyed davlat ≥ N** (ko'rsatilgan representative-davlat qiymatdan farqli) |
+
+
+  > Pipeline'ning stage-granular / pul / vaqt ustunlari (`current_stage`,
+  `stage_category`, `stage_status`, `collected_amount`, `accepted_at`, `departed_at`,
+  `pipeline_outcome`) leads katalogida **yo'q**. `value`/`op` qiymatlari aynan shu
+  yerdan olinadi — boshqa qiymat yuborilsa `GET /admin/leads` `422` qaytaradi.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo'q / eskirgan |
+
+  | `403` | Admin emas |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
