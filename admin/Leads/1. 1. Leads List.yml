@@ -4,7 +4,7 @@ info:
   seq: 1
 http:
   method: GET
-  url: '{{base_url}}/admin/leads?q=&status=&country_id=&organization_id=&gender=&age_from=&age_to=&experience=&education_level_ids=&language_ids=&language_level_ids=&driver_categories=&per-page=20'
+  url: '{{base_url}}/admin/leads?q=&status=&country_id=&organization_id=&gender=&age_from=&age_to=&experience=&education_level_ids=&language_ids=&language_level_ids=&driver_categories=&last_visa_country_id=&last_workplace=&applications_from=&applications_to=&per-page=20'
   auth: inherit
 params:
   query:
@@ -42,6 +42,18 @@ params:
       value: ''
       enabled: true
     - name: driver_categories
+      value: ''
+      enabled: true
+    - name: last_visa_country_id
+      value: ''
+      enabled: true
+    - name: last_workplace
+      value: ''
+      enabled: true
+    - name: applications_from
+      value: ''
+      enabled: true
+    - name: applications_to
       value: ''
       enabled: true
     - name: per-page
@@ -93,6 +105,14 @@ docs: >
 
   | `driver_categories` | string[] | ➖ | Haydovchilik kategoriyalari: `A` \| `B` \| `C` \| `D` \| `E` \| `BE` \| `CE` \| `DE` \| `TM` \| `TB`. `?driver_categories=B,C` |
 
+  | `last_visa_country_id` | int | ➖ | Eng so'nggi viza (`entry_date` max) mamlakati bo'yicha filtr (`candidate_visa`) |
+
+  | `last_workplace` | string | ➖ | Ish joyi kompaniya nomi bo'yicha matn qidiruv (ILIKE, `candidate_experience.company_name`) |
+
+  | `applications_from` | int | ➖ | Minimal arizalar soni (`>= N`). `0` — filtrlamaydi |
+
+  | `applications_to` | int | ➖ | Maksimal arizalar soni (`<= N`); arizasiz leadlar ham kiradi |
+
   | `sort` | string | ➖ | `id` \| `created_at` (default `id DESC`) |
 
   | `per-page` | int | ➖ | 1..100 (default 20); `page` 1-indeksli |
@@ -114,11 +134,21 @@ docs: >
 
   | `id` | int | User id |
 
-  | `candidate` | object | `{id, full_name, phone, photo_url, location}` (`id` `null` bo'lishi mumkin) |
+  | `candidate` | object | `{id, full_name, phone, photo_url, location, age, education, last_workplace, last_visa}` (`id` `null` bo'lishi mumkin) |
+
+  | `candidate.age` | int \| null | Yosh (pasport `birth_date` bo'yicha); `null` — noma'lum |
+
+  | `candidate.education` | object[] | Primary CV ta'lim darajalari `[{id, name}]` (noyob) |
+
+  | `candidate.last_workplace` | object \| null | Oxirgi ish joyi `{company_name, position, is_current, start_date, end_date}`; `null` — tajriba yo'q |
+
+  | `candidate.last_visa` | object \| null | Oxirgi viza `{country_id, country_name, visa_type, visa_type_label, entry_date, exit_date}`; `null` — viza yo'q |
 
   | `vacancy` | object \| null | Vakil vakansiya `{id, title}` |
 
   | `current_application_id` | int \| null | Vakil ariza id — single/bulk amal va Chat uchun |
+
+  | `applications_count` | int | Nomzodning barcha arizalari soni (har qanday status) |
 
   | `experience_years` / `_months` / `_total_months` | int | Primary CV bo'yicha tajriba |
 

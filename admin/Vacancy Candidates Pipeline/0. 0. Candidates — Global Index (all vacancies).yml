@@ -153,6 +153,8 @@ docs: 'Global "Kandidatlar" ekrani — barcha vakansiyalar bo''yicha nomzodlar. 
 
   | `registration_region` / `registration_district` | object \| null | `{id, name}` |
 
+  | `location` | string \| null | "Viloyat, Tuman" propiska satri (Manzil ustuni); `null` — noma''lum |
+
   | `education` | array | `[{id, name}]` — tanlangan CV''dagi ta''lim darajalari |
 
   | `experience_years` | int | Umumiy ish staji (yil) |
@@ -166,6 +168,16 @@ docs: 'Global "Kandidatlar" ekrani — barcha vakansiyalar bo''yicha nomzodlar. 
   | `driver_certificates` | array | `[{type, label}]` |
 
   | `background` | object | `{criminal_record, insolvent_debtor, travel_ban, narcology, psychiatry}` — bool |
+
+  | `last_workplace` | object \| null | Oxirgi ish joyi `{company_name, position, is_current, start_date, end_date}`; `null` — tajriba yo''q |
+
+  | `last_visa` | object \| null | Oxirgi viza `{country_id, country_name, visa_type, visa_type_label, entry_date, exit_date}`; `null` — viza yo''q |
+
+  | `documents` | array | Hujjat turlari `[{type, label}]` (noyob, `candidate_document` pool) |
+
+
+  Yangi **filtrlanuvchi** ustunlar (`/columns`): `last_visa_country` (eng so''nggi viza
+  mamlakati), `documents_type` (hujjat turlari), `last_workplace` (kompaniya nomi matn).
 
 
   `include=cv` berilganda element''ga `cv` (to''liq nested CvOutput) ham qo''shiladi.
