@@ -33,7 +33,10 @@ docs: 'Bitta til ma''lumotlarini olish.
 
   | `id` | int | |
 
-  | `name` | string | Til bo''yicha tarjima |
+  | `name` | object | Tahrirlash uchun xom i18n: `{ uz, ru, en }`. |
+
+  | `name_localized` | string | `Accept-Language` bo''yicha tarjima (fallback `uz`).
+  |
 
   | `iso_code` | string | ISO kod |
 
@@ -43,7 +46,8 @@ docs: 'Bitta til ma''lumotlarini olish.
 
   | `sort_order` | int | |
 
-  | `levels` | array | Shu tilning scale darajalari (read-only): `[{ id, code, name }]`. |
+  | `levels` | array | Shu tilning scale darajalari (read-only): `[{ id, code, name:
+  { uz, ru, en }, name_localized }]`. |
 
   '
 settings:

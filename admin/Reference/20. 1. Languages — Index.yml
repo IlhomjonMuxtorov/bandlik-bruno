@@ -49,7 +49,10 @@ docs: 'Tillar ro''yxati (paginatsiya bilan).
 
   | `id` | int | |
 
-  | `name` | string | Til bo''yicha tarjima |
+  | `name` | object | Tahrirlash uchun xom i18n: `{ uz, ru, en }`. |
+
+  | `name_localized` | string | `Accept-Language` bo''yicha tarjima (fallback `uz`).
+  |
 
   | `iso_code` | string | ISO kod (masalan `uz`, `ru`, `en`) |
 
@@ -62,7 +65,8 @@ docs: 'Tillar ro''yxati (paginatsiya bilan).
   | `sort_order` | int | |
 
   | `levels` | array | Shu tilning scale darajalari (read-only), scale tartibida:
-  `[{ id, code, name }]` — masalan `jlpt` uchun `N5..N1`. |
+  `[{ id, code, name: { uz, ru, en }, name_localized }]` — masalan `jlpt` uchun
+  `N5..N1`. |
 
   '
 settings:

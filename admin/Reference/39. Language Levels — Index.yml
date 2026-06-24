@@ -38,8 +38,9 @@ docs: >
   ### 📤 Response (`data`)
 
 
-  Massiv: `[{ id, code, name, scale }]` (`code` masalan `A1` / `jlpt_n1`; `scale` —
-  daraja shkalasi; `name` — `Accept-Language` bo'yicha string).
+  Massiv: `[{ id, code, name: { uz, ru, en }, name_localized, scale }]` (`code` masalan
+  `A1` / `jlpt_n1`; `scale` — daraja shkalasi; `name` — tahrirlash uchun xom i18n map;
+  `name_localized` — `Accept-Language` bo'yicha string).
 settings:
   encodeUrl: true
   timeout: 0
