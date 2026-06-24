@@ -187,7 +187,9 @@ docs: 'Global "Kandidatlar" ekrani — barcha vakansiyalar bo''yicha nomzodlar. 
 
 
   Yangi **filtrlanuvchi** ustunlar (`/columns`): `last_visa_country` (eng so''nggi viza
-  mamlakati), `documents_type` (hujjat turlari), `last_workplace` (kompaniya nomi matn).
+  mamlakati), `documents_type` (hujjat turlari), `last_workplace` (kompaniya nomi matn),
+  `course` (kurs nomi bo''yicha matn qidiruv — qo''lda kiritilgan + MinVUZ qisqa-kurslar,
+  `filter` daraxti orqali).
 
 
   `include=cv` berilganda element''ga `cv` (to''liq nested CvOutput) ham qo''shiladi.

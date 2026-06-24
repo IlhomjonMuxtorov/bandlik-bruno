@@ -44,6 +44,12 @@ docs: 'Kurslar ro''yxati.
   | `certificate_file_kind_icon_url` | string \| null | Standart ikonkaga to''liq
   URL |
 
+  | `duration_hours` | int \| null | Kurs davomiyligi (akademik soat). MVD qisqa-kursida
+  to''ladi, manualda `null` |
+
+  | `is_from_mvd` | bool | `true` — MinVUZ qisqa-kurs sertifikatidan
+  (`/minvuz/services/short-certificate/v1`), read-only; `false` — nomzod kiritgan |
+
   '
 settings:
   encodeUrl: true

@@ -63,7 +63,7 @@ docs: 'Bitta CV-ning to''liq tafsilotlari (education, experience, languages va h
 
   | `family` | object | Candidate-level (barcha CV-larda bir xil) |
 
-  | `languages` | array | Faqat shu CV |
+  | `languages` | array | Candidate-level. Har element: `{ id, language, level, source, ball, certificate_url, serial_number, issued_date }`. `source=mvd` — DTM/ГЦТ CEFR sertifikatidan (`/dtm/service/certificate/v1`), read-only, eng yuqori daraja; `ball`/`certificate_url`/`serial_number`/`issued_date` faqat `mvd` uchun, aks holda `null`. `source=manual` — nomzod kiritgan |
 
   | `documents` | array | Faqat shu CV |
 
@@ -73,7 +73,7 @@ docs: 'Bitta CV-ning to''liq tafsilotlari (education, experience, languages va h
 
   | `education[].is_from_mvd` | bool | `true` — MVD'dan auto (oliy diplom yoki kolej/litsey), tahrirlanmaydi |
 
-  | `courses` | array | Faqat shu CV |
+  | `courses` | array | Faqat shu CV. Har element: `{ id, course_name, institution_name, start_date, end_date, certificate_number, certificate_file_url, duration_hours, is_from_mvd }`. `is_from_mvd=true` — MinVUZ qisqa-kurs sertifikatidan (`/minvuz/services/short-certificate/v1`), read-only; `duration_hours` — kurs soati (MVD), manualda `null` |
 
   | `contact` | object | `{ phone, email, phone_is_custom, email_is_custom }` (CV override yoki profil qiymati) |
 

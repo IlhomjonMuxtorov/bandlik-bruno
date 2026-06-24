@@ -26,7 +26,21 @@ docs: 'Nomzod biladigan tillar ro''yxati.
 
   | `language` | object | `{ id, iso_code, name }` |
 
-  | `language_level` | object | `{ id, code, name }` |
+  | `level` | object | `{ id, code, name }` |
+
+  | `source` | string | `mvd` (DTM/ГЦТ CEFR sertifikatidan, `/dtm/service/certificate/v1`,
+  read-only) \| `manual` (nomzod kiritgan) |
+
+  | `ball` | string \| null | Sertifikat to''plagan ball; faqat `mvd` uchun, aks holda `null` |
+
+  | `certificate_url` | string \| null | Rasmiy sertifikat PDF havolasi (app.dtm.uz); faqat
+  `mvd`, aks holda `null` |
+
+  | `serial_number` | string \| null | DTM sertifikat seriyasi (masalan `22DTM1000057YN`);
+  faqat `mvd`, aks holda `null` |
+
+  | `issued_date` | date \| null | Sertifikat berilgan sana (`DD.MM.YYYY`); faqat `mvd`,
+  aks holda `null` |
 
   '
 settings:
