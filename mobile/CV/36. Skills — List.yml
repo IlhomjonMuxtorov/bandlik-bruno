@@ -1,0 +1,45 @@
+info:
+  name: Skills — List
+  type: http
+  seq: 36
+http:
+  method: GET
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/skill'
+  headers:
+  - name: Accept
+    value: application/json
+  auth: inherit
+docs: |
+  CV ga biriktirilgan kasbiy ko'nikmalar ro'yxati (qo'shilish tartibida).
+
+  Ko'nikmalar talablar katalogidan (`professional_skills` guruhi) tanlanadi —
+  taklif (autocomplete) uchun `GET /mobile/skills` ga qarang.
+
+  **Auth:** `access_token`.
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {access_token}` |
+
+  ### 📤 Response *(massiv elementi)*
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | `candidate_cv_skill` qatori ID — o'chirish uchun ishlatiladi |
+  | `requirement_id` | int | Katalog ta'rif ID (`vacancy_requirement.id`) |
+  | `name` | string | Lokalizatsiyalangan ko'nikma nomi |
+  | `code` | string \| null | Ta'rifning barqaror kodi (masalan `pc.ms_office`); `null` — kod yo'q |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki muddati o'tgan |
+  | `404` | CV topilmadi yoki boshqa nomzodga tegishli |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

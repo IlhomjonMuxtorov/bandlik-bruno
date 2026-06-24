@@ -1,0 +1,29 @@
+info:
+  name: Skills — Delete
+  type: http
+  seq: 38
+http:
+  method: DELETE
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/skill/1'
+  headers:
+  - name: Accept
+    value: application/json
+  auth: inherit
+docs: |
+  CV dan kasbiy ko'nikmani o'chirish. URL dagi `1` — `candidate_cv_skill` qatori
+  ID si (`Skills — List` javobidagi `id`). `204 No Content`.
+
+  **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki muddati o'tgan |
+  | `403` | Shaxs tasdiqlanmagan, yoki ko'nikma boshqa CV ga tegishli |
+  | `404` | Ko'nikma topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

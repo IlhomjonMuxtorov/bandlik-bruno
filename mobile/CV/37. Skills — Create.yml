@@ -1,0 +1,56 @@
+info:
+  name: Skills — Create
+  type: http
+  seq: 37
+http:
+  method: POST
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/skill'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"requirement_id\": 257\n}"
+  auth: inherit
+docs: |
+  CV ga kasbiy ko'nikma qo'shish. `requirement_id` — `GET /mobile/skills`
+  taklifidan olingan katalog ta'rif ID si.
+
+  **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
+
+  > **Idempotent:** allaqachon qo'shilgan ko'nikma qayta yuborilsa, xato emas —
+  > mavjud qator qaytadi (chip ikki marta bosilganda muammo bo'lmaydi).
+  >
+  > `requirement_id` faqat `professional_skills` guruhidagi aktiv ta'rif bo'lishi
+  > kerak — boshqa talab ID (masalan yosh, jins) `400` bilan rad etiladi.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `requirement_id` | int | ✅ | Katalog kasbiy ko'nikma ta'rifi ID (`professional_skills.*`) |
+
+  ### 📤 Response — `201 Created`
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | `candidate_cv_skill` qatori ID (o'chirish uchun) |
+  | `requirement_id` | int | Katalog ta'rif ID |
+  | `name` | string | Lokalizatsiyalangan ko'nikma nomi |
+  | `code` | string \| null | Ta'rif kodi; `null` — kod yo'q |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `requirement_id` yo'q, aktiv emas yoki `professional_skills` guruhidan tashqari |
+  | `401` | Token yo'q yoki muddati o'tgan |
+  | `403` | Shaxs tasdiqlanmagan (`is_verified=false`) |
+  | `404` | CV topilmadi yoki boshqa nomzodga tegishli |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
