@@ -39,6 +39,9 @@ docs: 'Til ma''lumotnomasi. Tanlangan tilga ko''ra lokalizatsiya qilingan nomlar
 
   | `name` | string | Lokalizatsiyalangan nom |
 
+  | `scale` | string | Tilning standart daraja shkalasi (`cefr` \| `hsk` \| `jlpt` \|
+  …) — darajalarni `GET /mobile/language-levels?scale=` bilan filtrlash uchun |
+
 
   ### ⚠️ Errors
 

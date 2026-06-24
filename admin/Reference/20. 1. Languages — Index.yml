@@ -53,11 +53,16 @@ docs: 'Tillar ro''yxati (paginatsiya bilan).
 
   | `iso_code` | string | ISO kod (masalan `uz`, `ru`, `en`) |
 
-  | `scale` | string | Daraja shkalasi: `cefr` \| `hsk` \| `topik`. |
+  | `scale` | string | Daraja shkalasi: `cefr` \| `hsk` \| `topik` \| `jlpt` \| `torfl`
+  \| `ilr` \| `actfl` \| `clb` \| `nclc` \| `testdaf` \| `tocfl` \| `stanag` \| `oet` \|
+  `dsh` \| `nt2` \| `eiken`. |
 
   | `is_active` | bool | |
 
   | `sort_order` | int | |
+
+  | `levels` | array | Shu tilning scale darajalari (read-only), scale tartibida:
+  `[{ id, code, name }]` — masalan `jlpt` uchun `N5..N1`. |
 
   '
 settings:

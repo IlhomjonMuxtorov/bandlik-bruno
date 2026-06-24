@@ -6,23 +6,40 @@ http:
   method: GET
   url: '{{base_url}}/admin/language-levels'
   auth: inherit
-params: {}
+params:
+  - name: scale
+    value: jlpt
+    type: query
+    enabled: false
 headers:
   - name: Accept-Language
     value: uz
     enabled: true
 docs: >
-  Til bilish darajalari ro'yxati (A1..C2, native) — leadlar Filter panelidagi
-  "Tillar" daraja dropdowni uchun.
+  Til bilish darajalari ro'yxati — leadlar Filter paneli va til tanlash dropdowni
+  uchun. `scale` bilan bitta shkala darajalarini filtrlash mumkin.
 
 
   **Auth:** `access_token` (admin).
 
 
+  ### 🔎 Query Parameters
+
+
+  | Param | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `scale` | string | ➖ | Bitta shkala darajalarini filtrlash: `cefr` \| `hsk` \|
+  `topik` \| `jlpt` \| `torfl` \| `ilr` \| `actfl` \| `clb` \| `nclc` \| `testdaf` \|
+  `tocfl` \| `stanag` \| `oet` \| `dsh` \| `nt2` \| `eiken`. Berilmasa — barcha darajalar. |
+
+
   ### 📤 Response (`data`)
 
-  Massiv: `[{ id, code, name }]` (`code` masalan `A1`/`B2`/`native`; `name` —
-  `Accept-Language` bo'yicha string).
+
+  Massiv: `[{ id, code, name, scale }]` (`code` masalan `A1` / `jlpt_n1`; `scale` —
+  daraja shkalasi; `name` — `Accept-Language` bo'yicha string).
 settings:
   encodeUrl: true
   timeout: 0

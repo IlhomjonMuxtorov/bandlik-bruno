@@ -37,9 +37,13 @@ docs: 'Bitta til ma''lumotlarini olish.
 
   | `iso_code` | string | ISO kod |
 
+  | `scale` | string | Daraja shkalasi: `cefr` \| `hsk` \| `jlpt` \| … (16 ta). |
+
   | `is_active` | bool | |
 
   | `sort_order` | int | |
+
+  | `levels` | array | Shu tilning scale darajalari (read-only): `[{ id, code, name }]`. |
 
   '
 settings:

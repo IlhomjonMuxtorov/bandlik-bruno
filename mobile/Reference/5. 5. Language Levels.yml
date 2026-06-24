@@ -8,8 +8,13 @@ http:
   headers:
   - name: Accept
     value: application/json
+  params:
+  - name: scale
+    value: jlpt
+    type: query
+    enabled: false
   auth: inherit
-docs: 'Til daraja ma''lumotnomasi (**CEFR** + `native`).
+docs: 'Til daraja ma''lumotnomasi. `scale` bilan bitta shkala darajalarini filtrlash mumkin.
 
 
   **Auth:** `access_token`.
@@ -25,6 +30,18 @@ docs: 'Til daraja ma''lumotnomasi (**CEFR** + `native`).
   | `Authorization` | ✅ | `Bearer {access_token}` |
 
 
+  ### 🔎 Query Parameters
+
+
+  | Param | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `scale` | string | ➖ | Bitta shkala darajalari: `cefr` \| `hsk` \| `topik` \| `jlpt`
+  \| `torfl` \| `ilr` \| `actfl` \| `clb` \| `nclc` \| `testdaf` \| `tocfl` \| `stanag`
+  \| `oet` \| `dsh` \| `nt2` \| `eiken`. Berilmasa — barchasi. |
+
+
   ### 📤 Response *(massiv elementi)*
 
 
@@ -34,9 +51,11 @@ docs: 'Til daraja ma''lumotnomasi (**CEFR** + `native`).
 
   | `id` | int | Daraja ID |
 
-  | `code` | string | `A1` \| `A2` \| `B1` \| `B2` \| `C1` \| `C2` \| `native` |
+  | `code` | string | Daraja kodi, masalan `A1` \| `native` \| `jlpt_n1` \| `hsk_3` |
 
   | `name` | string | Lokalizatsiyalangan nom |
+
+  | `scale` | string | Daraja shkalasi: `cefr` \| `hsk` \| `jlpt` \| … |
 
 
   ### ⚠️ Errors
