@@ -1,0 +1,54 @@
+info:
+  name: Update CV Photo
+  type: http
+  seq: 35
+http:
+  method: PATCH
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/photo'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n    \"photo_file_id\": 123\n}"
+  auth: inherit
+docs: |-
+  Shu CV ning rasmini **faqat** almashtiradi. CV `title` va boshqa barcha maydonlar
+  tegilmaydi (to'liq payload talab qiladigan `PATCH /mobile/cv/{id}` dan farqi shu).
+  Har bir CV o'z profil rasmiga ega — profil avatardan (`/mobile/candidate/photo`)
+  mustaqil. Eski rasm fayli avtomatik o'chiriladi.
+
+  📎 Oqim: avval `POST /mobile/upload` (multipart, `file`) bilan rasmni yuklang →
+  qaytgan `id` ni shu yerda `photo_file_id` sifatida yuboring.
+
+  **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `photo_file_id` | int | ✅ | `POST /mobile/upload` qaytargan tayyor (`ready`) fayl `id`. Rasm bo'lishi kerak. |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `photo_url` | string | Shu CV uchun yangi rasm URL. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `photo_file_id` yuborilmagan yoki musbat butun son emas |
+  | `400` | Fayl topilmadi yoki hali `ready` emas |
+  | `401` | Token yo'q |
+  | `403` | Shaxs tasdiqlanmagan (`is_verified=false`) — javobda `verification_required: true` |
+  | `456` | Guest — registratsiya tugatilmagan |
+  | `404` | CV topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

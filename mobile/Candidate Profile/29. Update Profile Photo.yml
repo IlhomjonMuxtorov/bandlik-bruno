@@ -1,0 +1,53 @@
+info:
+  name: Update Profile Photo
+  type: http
+  seq: 29
+http:
+  method: PATCH
+  url: '{{base_url}}/mobile/candidate/photo'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n    \"photo_file_id\": 123\n}"
+  auth: inherit
+docs: |-
+  Profil rasmini (avatar) **faqat** almashtiradi — bu rasm barcha CV uchun umumiy.
+  `profile-extras` payload'ini qayta yubormasdan avatarni yangilash uchun alohida,
+  faqat-rasm endpoint. Eski rasm fayli avtomatik o'chiriladi.
+
+  📎 Oqim: avval `POST /mobile/upload` (multipart, `file`) bilan rasmni yuklang →
+  qaytgan `id` ni shu yerda `photo_file_id` sifatida yuboring.
+
+  **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `photo_file_id` | int | ✅ | `POST /mobile/upload` qaytargan tayyor (`ready`) fayl `id`. Rasm bo'lishi kerak. |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `photo_url` | string \| null | Yangi avatar URL. Rasm yo'q bo'lsa passport rasmiga fallback. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `photo_file_id` yuborilmagan yoki musbat butun son emas |
+  | `400` | Fayl topilmadi yoki hali `ready` emas |
+  | `401` | Token yo'q |
+  | `403` | Shaxs tasdiqlanmagan (`is_verified=false`) — javobda `verification_required: true` |
+  | `456` | Guest — registratsiya tugatilmagan |
+  | `404` | Nomzod topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
