@@ -21,7 +21,7 @@ docs: |
   | Field | Type | Description |
   |---|---|---|
   | `id` | int | Hujjat ID (pooldagi) |
-  | `type` | string | `passport_scan` \| `foreign_passport_scan` \| `criminal_record_scan` \| `photo_3x4_scan` |
+  | `type` | string | `passport_scan` \| `foreign_passport_scan` \| `criminal_record_scan` \| `photo_3x4_scan` \| `health_certificate_scan` |
   | `title` | string | Fayl nomi |
   | `file_url` | string \| null | Fayl URL |
   | `file_size` | int \| null | Bayt |

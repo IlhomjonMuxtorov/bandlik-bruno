@@ -1,0 +1,50 @@
+info:
+  name: 14. Document Types
+  type: http
+  seq: 14
+http:
+  method: GET
+  url: '{{base_url}}/mobile/document-types'
+  auth: inherit
+docs: |
+  Nomzod hujjat turlari ro'yxati (ma'lumotnoma). Rezyume yaratish "Hujjatlar"
+  bosqichidagi slotlarni shu ro'yxat boshqaradi — har bir `value` profil
+  pooliga yuklanadigan hujjat turini bildiradi (`/mobile/candidate/document`
+  `type` maydoni bilan bir xil).
+
+  **Auth:** `access_token`
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {token}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. `label` shu tilda qaytadi. Default: `uz` |
+
+  ### 📤 Response *(massiv elementi)*
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `value` | string | Hujjat turi kaliti: `passport_scan` \| `foreign_passport_scan` \| `criminal_record_scan` \| `photo_3x4_scan` \| `health_certificate_scan` |
+  | `label` | string | Tilga moslangan ko'rinadigan nom |
+
+  ```json
+  [
+    { "value": "passport_scan",          "label": "Pasport nusxasi" },
+    { "value": "foreign_passport_scan",  "label": "Xorijiy pasport nusxasi" },
+    { "value": "criminal_record_scan",   "label": "Sudlanmaganlik ma'lumotnomasi" },
+    { "value": "photo_3x4_scan",         "label": "3.5x4.5 surat" },
+    { "value": "health_certificate_scan","label": "Sog'liq sertifikati" }
+  ]
+  ```
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Unauthorized (token yaroqsiz yoki berilmagan) |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
