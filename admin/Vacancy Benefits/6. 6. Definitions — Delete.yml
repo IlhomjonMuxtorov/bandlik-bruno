@@ -1,0 +1,23 @@
+info:
+  name: Definitions — Delete
+  type: http
+  seq: 6
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/benefit-definitions/1'
+  auth: inherit
+docs: |
+  Imtiyoz ta'rifini o'chiradi. Seed qilingan (`is_system=true`) ta'riflar o'chirilmaydi
+  (`403`). Vakansiyalar foydalanayotgan ta'rifni o'chirib bo'lmaydi (FK RESTRICT) —
+  o'rniga `is_active=false` qiling.
+
+  **Auth:** Faqat `admin_token`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Admin emas, yoki def `is_system=true` |
+  | `404` | Topilmadi |
+  | `422` | Vakansiyalar foydalanmoqda (deaktivatsiya qiling) |

@@ -1,0 +1,65 @@
+info:
+  name: Definitions — List
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/benefit-definitions'
+  params:
+  - name: q
+    value: ''
+    enabled: false
+  - name: code
+    value: ''
+    enabled: false
+  - name: category_id
+    value: ''
+    enabled: false
+  - name: value_type
+    value: ''
+    enabled: false
+  auth: inherit
+docs: |
+  Typed benefit (imtiyoz) katalogi — sahifalangan. Vakansiyaga imtiyoz biriktirishda
+  `q` (nom yoki kod) yoki `code` bo'yicha qidiriladi.
+
+  **Auth:** Faqat `admin_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `q` | string | ➖ | Nom (uz/ru/en) **yoki** kod bo'yicha ILIKE qidiruv. |
+  | `code` | string | ➖ | Aniq kod bo'yicha filtr (masalan `salary.shift_extra`). |
+  | `category_id` | int | ➖ | Kategoriya bo'yicha filtr. |
+  | `value_type` | string | ➖ | `boolean` \| `percent` \| `percent_range` \| `days` \| `percent_or_money` \| `money`. |
+  | `is_active` | int | ➖ | `1` \| `0`. |
+  | `per-page` | int | ➖ | 1..100, default 20. |
+  | `page` | int | ➖ | Default 1. |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `items[].id` | int | ID |
+  | `items[].code` | string \| null | Qidiruv kodi (masalan `housing.company`). |
+  | `items[].name` | object | `{ uz, ru, en }`. |
+  | `items[].value_type` | string | Imtiyoz qiymat turi. |
+  | `items[].category_id` | int \| null | Kategoriya ID. |
+  | `items[].category_name` | string \| null | Lokalizatsiyalangan kategoriya nomi (Accept-Language). |
+  | `items[].unit` | string \| null | `days` \| `percent` \| null. |
+  | `items[].is_system` | bool | `true` — seed qilingan, tahrirlab/o'chirib bo'lmaydi. |
+  | `items[].is_active` | bool | Faol holati. |
+  | `pagination` | object | `{ page, page_size, total_count, page_count }`. |
+
+  > **Vakansiyaga biriktirish:** imtiyoz qiymati vakansiya `POST /admin/vacancies`
+  > `benefits[]` massivida yuboriladi — `value_type`'ga qarab `value_bool` /
+  > `value_min` / `value_max` / `mode`+`amount`+`currency` / `is_free`. 1-guruh
+  > (`salary.*`) money rejimida `currency` vakansiya gross/net valyutasiga teng bo'lishi shart.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Admin emas |

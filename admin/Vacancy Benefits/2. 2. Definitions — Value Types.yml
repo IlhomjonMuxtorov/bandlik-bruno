@@ -1,0 +1,32 @@
+info:
+  name: Definitions — Value Types
+  type: http
+  seq: 2
+http:
+  method: GET
+  url: '{{base_url}}/admin/benefit-definitions/value-types'
+  auth: inherit
+docs: |
+  Imtiyoz `value_type` ro'yxati — formadagi selector uchun.
+
+  **Auth:** Faqat `admin_token`.
+
+  ### 📤 Response
+
+  `[{ value, label }]` — 6 ta tur:
+
+  | value | Tavsif |
+  |---|---|
+  | `boolean` | Faqat tanlanadi (ha/yo'q). |
+  | `percent` | Yagona foiz 0–100 (100 = bepul). |
+  | `percent_range` | Foiz oraliq (masalan 20–50%) yoki to'liq bepul. |
+  | `days` | Kun soni (masalan yillik ta'til). |
+  | `percent_or_money` | Foiz YOKI summa (1-guruh ustama/bonus). |
+  | `money` | Faqat summa + valyuta. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Admin emas |

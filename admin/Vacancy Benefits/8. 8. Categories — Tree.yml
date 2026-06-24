@@ -1,0 +1,34 @@
+info:
+  name: Categories — Tree
+  type: http
+  seq: 8
+http:
+  method: GET
+  url: '{{base_url}}/admin/benefit-categories'
+  params:
+  - name: active_only
+    value: '1'
+    enabled: false
+  auth: inherit
+docs: |
+  Imtiyoz taksonomiyasi daraxti — yuqori darajadagi guruhlar va ularning subgroup'lari.
+  Kategoriyalarda kod yo'q — id va lokalizatsiyalangan nom bilan aniqlanadi.
+
+  **Auth:** Faqat `admin_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `active_only` | int | ➖ | `1` — faqat faol kategoriyalar. |
+
+  ### 📤 Response
+
+  `[{ id, parent_id, name:{uz,ru,en}, is_active, sort_order, children:[...] }]` — rekursiv.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Admin emas |

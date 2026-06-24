@@ -1,0 +1,21 @@
+info:
+  name: Categories — Delete
+  type: http
+  seq: 11
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/benefit-categories/1'
+  auth: inherit
+docs: |
+  Imtiyoz kategoriyasini o'chiradi. Unga bog'langan ta'riflar uzib qo'yiladi
+  (FK ON DELETE SET NULL — ta'riflar o'chmaydi).
+
+  **Auth:** Faqat `admin_token`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Admin emas |
+  | `404` | Topilmadi |

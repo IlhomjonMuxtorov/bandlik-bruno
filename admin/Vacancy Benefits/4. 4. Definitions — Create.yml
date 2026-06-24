@@ -1,0 +1,44 @@
+info:
+  name: Definitions — Create
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{base_url}}/admin/benefit-definitions'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"category_id\": 3,\n  \"code\": \"food.snacks\",\n  \"name\": {\n    \"uz\": \"Yengil taomlar\",\n    \"ru\": \"Снеки\",\n    \"en\": \"Snacks\"\n  },\n  \"description\": {\n    \"uz\": \"Ofisda bepul yengil taomlar\",\n    \"ru\": \"Бесплатные снеки в офисе\",\n    \"en\": \"Free office snacks\"\n  },\n  \"value_type\": \"boolean\",\n  \"unit\": null,\n  \"is_active\": true,\n  \"sort_order\": 0\n}"
+  auth: inherit
+docs: |
+  Yangi (custom) imtiyoz ta'rifi yaratadi. Yaratilgan def `is_system=false` bo'ladi.
+
+  **Auth:** Faqat `admin_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `name` | object | ✅ | `{ uz, ru, en }` — max 500 belgi. |
+  | `code` | string | ➖ | Noyob qidiruv kodi (dotted slug, masalan `food.snacks`). |
+  | `category_id` | int | ➖ | Kategoriya ID (`GET /admin/benefit-categories` dan). |
+  | `description` | object | ➖ | `{ uz, ru, en }` — max 2000 belgi. |
+  | `value_type` | string | ➖ | Default `boolean`. Ruxsat: `boolean` \| `percent` \| `percent_range` \| `days` \| `percent_or_money` \| `money`. |
+  | `options` | array | ➖ | Select turlari uchun `[{ code, name:{uz,ru,en} }]`. |
+  | `unit` | string | ➖ | `days` \| `percent` \| null. |
+  | `is_active` | bool | ➖ | Default `true`. |
+  | `sort_order` | int | ➖ | Default 0. |
+
+  ### 📤 Response (201)
+
+  Yaratilgan ta'rif: `{ id, code, name, description, category_id, category_name, value_type, options, unit, is_system, is_active, sort_order }`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Admin emas |
+  | `422` | `name` bo'sh, `code` band, yoki `value_type` noto'g'ri |

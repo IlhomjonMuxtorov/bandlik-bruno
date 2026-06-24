@@ -1,0 +1,31 @@
+info:
+  name: Categories — Update
+  type: http
+  seq: 10
+http:
+  method: POST
+  url: '{{base_url}}/admin/benefit-categories/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": {\n    \"uz\": \"Yangilangan guruh\",\n    \"ru\": \"Обновлённая группа\",\n    \"en\": \"Updated group\"\n  }\n}"
+  auth: inherit
+docs: |
+  Imtiyoz kategoriyasini yangilaydi (partial — faqat yuborilgan maydonlar).
+
+  **Auth:** Faqat `admin_token`.
+
+  ### 📥 Request Body
+
+  Create bilan bir xil maydonlar, barchasi ixtiyoriy.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Admin emas |
+  | `404` | Topilmadi |
+  | `422` | `name` bo'sh |

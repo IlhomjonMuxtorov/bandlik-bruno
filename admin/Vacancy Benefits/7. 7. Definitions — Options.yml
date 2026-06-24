@@ -1,0 +1,25 @@
+info:
+  name: Definitions — Options
+  type: http
+  seq: 7
+http:
+  method: GET
+  url: '{{base_url}}/admin/benefit-definitions/options/1'
+  auth: inherit
+docs: |
+  Bitta imtiyoz ta'rifining inline option tanlovlari (select turlari uchun) —
+  lokalizatsiyalangan. Scalar/money/percent turlarida `[]`.
+
+  **Auth:** Faqat `admin_token`.
+
+  ### 📤 Response
+
+  `[{ value, label }]`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Admin emas |
+  | `404` | Topilmadi |

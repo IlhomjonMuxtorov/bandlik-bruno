@@ -1,0 +1,32 @@
+info:
+  name: Definitions — Update
+  type: http
+  seq: 5
+http:
+  method: POST
+  url: '{{base_url}}/admin/benefit-definitions/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": {\n    \"uz\": \"Yengil taomlar (yangilangan)\",\n    \"ru\": \"Снеки (обновлено)\",\n    \"en\": \"Snacks (updated)\"\n  },\n  \"is_active\": false\n}"
+  auth: inherit
+docs: |
+  Imtiyoz ta'rifini yangilaydi (partial — faqat yuborilgan maydonlar). Seed qilingan
+  (`is_system=true`) ta'riflar tahrirlab bo'lmaydi — `403`.
+
+  **Auth:** Faqat `admin_token`.
+
+  ### 📥 Request Body
+
+  Create bilan bir xil maydonlar, barchasi ixtiyoriy (mavjud bo'lganlari yangilanadi).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Admin emas, yoki def `is_system=true` |
+  | `404` | Topilmadi |
+  | `422` | `code` band yoki `value_type` noto'g'ri |

@@ -48,7 +48,7 @@ docs: |-
   | `work_time_from` / `_to` | string \| null | `HH:MM` |
   | `organization` | object | `{ id, name, logo_url }` |
   | `requirements` | array | `[{ id, title, description, sort_order }]` |
-  | `benefits` | array | `[{ id, title, description, sort_order }]` |
+  | `benefits` | array | Tiplangan imtiyozlar: `[{ id, code, title, description, category, category_id, value_type, unit, is_free, value, sort_order }]`. `value` turga qarab: `boolean`→bool; `percent`/`days`→int; `percent_range`→`{min,max}`; `percent_or_money`→`{mode,percent}` yoki `{mode:"money",amount,currency}`; `money`→`{amount,currency}`. `amount` major birlikda (so'm/dollar). `is_free=true` bo'lsa `value=null` |
 
   ### ⚠️ Errors
 

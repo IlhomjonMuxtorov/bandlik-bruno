@@ -19,7 +19,7 @@ http:
         "country_id": 1,
         "requirements": [{ "id": 1, "sort_order": 0, "is_mandatory": true, "value_int_min": 21, "value_int_max": 45 }],
         "language_requirements": [{ "language_id": 3, "min_language_level_id": 4, "is_mandatory": true, "sort_order": 0 }],
-        "benefits": [{ "id": 1, "sort_order": 0 }],
+        "benefits": [{ "id": 1, "mode": "money", "amount": 50, "currency": "USD", "sort_order": 0 }, { "id": 12, "value_min": 20, "value_max": 50, "sort_order": 1 }],
         "documents": [{ "id": 1, "sort_order": 0 }],
         "service_groups": [
           {

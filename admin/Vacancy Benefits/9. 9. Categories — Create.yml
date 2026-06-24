@@ -1,0 +1,39 @@
+info:
+  name: Categories — Create
+  type: http
+  seq: 9
+http:
+  method: POST
+  url: '{{base_url}}/admin/benefit-categories'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"parent_id\": null,\n  \"name\": {\n    \"uz\": \"Yangi guruh\",\n    \"ru\": \"Новая группа\",\n    \"en\": \"New group\"\n  },\n  \"is_active\": true,\n  \"sort_order\": 0\n}"
+  auth: inherit
+docs: |
+  Yangi imtiyoz kategoriyasi (guruh yoki subgroup) yaratadi.
+
+  **Auth:** Faqat `admin_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `name` | object | ✅ | `{ uz, ru, en }`. |
+  | `parent_id` | int \| null | ➖ | Ota guruh ID; `null` = yuqori daraja. |
+  | `is_active` | bool | ➖ | Default `true`. |
+  | `sort_order` | int | ➖ | Default 0. |
+
+  ### 📤 Response (201)
+
+  `{ id, parent_id, name, is_active, sort_order }`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Admin emas |
+  | `422` | `name` bo'sh |
