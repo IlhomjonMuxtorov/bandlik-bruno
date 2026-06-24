@@ -34,17 +34,21 @@ docs: 'Ish tajribasi ro''yxati.
 
   | `is_current` | bool | Hozirgi ish |
 
+  | `achievements` | string \| null | Ushbu ish o''rnidagi yutuqlar (erkin matn). `null`
+  — kiritilmagan |
+
   | `is_from_mvd` | bool | MVD sinxronlangan yozuv. `update`/`delete` taqiqlanadi, lekin
-  `file_id` ni `PATCH /experience/<id>/file` orqali yangilash mumkin |
+  `recommendation_file_id` ni `PATCH /experience/<id>` orqali yangilash mumkin |
 
-  | `file_url` | string \| null | Hujjat URL (mehnat guvohnomasi va h.k.) |
+  | `recommendation_file_url` | string \| null | Tavsiyanoma hujjati URL. `null` —
+  biriktirilmagan |
 
-  | `file_size` | int \| null | Bayt |
+  | `recommendation_file_size` | int \| null | Bayt |
 
-  | `file_kind` | string \| null | `pdf` \| `image` \| `word` \| `excel` \| `other`
-  |
+  | `recommendation_file_kind` | string \| null | `pdf` \| `image` \| `word` \| `excel`
+  \| `other` |
 
-  | `file_kind_icon_url` | string \| null | Standart ikonkaga to''liq URL |
+  | `recommendation_file_kind_icon_url` | string \| null | Standart ikonkaga to''liq URL |
 
   '
 settings:
