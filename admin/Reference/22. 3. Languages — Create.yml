@@ -36,7 +36,7 @@ docs: 'Yangi til qo''shadi.
 
   | `iso_code` | string (max 5) | ✅ | Unikal ISO kod (masalan `fr`) |
 
-  | `scale` | string | ➖ | Daraja shkalasi: `cefr` \| `hsk` \| `topik`. Default: `cefr`. |
+  | `scale` | string | ➖ | Daraja shkalasi: `cefr` \| `hsk` \| `topik` \| `jlpt` \| `torfl` \| `ilr` \| `actfl` \| `clb` \| `nclc` \| `testdaf` \| `tocfl` \| `stanag` \| `oet` \| `dsh` \| `nt2` \| `eiken`. Default: `cefr`. |
 
   | `is_active` | int (0\|1) | ➖ | Default: 1 |
 

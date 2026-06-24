@@ -37,7 +37,7 @@ docs: 'Til ma''lumotlarini yangilash (qisman update).
 
   | `iso_code` | string (max 5) | ➖ | Unikal ISO kod |
 
-  | `scale` | string | ➖ | Daraja shkalasi: `cefr` \| `hsk` \| `topik`. |
+  | `scale` | string | ➖ | Daraja shkalasi: `cefr` \| `hsk` \| `topik` \| `jlpt` \| `torfl` \| `ilr` \| `actfl` \| `clb` \| `nclc` \| `testdaf` \| `tocfl` \| `stanag` \| `oet` \| `dsh` \| `nt2` \| `eiken`. |
 
   | `is_active` | int (0\|1) | ➖ | |
 
