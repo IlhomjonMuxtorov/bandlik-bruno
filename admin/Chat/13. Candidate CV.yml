@@ -17,7 +17,7 @@ docs: |
   Chat ortidagi kandidatning to'liq CV'si — chat info panelida "CV" ko'rinishi uchun.
   `GET /admin/vacancy-applications/<id>/cv` bilan bir xil struktura (mobil
   `GET /mobile/cv/:id` shape'i — ta'lim, ish tajribasi, tillar, hujjatlar, oila,
-  vizalar, haydovchilik guvohnomasi, kurslar, kontakt).
+  vizalar, haydovchilik guvohnomasi, kurslar, ko'nikmalar, kontakt).
 
   **Auth:** `admin_token`. Admin yoki shu chat tashkilotining xodimi.
 
@@ -30,7 +30,7 @@ docs: |
   1. Arizaga biriktirilgan CV (`vacancy_application.cv_id`) bo'lsa — o'sha CV.
   2. Bo'lmasa — kandidatning **primary** CV'si.
   3. CV umuman yo'q bo'lsa — minimal profil (pasport/shaxsiy ma'lumotlar to'ldirilgan,
-     `education`, `experience`, `documents`, `courses` bo'sh; `header.cv_id = null`).
+     `education`, `experience`, `documents`, `courses`, `skills` bo'sh; `header.cv_id = null`).
 
   ### ⚠️ Errors
 

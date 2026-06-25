@@ -51,11 +51,11 @@ docs: 'Bitta CV-ning to''liq tafsilotlari (education, experience, languages va h
 
   | `personal` | object | Passport asosida (CV-dan qat''iy nazar bir xil) |
 
-  | `birth_place` | object | `{ region, district, address, country }`. `region`/`district` faqat foydalanuvchi kiritgan qiymatdan (pasport bergan IIB'dan taxmin qilinmaydi); `country` MVD `birthcountry`; `address` MVD `birthplace` erkin matni |
+  | `birth_place` | object | `{ region, district, address, country }`. `region`/`district` faqat foydalanuvchi kiritgan qiymatdan (pasport bergan IIB''dan taxmin qilinmaydi); `country` MVD `birthcountry`; `address` MVD `birthplace` erkin matni |
 
   | `passport` | object | TIN, foreign passport, visa info |
 
-  | `registration` | object | Propiska: `{ region, district, country, address, postal_code, registration_date }`. `region`/`district`/`country` MVD `MVDAddressInfoService` propiskasidan `region`/`district` jadvallariga bog'lanadi (erkin matn fallback) |
+  | `registration` | object | Propiska: `{ region, district, country, address, postal_code, registration_date }`. `region`/`district`/`country` MVD `MVDAddressInfoService` propiskasidan `region`/`district` jadvallariga bog''lanadi (erkin matn fallback) |
 
   | `education` | array | Faqat shu CV-ga tegishli |
 
@@ -69,11 +69,18 @@ docs: 'Bitta CV-ning to''liq tafsilotlari (education, experience, languages va h
 
   | `driver` | object | License candidate-level, certificates CV-level |
 
-  | `licenses` | array | Candidate-level kasbiy/biznes litsenziyalar (AGU `/dxa/service/license/v1/pin`). Har element: `{ name, document_type, register_number, registration_date, expiry_date, organization, activity_addresses[], activity_types[], is_from_mvd }`. `is_from_mvd=true` — MVD'dan, read-only; bo''sh massiv — litsenziya yo''q |
+  | `licenses` | array | Candidate-level kasbiy/biznes litsenziyalar (AGU `/dxa/service/license/v1/pin`). Har element: `{ name, document_type, register_number, registration_date, expiry_date, organization, activity_addresses[], activity_types[], is_from_mvd }`. `is_from_mvd=true` — MVD''dan, read-only; bo''sh massiv — litsenziya yo''q |
 
-  | `education[].is_from_mvd` | bool | `true` — MVD'dan auto (oliy diplom yoki kolej/litsey), tahrirlanmaydi |
+  | `education[].is_from_mvd` | bool | `true` — MVD''dan auto (oliy diplom yoki kolej/litsey), tahrirlanmaydi |
 
   | `courses` | array | Faqat shu CV. Har element: `{ id, course_name, institution_name, start_date, end_date, certificate_number, certificate_file_url, duration_hours, is_from_mvd }`. `is_from_mvd=true` — MinVUZ qisqa-kurs sertifikatidan (`/minvuz/services/short-certificate/v1`), read-only; `duration_hours` — kurs soati (MVD), manualda `null` |
+
+  | `skills` | array | Faqat shu CV. Talablar katalogining `professional_skills`
+  guruhidan tanlangan kasbiy ko''nikmalar. Har element: `{ id, requirement_id, name,
+  code }` — `id` = candidate_cv_skill qatori (o''chirish uchun), `requirement_id` =
+  `vacancy_requirement.id`, `name` = lokalizatsiyalangan nom, `code` = ta''rif kodi
+  (masalan `pc.ms_office`) yoki `null`. Taklif: `GET /mobile/skills`. CV
+  to''liqligiga ta''sir qilmaydi |
 
   | `contact` | object | `{ phone, email, phone_is_custom, email_is_custom }` (CV override yoki profil qiymati) |
 

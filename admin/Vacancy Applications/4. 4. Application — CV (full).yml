@@ -8,7 +8,7 @@ http:
   auth: inherit
 docs: 'Arizaga biriktirilgan kandidatning to''liq CV''si (mobil `GET /mobile/cv/:id`
   bilan bir xil struktura — ta''lim, ish tajribasi, tillar, hujjatlar, oila, vizalar,
-  haydovchilik guvohnomasi, kurslar).
+  haydovchilik guvohnomasi, kurslar, ko''nikmalar).
 
 
   **Auth:** Admin yoki vakansiya egasi.
