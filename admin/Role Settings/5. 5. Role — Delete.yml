@@ -1,0 +1,29 @@
+info:
+  name: 5. Role — Delete
+  type: http
+  seq: 5
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/roles/xba_supervisor'
+  auth: inherit
+docs: |-
+  Rolni o'chiradi (uning assignment va child bog'lanishlari ham tushadi).
+  Himoyalangan rollar (`superadmin`, `admin`) o'chirilmaydi. Faqat Super Admin.
+
+  **Auth:** `admin_token`. **Permission:** `roleManage`.
+
+  ### 📤 Response
+
+  `200` — `{ success: true, message: "Role deleted" }`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `403` | `roleManage` permission yo'q |
+  | `422` | Rol himoyalangan (`superadmin`/`admin`) yoki topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

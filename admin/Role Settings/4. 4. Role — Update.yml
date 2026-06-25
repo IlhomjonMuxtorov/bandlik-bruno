@@ -1,0 +1,45 @@
+info:
+  name: 4. Role — Update
+  type: http
+  seq: 4
+http:
+  method: PUT
+  url: '{{base_url}}/admin/roles/xba_supervisor'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"description\": \"XBA supervisor — kengaytirilgan\",\n  \"permissions\": [\n    \"vacancyView\",\n    \"applicationView\",\n    \"chatManage\",\n    \"vacancyStageManage\",\n    \"ownProfileManage\"\n  ]\n}"
+  auth: inherit
+docs: |-
+  Rol tavsifini va/yoki permission to'plamini tahrirlaydi (ADR 0009). URL'dagi
+  `{name}` — mavjud rol kaliti. `permissions` yuborilsa — to'plam **to'liq qayta
+  o'rnatiladi** (yuborilmagan permission'lar olib tashlanadi). Faqat Super Admin.
+
+  **Auth:** `admin_token`. **Permission:** `roleManage`.
+
+  ### 📥 Request Body (JSON)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `description` | string | ➖ | Yangi tavsif. Yuborilmasa o'zgarmaydi |
+  | `permissions` | string[] | ➖ | Yangi to'liq permission to'plami. Yuborilmasa to'plam o'zgarmaydi |
+
+  > `superadmin`/`admin` himoyalangan rollar — tahrirlash mumkin, lekin o'chirib bo'lmaydi.
+
+  ### 📤 Response
+
+  `200` — `{ success: true, message: "Role updated" }`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `403` | `roleManage` permission yo'q |
+  | `422` | Rol topilmadi yoki noma'lum permission |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

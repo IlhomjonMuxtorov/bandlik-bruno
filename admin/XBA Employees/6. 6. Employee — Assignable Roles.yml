@@ -1,0 +1,33 @@
+info:
+  name: 6. Employee — Assignable Roles
+  type: http
+  seq: 6
+http:
+  method: GET
+  url: '{{base_url}}/admin/xba-employees/1/assignable-roles'
+  auth: inherit
+docs: |-
+  Xodim tashkiloti o'z xodimlariga biriktira oladigan katalog rollari
+  (ADR 0009). XBA uchun `xba_` prefiksli rollar (`xba_admin`, `xba_manager`,
+  `xba_operator`, `xba_viewer`).
+
+  **Auth:** `admin_token`. **Permission:** `employeeRoleAssign`.
+  Org-scope: admin bo'lmagan aktor faqat o'z tashkiloti xodimini ko'radi
+  (boshqa org `id` → `403`).
+
+  ### 📤 Response
+
+  `data` — rollar massivi (`Roles — List` bilan bir xil shakl: `name`,
+  `description`, `is_protected`, `permissions`).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `403` | `employeeRoleAssign` yo'q yoki boshqa tashkilot xodimi |
+  | `404` | Xodim topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

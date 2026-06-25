@@ -1,0 +1,36 @@
+info:
+  name: 1. Roles — List
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/roles'
+  auth: inherit
+docs: |-
+  RBAC rol katalogi — har bir rol va unga biriktirilgan permission kalitlari
+  (ADR 0009, "Role Settings"). Super Admin shu ekranda rollarni boshqaradi.
+
+  **Auth:** `admin_token`. **Permission:** `roleView`.
+
+  ### 📤 Response
+
+  `data` — rollar massivi:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `name` | string | Rol kaliti (masalan `xba_manager`) |
+  | `description` | string \| null | Tavsif |
+  | `is_protected` | bool | `true` — o'chirib bo'lmaydi (`superadmin`, `admin`) |
+  | `permissions` | string[] | Biriktirilgan permission kalitlari (alifbo tartibida) |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki noto'g'ri |
+  | `403` | `roleView` permission yo'q |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,6 @@
+info:
+  name: Role Settings
+  type: folder
+  seq: 63
+request:
+  auth: inherit

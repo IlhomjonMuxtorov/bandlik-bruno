@@ -1,0 +1,44 @@
+info:
+  name: 3. Role — Create
+  type: http
+  seq: 3
+http:
+  method: POST
+  url: '{{base_url}}/admin/roles'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": \"xba_supervisor\",\n  \"description\": \"XBA supervisor — read + chat\",\n  \"permissions\": [\n    \"vacancyView\",\n    \"applicationView\",\n    \"chatManage\",\n    \"ownProfileManage\"\n  ]\n}"
+  auth: inherit
+docs: |-
+  Yangi rol yaratadi va unga permission to'plamini biriktiradi (ADR 0009).
+  Faqat Super Admin.
+
+  **Auth:** `admin_token`. **Permission:** `roleManage`.
+
+  ### 📥 Request Body (JSON)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `name` | string | ✅ | Rol kaliti. Pattern: `^[a-z][a-z0-9_]{1,62}$` (masalan `xba_supervisor`). Mavjud item bilan to'qnashmasligi kerak |
+  | `description` | string | ➖ | Tavsif. Bo'sh bo'lsa `null` saqlanadi |
+  | `permissions` | string[] | ➖ | Biriktiriladigan permission kalitlari. Har biri katalogda mavjud bo'lishi shart |
+
+  ### 📤 Response
+
+  `201` — `{ name, description, permissions }`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki noto'g'ri |
+  | `403` | `roleManage` permission yo'q |
+  | `422` | `name` bo'sh / noto'g'ri pattern / mavjud, yoki noma'lum permission |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

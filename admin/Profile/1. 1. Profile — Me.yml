@@ -42,9 +42,20 @@ docs: |
   | `organization_id` / `organization_name` | int\|string | Tashkilot |
   | `full_name` | string | To'liq ism |
   | `phone` | string\|null | Telefon |
-  | `role` | string | Tashkilotdagi rol (`admin`, ...) |
+  | `role` | string | Tashkilotdagi rol (katalog kaliti: `admin`, `xba_manager`, ...) |
   | `language` | string | `uz` \| `ru` \| `en` |
   | `profile_photo_url` | string\|null | Profil rasmi |
+
+  ### 📤 RBAC konteksti (ikkala shaklга qo'shiladi — ADR 0009)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `permissions` | string[] | Foydalanuvchining effektiv permission kalitlari (har request'da yangidan hisoblanadi). Frontend statik menyuni shu ro'yxat bo'yicha filtrlaydi |
+  | `user_type` | int | `1` = Admin, `5` = Partner, `6` = Employee (faqat *data*) |
+  | `organization` | object \| null | Org konteksti — `{ id, type }`; platform admin uchun `null` |
+
+  > Menyu = UX qatlami. Element yashirilishi endpoint'ni himoya qilmaydi —
+  > har bir action baribir `can('<permission>')` tekshiradi va `403` qaytaradi.
 
   ### ⚠️ Errors
 
