@@ -2,7 +2,7 @@
 
 ## Repo haqida
 
-Bu repo **Bruno API kolleksiyasi** (`bandlik-bruno`) — Global SkillHub backend'ining
+Bu repo **Bruno API kolleksiyasi** (`bandlik-bruno`) — Bandlik backend'ining
 API dokumentatsiyasi (Bruno 3.3+ OpenCollection YAML formatida). Standalone repo
 sifatida ham ishlaydi, ham asosiy loyihaga git submodule sifatida ulanadi:
 `/var/www/xba/docs/bruno/`.

@@ -12,7 +12,7 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"company_name\": \"Global Skillhub\",\n    \"position\": \"Senior\
+    data: "{\n    \"company_name\": \"Bandlik\",\n    \"position\": \"Senior\
       \ Buxgalter\",\n    \"start_date\": \"15.01.2023\",\n    \"achievements\": \"\
       Jamoani boshqardim\",\n    \"recommendation_file_id\": 42\n}"
   auth: inherit

@@ -1,6 +1,6 @@
 # 🚀 XBA — Bruno API Collections
 
-Global SkillHub API dokumentatsiyasi Bruno formatida.
+Bandlik API dokumentatsiyasi Bruno formatida.
 
 ## 📁 Structure
 

@@ -16,7 +16,7 @@ http:
         "support_phone": "+998 55 172 00 00",
         "support_website": "https://bandlik.uz",
         "support_telegram": "@bandlik_uz",
-        "about_text": {"uz": "Global Skill App — ...", "ru": "Global Skill App — ...", "en": "Global Skill App — ..."},
+        "about_text": {"uz": "Bandlik — ...", "ru": "Bandlik — ...", "en": "Bandlik — ..."},
         "about_logo_id": 0,
         "vacancy_auto_approve_enabled": true,
         "vacancy_auto_approve_window_minutes": 180
