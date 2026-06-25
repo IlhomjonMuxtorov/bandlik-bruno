@@ -1,0 +1,6 @@
+info:
+  name: Shartnomalar
+  type: folder
+  seq: 62
+request:
+  auth: inherit

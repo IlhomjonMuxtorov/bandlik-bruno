@@ -1,0 +1,80 @@
+info:
+  name: 1. Shartnoma — Index (+ picker)
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/contracts?organization_id=&xba_organization_id=&contract_type=&approval_status=&is_active='
+  params:
+  - name: organization_id
+    value: ''
+    type: query
+    enabled: false
+  - name: xba_organization_id
+    value: ''
+    type: query
+    enabled: false
+  - name: contract_type
+    value: ''
+    type: query
+    enabled: false
+  - name: approval_status
+    value: ''
+    type: query
+    enabled: false
+  - name: is_active
+    value: ''
+    type: query
+    enabled: false
+  auth: inherit
+docs: |
+  XBA ↔ ish beruvchi/rekruter shartnomalari ro'yxati. Bu endpoint vakansiya
+  yaratishdagi **shartnoma picker** sifatida ham ishlatiladi: `?organization_id=`
+  (tanlangan ish beruvchi/rekruter = `vacancy.recruiter_id`) bilan filtrlab,
+  faqat o'sha tashkilotning aktiv shartnomalari qaytariladi.
+
+  **Auth:** `admin_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `organization_id` | int | ➖ | Egasi (ish beruvchi/rekruter) bo'yicha filtr. Picker uchun majburiy. |
+  | `xba_organization_id` | int | ➖ | XBA tomoni bo'yicha filtr. |
+  | `contract_type` | string | ➖ | `vacancy` \| `yearly`. |
+  | `approval_status` | string | ➖ | `pending` \| `approved` \| `rejected`. |
+  | `is_active` | string | ➖ | Standart: faqat aktiv. `all` — o'chirilganlar ham; `false` — faqat o'chirilgan. |
+  | `is_cancelled` | bool | ➖ | Standart: hammasi. `false` — bekor qilinmaganlar (picker shuni yuboradi); `true` — faqat bekor qilinganlar. |
+  | `per-page` | int | ➖ | Sahifa hajmi (1–100, default 20). |
+
+  ### 📤 Response
+
+  `200` — `{ items: ContractOutputDTO[], pagination }`. Har element:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Shartnoma ID |
+  | `contract_type` | string | `vacancy` \| `yearly` |
+  | `contract_type_label` | string | Tarjima qilingan tip nomi |
+  | `organization` | object | `{ id, name }` — egasi |
+  | `xba_organization` | object | `{ id, name }` — XBA tomoni |
+  | `candidate_count` | int \| null | Vacancy kvotasi; `yearly` da `null` |
+  | `used_count` | int \| null | Band slotlar (bog'langan vakansiyalar); `yearly` da `null` |
+  | `remaining` | int \| null | `candidate_count - used_count`; `yearly` da `null` |
+  | `start_date` | string \| null | Yearly boshlanish sanasi `d.m.Y`; `vacancy` da `null` |
+  | `file` | object \| null | Shartnoma hujjati (`UploadFileOutputDTO`) |
+  | `is_active` | bool | `false` = soft-delete qilingan |
+  | `approval_status` | string | `pending` \| `approved` \| `rejected` |
+  | `approval_status_label` | string | Tarjima qilingan holat nomi |
+  | `rejection_reason` | string \| null | Rad sababi; aks holda `null` |
+  | `approved_at` | string \| null | Ko'rib chiqilgan sana `d.m.Y`; `null` = hali ko'rilmagan |
+  | `is_cancelled` | bool | Bekor qilinganmi |
+  | `cancelled_at` | string \| null | Bekor qilingan sana `d.m.Y`; `null` = bekor qilinmagan |
+  | `cancellation_reason` | string \| null | Bekor sababi; aks holda `null` |
+  | `is_effective` | bool | `approved` va bekor qilinmagan — tanlanadigan; bog'langan vakansiya tasdiqlanishi mumkin |
+  | `uploaded_at` | string | Yuklangan sana `d.m.Y` (`created_at`) |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

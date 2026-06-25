@@ -17,6 +17,7 @@ http:
         "save_as_template": false,
         "organization_id": 1,
         "recruiter_id": 6,
+        "contract_id": 3,
         "industry_id": 1,
         "title": "Restoran Xizmatchisi",
         "description": "Zamonaviy restoranda ofitsiant.",
@@ -107,6 +108,7 @@ docs: |
   |---|---|:---:|---|
   | `organization_id` | int | ✅ | **XBA** tashkiloti (boshqaruvchi agentlik). Faqat `XBA`-type org qabul qilinadi — aks holda `422`. |
   | `recruiter_id` | int | ➖ | Biriktirilgan **ish beruvchi YOKI rekruter** ("Ish beruvchi / Rekruter" tanlovi). Faqat `EMPLOYER` yoki `RECRUITER`-type org qabul qilinadi — aks holda `422`. |
+  | `contract_id` | int | ➖ | Bog'langan **XBA shartnomasi** (`organization_contract.id`). `null` = bog'lanmagan. Berilsa: tanlangan `recruiter_id` org'ga tegishli, aktiv va **bekor qilinmagan** bo'lishi shart; `vacancy`-tip shartnomada kvota (`candidate_count`) band slotlardan oshmasligi tekshiriladi. Tasdiqlanmagan (`pending`/`rejected`) shartnoma **tanlanishi mumkin**, ammo shunday vakansiya shartnoma `approved` (va bekor qilinmagan) bo'lmaguncha tasdiqlanmaydi. Picker: `GET /admin/contracts?organization_id={recruiter_id}&is_cancelled=false`. |
   | `industry_id` | int | ➖ | Soha ID |
   | `title` | string | ✅ | Sarlavha |
   | `description` | string | ➖ | Tavsif (HTML/markdown) |
@@ -171,7 +173,7 @@ docs: |
 
   | Code | Reason |
   |---|---|
-  | `422` | Validatsiya xatosi. Jumladan: `organization_id` XBA-type emas; `recruiter_id` EMPLOYER/RECRUITER-type emas; `deadline_at` o'tmishdagi (orqa) sana — `Deadline cannot be in the past` |
+  | `422` | Validatsiya xatosi. Jumladan: `organization_id` XBA-type emas; `recruiter_id` EMPLOYER/RECRUITER-type emas; `deadline_at` o'tmishdagi (orqa) sana — `Deadline cannot be in the past`; `contract_id` tanlangan ish beruvchi/rekruterga tegishli emas yoki kvota to'lgan |
   | `400` | Snapshot xatosi (Organization service topilmadi / boshqa tashkilotga tegishli); `agency` xizmati yo'q yoki narxi 0; **kurs yo'q** — `training` xizmati yoki uning `educational_course_id` si yo'q; **service_groups** xatosi (tashkilot takrorlangan, bir kategoriya ikki tashkilotda, organization yo'q, muddat 0/yo'q, yoki guruhda xizmat yo'q) |
   | `403` | Non-admin: aktyorning org'i na `organization_id` (XBA) na `recruiter_id` ga mos kelmasa |
 settings:

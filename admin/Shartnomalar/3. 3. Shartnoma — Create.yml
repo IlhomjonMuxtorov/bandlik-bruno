@@ -1,0 +1,49 @@
+info:
+  name: 3. Shartnoma — Create
+  type: http
+  seq: 3
+http:
+  method: POST
+  url: '{{base_url}}/admin/contracts'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"xba_organization_id\": 3,\n  \"organization_id\": 7,\n  \"contract_type\": \"vacancy\",\n  \"candidate_count\": 20,\n  \"upload_file_id\": 15\n}"
+  auth: inherit
+docs: |
+  Yangi shartnoma yaratadi (XBA ↔ ish beruvchi/rekruter). Yangi shartnoma doim
+  `approval_status = pending` holatda boshlanadi va super-admin tasdiqlashini
+  kutadi. Hujjat avval `/admin/upload` orqali yuklanib, `upload_file_id` olinadi.
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `xba_organization_id` | int | ✅ | Shartnoma imzolagan XBA org (type 1). |
+  | `organization_id` | int | ✅ | Egasi: ish beruvchi/rekruter org (type 6 \| 7). |
+  | `contract_type` | string | ✅ | `vacancy` \| `yearly`. |
+  | `candidate_count` | int | ⚠️ | `vacancy` tipida majburiy (≥1). `yearly` da yuborilsa e'tiborsiz qoldiriladi. |
+  | `start_date` | string | ⚠️ | `yearly` tipida majburiy. Format `d.m.Y` (mas: `10.10.2026`). `vacancy` da e'tiborsiz. |
+  | `upload_file_id` | int | ✅ | Shartnoma hujjati (oldindan yuklangan `upload_file.id`). |
+
+  > **Yearly misol:** `contract_type=yearly`, `start_date=10.10.2026` (candidate_count yo'q).
+
+  ### 📤 Response
+
+  `201` — `ContractOutputDTO`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `422` | Validatsiya xatosi (tip-shartli `candidate_count`/`start_date`, noto'g'ri org tip) |
+  | `400` | `upload_file_id` topilmadi yoki `status != ready` |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

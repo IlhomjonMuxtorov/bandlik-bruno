@@ -1,0 +1,41 @@
+info:
+  name: 7. Shartnoma — Reject
+  type: http
+  seq: 7
+http:
+  method: POST
+  url: '{{base_url}}/admin/contracts/1/reject'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"reason\": \"Hujjat imzosiz / noaniq\"\n}"
+  auth: inherit
+docs: |
+  Shartnomani rad etadi (`approval_status = rejected`) va sababni saqlaydi.
+  Rad etilgan shartnomaga bog'langan vakansiya tasdiqlanmaydi.
+
+  **Auth:** `admin_token` (super-admin).
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `reason` | string | ✅ | Rad etish sababi (`rejection_reason` ga yoziladi). |
+
+  ### 📤 Response
+
+  `200` — `ContractOutputDTO` (`approval_status=rejected`, `rejection_reason` to'ladi).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Shartnoma topilmadi |
+  | `422` | `reason` bo'sh |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

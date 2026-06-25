@@ -1,0 +1,42 @@
+info:
+  name: 4. Shartnoma — Update
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{base_url}}/admin/contracts/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"xba_organization_id\": 3,\n  \"organization_id\": 7,\n  \"contract_type\": \"vacancy\",\n  \"candidate_count\": 25,\n  \"upload_file_id\": 15\n}"
+  auth: inherit
+docs: |
+  Shartnomani tahrirlaydi. Muhim maydonlar o'zgargani uchun `approval_status`
+  qaytadan **`pending`** ga tushadi (`approved_by`/`approved_at`/`rejection_reason`
+  tozalanadi) — super-admin qayta tasdiqlashi kerak.
+
+  > **Eslatma:** agar shartnoma **bekor qilingan** bo'lsa, tahrirlash bekor holatini
+  > ham bekor qiladi — `cancelled_at`/`cancellation_reason` tozalanadi va shartnoma
+  > qayta `pending` bo'ladi (qayta yuborilgan deb hisoblanadi).
+
+  **Auth:** `admin_token`.
+
+  ### 📥 Request Body
+
+  `Create` bilan bir xil maydonlar (`upload_file_id` qayta yuboriladi; o'zgargan
+  bo'lsa eski hujjat o'chiriladi).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Shartnoma topilmadi |
+  | `422` | `candidate_count` band slotlardan past, yoki band vakansiya bor holda `vacancy→yearly` |
+  | `400` | `upload_file_id` topilmadi yoki `status != ready` |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

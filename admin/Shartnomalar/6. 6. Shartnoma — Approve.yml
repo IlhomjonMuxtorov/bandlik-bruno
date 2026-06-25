@@ -1,0 +1,29 @@
+info:
+  name: 6. Shartnoma — Approve
+  type: http
+  seq: 6
+http:
+  method: POST
+  url: '{{base_url}}/admin/contracts/1/approve'
+  auth: inherit
+docs: |
+  Shartnomani tasdiqlaydi (`approval_status = approved`). Faqat shundan keyin
+  shu shartnomaga bog'langan vakansiyalar tasdiqlanishi (manual yoki auto-approve)
+  mumkin bo'ladi.
+
+  **Auth:** `admin_token` (super-admin).
+
+  ### 📤 Response
+
+  `200` — `ContractOutputDTO` (`approval_status=approved`, `approved_at` to'ladi).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Shartnoma topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -22,6 +22,8 @@ docs: 'SuperAdmin pending_approval statusdagi vakansiyani tasdiqlaydi — status
 
   | `400` | Status `pending_approval` emas |
 
+  | `400` | Bog''langan shartnoma amalda emas (tasdiqlanmagan yoki bekor qilingan) — `Vacancy cannot be approved until its contract is approved` |
+
   | `403` | Admin emas |
 
   | `404` | Vakansiya topilmadi |

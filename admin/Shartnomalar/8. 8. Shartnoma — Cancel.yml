@@ -1,0 +1,46 @@
+info:
+  name: 8. Shartnoma — Cancel
+  type: http
+  seq: 8
+http:
+  method: POST
+  url: '{{base_url}}/admin/contracts/1/cancel'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"reason\": \"Tomonlar kelishuviga ko'ra bekor qilindi\"\n}"
+  auth: inherit
+docs: |
+  Amaldagi (**approved**) shartnomani **bekor qiladi** (`cancelled_at` + sabab).
+  Soft-delete'dan farqli: shartnoma ro'yxatda ko'rinib turadi (`is_cancelled=true`),
+  ammo yangi vakansiyaga **tanlanmaydi** (picker'da yo'q) va bog'langan **pending**
+  vakansiya tasdiqlanmaydi (gate). Allaqachon approved/published vakansiyalar
+  **tegilmaydi** — ishlayveradi.
+
+  **Auth:** `admin_token` (super-admin).
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `reason` | string | ✅ | Bekor qilish sababi (`cancellation_reason` ga yoziladi). |
+
+  ### 📤 Response
+
+  `200` — `ContractOutputDTO` (`is_cancelled=true`, `cancelled_at`, `cancellation_reason` to'ladi; `is_effective=false`).
+
+  > Tahrirlash (`Update`) bekor holatini **bekor qiladi** — shartnoma qayta `pending` bo'lib, `cancelled_at` tozalanadi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Shartnoma topilmadi |
+  | `422` | Shartnoma `approved` emas, yoki allaqachon bekor qilingan, yoki `reason` bo'sh |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

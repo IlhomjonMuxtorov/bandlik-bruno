@@ -1,0 +1,24 @@
+info:
+  name: 5. Shartnoma — Delete (soft)
+  type: http
+  seq: 5
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/contracts/1'
+  auth: inherit
+docs: |
+  Shartnomani **soft-delete** qiladi (`is_active = false`). Mavjud vakansiya
+  bog'lanishlari saqlanadi; picker'da ko'rinmaydi.
+
+  **Auth:** `admin_token`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Shartnoma topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
