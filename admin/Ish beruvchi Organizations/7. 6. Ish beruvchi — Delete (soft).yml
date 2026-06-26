@@ -6,12 +6,17 @@ http:
   method: DELETE
   url: '{{base_url}}/admin/employers/1'
   auth: inherit
-docs: '**Soft delete** — `is_active = false`, bog''liq `User.status = STATUS_INACTIVE`.
+docs: |
+  **Soft delete** — `is_active = false`, bog'liq `User.status = STATUS_INACTIVE`.
 
+  **Auth:** `employerManage`. XBA faqat o'zi onboard qilgan tashkilotni o'chira oladi; boshqasiniki `404`.
 
-  **Auth:** `admin_token`.
+  ### ⚠️ Errors
 
-  '
+  | Code | Reason |
+  |---|---|
+  | `403` | `employerManage` permission yo'q |
+  | `404` | Topilmadi yoki cross-org |
 settings:
   encodeUrl: true
   timeout: 0

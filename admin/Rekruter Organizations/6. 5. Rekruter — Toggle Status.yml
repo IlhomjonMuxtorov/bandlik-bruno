@@ -6,13 +6,17 @@ http:
   method: PATCH
   url: '{{base_url}}/admin/recruiters/1/toggle-status'
   auth: inherit
-docs: 'Rekruter tashkilotning `is_active` qiymatini teskariga aylantiradi. Bog''liq
-  `User.status` ham flipped.
+docs: |
+  Rekruter tashkilotning `is_active` qiymatini teskariga aylantiradi. Bog'liq `User.status` ham flipped.
 
+  **Auth:** `recruiterManage`. XBA faqat o'zi onboard qilgan tashkilotni; boshqasiniki `404`.
 
-  **Auth:** `admin_token`.
+  ### ⚠️ Errors
 
-  '
+  | Code | Reason |
+  |---|---|
+  | `403` | `recruiterManage` permission yo'q |
+  | `404` | Topilmadi yoki cross-org |
 settings:
   encodeUrl: true
   timeout: 0

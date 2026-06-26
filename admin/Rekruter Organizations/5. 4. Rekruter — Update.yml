@@ -12,13 +12,17 @@ http:
     type: json
     data: "{\n  \"phone\": \"+998944452399\"\n}"
   auth: inherit
-docs: 'Mavjud Rekruter tashkilotini yangilaydi. `application/json` — faqat o''zgaradigan
-  maydonlarni yuborish kifoya.
+docs: |
+  Mavjud Rekruter tashkilotini yangilaydi. `application/json` — faqat o'zgaradigan maydonlarni yuborish kifoya.
 
+  **Auth:** `recruiterManage`. Super Admin — har qanday tashkilotni; XBA (org actor) — faqat o'zi onboard qilgan (`onboarded_by_organization_id`) tashkilotni.
 
-  **Auth:** `admin_token`.
+  ### ⚠️ Errors
 
-  '
+  | Code | Reason |
+  |---|---|
+  | `403` | `recruiterManage` permission yo'q |
+  | `404` | Topilmadi yoki boshqa tashkilot onboard qilgan (cross-org) |
 settings:
   encodeUrl: true
   timeout: 0
