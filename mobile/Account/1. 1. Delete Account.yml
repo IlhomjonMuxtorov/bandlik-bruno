@@ -1,0 +1,41 @@
+info:
+  name: 1. Delete Account
+  type: http
+  seq: 1
+http:
+  method: DELETE
+  url: '{{base_url}}/mobile/account'
+  headers:
+  - name: Content-Type
+    value: application/json
+  auth: inherit
+docs: |
+  Autentifikatsiya qilingan nomzodning o'z hisobini **soft delete** qiladi:
+  `user.status` → `Deleted`, barcha sessiya bekor qilinadi va qurilma o'chiriladi.
+  Profil, CV, **topshirilgan arizalar**, chat, pipeline — hammasi tombstone ostida
+  saqlanadi (admin tarixi uchun); tiklash yo'q. O'sha pasport keyinroq **yangi hisob**
+  (yangi `id`) sifatida qayta ro'yxatdan o'ta oladi.
+
+  > **Re-auth yo'q** — bearer token yetarli; frontend tasdiq oynasi yagona himoya.
+  > So'rov **body'siz** (DELETE method).
+
+  **Auth:** `access_token` majburiy (faqat aktiv nomzod; guest → `456`).
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `deleted` | bool | Doim `true` — hisob tombstone qilindi. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Hisobda pul/hold bor (`wallet.balance` yoki `hold_balance > 0`); yoki hisob allaqachon o'chirilgan. |
+  | `401` | `access_token` yo'q yoki muddati o'tgan. |
+  | `456` | Guest token — avval pasport orqali to'liq ro'yxatdan o'tish kerak. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -69,6 +69,9 @@ docs: >
   "Foydalanuvchilar" (super admin) / "Leadlar" (admin) ekrani — nomzod-tipidagi
   (`user.type = candidate`) real leadlar. **Anonim guestlar** (`status = Guest` —
   ilova ochgan, lekin passport/profil to'ldirmagan) ro'yxatdan **chiqariladi**.
+  O'chirilgan (soft-deleted) hisoblar esa ro'yxatda `is_deleted = true` /
+  `account_status = deleted` badge bilan **ko'rinadi** (funnel sonlaridan tashqarida —
+  `GET /admin/leads/counts` dagi `deleted` tally'ga qarang).
   To'liq funnel: ariza bermagandan (Yangi) to rad etilgan / boshqa ishga
   o'tganlargacha. "Kandidatlar" (`GET /admin/candidates`) shu ro'yxatning *qabul
   qilingan* (pipeline) qismi.
@@ -170,6 +173,12 @@ docs: >
   | `match_score` | int \| null | Vakil vakansiya davlatiga viza-survey moslik foizi; `null` — survey yo'q. **Eslatma:** `match_score` **filtri** esa *birorta* surveyed davlat ≥ N (ko'rsatilgan qiymatdan farqli) |
 
   | `funnel_status` / `_label` | string | Hisoblangan "Holati" |
+
+  | `account_status` | string | Hisob holati: `active` \| `deleted` \| `inactive` \| `guest` (`user.status`) |
+
+  | `account_status_label` | string | `account_status` ning tarjima qilingan nomi |
+
+  | `is_deleted` | bool | `true` — hisob soft-deleted tombstone (`user.status = Deleted`); ro'yxatda badge bilan ko'rsatiladi |
 
   | `source` / `_label` | string \| null | `web` \| `telegram` \| `instagram` \| `tanish` \| `other` |
 

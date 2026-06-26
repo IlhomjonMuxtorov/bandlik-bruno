@@ -24,7 +24,9 @@ docs: >
 
 
   Olti funnel tab sanog'i jami `all` ga teng bo'ladi (bosqichlar o'zaro istisno
-  qiluvchi, to'liq qoplaydigan bo'lim).
+  qiluvchi, to'liq qoplaydigan bo'lim). `all` va funnel tablar faqat **tirik**
+  leadlarni sanaydi; soft-deleted tombstone'lar bularga **kirmaydi** — ular alohida
+  `deleted` tally'da (ro'yxatda esa badge bilan ko'rinadi).
 
 
   **Auth:** `access_token` (admin).
@@ -50,6 +52,8 @@ docs: >
   | `moved_to_other_job` | int | Pipeline'da `departed` |
 
   | `rejected` | int | Arizasi `rejected` yoki pipeline terminal-fail |
+
+  | `deleted` | int | Soft-deleted (tombstone) hisoblar soni — `all`/funnel'dan **tashqarida** |
 settings:
   encodeUrl: true
   timeout: 0

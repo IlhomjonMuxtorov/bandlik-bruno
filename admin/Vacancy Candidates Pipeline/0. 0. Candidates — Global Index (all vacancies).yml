@@ -135,6 +135,8 @@ docs: 'Global "Kandidatlar" ekrani — barcha vakansiyalar bo''yicha nomzodlar. 
 
   |---|---|---|
 
+  | `is_deleted` | bool | `true` — nomzod hisobi soft-deleted tombstone (`user.status = Deleted`) |
+
   | `age` | int \| null | Pasport `birth_date`''dan yosh; `null` — noma''lum |
 
   | `location` | string \| null | "Viloyat, Tuman" propiska satri (Manzil ustuni); `null` — noma''lum |

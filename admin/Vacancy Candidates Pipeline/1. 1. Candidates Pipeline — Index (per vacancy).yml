@@ -89,7 +89,9 @@ docs: 'Vakansiya pipeline''idagi nomzodlar (`accepted_at DESC`).
 
   | `id` | int | |
 
-  | `candidate` | object | `{id, full_name, phone, photo_url}` |
+  | `candidate` | object | `{id, full_name, phone, photo_url, is_deleted}` |
+
+  | `candidate.is_deleted` | bool | `true` — nomzod hisobi soft-deleted tombstone (`user.status = Deleted`) |
 
   | `pipeline_outcome` / `_label` | string | `active` \| `completed` \| `cancelled` |
 

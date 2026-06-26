@@ -16,6 +16,10 @@ docs: >
   `id` = **user id**.
 
 
+  > Soft-deleted (tombstone) leadlar ham ochiladi (ilgari `404` qaytar edi) — admin
+  > ketgan nomzod profili + arizalarini ko'ra oladi.
+
+
   Profil mobil CV profili bilan bir xil shaklda (`CvOutputDTO`). Lead'da primary CV
   bo'lsa — to'liq profil; CV bo'lmasa ("Yangi") — minimal profil: shaxsiy/pasport/
   manzil + candidate-owned bo'limlar (oila, tillar, vizalar, haydovchilik), CV-scoped
