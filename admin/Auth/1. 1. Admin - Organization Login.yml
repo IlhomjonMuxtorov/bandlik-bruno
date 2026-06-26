@@ -16,17 +16,27 @@ http:
 docs: |
   Admin paneliga login/parol orqali kirish. Muvaffaqiyatli bo'lsa JWT qaytaradi.
 
-  Qabul qilinadigan foydalanuvchi turlari:
+  **Kirish RBAC asosida** (ADR 0009). Kirish qarori `user.type` emas, balki ikki shart bilan
+  (`AuthService::adminPanelDenialReason()`):
+  1. `TYPE_PARTNER` (tashkilot egasi) bo'lsa — uning `OrganizationType`'i login whitelist'ida
+     bo'lishi shart (`OrganizationType::canLogIn()`). **1-bosqich faqat XBA**'ni ochadi.
+  2. Foydalanuvchida kamida bitta **RBAC roli** biriktirilgan bo'lishi shart
+     (`rbac_auth_assignment` bo'sh emas).
 
   | `type` | Kim | Kirish |
   |:---:|---|---|
-  | `1` | `TYPE_ADMIN` — Super-admin | ✅ Doim |
-  | `6` | `TYPE_EMPLOYEE` — Tashkilot sub-xodimi (`organization_employee`) | ✅ Doim |
-  | `5` | `TYPE_PARTNER` — Tashkilot admini (XBA / Notarius / Logistika / Sug'urta / Visa) | ⛔ Bloklangan |
+  | `1` | `TYPE_ADMIN` — Super-admin | ✅ `superadmin` roli biriktirilgan bo'lsa |
+  | `6` | `TYPE_EMPLOYEE` — Tashkilot sub-xodimi (`organization_employee`) | ✅ roli bo'lsa |
+  | `5` | `TYPE_PARTNER` — Tashkilot egasi | ✅ **XBA** (1-bosqich) + roli bo'lsa · ⛔ qolgan turlar hali emas |
 
-  > **Tashkilotlar login qila olmaydi.** `TYPE_PARTNER` (tashkilot egasi) akkaunti faqat o'z `OrganizationType`'i login whitelist'ida bo'lsa kira oladi — hozircha **hech bir tur** whitelist'da emas, shu sabab barcha tashkilotlar (jumladan XBA) `403` oladi. Whitelist `OrganizationType::canLogIn()` da boshqariladi; keyingi bosqichda XBA / Visa shu yerga qo'shiladi (boshqa kod o'zgarmaydi). Ruxsat qarori `AuthService::canAccessAdminPanel()` da.
+  > **Lockout eslatmasi.** Kirish RBAC roliga bog'liq. Agar `migrate/up` ishlagan
+  > (`rbac_auth_*` jadvallari bor), lekin `rbac-migrate/up` ishlamagan bo'lsa — hech kimda rol
+  > yo'q va **hamma** (jumladan `admin`) `403` oladi. Yechim: `php console/yii rbac-migrate/up`
+  > (mavjud adminlarga `superadmin` avtomatik biriktiriladi), yoki
+  > `php console/yii rbac/assign superadmin <login>`.
   >
-  > Tashkilot admini uchun `username` + `password` `OrganizationService::create()` ichida `dto->login` / `dto->password` qiymatlaridan yaratiladi; shu bilan birga `organization_employee` (role=`admin`) yozuvi ham yaratiladi.
+  > Tashkilot egasi uchun `username` + `password` `OrganizationService::create()` ichida
+  > yaratiladi; XBA egasiga `xba_admin` roli ham o'sha yerda biriktiriladi.
 
   **Auth:** talab qilinmaydi.
 
@@ -47,10 +57,11 @@ docs: |
 
   ### ⚠️ Errors
 
-  | Code | Reason |
-  |---|---|
-  | `422` | Validatsiya xatosi yoki login/parol noto'g'ri |
-  | `403` | Foydalanuvchi `TYPE_ADMIN`, `TYPE_PARTNER` yoki `TYPE_EMPLOYEE` emas |
+  | Code | Reason | Message |
+  |---|---|---|
+  | `422` | Validatsiya xatosi yoki login/parol noto'g'ri | — |
+  | `403` | Tashkilot turi hali whitelist'da emas (XBA'dan boshqa) | `Your organization does not have admin panel access yet.` |
+  | `403` | RBAC roli biriktirilmagan (rol yo'q / `rbac-migrate/up` ishlamagan) | `Your account has no access role assigned. Ask a Super Admin to grant one.` |
 
 settings:
   encodeUrl: true
