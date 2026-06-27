@@ -47,8 +47,10 @@ docs: |-
   | `work_schedule` / `_label` | string \| null | Ish jadvali |
   | `work_time_from` / `_to` | string \| null | `HH:MM` |
   | `organization` | object | `{ id, name, logo_url }` |
-  | `requirements` | array | `[{ id, title, description, sort_order }]` |
+  | `requirements` | array | Talablar **va** til talablari **bitta ro'yxatda**. Har item: `{ id, code, title, description, category, value_type, unit, is_mandatory, is_matchable, sort_order, value, value_labels }`. `title` — **tayyor (yig'ilgan) matn**: nom + qiymat birlashgan (masalan `"Yosh: 18–35 yosh"`, `"Haydovchilik guvohnomasi: Bor"`, `"Ish tajribasi: 2 yil"`). `value` / `value_labels` strukturali qiymat ham qoladi (turga qarab: `integer_range`→`{min,max}`; `level`/`*_select`/`reference_*`→`value_labels` da label). Til talablari shu ro'yxat **oxirida** `category: "languages"`, `value_type: "language"` bilan keladi (masalan `"Ingliz tili — B2 (IELTS 6.5)"`; `value` = level id, `value_labels` = `[level]`). |
   | `benefits` | array | Tiplangan imtiyozlar: `[{ id, code, title, description, category, category_id, value_type, unit, is_free, value, sort_order }]`. `value` turga qarab: `boolean`→bool; `percent`/`days`→int; `percent_range`→`{min,max}`; `percent_or_money`→`{mode,percent}` yoki `{mode:"money",amount,currency}`; `money`→`{amount,currency}`. `amount` major birlikda (so'm/dollar). `is_free=true` bo'lsa `value=null` |
+
+  > **⚠️ Breaking:** alohida `language_requirements` maydoni **olib tashlandi** — til talablari endi `requirements` ro'yxati ichida (`category: "languages"`) keladi.
 
   ### ⚠️ Errors
 
