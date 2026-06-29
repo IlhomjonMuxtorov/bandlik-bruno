@@ -43,7 +43,11 @@ docs: 'O''quv markazining **Xodimlar** tabi (o''qituvchilar, administratorlar va
 
   | `user_id` | int \| null | Agar xodim alohida login olsa |
 
-  | `full_name` | string | |
+  | `firstname`  | string        | Ism |
+
+  | `lastname`   | string        | Familya |
+
+  | `patronymic` | string \| null | Otasining ismi. `null` — yo''q yoki noma''lum |
 
   | `phone` | string \| null | |
 

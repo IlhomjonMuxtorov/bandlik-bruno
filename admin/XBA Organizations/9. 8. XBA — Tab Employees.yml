@@ -28,7 +28,9 @@ docs: |-
   | `id` | int | |
   | `organization_id` | int | |
   | `user_id` | int \| null | Agar xodim alohida login olsa |
-  | `full_name` | string | |
+  | `firstname`  | string        | Ism |
+  | `lastname`   | string        | Familya |
+  | `patronymic` | string \| null | Otasining ismi. `null` — yo'q yoki noma'lum |
   | `phone` | string \| null | |
   | `role` | string | "XBA agenti 1", "XBA admin" va h.k. |
   | `language` | string | `uz` \| `ru` \| `en` (default `uz`) |

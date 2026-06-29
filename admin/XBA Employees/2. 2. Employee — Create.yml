@@ -10,7 +10,7 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"organization_id\": 1,\n  \"full_name\": \"Rustam Qodirov\",\n  \"phone\": \"+998942030000\",\n  \"role\": \"XBA agenti 1\",\n  \"language\": \"uz\",\n  \"profile_photo_file_id\": null,\n  \"region_id\": 1,\n  \"district_id\": 101,\n  \"is_active\": 1\n}"
+    data: "{\n  \"organization_id\": 1,\n  \"firstname\": \"Rustam\",\n  \"lastname\": \"Qodirov\",\n  \"patronymic\": null,\n  \"phone\": \"+998942030000\",\n  \"role\": \"XBA agenti 1\",\n  \"language\": \"uz\",\n  \"profile_photo_file_id\": null,\n  \"region_id\": 1,\n  \"district_id\": 101,\n  \"is_active\": 1\n}"
   auth: inherit
 docs: |-
   Yangi xodim qo'shadi. `joined_at` yuborilmasa hozirgi vaqt sifatida o'rnatiladi.
@@ -26,7 +26,9 @@ docs: |-
   |---|---|:---:|---|
   | `organization_id` | int | ✅ | XBA `organization.id` (type = 1) |
   | `user_id` | int | ➖ | Agar xodim alohida login olsa |
-  | `full_name` | string | ✅ | Max 200 |
+  | `firstname`  | string       | ✅ | Ism. Max 100 |
+  | `lastname`   | string       | ✅ | Familya. Max 100 |
+  | `patronymic` | string\|null | ➖ | Otasining ismi. Max 100. `null` — yo'q yoki noma'lum |
   | `phone` | string | ➖ | Max 20 |
   | `role` | string | ✅ | "XBA agenti 1", "XBA admin", ... (max 50, erkin string) |
   | `language` | string | ➖ | `uz` \| `ru` \| `en`. Default `uz` |

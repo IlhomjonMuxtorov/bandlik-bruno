@@ -28,7 +28,9 @@ docs: |-
   | `id` | int | |
   | `organization_id` | int | |
   | `user_id` | int \| null | Agar xodim alohida login olsa |
-  | `full_name` | string | |
+  | `firstname`  | string        | Ism |
+  | `lastname`   | string        | Familya |
+  | `patronymic` | string \| null | Otasining ismi. `null` — yo'q yoki noma'lum |
   | `phone` | string \| null | |
   | `role` | string | "Ish beruvchi agenti 1", "Ish beruvchi admin" va h.k. |
   | `profile_photo_url` | string \| null | To'liq URL |
