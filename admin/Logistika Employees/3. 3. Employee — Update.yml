@@ -10,7 +10,7 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"role\": \"XBA admin\",\n  \"region_id\": 2,\n  \"district_id\": 201,\n  \"address\": \"Toshkent sh., Chilonzor, 5-uy\"\n}"
+    data: "{\n  \"role\": \"XBA admin\",\n  \"region_id\": 2,\n  \"district_id\": 201,\n  \"address\": \"Toshkent sh., Chilonzor, 5-uy\",\n  \"passport_series\": \"AA\",\n  \"passport_number\": \"1234567\",\n  \"email\": \"xodim@example.uz\",\n  \"birth_date\": \"1990-01-15\"\n}"
   auth: inherit
 docs: 'Xodim ma''lumotlarini yangilaydi (partial — faqat yuborilgan maydonlar o''zgaradi).
   `region_id` / `district_id` yuborilsa xodim joylashuvi yangilanadi; `null` yuborish

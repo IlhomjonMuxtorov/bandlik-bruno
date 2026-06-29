@@ -10,7 +10,7 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"organization_id\": 1,\n  \"firstname\": \"Rustam\",\n  \"lastname\": \"Qodirov\",\n  \"patronymic\": null,\n  \"phone\": \"+998942030000\",\n  \"role\": \"XBA agenti 1\",\n  \"language\": \"uz\",\n  \"profile_photo_file_id\": null,\n  \"region_id\": 1,\n  \"district_id\": 101,\n  \"address\": \"Toshkent sh., Chilonzor, 5-uy\",\n  \"is_active\": 1\n}"
+    data: "{\n  \"organization_id\": 1,\n  \"firstname\": \"Rustam\",\n  \"lastname\": \"Qodirov\",\n  \"patronymic\": null,\n  \"phone\": \"+998942030000\",\n  \"role\": \"XBA agenti 1\",\n  \"language\": \"uz\",\n  \"profile_photo_file_id\": null,\n  \"region_id\": 1,\n  \"district_id\": 101,\n  \"address\": \"Toshkent sh., Chilonzor, 5-uy\",\n  \"passport_series\": \"AA\",\n  \"passport_number\": \"1234567\",\n  \"email\": \"xodim@example.uz\",\n  \"birth_date\": \"1990-01-15\",\n  \"is_active\": 1\n}"
   auth: inherit
 docs: |-
   Yangi xodim qo'shadi. `joined_at` yuborilmasa hozirgi vaqt sifatida o'rnatiladi.
@@ -31,6 +31,10 @@ docs: |-
   | `patronymic` | string\|null | ➖ | Otasining ismi. Max 100. `null` — yo'q yoki noma'lum |
   | `phone` | string | ➖ | Max 20 |
   | `address` | string\|null | ➖ | Erkin matnli manzil. Max 255. `null` — kiritilmagan |
+  | `passport_series` | string\|null | ➖ | UZ pasport seriyasi, masalan `AA`. Max 2. `null` — kiritilmagan |
+  | `passport_number` | string\|null | ➖ | UZ pasport raqami, masalan `1234567`. Max 7. `null` — kiritilmagan |
+  | `email` | string\|null | ➖ | Xodim elektron pochtasi. Max 255. `null` — kiritilmagan |
+  | `birth_date` | string\|null | ➖ | Tug'ilgan sana `YYYY-MM-DD`. `null` — kiritilmagan |
   | `role` | string | ✅ | "XBA agenti 1", "XBA admin", ... (max 50, erkin string) |
   | `language` | string | ➖ | `uz` \| `ru` \| `en`. Default `uz` |
   | `profile_photo_file_id` | int | ➖ | Pre-upload qilingan rasm `upload_file.id` (READY holatda) |
@@ -44,6 +48,7 @@ docs: |-
   `201` — `OrganizationEmployeeOutputDTO` (`language`, `profile_photo_url`,
   `region` / `district` obyektlari — `{id, name: {uz, ru, en}}` yoki `null`,
   `vacancies_count`, `candidates_count` bilan).
+  Shuningdek `passport_series`, `passport_number`, `email`, `birth_date` maydonlari ham qaytariladi (string\|null).
 
   ### ⚠️ Errors
 
