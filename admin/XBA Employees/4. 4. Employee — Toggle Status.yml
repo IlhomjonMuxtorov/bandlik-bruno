@@ -11,6 +11,8 @@ docs: 'Xodimning `is_active` qiymatini teskariga aylantiradi.
 
   **Auth:** `admin_token`.
 
+  > **Mas''ul shaxs himoyasi:** tashkilot mas''ul shaxsi (`role=admin`) deaktiv qilib bo''lmaydi (`403`).
+
   '
 settings:
   encodeUrl: true

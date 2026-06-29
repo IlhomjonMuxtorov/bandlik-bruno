@@ -50,6 +50,8 @@ docs: |-
   | Code | Reason |
   |---|---|
   | `422` | Validatsiya xatosi (`profile_photo_file_id` READY emas — `profile_photo_file_id` xatosi) |
+
+  > **Mas'ul shaxs himoyasi:** `role` = `admin` qiymati bilan xodim yaratib bo'lmaydi — tashkilot mas'ul shaxsi (egasi) faqat tashkilot yaratilganda tayinlanadi va doimiy (`403`).
 settings:
   encodeUrl: true
   timeout: 0

@@ -18,6 +18,8 @@ docs: 'Mavjud Notarius tashkilotini yangilaydi. `application/json` — faqat o''
 
   **Auth:** `admin_token`.
 
+  > **Mas''ul shaxs sinxronizatsiyasi:** `responsible_first_name` / `responsible_last_name` / `responsible_middle_name` tahrirlansa, tashkilotning mas''ul shaxsi (admin xodim) ismi ham mos ravishda yangilanadi (ikki tomonlama).
+
   '
 settings:
   encodeUrl: true

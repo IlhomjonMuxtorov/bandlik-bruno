@@ -23,6 +23,8 @@ docs: |
   |---|---|
   | `403` | `recruiterManage` permission yo'q |
   | `404` | Topilmadi yoki boshqa tashkilot onboard qilgan (cross-org) |
+
+  > **Mas'ul shaxs sinxronizatsiyasi:** `responsible_first_name` / `responsible_last_name` / `responsible_middle_name` tahrirlansa, tashkilotning mas'ul shaxsi (admin xodim) ismi ham mos ravishda yangilanadi (ikki tomonlama).
 settings:
   encodeUrl: true
   timeout: 0

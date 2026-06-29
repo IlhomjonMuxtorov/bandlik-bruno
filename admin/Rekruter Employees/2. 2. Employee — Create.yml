@@ -70,6 +70,8 @@ docs: 'Yangi xodim qo''shadi. `joined_at` yuborilmasa hozirgi vaqt sifatida o''r
 
   | `422` | Validatsiya xatosi |
 
+  > **Mas''ul shaxs himoyasi:** `role` = `admin` qiymati bilan xodim yaratib bo''lmaydi — tashkilot mas''ul shaxsi (egasi) faqat tashkilot yaratilganda tayinlanadi va doimiy (`403`).
+
   '
 settings:
   encodeUrl: true

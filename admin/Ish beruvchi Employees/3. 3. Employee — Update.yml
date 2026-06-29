@@ -20,6 +20,8 @@ docs: 'Xodim ma''lumotlarini yangilaydi (partial — faqat yuborilgan maydonlar 
 
   **Auth:** `admin_token`.
 
+  > **Mas''ul shaxs himoyasi:** tashkilot mas''ul shaxsi (`role=admin`) doimiy — uning rolini o''zgartirib, boshqa xodimga berib yoki deaktiv qilib bo''lmaydi (`403`). Mas''ul shaxsning `firstname`/`lastname`/`patronymic` tahrirlansa, tashkilotning `responsible_first_name`/`responsible_last_name`/`responsible_middle_name` maydonlari ham mos ravishda yangilanadi.
+
   '
 settings:
   encodeUrl: true

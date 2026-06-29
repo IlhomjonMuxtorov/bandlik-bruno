@@ -11,6 +11,8 @@ docs: '**Soft delete** — `is_active = false`.
 
   **Auth:** `admin_token`.
 
+  > **Mas''ul shaxs himoyasi:** tashkilot mas''ul shaxsi (`role=admin`) o''chirib bo''lmaydi (`403`).
+
   '
 settings:
   encodeUrl: true
