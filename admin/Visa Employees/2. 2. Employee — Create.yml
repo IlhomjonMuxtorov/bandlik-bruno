@@ -10,7 +10,7 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"organization_id\": 1,\n  \"firstname\": \"Rustam\",\n  \"lastname\": \"Qodirov\",\n  \"patronymic\": null,\n  \"phone\": \"+998942030000\",\n  \"role\": \"XBA agenti 1\",\n  \"region_id\": 1,\n  \"district_id\": 101,\n  \"is_active\": 1\n}"
+    data: "{\n  \"organization_id\": 1,\n  \"firstname\": \"Rustam\",\n  \"lastname\": \"Qodirov\",\n  \"patronymic\": null,\n  \"phone\": \"+998942030000\",\n  \"role\": \"XBA agenti 1\",\n  \"region_id\": 1,\n  \"district_id\": 101,\n  \"address\": \"Toshkent sh., Chilonzor, 5-uy\",\n  \"is_active\": 1\n}"
   auth: inherit
 docs: 'Yangi xodim qo''shadi. `joined_at` yuborilmasa hozirgi vaqt sifatida o''rnatiladi.
   Joylashuv maydonlaridan (`region_id`, `district_id`) hech biri yuborilmasa — tashkilotning
@@ -39,6 +39,8 @@ docs: 'Yangi xodim qo''shadi. `joined_at` yuborilmasa hozirgi vaqt sifatida o''r
   | `patronymic` | string\|null | ➖ | Otasining ismi. Max 100. `null` — yo''q yoki noma''lum |
 
   | `phone` | string | ➖ | Max 20 |
+
+  | `address` | string\|null | ➖ | Erkin matnli manzil. Max 255. `null` — kiritilmagan |
 
   | `role` | string | ✅ | "XBA agenti 1", "XBA admin", ... (max 50, erkin string)
   |
