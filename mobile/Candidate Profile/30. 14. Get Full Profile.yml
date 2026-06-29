@@ -1,0 +1,181 @@
+info:
+  name: Get Full Profile
+  type: http
+  seq: 30
+http:
+  method: GET
+  url: '{{base_url}}/mobile/candidate/profile-full'
+  headers:
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+docs: |
+  Returns all sections of the "Profil ma'lumotlarim" screen in one response.
+  Data source: cached DB only — no live MVD/MIB/Minzdrav calls are made.
+  Balance and hold are in so'm (major units). Language-dependent name fields
+  (education level names, language names/levels) are resolved using the
+  `Accept-Language` header (fallback: `uz`).
+
+  **Auth:** `access_token` (Bearer).
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {access_token}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz` |
+
+  ### 📤 Response
+
+  #### Header fields
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Candidate user ID |
+  | `phone` | string \| null | Registered phone number; `null` if not set |
+  | `is_verified` | bool | `true` when MVD/MyID identity verification is complete |
+  | `full_name_latin` | string \| null | Full name in Latin script (SURNAME NAME PATRONYM from MVD); `null` if MVD not fetched |
+  | `photo_url` | string \| null | Resolved profile photo URL (candidate upload or MVD photo); `null` if none |
+  | `balance` | float | Available wallet balance in so'm |
+  | `hold_balance` | float | Frozen (held) wallet amount in so'm |
+
+  #### `personal` object — passport/identity
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `passport_id` | string \| null | Passport series+number (e.g. `AA1234567`); `null` if MVD not fetched |
+  | `pinfl` | string \| null | PINFL (14-digit personal identification number); `null` if MVD not fetched |
+  | `birth_date` | string \| null | Date of birth in `d.m.Y` format; `null` if MVD not fetched |
+  | `citizenship` | string \| null | Citizenship as returned by MVD (e.g. `O'ZBEKISTON`); `null` if not fetched |
+  | `gender` | string \| null | `male` \| `female` \| `null` if unknown or MVD not fetched |
+
+  #### `address` object — registration (propiska)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `registration_region` | string \| null | Propiska region free-text (MVD-resolved); `null` if not set |
+  | `registration_district` | string \| null | Propiska district free-text (MVD-resolved); `null` if not set |
+  | `registration_address` | string \| null | Full registration street address; `null` if not set |
+  | `postal_code` | string \| null | Postal code; `null` if not provided |
+  | `foreign_passport_number` | string \| null | Active international (загранпаспорт) number from MVD; `null` if no active foreign passport |
+
+  #### `education` array — education pool (across all CVs, deduplicated)
+
+  Each item:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Education record ID |
+  | `education_level` | object \| null | `{ id, name, short_name }` from reference; `null` if not linked |
+  | `institution_name` | string | Name of university/college |
+  | `faculty` | string \| null | Faculty; `null` if not provided |
+  | `specialty` | string \| null | Specialty/major; `null` if not provided |
+  | `start_date` | string | Enrolment date in `d.m.Y` format |
+  | `end_date` | string \| null | Graduation date in `d.m.Y`; `null` = currently studying |
+  | `is_current` | bool | `true` when `end_date` is null |
+  | `diploma_file_url` | string \| null | Diploma scan URL; `null` if not uploaded |
+  | `diploma_file_kind` | string \| null | File MIME kind (e.g. `pdf`, `image`); `null` if no file |
+  | `diploma_file_kind_icon_url` | string \| null | Icon URL for the file kind; `null` if no file |
+  | `is_from_mvd` | bool | `true` when synced from MinVUZ diploma/secondary-education cache |
+
+  #### `certificates` array — language proficiency (candidate-level, not per-CV)
+
+  Each item:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | CandidateLanguage record ID |
+  | `language` | object \| null | `{ id, iso_code, name, scale }` — language reference; `null` if unresolved |
+  | `level` | object \| null | `{ id, code, name, scale }` — proficiency level; `null` if unresolved |
+  | `source` | string | `mvd` (DTM/CEFR synced) \| `manual` (user-entered) |
+  | `ball` | string \| null | Aggregate exam score (e.g. `65`); DTM-sourced only, else `null` |
+  | `certificate_url` | string \| null | Official certificate PDF URL (app.dtm.uz); DTM only, else `null` |
+  | `serial_number` | string \| null | DTM certificate serial (e.g. `22DTM1000057YN`); DTM only, else `null` |
+  | `issued_date` | string \| null | Certificate issue date in `d.m.Y`; DTM only, else `null` |
+
+  #### `work_experience` array — experience pool (across all CVs, deduplicated)
+
+  Each item:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Experience record ID |
+  | `company_name` | string | Employer name |
+  | `position` | string | Job title/position |
+  | `start_date` | string | Start date in `d.m.Y` format |
+  | `end_date` | string \| null | End date in `d.m.Y`; `null` = currently employed |
+  | `is_current` | bool | `true` when `end_date` is null |
+  | `is_from_mvd` | bool | `true` when synced from MVD labour history |
+  | `achievements` | string \| null | Free-text achievements; `null` if not provided |
+  | `recommendation_file_url` | string \| null | Recommendation letter URL; `null` if not uploaded |
+  | `recommendation_file_size` | int \| null | File size in bytes; `null` if no file |
+  | `recommendation_file_kind` | string \| null | File MIME kind; `null` if no file |
+  | `recommendation_file_kind_icon_url` | string \| null | Icon URL for file kind; `null` if no file |
+
+  #### Top-level fields
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `total_experience_months` | int | Total span from earliest start → latest end (or today if current job), in whole months. `0` if no experience |
+
+  #### `driver_license` object \| null
+
+  `null` when the candidate has no driver license record.
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `has_license` | bool | Whether the candidate holds a driver license |
+  | `categories` | string \| null | Comma-separated categories (e.g. `B,C`); `null` if none |
+  | `license_number` | string \| null | License number; `null` if not provided |
+  | `issue_date` | string \| null | Issue date in `d.m.Y`; `null` if not provided |
+  | `expiry_date` | string \| null | Expiry date in `d.m.Y`; `null` if not provided |
+  | `file_id` | int \| null | Uploaded scan file ID; `null` if not uploaded |
+  | `file_url` | string \| null | Uploaded scan URL; `null` if not uploaded |
+  | `file_size` | int \| null | File size in bytes; `null` if no file |
+  | `file_kind` | string \| null | File MIME kind; `null` if no file |
+  | `file_kind_icon_url` | string \| null | Icon URL for file kind; `null` if no file |
+  | `source` | string \| null | `manual` \| `mvd_gibdd` — data origin; `null` if no record |
+  | `certificates` | array | Driver certificates (special permissions); always `[]` in this endpoint |
+
+  #### `legal` object — legal background checks
+
+  Keys: `criminal_record`, `insolvent`, `travel_ban`. Each entry:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `status` | string | `not_checked` \| `pending` \| `clean` \| `has_record` \| `error` |
+  | `status_label` | string | Localised label for the status |
+  | `has_record` | bool \| null | `true` if a record was found; `null` when not checked |
+  | `message` | string \| null | Raw message from the government service; `null` if not checked |
+  | `checked_at` | string \| null | Date of last check in `d.m.Y`; `null` if not checked |
+
+  Additional fields on `insolvent`: `debtor_name` (string\|null), `execution_docs` (array).
+  Additional fields on `travel_ban`: `debtor_name` (string\|null), `bans` (array — each ban has `residual_balance` in so'm).
+
+  #### `medical` object — medical background checks
+
+  Keys: `narcology`, `psychiatry`. Each entry:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `status` | string | `not_checked` \| `pending` \| `clean` \| `has_record` \| `error` |
+  | `status_label` | string | Localised label for the status |
+  | `has_record` | bool \| null | `true` if registered in the dispensary; `null` when not checked |
+  | `message` | string \| null | Raw message from Minzdrav; `null` if not checked |
+  | `checked_at` | string \| null | Date of last check in `d.m.Y`; `null` if not checked |
+  | `is_registered` | bool \| null | Alias for `has_record` — `true` if registered; `null` if not checked |
+  | `med_org` | string \| null | Medical organisation name; `null` if not checked or clean |
+  | `status_change_date` | string \| null | Date the dispensary status last changed; `null` if not checked |
+  | `registered_at` | string \| null | Date of dispensary registration; `null` if not checked |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Missing or expired access token |
+  | `456` | Guest/unregistered token used — full registration required (RequireActiveUserFilter) |
