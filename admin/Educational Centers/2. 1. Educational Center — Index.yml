@@ -9,7 +9,11 @@ http:
 docs: 'O''quv markazlari ro''yxati. Faqat `type = 8` (EDUCATIONAL_CENTER) yozuvlar qaytadi.
 
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token` — `educationalCenterView` ruxsati. SuperAdmin / Admin'dan
+  tashqari barcha **XBA rollari** (`xba_admin`, `xba_manager`, `xba_operator`,
+  `xba_viewer`) ham bu ro''yxatni o''qiy oladi (faqat ko''rish). Yozuv amallari
+  (yaratish / tahrir / o''chirish / toggle) `educationalCenterManage` talab qiladi —
+  XBA rollarida yo''q.
 
 
   ### 🔎 Query Parameters

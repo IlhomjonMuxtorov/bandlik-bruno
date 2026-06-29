@@ -10,7 +10,9 @@ docs: |-
   O'quv markazlari modulining yuqori statistika kartochkalari (ro'yxat sahifasi ustidagi 4 ta karta):
   **Umumiy daromad**, **Shu oydagi bitiruvchilar**, **Shu oydagi daromad**, **Shu oydagi yangi qo'shilganlar**.
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token` — `educationalCenterView` ruxsati. SuperAdmin / Admin'dan tashqari
+  barcha **XBA rollari** (`xba_admin`, `xba_manager`, `xba_operator`, `xba_viewer`) ham bu
+  statistikani o'qiy oladi (faqat ko'rish; yozuv amallari `educationalCenterManage` talab qiladi).
 
   ### 📤 Response (`data`)
 
