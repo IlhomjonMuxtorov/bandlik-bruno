@@ -36,7 +36,9 @@ docs: |
 
   | Field | Type | Description |
   |---|---|---|
-  | `full_name` | string | To'liq ism |
+  | `firstname` | string | Ism |
+  | `lastname` | string | Familya |
+  | `patronymic` | string | Otasining ismi (ixtiyoriy) |
   | `phone` | string | Telefon |
   | `profile_photo_upload_file_id` | int | Profil rasmi fayl ID |
   | `language` | string | `uz` \| `ru` \| `en` |
