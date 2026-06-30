@@ -75,6 +75,10 @@ docs: 'SMS orqali kelgan OTP kodni tasdiqlaydi. Muvaffaqiyatli bo''lsa guest his
 
   | `400` | OTP noto''g''ri yoki muddati o''tgan (180 sek) |
 
+  | `400` | `This phone number is already registered.` — telefon aktiv (o''chirilmagan)
+  hisobga tegishli. O''chirilgan hisob raqamni bloklamaydi: qaytgan foydalanuvchi shu
+  telefon + yangi passport bilan qayta ro''yxatdan o''ta oladi. |
+
   | `401` | `guest_token` yo''q yoki muddati o''tgan |
 
 
