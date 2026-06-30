@@ -6,7 +6,10 @@ http:
   method: PATCH
   url: '{{base_url}}/admin/xba-employees/1/toggle-status'
   auth: inherit
-docs: 'Xodimning `is_active` qiymatini teskariga aylantiradi.
+docs: 'Xodimning `is_active` qiymatini teskariga aylantiradi. Xodimda login hisobi
+  bo''lsa, login holati ham birga o''zgaradi: deaktivatsiyada bog''langan `user`
+  Inactive qilinadi va barcha refresh tokenlari bekor qilinadi (xodim tizimga kira
+  olmaydi); qayta faollashtirilganda `user` yana Active bo''ladi.
 
 
   **Auth:** `admin_token`.

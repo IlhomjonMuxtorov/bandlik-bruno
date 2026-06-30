@@ -73,7 +73,7 @@ docs: 'Yangi XBA tashkilotini yaratadi. `application/json` so''rov.
 
   | `login` | string | ✅ | Min 3 belgi. Unique. |
 
-  | `password` | string | ✅ | Min 6 belgi |
+  | `password` | string | ✅ | Min 8 belgi |
 
   | `telegram_url` | string | ➖ | URL |
 

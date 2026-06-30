@@ -20,7 +20,23 @@ docs: |-
   qiymatni o'chirmaydi. `organization_id` almashtirilsa va joylashuv yuborilmasa —
   yangi tashkilot joylashuvi avtomatik olinadi.
 
+  **Login (ixtiyoriy):** xodimda hali login bo'lmasa — `login` + `password` ikkalasi
+  birga yuborilganda yangi login hisobi yaratiladi va biriktiriladi. Login allaqachon
+  bor bo'lsa — `login` yuborilsa username yangilanadi, `password` yuborilsa parol
+  o'rnatiladi (ixtiyoriy, alohida yoki birga). `login` ≥ 3 belgi va unique; `password`
+  ≥ 8 belgi. Mas'ul shaxs (`role=admin`) logini bu yerda boshqarilmaydi — u tashkilot
+  orqali boshqariladi.
+
   **Auth:** `admin_token`.
+
+  ### 📥 Request Body (qisman — login bilan bog'liq)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `login` | string\|null | ➖ | Login (username), ≥ 3 belgi, unique. `null` — o'zgartirilmaydi |
+  | `password` | string\|null | ➖ | Yangi parol, ≥ 8 belgi. `null` — o'zgartirilmaydi |
+
+  Javobda `login` (username \| null) va `has_login` (bool) maydonlari ham bo'ladi.
 
   > **Mas'ul shaxs himoyasi:** tashkilot mas'ul shaxsi (`role=admin`) doimiy — uning rolini o'zgartirib, boshqa xodimga berib yoki deaktiv qilib bo'lmaydi (`403`). Mas'ul shaxsning `firstname`/`lastname`/`patronymic` tahrirlansa, tashkilotning `responsible_first_name`/`responsible_last_name`/`responsible_middle_name` maydonlari ham mos ravishda yangilanadi.
 settings:

@@ -66,7 +66,7 @@ docs: 'Yangi O''quv markazi yaratadi. `application/json` so''rov. `type` avtomat
 
   | `login` | string | ✅ | Partner panel uchun login (min 3) |
 
-  | `password` | string | ✅ | Min 6 |
+  | `password` | string | ✅ | Min 8 |
 
   | `telegram_url` / `instagram_url` / `facebook_url` / `x_url` | string | ➖ | https:// |
 
