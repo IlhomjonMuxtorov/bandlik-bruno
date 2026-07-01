@@ -65,7 +65,7 @@ docs: >
 
   | `vacancy` | object | `{id, title, country{id,name,iso_code,flag_url}, city{id,name}, organization, salary_gross, salary_gross_currency, salary_net, salary_net_currency, employment_type(+_label), work_schedule(+_label), work_time_from, work_time_to, duration_months_min, duration_months_max}` |
 
-  | `vacancy.organization` | object \| null | Vakansiyani joylagan XBA tashkilot: `{id, name, logo_url, phone, address}`. `null` — vakansiyada tashkilot yo'q. |
+  | `vacancy.organization` | object \| null | Vakansiyani joylagan XBA tashkilot: `{id, name, logo_url}`. `null` — vakansiyada tashkilot yo'q. |
 
   | `pipeline` | object \| null | Accepted bo'lsa: `{id, pipeline_outcome(+_label), current_stage(+_label), course_progress_percent, collected_amount, collected_currency, accepted_at(+_formatted), departed_at(+_formatted)}` |
 settings:
