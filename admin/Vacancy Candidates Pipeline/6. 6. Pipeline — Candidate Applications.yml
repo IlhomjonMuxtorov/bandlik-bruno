@@ -39,8 +39,10 @@ docs: >
 
   ### 📤 Response (`data`)
 
-  `items[]` (`{id, status(+label), vacancy{maosh/bandlik/jadval/davlat...}, chat_id,
-  pipeline{pipeline_outcome(+_label), current_stage(+_label)...}}`) + `pagination`.
+  `items[]` (`{id, status(+label), vacancy{maosh/bandlik/jadval/davlat...,
+  organization{id, name, logo_url, phone, address} — vakansiyani joylagan XBA
+  tashkilot, `null` agar tashkilot bo'lmasa}, chat_id, pipeline{pipeline_outcome(+_label),
+  current_stage(+_label)...}}`) + `pagination`.
 settings:
   encodeUrl: true
   timeout: 0
