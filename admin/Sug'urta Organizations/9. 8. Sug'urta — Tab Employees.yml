@@ -9,7 +9,7 @@ http:
 docs: 'Sug''urta tashkilotning **Xodimlar** tabi.
 
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token`. Ruxsat: `insuranceView` (faqat superadmin/admin).
 
 
   ### 🔎 Query Parameters

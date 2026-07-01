@@ -10,7 +10,7 @@ docs: 'Viza tashkilotning `is_active` qiymatini teskariga aylantiradi. Bog''liq 
   ham flipped.
 
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token`. Ruxsat: `visaManage` (faqat superadmin/admin).
 
   '
 settings:

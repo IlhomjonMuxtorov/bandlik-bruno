@@ -6,12 +6,22 @@ http:
   method: GET
   url: '{{base_url}}/admin/logistics/1'
   auth: inherit
-docs: "Bitta Logistika tashkiloti + `stats` sub-object:\n\n```json\n{\n  \"id\": 1,\n\
-  \  \"type\": 2,\n  \"type_label\": \"Logistika\",\n  \"name\": \"...\",\n  ...\n\
-  \  \"stats\": {\n    \"total_revenue\": 48000000,\n    \"clients_count\": 1920,\n\
-  \    \"services_count\": 10,\n    \"employees_count\": 12\n  }\n}\n```\n\n**Auth:**\
-  \ `admin_token`.\n\n### ⚠️ Errors\n\n| Code | Reason |\n|---|---|\n| `404` | Logistika\
-  \ topilmadi (cross-type isolation: XBA/Visa id'si bilan urinilganda ham 404) |\n"
+docs: "Bitta Logistika tashkiloti + `stats` sub-object:\n\n```json\n{\n  \"id\": 1,\n  \"type\": 3,\n\
+  \  \"type_label\": \"Logistika\",\n  \"name\": \"...\",\n  ...\n  \"stats\": {\n    \"total_revenue\"\
+  : 48000000,\n    \"clients_count\": 1920,\n    \"services_count\": 10,\n    \"employees_count\": 12\n\
+  \  }\n}\n```\n\n**Auth:** `admin_token`. Ruxsat: `partnerOrgView` (XBA: xba_admin/xba_manager/xba_viewer)\
+  \ yoki superadmin/admin.\n\n### \U0001F4E4 Response\n\n| Field | Type | Description |\n|---|---|---|\n\
+  | `stats` | object | Faqat `logisticsView` ruxsati (superadmin/admin) borlarga to'liq obyekt qaytadi.\
+  \ `partnerOrgView`gina bo'lgan XBA foydalanuvchi uchun bu kalit javobda UMUMAN CHIQMAYDI (null emas\
+  \ — field yo'q). |\n| `stats.total_revenue` | int | Yakunlangan buyurtmalar summasi (UZS). |\n| `stats.clients_count`\
+  \ | int | Xizmat ko'rsatilgan distinct kandidatlar soni. |\n| `stats.services_count` | int | Tashkilotning\
+  \ faol xizmatlari soni. |\n| `stats.employees_count` | int | Faol xodimlar soni. |\n| `stats.active_vacancies_count`\
+  \ | int | Biriktirilgan faol (approved) vakansiyalar soni. |\n| `stats.archived_vacancies_count` | int\
+  \ | Biriktirilgan yopilgan/arxivlangan vakansiyalar soni. |\n| `stats.this_month_candidates` | int |\
+  \ Joriy oyda kelgan nomzodlar soni. |\n| `stats.this_month_vacancies` | int | Joriy oyda yaratilgan\
+  \ vakansiyalar soni. |\n| `stats.refunded_amount` | int | Yakunlangan refund summasi (UZS). |\n\n###\
+  \ ⚠️ Errors\n\n| Code | Reason |\n|---|---|\n| `404` | Logistika topilmadi (cross-type isolation: XBA/Visa\
+  \ id'si bilan urinilganda ham 404) |\n"
 settings:
   encodeUrl: true
   timeout: 0

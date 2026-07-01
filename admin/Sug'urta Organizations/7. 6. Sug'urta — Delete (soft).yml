@@ -9,7 +9,7 @@ http:
 docs: '**Soft delete** — `is_active = false`, bog''liq `User.status = STATUS_INACTIVE`.
 
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token`. Ruxsat: `insuranceManage` (faqat superadmin/admin).
 
   '
 settings:

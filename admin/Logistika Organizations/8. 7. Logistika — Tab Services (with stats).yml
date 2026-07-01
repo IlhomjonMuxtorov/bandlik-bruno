@@ -13,7 +13,7 @@ docs: 'Logistika tashkilotning **Xizmatlari** tabi (rasmda ko''rinadigan jadval)
   qilingan / daromad` (UZS) — bitta query''da hisoblanadi (no N+1).
 
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token`. Ruxsat: `partnerOrgView` (XBA: xba_admin/xba_manager/xba_viewer) yoki superadmin/admin.
 
 
   ### 🔎 Query Parameters
@@ -51,13 +51,13 @@ docs: 'Logistika tashkilotning **Xizmatlari** tabi (rasmda ko''rinadigan jadval)
 
   | `sort_order` | int | |
 
-  | `in_progress_count` | int | Status = `1` |
+  | `in_progress_count` | int | Status = `1`. `partnerOrgView`-gina bo`lgan XBA uchun `0`. |
 
-  | `completed_count` | int | Status = `2` |
+  | `completed_count` | int | Status = `2`. `partnerOrgView`-gina bo`lgan XBA uchun `0`. |
 
-  | `cancelled_count` | int | Status = `3` |
+  | `cancelled_count` | int | Status = `3`. `partnerOrgView`-gina bo`lgan XBA uchun `0`. |
 
-  | `revenue` | int | Yakunlangan buyurtmalar summasi (UZS) |
+  | `revenue` | int | Yakunlangan buyurtmalar summasi (UZS). Faqat har-tur `View` ruxsati (superadmin/admin) borlarga haqiqiy; `partnerOrgView`-gina bo`lgan XBA uchun `0` (daromad yashirin). |
 
   | `created_at` | int | |
 

@@ -14,7 +14,7 @@ docs: 'Sug''urta tashkilotning **Mijozlar** tabi — DISTINCT kandidatlar bo''yi
   + `user.phone`, har bir kandidat uchun **oxirgi** buyurtma (`MAX(served_at|created_at)`).
 
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token`. Ruxsat: `insuranceView` (faqat superadmin/admin).
 
 
   ### 🔎 Query Parameters

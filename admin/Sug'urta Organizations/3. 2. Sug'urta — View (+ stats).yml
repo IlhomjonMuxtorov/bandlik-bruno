@@ -12,8 +12,7 @@ docs: "Bitta Sug'urta tashkiloti + `stats` sub-object:\n\n```json\n{\n  \"id\": 
   \    \"services_count\": 10,\n    \"employees_count\": 12\n  }\n}\n```\n\n> **Eslatma:**\
   \ Sug'urtada per-org xizmatlar yo'q — `stats.services_count` global\
   \ `insurance_service_type` katalogidagi **aktiv** (`is_active = true`) xizmat turlari\
-  \ sonini qaytaradi (barcha sug'urta tashkilotlari uchun bir xil).\n\n**Auth:**\
-  \ `admin_token`.\n\n### ⚠️ Errors\n\n| Code | Reason |\n|---|---|\n| `404` | Sug'urta\
+  \ sonini qaytaradi (barcha sug'urta tashkilotlari uchun bir xil).\n\n**Auth:** `admin_token`. Ruxsat: `partnerOrgView` (XBA: xba_admin/xba_manager/xba_viewer) yoki superadmin/admin.\n\n### 📤 Response\n\n| Field | Type | Description |\n|---|---|---|\n| `stats` | object | Faqat `insuranceView` ruxsati (superadmin/admin) borlarga to'liq obyekt qaytadi. `partnerOrgView`gina bo'lgan XBA foydalanuvchi uchun bu kalit javobda UMUMAN CHIQMAYDI (null emas — field yo'q). |\n\n### ⚠️ Errors\n\n| Code | Reason |\n|---|---|\n| `404` | Sug'urta\
   \ topilmadi (cross-type isolation: XBA/Visa id'si bilan urinilganda ham 404) |\n"
 settings:
   encodeUrl: true

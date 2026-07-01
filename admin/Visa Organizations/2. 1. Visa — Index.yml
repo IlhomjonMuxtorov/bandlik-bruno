@@ -9,7 +9,8 @@ http:
 docs: |-
   Viza tashkilotlari ro'yxati. Faqat `type = 5` yozuvlar qaytadi.
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token`. Ruxsat: `partnerOrgView` (XBA: xba_admin/xba_manager/xba_viewer)
+  yoki superadmin/admin.
 
   ### 🔎 Query Parameters
 
@@ -17,14 +18,14 @@ docs: |-
 
   ### 📤 Response
 
-  `data.items[]` — `OrganizationOutputDTO` (`type = 5`, `type_label = "Viza"`). Har bir
-  qatorga service-org `counts` obyekti qo'shiladi (batched, N+1 siz):
+  `data.items[]` — `OrganizationOutputDTO` (`type = 5`, `type_label = "Viza"`).
 
   | Field | Type | Description |
   |---|---|---|
-  | `counts.employees_count` | int | Faol xodimlar soni ("Xodimlar"). |
-  | `counts.clients_count` | int | Xizmat ko'rsatilgan distinct kandidatlar ("Mijozlar"). |
-  | `counts.revenue` | int | Yakunlangan buyurtmalar summasi, UZS ("Daromadi"). |
+  | `counts` | object | Faqat `visaView` ruxsati (superadmin/admin) borlarga chiqadi — `{employees_count, clients_count, revenue}`. `partnerOrgView`gina bo'lgan XBA foydalanuvchi uchun bu kalit javobda UMUMAN CHIQMAYDI (null emas — field yo'q). |
+  | `counts.employees_count` | int | Faol xodimlar soni ("Xodimlar"). Faqat `visaView` bilan. |
+  | `counts.clients_count` | int | Xizmat ko'rsatilgan distinct kandidatlar ("Mijozlar"). Faqat `visaView` bilan. |
+  | `counts.revenue` | int | Yakunlangan buyurtmalar summasi, UZS ("Daromadi"). Faqat `visaView` bilan. |
 
   Har element `created_by` / `created_by_name` / `updated_by` / `updated_by_name` ham qaytaradi.
 settings:

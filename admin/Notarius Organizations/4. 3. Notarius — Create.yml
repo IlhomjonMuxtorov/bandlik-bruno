@@ -16,7 +16,7 @@ docs: 'Yangi Notarius tashkilotini yaratadi. `application/json` so''rov — xatt
   XBA `Create` bilan bir xil, yagona farq: `type = 2`.
 
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token`. Ruxsat: `notariusManage` (faqat superadmin/admin).
 
 
   ### 📥 Request Body

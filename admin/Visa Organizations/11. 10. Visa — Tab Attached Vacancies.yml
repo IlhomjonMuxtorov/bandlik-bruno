@@ -12,7 +12,8 @@ docs: |-
   `vacancy_service_group` (unique `vacancy_id` + `organization_id`) orqali aniqlanadi —
   ya'ni vakansiya egasi emas, bal­ki unga xizmat ko'rsatuvchi tashkilot.
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token`. Ruxsat: `partnerOrgView` (XBA: xba_admin/xba_manager/xba_viewer)
+  yoki superadmin/admin.
 
   ### 🔎 Query Parameters
 

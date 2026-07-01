@@ -9,7 +9,8 @@ http:
 docs: 'Notarius tashkilotning **Xodimlar** tabi.
 
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token`. Ruxsat: `notariusView` (faqat superadmin/admin). XBA rollari
+  (`xba_admin`/`xba_manager`/`xba_viewer`, `partnerOrgView`) bu tabga kira olmaydi — `403`.
 
 
   ### 🔎 Query Parameters

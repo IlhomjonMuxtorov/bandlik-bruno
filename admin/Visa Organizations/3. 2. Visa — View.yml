@@ -9,7 +9,8 @@ http:
 docs: |-
   Bitta Viza tashkiloti haqida to'liq ma'lumot + `stats`.
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token`. Ruxsat: `partnerOrgView` (XBA: xba_admin/xba_manager/xba_viewer)
+  yoki superadmin/admin.
 
   ### 📤 Response (`data` — `OrganizationOutputDTO`)
 
@@ -22,9 +23,11 @@ docs: |-
   | `created_by_name` | string \| null | Yaratuvchi ismi (admin profil F.I.SH, aks holda login/email). |
   | `updated_by` | int \| null | Oxirgi tahrirlovchi `id`. |
   | `updated_by_name` | string \| null | Oxirgi tahrirlovchi ismi. |
+  | `stats` | object | Faqat `visaView` ruxsati (superadmin/admin) borlarga to'liq obyekt qaytadi. `partnerOrgView`gina bo'lgan XBA foydalanuvchi uchun bu kalit javobda UMUMAN CHIQMAYDI (null emas — field yo'q). |
 
-  `stats` obyektida `total_revenue`, `clients_count`, `services_count`, `employees_count`
-  kabi detal kartalari bo'ladi.
+  `stats` obyektida `total_revenue`, `clients_count`, `services_count`, `employees_count`,
+  `active_vacancies_count`, `archived_vacancies_count`, `this_month_candidates`,
+  `this_month_vacancies`, `refunded_amount` kabi detal kartalari bo'ladi.
 
   ### ⚠️ Errors
 

@@ -15,7 +15,8 @@ docs: |-
   bo'sh bo'lsa `birth_*` ga fallback) va oxirgi buyurtma vakansiyasi (`vacancy_id` →
   `vacancy`), har bir kandidat uchun **oxirgi** buyurtma (`MAX(served_at|created_at)`).
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token`. Ruxsat: `visaView` (faqat superadmin/admin). XBA rollari
+  (`xba_admin`/`xba_manager`/`xba_viewer`, `partnerOrgView`) bu tabga kira olmaydi — `403`.
 
   ### 🔎 Query Parameters
 

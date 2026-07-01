@@ -16,7 +16,7 @@ docs: 'Mavjud Viza tashkilotini yangilaydi. `application/json` — faqat o''zgar
   bo''lgan maydonlarni yuborish kifoya. XBA `Update` bilan bir xil semantika.
 
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token`. Ruxsat: `visaManage` (faqat superadmin/admin).
 
 
   ### ⚠️ Errors

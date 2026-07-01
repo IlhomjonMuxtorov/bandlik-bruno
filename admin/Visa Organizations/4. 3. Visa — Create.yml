@@ -16,7 +16,7 @@ docs: 'Yangi Viza tashkilotini yaratadi. `application/json` so''rov — xatti-ha
   XBA `Create` bilan bir xil, yagona farq: `type = 5`.
 
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token`. Ruxsat: `visaManage` (faqat superadmin/admin).
 
 
   ### 📥 Request Body

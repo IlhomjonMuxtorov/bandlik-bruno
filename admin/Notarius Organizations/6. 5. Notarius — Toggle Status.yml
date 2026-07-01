@@ -10,7 +10,7 @@ docs: 'Notarius tashkilotning `is_active` qiymatini teskariga aylantiradi. Bog''
   `User.status` ham flipped.
 
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token`. Ruxsat: `notariusManage` (faqat superadmin/admin).
 
   '
 settings:

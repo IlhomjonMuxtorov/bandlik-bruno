@@ -16,7 +16,7 @@ docs: 'Yangi Sug''urta tashkilotini yaratadi. `application/json` so''rov — xat
   XBA `Create` bilan bir xil, yagona farq: `type = 4`.
 
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token`. Ruxsat: `insuranceManage` (faqat superadmin/admin).
 
 
   ### 📥 Request Body

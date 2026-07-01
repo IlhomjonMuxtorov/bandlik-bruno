@@ -9,7 +9,8 @@ http:
 docs: |-
   Visa modulining yuqori statistika kartochkalari (ro'yxat sahifasi ustidagi 4 ta karta).
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token`. Ruxsat: `visaView` (faqat superadmin/admin). XBA rollari
+  (`xba_admin`/`xba_manager`/`xba_viewer`, `partnerOrgView`) bu endpointga kira olmaydi — `403`.
 
   ### 📤 Response (`data`)
 

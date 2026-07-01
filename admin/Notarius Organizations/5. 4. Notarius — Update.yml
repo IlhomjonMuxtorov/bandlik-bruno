@@ -16,7 +16,7 @@ docs: 'Mavjud Notarius tashkilotini yangilaydi. `application/json` — faqat o''
   maydonlarni yuborish kifoya.
 
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token`. Ruxsat: `notariusManage` (faqat superadmin/admin).
 
   > **Mas''ul shaxs sinxronizatsiyasi:** `responsible_first_name` / `responsible_last_name` / `responsible_middle_name` tahrirlansa, tashkilotning mas''ul shaxsi (admin xodim) ismi ham mos ravishda yangilanadi (ikki tomonlama).
 

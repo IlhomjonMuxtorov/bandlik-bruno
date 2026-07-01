@@ -9,7 +9,7 @@ http:
 docs: |-
   Sug'urta modulining yuqori statistika kartochkalari (ro'yxat sahifasi ustidagi 4 ta karta).
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token`. Ruxsat: `insuranceView` (faqat superadmin/admin).
 
   ### 📤 Response (`data`)
 

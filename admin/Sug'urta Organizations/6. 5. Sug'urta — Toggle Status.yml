@@ -10,7 +10,7 @@ docs: 'Sug''urta tashkilotning `is_active` qiymatini teskariga aylantiradi. Bog'
   `User.status` ham flipped.
 
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token`. Ruxsat: `insuranceManage` (faqat superadmin/admin).
 
   '
 settings:

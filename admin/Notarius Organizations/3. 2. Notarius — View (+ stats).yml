@@ -13,8 +13,17 @@ docs: "Bitta Notarius tashkiloti + `stats` sub-object:\n\n```json\n{\n  \"id\": 
   \ Notarius xizmatlari uchta per-org narx jadvalida saqlanadi — Tarjima\
   \ (`notary_translation_price`), Apostil (`notary_apostille_price`) va Boshqa\
   \ (`notary_other_service_price`). `stats.services_count` shu tashkilotning uchchala\
-  \ jadval bo'yicha **aktiv** (`is_active = true`) narx qatorlari yig'indisini qaytaradi.\n\n**Auth:**\
-  \ `admin_token`.\n\n### ⚠️ Errors\n\n| Code | Reason |\n|---|---|\n| `404` | Notarius\
+  \ jadval bo'yicha **aktiv** (`is_active = true`) narx qatorlari yig'indisini qaytaradi.\n\n\
+  > **`stats` ko'rinishi ruxsatga bog'liq:** `stats` obyekti faqat chaqiruvchida `notariusView`\
+  \ ruxsati bo'lsa (`superadmin`/`admin`) to'ldiriladi. XBA rollari (`partnerOrgView` —\
+  \ `xba_admin`/`xba_manager`/`xba_viewer`) bilan so'ralganda `stats` kaliti javobda\
+  \ **umuman chiqmaydi** (`\"stats\": null` emas — butunlay yo'q), faqat umumiy tashkilot\
+  \ ma'lumoti qaytadi.\n\n### 📤 Response\n\n| Field | Type | Description |\n|---|---|---|\n\
+  | `stats` | object | Faqat `notariusView` ruxsati (superadmin/admin) borlarga to'liq\
+  \ obyekt qaytadi. `partnerOrgView`gina bo'lgan XBA foydalanuvchi uchun bu kalit javobda\
+  \ UMUMAN CHIQMAYDI (null emas — field yo'q). |\n\n**Auth:** `admin_token`. Ruxsat:\
+  \ `partnerOrgView` (XBA: xba_admin/xba_manager/xba_viewer) yoki superadmin/admin.\n\n\
+  ### ⚠️ Errors\n\n| Code | Reason |\n|---|---|\n| `404` | Notarius\
   \ topilmadi (cross-type isolation: XBA/Visa id'si bilan urinilganda ham 404) |\n"
 settings:
   encodeUrl: true
