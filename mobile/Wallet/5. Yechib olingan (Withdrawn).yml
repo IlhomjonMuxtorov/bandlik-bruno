@@ -31,7 +31,7 @@ docs: |
   [
     {
       "id": 120,
-      "title": "O'quv kursi",
+      "title": "O'quv kursi uchun to'lov",
       "amount": 560000,
       "currency": "UZS",
       "direction": "out",
@@ -44,7 +44,7 @@ docs: |
   | Maydon | Tip | Izoh |
   |---|---|---|
   | `id` | int | Transaction id. |
-  | `title` | string\|null | Xizmat to'lovida — xizmat nomi (`OrganizationService.name`, qurilma tiliga ko'ra lokalizatsiya; topilmasa `"Payment"`). Pul yechishda — `"Yechib olingan"` (`CandidateWithdrawal`). |
+  | `title` | string | Xizmat to'lovida — `"{kategoriya} uchun to'lov"` (masalan `"Viza uchun to'lov"`, `"Sug'urta uchun to'lov"`, `"O'quv kursi uchun to'lov"`). Kategoriya order maqsadidan aniqlanadi: alohida xizmat nomi (`OrganizationService.name`) → kurs nomi → pipeline guruh turi (`ServiceGroupType`); hech biri bo'lmasa `"To'lov"`. Pul yechishda — `"Yechib olingan"` (`CandidateWithdrawal`). Qurilma tiliga (`Accept-Language`) lokalizatsiya. |
   | `amount` | int | To'lov summasi, **musbat** (so'm). |
   | `currency` | string | `UZS`. |
   | `direction` | string | Doim `out` (chiqim — qizil `-`). |
