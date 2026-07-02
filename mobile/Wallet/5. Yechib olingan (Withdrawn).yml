@@ -9,10 +9,11 @@ http:
 docs: |
   # GET /mobile/wallet/payments — "Yechib olingan" tab
 
-  Hamyondan amalga oshirilgan xizmat to'lovlari — ledger'dagi
-  `type=CandidatePayment`, `status=Completed` bo'lgan `Transaction` yozuvlari,
-  `id` bo'yicha kamayish tartibida (yangi → eski). Har bir qator real chiqim
-  harakatini bildiradi (qizil `-` summa).
+  Hamyondan amalga oshirilgan **chiqim** harakatlari — ledger'dagi
+  `status=Completed` va `type` `CandidatePayment` (xizmat to'lovi) **yoki**
+  `CandidateWithdrawal` (hamyondan pul yechib olish) bo'lgan `Transaction`
+  yozuvlari, `id` bo'yicha kamayish tartibida (yangi → eski). Har bir qator real
+  chiqim harakatini bildiradi (qizil `-` summa).
 
   **Auth:** `access_token` (nomzod).
 
@@ -43,7 +44,7 @@ docs: |
   | Maydon | Tip | Izoh |
   |---|---|---|
   | `id` | int | Transaction id. |
-  | `title` | string\|null | Xizmat nomi (`OrganizationService.name`, qurilma tiliga ko'ra lokalizatsiya). Topilmasa `"Payment"`. |
+  | `title` | string\|null | Xizmat to'lovida — xizmat nomi (`OrganizationService.name`, qurilma tiliga ko'ra lokalizatsiya; topilmasa `"Payment"`). Pul yechishda — `"Yechib olingan"` (`CandidateWithdrawal`). |
   | `amount` | int | To'lov summasi, **musbat** (so'm). |
   | `currency` | string | `UZS`. |
   | `direction` | string | Doim `out` (chiqim — qizil `-`). |
