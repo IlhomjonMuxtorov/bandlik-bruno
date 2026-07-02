@@ -23,7 +23,7 @@ docs: |-
 
   | Field | Type | Description |
   |---|---|---|
-  | `counts.agents_count` | int | Faol xodimlar soni |
+  | `counts.employees_count` | int | Faol xodimlar soni (`organization_employee`, `is_active`) |
   | `counts.vacancies_count` | int | Tashkilotga biriktirilgan vakansiyalar (`recruiter_id` bo'yicha) |
   | `counts.candidates_count` | int | O'sha vakansiyalardagi distinct nomzodlar |
   | `counts.revenue` | int | **Daromadi** — yakunlangan servis buyurtmalari summasi (so'm) |
