@@ -59,7 +59,10 @@ docs: 'Ro''yxatdan o''tgan nomzodning o''z profili va **MVD** dan olingan paspor
 
   | `nationality` | string \| null | Millati (MVD) |
 
-  | `citizenship` | string \| null | Fuqaroligi (MVD) |
+  | `citizenship` | object \| null | **YANGI.** `{ id, name }` — MVD-derived fuqarolik.
+  `id` — GCP davlat kodi (`country.gcp_code`); `null` — MVD kod bermagan yoki davlat
+  mos kelmagan. `name` — `country` relation orqali lokalizatsiya, bo''lmasa xom MVD
+  fuqarolik qiymati; `null` — MVD ma''lumoti yo''q |
 
   | `sex` | string \| null | `male` \| `female` |
 

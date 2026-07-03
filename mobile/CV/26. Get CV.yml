@@ -51,9 +51,18 @@ docs: 'Bitta CV-ning to''liq tafsilotlari (education, experience, languages va h
 
   | `personal` | object | Passport asosida (CV-dan qat''iy nazar bir xil) |
 
-  | `birth_place` | object | `{ region, district, address, country }`. `region`/`district` faqat foydalanuvchi kiritgan qiymatdan (pasport bergan IIB''dan taxmin qilinmaydi); `country` MVD `birthcountry`; `address` MVD `birthplace` erkin matni |
+  | `birth_place` | object | **BREAKING:** endi qat''iy MVD-derived: `{ address, country
+  }`. Eski `region`/`district` kalitlari OLIB TASHLANDI (MVD ularni ajratmaydi).
+  `address` kaliti QOLADI, lekin qiymati boshqa manbadan: endi MVD `birthplace`
+  erkin matni (masalan tuman nomi), avvalgi "nomzod kiritgan ko''cha/uy manzili"
+  EMAS; `null` — MVD topilmagan. `country` — tug''ilgan davlat, `country.gcp_code`
+  orqali lokalizatsiya, bo''lmasa xom MVD qiymati (`null` — noma''lum) |
 
-  | `passport` | object | TIN, foreign passport, visa info |
+  | `passport` | object | `{ tin, foreign_passport_number, citizenship, had_visa_before,
+  additional_visa_country }`. `citizenship` (yangi) — `{ id, name }`: `id` = GCP
+  davlat kodi (`country.gcp_code`), `null` — MVD kod bermagan/davlat mos kelmagan;
+  `name` — lokalizatsiya, bo''lmasa xom MVD fuqarolik qiymati. `additional_visa_country`
+  — `{id, name}` \| `null` |
 
   | `registration` | object | Propiska: `{ region, district, country, address, postal_code, registration_date }`. `region`/`district`/`country` MVD `MVDAddressInfoService` propiskasidan `region`/`district` jadvallariga bog''lanadi (erkin matn fallback) |
 

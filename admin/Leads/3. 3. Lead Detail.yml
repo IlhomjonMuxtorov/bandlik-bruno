@@ -49,6 +49,18 @@ docs: >
   | `lead` | object | `{id, candidate_id, full_name, phone, photo_url, funnel_status, funnel_status_label, source, source_label, created_at, created_at_formatted}` |
 
   | `profile` | object \| null | `CvOutputDTO` shakli: `header, personal, birth_place, passport, registration, education[], experience[], family, languages[], documents[], driver, courses[], visas[], contact`. Candidate yo'q bo'lsa `null` |
+
+
+  > **BREAKING:** `profile.birth_place` endi qat'iy MVD-derived: `{ address, country }`.
+  > Eski `region`/`district` kalitlari OLIB TASHLANDI — MVD ularni ajratmaydi. `address`
+  > kaliti QOLADI, lekin qiymati boshqa manbadan: endi MVD `birthplace` erkin matni
+  > (masalan tuman nomi), avvalgi "nomzod kiritgan ko'cha/uy manzili" EMAS (`null` —
+  > MVD topilmagan); `country` — tug'ilgan davlat, `country.gcp_code` orqali
+  > lokalizatsiya, bo'lmasa xom MVD qiymati (`null` — noma'lum).
+  >
+  > `profile.passport.citizenship` (yangi) — `{ id, name }`. `id` — GCP davlat kodi
+  > (`country.gcp_code`); `null` — MVD kod bermagan yoki davlat mos kelmagan. `name` —
+  > `country` relation orqali lokalizatsiya, bo'lmasa xom MVD fuqarolik qiymati.
 settings:
   encodeUrl: true
   timeout: 0

@@ -51,7 +51,7 @@ docs: |
   | `passport_id` | string \| null | Passport series+number (e.g. `AA1234567`); `null` if MVD not fetched |
   | `pinfl` | string \| null | PINFL (14-digit personal identification number); `null` if MVD not fetched |
   | `birth_date` | string \| null | Date of birth in `d.m.Y` format; `null` if MVD not fetched |
-  | `citizenship` | string \| null | Citizenship as returned by MVD (e.g. `O'ZBEKISTON`); `null` if not fetched |
+  | `citizenship` | string \| null | MVD-derived citizenship, resolved to the localized country name via `country.gcp_code` (`Accept-Language`); falls back to the raw MVD string (e.g. `O'ZBEKISTON`) if the country isn't mapped; `null` if MVD not fetched |
   | `gender` | string \| null | `male` \| `female` \| `null` if unknown or MVD not fetched |
 
   #### `address` object — registration (propiska)
