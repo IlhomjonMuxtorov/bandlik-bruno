@@ -1,0 +1,54 @@
+info:
+  name: 46. 6. Vacancy Industries — Import (Excel)
+  type: http
+  seq: 46
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancy-industries/import'
+  body:
+    type: multipartForm
+    data:
+    - name: file
+      type: file
+      value:
+      - Sohalar.xlsx
+  auth: inherit
+docs: |
+  "Sohalar" Excel faylini yuklab, soha kategoriyalari (SOHA) va sohalarni
+  (SUB-SOHA) DB ga import qiladi. Idempotent: kategoriya uz-nomi bo'yicha,
+  soha esa (kategoriya + uz-nom) bo'yicha upsert qilinadi — qayta yuklash
+  dublikat yaratmaydi.
+
+  **Auth:** `admin_token` (`referenceManage` huquqi).
+
+  ### 📥 Request Body (multipart/form-data)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `file` | file (.xlsx \| .xls) | ✅ | 9 ustunli jadval. Ustunlar: A/B/C — SOHA uz/ru/en, D/E/F — SUB-SOHA uz/ru/en, G/H/I — TAVSIF uz/ru/en. 1-qator sarlavha. |
+
+  > Kategoriya nomi o'z sohalari qatorlarida takrorlanadi. Soha uchun `code`
+  > uz-nomdan avtomatik generatsiya qilinadi (fayl ustuni yo'q).
+
+  ### 📤 Response (`data`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `categories_created` | int | Yangi qo'shilgan kategoriyalar soni. |
+  | `categories_updated` | int | ru/en nomi yangilangan mavjud kategoriyalar. |
+  | `industries_created` | int | Yangi qo'shilgan sohalar soni. |
+  | `industries_updated` | int | Yangilangan mavjud sohalar soni. |
+  | `rows_skipped` | int | O'tkazib yuborilgan qatorlar (bo'sh kalit yoki validatsiya xatosi). |
+  | `errors` | object | `{ "<qator_raqami>": "sabab" }` — muammoli qatorlar. Toza importda bo'sh. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `422` | Fayl yuborilmagan yoki `.xlsx`/`.xls` emas. |
+  | `422` | Faylni o'qib bo'lmadi (buzilgan/noto'g'ri format). |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

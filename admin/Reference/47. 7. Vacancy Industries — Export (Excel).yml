@@ -1,0 +1,32 @@
+info:
+  name: 47. 7. Vacancy Industries — Export (Excel)
+  type: http
+  seq: 47
+http:
+  method: GET
+  url: '{{base_url}}/admin/vacancy-industries/export'
+  auth: inherit
+docs: |
+  Butun soha katalogini (SOHA + SUB-SOHA) `.xlsx` fayl sifatida yuklab beradi —
+  har soha uchun bitta qator, 9 ustun (import formati bilan bir xil). Fayl nomi:
+  `sohalar.xlsx`.
+
+  **Auth:** `admin_token` (`referenceView` huquqi).
+
+  ### 📤 Response
+
+  `Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+  bilan binary `.xlsx` fayl (JSON `{success,data}` o'rami YO'Q — to'g'ridan-to'g'ri
+  fayl). Kategoriyalar va sohalar `sort_order` bo'yicha tartiblanadi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q/eskirgan. |
+  | `403` | `referenceView` huquqi yo'q. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
