@@ -1,0 +1,6 @@
+info:
+  name: XBA Agents
+  type: folder
+  seq: 64
+request:
+  auth: inherit

@@ -4,7 +4,7 @@ info:
   seq: 2
 http:
   method: GET
-  url: '{{base_url}}/admin/leads/counts?q=&country_id=&organization_id='
+  url: '{{base_url}}/admin/leads/counts?q=&country_id=&organization_id=&agent_id='
   auth: inherit
 params:
   query:
@@ -17,10 +17,15 @@ params:
     - name: organization_id
       value: ''
       enabled: true
+    - name: agent_id
+      value: ''
+      enabled: true
 docs: >
   Funnel tab badge sanoqlari — "Holati" tablari uchun raqamlar. `q` /
-  `country_id` / `organization_id` filtrlari hisobga olinadi; `status` tabning
-  o'zi e'tiborga olinmaydi.
+  `country_id` / `organization_id` / `agent_id` filtrlari hisobga olinadi;
+  `status` tabning o'zi e'tiborga olinmaydi. `agent_id` — XBA agent tashkiloti
+  bo'yicha toraytiradi (faqat admin yoki root XBA aktori uchun; `1. Leads List`
+  dagi bilan bir xil qoida).
 
 
   Olti funnel tab sanog'i jami `all` ga teng bo'ladi (bosqichlar o'zaro istisno

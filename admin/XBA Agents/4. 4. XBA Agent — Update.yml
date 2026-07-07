@@ -1,0 +1,34 @@
+info:
+  name: 4. XBA Agent — Update
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{base_url}}/admin/xba-agents/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"phone\": \"+998941202299\",\n  \"is_active\": 1\n}"
+  auth: inherit
+docs: |-
+  Mavjud XBA agentini yangilaydi. Maydonlar `3. XBA Agent — Create` bilan bir xil (barchasi
+  ixtiyoriy, faqat o'zgaradiganini yuboring) — **`parent_organization_id` bu yerda
+  o'zgartirilmaydi** (yuborilsa ham e'tiborga olinmaydi, agent har doim o'z root XBA'sida qoladi).
+
+  **Auth:** `xbaAgentManage` — `superadmin` \| `admin` \| root XBA'ning `xba_admin` xodimi
+  (`xba_manager` bajara olmaydi). Root XBA aktori faqat **o'z** agentini yangilay oladi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `403` | Root XBA emas |
+  | `404` | XBA agent topilmadi yoki boshqa root XBA'ning agenti |
+  | `422` | Validatsiya xatosi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

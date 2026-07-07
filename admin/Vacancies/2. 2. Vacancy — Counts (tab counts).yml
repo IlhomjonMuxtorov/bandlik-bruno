@@ -39,6 +39,9 @@ docs: 'Vakansiyalar ro''yxati sahifasidagi tablar uchun statuslar bo''yicha sonl
 
   | `recruiter_id` | int | ➖ | Rekruter tashkiloti ID. |
 
+  | `agent_id` | int | ➖ | XBA agent tashkiloti ID bo''yicha toraytiradi. Faqat **admin** yoki
+  **root XBA** aktori uchun ishlaydi; XBA agent aktori avtomatik faqat o''zining sonlarini ko''radi. |
+
   | `country_id` | int | ➖ | Davlat ID. |
 
   | `city_id` | int[] | ➖ | Shahar ID(lar). |
@@ -77,7 +80,9 @@ docs: 'Vakansiyalar ro''yxati sahifasidagi tablar uchun statuslar bo''yicha sonl
 
   | `draft` | int | Qoralama |
 
-  | `pending_approval` | int | Tasdiq kutilayotgan |
+  | `pending_approval` | int | 1-faza: agentlik vakansiyasi root XBA tasdig'ini kutmoqda (faqat `agent_organization_id != null` yozuvlar) |
+
+  | `pending_association` | int | 2-faza: Uyushma (superadmin/admin) tasdig'ini kutmoqda — root XBA'ning o'z vakansiyasi bevosita shu yerga tushadi, agentlik vakansiyasi esa `pending_approval`dan o'tib keladi |
 
   | `approved` | int | Faol (tasdiqlangan) |
 
@@ -96,6 +101,7 @@ docs: 'Vakansiyalar ro''yxati sahifasidagi tablar uchun statuslar bo''yicha sonl
       "total": 1490,
       "draft": 312,
       "pending_approval": 245,
+      "pending_association": 112,
       "approved": 601,
       "rejected": 88,
       "closed": 198,

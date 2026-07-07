@@ -6,8 +6,16 @@ http:
   method: POST
   url: '{{base_url}}/admin/vacancies/1/approve'
   auth: inherit
-docs: 'SuperAdmin pending_approval statusdagi vakansiyani tasdiqlaydi — status `approved`,
-  `published_at` o''rnatiladi, mobile feed''da ko''rinadi.
+docs: 'SuperAdmin/Admin (Uyushma) — 2-fazaning yakuniy tasdig''i. `pending_association`
+  statusdagi vakansiyani tasdiqlaydi — status `approved`, `published_at` o''rnatiladi, mobile
+  feed''da ko''rinadi.
+
+
+  > **Ikki fazali oqim:** agentlik vakansiyasi (`agent != null`) bu bosqichga faqat root
+  XBA''ning `approve-agency` (1-faza) dan o''tgach yetib keladi; root XBA''ning o''z
+  vakansiyasi (`agent = null`) `submit` qilinganda 1-fazani o''tkazib to''g''ridan-to''g''ri
+  shu yerga tushadi. Bu endpoint **avvalgi (bir fazali) `pending_approval` emas** —
+  `pending_association`dan tasdiqlaydi.
 
 
   **Auth:** `admin_token` (faqat `UserType::Admin`).
@@ -20,7 +28,7 @@ docs: 'SuperAdmin pending_approval statusdagi vakansiyani tasdiqlaydi — status
 
   |---|---|
 
-  | `400` | Status `pending_approval` emas |
+  | `400` | Status `pending_association` emas — `"Only vacancies pending association approval can be approved"` |
 
   | `400` | Bog''langan shartnoma amalda emas (tasdiqlanmagan yoki bekor qilingan) — `Vacancy cannot be approved until its contract is approved` |
 

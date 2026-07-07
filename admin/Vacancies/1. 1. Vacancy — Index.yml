@@ -25,12 +25,18 @@ docs: 'Vakansiyalar ro''yxati. Admin barchasini ko''radi; Employer/Recruiter faq
 
   | `q` | string | ➖ | Sarlavha bo''yicha (ILIKE). |
 
-  | `status` | string | ➖ | `draft` \| `pending_approval` \| `approved` \| `rejected`
-  \| `closed` \| `archived`. |
+  | `status` | string | ➖ | `draft` \| `pending_approval` \| `pending_association` \| `approved`
+  \| `rejected` \| `closed` \| `archived`. |
 
-  | `organization_id` | int | ➖ | Tashkilot ID (admin uchun). |
+  | `organization_id` | int | ➖ | Tashkilot ID (admin uchun). Root XBA''ning `organization_id`''si
+  uning barcha agentlari vakansiyalarini ham qamrab oladi. |
 
   | `recruiter_id` | int | ➖ | Rekruter tashkiloti ID. |
+
+  | `agent_id` | int | ➖ | XBA agent tashkiloti ID bo''yicha toraytiradi (`agent_organization_id`).
+  Faqat **admin** yoki **root XBA** aktori uchun ishlaydi (root XBA — o''z agentlaridan birini
+  tanlaydi); boshqa aktorlar uchun e''tiborga olinmaydi. XBA agent aktori esa avtomatik
+  faqat o''z yaratgan vakansiyalarini ko''radi (`agent_id` yubormasa ham). |
 
   | `country_id` | int | ➖ | Davlat ID. |
 
@@ -86,6 +92,16 @@ docs: 'Vakansiyalar ro''yxati. Admin barchasini ko''radi; Employer/Recruiter faq
   uchalasi `null`, `is_auto_approved=false`. **Auto-approve** (cron timeout) bo''lsa
   `approved_by` baribir `null` qoladi, `approved_at` to''ladi va
   `is_auto_approved=true` — qo''lda tasdiqdan shu flag bilan farqlanadi.
+
+
+  > **Ikki fazali tasdiq (XBA agentlik):** Har bir `items[]` elementida `agent`
+  (object\|null) bor — `{ id, name }`: vakansiyani yaratgan XBA **agent** tashkiloti;
+  `null` bo''lsa vakansiyani root XBA''ning o''zi yaratgan. `organization` maydoni bunda
+  ham har doim **root XBA** brendini ko''rsatadi (agent vakansiyasi ham root XBA nomi ostida
+  chop etiladi). Status oqimi: agent vakansiyasi `draft → pending_approval →
+  (root XBA `approve-agency`) → pending_association → (Uyushma `approve`) → approved`; root
+  XBA''ning o''z vakansiyasi 1-fazani o''tkazib yuboradi: `draft → pending_association →
+  approved`. Har fazada rad etish → `rejected`.
 
 
   ### ⚠️ Errors

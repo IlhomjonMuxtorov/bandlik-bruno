@@ -1,0 +1,30 @@
+info:
+  name: 5. XBA Agent — Toggle Status
+  type: http
+  seq: 5
+http:
+  method: PATCH
+  url: '{{base_url}}/admin/xba-agents/1/toggle-status'
+  auth: inherit
+docs: |-
+  Agentning `is_active` qiymatini teskariga aylantiradi (Faol ↔ Nofaol). Bog'liq `User.status`
+  ham mos ravishda o'zgaradi.
+
+  **Auth:** `xbaAgentManage` — `superadmin` \| `admin` \| root XBA'ning `xba_admin` xodimi
+  (`xba_manager` bajara olmaydi). Root XBA aktori faqat **o'z** agentini o'zgartira oladi.
+
+  ### 📤 Response
+
+  Yangilangan agent `OrganizationOutputDTO` formatida.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `403` | Root XBA emas |
+  | `404` | XBA agent topilmadi yoki boshqa root XBA'ning agenti |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

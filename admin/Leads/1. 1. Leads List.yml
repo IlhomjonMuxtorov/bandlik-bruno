@@ -4,7 +4,7 @@ info:
   seq: 1
 http:
   method: GET
-  url: '{{base_url}}/admin/leads?q=&status=&country_id=&organization_id=&gender=&age_from=&age_to=&experience=&education_level_ids=&language_ids=&language_level_ids=&driver_categories=&last_visa_country_id=&last_workplace=&applications_from=&applications_to=&filter=&sort=&per-page=20'
+  url: '{{base_url}}/admin/leads?q=&status=&country_id=&organization_id=&agent_id=&gender=&age_from=&age_to=&experience=&education_level_ids=&language_ids=&language_level_ids=&driver_categories=&last_visa_country_id=&last_workplace=&applications_from=&applications_to=&filter=&sort=&per-page=20'
   auth: inherit
 params:
   query:
@@ -24,6 +24,9 @@ params:
       value: ''
       enabled: true
     - name: organization_id
+      value: ''
+      enabled: true
+    - name: agent_id
       value: ''
       enabled: true
     - name: gender
@@ -96,7 +99,9 @@ docs: >
 
   | `country_id` | int | ➖ | Lead bog'langan vakansiya davlati |
 
-  | `organization_id` | int | ➖ | Lead bog'langan vakansiya XBA tashkiloti (egasi yoki rekruteri) |
+  | `organization_id` | int | ➖ | Lead bog'langan vakansiya XBA tashkiloti (egasi yoki rekruteri). Root XBA'ning `organization_id`'si uning agentlari vakansiyalarini ham qamrab oladi |
+
+  | `agent_id` | int | ➖ | XBA agent tashkiloti ID bo'yicha toraytiradi. Faqat **admin** yoki **root XBA** aktori uchun ishlaydi (root XBA — o'z agentlaridan birini tanlaydi); boshqa aktorlar uchun e'tiborga olinmaydi. XBA agent aktori esa avtomatik faqat o'ziga bog'langan leadlarni ko'radi (`agent_id` yubormasa ham, `organization_id` emas) |
 
   | `gender` | int | ➖ | `1` = erkak, `2` = ayol (`passport_data.sex`) |
 

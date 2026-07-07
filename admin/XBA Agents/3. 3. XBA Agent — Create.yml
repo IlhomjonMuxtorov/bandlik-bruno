@@ -1,0 +1,56 @@
+info:
+  name: 3. XBA Agent — Create
+  type: http
+  seq: 3
+http:
+  method: POST
+  url: '{{base_url}}/admin/xba-agents'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": \"XBA Tashkent Agent 1\",\n  \"brand_name\": \"XBA Tashkent Agent MChJ\",\n  \"legal_name\": \"XBA Tashkent Agent OOO\",\n  \"description\": \"Toshkent shahridagi XBA agentligi\",\n  \"license_number\": \"LIC-AGT-001-2026\",\n  \"region_id\": 10,\n  \"district_id\": 1001,\n  \"address\": \"Amir Temur ko'chasi 5\",\n  \"phone\": \"+998941202201\",\n  \"email\": \"info@xba-agent1.uz\",\n  \"website_url\": \"https://xba-agent1.uz\",\n  \"responsible_first_name\": \"Jasur\",\n  \"responsible_last_name\": \"Qodirov\",\n  \"login\": \"xba_agent1\",\n  \"password\": \"secret123\",\n  \"telegram_url\": \"https://t.me/xba_agent1\",\n  \"is_active\": 1,\n  \"license_file_ids\": [15],\n  \"logo_id\": 16,\n  \"parent_organization_id\": 3\n}"
+  auth: inherit
+docs: |-
+  Root XBA ostida yangi agent (`type = XBA`, `parent_organization_id` bilan) yaratadi.
+  Barcha boshqa maydonlar oddiy XBA tashkiloti yaratish bilan **bir xil** — to'liq ro'yxat
+  uchun `🏢 XBA Organizations` papkasidagi `3. XBA — Create` faylini ko'ring (`name`,
+  `brand_name`, `legal_name`, `description`, `license_number`, `region_id`, `district_id`,
+  `address`, `phone`, `email`, `responsible_first_name`, `responsible_last_name`,
+  `responsible_middle_name`, `login`, `password`, `license_file_ids[]`, `logo_id`,
+  ijtimoiy tarmoq URL'lari, `latitude`/`longitude`).
+
+  Agent xodimlari oddiy XBA bilan bir xil rol oilasiga (`xba_admin`/`xba_manager`) ega bo'ladi
+  — `Service::create()` shuni avtomatik sozlaydi.
+
+  **Auth:** `xbaAgentManage` — `superadmin` \| `admin` \| root XBA'ning `xba_admin` xodimi
+  (**`xba_manager` bu amalni bajara olmaydi** — faqat ko'rish + phase-1 approve/reject huquqiga ega).
+
+  ### 📥 Request Body (qo'shimcha maydon)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `parent_organization_id` | int | Super admin uchun ✅, root XBA aktori uchun ➖ | Qaysi root XBA'ga biriktirish. **Super admin uchun majburiy** — tanlangan tashkilot majburan root XBA (`parent_organization_id IS NULL`) bo'lishi kerak, aks holda `422`. Root XBA aktori chaqirganda bu maydon **e'tiborga olinmaydi** — parent har doim o'zining tashkiloti bo'ladi. |
+
+  Qolgan barcha maydonlar `🏢 XBA Organizations` → `3. XBA — Create` bilan bir xil (talab
+  darajasi, validatsiya, ko'p tillilik, avto-geokod qoidalari ham bir xil).
+
+  ### 📤 Response
+
+  `201` — yaratilgan agent `OrganizationOutputDTO` formatida (`parent_organization_id` va
+  `parent {id, name}` to'ldirilgan holda; `counts` bu endpointda qaytmaydi).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `422` | `parent_organization_id` yuborilmagan (super admin) yoki tanlangan tashkilot root XBA emas — `"Parent must be a root XBA (an agent cannot be a parent)"`; yoki boshqa validatsiya xatosi (`license_number` band, `region_id`/`district_id` topilmadi, parol qisqa va h.k.) |
+  | `400` | `license_file_ids` yoki `logo_id` topilmadi yoki `status=uploading` |
+  | `401` | Token yo'q yoki yaroqsiz |
+  | `403` | Root XBA emas (agentning o'zi, `xba_manager`, yoki boshqa tashkilot turi) — `"Only a root XBA can manage agents"` |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

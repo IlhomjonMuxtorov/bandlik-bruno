@@ -1,0 +1,82 @@
+info:
+  name: 1. XBA Agent — Index
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/xba-agents?per-page=20'
+  auth: inherit
+docs: |-
+  XBA agentlari ro'yxati — `parent_organization_id` orqali bitta root XBA ostida
+  ishlaydigan `type = XBA` tashkilotlar (bir daraja, sub-agent yo'q).
+
+  **Auth:** `xbaAgentView` — `superadmin` \| `admin` \| root XBA'ning `xba_admin` \|
+  `xba_manager` xodimi. XBA agentining o'zi (parentli XBA) bu endpointga **kira olmaydi**
+  (`403`) — agentlarda sub-agent bo'lmaydi.
+
+  - **Root XBA aktori** — faqat **o'z** agentlarini ko'radi (`parent_organization_id` avtomatik
+    o'zining `organization_id`'siga o'rnatiladi, `?parent_id` e'tiborga olinmaydi).
+  - **Super admin / admin** — barcha agentlarni ko'radi; `?parent_id=<rootXbaId>` bilan bitta
+    root XBA agentlariga toraytiradi.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `q` | string | ➖ | Nom / brand / yuridik nom / litsenziya / mas'ul shaxs / telefon bo'yicha `ILIKE` qidiruv. |
+  | `region_id` | int | ➖ | Viloyat filtri. |
+  | `district_id` | int | ➖ | Tuman filtri. |
+  | `country_id` | int | ➖ | Davlat filtri. |
+  | `city_id` | int | ➖ | Shahar filtri. |
+  | `is_active` | int (0\|1) | ➖ | Faolligi bo'yicha filtr. |
+  | `parent_id` | int | ➖ | **Faqat admin/superadmin.** Bitta root XBA'ning agentlariga toraytiradi. Root XBA aktori uchun e'tiborsiz. |
+  | `page` | int | ➖ | Sahifa raqami. |
+  | `per-page` | int | ➖ | Sahifa hajmi (1–100). |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {{ _.admin_token }}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` |
+
+  ### 📤 Response (`data.items[]` — `OrganizationOutputDTO`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | |
+  | `type` | int | `1` (XBA) — agent ham `XBA` turida saqlanadi |
+  | `type_label` | string | `"XBA"` |
+  | `name` | string | Agent nomi |
+  | `parent_organization_id` | int | Root XBA'ning `organization.id`'si (agent uchun har doim to'ldirilgan) |
+  | `parent` | object | `{id, name}` — root XBA'ning qisqacha ma'lumoti |
+  | `brand_name` / `legal_name` | string \| null | |
+  | `description_localized` | string \| null | Joriy til (`Accept-Language`) bo'yicha tavsif |
+  | `license_number` | string | |
+  | `region` / `district` | object \| null | `{id, name, ...}` |
+  | `address`, `phone`, `email`, `website_url` | string \| null | |
+  | `responsible_person` / `_first_name` / `_last_name` / `_middle_name` | string | Mas'ul shaxs |
+  | `login` | string \| null | Agentning xba_admin xodimi login'i |
+  | `license_files` | object[] | Litsenziya hujjatlari (0+) |
+  | `logo_url` | string \| null | |
+  | `is_active` | bool | |
+  | `created_at` / `updated_at` | int | Unix timestamp |
+
+  > **`counts` yo'q:** bu endpoint (root XBA org ro'yxatidan — `GET /admin/xba` — farqli
+  > o'laroq) har bir agent uchun `counts` (`employees_count`/`vacancies_count`/...) blokini
+  > **hisoblamaydi va qaytarmaydi**. Kerak bo'lsa, agentning statistikasi uchun uning
+  > `id`'sini `GET /admin/xba/{id}` (agar admin token bo'lsa) yoki tegishli vakansiya/lead
+  > ro'yxatlarini `?agent_id=` bilan so'rang.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q / eskirgan |
+  | `403` | Root XBA emas (agentning o'zi yoki boshqa tashkilot turi) — `"Only a root XBA can manage agents"` |
+  | `422` | Query validatsiya xatosi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

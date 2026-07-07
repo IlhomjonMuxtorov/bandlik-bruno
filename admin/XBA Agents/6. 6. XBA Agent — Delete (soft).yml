@@ -1,0 +1,30 @@
+info:
+  name: 6. XBA Agent — Delete (soft)
+  type: http
+  seq: 6
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/xba-agents/1'
+  auth: inherit
+docs: |-
+  **Soft delete** — agent `is_active = false`, bog'liq `User.status = STATUS_INACTIVE`. Fayllar
+  saqlanib qoladi.
+
+  **Auth:** `xbaAgentManage` — `superadmin` \| `admin` \| root XBA'ning `xba_admin` xodimi
+  (`xba_manager` bajara olmaydi). Root XBA aktori faqat **o'z** agentini o'chira oladi.
+
+  ### 📤 Response
+
+  `200`, `data = null`, `message = "XBA agent deleted"`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `403` | Root XBA emas |
+  | `404` | XBA agent topilmadi yoki boshqa root XBA'ning agenti |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

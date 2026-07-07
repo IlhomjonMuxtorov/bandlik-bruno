@@ -12,8 +12,13 @@ http:
     type: json
     data: "{\n  \"reason\": \"Maosh diapazoni real emas\"\n}"
   auth: inherit
-docs: 'SuperAdmin vakansiyani rad etadi. Sabab (`reason`) majburiy va `rejection_reason`
-  ga saqlanadi. Vakansiya egasi ko''rishi mumkin.
+docs: 'SuperAdmin/Admin (Uyushma) — 2-fazada `pending_association` statusdagi vakansiyani
+  rad etadi. Sabab (`reason`) majburiy va `rejection_reason` ga saqlanadi. Vakansiya egasi
+  ko''rishi mumkin.
+
+
+  > 1-fazadagi (`pending_approval`, agentlik) rad etish uchun bu endpoint **ishlatilmaydi** —
+  root XBA `POST /admin/vacancies/{id}/reject-agency` dan foydalanadi.
 
 
   **Auth:** `admin_token` (faqat `UserType::Admin`).
@@ -36,7 +41,7 @@ docs: 'SuperAdmin vakansiyani rad etadi. Sabab (`reason`) majburiy va `rejection
 
   |---|---|
 
-  | `400` | Status `pending_approval` emas yoki `reason` bo''sh |
+  | `400` | Status `pending_association` emas yoki `reason` bo''sh — `"Only vacancies pending association approval can be rejected"` |
 
   | `403` | Admin emas |
 

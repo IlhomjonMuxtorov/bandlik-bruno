@@ -7,10 +7,17 @@ http:
   url: '{{base_url}}/admin/vacancies/1/submit'
   auth: inherit
 docs: |
-  Draft yoki rejected vakansiyani SuperAdmin tasdiqlashiga yuboradi. Status `pending_approval`
-  ga o'tadi, `submitted_at` (submit vaqti) yoziladi va `vacancy_status_log` ga yozuv qo'shiladi.
+  Draft yoki rejected vakansiyani tasdiq navbatiga yuboradi. `submitted_at` (submit vaqti)
+  yoziladi va `vacancy_status_log` ga yozuv qo'shiladi. **Ikki fazali yo'naltirish:**
 
-  **Auth:** Employer / Recruiter (vakansiya egasi) yoki Admin.
+  - **Agentlik vakansiyasi** (`agent_organization_id != null`, ya'ni XBA agent yaratgan) →
+    `pending_approval` (1-faza — parent root XBA'ning navbati, HAR DOIM qo'lda ko'rib chiqiladi,
+    auto-tasdiq yo'q). Root XBA `POST /admin/vacancies/{id}/approve-agency` /
+    `reject-agency` bilan ko'rib chiqadi.
+  - **Root XBA'ning o'z vakansiyasi** (`agent_organization_id = null`) → to'g'ridan-to'g'ri
+    `pending_association` (2-faza — Uyushma navbati; XBA o'zini o'zi tasdiqlamaydi).
+
+  **Auth:** Employer / Recruiter / XBA (agent yoki root, vakansiya egasi) yoki Admin.
 
   ### ⚠️ Validation
 
@@ -21,7 +28,10 @@ docs: |
 
   ### 📤 Response (`data`)
 
-  Full detail DTO (View bilan bir xil), `status` = `pending_approval`. Javobda **`auto_approval`** (object) bo'ladi — bu yerda `submitted_at` mavjud, shu sabab `estimated_publish_at` aniq qiymat qaytaradi (ishonchli org + global toggle yoniq bo'lsa):
+  Full detail DTO (View bilan bir xil), `status` = `pending_approval` (agentlik vakansiyasi)
+  yoki `pending_association` (root XBA'ning o'z vakansiyasi / boshqa tashkilot turlari).
+  Javobda **`auto_approval`** (object) bo'ladi — bu yerda `submitted_at` mavjud, shu sabab
+  `estimated_publish_at` aniq qiymat qaytaradi (ishonchli org + global toggle yoniq bo'lsa):
 
   | Field | Type | Description |
   |---|---|---|
@@ -34,6 +44,8 @@ docs: |
   > Org ishonchsiz (`eligible=false`) yoki global toggle o'chiq bo'lsa — vakansiya faqat qo'lda tasdiqlanadi, `estimated_publish_at = null`.
 
   > **Oyna boshlanishi:** `max(submitted_at, trusted_at)`. Org ishonchli bo'lishidan oldin submit qilingan vakansiya, trust berilgach **darhol** avto-chop etilmaydi — trust vaqtidan to'liq yangi oyna hisoblanadi.
+
+  > **Agentlik vakansiyasi (`pending_approval`) uchun `auto_approval` — informatsion, HALI amal qilmaydi.** Auto-tasdiq cron'i (`vacancy/auto-approve-pending`) faqat `pending_association` (2-faza) holatidagi vakansiyalarni ko'radi — `pending_approval` 1-faza **har doim qo'lda** ko'rib chiqiladi (root XBA `approve-agency`/`reject-agency` orqali). Shu sabab `estimated_publish_at` bu bosqichda hisoblanib chiqsa ham, vakansiya root XBA uni `approve-agency` bilan `pending_association`ga o'tkazmaguncha avtomatik chop etilmaydi — bu safar `submitted_at` qayta belgilanadi va oyna 2-fazadan qayta hisoblanadi.
 
   ### ⚠️ Errors
 

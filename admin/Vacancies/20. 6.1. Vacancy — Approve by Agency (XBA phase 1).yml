@@ -1,0 +1,43 @@
+info:
+  name: 6.1. Vacancy — Approve by Agency (XBA phase 1)
+  type: http
+  seq: 20
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancies/1/approve-agency'
+  auth: inherit
+docs: |-
+  **Ikki fazali tasdiq oqimining 1-fazasi.** Parent (root) XBA o'z agentining vakansiyasini
+  tasdiqlaydi: status `pending_approval → pending_association` ga o'tadi (2-faza — Uyushma
+  navbatiga tushadi). `submitted_at` qayta belgilanadi, shu sabab avto-tasdiq oynasi (agar
+  Uyushma tomonidan yoqilgan bo'lsa) shu topshirish vaqtidan hisoblanadi, agentning dastlabki
+  submit vaqtidan emas.
+
+  > Faqat **agentlik vakansiyalari** (`agent_organization_id != null`) shu bosqichdan o'tadi.
+  > Root XBA'ning o'z vakansiyasi (`agent_organization_id = null`) `submit` qilinganda
+  > to'g'ridan-to'g'ri `pending_association`ga tushadi — bu endpoint unga tegishli emas.
+
+  **Auth:** `vacancyApproveAgency` — `superadmin` \| `admin` \| root XBA'ning `xba_admin` \|
+  `xba_manager` xodimi. **Agentning o'zi bu amalni bajara olmaydi** — o'z vakansiyasini o'zi
+  tasdiqlay olmaydi (`403`), garchi vakansiyani `agent_organization_id` orqali "egallasa" ham.
+
+  Body yo'q.
+
+  ### 📤 Response (`data`)
+
+  To'liq `VacancyDetailOutputDTO` (`3. Vacancy — View` bilan bir xil shakl), `status` =
+  `pending_association`. Javobda **`auto_approval`** bloki ham bor (2-faza — Uyushma
+  auto-tasdiq oynasi bo'yicha; maydonlar `6. Vacancy — Submit for approval` dagi bilan bir xil).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Vakansiya statusi `pending_approval` emas — `"Only vacancies pending XBA approval can be approved here"` |
+  | `403` | Agentning o'zi chaqirgan — `"An agent cannot approve its own vacancy"`; yoki vakansiya boshqa root XBA'ga tegishli |
+  | `404` | Vakansiya topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

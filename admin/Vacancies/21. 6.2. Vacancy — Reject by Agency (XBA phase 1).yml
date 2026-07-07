@@ -1,0 +1,45 @@
+info:
+  name: 6.2. Vacancy — Reject by Agency (XBA phase 1)
+  type: http
+  seq: 21
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancies/1/reject-agency'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"reason\": \"Maosh diapazoni real emas\"\n}"
+  auth: inherit
+docs: |-
+  **1-faza rad etish.** Parent (root) XBA agentning `pending_approval` holatidagi vakansiyasini
+  rad etadi: status `pending_approval → rejected` ga o'tadi. Sabab (`reason`) majburiy va
+  `rejection_reason` ga saqlanadi. Agent xatoni tuzatib qayta `submit` qila oladi
+  (`draft/rejected → pending_approval`, chunki `agent_organization_id` hali ham bor).
+
+  **Auth:** `vacancyRejectAgency` — `superadmin` \| `admin` \| root XBA'ning `xba_admin` \|
+  `xba_manager` xodimi. **Agentning o'zi bu amalni bajara olmaydi** (`403`).
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `reason` | string | ✅ | Rad etish sababi (bo'sh emas). |
+
+  ### 📤 Response (`data`)
+
+  To'liq `VacancyDetailOutputDTO`, `status` = `rejected`, `rejection_reason` to'ldirilgan.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Vakansiya statusi `pending_approval` emas, yoki `reason` bo'sh — `"Only vacancies pending XBA approval can be rejected here"` |
+  | `403` | Agentning o'zi chaqirgan — `"An agent cannot reject its own vacancy"`; yoki vakansiya boshqa root XBA'ga tegishli |
+  | `404` | Vakansiya topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

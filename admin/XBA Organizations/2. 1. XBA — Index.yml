@@ -65,14 +65,22 @@ docs: |-
   | `updated_at` | int | Unix timestamp |
   | `updated_at_formatted` | string | `d.m.Y H:i` (Asia/Tashkent) |
 
-  > **`counts`** — `agents_count` = **faqat XBA** uchun placeholder, hozircha doim `0`
-  > (agent funksiyasi hali qurilmagan; kelajakda haqiqiy son); `employees_count` = faol
-  > xodimlar (`organization_employee`, `is_active`); `vacancies_count` = tashkilot
-  > vakansiyalari; `candidates_count` = tashkilot vakansiyalariga bog'langan distinct
-  > nomzodlar; `revenue` = yakunlangan servis buyurtmalari summasi (so'm). XBA uchun
-  > vakansiyalar `organization_id` bo'yicha hisoblanadi (XBA — vakansiyani boshqaruvchi
-  > agentlik). Ro'yxat (Index) javobida har bir elementga qo'shiladi; detal (`View`)
-  > javobida esa `stats` ichida kengaytirilgan ko'rsatkichlar bo'ladi.
+  > **`counts`** — `agents_count` endi **haqiqiy son**: shu root XBA'ga tegishli **faol**
+  > XBA agentlar soni (`organization.parent_organization_id = shu_id AND is_active`,
+  > `OrganizationRepository::agentCountsForOrganizations()`). Faqat root XBA yozuvlarida
+  > ma'noli — bu ro'yxat (`GET /admin/xba`) allaqachon `root_only` bilan filtrlangan, agentlar
+  > bu yerda ko'rinmaydi (ular uchun alohida `GET /admin/xba-agents`, `XBA Agents` papkasiga
+  > qarang). `employees_count` = faol xodimlar (`organization_employee`, `is_active`);
+  > `vacancies_count` = tashkilot vakansiyalari (root XBA'niki + barcha agentlarining, chunki
+  > agentlik vakansiyasi ham `organization_id` = root XBA bilan saqlanadi); `candidates_count` =
+  > tashkilot vakansiyalariga bog'langan distinct nomzodlar; `revenue` = yakunlangan servis
+  > buyurtmalari summasi (so'm). Ro'yxat (Index) javobida har bir elementga qo'shiladi; detal
+  > (`View`) javobida esa `stats` ichida kengaytirilgan ko'rsatkichlar bo'ladi (`counts` emas).
+
+  > **`parent_organization_id`** (int\|null) va **`parent`** (`{id, name}`\|null) maydonlari
+  > ham javobda bor, lekin bu ro'yxat faqat root XBA'larni qaytargani uchun ikkalasi ham har
+  > doim `null` bo'ladi. Agentlarda esa (`GET /admin/xba-agents`) shu maydonlar to'ldirilgan
+  > holda keladi.
 settings:
   encodeUrl: true
   timeout: 0

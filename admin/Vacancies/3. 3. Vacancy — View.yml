@@ -24,14 +24,15 @@ docs: |-
   | `title` | string | Sarlavha |
   | `slug` | string | URL slug |
   | `description` | string \| null | HTML/markdown matn |
-  | `status` | string | `draft` \| `pending_approval` \| `approved` \| `rejected` \| `closed` \| `archived` |
+  | `status` | string | `draft` \| `pending_approval` \| `pending_association` \| `approved` \| `rejected` \| `closed` \| `archived` |
   | `status_label` | string | Lokalizatsiyalangan status |
   | `rejection_reason` | string \| null | Rad etilsa sababi |
   | `approved_by` | int \| null | Tasdiqlagan `user.id`. Auto-approve (cron) bo'lsa `null` |
   | `approved_at` | int \| null | Unix timestamp. Tasdiqlanmaguncha `null` |
   | `approved_at_formatted` | string \| null | Inson o'qiy oladigan sana (`DD.MM.YYYY HH:MM`) |
   | `is_auto_approved` | bool | `true` — cron timeout bilan avtomatik publish qilingan (bunda `approved_by` = `null`); `false` — qo'lda yoki hali tasdiqlanmagan |
-  | `organization` | object | Ish beruvchi tashkilot — quyida |
+  | `organization` | object | Root XBA / ish beruvchi tashkilot (brend) — quyida |
+  | `agent` | object \| null | Vakansiyani yaratgan XBA **agent** tashkiloti `{id, name}`; `null` — root XBA'ning o'zi yaratgan |
   | `recruiter` | object \| null | Vositachi (recruiter) tashkilot — quyida |
   | `industry` | object \| null | Soha — quyida |
   | `experience_months` | int | Talab qilinadigan ish tajribasi (oylarda). `0` = talab qilinmaydi. |
@@ -72,6 +73,13 @@ docs: |-
   | `services` | array | Biriktirilgan xizmatlar (snapshot) — service object ro'yxati (quyida) |
   | `services_by_category` | object | Kategoriya kaliti → service object massivi |
   | `service_groups` | array | **Tashkilot guruhlari** (bitta tashkilot = bitta guruh; guruh bir nechta kategoriyani qamrashi mumkin), nested xizmatlar bilan: `[{ id, organization: {id, name}, payment_deadline_days, execution_deadline_days, sort_order, is_reorderable, services: [service object] }]`. Har nested xizmat o'z `category` siga ega. `sort_order` bo'yicha tartiblangan — reorderable guruhlar (course/insurance/notarius) oldinda, fixed guruhlar (visa→agency→logistics) oxirida. `is_reorderable` (bool) — guruh sudraladimi (reorderable guruhlar uchun `true`, fixed uchun `false`) |
+
+  > **Ikki fazali tasdiq (XBA agentlik):** status oqimi endi ikki bosqichli. Agent
+  vakansiyasi (`agent != null`): `draft → pending_approval → (root XBA `approve-agency`/`reject-agency`)
+  → pending_association → (Uyushma `approve`/`reject`) → approved`. Root XBA'ning o'z
+  vakansiyasi (`agent = null`): 1-fazani o'tkazib yuboradi — `draft → pending_association →
+  approved`. Har fazada rad etish → `rejected`. `organization` doim root XBA brendini
+  ko'rsatadi — agentlik vakansiyasi ham shu brend ostida chop etiladi.
 
   ### 🏢 `organization` (object — har doim mavjud)
 

@@ -1,0 +1,36 @@
+info:
+  name: 2. XBA Agent — View
+  type: http
+  seq: 2
+http:
+  method: GET
+  url: '{{base_url}}/admin/xba-agents/1'
+  auth: inherit
+docs: |-
+  Bitta XBA agenti haqida to'liq ma'lumot (`OrganizationOutputDTO`, `1. XBA Agent — Index`
+  bilan bir xil maydonlar, `counts` shu yerda ham qaytmaydi).
+
+  **Auth:** `xbaAgentView` — `superadmin` \| `admin` \| root XBA'ning `xba_admin` \| `xba_manager` xodimi.
+
+  > **Scope:** super admin/admin istalgan agentni ko'ra oladi. Root XBA aktori faqat **o'z**
+  > agentini ko'ra oladi — `id` boshqa root XBA'ning agenti bo'lsa yoki root XBA (agent emas)
+  > bo'lsa `404` qaytadi (mavjudligi oshkor qilinmaydi).
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {{ _.admin_token }}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `403` | Root XBA emas (agentning o'zi yoki boshqa tashkilot turi) |
+  | `404` | XBA agent topilmadi, root XBA (agent emas), yoki boshqa root XBA'ning agenti |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
