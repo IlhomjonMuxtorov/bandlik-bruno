@@ -1,0 +1,31 @@
+info:
+  name: 48. 8. Vacancy Industries — Template (Excel)
+  type: http
+  seq: 48
+http:
+  method: GET
+  url: '{{base_url}}/admin/vacancy-industries/template'
+  auth: inherit
+docs: |
+  Import uchun bo'sh namuna `.xlsx` — faqat sarlavha qatori (9 ustun) bilan.
+  Operator shu shablonni to'ldirib, Import endpoint'iga yuklaydi. Fayl nomi:
+  `sohalar-shablon.xlsx`.
+
+  **Auth:** `admin_token` (`referenceView` huquqi).
+
+  ### 📤 Response
+
+  Binary `.xlsx` fayl (sarlavha: `SOHA (UZ/RUS/ENG)`, `SUB-SOHA (UZ/RUS/ENG)`,
+  `TAVSIF (UZ/RUS/ENG)`).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q/eskirgan. |
+  | `403` | `referenceView` huquqi yo'q. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
