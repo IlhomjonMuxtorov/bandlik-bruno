@@ -22,6 +22,11 @@ docs: |
 
   Create bilan bir xil maydonlar, barchasi ixtiyoriy (mavjud bo'lganlari yangilanadi).
 
+  > **Maydonni tozalash:** ixtiyoriy maydon uchun **`null`** yuborilsa — ustun `NULL`
+  > ga o'rnatiladi (`code`, `category_id`, `unit`). Maydon **umuman yuborilmasa** —
+  > eski qiymat saqlanadi. `sort_order` `NOT NULL` (default `0`) — `null` bilan
+  > tozalanmaydi.
+
   ### ⚠️ Errors
 
   | Code | Reason |

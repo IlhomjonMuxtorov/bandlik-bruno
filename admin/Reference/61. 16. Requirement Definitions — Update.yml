@@ -21,6 +21,10 @@ docs: |-
 
   **Auth:** `admin_token` (faqat `admin`).
 
+  > **Maydonni tozalash (multipart):** ixtiyoriy maydonga **`""` (bo'sh string)**
+  > yuborilsa — ustun `NULL` ga o'rnatiladi (`code`, `reference_source`, `unit`,
+  > `industry_id`). Maydon **umuman yuborilmasa** — eski qiymat saqlanadi.
+
   ### ⚠️ Errors
 
   | Code | Reason |
