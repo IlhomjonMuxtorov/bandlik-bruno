@@ -1,7 +1,7 @@
 info:
   name: Document — Delete
   type: http
-  seq: 4
+  seq: 5
 http:
   method: DELETE
   url: '{{base_url}}/admin/vacancy-documents/1'
