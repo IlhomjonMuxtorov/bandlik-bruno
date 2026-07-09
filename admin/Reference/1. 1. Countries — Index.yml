@@ -6,7 +6,8 @@ http:
   method: GET
   url: '{{base_url}}/admin/countries'
   auth: inherit
-docs: 'Davlatlar ro''yxati (paginatsiya bilan).
+docs: 'Davlatlar ro''yxati (paginatsiya bilan). Natijalar `Accept-Language` tili bo''yicha
+  **alfavit (A-Z)** tartibida qaytadi (til yo''q bo''lsa `uz` fallback) — `sort_order` emas.
 
 
   **Auth:** `admin_token`.
@@ -32,7 +33,8 @@ docs: 'Davlatlar ro''yxati (paginatsiya bilan).
 
   | `page` | int | ➖ | Sahifa raqami (default `1`). |
 
-  | `per-page` | int | ➖ | Sahifa hajmi (1–100, default `20`). |
+  | `per-page` | int | ➖ | Sahifa hajmi (1–300, default `20`). Butun davlatlar to''plamini
+  (~240) bir sahifada olish uchun `250` beriladi (dropdown to''liq A-Z). |
 
 
   ### 📋 Headers
