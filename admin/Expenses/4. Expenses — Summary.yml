@@ -6,11 +6,15 @@ http:
   method: GET
   url: '{{base_url}}/admin/expenses/summary?from=1735603200&to=1738281600'
   auth: inherit
-docs: 'Berilgan davr uchun xarajatlar yig''indisi — kategoriya × valyuta bo''yicha
-  guruhlangan.
+docs: 'Xarajatlar yig''indisi — kategoriya × valyuta bo''yicha guruhlangan.
 
 
   **Auth:** `admin_token`. Permission: `expenseManage` yoki `reportView`.
+
+
+  > **Scope:** `from`/`to` berilmasa — **all-time** (sana filtri yo''q), shunda
+  "Jami xarajat" kartasi xarajatlar jadvali (all-time) bilan mos keladi.
+  `from`/`to` birga berilsa — o''sha davr bilan chegaralanadi.
 
 
   ### 🔎 Query Params
@@ -20,9 +24,9 @@ docs: 'Berilgan davr uchun xarajatlar yig''indisi — kategoriya × valyuta bo''
 
   |---|---|:---:|---|
 
-  | `from` | int | ➖ | Default: oy boshi |
+  | `from` | int \| null | ➖ | Davr boshi (unix). Berilmasa — all-time. `to` bilan birga ishlaydi. |
 
-  | `to` | int | ➖ | Default: hozir |
+  | `to` | int \| null | ➖ | Davr oxiri (unix). Berilmasa — all-time. |
 
 
   ### 📤 Response
@@ -36,9 +40,9 @@ docs: 'Berilgan davr uchun xarajatlar yig''indisi — kategoriya × valyuta bo''
 
   {
 
-    "from": 1735603200,
+    "from": null,
 
-    "to": 1738281600,
+    "to": null,
 
     "summary": {
 

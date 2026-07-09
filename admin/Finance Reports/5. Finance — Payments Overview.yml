@@ -12,13 +12,17 @@ docs: |
 
   **Auth:** `admin_token` (faqat `UserType::Admin`).
 
+  > **Scope:** `from`/`to` berilmasa — **all-time** (sana filtri yo'q), shunda
+  > kartalar tranzaksiyalar jadvali (all-time) bilan mos keladi. `from`/`to`
+  > birga berilsa — o'sha davr bilan chegaralanadi.
+
   ### 🔎 Query Params
 
   | Param | Type | Required | Description |
   |---|---|:---:|---|
-  | `from` | int | ➖ | Default: oy boshi |
-  | `to` | int | ➖ | Default: hozir |
-  | `currency` | string | ➖ | Default `UZS` |
+  | `from` | int \| null | ➖ | Davr boshi (unix). Berilmasa — all-time (filtr yo'q). `to` bilan birga ishlaydi. |
+  | `to` | int \| null | ➖ | Davr oxiri (unix). Berilmasa — all-time. |
+  | `currency` | string | ➖ | Default `UZS`. Faqat pul ko'rsatkichlari (`total_income`/`total_held`/`total_released`) shu valyuta bo'yicha; `transaction_count` valyutadan qat'i nazar sanaladi. |
   | `organization_id` | int | ➖ | Berilsa — kartalar faqat shu tashkilot bo'yicha hisoblanadi (bitta tashkilot dashboardi). |
 
   ### 📤 Response
@@ -28,8 +32,8 @@ docs: |
 
   ```json
   {
-    "from": 1735603200,
-    "to": 1738281600,
+    "from": null,
+    "to": null,
     "currency": "UZS",
     "organization_id": null,
     "total_income": 287600000,
@@ -45,10 +49,10 @@ docs: |
 
   | Field | Hisob |
   |---|---|
-  | `total_income` | Jami daromad — `SUM(amount)` CandidatePayment + Completed (davr) |
+  | `total_income` | Jami daromad — `SUM(amount)` CandidatePayment + Completed (davr; all-time agar `from`/`to` yo'q) |
   | `total_held` | Ushlab turilmoqda — joriy `Platform.hold_balance` (escrow snapshot, davrga bog'liq emas) |
   | `total_released` | Tasdiqlangan — davrda tashkilotlarga release qilingan escrow (InternalTransfer → organization balance CREDIT) |
-  | `transaction_count` | Davrdagi tranzaksiyalar soni |
+  | `transaction_count` | Tranzaksiyalar soni — **valyutadan qat'i nazar** (jadvalga mos); `from`/`to` yo'q bo'lsa all-time |
 
   > Taxminiy tenglik: `total_income ≈ total_commission + total_held + total_released`.
 
