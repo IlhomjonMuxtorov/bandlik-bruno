@@ -19,6 +19,12 @@ docs: |
 
   **Auth:** `admin_token`.
 
+  > **Bildirishnoma:** shartnoma muvaffaqiyatli yaratilganda tasdiqlash huquqiga
+  > ega adminlarga (`contractApprove` / `contractReject` egalari + `superadmin`)
+  > avtomatik bildirishnoma yuboriladi — in-app inbox yozuvi (`Notifications`
+  > papkasiga qarang) + FCM push (`data.url` = pending shartnomalar sahifasi).
+  > Yaratuvchining o'ziga bildirishnoma kelmaydi.
+
   ### 📥 Request Body
 
   | Field | Type | Required | Description |

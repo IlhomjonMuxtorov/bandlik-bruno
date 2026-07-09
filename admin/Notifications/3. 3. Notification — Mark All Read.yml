@@ -1,0 +1,25 @@
+info:
+  name: 3. Notification — Mark All Read
+  type: http
+  seq: 3
+http:
+  method: POST
+  url: '{{base_url}}/admin/notifications/mark-all-read'
+  auth: inherit
+docs: |
+  Joriy foydalanuvchining barcha o'qilmagan bildirishnomalarini bir so'rovda
+  o'qilgan deb belgilaydi. "Barchasini o'qilgan deb belgilash" tugmasi shu
+  endpoint'ni chaqiradi; keyin badge `0` bo'ladi.
+
+  **Auth:** `admin_token`.
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `unread_count` | int | Doim `0` (belgilangandan keyin) |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

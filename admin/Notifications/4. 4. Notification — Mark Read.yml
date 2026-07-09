@@ -1,0 +1,31 @@
+info:
+  name: 4. Notification — Mark Read
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{base_url}}/admin/notifications/1/read'
+  auth: inherit
+docs: |
+  Bitta bildirishnomani o'qilgan deb belgilaydi (bildirishnoma bosilganda).
+  Faqat egasining bildirishnomasi belgilanadi — begona yoki mavjud bo'lmagan
+  ID `404` qaytaradi.
+
+  **Auth:** `admin_token`.
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `unread_count` | int | Belgilashdan keyingi yangi o'qilmaganlar soni |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Bildirishnoma topilmadi yoki joriy foydalanuvchiga tegishli emas |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
