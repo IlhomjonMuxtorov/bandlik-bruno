@@ -1,0 +1,47 @@
+info:
+  name: 2. List Invitation Links
+  type: http
+  seq: 2
+http:
+  method: GET
+  url: '{{base_url}}/admin/vacancy-invitations?recruiter_id=13&active_only=1'
+  params:
+  - name: recruiter_id
+    value: '13'
+    type: query
+  - name: active_only
+    value: '1'
+    type: query
+  headers:
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: |
+  Bitta tashkilot uchun chiqarilgan taklif havolalari ro'yxati (yangisi birinchi).
+
+  **Auth:** `access_token` + `vacancyView` ruxsati.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `recruiter_id` | int | ✅ | Taklif qilingan ish beruvchi/rekruter org id. |
+  | `active_only` | string | ➖ | `1` — faqat tirik havolalar (bekor qilinmagan va muddati o'tmagan). |
+
+  ### 📤 Response
+
+  Massiv; har element `Issue` javobidagi kabi. Farqi: `link` **doim `null`** —
+  xom token saqlanmaydi, faqat chiqarilgan paytda bir marta ko'rsatiladi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `recruiter_id` berilmagan. |
+  | `401` | Token yo'q yoki eskirgan. |
+  | `403` | `vacancyView` ruxsati yo'q. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

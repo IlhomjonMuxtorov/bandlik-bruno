@@ -1,0 +1,50 @@
+info:
+  name: 4. Verify Token (public)
+  type: http
+  seq: 4
+http:
+  method: GET
+  url: '{{base_url}}/admin/vacancy-invitations/verify'
+  headers:
+  - name: X-Invitation-Token
+    value: '{{invitation_token}}'
+  - name: Accept-Language
+    value: uz
+  auth: none
+docs: |
+  **PUBLIC — `Authorization` header talab qilinmaydi.** Xom taklif tokeni orqali
+  autentifikatsiya qilinadi. Formani chizish uchun kerakli kontekstni qaytaradi.
+
+  **Auth:** talab qilinmaydi. Token **`X-Invitation-Token` header** orqali beriladi
+  (tavsiya etiladi). `?token=` query ham qabul qilinadi, lekin **tavsiya etilmaydi** —
+  havola muddatli va ko'p martalik, query string esa nginx access log, brauzer tarixi
+  va `Referer` orqali sizib ketishi mumkin.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `token` | string | ✅ | Emaildagi havoladan olingan xom token. `X-Invitation-Token` header bilan ham berish mumkin. |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `organization` | object | Boshqaruvchi XBA org `{ id, name }` — vakansiya shu brend ostida chiqadi. |
+  | `recruiter` | object | Taklif qilingan org `{ id, name }` — vakansiya egasi. |
+  | `expires_at` | int | Havola ishlamay qoladigan unix ts. |
+  | `contracts` | array | Ikki tashkilot o'rtasidagi **amaldagi** shartnomalar (tasdiqlangan, aktiv, bekor qilinmagan) — formadagi `contract_id` tanlovi. Shartnoma bo'lmasa bo'sh massiv. |
+
+  > Bu endpoint tashkilot haqida boshqa hech qanday ma'lumot (login, xodimlar,
+  > vakansiyalar) oshkor qilmaydi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Token berilmagan; token noto'g'ri, muddati o'tgan yoki bekor qilingan. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

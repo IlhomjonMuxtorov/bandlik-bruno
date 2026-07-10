@@ -1,0 +1,61 @@
+info:
+  name: 6. Form References (public, token-gated)
+  type: http
+  seq: 6
+http:
+  method: GET
+  url: '{{base_url}}/admin/vacancy-invitations/references/industries'
+  headers:
+  - name: X-Invitation-Token
+    value: '{{invitation_token}}'
+  - name: Accept-Language
+    value: uz
+  auth: none
+docs: |
+  **PUBLIC, lekin anonim emas** — `Authorization` header kerak emas, ammo amaldagi
+  taklif tokeni **majburiy**. Login qilmagan ish beruvchi vakansiya formasini
+  to'ldirishi uchun kerakli ma'lumotnomalarni qaytaradi.
+
+  Javob formati `admin/vacancies/*` dagi mos reference endpointlar bilan **aynan bir
+  xil** (bitta umumiy `VacancyReferenceTrait` ishlatiladi).
+
+  **Auth:** talab qilinmaydi; token **`X-Invitation-Token` header** (tavsiya) yoki
+  `?token=` query orqali majburiy. Query varianti log/tarixga sizishi mumkin — header
+  afzal.
+
+  ### 🔗 Mavjud reference endpointlar
+
+  Har biriga `X-Invitation-Token: {{invitation_token}}` header qo'shiladi:
+
+  | Endpoint | Tavsif |
+  |---|---|
+  | `GET .../references/salary-currencies` | Maosh valyutalari (`code`, `symbol`, `label`). |
+  | `GET .../references/industries` | Aktiv sohalar. |
+  | `GET .../references/industry-categories` | Soha kategoriyalari. |
+  | `GET .../references/requirement-categories` | Talablar taksonomiyasi (daraxt). |
+  | `GET .../references/requirement-definitions` | Talab ta'riflari. Query: `industry_id`, `category_id`. |
+  | `GET .../references/requirement-value-types` | `value_type` enum ro'yxati. |
+  | `GET .../references/requirement-options/<id>` | Bitta talab uchun tanlov variantlari. |
+  | `GET .../references/benefit-categories` | Imtiyozlar taksonomiyasi (daraxt). |
+  | `GET .../references/benefit-definitions` | Imtiyoz ta'riflari. Query: `category_id`, `q`. |
+  | `GET .../references/benefit-value-types` | Imtiyoz `value_type` enum ro'yxati. |
+  | `GET .../references/benefit-options/<id>` | Bitta imtiyoz uchun tanlov variantlari. |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz`. Nomlar shu tilda qaytadi. |
+  | `X-Invitation-Token` | ➖ | `?token=` o'rniga ishlatish mumkin. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Token berilmagan; token noto'g'ri, muddati o'tgan yoki bekor qilingan. |
+  | `404` | `requirement-options` / `benefit-options` uchun ta'rif topilmadi. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

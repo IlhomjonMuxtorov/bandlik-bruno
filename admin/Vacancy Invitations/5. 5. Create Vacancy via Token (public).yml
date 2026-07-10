@@ -1,0 +1,127 @@
+info:
+  name: 5. Create Vacancy via Token (public)
+  type: http
+  seq: 5
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancy-invitations/vacancies'
+  headers:
+  - name: Content-Type
+    value: application/json
+  - name: X-Invitation-Token
+    value: '{{invitation_token}}'
+  - name: Accept-Language
+    value: uz
+  body:
+    type: json
+    data: |
+      {
+        "industry_id": 1,
+        "contract_id": null,
+        "title": "Restoran Xizmatchisi",
+        "description": "Zamonaviy restoranda ofitsiant.",
+        "experience_months": 12,
+        "employment_type": "full_time",
+        "hiring_quota": 12,
+        "duration_months_min": 6,
+        "duration_months_max": 12,
+        "work_schedule": "5_2",
+        "work_time_from": "08:00",
+        "work_time_to": "18:00",
+        "salary_gross": 1500,
+        "salary_gross_currency": "USD",
+        "country_id": 110,
+        "deadline_at": "31.12.2026",
+        "single_payment": false,
+        "requirements": [
+          { "id": 252, "is_mandatory": true, "value_bool": true, "sort_order": 0 }
+        ],
+        "documents": [
+          { "id": 1, "sort_order": 0 }
+        ],
+        "service_groups": [
+          {
+            "group_type": "training",
+            "organization_id": 15,
+            "payment_deadline_days": 3,
+            "execution_deadline_days": 7,
+            "sort_order": 0,
+            "services": [
+              { "category": "training", "educational_course_id": 1, "price": 12000, "currency": "UZS", "service_name": "Polsha tili va madaniyati" }
+            ]
+          },
+          {
+            "group_type": "xba",
+            "organization_id": 3,
+            "payment_deadline_days": 3,
+            "execution_deadline_days": 7,
+            "sort_order": 1,
+            "services": [
+              { "category": "agency", "price": 1500000, "currency": "UZS", "service_name": "Agentlik xizmati" }
+            ]
+          }
+        ]
+      }
+  auth: none
+docs: |
+  **PUBLIC — `Authorization` header talab qilinmaydi.** Taklif qilingan tashkilot
+  tizimga kirmasdan to'liq vakansiya yaratadi. Vakansiya darhol XBA tasdig'i
+  navbatiga yuboriladi.
+
+  **Auth:** talab qilinmaydi. Token **`X-Invitation-Token` header** orqali beriladi
+  (tavsiya). `?token=` query ham ishlaydi, lekin tavsiya etilmaydi — token log/tarixga
+  sizib ketishi mumkin.
+
+  ### 🔐 Xavfsizlik
+
+  > `organization_id` va `recruiter_id` **body'dan olinmaydi** — ikkalasi ham
+  > **tokendan** o'qiladi. Body'da boshqa qiymat yuborilsa, e'tiborsiz qoldiriladi.
+  > Shu sabab sizib ketgan havola faqat o'zi biriktirilgan tashkilot uchun vakansiya
+  > yarata oladi.
+
+  Vakansiya taklif qilingan tashkilot **egasining (owner) logini nomidan** yaratiladi —
+  `created_by` va audit trail shu foydalanuvchiga bog'lanadi.
+
+  ### 📥 Request Body
+
+  `POST /admin/vacancies` bilan **bir xil** (`VacancyInputDTO`), quyidagi farqlar bilan:
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `organization_id` | — | ⛔ | Yuborilmaydi (yuborilsa e'tiborsiz). Tokendan olinadi. |
+  | `recruiter_id` | — | ⛔ | Yuborilmaydi (yuborilsa e'tiborsiz). Tokendan olinadi. |
+  | `title` | string | ✅ | Vakansiya nomi. |
+  | `employment_type` | string | ✅ | `full_time` \| `part_time` \| `contract` \| ... |
+  | `country_id` | int | ✅ | Ish joyi davlati. |
+  | `hiring_quota` | int | ✅ | Nechta nomzod olinadi. Min `1`. |
+  | `contract_id` | int \| null | ➖ | `verify` qaytargan `contracts[]` dan tanlanadi. `null` — shartnomasiz. |
+  | `salary_gross` / `salary_net` | int | ➖ | **Odatiy birlikda** (so'm/dollar), tiyinda emas. |
+  | `requirements` | array | ✅ | Kamida bitta talab bo'lishi shart. |
+  | `documents` | array | ✅ | Kamida bitta talab qilinadigan hujjat bo'lishi shart. |
+  | `service_groups` | array | ✅ | Kamida `training` (kurs biriktirilgan) va `xba` (bitta `agency` xizmati) guruhlari shart. |
+
+  ### 📤 Response
+
+  `201` — to'liq `VacancyDetailOutputDTO`. Diqqatga sazovor maydonlar:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Yaratilgan vakansiya id. |
+  | `status` | string | `pending_approval` — boshqaruvchi org XBA **agenti** bo'lsa (ota-XBA ko'rib chiqadi). `pending_association` — boshqaruvchi org **ildiz** XBA bo'lsa (assotsiatsiya navbati). Hech qachon `draft` emas va hech qachon o'z-o'zidan chop etilmaydi. |
+  | `organization` | object | Tokendagi XBA org (agent bo'lsa — uning ota tashkiloti). |
+  | `recruiter` | object | Tokendagi ish beruvchi/rekruter org. |
+
+  > Yaratish va tasdiqqa yuborish **atomar**: tasdiqqa yuborish validatsiyasi
+  > yiqilsa, vakansiya umuman saqlanmaydi (osilib qolgan `draft` qolmaydi).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Token yo'q/noto'g'ri/muddati o'tgan/bekor qilingan; vakansiya validatsiyasi yiqildi (talab yo'q, hujjat yo'q, kurs yo'q, agency xizmati yo'q va h.k.). |
+  | `403` | Taklif qilingan tashkilotda aktiv owner login yo'q. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

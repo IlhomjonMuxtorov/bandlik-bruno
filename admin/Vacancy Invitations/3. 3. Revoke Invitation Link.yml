@@ -1,0 +1,27 @@
+info:
+  name: 3. Revoke Invitation Link
+  type: http
+  seq: 3
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/vacancy-invitations/1'
+  auth: inherit
+docs: |
+  Havolani muddatidan oldin o'ldiradi — shu zahoti `verify`, `create` va
+  `references/*` endpointlari `400` qaytara boshlaydi. Idempotent: allaqachon
+  bekor qilingan havola qayta bekor qilinmaydi.
+
+  **Auth:** `access_token` + `vacancyManage` ruxsati.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki eskirgan. |
+  | `403` | `vacancyManage` ruxsati yo'q. |
+  | `404` | Havola topilmadi. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

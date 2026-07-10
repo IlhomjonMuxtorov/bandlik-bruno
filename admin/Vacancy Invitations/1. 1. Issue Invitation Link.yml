@@ -1,0 +1,67 @@
+info:
+  name: 1. Issue Invitation Link
+  type: http
+  seq: 1
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancy-invitations'
+  headers:
+  - name: Content-Type
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  body:
+    type: json
+    data: |
+      {
+        "recruiter_id": 13,
+        "organization_id": 3,
+        "ttl_days": 7
+      }
+  auth: inherit
+docs: |
+  Ish beruvchi / rekruter uchun **tizimga kirmasdan** vakansiya yaratish havolasini
+  chiqaradi. Havola tashkilotning email'iga yuboriladi **va** javobda ham qaytadi —
+  admin uni qo'lda ulashishi mumkin.
+
+  Havola **muddatli va ko'p martalik**: amal qilish muddati ichida cheksiz vakansiya
+  yaratish mumkin. Shu tashkilot uchun avval chiqarilgan tirik havola **avtomatik
+  bekor qilinadi** — faqat eng oxirgi havola ishlaydi.
+
+  **Auth:** `access_token` + `vacancyManage` ruxsati.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `recruiter_id` | int | ✅ | Taklif qilinayotgan ish beruvchi/rekruter tashkiloti (`organization.type` = 6 \| 7). Vakansiyaning `recruiter_id` si bo'ladi. |
+  | `organization_id` | int | ➖ | Boshqaruvchi XBA tashkiloti. Berilmasa: recruiter'ning `onboarded_by_organization_id` si, u ham bo'lmasa amaldagi adminning tashkiloti. |
+  | `ttl_days` | int | ➖ | Havola amal qilish muddati (kun). `1`–`30` oralig'iga qisiladi. Default: `7`. |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Invitation yozuvi id'si (revoke uchun kerak). |
+  | `organization` | object | Boshqaruvchi XBA org: `{ id, name }`. |
+  | `recruiter` | object | Taklif qilingan org: `{ id, name }`. |
+  | `expires_at` | int | Havola ishlamay qoladigan unix ts. |
+  | `revoked_at` | int \| null | Bekor qilingan vaqt. Yangi havolada doim `null`. |
+  | `is_active` | bool | `true` — bekor qilinmagan va muddati o'tmagan. |
+  | `link` | string | To'liq public havola (xom token bilan). **Faqat shu javobda** qaytadi — token DB'da saqlanmaydi (faqat sha256 hash). |
+
+  > ⚠️ `link` ni qayta olish imkoni yo'q. Yo'qolsa — yangi havola chiqariladi (eskisi bekor bo'ladi).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `recruiter_id` employer/recruiter emas; tashkilotda owner login yo'q; boshqaruvchi org XBA emas yoki aniqlanmadi; rate-limit (1 soatda 10 ta havola). |
+  | `401` | Token yo'q yoki eskirgan. |
+  | `403` | `vacancyManage` ruxsati yo'q. |
+  | `404` | `recruiter_id` bo'yicha tashkilot topilmadi. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
