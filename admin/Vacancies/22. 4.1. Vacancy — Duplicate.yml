@@ -1,0 +1,63 @@
+info:
+  name: 4.1. Vacancy — Duplicate
+  type: http
+  seq: 22
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancies/1/duplicate'
+  headers:
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: |-
+  Mavjud vakansiyani (istalgan `status`da: `draft`, `approved`, `closed` va h.k.)
+  serverda to'liq nusxalab, yangi **Draft** sifatida yaratadi — barcha bosqichlar
+  (talablar, til talablari, imtiyozlar, hujjatlar, xizmat guruhlari va ularning
+  xizmatlari) ham nusxalanadi. Body yubormaydi (bo'sh).
+
+  Bu DB darajasidagi to'liq nusxa — wizard qayta to'ldirilmaydi, shu sababli
+  snapshot ustunlar (xizmat narxi/nomi, `value_refs`/`value_text` kabi jsonb
+  qiymatlar) **o'zgarishsiz** ko'chiriladi (qayta valyuta konversiyasi bo'lmaydi).
+
+  **Auth:** `admin_token` yoki manba vakansiyaning egasi (View bilan bir xil
+  ownership qoidasi: root XBA / XBA agent (`agent_organization_id`) / recruiter
+  (`recruiter_id`)).
+
+  ### 📤 Response (`data`)
+
+  Yangi (nusxa) vakansiyaning **to'liq detail** obyekti — xuddi
+  **Create**/**View** javobi bilan bir xil shakl. Farqlar:
+
+  | Field | Qiymat |
+  |---|---|
+  | `id` | Yangi vakansiya ID (manba ID emas) |
+  | `status` | Har doim `draft` (manba statusidan qat'i nazar) |
+  | `title` | Manba sarlavhasi + `" (copy)"` qo'shimchasi |
+  | `slug` | Manba slug + raqamli suffiks (masalan `welder` → `welder-2`, keyingi nusxa → `welder-3`). Manbanikidan doim farq qiladi |
+  | `approved_by` / `approved_at` / `published_at` / `is_auto_approved` / `rejection_reason` | Har doim `null` / `false` — manbadan **ko'chirilmaydi** |
+  | `views_count` / `applications_count` | Har doim `0` — manbadan **ko'chirilmaydi** |
+  | `deadline_at` | Manbaning qiymati saqlanadi, **agar** u bugundan oldin (o'tmishda) bo'lmasa; o'tmishdagi bo'lsa `null` qilib tashlanadi (aks holda "Deadline cannot be in the past" bilan `422` qaytardi) |
+  | `contract_id` | Har doim `null` — **ko'chirilmaydi**. `vacancy`-tip shartnomada `candidate_count` kvotasi bor; havolani ko'chirish slot band qilib, to'la shartnomada `422` berardi. Nusxa shartnomasiz boshlanadi — wizard'da qayta bog'lanadi |
+  | `agent` (`agent_organization_id`) | **Amaldagi** XBA agent org'iga o'rnatiladi (Create bilan bir xil), manbadan ko'chirilmaydi. Admin/root XBA nusxalaganda `null` |
+  | `saved_from_template_id` | Har doim `null` — nusxa shablondan yaratilmagan, **ko'chirilmaydi** |
+  | `organization` / `recruiter` / `industry` / `country` / `city` / maosh / manzil / `service_groups[]` / `requirements[]` / `language_requirements[]` / `benefits[]` / `documents[]` | Manbadan **aynan** ko'chiriladi |
+  | `total_service_amount` | Ko'chirilgan xizmatlar asosida qayta hisoblanadi (manba bilan bir xil bo'ladi, chunki xizmatlar o'zgarishsiz) |
+
+  > Manbada **kamida bitta training xizmati + kurs** bo'lishi shart (Create bilan
+  > bir xil qoida) — nusxa boshlanishidayoq (tranzaksiyadan oldin) tekshiriladi.
+  > Eski (task #08 dan oldingi) kurssiz vakansiyani nusxalab bo'lmaydi → `400`.
+  > Shartnoma (`contract_id`) esa umuman ko'chirilmaydi (yuqoriga qarang).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Manbada kurs biriktirilgan training xizmati yo'q |
+  | `404` | Manba vakansiya topilmadi |
+  | `403` | Boshqa tashkilotning vakansiyasi (ownership View bilan bir xil) |
+  | `401` | Token yo'q / eskirgan |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
