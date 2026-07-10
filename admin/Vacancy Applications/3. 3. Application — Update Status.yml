@@ -20,12 +20,17 @@ docs: 'Ariza statusini o''zgartiradi:
 
   |---|---|---|
 
-  | `reviewed` | — | `reviewed_at` o''rnatiladi |
+  | `reviewed` | — | `reviewed_at` + `reviewed_by` o''rnatiladi |
 
   | `accepted` | `notes` ➖ | **`vacancy_candidate` yozuvi yaratiladi**
-  (status=`pending`) |
+  (status=`pending`), `decided_at` + `decided_by` o''rnatiladi |
 
-  | `rejected` | `reason` ✅ | `rejection_reason` saqlanadi |
+  | `rejected` | `reason` ✅ | `rejection_reason`, `decided_at` + `decided_by` saqlanadi |
+
+
+  > Aktor — so''rovni yuborgan foydalanuvchi (`Authorization` token egasi): admin yoki
+  chat orqali qaror qabul qilgan XBA xodimi. `accepted` / `rejected` da `reviewed_by`
+  bo''sh bo''lsa, o''sha aktor bilan to''ldiriladi.
 
 
   > Terminal statusdagi arizalar (`accepted` / `rejected`) qayta o''zgartirilmaydi.

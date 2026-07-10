@@ -43,6 +43,18 @@ docs: 'Vakansiyaga topshirilgan barcha arizalar (`applied_at DESC`).
   | `match_score` | int \| null | Moslik darajasi (% ). Hozircha har doim `null` —
   keyinchalik ulanadi |
 
+  | `reviewed_by` / `reviewed_by_name` | int \| null / string \| null | Arizani ko''rib
+  chiqqan aktor `user.id` va to''liq ismi. `null` — hali ko''rilmagan yoki aktor yozilmagan
+  (eski ariza) |
+
+  | `decided_by` / `decided_by_name` | int \| null / string \| null | Arizani tasdiqlagan
+  yoki rad etgan aktor `user.id` va to''liq ismi. `null` — qaror qabul qilinmagan |
+
+
+  > Aktor — admin yoki chat orqali qaror qabul qilgan XBA xodimi. Bu to''rt maydon
+  **faqat admin/superadmin** tokeni bilan qaytadi; vakansiya egasi va mobil javobda
+  yuborilmaydi.
+
   | `pagination` | object | `{page, page_size, total_count, page_count}` |
 
   '

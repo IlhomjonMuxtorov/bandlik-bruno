@@ -12,6 +12,40 @@ docs: 'Ariza tafsiloti.
   **Auth:** Admin yoki vakansiya egasi.
 
 
+  ### 📤 Response (`data`)
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `reviewed_at` | int \| null | Ko''rib chiqilgan vaqt (unix). `null` — hali ko''rilmagan.
+  |
+
+  | `reviewed_by` | int \| null | Ko''rib chiqqan aktor `user.id`. `null` — hali ko''rilmagan.
+  |
+
+  | `reviewed_by_name` | string \| null | Ko''rib chiqqan aktorning to''liq ismi. `null`
+  — aktor yozilmagan (migration''gacha yaratilgan ariza). |
+
+  | `decided_at` | int \| null | Qaror sanasi (unix). `null` — qaror qabul qilinmagan.
+  |
+
+  | `decided_by` | int \| null | Tasdiqlagan/rad etgan aktor `user.id`. `null` — qaror
+  qabul qilinmagan. |
+
+  | `decided_by_name` | string \| null | Qaror qabul qilgan aktorning to''liq ismi.
+  `null` — aktor yozilmagan. |
+
+
+  > Aktor — admin yoki chat orqali qaror qabul qilgan XBA xodimi.
+
+
+  > To''rt aktor maydoni **faqat admin/superadmin** tokeni bilan qaytadi. Vakansiya
+  egasi (employer, XBA agenti) va mobil javobda ular umuman yuborilmaydi — boshqa
+  tashkilot xodimining ismi oshkor bo''lmasligi kerak.
+
+
   ### ⚠️ Errors
 
 
