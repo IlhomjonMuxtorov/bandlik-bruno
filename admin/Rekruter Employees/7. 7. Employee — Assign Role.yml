@@ -1,0 +1,49 @@
+info:
+  name: 7. Employee — Assign Role
+  type: http
+  seq: 7
+http:
+  method: POST
+  url: '{{base_url}}/admin/recruiter-employees/1/role'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"role\": \"recruiter_manager\"\n}"
+  auth: inherit
+docs: |-
+  Xodimning login user'iga katalog rolini biriktiradi (ADR 0009, 2-bosqich). Bitta
+  org roli saqlanadi: xodimning oldingi `recruiter_` roli olib tashlanadi, yangisi
+  qo'yiladi va `organization_employee.role` shu kalitga yangilanadi.
+
+  **Auth:** `admin_token`. **Permission:** `employeeRoleAssign`.
+
+  Cheklovlar:
+  - Xodim aktorning tashkilotiga tegishli bo'lishi kerak (admin uchun har qanday).
+  - Rol — tashkilot biriktira oladigan to'plamdan (`recruiter_` prefiks).
+  - Tashkilot egasi (`role='admin'`) roli o'zgartirilmaydi.
+  - Xodimda login user (`user_id`) bo'lishi shart.
+
+  ### 📥 Request Body (JSON)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `role` | string | ✅ | Katalog rol kaliti (masalan `recruiter_manager`). `recruiter_` prefiksli bo'lishi shart |
+
+  ### 📤 Response
+
+  `200` — yangilangan `OrganizationEmployeeOutputDTO` (`role` endi katalog kaliti).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `403` | `employeeRoleAssign` yo'q yoki boshqa tashkilot xodimi |
+  | `404` | Xodim topilmadi |
+  | `422` | `role` bo'sh; rol biriktirib bo'lmaydi; egasi roli; login user yo'q |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

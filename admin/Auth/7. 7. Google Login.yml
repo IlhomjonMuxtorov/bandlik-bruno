@@ -1,0 +1,56 @@
+info:
+  name: 7. Google Login
+  type: http
+  seq: 7
+http:
+  method: POST
+  url: '{{base_url}}/admin/auth/google'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"id_token\": \"<Google Identity Services id_token>\"\n}"
+  auth:
+    type: none
+docs: |-
+  Google Identity Services orqali kirish. Frontend (SPA) Google sign-in oqimini
+  bajaradi va olingan `id_token`'ni shu endpointga yuboradi; backend uni Google
+  JWKS bilan tekshiradi va muvaffaqiyatda login bilan bir xil 24h admin JWT qaytaradi.
+
+  **Faqat mavjud foydalanuvchiga ulanadi — hech qachon avtomatik yaratmaydi:**
+  1. Saqlangan `(google, sub)` bog'lanishi bo'yicha, yoki
+  2. Birinchi martada — token'dagi **tasdiqlangan** email `email_verified_at` to'ldirilgan
+     foydalanuvchiga mos kelsa; bu moslik `user_oauth_identity`'da bog'lanishni yozadi.
+
+  Keyin odatdagi admin-panel kirish darvozasi qo'llanadi
+  (`AuthService::adminPanelDenialReason()` — RBAC roli + org whitelist).
+
+  **Auth:** talab qilinmaydi.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `id_token` | string | ✅ | Google Identity Services'dan olingan `id_token` (JWT) |
+
+  ### 📤 Response (`data`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `token` | string | JWT — keyingi so'rovlarda `Bearer {token}` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason | Message |
+  |---|---|---|
+  | `403` | RBAC roli yo'q yoki org turi whitelist'da emas | (`adminPanelDenialReason`) |
+  | `422` | Google sozlanmagan | `Google sign-in is not configured.` |
+  | `422` | Token noto'g'ri/imzo/aud/iss xato | `Invalid Google token.` |
+  | `422` | Google email tasdiqlanmagan | `Your Google email is not verified.` |
+  | `422` | Bu email/Google account hech qanday hisobga bog'lanmagan | `No account found for this email.` |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

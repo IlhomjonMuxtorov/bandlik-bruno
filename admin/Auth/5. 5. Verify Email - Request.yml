@@ -1,0 +1,45 @@
+info:
+  name: 5. Verify Email - Request
+  type: http
+  seq: 5
+http:
+  method: POST
+  url: '{{base_url}}/admin/auth/verify-email/request'
+  headers:
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: |-
+  Autentifikatsiyalangan foydalanuvchining **o'z** email manziliga tasdiqlash
+  havolasini yuboradi. Havola `queueNotification` orqali jo'natiladi va
+  `{ADMIN_PANEL_URL}/{lang}/auth/verify-email?token=...` shakliga ega.
+
+  Token bir martalik, `verify_email` maqsadi bilan `user_email_token` jadvalida
+  sha256 hash sifatida saqlanadi. Amal muddati 24 soat. Rate-limit: har foydalanuvchi
+  uchun soatiga 5, har IP uchun soatiga 15 (limitga yetganda ham `200` — mavjud
+  havoladan foydalaniladi).
+
+  **Auth:** `admin_token`.
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {admin_token}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Email tili. Default: `uz` |
+
+  ### 📤 Response
+
+  `200` — `If the email exists, a verification link has been sent.` (`data: null`).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q/eskirgan |
+  | `422` | Hisobga email biriktirilmagan (`Your account has no email address.`) |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -18,16 +18,20 @@ docs: |
 
   **Kirish RBAC asosida** (ADR 0009). Kirish qarori `user.type` emas, balki ikki shart bilan
   (`AuthService::adminPanelDenialReason()`):
-  1. `TYPE_PARTNER` (tashkilot egasi) bo'lsa — uning `OrganizationType`'i login whitelist'ida
-     bo'lishi shart (`OrganizationType::canLogIn()`). **1-bosqich faqat XBA**'ni ochadi.
+  1. `TYPE_PARTNER` (tashkilot egasi) yoki `TYPE_EMPLOYEE` bo'lsa — tashkilotning
+     `OrganizationType`'i login whitelist'ida bo'lishi shart (`OrganizationType::canLogIn()`).
+     **1-bosqich XBA**'ni, **2-bosqich Ish beruvchi (`EMPLOYER`) va Rekruter (`RECRUITER`)**'ni ochdi.
   2. Foydalanuvchida kamida bitta **RBAC roli** biriktirilgan bo'lishi shart
      (`rbac_auth_assignment` bo'sh emas).
 
   | `type` | Kim | Kirish |
   |:---:|---|---|
   | `1` | `TYPE_ADMIN` — Super-admin | ✅ `superadmin` roli biriktirilgan bo'lsa |
-  | `6` | `TYPE_EMPLOYEE` — Tashkilot sub-xodimi (`organization_employee`) | ✅ roli bo'lsa |
-  | `5` | `TYPE_PARTNER` — Tashkilot egasi | ✅ **XBA** (1-bosqich) + roli bo'lsa · ⛔ qolgan turlar hali emas |
+  | `6` | `TYPE_EMPLOYEE` — Tashkilot sub-xodimi (`organization_employee`) | ✅ org turi ochiq + roli bo'lsa |
+  | `5` | `TYPE_PARTNER` — Tashkilot egasi | ✅ **XBA / Ish beruvchi / Rekruter** + roli bo'lsa · ⛔ Viza, Notarius, Logistika, Sug'urta, O'quv markazi hali emas |
+
+  > **Parolni unutdingizmi?** `Forgot Password` → `Reset Password` (email orqali).
+  > Google bilan kirish uchun `Google Login`.
 
   > **Lockout eslatmasi.** Kirish RBAC roliga bog'liq. Agar `migrate/up` ishlagan
   > (`rbac_auth_*` jadvallari bor), lekin `rbac-migrate/up` ishlamagan bo'lsa — hech kimda rol
@@ -36,7 +40,8 @@ docs: |
   > `php console/yii rbac/assign superadmin <login>`.
   >
   > Tashkilot egasi uchun `username` + `password` `OrganizationService::create()` ichida
-  > yaratiladi; XBA egasiga `xba_admin` roli ham o'sha yerda biriktiriladi.
+  > yaratiladi; egaga mos katalog roli (`xba_admin` / `employer_admin` / `recruiter_admin`)
+  > ham o'sha yerda biriktiriladi.
 
   **Auth:** talab qilinmaydi.
 
@@ -60,7 +65,7 @@ docs: |
   | Code | Reason | Message |
   |---|---|---|
   | `422` | Validatsiya xatosi yoki login/parol noto'g'ri | — |
-  | `403` | Tashkilot turi hali whitelist'da emas (XBA'dan boshqa) | `Your organization does not have admin panel access yet.` |
+  | `403` | Tashkilot turi hali whitelist'da emas (XBA / Ish beruvchi / Rekruter'dan boshqa) | `Your organization does not have admin panel access yet.` |
   | `403` | RBAC roli biriktirilmagan (rol yo'q / `rbac-migrate/up` ishlamagan) | `Your account has no access role assigned. Ask a Super Admin to grant one.` |
 
 settings:

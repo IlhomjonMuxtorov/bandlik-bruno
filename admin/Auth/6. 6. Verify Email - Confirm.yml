@@ -1,0 +1,43 @@
+info:
+  name: 6. Verify Email - Confirm
+  type: http
+  seq: 6
+http:
+  method: POST
+  url: '{{base_url}}/admin/auth/verify-email/confirm'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"token\": \"<raw-token-from-email>\"\n}"
+  auth:
+    type: none
+docs: |-
+  Email havolasidagi bir martalik tokenni iste'mol qilib, foydalanuvchining
+  `email_verified_at` maydonini o'rnatadi. Token `used_at` bilan bekor qilinadi.
+  Hodisa audit log'ga yoziladi (`email_verified`). Tasdiqlangan email — self-service
+  parol tiklash va Google account matching uchun old shart.
+
+  **Auth:** talab qilinmaydi (token o'zi avtorizatsiya).
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `token` | string | ✅ | Email'dagi havoladan olingan raw token |
+
+  ### 📤 Response
+
+  `200` — `Email verified.` (`data: null`).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `422` | `token` bo'sh; noto'g'ri/muddati tugagan/allaqachon ishlatilgan |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
