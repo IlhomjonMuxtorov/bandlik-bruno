@@ -40,6 +40,25 @@ docs: |
   | `GET .../references/benefit-definitions` | Imtiyoz ta'riflari. Query: `category_id`, `q`. |
   | `GET .../references/benefit-value-types` | Imtiyoz `value_type` enum ro'yxati. |
   | `GET .../references/benefit-options/<id>` | Bitta imtiyoz uchun tanlov variantlari. |
+  | `GET .../references/documents` | Talab qilinadigan hujjatlar ro'yxati. |
+  | `GET .../references/countries` | Aktiv davlatlar. |
+  | `GET .../references/cities` | Davlat shaharlari. Query: `country_id` (**majburiy**). |
+  | `GET .../references/languages` | Aktiv tillar, har biri o'z shkalasidagi darajalar bilan. |
+  | `GET .../references/language-levels` | Til darajalari. Query: `scale` (ixtiyoriy; masalan `cefr`, `jlpt`). |
+  | `GET .../references/service-categories` | Xizmat toifalari enum: `value`, `label`, `expected_organization_type`, `service_group_type`. |
+  | `GET .../references/organizations` | Toifaga mos hamkor tashkilotlar. Query: `category` (**majburiy**; `insurance` \| `notarius` \| `logistics` \| `visa` \| `training`). |
+  | `GET .../references/organizations/<id>/services` | Bitta tashkilotning aktiv xizmatlari. |
+  | `GET .../references/educational-courses` | Tanlangan o'quv markazining vakansiya davlatiga biriktirilishi mumkin bo'lgan kurslari. Query: `organization_id`, `country_id` (**ikkalasi majburiy**). |
+  | `GET .../references/insurance-country-prices` | Davlat bo'yicha aktiv sug'urta narxlari. Query: `country_id` (**majburiy**). |
+  | `GET .../references/notary-translation-prices` | Notariusning tarjima narxlari. Query: `organization_id` (**majburiy**). |
+  | `GET .../references/notary-apostille-prices` | Notariusning apostil/tasdiqlash narxlari. Query: `organization_id` (**majburiy**). |
+  | `GET .../references/notary-other-service-prices` | Notariusning boshqa xizmat narxlari. Query: `organization_id` (**majburiy**). |
+
+  > Yuqoridagilar `service_groups[].services[]` uchun `organization_id`,
+  > `organization_service_id`, `educational_course_id`, `insurance_country_price_id`,
+  > `notary_*_price_id` qiymatlarini, hamda vakansiyaning `country_id` / `city_id`,
+  > `documents[]` va `language_requirements[]` maydonlarini to'ldiradi — ya'ni token-gated
+  > formani to'liq yuborish uchun yetarli.
 
   ### 📋 Headers
 
@@ -52,7 +71,7 @@ docs: |
 
   | Code | Reason |
   |---|---|
-  | `400` | Token berilmagan; token noto'g'ri, muddati o'tgan yoki bekor qilingan. |
+  | `400` | Token berilmagan; token noto'g'ri, muddati o'tgan yoki bekor qilingan; majburiy query param (`country_id` / `organization_id` / `category`) berilmagan yoki noto'g'ri. |
   | `404` | `requirement-options` / `benefit-options` uchun ta'rif topilmadi. |
 settings:
   encodeUrl: true
