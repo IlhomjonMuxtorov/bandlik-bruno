@@ -1,0 +1,63 @@
+info:
+  name: 7. Regenerate Invitation Link
+  type: http
+  seq: 7
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancy-invitations/:id/relink'
+  params:
+  - name: id
+    value: '1'
+    type: path
+  headers:
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: |
+  Mavjud havolaning tokenini **yangilaydi** va to'liq, bir martalik URL'ni qaytaradi.
+
+  Ro'yxat (list) endpointi havolani ko'rsata olmaydi — DB'da faqat token'ning
+  sha256 hash'i saqlanadi, xom token `issue` javobidan keyin yo'qoladi. Havola
+  yo'qolganda admin shu endpoint orqali **yangi ishlaydigan URL** oladi.
+
+  Yangi token chiqarilishi bilan shu tashkilotning oldingi tirik havolasi (shu
+  jumladan `:id`) **avtomatik bekor qilinadi** — eski havola darhol ishlamay
+  qoladi. Yangi havola tashkilotning email'iga ham qayta yuboriladi. Amal qilish
+  muddati (TTL) asl havoladan meros olinadi.
+
+  **Auth:** `access_token` + `vacancyManage` ruxsati. Faqat XBA tashkilotlari; super
+  admin bo'lmagan XBA aktori faqat o'z org'ining havolalarini yangilay oladi.
+
+  ### 🔎 Path Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `id` | int | ✅ | Yangilanayotgan invitation yozuvi id'si. |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Yangi invitation yozuvi id'si (eskisidan farq qiladi). |
+  | `organization` | object | Boshqaruvchi XBA org: `{ id, name }`. |
+  | `recruiter` | object | Taklif qilingan org: `{ id, name }`. |
+  | `expires_at` | int | Havola ishlamay qoladigan unix ts. |
+  | `revoked_at` | int \| null | Yangi havolada doim `null`. |
+  | `is_active` | bool | Yangi havolada `true`. |
+  | `link` | string | To'liq public havola (xom token bilan). **Faqat shu javobda** qaytadi. |
+
+  > ⚠️ `link` ni qayta olish imkoni yo'q. Yana yo'qolsa — shu endpoint qayta chaqiriladi (eskisi bekor bo'ladi).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Rate-limit (1 soatda 10 ta havola). |
+  | `401` | Token yo'q yoki eskirgan. |
+  | `403` | `vacancyManage` ruxsati yo'q yoki aktor XBA tashkiloti emas. |
+  | `404` | `id` bo'yicha havola topilmadi (yoki boshqa XBA org'niki — scope). |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

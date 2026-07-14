@@ -33,6 +33,10 @@ docs: |
   Massiv; har element `Issue` javobidagi kabi. Farqi: `link` **doim `null`** —
   xom token saqlanmaydi, faqat chiqarilgan paytda bir marta ko'rsatiladi.
 
+  > Havola URL'ini qayta olish uchun `Regenerate Invitation Link`
+  > (`POST .../:id/relink`) chaqiring — tokenni yangilab, yangi `link` qaytaradi
+  > (eski havola bekor bo'ladi).
+
   ### ⚠️ Errors
 
   | Code | Reason |
