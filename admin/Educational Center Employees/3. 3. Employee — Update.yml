@@ -1,0 +1,30 @@
+info:
+  name: 3. Employee — Update
+  type: http
+  seq: 3
+http:
+  method: POST
+  url: '{{base_url}}/admin/educational-center-employees/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"role\": \"XBA admin\",\n  \"region_id\": 2,\n  \"district_id\": 201,\n  \"address\": \"Toshkent sh., Chilonzor, 5-uy\",\n  \"passport_series\": \"AA\",\n  \"passport_number\": \"1234567\",\n  \"email\": \"xodim@example.uz\",\n  \"birth_date\": \"1990-01-15\"\n}"
+  auth: inherit
+docs: 'Xodim ma''lumotlarini yangilaydi (partial — faqat yuborilgan maydonlar o''zgaradi).
+  `region_id` / `district_id` yuborilsa xodim joylashuvi yangilanadi; `null` yuborish
+  qiymatni o''chirmaydi. `organization_id` almashtirilsa va joylashuv yuborilmasa —
+  yangi tashkilot joylashuvi avtomatik olinadi.
+
+
+  **Auth:** `admin_token`.
+
+  > **Mas''ul shaxs himoyasi:** tashkilot mas''ul shaxsi (`role=admin`) doimiy — uning rolini o''zgartirib, boshqa xodimga berib yoki deaktiv qilib bo''lmaydi (`403`). Mas''ul shaxsning `firstname`/`lastname`/`patronymic` tahrirlansa, tashkilotning `responsible_first_name`/`responsible_last_name`/`responsible_middle_name` maydonlari ham mos ravishda yangilanadi.
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

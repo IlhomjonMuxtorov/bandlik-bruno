@@ -1,0 +1,6 @@
+info:
+  name: 🏢 My Organization
+  type: folder
+  seq: 68
+request:
+  auth: inherit

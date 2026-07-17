@@ -1,0 +1,54 @@
+info:
+  name: 1. Own Organization Stats
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/my/organization/stats'
+  auth: inherit
+docs: |-
+  Kirgan (logged-in) partner login'ining O'Z tashkiloti statistikasi
+  (ADR 0009, faza 3). `/admin/{type}/stats` (butun tur bo'yicha agregat)dan
+  farqli — bu endpoint faqat aktor tashkilotiga tegishli raqamlarni qaytaradi.
+  Tashkilot `id` YUBORILMAYDI — u token'dan aniqlanadi (org egasi yoki xodim),
+  shuning uchun boshqa tashkilot ma'lumotini o'qib bo'lmaydi.
+
+  **Auth:** `admin_token`. **Permission:** `ownOrganizationView` (barcha partner
+  rollarida bor).
+
+  ### 📤 Response
+
+  Javob tashkilot turiga qarab farq qiladi (pul maydonlari — so'mda):
+
+  **O'quv markazi (type = 8):**
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `total_revenue` | int | Jami tushum (so'm) |
+  | `students_count` | int | Talabalar soni |
+  | `courses_count` | int | Kurslar soni |
+  | `this_month_revenue` | int | Shu oy tushumi (so'm) |
+  | `this_month_new_students` | int | Shu oy yangi talabalar |
+
+  **Boshqa turlar (Visa/Notarius/Logistics/Insurance/Employer/Recruiter/XBA):**
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `total_revenue` | int | Yakunlangan buyurtmalardan jami tushum (so'm) |
+  | `clients_count` | int | Noyob mijozlar (candidate) soni |
+  | `services_count` | int | Faol xizmatlar soni (turga qarab manba farq qiladi) |
+  | `active_employees` | int | Faol xodimlar soni |
+  | `active_vacancies` | int | Faol vakansiyalar (turga tegishli bo'lsa) |
+  | `archived_vacancies` | int | Arxivlangan vakansiyalar |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `403` | `ownOrganizationView` yo'q; yoki aktorda tashkilot yo'q (masalan platform super-admin) |
+  | `404` | Tashkilot topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

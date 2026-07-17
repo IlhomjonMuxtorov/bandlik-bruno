@@ -1,0 +1,27 @@
+info:
+  name: 1. Employee — View
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/educational-center-employees/1'
+  auth: inherit
+docs: |-
+  Bitta xodim. Javobda `region` / `district` obyektlari ham bor (`{id, name: {uz, ru, en}}`
+  yoki `null`).
+
+  **Auth:** `admin_token`. **Permission:** `educationalCenterEmployeeManage`.
+  Org-scope: admin bo'lmagan aktor faqat o'z tashkiloti xodimini ko'radi
+  (boshqa org `id` → `403`).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `403` | Boshqa tashkilot xodimi |
+  | `404` | Employee topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

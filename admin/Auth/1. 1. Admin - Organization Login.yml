@@ -20,15 +20,21 @@ docs: |
   (`AuthService::adminPanelDenialReason()`):
   1. `TYPE_PARTNER` (tashkilot egasi) yoki `TYPE_EMPLOYEE` bo'lsa — tashkilotning
      `OrganizationType`'i login whitelist'ida bo'lishi shart (`OrganizationType::canLogIn()`).
-     **1-bosqich XBA**'ni, **2-bosqich Ish beruvchi (`EMPLOYER`) va Rekruter (`RECRUITER`)**'ni ochdi.
+     **3-bosqich (joriy) holatda barcha tashkilot turlari ochiq**: XBA, Ish beruvchi,
+     Rekruter, Viza, Notarius, Logistika, Sug'urta, O'quv markazi.
   2. Foydalanuvchida kamida bitta **RBAC roli** biriktirilgan bo'lishi shart
      (`rbac_auth_assignment` bo'sh emas).
 
   | `type` | Kim | Kirish |
   |:---:|---|---|
   | `1` | `TYPE_ADMIN` — Super-admin | ✅ `superadmin` roli biriktirilgan bo'lsa |
-  | `6` | `TYPE_EMPLOYEE` — Tashkilot sub-xodimi (`organization_employee`) | ✅ org turi ochiq + roli bo'lsa |
-  | `5` | `TYPE_PARTNER` — Tashkilot egasi | ✅ **XBA / Ish beruvchi / Rekruter** + roli bo'lsa · ⛔ Viza, Notarius, Logistika, Sug'urta, O'quv markazi hali emas |
+  | `6` | `TYPE_EMPLOYEE` — Tashkilot sub-xodimi (`organization_employee`) | ✅ **barcha tashkilot turlari** ochiq (login endi majburiy — har bir xodim login hisobi bilan yaratiladi) + roli bo'lsa |
+  | `5` | `TYPE_PARTNER` — Tashkilot egasi | ✅ **barcha tashkilot turlari** (XBA, Ish beruvchi, Rekruter, Viza, Notarius, Logistika, Sug'urta, O'quv markazi) + roli bo'lsa |
+
+  > **Endpoint o'zgarmadi.** Yangi endpoint yo'q — barcha tashkilot turlari (Viza,
+  > Notarius, Logistika, Sug'urta, O'quv markazi) egalari ham xuddi shu
+  > `POST /admin/auth/login` orqali kiradi. Frontendda alohida "partner login"
+  > oqimi kerak emas.
 
   > **Parolni unutdingizmi?** `Forgot Password` → `Reset Password` (email orqali).
   > Google bilan kirish uchun `Google Login`.
@@ -40,8 +46,11 @@ docs: |
   > `php console/yii rbac/assign superadmin <login>`.
   >
   > Tashkilot egasi uchun `username` + `password` `OrganizationService::create()` ichida
-  > yaratiladi; egaga mos katalog roli (`xba_admin` / `employer_admin` / `recruiter_admin`)
-  > ham o'sha yerda biriktiriladi.
+  > yaratiladi; egaga mos katalog roli (`xba_admin` / `employer_admin` / `recruiter_admin` /
+  > `visa_admin` / `notarius_admin` / `logistics_admin` / `insurance_admin` /
+  > `educational_center_admin`) ham o'sha yerda biriktiriladi. Xodim login'i esa
+  > `POST /admin/{type}-employees` orqali yaratiladi — `login`/`password` endi
+  > **majburiy** (pastga qarang: har bir turdagi Employees papkasidagi `Create`).
 
   **Auth:** talab qilinmaydi.
 
@@ -65,7 +74,7 @@ docs: |
   | Code | Reason | Message |
   |---|---|---|
   | `422` | Validatsiya xatosi yoki login/parol noto'g'ri | — |
-  | `403` | Tashkilot turi hali whitelist'da emas (XBA / Ish beruvchi / Rekruter'dan boshqa) | `Your organization does not have admin panel access yet.` |
+  | `403` | Tashkilot turi hali whitelist'da emas (`OrganizationType::canLogIn()` — hozircha barcha mavjud turlar `true`, faqat kelajakdagi yangi org turi uchun qoldirilgan) | `Your organization does not have admin panel access yet.` |
   | `403` | RBAC roli biriktirilmagan (rol yo'q / `rbac-migrate/up` ishlamagan) | `Your account has no access role assigned. Ask a Super Admin to grant one.` |
 
 settings:

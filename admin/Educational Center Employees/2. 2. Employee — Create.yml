@@ -1,0 +1,84 @@
+info:
+  name: 2. Employee — Create
+  type: http
+  seq: 2
+http:
+  method: POST
+  url: '{{base_url}}/admin/educational-center-employees'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"organization_id\": 1,\n  \"login\": \"eduzentr.manager1\",\n  \"password\": \"Secret123\",\n  \"firstname\": \"Rustam\",\n  \"lastname\": \"Qodirov\",\n  \"patronymic\": null,\n  \"phone\": \"+998942030000\",\n  \"role\": \"educational_center_manager\",\n  \"region_id\": 1,\n  \"district_id\": 101,\n  \"address\": \"Toshkent sh., Chilonzor, 5-uy\",\n  \"passport_series\": \"AA\",\n  \"passport_number\": \"1234567\",\n  \"email\": \"xodim@example.uz\",\n  \"birth_date\": \"1990-01-15\",\n  \"is_active\": 1\n}"
+  auth: inherit
+docs: |-
+  Yangi xodim qo'shadi (ADR 0009, faza 3 — O'quv markazi endpointlari yangi).
+  `joined_at` yuborilmasa hozirgi vaqt sifatida o'rnatiladi. Joylashuv
+  maydonlaridan (`region_id`, `district_id`) hech biri yuborilmasa —
+  tashkilotning joylashuvi avtomatik olinadi (bittasi yuborilsa meros
+  ishlamaydi). `district_id` tanlangan `region_id`ga tegishli bo'lishi
+  tekshiriladi.
+
+  > **`login` va `password` MAJBURIY.** Har bir yangi xodim login hisobi
+  > bilan birga yaratiladi. `login` — kamida 3 belgi, `password` — kamida
+  > 8 belgi.
+
+  > **`role` maydoni RBAC katalog rol kaliti bo'lishi SHART**, erkin matnli
+  > lavozim nomi emas. Login+parol majburiy bo'lgani uchun controller har
+  > bir Create so'rovida `role` qiymatini katalog roliga biriktirishga
+  > harakat qiladi (`employeeRoleAssign` orqali) — shuning uchun bu maydon
+  > ruxsat etilgan rol kalitlaridan biri bo'lishi kerak: `educational_center_admin`
+  > \| `educational_center_manager` \| `educational_center_operator` \|
+  > `educational_center_viewer`. Saqlanadigan `organization_employee.role`
+  > qiymati ham shu katalog kalitiga tenglashadi.
+
+  **Auth:** `admin_token`. **Permission:** `educationalCenterEmployeeManage`
+  **VA** `employeeRoleAssign` (login+parol majburiy bo'lgani uchun rol
+  biriktirish har doim ishga tushadi; `employeeRoleAssign` yo'q bo'lsa `403`).
+
+  ### 📥 Request Body (JSON)
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `organization_id` | int | ✅ | O'quv markazi `organization.id` (type = `8`) |
+  | `login` | string | ✅ | Xodim login (username). Kamida 3 belgi |
+  | `password` | string | ✅ | Login paroli. Kamida 8 belgi |
+  | `firstname`  | string       | ✅ | Ism. Max 100 |
+  | `lastname`   | string       | ✅ | Familya. Max 100 |
+  | `patronymic` | string\|null | ➖ | Otasining ismi. Max 100. `null` — yo'q yoki noma'lum |
+  | `phone` | string | ➖ | Max 20 |
+  | `address` | string\|null | ➖ | Erkin matnli manzil. Max 255. `null` — kiritilmagan |
+  | `passport_series` | string\|null | ➖ | UZ pasport seriyasi, masalan `AA`. Max 2. `null` — kiritilmagan |
+  | `passport_number` | string\|null | ➖ | UZ pasport raqami, masalan `1234567`. Max 7. `null` — kiritilmagan |
+  | `email` | string\|null | ➖ | Xodim elektron pochtasi. Max 255. `null` — kiritilmagan |
+  | `birth_date` | string\|null | ➖ | Tug'ilgan sana `YYYY-MM-DD`. `null` — kiritilmagan |
+  | `role` | string | ✅ | RBAC katalog rol kaliti: `educational_center_admin` \| `educational_center_manager` \| `educational_center_operator` \| `educational_center_viewer`. Max 50 |
+  | `region_id` | int | ➖ | Viloyat `region.id`. Yuborilmasa tashkilotniki olinadi |
+  | `district_id` | int | ➖ | Tuman `district.id`. Yuborilmasa tashkilotniki olinadi |
+  | `joined_at` | int | ➖ | Unix timestamp. Default = hozir |
+  | `is_active` | bool (0\|1) | ➖ | Default `1` |
+
+  ### 📤 Response
+
+  `201` — `OrganizationEmployeeOutputDTO` (`region` / `district` obyektlari —
+  `{id, name: {uz, ru, en}}` yoki `null`). `role` — endi tayinlangan katalog
+  kaliti. `login` va `has_login: true` ham qaytariladi. Shuningdek
+  `passport_series`, `passport_number`, `email`, `birth_date` maydonlari ham
+  qaytariladi (string\|null).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `403` | `educationalCenterEmployeeManage` yoki `employeeRoleAssign` yo'q; `organization_id` boshqa tashkilotga tegishli |
+  | `422` | `login` yo'q (`"Login is required"`) yoki < 3 belgi; `password` yo'q (`"Password is required"`) yoki < 8 belgi; `role` katalog roli emas (`educational_center_` prefiksli va mavjud bo'lishi shart); boshqa validatsiya xatosi |
+
+  > **Mas'ul shaxs himoyasi:** `role` = literal `admin` qiymati bilan xodim
+  > yaratib bo'lmaydi — tashkilot mas'ul shaxsi (egasi) faqat tashkilot
+  > yaratilganda tayinlanadi va doimiy (`403`).
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

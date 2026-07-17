@@ -1,0 +1,21 @@
+info:
+  name: 5. Employee — Delete (soft)
+  type: http
+  seq: 5
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/educational-center-employees/1'
+  auth: inherit
+docs: '**Soft delete** — `is_active = false`.
+
+
+  **Auth:** `admin_token`.
+
+  > **Mas''ul shaxs himoyasi:** tashkilot mas''ul shaxsi (`role=admin`) o''chirib bo''lmaydi (`403`).
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

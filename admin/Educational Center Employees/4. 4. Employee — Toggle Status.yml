@@ -1,0 +1,21 @@
+info:
+  name: 4. Employee — Toggle Status
+  type: http
+  seq: 4
+http:
+  method: PATCH
+  url: '{{base_url}}/admin/educational-center-employees/1/toggle-status'
+  auth: inherit
+docs: 'Xodimning `is_active` qiymatini teskariga aylantiradi.
+
+
+  **Auth:** `admin_token`.
+
+  > **Mas''ul shaxs himoyasi:** tashkilot mas''ul shaxsi (`role=admin`) deaktiv qilib bo''lmaydi (`403`).
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
