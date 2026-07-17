@@ -65,6 +65,14 @@ docs: >
   | `match_score` | `integer` — viza-survey moslik. Filtr = **birorta surveyed davlat ≥ N** (ko'rsatilgan representative-davlat qiymatdan farqli) |
 
 
+  > **`sortable: true` ustunlar** (ekrandagi barcha ustunlar bo'yicha saralash):
+  `full_name`, `phone`, `age`, `location`, `applications_count`, `education_level`,
+  `experience_years`, `last_workplace`, `last_visa_country`, `funnel_status`,
+  `created_at`, `sex`, `marital_status`. `vacancy_id` (Topshirgan vakansiya) va
+  `match_score` (Moslik darajasi) **`sortable: false`** — har-qatorda PHP'da
+  hisoblanadi, pagination bilan mos emas.
+
+
   > Pipeline'ning stage-granular / pul / vaqt ustunlari (`current_stage`,
   `stage_category`, `stage_status`, `collected_amount`, `accepted_at`, `departed_at`,
   `pipeline_outcome`) leads katalogida **yo'q**. `value`/`op` qiymatlari aynan shu

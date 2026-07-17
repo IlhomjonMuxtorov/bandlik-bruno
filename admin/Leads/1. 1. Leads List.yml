@@ -129,7 +129,7 @@ docs: >
 
   | `filter` | string (JSON) | ➖ | **Airtable filter tree** — rekursiv `{conjunction: and\|or, conditions: [{field, op, value} \| <nested group>]}`. Ruxsat etilgan `field`/`op`/`options` uchun `GET /admin/leads/columns`. Yuqoridagi flat paramlar bilan **AND** birikadi. Noto'g'ri field/op → `422` |
 
-  | `sort` | string | ➖ | Katalog ustunlari bo'yicha multi-sort: `col:asc\|desc` vergul bilan. Faqat `sortable` ustunlar: `full_name`, `age`, `sex`, `marital_status`, `created_at`, `applications_count`. Misol: `sort=age:desc,full_name:asc`. Default: `id DESC` |
+  | `sort` | string | ➖ | Katalog ustunlari bo'yicha multi-sort: `col:asc\|desc` vergul bilan. `sortable` ustunlar (ekrandagi **barcha** ustunlar): `full_name` (FISH), `phone` (Telefon), `age` (Yoshi), `location` (Manzil — ro'yxatga olingan viloyat nomi), `applications_count` (Arizalari), `education_level` (Ta'lim — eng yuqori daraja), `experience_years` (Ish tajribasi — jami oy), `last_workplace` (Oxirgi ish joyi — kompaniya), `last_visa_country` (Viza — davlat), `funnel_status` (Holat — funnel bosqichi tartibi), `created_at` (Sana) + `sex`, `marital_status`. Misol: `sort=funnel_status:desc,created_at:desc`. Default: `id DESC`. **Saralab bo'lmaydi:** `vacancy_id` (Topshirgan vakansiya) va `match_score` (Moslik darajasi) — har-qatorda PHP'da hisoblanadi (pagination bilan mos emas) |
 
   | `per-page` | int | ➖ | 1..100 (default 20); `page` 1-indeksli |
 
