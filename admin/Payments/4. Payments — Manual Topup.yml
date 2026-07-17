@@ -1,0 +1,139 @@
+info:
+  name: 4. Payments — Manual Topup
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{base_url}}/admin/payments/manual-topup'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"candidate_id\": 1,\n  \"amount\": 500000,\n  \"currency\": \"UZS\"\
+      ,\n  \"note\": \"Test uchun hamyon to'ldirildi\"\n}"
+  auth: inherit
+docs: 'Nomzod hamyonini (wallet) to''lov gateway''isiz (naqd/qo''lda) to''ldiradi —
+  faqat test/staging muhitida ishlatish uchun. `Payment` (`provider=manual`,
+  `purpose=wallet_topup`, `status=Success`) yaratiladi va darrov LedgerService
+  chaqirilib `CandidateTopup` turidagi Transaction yoziladi.
+
+
+  **Auth:** `admin_token`. Permission: `walletTopup`.
+
+
+  > **Muhim:** Bu endpoint global feature-flag bilan qulflangan —
+  > `app_setting.manual_topup_enabled`. Avval `POST /admin/app-setting` orqali
+  > `{"manual_topup_enabled": true}` yuborib yoqish kerak, aks holda `422`
+  > qaytadi.
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `candidate_id` | int | ✅ | Hamyoni to''ldiriladigan nomzod (`candidate.id`). |
+
+  | `amount` | number | ✅ | To''ldiriladigan summa, **major unit** (so''m). `0`
+  yoki manfiy bo''lsa `422`. |
+
+  | `currency` | string | ➖ | Valyuta kodi. Default `UZS`. Ledger hozircha
+  faqat `UZS` bilan ishlaydi — boshqa kod yuborilsa ham yozuv `UZS` sifatida
+  emas, yuborilgan kod bo''yicha saqlanadi, lekin amaliyotda `UZS` ishlatilsin. |
+
+  | `note` | string | ➖ | Audit izoh (sababi va h.k.). `null` — izoh berilmagan.
+  `Payment.callback_payload` ichida `{"credited_by": <admin_id>, "note": "...",
+  "manual_test": true}` ko''rinishida saqlanadi. |
+
+
+  ### 📤 Response (201)
+
+
+  `TransactionOutputDTO` — yangi yaratilgan `CandidateTopup` turidagi Transaction:
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `id` | int | Transaction ID. |
+
+  | `type` | int | Transaction turi (enum qiymati). Bu endpoint uchun doim
+  `CandidateTopup` (`7`). |
+
+  | `type_label` | string | `type` ning joriy tildagi (`Accept-Language`) o''qiladigan
+  nomi, masalan `"Wallet top-up"`. |
+
+  | `status` | int | Transaction holati (enum qiymati) — muvaffaqiyatli
+  yozuv uchun `Success`. |
+
+  | `status_label` | string | `status` ning joriy tildagi o''qiladigan nomi. |
+
+  | `amount` | int | Summasi **major unit**da (so''m) — ledger''dagi tiyin
+  qiymatidan konvert qilingan. |
+
+  | `currency` | string | Valyuta kodi, masalan `UZS`. |
+
+  | `organization_id` | int \| null | Bog''liq tashkilot. Manual top-up''da
+  har doim `null` — tashkilotga bog''liq emas. |
+
+  | `candidate_id` | int | Hamyoni to''ldirilgan nomzod ID (so''ralgan
+  `candidate_id` bilan bir xil). |
+
+  | `vacancy_id` | int \| null | Bog''liq vakansiya. Manual top-up''da har
+  doim `null`. |
+
+  | `service_order_id` | int \| null | Bog''liq xizmat buyurtmasi. Manual
+  top-up''da har doim `null`. |
+
+  | `reference_type` | string \| null | Bu Transaction qaysi entitetga
+  bog''liqligi (masalan `payment`). |
+
+  | `reference_id` | int \| null | `reference_type` bo''yicha entitet ID
+  (masalan yaratilgan `Payment.id`). |
+
+  | `gateway_provider` | string \| null | To''lov gateway provayderi.
+  Manual top-up''da har doim `null` — gateway ishtirok etmaydi. |
+
+  | `gateway_ref` | string \| null | Gateway''dagi tranzaksiya havolasi.
+  Manual top-up''da har doim `null`. |
+
+  | `description` | string \| null | Transaction izohi. |
+
+  | `paid_at` | int \| null | To''lov vaqti (unix timestamp). Manual
+  top-up darrov `Success` bo''lgani uchun har doim to''ldirilgan (so''rov
+  vaqti). |
+
+  | `created_at` | int | Yaratilgan vaqt (unix timestamp). |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `403` | `walletTopup` permission yo''q (`PermissionCheck` behavior
+  darhol rad etadi, controller''ga yetib bormaydi). |
+
+  | `422` | `Manual top-up is disabled` — `app_setting.manual_topup_enabled`
+  hali yoqilmagan. |
+
+  | `422` | `Candidate not found` — berilgan `candidate_id` bo''yicha nomzod
+  topilmadi. |
+
+  | `422` | `Amount must be positive` — `amount` `0` yoki manfiy (valyuta
+  minor unit''ga o''tkazilgandan keyin). |
+
+  | `401` | Token yo''q yoki eskirgan. |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

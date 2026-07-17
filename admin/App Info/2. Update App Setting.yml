@@ -40,6 +40,9 @@ docs: |
   | `vacancy_auto_approve_enabled` | bool | ➖ | Vakansiya timeout avto-tasdiq global toggle'i. Default `true`. |
   | `vacancy_auto_approve_window_minutes` | int | ➖ | Submit'dan keyin ishonchli org vakansiyasi avto-tasdiqlanadigan kutish oynasi (daqiqa, >=1). Default `180` (3 soat). |
 
+  | `manual_topup_enabled` | bool | ➖ | Global toggle: gateway'siz nomzod hamyonini qo'lda to'ldirishga ruxsat berish (faqat test uchun, `POST /admin/payments/manual-topup`). Default `false`. |
+
+
   Yangilangandan keyin mobil `support`/`about` keshi avtomatik tozalanadi. (Avto-tasdiq maydonlari faqat admin/internal — mobil `support`/`about` javoblarida chiqmaydi.)
 
   ### ⚠️ Errors
