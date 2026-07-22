@@ -47,6 +47,40 @@ docs: 'CV to''ldirilganlik foizini (`completion_percent`) va bo''limlar bo''yich
   | `sections` | object[] | Har bir bo''lim: `key`, `label`, `required`, `filled` |
 
 
+  ### 🔑 Bo''lim kalitlari (`sections[].key` / `missing[]`)
+
+
+  | Key | Required | To''ldirilgan hisoblanadi |
+
+  |---|:---:|---|
+
+  | `personal` | ✅ | MVD passport ma''lumoti mavjud |
+
+  | `birth_registration` | ✅ | Tug''ilgan joy (MVD) **va** ro''yxatdan o''tgan manzil
+  mavjud |
+
+  | `passport_identity` | ✅ | JSHSHIR (`tin`) to''ldirilgan |
+
+  | `education` | ✅ | CVda kamida 1 ta ta''lim yozuvi |
+
+  | `experience` | ✅ | CVda kamida 1 ta ish tajribasi |
+
+  | `family` | ✅ | Oilaviy holat tanlangan yoki kamida 1 ta oila a''zosi |
+
+  | `languages` | ✅ | Kamida 1 ta til qo''shilgan |
+
+  | `documents` | ✅ | CVga kamida 1 ta hujjat biriktirilgan |
+
+  | `driver_license` | ✅ | Haydovchilik guvohnomasi mavjud |
+
+  | `courses` | ➖ | Kamida 1 ta qisqa muddatli kurs. **Foizga kirmaydi** |
+
+  | `contact` | ✅ | `contact_phone` yoki user telefoni mavjud |
+
+
+  > 90% = 10 ta majburiy bo''limdan aynan 1 tasi bo''sh — `missing[0]` o''sha bo''lim.
+
+
   ### ⚠️ Errors
 
 
