@@ -40,13 +40,22 @@ docs: |
   | Field | Type | Description |
   |---|---|---|
   | `id` | int | Bildirishnoma ID |
-  | `type` | string | Turi, mas: `contract_pending_approval` |
+  | `type` | string | Turi: `contract_pending_approval` \| `vacancy_application_received` |
   | `title` | string | Render qilingan sarlavha (so'ralgan til) |
   | `body` | string | Render qilingan matn (so'ralgan til) |
   | `url` | string \| null | Bosilganda o'tiladigan deep-link; hodisada link bo'lmasa `null` |
   | `contract_id` | int \| null | `contract_*` turlari uchun tegishli shartnoma ID; boshqa turlarda `null` |
+  | `vacancy_id` | int \| null | `vacancy_*` turlari uchun vakansiya ID; boshqa turlarda `null` |
+  | `application_id` | int \| null | `vacancy_application_*` turlari uchun ariza ID; boshqa turlarda `null` |
   | `is_read` | bool | O'qilgan holati |
   | `created_at` | int | Yaratilgan vaqt (unix, sekund) |
+
+  ### 🔔 Notification turlari
+
+  | `type` | Qachon | Kim oladi |
+  |---|---|---|
+  | `contract_pending_approval` | Shartnoma yuklandi, tasdiqlash kutilmoqda | `contractApprove`/`contractReject` huquqidagilar + `superadmin` |
+  | `vacancy_application_received` | Nomzod XBA joylagan vakansiyaga ariza topshirdi | Vakansiya XBA tashkilotining barcha active xodimlari (user'i bor) |
 settings:
   encodeUrl: true
   timeout: 0
