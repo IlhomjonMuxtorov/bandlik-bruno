@@ -10,6 +10,9 @@ docs: |
   Bitta imtiyoz ta'rifining inline option tanlovlari (select turlari uchun) —
   lokalizatsiyalangan. Scalar/money/percent turlarida `[]`.
 
+  > Tanlovlar tarjima qilingan `label` bo'yicha alifbo (A-Z) tartibida qaytadi
+  > (fallback `uz`).
+
   **Auth:** Faqat `admin_token`.
 
   ### 📤 Response

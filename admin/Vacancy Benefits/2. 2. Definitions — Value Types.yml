@@ -9,6 +9,9 @@ http:
 docs: |
   Imtiyoz `value_type` ro'yxati — formadagi selector uchun.
 
+  > Ro'yxat tarjima qilingan `label` bo'yicha alifbo (A-Z) tartibida qaytadi — endi
+  > enum deklaratsiya tartibida emas.
+
   **Auth:** Faqat `admin_token`.
 
   ### 📤 Response

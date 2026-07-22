@@ -9,6 +9,10 @@ http:
 docs: |
   OVD (pasport beruvchi organlar — IIB bo'limlari va elchixonalar) ro'yxati, paginatsiya bilan.
 
+  > Ro'yxat `Accept-Language` bo'yicha alifbo (A-Z) tartibida qaytadi (fallback
+  > `uz`), agar `sort` yuborilmagan bo'lsa. Bu jadvalda `sort_order` ustuni yo'q —
+  > eski (id bo'yicha) tartibni qaytarish uchun `?sort=-id` yuboriladi.
+
   **Auth:** `admin_token`.
 
   ### 🔎 Query Parameters
@@ -21,7 +25,8 @@ docs: |
   | `q` | string | ➖ | Nom bo'yicha qidiruv (JSONB `name` bo'yicha `ILIKE`). |
   | `is_active` | int (0\|1) | ➖ | Faolligi bo'yicha filtr. |
   | `page` | int | ➖ | Sahifa raqami (default `1`). |
-  | `per-page` | int | ➖ | Sahifa hajmi (1–100, default `20`). |
+  | `per-page` | int | ➖ | Sahifa hajmi (1–300, default `20`). |
+  | `sort` | string | ➖ | Berilmasa — A-Z. Ruxsat etilgan: `id` \| `-id` \| `created_at` \| `-created_at`. |
 
   ### 📋 Headers
 

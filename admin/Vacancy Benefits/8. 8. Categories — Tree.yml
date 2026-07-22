@@ -14,6 +14,11 @@ docs: |
   Imtiyoz taksonomiyasi daraxti — yuqori darajadagi guruhlar va ularning subgroup'lari.
   Kategoriyalarda kod yo'q — id va lokalizatsiyalangan nom bilan aniqlanadi.
 
+  > Daraxtning **har bir darajasi** `Accept-Language` bo'yicha alifbo (A-Z)
+  > tartibida qaytadi (fallback `uz`), agar `sort` yuborilmagan bo'lsa. `?sort=sort_order`
+  > eski tahririy (editorial) tartibni qaytaradi — paginatsiya yo'q, faqat A-Z/`sort_order`
+  > tumblerini boshqaradi.
+
   **Auth:** Faqat `admin_token`.
 
   ### 🔎 Query Parameters
@@ -21,6 +26,8 @@ docs: |
   | Param | Type | Required | Description |
   |---|---|:---:|---|
   | `active_only` | int | ➖ | `1` — faqat faol kategoriyalar. |
+  | `sort` | string | ➖ | Berilmasa — A-Z (har bir daraja). `sort_order` — eski
+  tahririy tartib. |
 
   ### 📤 Response
 

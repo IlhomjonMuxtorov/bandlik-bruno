@@ -13,6 +13,10 @@ docs: 'Til ma''lumotnomasi. Tanlangan tilga ko''ra lokalizatsiya qilingan nomlar
   qaytariladi.
 
 
+  > Ro''yxat `Accept-Language` bo''yicha alifbo (A-Z) tartibida qaytadi (fallback
+  `uz`) — `sort_order` emas.
+
+
   **Auth:** `access_token`.
 
 

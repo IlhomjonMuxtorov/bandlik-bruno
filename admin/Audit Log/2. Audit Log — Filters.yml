@@ -10,6 +10,10 @@ docs: 'Filtr panelidagi dropdownlar uchun dictionary — rollar, kategoriyalar,
   faol tashkilotlar ro''yxati. Sahifa birinchi yuklanganda bir marta chaqiriladi.
 
 
+  > `actor_types`, `categories` va `organizations` — uchtasi ham tarjima qilingan
+  `label` / nom bo''yicha alifbo (A-Z) tartibida qaytadi.
+
+
   **Auth:** `admin_token`.
 
 

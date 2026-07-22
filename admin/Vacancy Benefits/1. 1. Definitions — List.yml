@@ -23,6 +23,9 @@ docs: |
   Typed benefit (imtiyoz) katalogi — sahifalangan. Vakansiyaga imtiyoz biriktirishda
   `q` (nom yoki kod) yoki `code` bo'yicha qidiriladi.
 
+  > Ro'yxat `Accept-Language` bo'yicha alifbo (A-Z) tartibida qaytadi (fallback
+  > `uz`) — `sort_order` emas, agar `sort` yuborilmagan bo'lsa.
+
   **Auth:** Faqat `admin_token`.
 
   ### 🔎 Query Parameters
@@ -34,8 +37,10 @@ docs: |
   | `category_id` | int | ➖ | Kategoriya bo'yicha filtr. |
   | `value_type` | string | ➖ | `boolean` \| `percent` \| `percent_range` \| `days` \| `percent_or_money` \| `money`. |
   | `is_active` | int | ➖ | `1` \| `0`. |
-  | `per-page` | int | ➖ | 1..100, default 20. |
+  | `per-page` | int | ➖ | 1..300, default 20. |
   | `page` | int | ➖ | Default 1. |
+  | `sort` | string | ➖ | Berilmasa — A-Z. `sort_order` — eski tahririy tartib.
+  Ruxsat etilgan: `id` \| `-id` \| `sort_order` \| `-sort_order` \| `created_at` \| `-created_at`. |
 
   ### 📤 Response
 

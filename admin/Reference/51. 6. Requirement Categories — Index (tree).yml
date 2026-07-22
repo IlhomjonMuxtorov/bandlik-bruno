@@ -16,6 +16,11 @@ http:
 docs: |-
   Talab taksonomiyasi — 8 ta yuqori guruh va ularning subgruplari daraxt ko'rinishida.
 
+  > Daraxtning **har bir darajasi** `Accept-Language` bo'yicha alifbo (A-Z)
+  > tartibida qaytadi (fallback `uz`), agar `sort` yuborilmagan bo'lsa. `?sort=sort_order`
+  > eski tahririy (editorial) tartibni qaytaradi — paginatsiya yo'q, faqat A-Z/`sort_order`
+  > tumblerini boshqaradi.
+
   **Auth:** `admin_token` (faqat `admin`).
 
   ### 🔎 Query Parameters
@@ -23,6 +28,8 @@ docs: |-
   | Param | Type | Required | Description |
   |---|---|:---:|---|
   | `active_only` | int (0\|1) | ➖ | `1` — faqat faol guruh/subgruplar. Default: hammasi. |
+  | `sort` | string | ➖ | Berilmasa — A-Z (har bir daraja). `sort_order` — eski
+  tahririy tartib. |
 
   ### 📤 Response (`data[]`)
 

@@ -23,6 +23,10 @@ docs: 'Vakansiya yaratishdagi **"Ish beruvchi / Rekruter"** bitta select uchun
   yuboriladi (`organization_id` — XBA tashkiloti id''si, alohida o''rnatiladi).
 
 
+  > Ro''yxat **default** tashkilot nomi bo''yicha alifbo (A-Z) tartibida qaytadi,
+  agar `sort` yuborilmagan bo''lsa.
+
+
   **Auth:** `admin_token` yoki org foydalanuvchi.
 
 
@@ -38,6 +42,9 @@ docs: 'Vakansiya yaratishdagi **"Ish beruvchi / Rekruter"** bitta select uchun
   | `page` | int | ➖ | Sahifa raqami (default `1`). |
 
   | `per-page` | int | ➖ | 1..100, default 20. |
+
+  | `sort` | string | ➖ | Berilmasa — A-Z (`name`). Ruxsat etilgan: `id` \| `-id`
+  \| `name` \| `-name`. |
 
 
   ### 📋 Headers

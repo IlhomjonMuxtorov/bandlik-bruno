@@ -36,6 +36,11 @@ docs: 'Davlatlar ro''yxati (paginatsiya bilan). Natijalar `Accept-Language` tili
   | `per-page` | int | ➖ | Sahifa hajmi (1–300, default `20`). Butun davlatlar to''plamini
   (~240) bir sahifada olish uchun `250` beriladi (dropdown to''liq A-Z). |
 
+  | `sort` | string | ➖ | Berilmasa — natija yuqorida aytilgan A-Z tartibda. `sort_order`
+  qiymati eski **tahririy (editorial)** tartibni qaytaradi (masalan boshqaruv jadvali
+  uchun). Ruxsat etilgan: `id` \| `-id` \| `sort_order` \| `-sort_order` \| `created_at`
+  \| `-created_at`. |
+
 
   ### 📋 Headers
 

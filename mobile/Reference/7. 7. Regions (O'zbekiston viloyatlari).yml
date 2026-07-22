@@ -17,6 +17,10 @@ docs: 'O''zbekiston viloyatlari ro''yxati (GCP Spravochniki, 15 yozuv).
   shu ID ga mos.
 
 
+  > Ro''yxat `Accept-Language` bo''yicha alifbo (A-Z) tartibida qaytadi (fallback
+  `uz`) — `sort_order` emas.
+
+
   **Auth:** `access_token`.
 
 

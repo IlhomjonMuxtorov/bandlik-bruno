@@ -10,6 +10,10 @@ docs: 'Tasdiqlangan vakansiyalar uchun mavjud sohalar ro''yxati (Restoran, Quril
   IT, ...).
 
 
+  > Ro''yxat `Accept-Language` bo''yicha alifbo (A-Z) tartibida qaytadi (fallback
+  `uz`) — `sort_order` maydoni javobda saqlanadi, lekin endi tartibni belgilamaydi.
+
+
   **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi).
 
 

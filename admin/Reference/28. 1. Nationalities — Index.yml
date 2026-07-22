@@ -9,6 +9,9 @@ http:
 docs: |
   Millatlar ro'yxati (paginatsiya bilan).
 
+  > Ro'yxat `Accept-Language` bo'yicha alifbo (A-Z) tartibida qaytadi (fallback
+  > `uz`) — `sort_order` emas, agar `sort` yuborilmagan bo'lsa.
+
   **Auth:** `admin_token`.
 
   ### 🔎 Query Parameters
@@ -18,7 +21,9 @@ docs: |
   | `q` | string | ➖ | Nom bo'yicha qidiruv (JSONB `name` bo'yicha `ILIKE`). |
   | `is_active` | int (0\|1) | ➖ | Faolligi bo'yicha filtr. |
   | `page` | int | ➖ | Sahifa raqami (default `1`). |
-  | `per-page` | int | ➖ | Sahifa hajmi (1–100, default `20`). |
+  | `per-page` | int | ➖ | Sahifa hajmi (1–300, default `20`). |
+  | `sort` | string | ➖ | Berilmasa — A-Z. `sort_order` — eski tahririy tartib.
+  Ruxsat etilgan: `id` \| `-id` \| `sort_order` \| `-sort_order` \| `created_at` \| `-created_at`. |
 
   ### 📋 Headers
 

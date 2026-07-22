@@ -11,8 +11,11 @@ http:
   auth: inherit
 docs: |-
   Vakansiya sohalari (sektorlar) ro'yxati — yaratish/tahrirlash formasidagi soha
-  tanlagichini to'ldiradi. Faqat faol yozuvlar, `sort_order` bo'yicha tartiblangan,
-  paginatsiyasiz tekis massiv.
+  tanlagichini to'ldiradi. Faqat faol yozuvlar, paginatsiyasiz tekis massiv.
+
+  > Ro'yxat `Accept-Language` bo'yicha alifbo (A-Z) tartibida qaytadi (fallback
+  > `uz`) — endi `sort_order` bo'yicha emas. `sort` query parametri yo'q (sof select
+  > feed).
 
   **Auth:** `admin_token` yoki Employer/Recruiter token.
 

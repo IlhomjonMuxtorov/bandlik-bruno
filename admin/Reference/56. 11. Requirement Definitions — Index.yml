@@ -29,6 +29,9 @@ docs: |-
   Talab andozalari (definition) katalogi — paginatsiyalangan ro'yxat. Admin to'liq
   3-tilli `name`/`description` ko'radi.
 
+  > Ro'yxat `Accept-Language` bo'yicha alifbo (A-Z) tartibida qaytadi (fallback
+  > `uz`) — `sort_order` emas, agar `sort` yuborilmagan bo'lsa.
+
   **Auth:** `admin_token` (faqat `admin`).
 
   ### 🔎 Query Parameters
@@ -40,6 +43,9 @@ docs: |-
   | `value_type` | string | ➖ | `integer_range` \| `boolean` \| `level` \| `reference_multi` ... |
   | `is_matchable` | int (0\|1) | ➖ | Nomzodga moslanadiganlar. |
   | `q` | string | ➖ | Nom bo'yicha qidiruv (uz/ru/en). |
+  | `page`, `per-page` | int | ➖ | Pagination (`per-page` 1–300, default 20). |
+  | `sort` | string | ➖ | Berilmasa — A-Z. `sort_order` — eski tahririy tartib.
+  Ruxsat etilgan: `id` \| `-id` \| `sort_order` \| `-sort_order` \| `created_at` \| `-created_at`. |
 
   ### 📤 Response (`data[]`)
 

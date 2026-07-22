@@ -13,6 +13,10 @@ docs: 'Berilgan viloyatga tegishli tuman/shaharlar ro''yxati. `id` qiymati GCP `
   ga teng (masalan, 1001 = Uchtepa tumani, 1011 = Bektemir tumani).
 
 
+  > Ro''yxat `Accept-Language` bo''yicha alifbo (A-Z) tartibida qaytadi (fallback
+  `uz`) — `sort_order` emas.
+
+
   **Auth:** `access_token`.
 
 

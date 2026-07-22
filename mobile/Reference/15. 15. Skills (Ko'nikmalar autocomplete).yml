@@ -18,6 +18,9 @@ docs: |
   `professional_skills` guruhi (va uning barcha kichik guruhlari) ichidagi aktiv
   ta'riflarni nom bo'yicha qidiradi. `q` bo'sh bo'lsa — birinchi 20 ta taklif.
 
+  > Natijalar `Accept-Language` bo'yicha alifbo (A-Z) tartibida qaytadi (fallback
+  > `uz`).
+
   Qaytgan `id` ni `POST /mobile/cv/{cv_id}/skill` ga `requirement_id` sifatida
   yuboriladi.
 

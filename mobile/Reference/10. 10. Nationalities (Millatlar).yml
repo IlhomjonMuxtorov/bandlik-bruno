@@ -17,6 +17,10 @@ docs: 'Millat/etnik guruhlar ro''yxati (GCP Spravochniki, ~510 yozuv). Faqat `is
   19 = Qozoq).
 
 
+  > Ro''yxat `Accept-Language` bo''yicha alifbo (A-Z) tartibida qaytadi (fallback
+  `uz`) — `sort_order` emas.
+
+
   **Auth:** `access_token`.
 
 

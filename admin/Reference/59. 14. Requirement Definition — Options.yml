@@ -15,6 +15,10 @@ docs: |-
   Bitta definition uchun resolved tanlovlar (ref jadval / enum / inline options),
   `Accept-Language` bo'yicha tarjima qilingan — wizard widgetini to'ldiradi.
 
+  > Tanlovlar tarjima qilingan `label` bo'yicha alifbo (A-Z) tartibida qaytadi
+  > (fallback `uz`) — **bundan mustasno**: ordinal shkalalar (masalan darajali
+  > havolalar) hamon o'z tabiiy (`sort_order`) tartibida qoladi.
+
   **Auth:** `admin_token` (faqat `admin`).
 
   ### 📤 Response (`data[]`)

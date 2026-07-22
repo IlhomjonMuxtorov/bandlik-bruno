@@ -22,6 +22,9 @@ docs: |-
   checkbox'lari). Tarjima `Accept-Language` bo'yicha. `choices` bu ro'yxatda
   **qaytmaydi** — kerak bo'lganda `Requirement Options` orqali lazy yuklang.
 
+  > Ro'yxat `Accept-Language` bo'yicha alifbo (A-Z) tartibida qaytadi (fallback
+  > `uz`). `sort` query parametri yo'q (sof select feed).
+
   **Auth:** `admin_token` yoki Employer/Recruiter token.
 
   ### 🔎 Query Parameters

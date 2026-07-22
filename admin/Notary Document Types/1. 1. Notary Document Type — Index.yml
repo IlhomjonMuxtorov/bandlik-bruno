@@ -10,6 +10,10 @@ docs: 'Notarius hujjat turlari ro''yxati (Pasport, Diplom, Tug''ilganlik haqida 
   Skrinshotdagi "Hujjat turi" dropdownini to''ldirish uchun ishlatiladi.
 
 
+  > Ro''yxat `Accept-Language` bo''yicha alifbo (A-Z) tartibida qaytadi (fallback
+  `uz`), agar `sort` yuborilmagan bo''lsa.
+
+
   **Auth:** `admin_token`.
 
 
@@ -24,9 +28,11 @@ docs: 'Notarius hujjat turlari ro''yxati (Pasport, Diplom, Tug''ilganlik haqida 
 
   | `is_active` | int (0\|1) | ➖ | |
 
-  | `page`, `per-page` | int | ➖ | Pagination |
+  | `page`, `per-page` | int | ➖ | Pagination (`per-page` 1–300, default 20). |
 
-  | `sort` | string | ➖ | `id` \| `sort_order` \| `code` \| `created_at` |
+  | `sort` | string | ➖ | Berilmasa — A-Z. `sort_order` — eski tahririy tartib.
+  Ruxsat etilgan: `id` \| `sort_order` \| `code` \| `created_at` (har biri `-` prefiks
+  bilan kamayuvchi bo''lishi mumkin). |
 
 
   ### 📤 Response (`data.items[]`)

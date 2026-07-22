@@ -7,7 +7,10 @@ http:
   url: '{{base_url}}/mobile/course-categories'
   auth: inherit
 docs: |-
-  "Kurs turi" filtri uchun ma'lumotnoma — admin tomonidan boshqariladigan faol (`is_active=true`) kurs turlari, `course_type` jadvalidan, `sort_order` bo'yicha. Filtr oynasidagi "Kurs turi" ro'yxatini to'ldirish uchun ishlatiladi.
+  "Kurs turi" filtri uchun ma'lumotnoma — admin tomonidan boshqariladigan faol (`is_active=true`) kurs turlari, `course_type` jadvalidan. Filtr oynasidagi "Kurs turi" ro'yxatini to'ldirish uchun ishlatiladi.
+
+  > Ro'yxat `Accept-Language` bo'yicha alifbo (A-Z) tartibida qaytadi (fallback
+  > `uz`) — endi `sort_order` bo'yicha emas.
 
   **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi).
 

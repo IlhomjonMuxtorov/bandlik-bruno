@@ -15,6 +15,10 @@ docs: 'Faqat viza rasmiylashtirish mumkin bo''lgan davlatlar (`is_visa_available
   Vakansiya filtri va viza yo''nalishi tanlashda ishlatiladi.
 
 
+  > Ro''yxat `Accept-Language` bo''yicha alifbo (A-Z) tartibida qaytadi (fallback
+  `uz`) — `sort_order` emas.
+
+
   **Auth:** `guest_token` yoki `access_token`.
 
 

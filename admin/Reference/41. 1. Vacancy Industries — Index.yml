@@ -10,6 +10,9 @@ docs: |
   Vakansiya sohalarini boshqarish ro'yxati (paginatsiya bilan). Faol va nofaol
   yozuvlar ham qaytadi, barcha tillar bilan.
 
+  > Ro'yxat `Accept-Language` bo'yicha alifbo (A-Z) tartibida qaytadi (fallback
+  > `uz`) — `sort_order` emas, agar `sort` yuborilmagan bo'lsa.
+
   **Auth:** `admin_token` (faqat `admin`).
 
   > Forma uchun yengil dropdown kerak bo'lsa — `Vacancies` kolleksiyasidagi
@@ -22,7 +25,9 @@ docs: |
   | `q` | string | ➖ | `code`, nom, **izoh** yoki bog'langan **kategoriya nomi** (`uz`/`ru`/`en`) bo'yicha qidiruv (`ILIKE`). Izohga yozilgan matn bo'yicha ham soha topiladi. |
   | `is_active` | int (0\|1) | ➖ | Faolligi bo'yicha filtr. |
   | `page` | int | ➖ | Sahifa raqami (default `1`). |
-  | `per-page` | int | ➖ | Sahifa hajmi (1–100, default `20`). |
+  | `per-page` | int | ➖ | Sahifa hajmi (1–300, default `20`). |
+  | `sort` | string | ➖ | Berilmasa — A-Z. `sort_order` — eski tahririy tartib.
+  Ruxsat etilgan: `id` \| `-id` \| `sort_order` \| `-sort_order` \| `created_at` \| `-created_at`. |
 
   ### 📋 Headers
 

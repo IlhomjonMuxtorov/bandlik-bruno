@@ -17,7 +17,9 @@ docs: |
   - **Admin** — barcha tashkilotlarning barcha shablonlarini ko'radi (`is_active` holatidan qat'i nazar).
   - **Tashkilot foydalanuvchisi** — faqat **o'z tashkiloti**ning va faqat `is_active = true` shablonlarini ko'radi.
 
-  Tartiblash standart `id DESC` (eng yangi birinchi).
+  > Ro'yxat **default** `name` bo'yicha alifbo (A-Z) tartibida qaytadi ("Shablondan
+  > yuklash" pickeri uchun) — endi `id DESC` emas. `sort` yuborilsa A-Z o'chadi;
+  > eng yangi birinchi (eski xatti-harakat) uchun `?sort=-id` yuboriladi.
 
   ### 🔎 Query Parameters
 
@@ -25,7 +27,10 @@ docs: |
   |---|---|:---:|---|
   | `per-page` | int | ➖ | Sahifa hajmi. Default `20`, oraliq `1`–`100`. |
   | `page` | int | ➖ | Sahifa raqami (1 dan boshlanadi). Default `1`. |
-  | `sort` | string | ➖ | Tartiblash maydoni. Ruxsat etilgan: `id` \| `updated_at` \| `created_at`. Kamayish uchun `-` prefiks (masalan `-updated_at`). Default `-id`. |
+  | `sort` | string | ➖ | Tartiblash maydoni. Ruxsat etilgan: `id` \| `name` \|
+  `updated_at` \| `created_at`. Kamayish uchun `-` prefiks (masalan `-updated_at`).
+  Berilmasa — A-Z (`name`). Eski `-id` (eng yangi birinchi) tartibni qaytarish uchun
+  aniq `?sort=-id` yuboring. |
 
   ### 📤 Response (`data`)
 

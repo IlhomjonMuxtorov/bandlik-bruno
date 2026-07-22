@@ -15,6 +15,10 @@ docs: 'Aktiv shaharlar ro''yxati. `country_id` bo''yicha filterlash va/yoki `q` 
   nom qidiruvi. Kamida bittasi (`country_id` yoki `q`) berilishi shart.
 
 
+  > Ro''yxat `Accept-Language` bo''yicha alifbo (A-Z) tartibida qaytadi (fallback
+  `uz`) — `sort_order` emas.
+
+
   **Auth:** har qanday yaroqli JWT.
 
 

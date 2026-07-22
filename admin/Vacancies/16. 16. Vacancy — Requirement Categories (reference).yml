@@ -13,6 +13,9 @@ docs: |-
   Talab taksonomiyasi daraxti (faqat faol) — vakansiya sehrgaridagi talab
   tanlagichini guruhlaydi. Tarjima `Accept-Language` bo'yicha.
 
+  > Daraxtning **har bir darajasi** `Accept-Language` bo'yicha alifbo (A-Z)
+  > tartibida qaytadi (fallback `uz`). `sort` query parametri yo'q (sof select feed).
+
   **Auth:** `admin_token` yoki Employer/Recruiter token.
 
   > Kategoriyalarni **boshqarish** admin-only — `Reference` kolleksiyasidagi

@@ -12,6 +12,9 @@ http:
     kurs o'sha davlatni mo'ljallagan YOKI davlatga bog'liq emas (`country_id IS NULL`).
     Ham `public`, ham `vacancy_only` kurslar qaytadi.
 
+    > Ro'yxat **default** kurs nomi bo'yicha alifbo (A-Z) tartibida qaytadi, agar
+    > `sort` yuborilmagan bo'lsa.
+
     **Auth:** `admin_token`.
 
     ### 🔎 Query Parameters
@@ -21,7 +24,9 @@ http:
     | `organization_id` | int | ✅ | O'quv markaz `organization.id` |
     | `country_id` | int | ✅ | Vakansiya davlati `country.id` |
     | `page`, `per-page` | int | ➖ | Pagination |
-    | `sort` | string | ➖ | `id` \| `sort_order` \| `price` \| `name` |
+    | `sort` | string | ➖ | Berilmasa — A-Z (`name`). Ruxsat etilgan: `id` \|
+    `sort_order` \| `price` \| `name` (har biri `-` prefiks bilan kamayuvchi bo'lishi
+    mumkin). |
 
     ### 📤 Response
 

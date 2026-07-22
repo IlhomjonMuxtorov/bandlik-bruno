@@ -13,6 +13,11 @@ docs: |-
   Bitta talab andozasi uchun resolved tanlovlar (ref jadval / enum / inline) —
   select/reference/level tipidagi widgetni to'ldirish uchun lazy yuklanadi.
 
+  > Tanlovlar tarjima qilingan `label` bo'yicha alifbo (A-Z) tartibida qaytadi
+  > (fallback `uz`) — **bundan mustasno**: ordinal shkalalar (masalan `language_level`,
+  > `education_level` — `cert.driving_license` kabi darajali havolalar) hamon o'z
+  > tabiiy (`sort_order`) tartibida qoladi, chunki daraja tartibi alifbodan muhimroq.
+
   **Auth:** `admin_token` yoki Employer/Recruiter token.
 
   ### 📤 Response (`data[]`)

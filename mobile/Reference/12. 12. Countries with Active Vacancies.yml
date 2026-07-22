@@ -16,8 +16,9 @@ docs: 'Bosh ekran (Asosiy) davlatlar lentasi uchun: faqat kamida 1 ta aktiv
   (badge) bilan qaytadi.
 
 
-  Davlatlar `sort_order`, `id` bo''yicha tartiblangan. Vakansiyasi yo''q davlatlar
-  ro''yxatda umuman bo''lmaydi.
+  Davlatlar `Accept-Language` bo''yicha alifbo (A-Z) tartibida qaytadi (fallback
+  `uz`) — endi `sort_order` bo''yicha emas. Vakansiyasi yo''q davlatlar ro''yxatda
+  umuman bo''lmaydi.
 
 
   **Auth:** har qanday yaroqli JWT (`guest_token` yoki `access_token`).

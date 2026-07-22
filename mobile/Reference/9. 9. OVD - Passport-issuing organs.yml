@@ -18,6 +18,10 @@ docs: 'Pasport / ID-karta beruvchi IIB bo''limchalari va xorijdagi elchixonalar 
   shu jadval ID ga mos.
 
 
+  > Ro''yxat `Accept-Language` bo''yicha alifbo (A-Z) tartibida qaytadi (fallback
+  `uz`).
+
+
   **Auth:** `access_token`.
 
 

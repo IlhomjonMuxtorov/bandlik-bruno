@@ -9,6 +9,10 @@ http:
 docs: 'Shaharlar ro''yxati. Odatda `country_id` bo''yicha filterlanadi.
 
 
+  > Ro''yxat `Accept-Language` bo''yicha alifbo (A-Z) tartibida qaytadi (fallback
+  `uz`) — `sort_order` emas, agar `sort` yuborilmagan bo''lsa.
+
+
   **Auth:** `admin_token`.
 
 
@@ -27,7 +31,11 @@ docs: 'Shaharlar ro''yxati. Odatda `country_id` bo''yicha filterlanadi.
 
   | `page` | int | ➖ | Sahifa raqami |
 
-  | `per-page` | int | ➖ | Sahifa hajmi |
+  | `per-page` | int | ➖ | Sahifa hajmi (1–300, default `20`). |
+
+  | `sort` | string | ➖ | Berilmasa — A-Z. `sort_order` — eski tahririy tartib.
+  Ruxsat etilgan: `id` \| `-id` \| `sort_order` \| `-sort_order` \| `created_at` \|
+  `-created_at`. |
 
 
   ### 📤 Response (`data.items[]`)

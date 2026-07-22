@@ -14,8 +14,9 @@ http:
 docs: |-
   XBA tashkilotlar ro'yxati filtri (viloyat dropdown) uchun: faqat kamida 1 ta faol
   XBA tashkiloti bor viloyatlar, har birida faol XBA tashkilotlar soni (badge) bilan
-  qaytadi. Viloyatlari `sort_order`, `id` bo'yicha tartiblangan. XBA tashkiloti yo'q
-  viloyatlar ro'yxatda umuman bo'lmaydi — xuddi `countries/with-vacancies` kabi.
+  qaytadi. Viloyatlar `Accept-Language` bo'yicha alifbo (A-Z) tartibida qaytadi
+  (fallback `uz`) — endi `sort_order` bo'yicha emas. XBA tashkiloti yo'q viloyatlar
+  ro'yxatda umuman bo'lmaydi — xuddi `countries/with-vacancies` kabi.
 
   **Auth:** har qanday yaroqli JWT (`access_token` yoki `guest_token`).
 

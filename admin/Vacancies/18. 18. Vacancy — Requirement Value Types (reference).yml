@@ -13,6 +13,9 @@ docs: |-
   `value_type` enum ro'yxati — har bir talab uchun qaysi widget chizilishini
   belgilaydi (yosh=range, ha/yo'q=checkbox, ref/enum=dropdown, multi=multi-select).
 
+  > Ro'yxat tarjima qilingan `label` bo'yicha alifbo (A-Z) tartibida qaytadi — endi
+  > enum deklaratsiya tartibida emas.
+
   **Auth:** `admin_token` yoki Employer/Recruiter token.
 
   ### 📤 Response (`data[]`)
