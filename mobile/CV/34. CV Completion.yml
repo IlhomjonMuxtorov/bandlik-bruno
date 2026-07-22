@@ -12,8 +12,10 @@ http:
     value: uz
   auth: inherit
 docs: 'CV to''ldirilganlik foizini (`completion_percent`) va bo''limlar bo''yicha
-  checklist''ni qaytaradi. Foiz 10 ta majburiy bo''limdan to''ldirilganlari asosida
-  hisoblanadi (`courses` bo''limi ixtiyoriy — foizga kirmaydi).
+  checklist''ni qaytaradi. Foiz **8 ta majburiy** bo''limdan to''ldirilganlari asosida
+  hisoblanadi. 3 ta bo''lim ixtiyoriy va foizga kirmaydi: `courses`,
+  `passport_identity` (JSHSHIR MVD''da yo''q — faqat qo''lda kiritiladi) va
+  `documents` (skanlar MVD''da yo''q).
 
 
   **Auth:** `access_token`.
@@ -59,7 +61,7 @@ docs: 'CV to''ldirilganlik foizini (`completion_percent`) va bo''limlar bo''yich
   | `birth_registration` | ✅ | Tug''ilgan joy (MVD) **va** ro''yxatdan o''tgan manzil
   mavjud |
 
-  | `passport_identity` | ✅ | JSHSHIR (`tin`) to''ldirilgan |
+  | `passport_identity` | ➖ | JSHSHIR (`tin`) to''ldirilgan. **Foizga kirmaydi** |
 
   | `education` | ✅ | CVda kamida 1 ta ta''lim yozuvi |
 
@@ -69,7 +71,7 @@ docs: 'CV to''ldirilganlik foizini (`completion_percent`) va bo''limlar bo''yich
 
   | `languages` | ✅ | Kamida 1 ta til qo''shilgan |
 
-  | `documents` | ✅ | CVga kamida 1 ta hujjat biriktirilgan |
+  | `documents` | ➖ | CVga kamida 1 ta hujjat biriktirilgan. **Foizga kirmaydi** |
 
   | `driver_license` | ✅ | Haydovchilik guvohnomasi mavjud |
 
@@ -78,7 +80,9 @@ docs: 'CV to''ldirilganlik foizini (`completion_percent`) va bo''limlar bo''yich
   | `contact` | ✅ | `contact_phone` yoki user telefoni mavjud |
 
 
-  > 90% = 10 ta majburiy bo''limdan aynan 1 tasi bo''sh — `missing[0]` o''sha bo''lim.
+  > 88% = 8 ta majburiy bo''limdan aynan 1 tasi bo''sh — `missing[0]` o''sha bo''lim.
+  `is_complete: true` bo''lsa CV `active` bo''ladi va vakansiyaga ariza berish ochiladi
+  (ixtiyoriy bo''limlar bo''sh bo''lsa ham).
 
 
   ### ⚠️ Errors
