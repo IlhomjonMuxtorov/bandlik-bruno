@@ -7,9 +7,14 @@ http:
   url: '{{base_url}}/admin/notifications/unread-count'
   auth: inherit
 docs: |
-  Joriy foydalanuvchining o'qilmagan bildirishnomalari soni. Header'dagi
-  qo'ng'iroqcha (Bell) badge shu qiymatni ko'rsatadi; `0` bo'lsa badge
-  yashiriladi.
+  Joriy foydalanuvchining o'qilmagan **bildirishnomalari + chat xabarlari**ning
+  umumiy soni — bitta so'rovda. Header'dagi qo'ng'iroqcha (Bell) badge
+  `notifications`, chat ikonkasi badge'i `chats`, umumiy badge esa `total`
+  qiymatini ko'rsatadi; `0` bo'lsa badge yashiriladi.
+
+  Chat soni foydalanuvchi ko'ra oladigan tashkilotlar bo'yicha hisoblanadi
+  (platform admin — chatga ega barcha tashkilotlar; qolganlar — faqat o'zi
+  xodim bo'lgan tashkilotlar). Tashkiloti bo'lmasa `chats = 0`.
 
   **Auth:** `admin_token`.
 
@@ -17,7 +22,10 @@ docs: |
 
   | Field | Type | Description |
   |---|---|---|
-  | `count` | int | O'qilmagan bildirishnomalar soni |
+  | `count` | int | ⚠️ Deprecated — `notifications` bilan bir xil, eski clientlar uchun saqlangan |
+  | `notifications` | int | O'qilmagan bildirishnomalar soni (inbox) |
+  | `chats` | int | Ko'rinadigan suhbatlardagi o'qilmagan xabarlar yig'indisi (`xba_unread_count`) |
+  | `total` | int | `notifications + chats` |
 settings:
   encodeUrl: true
   timeout: 0
