@@ -12,9 +12,9 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"title\": \"Haydovchi CVim — yangilangan\",\n    \"document_ids\": null,\n    \"driver_certificate_ids\": null\n}"
+    data: "{\n    \"industry_id\": 2,\n    \"document_ids\": null,\n    \"driver_certificate_ids\": null\n}"
   auth: inherit
-docs: 'CV meta ma''lumotlarini yangilash (title, photo, is_primary).
+docs: 'CV meta ma''lumotlarini yangilash (soha, photo, is_primary).
 
 
   **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
@@ -27,7 +27,11 @@ docs: 'CV meta ma''lumotlarini yangilash (title, photo, is_primary).
 
   |---|---|:---:|---|
 
-  | `title` | string | ✅ | CV nomi |
+  | `industry_id` | int \| null | ➖ | CV sohasi; `GET /mobile/vacancy-industries` dan
+  `id`. Yuborilmasa — tegilmaydi (eski qiymat saqlanadi). |
+
+  | `title` | string | ➖ | **DEPRECATED** — erkin matn CV nomi. Yuborilmasa —
+  tegilmaydi. `industry_id` bilan almashtirilmoqda. |
 
   | `photo_url` | string \| null | ➖ | CV rasm override |
 
@@ -68,7 +72,7 @@ docs: 'CV meta ma''lumotlarini yangilash (title, photo, is_primary).
 
   | `456` | Guest — registratsiya tugatilmagan |
 
-  | `400` | Validatsiya xatosi |
+  | `400` | Validatsiya xatosi (jumladan mavjud bo''lmagan `industry_id`) |
 
   | `404` | CV topilmadi |
 

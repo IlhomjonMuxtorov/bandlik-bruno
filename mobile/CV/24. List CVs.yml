@@ -37,7 +37,11 @@ docs: 'Joriy nomzodning **barcha CV** ro''yxati — "Rezumelarim" ekrani uchun. 
 
   | `id` | int | CV ID — boshqa CV endpointlarda `cv_id` |
 
-  | `profession` | string | CV `title` |
+  | `profession` | string | Ko''rsatiladigan kasb: soha nomi (`Accept-Language`
+  bo''yicha), soha tanlanmagan bo''lsa — eski `title` matni |
+
+  | `industry` | object \| null | `{ id, name }` — CV sohasi. `null` — soha
+  tanlanmagan (faqat `title` bilan yaratilgan eski CV) |
 
   | `photo_url` | string \| null | CV rasmi (CV → candidate → passport tartibida)
   |

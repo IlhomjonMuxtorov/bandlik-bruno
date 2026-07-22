@@ -33,8 +33,17 @@ docs: 'Bitta CV-ning to''liq tafsilotlari (education, experience, languages va h
 
   |---|---|---|
 
-  | `header` | object | `{ cv_id, title, status, is_primary, photo_url, full_name,
-  completion_percent, is_complete, completion, stats }` |
+  | `header` | object | `{ cv_id, title, profession, industry, status, is_primary,
+  photo_url, full_name, completion_percent, is_complete, completion, stats }` |
+
+  | `header.profession` | string | Ko''rsatiladigan kasb: soha nomi
+  (`Accept-Language` bo''yicha), soha bo''lmasa — `header.title` |
+
+  | `header.industry` | object \| null | `{ id, name }` — CV sohasi. `null` — soha
+  tanlanmagan |
+
+  | `header.title` | string | **DEPRECATED** — erkin matn CV nomi. Soha bilan
+  yaratilgan CVda bo''sh qator |
 
   | `header.status` | string | `draft` yoki `active` — to''liqlikdan avtomatik
   hisoblanadi (mijoz o''rnatmaydi) |

@@ -12,7 +12,7 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"title\": \"Haydovchi CVim\",\n    \"is_primary\": false,\n    \"document_ids\": null,\n    \"driver_certificate_ids\": null\n}"
+    data: "{\n    \"industry_id\": 1,\n    \"is_primary\": false,\n    \"document_ids\": null,\n    \"driver_certificate_ids\": null\n}"
   auth: inherit
 docs: 'Yangi CV yaratish.
 
@@ -27,7 +27,11 @@ docs: 'Yangi CV yaratish.
 
   |---|---|:---:|---|
 
-  | `title` | string | ✅ | CV nomi (foydalanuvchi ko''radigan) |
+  | `industry_id` | int \| null | ➖ | CV sohasi (kasb yo''nalishi). Qiymat `GET
+  /mobile/vacancy-industries` dan olinadi. `null`/yuborilmasa — soha tanlanmagan. |
+
+  | `title` | string | ➖ | **DEPRECATED** — erkin matn CV nomi. `industry_id` bilan
+  almashtirilmoqda; faqat eski mijozlar uchun qoldirilgan. |
 
   | `photo_url` | string \| null | ➖ | CV uchun maxsus rasm (bo''lmasa candidate rasmi)
   |
