@@ -33,7 +33,14 @@ docs: |
 
   `ResponseFormatter` format: `{ success, data: { items: [...], pagination: {...} } }`.
 
-  Har element mobile bilan bir xil shape, lekin `unread_count` — XBA tomonidagi o'qilmaganlar soni.
+  Har element mobile bilan asosan bir xil shape, lekin: `unread_count` — XBA tomonidagi o'qilmaganlar soni,
+  va faqat admin listida qo'shimcha `candidate` bloki bo'ladi (mobil listda bu blok umuman yo'q).
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `candidate.id` | int \| null | Nomzod id. Ariza yoki nomzod yozuvi topilmasa `null`. |
+  | `candidate.full_name` | string \| null | Pasport latin FIO (`surname name patronym`); pasport ma'lumoti yo'q bo'lsa `username`. |
+  | `candidate.photo_url` | string \| null | Yuklangan nomzod rasmi, bo'lmasa MVD pasport fotosi. Ikkalasi ham yo'q — `null`. |
 
   ### ⚠️ Errors
 
