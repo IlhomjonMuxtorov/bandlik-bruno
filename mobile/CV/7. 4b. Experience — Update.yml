@@ -13,8 +13,10 @@ http:
   body:
     type: json
     data: "{\n    \"company_name\": \"Bandlik\",\n    \"position\": \"Senior\
-      \ Buxgalter\",\n    \"start_date\": \"15.01.2023\",\n    \"achievements\": \"\
-      Jamoani boshqardim\",\n    \"recommendation_file_id\": 42\n}"
+      \ Buxgalter\",\n    \"country_id\": 1,\n    \"city_id\": 1,\n    \"start_date\"\
+      : \"15.01.2023\",\n    \"description\": \"Buxgalteriya hisobini yuritish\",\n\
+      \    \"achievements\": \"Jamoani boshqardim\",\n    \"recommendation_file_id\"\
+      : 42\n}"
   auth: inherit
 docs: 'Mavjud tajribani yangilash. Maydonlar `create` bilan bir xil.
 
@@ -39,9 +41,18 @@ docs: 'Mavjud tajribani yangilash. Maydonlar `create` bilan bir xil.
 
   | `position` | string | ✅ | Lavozim |
 
+  | `country_id` | int | ➖ | Ish joyi davlati (`GET /mobile/countries`). Yuborilmasa
+  `null` ga tushadi |
+
+  | `city_id` | int | ➖ | Ish joyi shahri (`GET /mobile/cities?country_id=<id>`).
+  Tanlangan `country_id` ga tegishli bo''lishi shart |
+
   | `start_date` | date | ✅ | `DD.MM.YYYY` |
 
   | `end_date` | date | ➖ | `null` = hozirgacha |
+
+  | `description` | string | ➖ | Vazifalar va qilgan ishlar (erkin matn). Bo''sh matn
+  `null` ga aylanadi |
 
   | `achievements` | string | ➖ | Ushbu ish o''rnidagi yutuqlar (erkin matn). Bo''sh
   matn `null` ga aylanadi |

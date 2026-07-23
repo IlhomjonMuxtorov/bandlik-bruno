@@ -11,7 +11,8 @@ http:
   body:
     type: json
     data: "{\n  \"company_name\": \"ABC LLC\",\n  \"position\": \"Katta sotuv menejeri\"\
-      ,\n  \"start_date\": \"01.02.2021\"\n}"
+      ,\n  \"country_id\": 1,\n  \"city_id\": 1,\n  \"start_date\": \"01.02.2021\"\
+      ,\n  \"description\": \"Savdo jamoasini boshqarish\"\n}"
   auth: inherit
 docs: 'Mavjud ish tajribasi yozuvini yangilaydi.
 
@@ -21,6 +22,14 @@ docs: 'Mavjud ish tajribasi yozuvini yangilaydi.
 
 
   **Auth:** `applicationCvManage` — faqat `xba_admin` / `xba_manager`.
+
+
+  ### 📥 Request Body
+
+  Maydonlar `7a. Experience Create` bilan bir xil (`company_name`, `position`,
+  `country_id`, `city_id`, `start_date`, `end_date`, `description`, `achievements`,
+  `recommendation_file_id`). To''liq almashtirish semantikasi — yuborilmagan ixtiyoriy
+  maydon `null` ga tushadi.
 
 
   ### ⚠️ Errors

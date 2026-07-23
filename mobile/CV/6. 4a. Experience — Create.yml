@@ -13,8 +13,10 @@ http:
   body:
     type: json
     data: "{\n    \"company_name\": \"Bandlik\",\n    \"position\": \"Buxgalter\"\
-      ,\n    \"start_date\": \"15.01.2023\",\n    \"achievements\": \"Yillik hisobotlarni\
-      \ avtomatlashtirdim\",\n    \"recommendation_file_id\": 42\n}"
+      ,\n    \"country_id\": 1,\n    \"city_id\": 1,\n    \"start_date\": \"15.01.2023\"\
+      ,\n    \"description\": \"Hujjatlar bilan ishlash, oylik hisobotlarni tayyorlash\"\
+      ,\n    \"achievements\": \"Yillik hisobotlarni avtomatlashtirdim\",\n    \"recommendation_file_id\"\
+      : 42\n}"
   auth: inherit
 docs: 'Yangi ish tajribasi qo''shish.
 
@@ -33,15 +35,44 @@ docs: 'Yangi ish tajribasi qo''shish.
 
   | `position` | string | ✅ | Lavozim |
 
+  | `country_id` | int | ➖ | Ish joyi davlati — `GET /mobile/countries` dagi `id` |
+
+  | `city_id` | int | ➖ | Ish joyi shahri — `GET /mobile/cities?country_id=<id>` dagi
+  `id`. Tanlangan `country_id` ga tegishli bo''lishi shart |
+
   | `start_date` | date | ✅ | `DD.MM.YYYY` |
 
   | `end_date` | date | ➖ | `null` = hozirgacha |
+
+  | `description` | string | ➖ | Vazifalar va qilgan ishlar (erkin matn). Bo''sh matn
+  `null` ga aylanadi |
 
   | `achievements` | string | ➖ | Ushbu ish o''rnidagi yutuqlar (erkin matn). Bo''sh
   matn `null` ga aylanadi |
 
   | `recommendation_file_id` | int | ➖ | `/mobile/upload` orqali yuklangan tavsiyanoma
   hujjati ID (ish beruvchi bergan tavsiyanoma) |
+
+
+  ### 📤 Response
+
+  `4. Experience — List` bilan bir xil obyekt. `country` / `city` — `{ id, name }`
+  yoki `null`; nomi qurilma tilida qaytadi (`user_device.language`, token''dagi
+  `device_id` bo''yicha — `Accept-Language` header mobil modulda ishlatilmaydi).
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `400` | Validatsiya — jumladan `city_id` tanlangan `country_id` ga tegishli emas |
+
+  | `403` | Shaxsi tasdiqlanmagan (`is_verified=false`) |
+
+  | `404` | CV topilmadi |
 
   '
 settings:

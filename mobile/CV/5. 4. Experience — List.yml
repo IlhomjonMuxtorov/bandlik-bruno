@@ -28,11 +28,20 @@ docs: 'Ish tajribasi ro''yxati.
 
   | `position` | string | Lavozim |
 
+  | `country` | object \| null | Ish joyi davlati — `{ id, name }`. Nomi qurilma tilida
+  (token''dagi `device_id` → `user_device.language`; `Accept-Language` header mobil
+  modulda e''tiborga olinmaydi). `null` — ko''rsatilmagan (MVD yozuvlarida doim `null`) |
+
+  | `city` | object \| null | Ish joyi shahri — `{ id, name }`. `null` — ko''rsatilmagan |
+
   | `start_date` | date | `DD.MM.YYYY` |
 
   | `end_date` | date \| null | `null` — hozir ishlayapti |
 
   | `is_current` | bool | Hozirgi ish |
+
+  | `description` | string \| null | Vazifalar va qilgan ishlar (erkin matn). `null`
+  — kiritilmagan |
 
   | `achievements` | string \| null | Ushbu ish o''rnidagi yutuqlar (erkin matn). `null`
   — kiritilmagan |

@@ -11,8 +11,9 @@ http:
   body:
     type: json
     data: "{\n  \"company_name\": \"ABC LLC\",\n  \"position\": \"Sotuv menejeri\"\
-      ,\n  \"start_date\": \"01.02.2021\",\n  \"end_date\": \"01.02.2023\",\n  \"\
-      achievements\": \"Oylik savdoni 20% ga oshirdi\"\n}"
+      ,\n  \"country_id\": 1,\n  \"city_id\": 1,\n  \"start_date\": \"01.02.2021\"\
+      ,\n  \"end_date\": \"01.02.2023\",\n  \"description\": \"Mijozlar bazasi bilan\
+      \ ishlash\",\n  \"achievements\": \"Oylik savdoni 20% ga oshirdi\"\n}"
   auth: inherit
 docs: 'Arizaga biriktirilgan CV''ga yangi (qo''lda kiritilgan) ish tajribasi
   yozuvi qo''shadi. Yangi yozuv har doim manual.
@@ -32,13 +33,36 @@ docs: 'Arizaga biriktirilgan CV''ga yangi (qo''lda kiritilgan) ish tajribasi
 
   | `position` | string | ✅ | Lavozim |
 
+  | `country_id` | int | ➖ | Ish joyi davlati (`GET /admin/countries`) |
+
+  | `city_id` | int | ➖ | Ish joyi shahri (`GET /admin/cities?country_id=<id>`).
+  Tanlangan `country_id` ga tegishli bo''lishi shart |
+
   | `start_date` | date | ✅ | `DD.MM.YYYY` |
 
   | `end_date` | date | ➖ | `null` — hozir ishlamoqda |
 
+  | `description` | string | ➖ | Vazifalar va qilgan ishlar (erkin matn) |
+
   | `achievements` | string | ➖ | Erkin matn yutuqlar |
 
   | `recommendation_file_id` | int | ➖ | Tavsiyanoma fayli (`/admin/upload`) |
+
+
+  ### 📤 Response
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `country` | object \| null | `{ id, name }` — nomi `Accept-Language` bo''yicha |
+
+  | `city` | object \| null | `{ id, name }` |
+
+  | `description` | string \| null | Vazifalar matni |
+
+  | `achievements` | string \| null | Yutuqlar matni |
 
 
   ### ⚠️ Errors
