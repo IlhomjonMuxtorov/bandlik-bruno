@@ -1,0 +1,59 @@
+info:
+  name: 16. Contact Relationships
+  type: http
+  seq: 16
+http:
+  method: GET
+  url: '{{base_url}}/mobile/contact-relationships'
+  auth: inherit
+docs: |
+  CV "Aloqa ma'lumotlari" bosqichidagi **"Sizga kim bo'ladi?"** dropdown ro'yxati
+  (ma'lumotnoma). Tanlangan `value` qo'shimcha (zaxira) telefon raqami bilan birga
+  `PATCH /mobile/cv/{cv_id}/contact` ning `additional_phone_relationship` maydoniga
+  yuboriladi.
+
+  > Ro'yxat tarjima qilingan `label` bo'yicha alifbo (A-Z) tartibida qaytadi.
+
+  **Auth:** `access_token`
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {token}` — til ham shundan aniqlanadi (token ichidagi `device_id` → `user_device.language`) |
+
+  > **Til `Accept-Language` bilan boshqarilmaydi.** Mobil modul tilni faqat
+  > qurilma sozlamasidan oladi (`MobileApiController::resolveLanguage()`), fallback
+  > `uz`. `label` tilini o'zgartirish uchun `PATCH /mobile/device/language`.
+
+  ### 📤 Response *(massiv elementi)*
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `value` | string | Munosabat kaliti: `father` \| `mother` \| `brother` \| `sister` \| `spouse` \| `child` \| `relative` \| `friend` \| `other` |
+  | `label` | string | Tilga moslangan ko'rinadigan nom |
+
+  ```json
+  [
+    { "value": "brother",  "label": "Aka/Uka" },
+    { "value": "other",    "label": "Boshqa" },
+    { "value": "friend",   "label": "Do'st" },
+    { "value": "child",    "label": "Farzand" },
+    { "value": "mother",   "label": "Ona" },
+    { "value": "sister",   "label": "Opa/Singil" },
+    { "value": "father",   "label": "Ota" },
+    { "value": "relative", "label": "Qarindosh" },
+    { "value": "spouse",   "label": "Turmush o'rtoq" }
+  ]
+  ```
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Unauthorized (token yaroqsiz yoki berilmagan) |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

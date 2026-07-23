@@ -1,0 +1,46 @@
+info:
+  name: 63. 18. Contact Relationships
+  type: http
+  seq: 63
+http:
+  method: GET
+  url: '{{base_url}}/admin/contact-relationships'
+  headers:
+  - name: Authorization
+    value: 'Bearer {{admin_token}}'
+  auth: inherit
+docs: |-
+  CV zaxira kontakti uchun "Sizga kim bo'ladi?" tanlagichi — `PATCH
+  /admin/vacancy-applications/{id}/cv/contact` ning `additional_phone_relationship`
+  maydoniga yuboriladigan qiymatlar ro'yxati. Mobil `GET /mobile/contact-relationships`
+  bilan bir xil enum.
+
+  > Ro'yxat tarjima qilingan `label` bo'yicha alifbo (A-Z) tartibida qaytadi.
+
+  **Auth:** `admin_token` — `referenceView` ruxsati.
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {admin_token}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. `label` shu tilda qaytadi. Default: `uz` |
+
+  ### 📤 Response (`data[]`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `value` | string | `father` \| `mother` \| `brother` \| `sister` \| `spouse` \| `child` \| `relative` \| `friend` \| `other`. |
+  | `label` | string | Tarjima qilingan nom. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki yaroqsiz |
+  | `403` | `referenceView` ruxsati yo'q |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

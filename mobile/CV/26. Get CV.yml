@@ -100,7 +100,7 @@ docs: 'Bitta CV-ning to''liq tafsilotlari (education, experience, languages va h
   (masalan `pc.ms_office`) yoki `null`. Taklif: `GET /mobile/skills`. CV
   to''liqligiga ta''sir qilmaydi |
 
-  | `contact` | object | `{ phone, email, phone_is_custom, email_is_custom }` (CV override yoki profil qiymati) |
+  | `contact` | object | `{ phone, email, phone_is_custom, email_is_custom, additional_phone, additional_phone_owner_name, additional_phone_relationship }` — `GET /mobile/cv/{cv_id}/contact` bilan aynan bir xil. `phone`/`email` — CV override yoki profil qiymati; `additional_*` — zaxira kontakt (profil fallback yo''q, kiritilmagan bo''lsa `null`) |
 
 
   ### ⚠️ Errors

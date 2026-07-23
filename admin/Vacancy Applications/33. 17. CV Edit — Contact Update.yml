@@ -11,7 +11,8 @@ http:
   body:
     type: json
     data: "{\n  \"phone\": \"+998901234567\",\n  \"email\": \"candidate@example.com\"\
-      \n}"
+      ,\n  \"additional_phone\": \"+998901112233\",\n  \"additional_phone_owner_name\"\
+      : \"Ali Valiyev\",\n  \"additional_phone_relationship\": \"father\"\n}"
   auth: inherit
 docs: 'Bu CV''ning o''ziga xos aloqa telefoni/emailini o''rnatadi — kandidatning
   profil (login) telefonidan mustaqil ravishda (`null` — profil qiymatiga qaytadi).
@@ -23,9 +24,11 @@ docs: 'Bu CV''ning o''ziga xos aloqa telefoni/emailini o''rnatadi — kandidatni
   Buni ko''rinadigan qilish uchun ikkita muhim narsa bor:
 
 
-  1. **Audit**: har bir o''zgarish `audit_log`''ga eski/yangi `contact_phone`
-  va `contact_email` qiymatlari bilan yoziladi (`entity_type=candidate_cv`,
-  `action=update`) — kim, qachon, nimani o''zgartirgani to''liq ko''rinadi.
+  1. **Audit**: har bir o''zgarish `audit_log`''ga eski/yangi `contact_phone`,
+  `contact_email` va zaxira kontakt (`additional_phone`,
+  `additional_phone_owner_name`, `additional_phone_relationship`) qiymatlari
+  bilan yoziladi (`entity_type=candidate_cv`, `action=update`) — kim, qachon,
+  nimani o''zgartirgani to''liq ko''rinadi.
 
   2. **Bildirishnoma**: kandidatning o''zi darhol in-app + push bildirishnoma
   oladi (`cv_contact_changed_by_org`) — o''z CV''sidagi aloqa ma''lumoti
@@ -54,6 +57,18 @@ docs: 'Bu CV''ning o''ziga xos aloqa telefoni/emailini o''rnatadi — kandidatni
 
   | `email` | string | ➖ | Xuddi shu semantika, email uchun |
 
+  | `additional_phone` | string \| null | ➖ | Zaxira kontakt raqami (kandidatniki
+  emas — ota-ona/aka-uka va h.k.). SMS/OTP kerak emas. `null` yuborilsa uchala
+  `additional_*` maydon tozalanadi. Kalit yuborilmasa qiymat o''zgarmaydi |
+
+  | `additional_phone_owner_name` | string \| null | ➖ | Raqam egasining
+  ism-familiyasi. `additional_phone` yuborilganda **majburiy** |
+
+  | `additional_phone_relationship` | string \| null | ➖ | `father` \| `mother`
+  \| `brother` \| `sister` \| `spouse` \| `child` \| `relative` \| `friend` \|
+  `other`. Ro''yxat: `GET /admin/contact-relationships`. `additional_phone`
+  yuborilganda **majburiy** |
+
 
   ### 📤 Response (`data`)
 
@@ -71,6 +86,15 @@ docs: 'Bu CV''ning o''ziga xos aloqa telefoni/emailini o''rnatadi — kandidatni
 
   | `email_is_custom` | bool | `true` — CV''ga xos override o''rnatilgan |
 
+  | `additional_phone` | string \| null | Zaxira kontakt raqami. Profil fallback
+  yo''q — kiritilmagan bo''lsa `null` |
+
+  | `additional_phone_owner_name` | string \| null | Raqam egasining
+  ism-familiyasi. `null` — raqam kiritilmagan |
+
+  | `additional_phone_relationship` | string \| null | Raqam egasining kandidatga
+  munosabati. `null` — raqam kiritilmagan |
+
 
   ### ⚠️ Errors
 
@@ -86,7 +110,9 @@ docs: 'Bu CV''ning o''ziga xos aloqa telefoni/emailini o''rnatadi — kandidatni
   | `403` | Ariza faol emas (`applied`/`reviewed`/`accepted` emas) — CV endi
   tahrirlanmaydi |
 
-  | `400` | Validatsiya |
+  | `400` | Validatsiya (zaxira kontakt yarim to''ldirilgan, `additional_phone`
+  `+998XXXXXXXXX` formatida emas yoki `additional_phone_relationship` ro''yxatda
+  yo''q) |
 
   '
 settings:

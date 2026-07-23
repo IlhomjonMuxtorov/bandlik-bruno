@@ -31,6 +31,9 @@ docs: |-
   | `email` | string \| null | Resolved email (CV override yoki profil emaili) |
   | `phone_is_custom` | bool | `true` — CV-ga xos raqam o'rnatilgan |
   | `email_is_custom` | bool | `true` — CV-ga xos email o'rnatilgan |
+  | `additional_phone` | string \| null | Qo'shimcha (zaxira) raqam `+998XXXXXXXXX`. Profil fallback yo'q — kiritilmagan bo'lsa `null`. |
+  | `additional_phone_owner_name` | string \| null | Qo'shimcha raqam egasining ism-familiyasi. `null` — raqam kiritilmagan. |
+  | `additional_phone_relationship` | string \| null | Raqam egasi nomzodga kim bo'ladi: `father` \| `mother` \| `brother` \| `sister` \| `spouse` \| `child` \| `relative` \| `friend` \| `other`. Label ro'yxati: `GET /mobile/contact-relationships`. `null` — raqam kiritilmagan. |
 
   ### ⚠️ Errors
 

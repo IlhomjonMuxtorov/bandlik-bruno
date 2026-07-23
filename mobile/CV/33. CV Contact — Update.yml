@@ -12,7 +12,7 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"phone\": \"+998901234567\",\n    \"code\": \"1234\",\n    \"email\": \"cv@example.com\"\n}"
+    data: "{\n    \"phone\": \"+998901234567\",\n    \"code\": \"1234\",\n    \"email\": \"cv@example.com\",\n    \"additional_phone\": \"+998901112233\",\n    \"additional_phone_owner_name\": \"Ali Valiyev\",\n    \"additional_phone_relationship\": \"father\"\n}"
   auth: inherit
 docs: |-
   Shu CV-ga xos aloqa telefoni/emailini o'rnatadi. **Profil (login) raqami
@@ -24,6 +24,15 @@ docs: |-
   > **kerak emas** (override saqlanmaydi, CV profil raqamini ko'rsatadi). `phone`
   > **boshqa** raqam bo'lsa — avval `POST .../contact/request-otp` bilan kod oling
   > va shu yerda `code` ni yuboring. `email` uchun kod hech qachon kerak emas.
+
+  > **Qo'shimcha (zaxira) raqam:** `additional_phone` nomzodning o'z raqami emas —
+  > ota-ona/aka-uka kabi boshqa odamning raqami, shuning uchun **SMS tasdiqlash
+  > kerak emas**. Raqam yuborilganda `additional_phone_owner_name` va
+  > `additional_phone_relationship` **majburiy** bo'ladi. Blokni tozalash uchun
+  > `"additional_phone": null` yuboring — uchala maydon ham `null` bo'ladi.
+  > Kalitni umuman yubormaslik = qiymat o'zgarmaydi. Raqamsiz holda faqat
+  > `additional_phone_owner_name` / `additional_phone_relationship` yuborilsa
+  > `400` qaytadi (jimgina tashlab yuborilmaydi).
 
   **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
 
@@ -40,15 +49,24 @@ docs: |-
   | `phone` | string | ➖ | `+998901234567` yoki `901234567`. Profil raqamidan farq qilsa `code` majburiy. |
   | `code` | string | ➖ | 4 xonali SMS kod. **Faqat** profil raqamidan farqli `phone` uchun majburiy. |
   | `email` | string | ➖ | CV-ga xos email. Profil emaili bilan bir xil bo'lsa override saqlanmaydi. |
+  | `additional_phone` | string \| null | ➖ | Zaxira raqam `+998901112233` yoki `901112233`. SMS kod kerak emas. `null` — blokni tozalaydi. |
+  | `additional_phone_owner_name` | string \| null | ➖ | Raqam egasining ism-familiyasi. `additional_phone` yuborilganda **majburiy**. |
+  | `additional_phone_relationship` | string \| null | ➖ | `father` \| `mother` \| `brother` \| `sister` \| `spouse` \| `child` \| `relative` \| `friend` \| `other`. `additional_phone` yuborilganda **majburiy**. Ro'yxat: `GET /mobile/contact-relationships`. |
 
   ### 📤 Response
 
-  Yangilangan `{ phone, email, phone_is_custom, email_is_custom }`.
+  Yangilangan `{ phone, email, phone_is_custom, email_is_custom, additional_phone,
+  additional_phone_owner_name, additional_phone_relationship }`.
 
   ### ⚠️ Errors
 
   | Code | Reason |
   |---|---|
+  | `400` | `additional_phone` bor, lekin `additional_phone_owner_name` / `additional_phone_relationship` yo'q |
+  | `400` | `additional_phone_owner_name` / `additional_phone_relationship` yuborildi, lekin CV'da `additional_phone` yo'q |
+  | `400` | `additional_phone` O'zbekiston raqami emas (`+998XXXXXXXXX` bo'lishi shart) |
+  | `400` | `additional_*` maydon string/raqam emas (massiv, boolean va h.k.) |
+  | `400` | `additional_phone_relationship` ruxsat etilgan ro'yxatda emas |
 
   | `403` | Shaxs tasdiqlanmagan (`is_verified=false`) — javobda `verification_required: true` |
 
