@@ -1,0 +1,50 @@
+info:
+  name: 6b. CV Edit — Education Update
+  type: http
+  seq: 7
+http:
+  method: PATCH
+  url: '{{base_url}}/admin/vacancy-applications/1/cv/education/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"education_level_id\": 4,\n  \"institution_name\": \"INHA University\"\
+      ,\n  \"start_date\": \"01.09.2022\"\n}"
+  auth: inherit
+docs: 'Mavjud ta''lim yozuvini yangilaydi. Maydonlar tarkibi `POST` bilan bir xil.
+
+
+  ⚠️ **MVD''dan sinxronlangan yozuv** (`mvd_diploma_id` yoki `mvd_secondary_education_id`
+  bo''lsa) — mobil''dan farqli o''laroq (u yerda faqat diplom fayli biriktirish
+  ochiq qoladi), admin tarafda bunday qator **butunlay muzlatilgan**: so''rov
+  `403` bilan rad etiladi, hech qanday maydon (fayl ham) o''zgartirilmaydi.
+
+
+  **Auth:** `applicationCvManage` — faqat `xba_admin` / `xba_manager`.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `404` | Ariza / CV / ta''lim yozuvi topilmadi |
+
+  | `403` | Boshqa tashkilot, `applicationCvManage` yo''q, yoki MVD''dan sinxronlangan
+  yozuv (`Cannot edit MVD-synced data`) |
+
+  | `403` | Ariza faol emas (`applied`/`reviewed`/`accepted` emas) — CV endi
+  tahrirlanmaydi |
+
+  | `400` | Validatsiya |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

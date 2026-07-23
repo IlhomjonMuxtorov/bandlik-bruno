@@ -1,0 +1,35 @@
+info:
+  name: 12b. CV Edit — Driver Certificate Detach
+  type: http
+  seq: 23
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/vacancy-applications/1/cv/driver-certificate/1'
+  auth: inherit
+docs: 'Sertifikatni CV''dan uzadi (faqat bog''lanishni o''chiradi — sertifikat
+  pool''da va fayl saqlanib qoladi).
+
+
+  **Auth:** `applicationCvManage` — faqat `xba_admin` / `xba_manager`.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `404` | Ariza / CV topilmadi, yoki sertifikat shu CV''ga bog''lanmagan |
+
+  | `403` | Boshqa tashkilot yoki `applicationCvManage` yo''q |
+
+  | `403` | Ariza faol emas (`applied`/`reviewed`/`accepted` emas) — CV endi
+  tahrirlanmaydi |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

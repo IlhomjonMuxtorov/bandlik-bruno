@@ -1,0 +1,48 @@
+info:
+  name: 7b. CV Edit — Experience Update
+  type: http
+  seq: 10
+http:
+  method: PATCH
+  url: '{{base_url}}/admin/vacancy-applications/1/cv/experience/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"company_name\": \"ABC LLC\",\n  \"position\": \"Katta sotuv menejeri\"\
+      ,\n  \"start_date\": \"01.02.2021\"\n}"
+  auth: inherit
+docs: 'Mavjud ish tajribasi yozuvini yangilaydi.
+
+
+  ⚠️ **MVD''dan sinxronlangan yozuv** (`is_from_mvd=true`) — admin tarafda
+  butunlay muzlatilgan: so''rov `403` bilan rad etiladi.
+
+
+  **Auth:** `applicationCvManage` — faqat `xba_admin` / `xba_manager`.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `404` | Ariza / CV / tajriba yozuvi topilmadi |
+
+  | `403` | Boshqa tashkilot, `applicationCvManage` yo''q, yoki MVD''dan sinxronlangan
+  yozuv (`Cannot edit MVD-synced data`) |
+
+  | `403` | Ariza faol emas (`applied`/`reviewed`/`accepted` emas) — CV endi
+  tahrirlanmaydi |
+
+  | `400` | Validatsiya |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,34 @@
+info:
+  name: 10b. CV Edit — Skill Delete
+  type: http
+  seq: 19
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/vacancy-applications/1/cv/skill/1'
+  auth: inherit
+docs: 'CV''dan ko''nikmani o''chiradi. Hech qachon muzlatilmaydi.
+
+
+  **Auth:** `applicationCvManage` — faqat `xba_admin` / `xba_manager`.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `404` | Ariza / CV / ko''nikma yozuvi topilmadi |
+
+  | `403` | Boshqa tashkilot yoki `applicationCvManage` yo''q |
+
+  | `403` | Ariza faol emas (`applied`/`reviewed`/`accepted` emas) — CV endi
+  tahrirlanmaydi |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

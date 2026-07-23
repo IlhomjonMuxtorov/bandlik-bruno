@@ -1,0 +1,78 @@
+info:
+  name: 5. CV Edit — Update Meta
+  type: http
+  seq: 5
+http:
+  method: PATCH
+  url: '{{base_url}}/admin/vacancy-applications/1/cv'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"industry_id\": 3,\n  \"photo_file_id\": 42\n}"
+  auth: inherit
+docs: 'XBA xodimi arizaga biriktirilgan CV''ning meta maydonlarini (sarlavha, soha,
+  surat) tahrirlaydi. Har bir maydon partial — body''da yo''q kalit o''zgartirilmaydi.
+  CV meta hech qachon MVD''dan sinxronlanmaydi, shu sabab hech qanday qator muzlatilmaydi.
+
+
+  Bu CV''ga tegishli har qanday tahrirlash oilasi (`education`, `experience`,
+  `course`, `skill`, `document`, `driver-certificate`, `contact`, `meta`)
+  `candidate_cv.id = <cv_id>` bo''yicha **jonli** yozuvni o''zgartiradi — bu
+  kandidatning mobil ilovada ko''radigan aynan o''sha CV, snapshot emas. Har
+  bir muvaffaqiyatli tahrir `audit_log`''ga yoziladi.
+
+
+  ⚠️ **Qamrov ataylab torraytirilgan** (mobil `CvInputDTO`dan farqli): faqat
+  `title` / `industry_id` / `photo_file_id`. Quyidagilar bu endpoint orqali
+  **hech qachon** qabul qilinmaydi (yuborilsa ham e''tiborga olinmaydi):
+
+
+  - `is_primary` — bu CV''ni **barcha** tashkilotlar oldida asosiy qilib
+    belgilaydi, bitta tashkilot xodimining vakolatidan tashqarida.
+
+  - `document_ids` / `driver_certificate_ids` — bular full-replace pivot: bo''sh
+    massiv yuborilsa, CV''ga biriktirilgan **barcha** skanlar o''chib ketardi.
+    Pool a''zoligi alohida bitta-bitta endpoint orqali boshqariladi — qarang
+    "Document Attach/Detach" va "Driver Certificate Attach/Detach".
+
+
+  **Auth:** `applicationCvManage` — faqat `xba_admin` / `xba_manager` (`xba_operator``da
+  yo''q).
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `title` | string | ➖ | DEPRECATED — erkin matn kasb nomi |
+
+  | `industry_id` | int | ➖ | `vacancy_industry.id` — CV''ning sohasi |
+
+  | `photo_file_id` | int | ➖ | `/admin/upload` orqali yuklangan tayyor fayl ID |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `404` | Ariza / CV topilmadi |
+
+  | `403` | Boshqa tashkilot yoki `applicationCvManage` yo''q |
+
+  | `403` | Ariza faol emas (`applied`/`reviewed`/`accepted` emas) — CV endi
+  tahrirlanmaydi |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

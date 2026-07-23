@@ -1,0 +1,96 @@
+info:
+  name: 17. CV Edit — Contact Update
+  type: http
+  seq: 33
+http:
+  method: PATCH
+  url: '{{base_url}}/admin/vacancy-applications/1/cv/contact'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"phone\": \"+998901234567\",\n  \"email\": \"candidate@example.com\"\
+      \n}"
+  auth: inherit
+docs: 'Bu CV''ning o''ziga xos aloqa telefoni/emailini o''rnatadi — kandidatning
+  profil (login) telefonidan mustaqil ravishda (`null` — profil qiymatiga qaytadi).
+  Bu shu CV''ni ishlatadigan har qanday arizada ko''rinadi.
+
+
+  ℹ️ Mobil'' dan farqli o''laroq, bu yerda **SMS/OTP tasdiqlash talab qilinmaydi**
+  — aktyor allaqachon autentifikatsiyalangan va ruxsat tekshirilgan XBA xodimi.
+  Buni ko''rinadigan qilish uchun ikkita muhim narsa bor:
+
+
+  1. **Audit**: har bir o''zgarish `audit_log`''ga eski/yangi `contact_phone`
+  va `contact_email` qiymatlari bilan yoziladi (`entity_type=candidate_cv`,
+  `action=update`) — kim, qachon, nimani o''zgartirgani to''liq ko''rinadi.
+
+  2. **Bildirishnoma**: kandidatning o''zi darhol in-app + push bildirishnoma
+  oladi (`cv_contact_changed_by_org`) — o''z CV''sidagi aloqa ma''lumoti
+  tashkilot tomonidan o''zgartirilganini bilib qoladi. Bildirishnoma
+  yuborilishi so''rov muvaffaqiyatini bloklamaydi (best-effort, xato bo''lsa
+  jim log qilinadi).
+
+
+  🚫 **Qamrovdan tashqarida:** kandidatning login telefon/email''i (`User.phone`
+  / `User.email`, `updateContactInfo` orqali) — bu juda nozik ma''lumot, admin
+  tomonidan o''zgartirilmaydi. Faqat CV''ning aloqa override''i tahrirlanadi.
+
+
+  **Auth:** `applicationCvManage` — faqat `xba_admin` / `xba_manager`.
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `phone` | string | ➖ | `null` yoki bo''sh — profil telefoniga qaytaradi.
+  Profil telefoni bilan bir xil bo''lsa ham override tozalanadi |
+
+  | `email` | string | ➖ | Xuddi shu semantika, email uchun |
+
+
+  ### 📤 Response (`data`)
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `phone` | string \| null | Joriy hal qilingan telefon (`cv.contact_phone ??
+  user.phone`) |
+
+  | `email` | string \| null | Joriy hal qilingan email |
+
+  | `phone_is_custom` | bool | `true` — CV''ga xos override o''rnatilgan |
+
+  | `email_is_custom` | bool | `true` — CV''ga xos override o''rnatilgan |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `404` | Ariza / CV topilmadi |
+
+  | `403` | Boshqa tashkilot yoki `applicationCvManage` yo''q |
+
+  | `403` | Ariza faol emas (`applied`/`reviewed`/`accepted` emas) — CV endi
+  tahrirlanmaydi |
+
+  | `400` | Validatsiya |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

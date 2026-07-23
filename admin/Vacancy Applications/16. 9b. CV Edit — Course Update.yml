@@ -1,0 +1,48 @@
+info:
+  name: 9b. CV Edit — Course Update
+  type: http
+  seq: 16
+http:
+  method: PATCH
+  url: '{{base_url}}/admin/vacancy-applications/1/cv/course/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"course_name\": \"Ingliz tili kursi (advanced)\",\n  \"institution_name\"\
+      : \"IELTS Center\",\n  \"start_date\": \"01.01.2023\"\n}"
+  auth: inherit
+docs: 'Mavjud kurs yozuvini yangilaydi.
+
+
+  ⚠️ **MVD''dan sinxronlangan yozuv** (`source=mvd`, qisqa muddatli kurs cache''idan)
+  — admin tarafda butunlay muzlatilgan: so''rov `403` bilan rad etiladi.
+
+
+  **Auth:** `applicationCvManage` — faqat `xba_admin` / `xba_manager`.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `404` | Ariza / CV / kurs yozuvi topilmadi |
+
+  | `403` | Boshqa tashkilot, `applicationCvManage` yo''q, yoki MVD''dan sinxronlangan
+  yozuv (`Cannot edit MVD-synced data`) |
+
+  | `403` | Ariza faol emas (`applied`/`reviewed`/`accepted` emas) — CV endi
+  tahrirlanmaydi |
+
+  | `400` | Validatsiya |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

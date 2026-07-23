@@ -1,0 +1,40 @@
+info:
+  name: 12a. CV Edit — Driver Certificate Attach
+  type: http
+  seq: 22
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancy-applications/1/cv/driver-certificate/1'
+  auth: inherit
+docs: 'Kandidatning haydovchilik sertifikatlari pool''idan mavjud bir sertifikatni
+  shu arizaga biriktirilgan CV''ga bog''laydi (idempotent). Sertifikatning o''zini
+  yaratish/o''chirish admin tarafda qamrovga kirmaydi. Hech qachon muzlatilmaydi.
+
+
+  `<rowId>` — `candidate_driver_certificate.id` (arizaning `GET .../cv` javobidagi
+  `driver_certificates[].id` dan olinadi).
+
+
+  **Auth:** `applicationCvManage` — faqat `xba_admin` / `xba_manager`.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `404` | Ariza / CV / sertifikat topilmadi (yoki boshqa kandidatga tegishli) |
+
+  | `403` | Boshqa tashkilot yoki `applicationCvManage` yo''q |
+
+  | `403` | Ariza faol emas (`applied`/`reviewed`/`accepted` emas) — CV endi
+  tahrirlanmaydi |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

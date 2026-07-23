@@ -1,0 +1,42 @@
+info:
+  name: 11a. CV Edit — Document Attach
+  type: http
+  seq: 20
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancy-applications/1/cv/document/1'
+  auth: inherit
+docs: 'Kandidatning hujjatlar pool''idan (`/mobile/candidate/document` orqali
+  kandidat tomonidan boshqariladi) mavjud bir hujjatni shu arizaga biriktirilgan
+  CV''ga bog''laydi (idempotent). Hujjatning o''zini yaratish/o''chirish admin tarafda
+  qamrovga kirmaydi — faqat CV''ga qaysi hujjatlar bog''langanini tahrirlash mumkin.
+  Hech qachon muzlatilmaydi.
+
+
+  `<rowId>` — `candidate_document.id` (pool''dagi hujjat ID, arizaning `GET .../cv`
+  javobidagi `documents[].id` dan olinadi).
+
+
+  **Auth:** `applicationCvManage` — faqat `xba_admin` / `xba_manager`.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `404` | Ariza / CV / hujjat topilmadi (yoki boshqa kandidatga tegishli) |
+
+  | `403` | Boshqa tashkilot yoki `applicationCvManage` yo''q |
+
+  | `403` | Ariza faol emas (`applied`/`reviewed`/`accepted` emas) — CV endi
+  tahrirlanmaydi |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,56 @@
+info:
+  name: 10a. CV Edit — Skill Add
+  type: http
+  seq: 18
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancy-applications/1/cv/skill'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"requirement_id\": 87\n}"
+  auth: inherit
+docs: 'CV''ga professional ko''nikma qo''shadi (katalogdan — `professional_skills`
+  subtree). Ko''nikmalar hech qachon MVD manbasidan kelmaydi — muzlatilmaydi.
+  Idempotent: allaqachon qo''shilgan ko''nikma qayta yuborilsa, mavjud yozuv qaytadi.
+
+
+  **Auth:** `applicationCvManage` — faqat `xba_admin` / `xba_manager`.
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `requirement_id` | int | ✅ | `vacancy_requirement.id` — `professional_skills`
+  katalogidan faol ta''rif |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `404` | Ariza / CV topilmadi |
+
+  | `403` | Boshqa tashkilot yoki `applicationCvManage` yo''q |
+
+  | `403` | Ariza faol emas (`applied`/`reviewed`/`accepted` emas) — CV endi
+  tahrirlanmaydi |
+
+  | `400` | Noto''g''ri ko''nikma (`requirement_id` faol/professional_skills kategoriyasida
+  emas) |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
