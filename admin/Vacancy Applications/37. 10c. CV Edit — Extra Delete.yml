@@ -1,0 +1,27 @@
+info:
+  name: 10c. CV Edit — Extra Delete
+  type: http
+  seq: 37
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/vacancy-applications/1/cv/extra/conference/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  auth: inherit
+docs: |
+  Yozuvni o'chiradi.
+
+  **Auth:** `applicationCvManage`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `403` | `applicationCvManage` yo'q / ariza faol emas |
+  | `404` | Ariza / CV / yozuv topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,27 @@
+info:
+  name: 12c. Extra Section — Delete
+  type: http
+  seq: 43
+http:
+  method: DELETE
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/extra/conference/1'
+  headers:
+  - name: Accept
+    value: application/json
+  auth: inherit
+docs: |
+  Yozuvni o'chiradi. Muvaffaqiyatda `204 No Content`.
+
+  **Auth:** `access_token` — `is_verified=true`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `403` | Shaxs tasdiqlanmagan / yozuv boshqa CV'ga tegishli |
+  | `404` | CV yoki yozuv topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

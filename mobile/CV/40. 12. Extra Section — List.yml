@@ -1,0 +1,51 @@
+info:
+  name: 12. Extra Section — List
+  type: http
+  seq: 40
+http:
+  method: GET
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/extra/conference'
+  headers:
+  - name: Accept
+    value: application/json
+  auth: inherit
+docs: |
+  Bitta ixtiyoriy CV bo'limining yozuvlari ro'yxati. Bo'lim turi URL'dagi
+  `<section>` segmenti orqali beriladi.
+
+  Barcha 12 bo'lim bir xil formaga ega (nomi, joylashuv, sana oralig'i, tavsif,
+  havola) va bitta jadvalda saqlanadi.
+
+  **Auth:** `access_token`.
+
+  ### 🔎 Path
+
+  | Segment | Description |
+  |---|---|
+  | `<section>` | Bo'lim turi. Qiymatlar: `certificate` \| `conference` \| `creative_work` \| `digital_skill_test` \| `hobby` \| `award` \| `membership` \| `project` \| `publication` \| `recommendation` \| `social_activity` \| `volunteering`. |
+
+  ### 📤 Response *(massiv elementi)*
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Yozuv ID |
+  | `section` | string | Bo'lim turi (yuqoridagi qiymatlardan biri) |
+  | `name` | string | Yozuv nomi (konferensiya/loyiha/nashr nomi va h.k.) |
+  | `location` | string \| null | Joylashuv (erkin matn). `null` — kiritilmagan |
+  | `start_date` | date \| null | `DD.MM.YYYY`. `null` — kiritilmagan |
+  | `end_date` | date \| null | `DD.MM.YYYY`. `null` — kiritilmagan |
+  | `description` | string \| null | Tavsif. `null` — kiritilmagan |
+  | `link` | string \| null | To'liq havola (URL). `null` — kiritilmagan |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Noma'lum `<section>` qiymati |
+  | `404` | CV topilmadi yoki boshqa nomzodga tegishli |
+  | `456` | Guest-token — ro'yxatdan to'liq o'tish talab qilinadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
