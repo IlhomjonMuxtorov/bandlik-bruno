@@ -1,0 +1,61 @@
+info:
+  name: Skills — Sync (bulk)
+  type: http
+  seq: 39
+http:
+  method: PUT
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/skill'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"requirement_ids\": [257, 331, 335]\n}"
+  auth: inherit
+docs: |
+  Rezyume "Ko'nikmalar" qadamining saqlash amali: yuborilgan ro'yxat CV ning
+  **to'liq** ko'nikmalar holatiga aylanadi. Bitta so'rovda barcha checkbox holati
+  saqlanadi — "Davom etish" bosilganda shu chaqiriladi.
+
+  `requirement_ids` — `GET /mobile/skill-groups` (yoki `GET /mobile/skills`)
+  dan olingan katalog ta'rif ID lari.
+
+  **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
+
+  > - Ro'yxatda yo'q ko'nikmalar **o'chiriladi**, yangilari qo'shiladi.
+  > - Bo'sh massiv (`[]`) — CV ning barcha ko'nikmalari o'chadi.
+  > - Massiv tartibi saqlanadi (`sort_order` = massivdagi o'rin).
+  > - Takrorlangan ID lar bir marta hisoblanadi.
+  > - **Hammasi yoki hech nima:** bitta ID noto'g'ri bo'lsa (`400`), hech qanday
+  >   o'zgarish yozilmaydi.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `requirement_ids` | int[] | ✅ | Katalog ta'rif ID lari (`professional_skills.*` yoki `ind.*`), ko'rsatish tartibida. `[]` — barchasini o'chirish |
+
+  ### 📤 Response — `200 OK` *(massiv elementi)*
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | `candidate_cv_skill` qatori ID |
+  | `requirement_id` | int | Katalog ta'rif ID |
+  | `name` | string | Lokalizatsiyalangan ko'nikma nomi |
+  | `code` | string \| null | Ta'rif kodi; `null` — kod yo'q |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | ID lardan biri mavjud emas, aktiv emas yoki ko'nikma katalogidan tashqari (`Noto'g'ri ko'nikma`) |
+  | `401` | Token yo'q yoki muddati o'tgan |
+  | `403` | Shaxs tasdiqlanmagan (`is_verified=false`) |
+  | `404` | CV topilmadi yoki boshqa nomzodga tegishli |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

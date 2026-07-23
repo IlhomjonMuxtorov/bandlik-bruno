@@ -1,0 +1,56 @@
+info:
+  name: 10c. CV Edit — Skill Sync (bulk)
+  type: http
+  seq: 34
+http:
+  method: PUT
+  url: '{{base_url}}/admin/vacancy-applications/1/cv/skill'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"requirement_ids\": [257, 331, 335]\n}"
+  auth: inherit
+docs: |
+  CV ning ko'nikmalar ro'yxatini **to'liq almashtiradi** — mobil rezyume
+  sehrgaridagi checkbox qadamining aynan o'zi, bitta so'rovda. Ro'yxatda yo'q
+  ko'nikmalar o'chadi, yangilari qo'shiladi, massiv tartibi `sort_order` bo'ladi.
+
+  ID lar `GET /mobile/skill-groups` yoki katalog talablar ro'yxatidan olinadi
+  (`professional_skills.*` yoki `ind.*` faol ta'riflari).
+
+  **Auth:** `applicationCvManage` — faqat `xba_admin` / `xba_manager`.
+
+  > - Bo'sh massiv (`[]`) — CV ning barcha ko'nikmalari o'chiriladi.
+  > - **Hammasi yoki hech nima:** bitta ID noto'g'ri bo'lsa (`400`), hech narsa yozilmaydi.
+  > - Har bir chaqiruv audit log'ga `skill` bo'limi bo'yicha `update` sifatida yoziladi.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `requirement_ids` | int[] | ✅ | Katalog ta'rif ID lari, ko'rsatish tartibida. `[]` — barchasini o'chirish |
+
+  ### 📤 Response — `200 OK`
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `data[].id` | int | `candidate_cv_skill` qatori ID |
+  | `data[].requirement_id` | int | Katalog ta'rif ID |
+  | `data[].name` | string | Lokalizatsiyalangan ko'nikma nomi |
+  | `data[].code` | string \| null | Ta'rif kodi; `null` — kod yo'q |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | ID lardan biri faol emas yoki ko'nikma katalogidan tashqari |
+  | `403` | Boshqa tashkilot yoki `applicationCvManage` yo'q |
+  | `403` | Ariza faol emas (`applied`/`reviewed`/`accepted` emas) — CV endi tahrirlanmaydi |
+  | `404` | Ariza / CV topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

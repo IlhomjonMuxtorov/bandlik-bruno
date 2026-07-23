@@ -14,15 +14,18 @@ http:
     value: application/json
   auth: inherit
 docs: |
-  Rezyume "Ko'nikmalar" qadami uchun autocomplete. Talablar katalogining
-  `professional_skills` guruhi (va uning barcha kichik guruhlari) ichidagi aktiv
-  ta'riflarni nom bo'yicha qidiradi. `q` bo'sh bo'lsa — birinchi 20 ta taklif.
+  Rezyume "Ko'nikmalar" qadami uchun tekis autocomplete. Talablar katalogining
+  `professional_skills` **va** `industry` (8-guruh, sohaviy) guruhlari — barcha
+  kichik guruhlari bilan — ichidagi aktiv ta'riflarni nom bo'yicha qidiradi.
+  `q` bo'sh bo'lsa — birinchi 20 ta taklif.
 
-  > Natijalar `Accept-Language` bo'yicha alifbo (A-Z) tartibida qaytadi (fallback
-  > `uz`).
+  > Natijalar qurilma tili bo'yicha alifbo (A-Z) tartibida qaytadi (fallback `uz`).
 
-  Qaytgan `id` ni `POST /mobile/cv/{cv_id}/skill` ga `requirement_id` sifatida
-  yuboriladi.
+  > Akkordeon ko'rinishidagi (soha bo'yicha guruhlangan) ro'yxat kerak bo'lsa —
+  > `GET /mobile/skill-groups`. Ikkala endpoint bir xil to'plam ustida ishlaydi.
+
+  Qaytgan `id` ni `POST /mobile/cv/{cv_id}/skill` ga `requirement_id`, yoki
+  `PUT /mobile/cv/{cv_id}/skill` ga `requirement_ids[]` sifatida yuboriladi.
 
   **Auth:** `access_token`.
 
@@ -44,6 +47,7 @@ docs: |
   |---|---|---|
   | `id` | int | Katalog ta'rif ID (`vacancy_requirement.id`) — `requirement_id` sifatida yuboriladi |
   | `name` | string | Lokalizatsiyalangan ko'nikma nomi |
+  | `code` | string \| null | Ta'rif kodi (`eq.forklift`, `ind.warehouse.wms`); `null` — kod yo'q |
 
   ### ⚠️ Errors
 

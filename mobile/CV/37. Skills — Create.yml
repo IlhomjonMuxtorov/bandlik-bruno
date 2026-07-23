@@ -15,22 +15,26 @@ http:
     data: "{\n  \"requirement_id\": 257\n}"
   auth: inherit
 docs: |
-  CV ga kasbiy ko'nikma qo'shish. `requirement_id` — `GET /mobile/skills`
-  taklifidan olingan katalog ta'rif ID si.
+  CV ga bitta kasbiy ko'nikma qo'shish. `requirement_id` — `GET /mobile/skills`
+  yoki `GET /mobile/skill-groups` dan olingan katalog ta'rif ID si.
+
+  > Butun checkbox ro'yxatini bir marta saqlash uchun `PUT /mobile/cv/{cv_id}/skill`
+  > (bulk sync) ishlatiladi — bu endpoint bittalab qo'shish uchun qoladi.
 
   **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
 
   > **Idempotent:** allaqachon qo'shilgan ko'nikma qayta yuborilsa, xato emas —
   > mavjud qator qaytadi (chip ikki marta bosilganda muammo bo'lmaydi).
   >
-  > `requirement_id` faqat `professional_skills` guruhidagi aktiv ta'rif bo'lishi
-  > kerak — boshqa talab ID (masalan yosh, jins) `400` bilan rad etiladi.
+  > `requirement_id` faqat `professional_skills` yoki `industry` (sohaviy) guruhidagi
+  > aktiv ta'rif bo'lishi kerak — boshqa talab ID (masalan yosh, jins) `400` bilan
+  > rad etiladi.
 
   ### 📥 Request Body
 
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `requirement_id` | int | ✅ | Katalog kasbiy ko'nikma ta'rifi ID (`professional_skills.*`) |
+  | `requirement_id` | int | ✅ | Katalog ko'nikma ta'rifi ID (`professional_skills.*` yoki `ind.*`) |
 
   ### 📤 Response — `201 Created`
 
@@ -45,7 +49,7 @@ docs: |
 
   | Code | Reason |
   |---|---|
-  | `400` | `requirement_id` yo'q, aktiv emas yoki `professional_skills` guruhidan tashqari |
+  | `400` | `requirement_id` yo'q, aktiv emas yoki ko'nikma katalogidan tashqari |
   | `401` | Token yo'q yoki muddati o'tgan |
   | `403` | Shaxs tasdiqlanmagan (`is_verified=false`) |
   | `404` | CV topilmadi yoki boshqa nomzodga tegishli |

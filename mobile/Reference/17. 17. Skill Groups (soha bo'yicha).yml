@@ -1,0 +1,84 @@
+info:
+  name: 17. Skill Groups (Ko'nikmalar — soha bo'yicha)
+  type: http
+  seq: 17
+http:
+  method: GET
+  url: '{{base_url}}/mobile/skill-groups'
+  params:
+  - name: industry_id
+    value: '6'
+    type: query
+    disabled: true
+  headers:
+  - name: Accept
+    value: application/json
+  auth: inherit
+docs: |
+  Rezyume "Ko'nikmalar" qadamining akkordeon ro'yxati: katalog ko'nikmalari soha
+  (`vacancy_industry`) bo'yicha guruhlangan holda qaytadi. Har bir guruh — bitta
+  yopiladigan panel, ichidagi elementlar — checkbox'lar.
+
+  Guruh manbai `vacancy_requirement.industry_id`:
+
+  - **Sohaviy guruhlar** — katalogning `industry` (8-guruh) ta'riflari o'z sohasiga
+    tushadi. Bitta ham ko'nikmasi yo'q soha javobda **umuman ko'rsatilmaydi**.
+  - **`industry_id: null`** — oxirgi "Umumiy ko'nikmalar" paneli: `professional_skills`
+    guruhidagi global ta'riflar (kompyuter, maxsus jihozlar, sertifikatlar). Bu panel
+    har doim oxirida keladi va `industry_id` filtri berilganda ham qaytadi.
+
+  > Guruhlar soha `sort_order` tartibida, ichidagi ko'nikmalar esa qurilma tili
+  > bo'yicha alifbo (A-Z) tartibida (fallback `uz`).
+
+  Belgilangan checkbox'lar `PUT /mobile/cv/{cv_id}/skill` ga `requirement_ids`
+  massivi sifatida yuboriladi (bitta so'rovda hammasi).
+
+  **Auth:** `access_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `industry_id` | int | ➖ | Faqat shu soha guruhi qaytadi (+ "Umumiy ko'nikmalar"). Bo'sh → barcha sohalar |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {access_token}` |
+
+  ### 📤 Response *(massiv elementi = bitta akkordeon paneli)*
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `industry_id` | int \| null | `vacancy_industry.id`; `null` — "Umumiy ko'nikmalar" (global ko'nikmalar) paneli |
+  | `name` | string | Panel sarlavhasi — lokalizatsiyalangan soha nomi |
+  | `skills` | array | Panel ichidagi ko'nikmalar |
+  | `skills[].id` | int | Katalog ta'rif ID (`vacancy_requirement.id`) — `requirement_ids` ga shu yuboriladi |
+  | `skills[].name` | string | Lokalizatsiyalangan ko'nikma nomi |
+  | `skills[].code` | string \| null | Ta'rif kodi (`eq.forklift`, `ind.warehouse.wms`); `null` — kod yo'q |
+
+  ### 📦 Namuna
+
+  ```json
+  [
+    { "industry_id": 6, "name": "Omborxona", "skills": [
+        { "id": 335, "name": "Forklift / elektrokar haydash guvohnomasi", "code": "ind.warehouse.forklift_license" },
+        { "id": 331, "name": "Shtrixkod va skaner bilan ishlash", "code": "ind.warehouse.barcode_scanner" }
+    ]},
+    { "industry_id": null, "name": "Umumiy ko'nikmalar", "skills": [
+        { "id": 257, "name": "MS Office (Word, Excel, PowerPoint, Outlook, Access)", "code": "pc.ms_office" }
+    ]}
+  ]
+  ```
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki muddati o'tgan |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
