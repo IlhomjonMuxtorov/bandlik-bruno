@@ -29,7 +29,9 @@ docs: 'Yangi til qo''shish.
 
   | `language_id` | int | ✅ | Reference: languages |
 
-  | `language_level_id` | int | ✅ | Reference: language-levels |
+  | `language_level_id` | int | ✅ | Reference: language-levels. Daraja tilning shkalasiga
+  (`language.scale`) tegishli bo''lishi shart — ro''yxatni
+  `GET /mobile/language-levels?language_id={language_id}` bilan oling. |
 
 
   ### ⚠️ Errors
@@ -44,6 +46,9 @@ docs: 'Yangi til qo''shish.
   | `456` | Guest — registratsiya tugatilmagan |
 
   | `400` | Bir til ikki marta qo''shilmaydi (UNIQUE) |
+
+  | `400` | `language_level_id` tilning shkalasiga tegishli emas (masalan yapon tiliga
+  CEFR darajasi) — `Validation failed: [...]` |
 
   '
 settings:

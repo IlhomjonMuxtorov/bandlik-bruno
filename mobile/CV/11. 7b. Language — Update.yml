@@ -14,7 +14,9 @@ http:
     type: json
     data: "{\n    \"language_id\": 1,\n    \"language_level_id\": 6\n}"
   auth: inherit
-docs: 'Til darajasini yangilash.
+docs: 'Til darajasini yangilash. `language_level_id` tilning shkalasiga (`language.scale`)
+  tegishli bo''lishi shart — aks holda `400` (`Validation failed`). Mos ro''yxat:
+  `GET /mobile/language-levels?language_id={language_id}`.
 
 
   **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.

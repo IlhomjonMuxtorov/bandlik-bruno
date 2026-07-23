@@ -9,12 +9,18 @@ http:
   - name: Accept
     value: application/json
   params:
+  - name: language_id
+    value: '9'
+    type: query
+    enabled: false
   - name: scale
     value: jlpt
     type: query
     enabled: false
   auth: inherit
-docs: 'Til daraja ma''lumotnomasi. `scale` bilan bitta shkala darajalarini filtrlash mumkin.
+docs: 'Til daraja ma''lumotnomasi. `language_id` bilan filtrlaganda shkala tilning
+  o''zidan (`language.scale`) avtomatik aniqlanadi — masalan yapon tili uchun faqat
+  JLPT darajalari qaytadi. `scale` bilan shkalani qo''lda ham berish mumkin.
 
 
   **Auth:** `access_token`.
@@ -37,9 +43,14 @@ docs: 'Til daraja ma''lumotnomasi. `scale` bilan bitta shkala darajalarini filtr
 
   |---|---|:---:|---|
 
+  | `language_id` | int | ➖ | Til ID (`GET /mobile/languages`). Berilsa shkala shu
+  tilning `language.scale` ustunidan avtomatik aniqlanadi va `scale` param e''tiborsiz
+  qoldiriladi. Mavjud bo''lmagan ID → bo''sh massiv `[]`. |
+
   | `scale` | string | ➖ | Bitta shkala darajalari: `cefr` \| `hsk` \| `topik` \| `jlpt`
   \| `torfl` \| `ilr` \| `actfl` \| `clb` \| `nclc` \| `testdaf` \| `tocfl` \| `stanag`
-  \| `oet` \| `dsh` \| `nt2` \| `eiken`. Berilmasa — barchasi. |
+  \| `oet` \| `dsh` \| `nt2` \| `eiken`. Faqat `language_id` berilmaganda ishlaydi.
+  Ikkalasi ham berilmasa — barchasi. |
 
 
   ### 📤 Response *(massiv elementi)*

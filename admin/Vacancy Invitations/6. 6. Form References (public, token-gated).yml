@@ -44,7 +44,7 @@ docs: |
   | `GET .../references/countries` | Aktiv davlatlar. |
   | `GET .../references/cities` | Davlat shaharlari. Query: `country_id` (**majburiy**). |
   | `GET .../references/languages` | Aktiv tillar, har biri o'z shkalasidagi darajalar bilan. |
-  | `GET .../references/language-levels` | Til darajalari. Query: `scale` (ixtiyoriy; masalan `cefr`, `jlpt`). |
+  | `GET .../references/language-levels` | Til darajalari. Query: `language_id` (ixtiyoriy; shkala `language.scale` dan avtomatik aniqlanadi, `scale` e'tiborsiz qoldiriladi; noma'lum ID → bo'sh massiv) yoki `scale` (masalan `cefr`, `jlpt`). |
   | `GET .../references/service-categories` | Xizmat toifalari enum: `value`, `label`, `expected_organization_type`, `service_group_type`. |
   | `GET .../references/organizations` | Toifaga mos hamkor tashkilotlar. Query: `category` (**majburiy**; `insurance` \| `notarius` \| `logistics` \| `visa` \| `training`). |
   | `GET .../references/organizations/<id>/services` | Bitta tashkilotning aktiv xizmatlari. |

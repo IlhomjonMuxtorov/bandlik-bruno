@@ -7,6 +7,10 @@ http:
   url: '{{base_url}}/admin/language-levels'
   auth: inherit
 params:
+  - name: language_id
+    value: '9'
+    type: query
+    enabled: false
   - name: scale
     value: jlpt
     type: query
@@ -17,7 +21,8 @@ headers:
     enabled: true
 docs: >
   Til bilish darajalari ro'yxati — leadlar Filter paneli va til tanlash dropdowni
-  uchun. `scale` bilan bitta shkala darajalarini filtrlash mumkin.
+  uchun. `language_id` bilan filtrlaganda shkala tilning o'zidan (`language.scale`)
+  avtomatik aniqlanadi; `scale` bilan shkalani qo'lda ham berish mumkin.
 
 
   **Auth:** `access_token` (admin).
@@ -30,9 +35,14 @@ docs: >
 
   |---|---|:---:|---|
 
+  | `language_id` | int | ➖ | Til ID (`GET /admin/languages`). Berilsa shkala shu tilning
+  `language.scale` ustunidan avtomatik aniqlanadi va `scale` param e'tiborsiz qoldiriladi.
+  Mavjud bo'lmagan ID → bo'sh massiv. |
+
   | `scale` | string | ➖ | Bitta shkala darajalarini filtrlash: `cefr` \| `hsk` \|
   `topik` \| `jlpt` \| `torfl` \| `ilr` \| `actfl` \| `clb` \| `nclc` \| `testdaf` \|
-  `tocfl` \| `stanag` \| `oet` \| `dsh` \| `nt2` \| `eiken`. Berilmasa — barcha darajalar. |
+  `tocfl` \| `stanag` \| `oet` \| `dsh` \| `nt2` \| `eiken`. Faqat `language_id`
+  berilmaganda ishlaydi. Ikkalasi ham berilmasa — barcha darajalar. |
 
 
   ### 📤 Response (`data`)
