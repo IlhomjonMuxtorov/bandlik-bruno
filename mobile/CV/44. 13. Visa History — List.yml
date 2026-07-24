@@ -1,0 +1,61 @@
+info:
+  name: 13. Visa History — List
+  type: http
+  seq: 44
+http:
+  method: GET
+  url: '{{base_url}}/mobile/candidate/visa'
+  headers:
+  - name: Accept
+    value: application/json
+  auth: inherit
+docs: 'Viza tarixi ro''yxati. Nomzodga bog''liq (CV''ga emas) — barcha CV''lar uchun umumiy.
+
+
+  **Auth:** `access_token`.
+
+
+  ### 📤 Response *(massiv elementi)*
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `id` | int | Viza yozuvi ID |
+
+  | `visa_type` | string | Viza turi kodi — `GET /mobile/visa-types` dagi qiymat |
+
+  | `visa_type_label` | string | Viza turi tarjimasi (qurilma tili) |
+
+  | `country` | object \| null | Viza olingan davlat — `{ id, name }`. Nomi qurilma
+  tilida (token''dagi `device_id` → `user_device.language`). `null` — davlat topilmadi |
+
+  | `entry_date` | date | Davlatga kirgan vaqti — `DD.MM.YYYY` |
+
+  | `exit_date` | date \| null | Davlatdan chiqqan vaqti — `DD.MM.YYYY`. `null` — hali
+  chiqmagan / hozir shu davlatda |
+
+  | `is_current` | bool | `exit_date === null` — hozir shu davlatda |
+
+  | `had_legal_problems` | bool | Ushbu davlatda viza tartibini buzish yoki qonuniy
+  muammolar bo''lganmi. `true` = Ha, `false` = Yo''q |
+
+  | `legal_issue_note` | string \| null | Qonuniy muammo izohi. `null` — muammo yo''q
+  yoki izoh kiritilmagan |
+
+  | `visa_file_url` | string \| null | Yuklangan viza hujjati URL. `null` — biriktirilmagan |
+
+  | `visa_file_kind` | string \| null | `pdf` \| `image` \| `word` \| `excel` \| `other` |
+
+  | `visa_file_kind_icon_url` | string \| null | Standart ikonkaga to''liq URL |
+
+
+  Ro''yxat `entry_date` bo''yicha kamayish tartibida qaytadi.
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

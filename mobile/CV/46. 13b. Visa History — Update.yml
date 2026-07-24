@@ -1,0 +1,50 @@
+info:
+  name: 13b. Visa History — Update
+  type: http
+  seq: 46
+http:
+  method: PATCH
+  url: '{{base_url}}/mobile/candidate/visa/1'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n    \"visa_type\": \"tourist_visa\",\n    \"country_id\": 2,\n    \"entry_date\": \"01.03.2024\",\n    \"exit_date\": \"15.03.2024\",\n    \"had_legal_problems\": false,\n    \"legal_issue_note\": null,\n    \"visa_file_id\": null\n}"
+  auth: inherit
+docs: 'Viza tarixi yozuvini yangilash. Faqat yozuv egasi (nomzod) yangilay oladi.
+
+
+  **Auth:** `access_token`.
+
+
+  Request body `13a. Visa History — Create` bilan bir xil. `visa_file_id` yangi qiymatga
+  o''zgartirilsa, eski biriktirilgan hujjat orphan sifatida o''chiriladi.
+
+
+  ### 📤 Response
+
+  `13. Visa History — List` bilan bir xil obyekt (`200`).
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `400` | Validatsiya (Create bilan bir xil qoidalar) |
+
+  | `401` | Token yo''q yoki eskirgan |
+
+  | `404` | Viza yozuvi topilmadi yoki boshqa nomzodga tegishli |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
