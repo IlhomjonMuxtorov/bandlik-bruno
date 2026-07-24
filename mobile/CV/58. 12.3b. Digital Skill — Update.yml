@@ -1,0 +1,33 @@
+info:
+  name: 12.3b. Digital Skill — Update
+  type: http
+  seq: 58
+http:
+  method: PATCH
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/digital-skill/{{id}}'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": \"IELTS Academic\",\n  \"awarding_institution\": \"British Council\",\n  \"award_date\": \"20.05.2026\",\n  \"description\": \"Overall band score 7.5.\",\n  \"file_id\": 101\n}"
+  auth: inherit
+docs: |
+  Mavjud "Raqamli ko'nikmalar va test natijalari" yozuvini yangilaydi. Body maydonlari Create bilan bir xil.
+
+  **Auth:** `access_token` — `is_verified=true`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `name` bo'sh, `award_date` formati noto'g'ri, yoki `file_id` mavjud bo'lmagan / tayyor bo'lmagan faylga ishora qiladi |
+  | `403` | Shaxs tasdiqlanmagan / yozuv boshqa CV'ga tegishli |
+  | `404` | CV yoki yozuv topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

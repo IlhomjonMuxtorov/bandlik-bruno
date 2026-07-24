@@ -1,0 +1,33 @@
+info:
+  name: 12.6b. Project — Update
+  type: http
+  seq: 70
+http:
+  method: PATCH
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/project/{{id}}'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": \"E-commerce mobile app\",\n  \"start_date\": \"01.02.2025\",\n  \"end_date\": \"30.09.2025\",\n  \"is_ongoing\": false,\n  \"description\": \"Led a 4-person team building a Flutter shopping app.\",\n  \"file_id\": 104\n}"
+  auth: inherit
+docs: |
+  Mavjud "Loyihalar" yozuvini yangilaydi. Body maydonlari Create bilan bir xil.
+
+  **Auth:** `access_token` — `is_verified=true`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `name` bo'sh, sana formati noto'g'ri, `end_date` < `start_date` (agar `is_ongoing=false`), yoki `file_id` mavjud bo'lmagan / tayyor bo'lmagan faylga ishora qiladi |
+  | `403` | Shaxs tasdiqlanmagan / yozuv boshqa CV'ga tegishli |
+  | `404` | CV yoki yozuv topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

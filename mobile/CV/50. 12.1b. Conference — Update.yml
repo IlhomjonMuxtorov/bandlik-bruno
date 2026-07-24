@@ -1,0 +1,33 @@
+info:
+  name: 12.1b. Conference — Update
+  type: http
+  seq: 50
+http:
+  method: PATCH
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/conference/{{id}}'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": \"Apple development\",\n  \"location\": \"Parij\",\n  \"start_date\": \"12.10.2026\",\n  \"end_date\": \"14.10.2026\",\n  \"description\": \"Build a complete iOS app with SwiftUI.\",\n  \"link\": \"https://developer.apple.com/tutorials\"\n}"
+  auth: inherit
+docs: |
+  Mavjud "Konferensiya va seminarlar" yozuvini yangilaydi. Body maydonlari Create bilan bir xil.
+
+  **Auth:** `access_token` — `is_verified=true`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `name` bo'sh, sana yoki `link` formati noto'g'ri, `end_date` < `start_date` |
+  | `403` | Shaxs tasdiqlanmagan / yozuv boshqa CV'ga tegishli |
+  | `404` | CV yoki yozuv topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

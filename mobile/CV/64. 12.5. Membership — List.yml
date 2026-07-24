@@ -1,0 +1,38 @@
+info:
+  name: 12.5. Membership — List
+  type: http
+  seq: 64
+http:
+  method: GET
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/membership'
+  headers:
+  - name: Accept
+    value: application/json
+  auth: inherit
+docs: |
+  "Tarmoqlar va a'zoliklar" CV bo'limining barcha yozuvlari ro'yxati.
+  **Auth:** `access_token`.
+
+  ### 📤 Response *(massiv elementi)*
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Yozuv ID |
+  | `name` | string | Tarmoq / a'zolik nomi (sarlavha). |
+  | `start_date` | date \| null | Boshlangan sana. Format: `DD.MM.YYYY`. `null` — kiritilmagan. |
+  | `end_date` | date \| null | Tugagan sana. Format: `DD.MM.YYYY`; `start_date`dan katta yoki teng. `is_ongoing=true` bo'lsa e'tiborga olinmaydi (serverda avtomatik `null`ga o'rnatiladi). `null` — kiritilmagan / davom etmoqda. |
+  | `is_ongoing` | bool | Hozircha davom etmoqda. `true` bo'lsa `end_date` e'tiborga olinmaydi. Default: `false`. |
+  | `description` | string \| null | Tavsif (erkin matn). `null` — kiritilmagan. |
+  | `file` | object \| null | Biriktirilgan fayl: `{id, name, url, size, kind, kind_icon_url}`. `null` — fayl yo'q. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | CV topilmadi yoki boshqa nomzodga tegishli |
+  | `456` | Guest-token — ro'yxatdan to'liq o'tish talab qilinadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

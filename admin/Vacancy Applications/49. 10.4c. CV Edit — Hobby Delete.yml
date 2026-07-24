@@ -1,16 +1,16 @@
 info:
-  name: 10c. CV Edit — Extra Delete
+  name: 10.4c. CV Edit — Hobby Delete
   type: http
-  seq: 37
+  seq: 49
 http:
   method: DELETE
-  url: '{{base_url}}/admin/vacancy-applications/1/cv/extra/conference/1'
+  url: '{{base_url}}/admin/vacancy-applications/1/cv/hobby/1'
   headers:
   - name: Content-Type
     value: application/json
   auth: inherit
 docs: |
-  Yozuvni o'chiradi.
+  "Xobbi va qiziqishlar" yozuvini o'chiradi.
 
   **Auth:** `applicationCvManage`.
 

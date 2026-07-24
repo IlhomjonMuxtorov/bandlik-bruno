@@ -1,0 +1,27 @@
+info:
+  name: 10.8c. CV Edit — Recommendation Delete
+  type: http
+  seq: 61
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/vacancy-applications/1/cv/recommendation/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  auth: inherit
+docs: |
+  "Tavsiyalar" yozuvini o'chiradi.
+
+  **Auth:** `applicationCvManage`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `403` | `applicationCvManage` yo'q / ariza faol emas |
+  | `404` | Ariza / CV / yozuv topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

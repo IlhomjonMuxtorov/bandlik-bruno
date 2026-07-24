@@ -1,0 +1,27 @@
+info:
+  name: 12.6c. Project — Delete
+  type: http
+  seq: 71
+http:
+  method: DELETE
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/project/{{id}}'
+  headers:
+  - name: Accept
+    value: application/json
+  auth: inherit
+docs: |
+  "Loyihalar" yozuvini o'chiradi. Muvaffaqiyatda `204 No Content`.
+
+  **Auth:** `access_token` — `is_verified=true`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `403` | Shaxs tasdiqlanmagan / yozuv boshqa CV'ga tegishli |
+  | `404` | CV yoki yozuv topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

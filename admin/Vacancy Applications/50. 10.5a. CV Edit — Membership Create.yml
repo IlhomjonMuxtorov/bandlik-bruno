@@ -1,0 +1,43 @@
+info:
+  name: 10.5a. CV Edit — Membership Create
+  type: http
+  seq: 50
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancy-applications/1/cv/membership'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": \"IEEE Member\",\n  \"start_date\": \"01.01.2024\",\n  \"end_date\": null,\n  \"is_ongoing\": true,\n  \"description\": \"Active member of the IEEE Computer Society.\",\n  \"file_id\": 103\n}"
+  auth: inherit
+docs: |
+  Arizaga biriktirilgan CV'ning "Tarmoqlar va a'zoliklar" bo'limiga yangi yozuv qo'shadi.
+  Bu yozuvlar har doim nomzod tomonidan kiritilgan (MVD manbasi yo'q) — hammasi
+  tahrirlanadi.
+  **Auth:** `applicationCvManage`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `name` | string | ✅ | Tarmoq / a'zolik nomi (sarlavha). |
+  | `start_date` | date | ➖ | Boshlangan sana. Format: `DD.MM.YYYY`. `null` — kiritilmagan. |
+  | `end_date` | date | ➖ | Tugagan sana. Format: `DD.MM.YYYY`; `start_date`dan katta yoki teng. `is_ongoing=true` bo'lsa e'tiborga olinmaydi (serverda avtomatik `null`ga o'rnatiladi). `null` — kiritilmagan / davom etmoqda. |
+  | `is_ongoing` | bool | ➖ | Hozircha davom etmoqda. `true` bo'lsa `end_date` e'tiborga olinmaydi. Default: `false`. |
+  | `description` | string | ➖ | Tavsif (erkin matn). `null` — kiritilmagan. |
+  | `file_id` | int | ➖ | Avval `/mobile/upload` orqali yuklangan (`status=ready`) faylning ID'si. `null` — fayl biriktirilmagan / o'zgartirilmaydi. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `name` bo'sh, sana formati noto'g'ri, `end_date` < `start_date` (agar `is_ongoing=false`), yoki `file_id` mavjud bo'lmagan / tayyor bo'lmagan faylga ishora qiladi |
+  | `403` | Boshqa tashkilot / `applicationCvManage` yo'q / ariza faol emas |
+  | `404` | Ariza / CV topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

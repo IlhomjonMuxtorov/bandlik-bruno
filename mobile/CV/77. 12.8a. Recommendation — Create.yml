@@ -1,0 +1,44 @@
+info:
+  name: 12.8a. Recommendation — Create
+  type: http
+  seq: 77
+http:
+  method: POST
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/recommendation'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": \"John Smith\",\n  \"role\": \"Senior Manager\",\n  \"phone\": \"+998901234567\",\n  \"email\": \"john.smith@example.com\",\n  \"description\": \"Worked together for 2 years at ACME Corp.\",\n  \"file_id\": 106\n}"
+  auth: inherit
+docs: |
+  "Tavsiyalar" bo'limiga yangi yozuv qo'shadi.
+
+  **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `name` | string | ✅ | Tavsiya bergan shaxsning to'liq ism-familiyasi. |
+  | `role` | string | ➖ | Tavsiya bergan shaxsning roli/lavozimi (masalan `Menejer`). `null` — kiritilmagan. |
+  | `phone` | string | ➖ | Tavsiya bergan shaxsning telefon raqami. `null` — kiritilmagan. |
+  | `email` | string | ➖ | Tavsiya bergan shaxsning elektron pochtasi. Email formatida bo'lishi kerak. `null` — kiritilmagan. |
+  | `description` | string | ➖ | Tavsif / tavsiya matni. `null` — kiritilmagan. |
+  | `file_id` | int | ➖ | Avval `/mobile/upload` orqali yuklangan (`status=ready`) faylning ID'si (masalan skanerlangan tavsiyanoma). `null` — fayl biriktirilmagan / o'zgartirilmaydi. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `name` bo'sh, `email` formati noto'g'ri, yoki `file_id` mavjud bo'lmagan / tayyor bo'lmagan faylga ishora qiladi |
+  | `403` | Shaxs tasdiqlanmagan (`verification_required`) |
+  | `404` | CV topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

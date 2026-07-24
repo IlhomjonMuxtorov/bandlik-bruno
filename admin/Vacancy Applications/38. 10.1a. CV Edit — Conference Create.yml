@@ -1,0 +1,45 @@
+info:
+  name: 10.1a. CV Edit — Conference Create
+  type: http
+  seq: 38
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancy-applications/1/cv/conference'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": \"Apple development\",\n  \"location\": \"Parij\",\n  \"start_date\": \"12.10.2026\",\n  \"end_date\": \"14.10.2026\",\n  \"description\": \"Build a complete iOS app with SwiftUI.\",\n  \"link\": \"https://developer.apple.com/tutorials\"\n}"
+  auth: inherit
+docs: |
+  Arizaga biriktirilgan CV'ning "Konferensiya va seminarlar" bo'limiga yangi yozuv qo'shadi.
+  Bu yozuvlar har doim nomzod tomonidan kiritilgan (MVD manbasi yo'q) — hammasi
+  tahrirlanadi.
+  > **E'tibor:** bu endpoint avvalgi umumiy `POST /admin/vacancy-applications/{{id}}/cv/extra/<section>` API'sini almashtiradi — har bir CV bo'limi endi mustaqil, o'z shakliga ega endpoint.
+
+  **Auth:** `applicationCvManage`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `name` | string | ✅ | Konferensiya/seminar nomi. |
+  | `location` | string | ➖ | Joylashuv (erkin matn, masalan `Parij`). `null` — kiritilmagan. |
+  | `start_date` | date | ➖ | Boshlangan sana. Format: `DD.MM.YYYY`. `null` — kiritilmagan. |
+  | `end_date` | date | ➖ | Tugagan sana. Format: `DD.MM.YYYY`; `start_date`dan katta yoki teng bo'lishi kerak. `null` — kiritilmagan. |
+  | `description` | string | ➖ | Tavsif (erkin matn). `null` — kiritilmagan. |
+  | `link` | string | ➖ | To'liq havola (URL). `null` — kiritilmagan. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `name` bo'sh, sana yoki `link` formati noto'g'ri, `end_date` < `start_date` |
+  | `403` | Boshqa tashkilot / `applicationCvManage` yo'q / ariza faol emas |
+  | `404` | Ariza / CV topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

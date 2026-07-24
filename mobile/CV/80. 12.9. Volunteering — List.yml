@@ -1,0 +1,38 @@
+info:
+  name: 12.9. Volunteering — List
+  type: http
+  seq: 80
+http:
+  method: GET
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/volunteering'
+  headers:
+  - name: Accept
+    value: application/json
+  auth: inherit
+docs: |
+  "Ko'ngillilik" CV bo'limining barcha yozuvlari ro'yxati.
+  **Auth:** `access_token`.
+
+  ### 📤 Response *(massiv elementi)*
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Yozuv ID |
+  | `name` | string | Ko'ngillilik faoliyati / tashkilot nomi (sarlavha). |
+  | `location` | string \| null | Joylashuv (erkin matn). `null` — kiritilmagan. |
+  | `start_date` | date \| null | Boshlangan sana. Format: `DD.MM.YYYY`. `null` — kiritilmagan. |
+  | `end_date` | date \| null | Tugagan sana. Format: `DD.MM.YYYY`; `start_date`dan katta yoki teng bo'lishi kerak. `null` — kiritilmagan. |
+  | `description` | string \| null | Tavsif (erkin matn). `null` — kiritilmagan. |
+  | `file` | object \| null | Biriktirilgan fayl: `{id, name, url, size, kind, kind_icon_url}`. `null` — fayl yo'q. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | CV topilmadi yoki boshqa nomzodga tegishli |
+  | `456` | Guest-token — ro'yxatdan to'liq o'tish talab qilinadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

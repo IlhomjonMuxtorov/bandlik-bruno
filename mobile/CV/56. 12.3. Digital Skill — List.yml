@@ -1,0 +1,37 @@
+info:
+  name: 12.3. Digital Skill — List
+  type: http
+  seq: 56
+http:
+  method: GET
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/digital-skill'
+  headers:
+  - name: Accept
+    value: application/json
+  auth: inherit
+docs: |
+  "Raqamli ko'nikmalar va test natijalari" CV bo'limining barcha yozuvlari ro'yxati.
+  **Auth:** `access_token`.
+
+  ### 📤 Response *(massiv elementi)*
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Yozuv ID |
+  | `name` | string | Ko'nikma / test nomi (masalan `IELTS`, `Microsoft Excel`). |
+  | `awarding_institution` | string \| null | Mukofot/sertifikat beruvchi muassasa nomi. `null` — kiritilmagan. |
+  | `award_date` | date \| null | Mukofot/sertifikat sanasi. Format: `DD.MM.YYYY`. `null` — kiritilmagan. |
+  | `description` | string \| null | Tavsif (erkin matn). `null` — kiritilmagan. |
+  | `file` | object \| null | Biriktirilgan fayl: `{id, name, url, size, kind, kind_icon_url}`. `null` — fayl yo'q. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | CV topilmadi yoki boshqa nomzodga tegishli |
+  | `456` | Guest-token — ro'yxatdan to'liq o'tish talab qilinadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

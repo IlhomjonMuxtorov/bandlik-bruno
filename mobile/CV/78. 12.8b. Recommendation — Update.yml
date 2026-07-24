@@ -1,0 +1,33 @@
+info:
+  name: 12.8b. Recommendation — Update
+  type: http
+  seq: 78
+http:
+  method: PATCH
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/recommendation/{{id}}'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": \"John Smith\",\n  \"role\": \"Senior Manager\",\n  \"phone\": \"+998901234567\",\n  \"email\": \"john.smith@example.com\",\n  \"description\": \"Worked together for 2 years at ACME Corp.\",\n  \"file_id\": 106\n}"
+  auth: inherit
+docs: |
+  Mavjud "Tavsiyalar" yozuvini yangilaydi. Body maydonlari Create bilan bir xil.
+
+  **Auth:** `access_token` — `is_verified=true`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `name` bo'sh, `email` formati noto'g'ri, yoki `file_id` mavjud bo'lmagan / tayyor bo'lmagan faylga ishora qiladi |
+  | `403` | Shaxs tasdiqlanmagan / yozuv boshqa CV'ga tegishli |
+  | `404` | CV yoki yozuv topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

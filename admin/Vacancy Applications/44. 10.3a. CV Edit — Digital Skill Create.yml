@@ -1,0 +1,42 @@
+info:
+  name: 10.3a. CV Edit — Digital Skill Create
+  type: http
+  seq: 44
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancy-applications/1/cv/digital-skill'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": \"IELTS Academic\",\n  \"awarding_institution\": \"British Council\",\n  \"award_date\": \"20.05.2026\",\n  \"description\": \"Overall band score 7.5.\",\n  \"file_id\": 101\n}"
+  auth: inherit
+docs: |
+  Arizaga biriktirilgan CV'ning "Raqamli ko'nikmalar va test natijalari" bo'limiga yangi yozuv qo'shadi.
+  Bu yozuvlar har doim nomzod tomonidan kiritilgan (MVD manbasi yo'q) — hammasi
+  tahrirlanadi.
+  **Auth:** `applicationCvManage`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `name` | string | ✅ | Ko'nikma / test nomi (masalan `IELTS`, `Microsoft Excel`). |
+  | `awarding_institution` | string | ➖ | Mukofot/sertifikat beruvchi muassasa nomi. `null` — kiritilmagan. |
+  | `award_date` | date | ➖ | Mukofot/sertifikat sanasi. Format: `DD.MM.YYYY`. `null` — kiritilmagan. |
+  | `description` | string | ➖ | Tavsif (erkin matn). `null` — kiritilmagan. |
+  | `file_id` | int | ➖ | Avval `/mobile/upload` orqali yuklangan (`status=ready`) faylning ID'si. `null` — fayl biriktirilmagan / o'zgartirilmaydi. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `name` bo'sh, `award_date` formati noto'g'ri, yoki `file_id` mavjud bo'lmagan / tayyor bo'lmagan faylga ishora qiladi |
+  | `403` | Boshqa tashkilot / `applicationCvManage` yo'q / ariza faol emas |
+  | `404` | Ariza / CV topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

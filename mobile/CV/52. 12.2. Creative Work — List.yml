@@ -1,0 +1,36 @@
+info:
+  name: 12.2. Creative Work — List
+  type: http
+  seq: 52
+http:
+  method: GET
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/creative-work'
+  headers:
+  - name: Accept
+    value: application/json
+  auth: inherit
+docs: |
+  "Ijodiy ishlar" CV bo'limining barcha yozuvlari ro'yxati.
+  **Auth:** `access_token`.
+
+  ### 📤 Response *(massiv elementi)*
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Yozuv ID |
+  | `name` | string | Ijodiy ish nomi. |
+  | `start_date` | date \| null | Boshlangan sana. Format: `DD.MM.YYYY`. `null` — kiritilmagan. |
+  | `end_date` | date \| null | Tugagan sana. Format: `DD.MM.YYYY`; `start_date`dan katta yoki teng bo'lishi kerak. `null` — kiritilmagan. |
+  | `description` | string \| null | Tavsif (erkin matn). `null` — kiritilmagan. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | CV topilmadi yoki boshqa nomzodga tegishli |
+  | `456` | Guest-token — ro'yxatdan to'liq o'tish talab qilinadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

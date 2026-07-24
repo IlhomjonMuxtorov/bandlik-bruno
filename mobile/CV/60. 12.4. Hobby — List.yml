@@ -1,0 +1,35 @@
+info:
+  name: 12.4. Hobby — List
+  type: http
+  seq: 60
+http:
+  method: GET
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/hobby'
+  headers:
+  - name: Accept
+    value: application/json
+  auth: inherit
+docs: |
+  "Xobbi va qiziqishlar" CV bo'limining barcha yozuvlari ro'yxati.
+  **Auth:** `access_token`.
+
+  ### 📤 Response *(massiv elementi)*
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Yozuv ID |
+  | `name` | string | Xobbi / qiziqish nomi (sarlavha). |
+  | `description` | string \| null | Tavsif (erkin matn). `null` — kiritilmagan. |
+  | `file` | object \| null | Biriktirilgan fayl: `{id, name, url, size, kind, kind_icon_url}`. `null` — fayl yo'q. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | CV topilmadi yoki boshqa nomzodga tegishli |
+  | `456` | Guest-token — ro'yxatdan to'liq o'tish talab qilinadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,31 @@
+info:
+  name: 10.3b. CV Edit — Digital Skill Update
+  type: http
+  seq: 45
+http:
+  method: PATCH
+  url: '{{base_url}}/admin/vacancy-applications/1/cv/digital-skill/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": \"IELTS Academic\",\n  \"awarding_institution\": \"British Council\",\n  \"award_date\": \"20.05.2026\",\n  \"description\": \"Overall band score 7.5.\",\n  \"file_id\": 101\n}"
+  auth: inherit
+docs: |
+  Mavjud "Raqamli ko'nikmalar va test natijalari" yozuvini yangilaydi. Body Create bilan bir xil.
+
+  **Auth:** `applicationCvManage`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `name` bo'sh, `award_date` formati noto'g'ri, yoki `file_id` mavjud bo'lmagan / tayyor bo'lmagan faylga ishora qiladi |
+  | `403` | `applicationCvManage` yo'q / ariza faol emas |
+  | `404` | Ariza / CV / yozuv topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

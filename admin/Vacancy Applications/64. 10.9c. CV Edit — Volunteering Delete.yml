@@ -1,0 +1,27 @@
+info:
+  name: 10.9c. CV Edit — Volunteering Delete
+  type: http
+  seq: 64
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/vacancy-applications/1/cv/volunteering/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  auth: inherit
+docs: |
+  "Ko'ngillilik" yozuvini o'chiradi.
+
+  **Auth:** `applicationCvManage`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `403` | `applicationCvManage` yo'q / ariza faol emas |
+  | `404` | Ariza / CV / yozuv topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

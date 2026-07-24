@@ -1,0 +1,43 @@
+info:
+  name: 10.8a. CV Edit — Recommendation Create
+  type: http
+  seq: 59
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancy-applications/1/cv/recommendation'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": \"John Smith\",\n  \"role\": \"Senior Manager\",\n  \"phone\": \"+998901234567\",\n  \"email\": \"john.smith@example.com\",\n  \"description\": \"Worked together for 2 years at ACME Corp.\",\n  \"file_id\": 106\n}"
+  auth: inherit
+docs: |
+  Arizaga biriktirilgan CV'ning "Tavsiyalar" bo'limiga yangi yozuv qo'shadi.
+  Bu yozuvlar har doim nomzod tomonidan kiritilgan (MVD manbasi yo'q) — hammasi
+  tahrirlanadi.
+  **Auth:** `applicationCvManage`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `name` | string | ✅ | Tavsiya bergan shaxsning to'liq ism-familiyasi. |
+  | `role` | string | ➖ | Tavsiya bergan shaxsning roli/lavozimi (masalan `Menejer`). `null` — kiritilmagan. |
+  | `phone` | string | ➖ | Tavsiya bergan shaxsning telefon raqami. `null` — kiritilmagan. |
+  | `email` | string | ➖ | Tavsiya bergan shaxsning elektron pochtasi. Email formatida bo'lishi kerak. `null` — kiritilmagan. |
+  | `description` | string | ➖ | Tavsif / tavsiya matni. `null` — kiritilmagan. |
+  | `file_id` | int | ➖ | Avval `/mobile/upload` orqali yuklangan (`status=ready`) faylning ID'si (masalan skanerlangan tavsiyanoma). `null` — fayl biriktirilmagan / o'zgartirilmaydi. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `name` bo'sh, `email` formati noto'g'ri, yoki `file_id` mavjud bo'lmagan / tayyor bo'lmagan faylga ishora qiladi |
+  | `403` | Boshqa tashkilot / `applicationCvManage` yo'q / ariza faol emas |
+  | `404` | Ariza / CV topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

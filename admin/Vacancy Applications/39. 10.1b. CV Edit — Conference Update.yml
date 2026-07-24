@@ -1,0 +1,31 @@
+info:
+  name: 10.1b. CV Edit — Conference Update
+  type: http
+  seq: 39
+http:
+  method: PATCH
+  url: '{{base_url}}/admin/vacancy-applications/1/cv/conference/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": \"Apple development\",\n  \"location\": \"Parij\",\n  \"start_date\": \"12.10.2026\",\n  \"end_date\": \"14.10.2026\",\n  \"description\": \"Build a complete iOS app with SwiftUI.\",\n  \"link\": \"https://developer.apple.com/tutorials\"\n}"
+  auth: inherit
+docs: |
+  Mavjud "Konferensiya va seminarlar" yozuvini yangilaydi. Body Create bilan bir xil.
+
+  **Auth:** `applicationCvManage`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `name` bo'sh, sana yoki `link` formati noto'g'ri, `end_date` < `start_date` |
+  | `403` | `applicationCvManage` yo'q / ariza faol emas |
+  | `404` | Ariza / CV / yozuv topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

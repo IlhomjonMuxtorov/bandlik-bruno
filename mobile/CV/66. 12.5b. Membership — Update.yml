@@ -1,0 +1,33 @@
+info:
+  name: 12.5b. Membership — Update
+  type: http
+  seq: 66
+http:
+  method: PATCH
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/membership/{{id}}'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": \"IEEE Member\",\n  \"start_date\": \"01.01.2024\",\n  \"end_date\": null,\n  \"is_ongoing\": true,\n  \"description\": \"Active member of the IEEE Computer Society.\",\n  \"file_id\": 103\n}"
+  auth: inherit
+docs: |
+  Mavjud "Tarmoqlar va a'zoliklar" yozuvini yangilaydi. Body maydonlari Create bilan bir xil.
+
+  **Auth:** `access_token` — `is_verified=true`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `name` bo'sh, sana formati noto'g'ri, `end_date` < `start_date` (agar `is_ongoing=false`), yoki `file_id` mavjud bo'lmagan / tayyor bo'lmagan faylga ishora qiladi |
+  | `403` | Shaxs tasdiqlanmagan / yozuv boshqa CV'ga tegishli |
+  | `404` | CV yoki yozuv topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

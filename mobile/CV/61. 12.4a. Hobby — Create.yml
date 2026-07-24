@@ -1,0 +1,41 @@
+info:
+  name: 12.4a. Hobby — Create
+  type: http
+  seq: 61
+http:
+  method: POST
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/hobby'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": \"Photography\",\n  \"description\": \"Landscape and street photography.\",\n  \"file_id\": 102\n}"
+  auth: inherit
+docs: |
+  "Xobbi va qiziqishlar" bo'limiga yangi yozuv qo'shadi.
+
+  **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `name` | string | ✅ | Xobbi / qiziqish nomi (sarlavha). |
+  | `description` | string | ➖ | Tavsif (erkin matn). `null` — kiritilmagan. |
+  | `file_id` | int | ➖ | Avval `/mobile/upload` orqali yuklangan (`status=ready`) faylning ID'si. `null` — fayl biriktirilmagan / o'zgartirilmaydi. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `name` bo'sh, yoki `file_id` mavjud bo'lmagan / tayyor bo'lmagan faylga ishora qiladi |
+  | `403` | Shaxs tasdiqlanmagan (`verification_required`) |
+  | `404` | CV topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

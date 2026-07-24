@@ -1,16 +1,16 @@
 info:
-  name: 12c. Extra Section — Delete
+  name: 12.1c. Conference — Delete
   type: http
-  seq: 43
+  seq: 51
 http:
   method: DELETE
-  url: '{{base_url}}/mobile/cv/{{cv_id}}/extra/conference/1'
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/conference/{{id}}'
   headers:
   - name: Accept
     value: application/json
   auth: inherit
 docs: |
-  Yozuvni o'chiradi. Muvaffaqiyatda `204 No Content`.
+  "Konferensiya va seminarlar" yozuvini o'chiradi. Muvaffaqiyatda `204 No Content`.
 
   **Auth:** `access_token` — `is_verified=true`.
 

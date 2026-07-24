@@ -1,0 +1,43 @@
+info:
+  name: 12.3a. Digital Skill — Create
+  type: http
+  seq: 57
+http:
+  method: POST
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/digital-skill'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": \"IELTS Academic\",\n  \"awarding_institution\": \"British Council\",\n  \"award_date\": \"20.05.2026\",\n  \"description\": \"Overall band score 7.5.\",\n  \"file_id\": 101\n}"
+  auth: inherit
+docs: |
+  "Raqamli ko'nikmalar va test natijalari" bo'limiga yangi yozuv qo'shadi.
+
+  **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `name` | string | ✅ | Ko'nikma / test nomi (masalan `IELTS`, `Microsoft Excel`). |
+  | `awarding_institution` | string | ➖ | Mukofot/sertifikat beruvchi muassasa nomi. `null` — kiritilmagan. |
+  | `award_date` | date | ➖ | Mukofot/sertifikat sanasi. Format: `DD.MM.YYYY`. `null` — kiritilmagan. |
+  | `description` | string | ➖ | Tavsif (erkin matn). `null` — kiritilmagan. |
+  | `file_id` | int | ➖ | Avval `/mobile/upload` orqali yuklangan (`status=ready`) faylning ID'si. `null` — fayl biriktirilmagan / o'zgartirilmaydi. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `name` bo'sh, `award_date` formati noto'g'ri, yoki `file_id` mavjud bo'lmagan / tayyor bo'lmagan faylga ishora qiladi |
+  | `403` | Shaxs tasdiqlanmagan (`verification_required`) |
+  | `404` | CV topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

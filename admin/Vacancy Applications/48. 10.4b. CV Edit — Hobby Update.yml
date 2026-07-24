@@ -1,0 +1,31 @@
+info:
+  name: 10.4b. CV Edit — Hobby Update
+  type: http
+  seq: 48
+http:
+  method: PATCH
+  url: '{{base_url}}/admin/vacancy-applications/1/cv/hobby/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": \"Photography\",\n  \"description\": \"Landscape and street photography.\",\n  \"file_id\": 102\n}"
+  auth: inherit
+docs: |
+  Mavjud "Xobbi va qiziqishlar" yozuvini yangilaydi. Body Create bilan bir xil.
+
+  **Auth:** `applicationCvManage`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `name` bo'sh, yoki `file_id` mavjud bo'lmagan / tayyor bo'lmagan faylga ishora qiladi |
+  | `403` | `applicationCvManage` yo'q / ariza faol emas |
+  | `404` | Ariza / CV / yozuv topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,44 @@
+info:
+  name: 12.1a. Conference — Create
+  type: http
+  seq: 49
+http:
+  method: POST
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/conference'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": \"Apple development\",\n  \"location\": \"Parij\",\n  \"start_date\": \"12.10.2026\",\n  \"end_date\": \"14.10.2026\",\n  \"description\": \"Build a complete iOS app with SwiftUI.\",\n  \"link\": \"https://developer.apple.com/tutorials\"\n}"
+  auth: inherit
+docs: |
+  "Konferensiya va seminarlar" bo'limiga yangi yozuv qo'shadi.
+
+  **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `name` | string | ✅ | Konferensiya/seminar nomi. |
+  | `location` | string | ➖ | Joylashuv (erkin matn, masalan `Parij`). `null` — kiritilmagan. |
+  | `start_date` | date | ➖ | Boshlangan sana. Format: `DD.MM.YYYY`. `null` — kiritilmagan. |
+  | `end_date` | date | ➖ | Tugagan sana. Format: `DD.MM.YYYY`; `start_date`dan katta yoki teng bo'lishi kerak. `null` — kiritilmagan. |
+  | `description` | string | ➖ | Tavsif (erkin matn). `null` — kiritilmagan. |
+  | `link` | string | ➖ | To'liq havola (URL). `null` — kiritilmagan. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `name` bo'sh, sana yoki `link` formati noto'g'ri, `end_date` < `start_date` |
+  | `403` | Shaxs tasdiqlanmagan (`verification_required`) |
+  | `404` | CV topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

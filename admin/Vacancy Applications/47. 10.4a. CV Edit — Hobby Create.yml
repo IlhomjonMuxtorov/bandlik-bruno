@@ -1,0 +1,40 @@
+info:
+  name: 10.4a. CV Edit — Hobby Create
+  type: http
+  seq: 47
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancy-applications/1/cv/hobby'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": \"Photography\",\n  \"description\": \"Landscape and street photography.\",\n  \"file_id\": 102\n}"
+  auth: inherit
+docs: |
+  Arizaga biriktirilgan CV'ning "Xobbi va qiziqishlar" bo'limiga yangi yozuv qo'shadi.
+  Bu yozuvlar har doim nomzod tomonidan kiritilgan (MVD manbasi yo'q) — hammasi
+  tahrirlanadi.
+  **Auth:** `applicationCvManage`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `name` | string | ✅ | Xobbi / qiziqish nomi (sarlavha). |
+  | `description` | string | ➖ | Tavsif (erkin matn). `null` — kiritilmagan. |
+  | `file_id` | int | ➖ | Avval `/mobile/upload` orqali yuklangan (`status=ready`) faylning ID'si. `null` — fayl biriktirilmagan / o'zgartirilmaydi. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `name` bo'sh, yoki `file_id` mavjud bo'lmagan / tayyor bo'lmagan faylga ishora qiladi |
+  | `403` | Boshqa tashkilot / `applicationCvManage` yo'q / ariza faol emas |
+  | `404` | Ariza / CV topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

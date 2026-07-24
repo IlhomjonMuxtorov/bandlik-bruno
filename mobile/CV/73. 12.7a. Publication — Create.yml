@@ -1,0 +1,47 @@
+info:
+  name: 12.7a. Publication — Create
+  type: http
+  seq: 73
+http:
+  method: POST
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/publication'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": \"Deep learning for low-resource languages\",\n  \"year\": \"15.06.2024\",\n  \"link\": \"https://example.org/paper/123\",\n  \"authors\": \"A. Karimov, B. Yusupova\",\n  \"journal_name\": \"International Journal of NLP\",\n  \"volume_issue_pages\": \"3-jild, 2-son, 105-150 bet\",\n  \"publisher\": \"Springer\",\n  \"description\": \"Peer-reviewed research paper.\",\n  \"file_id\": 105\n}"
+  auth: inherit
+docs: |
+  "Nashrlar" bo'limiga yangi yozuv qo'shadi.
+
+  **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `name` | string | ✅ | Nashr nomi (sarlavha). |
+  | `year` | date | ➖ | Nashr yili/sanasi. Format: `DD.MM.YYYY`. `null` — kiritilmagan. |
+  | `link` | string | ➖ | To'liq havola (URL). `null` — kiritilmagan. |
+  | `authors` | string | ➖ | Mualliflar ro'yxati (erkin matn). `null` — kiritilmagan. |
+  | `journal_name` | string | ➖ | Jurnal / konferensiya nomi. `null` — kiritilmagan. |
+  | `volume_issue_pages` | string | ➖ | Jild, son, sahifalar (masalan `3-jild, 2-son, 105-150 bet`). `null` — kiritilmagan. |
+  | `publisher` | string | ➖ | Nashriyotchi nomi. `null` — kiritilmagan. |
+  | `description` | string | ➖ | Tavsif (erkin matn). `null` — kiritilmagan. |
+  | `file_id` | int | ➖ | Avval `/mobile/upload` orqali yuklangan (`status=ready`) faylning ID'si. `null` — fayl biriktirilmagan / o'zgartirilmaydi. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `name` bo'sh, `year` yoki `link` formati noto'g'ri, yoki `file_id` mavjud bo'lmagan / tayyor bo'lmagan faylga ishora qiladi |
+  | `403` | Shaxs tasdiqlanmagan (`verification_required`) |
+  | `404` | CV topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,27 @@
+info:
+  name: 12.8c. Recommendation — Delete
+  type: http
+  seq: 79
+http:
+  method: DELETE
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/recommendation/{{id}}'
+  headers:
+  - name: Accept
+    value: application/json
+  auth: inherit
+docs: |
+  "Tavsiyalar" yozuvini o'chiradi. Muvaffaqiyatda `204 No Content`.
+
+  **Auth:** `access_token` — `is_verified=true`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `403` | Shaxs tasdiqlanmagan / yozuv boshqa CV'ga tegishli |
+  | `404` | CV yoki yozuv topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

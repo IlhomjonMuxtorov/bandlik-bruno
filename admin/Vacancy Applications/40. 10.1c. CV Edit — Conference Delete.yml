@@ -1,0 +1,27 @@
+info:
+  name: 10.1c. CV Edit — Conference Delete
+  type: http
+  seq: 40
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/vacancy-applications/1/cv/conference/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  auth: inherit
+docs: |
+  "Konferensiya va seminarlar" yozuvini o'chiradi.
+
+  **Auth:** `applicationCvManage`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `403` | `applicationCvManage` yo'q / ariza faol emas |
+  | `404` | Ariza / CV / yozuv topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

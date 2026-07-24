@@ -1,0 +1,31 @@
+info:
+  name: 10.7b. CV Edit — Publication Update
+  type: http
+  seq: 57
+http:
+  method: PATCH
+  url: '{{base_url}}/admin/vacancy-applications/1/cv/publication/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": \"Deep learning for low-resource languages\",\n  \"year\": \"15.06.2024\",\n  \"link\": \"https://example.org/paper/123\",\n  \"authors\": \"A. Karimov, B. Yusupova\",\n  \"journal_name\": \"International Journal of NLP\",\n  \"volume_issue_pages\": \"3-jild, 2-son, 105-150 bet\",\n  \"publisher\": \"Springer\",\n  \"description\": \"Peer-reviewed research paper.\",\n  \"file_id\": 105\n}"
+  auth: inherit
+docs: |
+  Mavjud "Nashrlar" yozuvini yangilaydi. Body Create bilan bir xil.
+
+  **Auth:** `applicationCvManage`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `name` bo'sh, `year` yoki `link` formati noto'g'ri, yoki `file_id` mavjud bo'lmagan / tayyor bo'lmagan faylga ishora qiladi |
+  | `403` | `applicationCvManage` yo'q / ariza faol emas |
+  | `404` | Ariza / CV / yozuv topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
