@@ -1,0 +1,66 @@
+info:
+  name: 2. Postal Code Lookup
+  type: http
+  seq: 2
+http:
+  method: GET
+  url: '{{base_url}}/admin/geocode/postal?postal_code=100000&country_code=UZ'
+  auth: inherit
+docs: |-
+  Zip/pochta kodini geografik ma'lumotga (davlat, shahar, viloyat, to'liq manzil,
+  koordinata) aylantiradi — Yandex Geocoder HTTP API orqali (server kaliti
+  backendda turadi). Ish beruvchi (employer) tashkilot yaratish formasida
+  maydonlarni avtomatik to'ldirish uchun ishlatiladi.
+
+  > Pochta kodlari global miqyosda unikal emas — noaniqlikni kamaytirish uchun
+  > `country_code` (ISO 3166-1 alpha-2) hint sifatida yuborilishi tavsiya etiladi.
+  >
+  > Soft-fail: `YANDEX_GEOCODER_KEY` sozlanmagan yoki kod topilmasa — `200`
+  > qaytadi, lekin barcha maydonlar (`postal_code`dan tashqari) `null` bo'ladi.
+  > Bu holatda `message` bo'sh qatordir (`/admin/geocode`dan farqli o'laroq, bu
+  > endpoint topilmaganda alohida xabar matni qaytarmaydi).
+
+  **Auth:** `admin_token` (Bearer).
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `postal_code` | string | ✅ | Qidiriladigan zip/pochta kodi (masalan `"100000"`). Bo'sh bo'lsa `422` qaytadi. |
+  | `country_code` | string | ➖ | ISO 3166-1 alpha-2 davlat kodi (masalan `"UZ"`) — noaniqlikni kamaytirish uchun hint. Berilmasa geokoder faqat pochta kodi bo'yicha qidiradi. |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {{ _.admin_token }}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. `country_name` / `city_name` shu tilda lokalizatsiya qilinadi. Default: `uz`. |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `success` | bool | Doim `true` (kod topilmasa ham). |
+  | `data.country_id` | int \| null | Geokoder qaytargan ISO2 kod bo'yicha topilgan `country` jadvali id'si. Geokod muvaffaqiyatsiz bo'lsa yoki mos davlat topilmasa `null`. |
+  | `data.country_name` | string \| null | `Accept-Language` bo'yicha lokalizatsiya qilingan davlat nomi. `country_id` `null` bo'lsa — `null`. |
+  | `data.city_id` | int \| null | Geokoder lokalitet nomi bo'yicha (davlat ichida) topilgan `city` jadvali id'si — best-effort. Lokalitet nomi lokalizatsiya qilingan holatlarda ko'pincha `null` (masalan rus tilidagi nom bazadagi inglizcha nomga mos kelmasa). |
+  | `data.city_name` | string \| null | Lokalizatsiya qilingan shahar nomi. `city_id` `null` bo'lsa — `null`. |
+  | `data.state` | string \| null | Geokoderning viloyat/provinsiya matni, xom holda (ma'lumotnoma jadvaliga bog'lanmagan). Topilmasa `null`. |
+  | `data.address` | string \| null | Geokoder qaytargan to'liq formatlangan manzil. Geokod muvaffaqiyatsiz bo'lsa `null`. |
+  | `data.postal_code` | string | So'ralgan pochta kodi, o'zgarishsiz qaytariladi. |
+  | `data.latitude` | float \| null | Kenglik (`-90..90`). Geokod muvaffaqiyatsiz bo'lsa `null`. |
+  | `data.longitude` | float \| null | Uzunlik (`-180..180`). Geokod muvaffaqiyatsiz bo'lsa `null`. |
+  | `message` | string | Doim bo'sh qator (`""`) — bu endpoint soft-fail holatida ham xabar matni qaytarmaydi. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki muddati o'tgan. |
+  | `403` | Admin `ownProfileManage` ruxsati yo'q. |
+  | `422` | `postal_code` query parametri yuborilmagan yoki bo'sh. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
