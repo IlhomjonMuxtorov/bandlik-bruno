@@ -1,0 +1,89 @@
+info:
+  name: 5.2. Pipeline — Refresh Address
+  type: http
+  seq: 15
+http:
+  method: POST
+  url: '{{base_url}}/admin/vacancy-candidates/1/refresh-address'
+  auth: inherit
+params: {}
+headers:
+  - name: Accept-Language
+    value: uz
+    enabled: true
+docs: >
+  Kandidatning yashash manzilini MVD `MVDAddressInfoService`
+  (`POST /mvd/services/address/info/pin/v1`, body `{"pinpp": "…"}`) dan qayta tortib
+  keladi: doimiy propiska + barcha vaqtinchalik ro'yxatlar qayta yoziladi va
+  `registration` bloki qaytariladi.
+
+
+  Manzil avtomatik ravishda faqat CV yaratilganda tortiladi. Nomzod ko'chib
+  o'tganda (qayta ro'yxatdan o'tish) admin shu endpoint orqali majburiy yangilaydi.
+
+
+  **Auth:** `access_token` (admin yoki o'z tashkiloti aktyori).
+
+
+  > MVD — yagona haqiqat manbai: har chaqiruvda kandidatning eski manzil qatorlari
+  > o'chirilib qayta yoziladi, `candidate.registration_*` ustunlari esa **joriy**
+  > manzil bilan yangilanadi. Pochta indeksiga tegilmaydi — MVD uni qaytarmaydi.
+
+
+  ### 📤 Response (`data`)
+
+
+  Yuqori darajada **joriy** manzil (faol vaqtinchalik ro'yxat, aks holda doimiy
+  propiska), yonida `permanent` va `temporary[]`.
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `type` | string | `permanent` \| `temporary` |
+
+  | `country` \| `region` \| `district` | string \| null | Ma'lumotnomadan bog'langan nom (`Accept-Language`); bog'lanmasa MVD xom kirill qiymati |
+
+  | `mahalla` | string \| null | MFY nomi — UzKad ma'lumotnomasidan lotin yozuvida |
+
+  | `street` | string \| null | Ko'cha nomi — 1C ma'lumotnomasidan (`Street.Guid`) lotin yozuvida |
+
+  | `street_type` | string \| null | Ko'cha turi lokalizatsiyalangan nomi |
+
+  | `address` | string \| null | MVD `Address` — uy/xonadon erkin matni |
+
+  | `cadastre` | string \| null | Kadastr raqami; `null` — MVD bermagan |
+
+  | `postal_code` | string \| null | Nomzod profilidagi pochta indeksi |
+
+  | `registration_date` | string \| null | Ro'yxatga olingan sana (`d.m.Y`) |
+
+  | `valid_until` | string \| null | Vaqtinchalik ro'yxat muddati (`d.m.Y`); doimiyda `null` |
+
+  | `full_address` | string \| null | `Viloyat, Tuman, MFY, Ko'cha, uy` |
+
+  | `permanent` | object \| null | Doimiy propiska yozuvi |
+
+  | `temporary` | array | Vaqtinchalik ro'yxatlar, yangisi birinchi |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Unauthorized |
+
+  | `403` | Boshqa tashkilot vakansiyasi |
+
+  | `404` | Pipeline yoki kandidat topilmadi |
+
+  | `422` | Kandidatda PINFL yo'q, yoki MVD so'rovi muvaffaqiyatsiz (xizmat mavjud emas / manzil topilmadi) |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

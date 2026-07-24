@@ -26,6 +26,42 @@ docs: >
   family, languages[], documents[], driver, courses[], visas[], contact, legal, medical`.
 
 
+  **`registration`** (Yashash manzili — MVD `MVDAddressInfoService`): yuqori darajada
+  **joriy** manzil — faol vaqtinchalik ro'yxat bo'lsa o'sha, aks holda doimiy propiska.
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `type` | string \| null | `permanent` \| `temporary`; `null` — MVD hali sinxronlanmagan |
+
+  | `country` \| `region` \| `district` | string \| null | Ma'lumotnomadan bog'langan nom (`Accept-Language`); bog'lanmasa MVD xom kirill qiymati |
+
+  | `mahalla` | string \| null | MFY nomi — UzKad ma'lumotnomasidan lotin yozuvida, bo'lmasa MVD `Maxalla.Value` |
+
+  | `street` | string \| null | Ko'cha nomi — 1C ma'lumotnomasidan (`Street.Guid` kodi bo'yicha) lotin yozuvida, bo'lmasa MVD `Street.Value` |
+
+  | `street_type` | string \| null | Ko'cha turi lokalizatsiyalangan nomi (Ko'cha, Berk ko'cha, Qishloq, Shox ko'cha …) |
+
+  | `address` | string \| null | MVD `Address` — uy/xonadon darajasidagi erkin matn |
+
+  | `cadastre` | string \| null | Turar-joy kadastr raqami; `null` — MVD bermagan |
+
+  | `postal_code` | string \| null | Pochta indeksi — nomzod profilidan (MVD indeks qaytarmaydi) |
+
+  | `registration_date` | string \| null | Ro'yxatga olingan sana (`d.m.Y`) |
+
+  | `valid_until` | string \| null | Vaqtinchalik ro'yxat muddati (`d.m.Y`); doimiy propiskada `null` |
+
+  | `full_address` | string \| null | To'liq manzil: `Viloyat, Tuman, MFY, Ko'cha, uy` |
+
+  | `permanent` | object \| null | Doimiy propiska yozuvi (shu kalitlar bilan); `null` — MVD qaytarmagan |
+
+  | `temporary` | array | Vaqtinchalik ro'yxatlar (yangisi birinchi), har biri `valid_until` bilan |
+
+
+
   > **BREAKING:** `birth_place` endi qat'iy MVD-derived: `{ address, country }`. Eski
   > `region`/`district` kalitlari OLIB TASHLANDI. `address` kaliti QOLADI, lekin
   > qiymati boshqa manbadan: endi MVD `birthplace` erkin matni (masalan tuman nomi),

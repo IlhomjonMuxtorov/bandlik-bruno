@@ -58,11 +58,12 @@ docs: |
 
   | Field | Type | Description |
   |---|---|---|
-  | `registration_region` | string \| null | Propiska region free-text (MVD-resolved); `null` if not set |
-  | `registration_district` | string \| null | Propiska district free-text (MVD-resolved); `null` if not set |
-  | `registration_address` | string \| null | Full registration street address; `null` if not set |
-  | `postal_code` | string \| null | Postal code; `null` if not provided |
+  | `registration_region` | string \| null | Propiska region free-text mirror of the current registration (MVD-resolved); `null` if not set |
+  | `registration_district` | string \| null | Propiska district free-text mirror (MVD-resolved); `null` if not set |
+  | `registration_address` | string \| null | Street-level detail of the current registration (mahalla, street, house); `null` if not set |
+  | `postal_code` | string \| null | Postal code; `null` if not provided. MVD's address service does not return one — this stays a profile-level value |
   | `foreign_passport_number` | string \| null | Active international (загранпаспорт) number from MVD; `null` if no active foreign passport |
+  | `registration` | object \| null | Structured MVD registration block — same shape as `registration` in `GET /mobile/cv/{id}`. The top level is the **current** residence (active temporary registration, else permanent): `{ type, country, region, district, mahalla, street, street_type, address, cadastre, postal_code, registration_date, valid_until, full_address, permanent, temporary[] }`. `null` when the user has no candidate row yet |
 
   #### `education` array — education pool (across all CVs, deduplicated)
 

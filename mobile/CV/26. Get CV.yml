@@ -73,7 +73,31 @@ docs: 'Bitta CV-ning to''liq tafsilotlari (education, experience, languages va h
   `name` — lokalizatsiya, bo''lmasa xom MVD fuqarolik qiymati. `additional_visa_country`
   — `{id, name}` \| `null` |
 
-  | `registration` | object | Propiska: `{ region, district, country, address, postal_code, registration_date }`. `region`/`district`/`country` MVD `MVDAddressInfoService` propiskasidan `region`/`district` jadvallariga bog''lanadi (erkin matn fallback) |
+  | `registration` | object | Yashash manzili — MVD `MVDAddressInfoService` (`/mvd/services/address/info/pin/v1`) dan. Yuqori darajada **joriy** manzil turadi: faol vaqtinchalik ro''yxat bo''lsa o''sha, aks holda doimiy propiska. Kalitlar: `{ type, country, region, district, mahalla, street, street_type, address, cadastre, postal_code, registration_date, valid_until, full_address, permanent, temporary[] }` |
+
+  | `registration.type` | string \| null | `permanent` — doimiy propiska \| `temporary` — vaqtinchalik ro''yxat. `null` — MVD hali sinxronlanmagan (eski nomzod, faqat erkin matn ustunlari bor) |
+
+  | `registration.region` \| `.district` \| `.country` | string \| null | MVD `Region`/`District`/`Country` ma''lumotnomasidan bog''langan nom (`Accept-Language` bo''yicha lokalizatsiya); bog''lanmasa MVD qaytargan xom kirill nomi |
+
+  | `registration.mahalla` | string \| null | MFY nomi — UzKad ma''lumotnomasidan lotin yozuvida; bog''lanmasa MVD `Maxalla.Value` (kirill). `null` — MFY ko''rsatilmagan |
+
+  | `registration.street` | string \| null | Ko''cha nomi — 1C ma''lumotnomasidan lotin yozuvida (MVD `Street.Guid` kodi bo''yicha); bog''lanmasa MVD `Street.Value` (kirill) |
+
+  | `registration.street_type` | string \| null | Ko''cha turi lokalizatsiyalangan nomi: Ko''cha \| Berk ko''cha \| O''tish \| Qishloq \| Shox ko''cha va h.k. `null` — ko''cha ma''lumotnomada topilmadi |
+
+  | `registration.address` | string \| null | MVD `Address` — uy/xonadon darajasidagi erkin matn (masalan `Узбекистон кучаси, 58-уй`) |
+
+  | `registration.cadastre` | string \| null | Turar-joyning kadastr raqami. `null` — MVD bermagan |
+
+  | `registration.postal_code` | string \| null | Pochta indeksi — nomzod profilidan (MVD manzil xizmati indeks qaytarmaydi) |
+
+  | `registration.valid_until` | string \| null | Vaqtinchalik ro''yxat muddati (`d.m.Y`). Doimiy propiskada doim `null` |
+
+  | `registration.full_address` | string \| null | To''liq yig''ilgan manzil: `Viloyat, Tuman, MFY, Ko''cha, uy` |
+
+  | `registration.permanent` | object \| null | Doimiy propiska yozuvi (yuqoridagi kalitlar bilan bir xil shakl). `null` — MVD doimiy propiska qaytarmagan |
+
+  | `registration.temporary` | array | Vaqtinchalik ro''yxatlar, yangisi birinchi. Har element `permanent` bilan bir xil shaklda, `valid_until` to''ldirilgan. Bo''sh massiv — vaqtinchalik ro''yxat yo''q |
 
   | `education` | array | Faqat shu CV-ga tegishli |
 

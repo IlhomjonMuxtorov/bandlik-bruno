@@ -49,6 +49,7 @@ docs: >
   | `lead` | object | `{id, candidate_id, full_name, phone, photo_url, funnel_status, funnel_status_label, source, source_label, created_at, created_at_formatted}` |
 
   | `profile` | object \| null | `CvOutputDTO` shakli: `header, personal, birth_place, passport, registration, education[], experience[], family, languages[], documents[], driver, courses[], visas[], contact`. Candidate yo'q bo'lsa `null` |
+  | `profile.registration` | object | Yashash manzili (MVD `MVDAddressInfoService`). Yuqori darajada **joriy** manzil — faol vaqtinchalik ro'yxat, aks holda doimiy propiska: `{ type, country, region, district, mahalla, street, street_type, address, cadastre, postal_code, registration_date, valid_until, full_address, permanent, temporary[] }`. To'liq ta'rif: `Vacancy Candidates Pipeline → 5. Candidate Profile` |
 
 
   > **BREAKING:** `profile.birth_place` endi qat'iy MVD-derived: `{ address, country }`.
