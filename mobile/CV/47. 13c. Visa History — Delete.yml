@@ -1,0 +1,35 @@
+info:
+  name: 13c. Visa History — Delete
+  type: http
+  seq: 47
+http:
+  method: DELETE
+  url: '{{base_url}}/mobile/candidate/visa/1'
+  headers:
+  - name: Accept
+    value: application/json
+  auth: inherit
+docs: 'Viza tarixi yozuvini o''chirish. Faqat yozuv egasi (nomzod) o''chira oladi.
+  Biriktirilgan viza hujjati ham o''chiriladi. Muvaffaqiyatda `204 No Content`.
+
+
+  **Auth:** `access_token`.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q yoki eskirgan |
+
+  | `404` | Viza yozuvi topilmadi yoki boshqa nomzodga tegishli |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

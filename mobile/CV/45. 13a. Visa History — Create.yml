@@ -1,0 +1,75 @@
+info:
+  name: 13a. Visa History — Create
+  type: http
+  seq: 45
+http:
+  method: POST
+  url: '{{base_url}}/mobile/candidate/visa'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n    \"visa_type\": \"work_visa\",\n    \"country_id\": 1,\n    \"entry_date\": \"15.01.2023\",\n    \"exit_date\": \"20.06.2023\",\n    \"had_legal_problems\": true,\n    \"legal_issue_note\": \"Viza muddatidan 3 kun ortiq qolib ketganman\",\n    \"visa_file_id\": 42\n}"
+  auth: inherit
+docs: 'Yangi viza tarixi yozuvi qo''shish.
+
+
+  **Auth:** `access_token`.
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `visa_type` | string | ✅ | Viza turi kodi — `GET /mobile/visa-types` dagi qiymat.
+  Masalan: `work_visa` \| `business_visa` \| `student_visa` \| `tourist_visa` \| `transit_visa`
+  \| `family_visa` \| `residence_permit` \| `working_holiday` \| `seasonal_work` \| `skills_visa`
+  \| `intra_company` \| `other` |
+
+  | `country_id` | int | ✅ | Viza olingan davlat — `GET /mobile/countries` dagi `id` |
+
+  | `entry_date` | date | ✅ | Davlatga kirgan vaqti — `DD.MM.YYYY` |
+
+  | `exit_date` | date | ➖ | Davlatdan chiqqan vaqti — `DD.MM.YYYY`. `null` = hali
+  chiqmagan. `entry_date` dan katta yoki teng bo''lishi shart |
+
+  | `had_legal_problems` | bool | ➖ | Ushbu davlatda viza tartibini buzish yoki qonuniy
+  muammolar bo''lganmi. `true` = Ha, `false` = Yo''q. Default: `false`. `"true"`/`"false"`
+  string qiymatlar ham qabul qilinadi |
+
+  | `legal_issue_note` | string | ➖ | Qonuniy muammo izohi (erkin matn). Har doim ixtiyoriy
+  — `had_legal_problems=false` bo''lsa ham yuborilishi mumkin. `null` — izoh yo''q |
+
+  | `visa_file_id` | int | ➖ | `/mobile/upload` orqali yuklangan viza hujjati ID. `null`
+  — biriktirilmagan |
+
+
+  ### 📤 Response
+
+  `13. Visa History — List` bilan bir xil obyekt (`201`).
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `400` | Validatsiya — `visa_type` noto''g''ri, `country_id` mavjud emas, `exit_date
+  < entry_date`, yoki `visa_file_id` topilmadi/`ready` emas |
+
+  | `401` | Token yo''q yoki eskirgan |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
