@@ -1,0 +1,111 @@
+info:
+  name: 24. Vacancy — Service Organizations (by category)
+  type: http
+  seq: 24
+http:
+  method: GET
+  url: '{{base_url}}/admin/vacancies/service-organizations?category=training&q='
+  params:
+  - name: category
+    value: training
+    type: query
+    enabled: true
+  - name: q
+    value: ''
+    type: query
+    enabled: true
+  headers:
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: 'Vakansiya yaratishdagi **service group** uchun hamkor tashkilotni tanlash
+  dropdowni. `category` bo''yicha faqat **aktiv** (`is_active = true`) hamkor
+  tashkilotlar qaytariladi (o''quv markazi / notarius / sug''urta / viza /
+  logistika). Nofaol tashkilotlar ro''yxatda **ko''rsatilmaydi**.
+
+
+  > Ro''yxat **default** tashkilot nomi bo''yicha alifbo (A-Z) tartibida qaytadi,
+  agar `sort` yuborilmagan bo''lsa.
+
+
+  **Auth:** `admin_token` yoki org foydalanuvchi (`vacancyView`).
+
+
+  ### 🔎 Query Parameters
+
+
+  | Param | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `category` | string | ✅ | Service kategoriyasi: `training` \| `notarius` \|
+  `insurance` \| `visa` \| `logistics`. Tashkilot tanlab bo''lmaydigan kategoriya
+  (`agency`) yoki noto''g''ri qiymat → `400`. |
+
+  | `q` | string | ➖ | Nom / brend bo''yicha qidiruv (`name`, `brand_name`
+  ILIKE). |
+
+  | `page` | int | ➖ | Sahifa raqami (default `1`). |
+
+  | `per-page` | int | ➖ | 1..100, default 20. |
+
+  | `sort` | string | ➖ | Berilmasa — A-Z (`name`). Ruxsat etilgan: `id` \| `-id`
+  \| `name` \| `-name`. |
+
+
+  ### 📋 Headers
+
+
+  | Header | Required | Description |
+
+  |---|:---:|---|
+
+  | `Authorization` | ✅ | `Bearer {token}` |
+
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en` |
+
+
+  ### 📤 Response (`data`)
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `items` | array | Aktiv hamkor tashkilotlar ro''yxati |
+
+  | `items[].id` | int | Tashkilot ID (service group `organization_id` ga
+  yuboriladi) |
+
+  | `items[].type` | int | Tashkilot turi: `2`=Notarius, `3`=Logistics,
+  `4`=Insurance, `5`=Visa, `8`=Educational Center |
+
+  | `items[].type_label` | string | Tur nomi |
+
+  | `items[].name` | string | Tashkilot nomi |
+
+  | `items[].brand_name` | string \| null | Brend nomi |
+
+  | `pagination` | object | `{ page, page_size, total_count, page_count }` |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `400` | `category` yo''q / noto''g''ri / tashkilot tanlab bo''lmaydigan
+  kategoriya (`agency`) |
+
+  | `401` | Token yo''q |
+
+  | `403` | `vacancyView` ruxsati yo''q |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
