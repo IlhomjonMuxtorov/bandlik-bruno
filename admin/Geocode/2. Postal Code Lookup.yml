@@ -7,18 +7,29 @@ http:
   url: '{{base_url}}/admin/geocode/postal?postal_code=100000&country_code=UZ'
   auth: inherit
 docs: |-
-  Zip/pochta kodini geografik ma'lumotga (davlat, shahar, viloyat, to'liq manzil,
-  koordinata) aylantiradi — Yandex Geocoder HTTP API orqali (server kaliti
-  backendda turadi). Ish beruvchi (employer) tashkilot yaratish formasida
-  maydonlarni avtomatik to'ldirish uchun ishlatiladi.
+  Zip/pochta kodini geografik ma'lumotga (davlat, shahar, viloyat, koordinata)
+  aylantiradi — **lokal GeoNames `postal_code` ma'lumotnoma jadvali** orqali
+  (tashqi API chaqirilmaydi, tarmoq xatosi bo'lmaydi). Ish beruvchi (employer)
+  tashkilot yaratish formasida maydonlarni avtomatik to'ldirish uchun
+  ishlatiladi.
 
-  > Pochta kodlari global miqyosda unikal emas — noaniqlikni kamaytirish uchun
-  > `country_code` (ISO 3166-1 alpha-2) hint sifatida yuborilishi tavsiya etiladi.
+  > **Oldingi versiyadan farqi:** bu endpoint avval Yandex Geocoder orqali
+  > ishlar edi (bitta natija, `address` maydoni to'ldirilgan). Endi manba —
+  > oldindan import qilingan GeoNames jadvali; javob shakli **ro'yxatga**
+  > o'zgardi (`data.results[]`), chunki bitta pochta kodi bir nechta joy nomiga
+  > mos kelishi mumkin. `data.results[].address` endi doim `null`
+  > (GeoNames'da ko'cha darajasidagi manzil yo'q) — maydon faqat eski
+  > frontend kod bilan moslik uchun saqlangan.
   >
-  > Soft-fail: `YANDEX_GEOCODER_KEY` sozlanmagan yoki kod topilmasa — `200`
-  > qaytadi, lekin barcha maydonlar (`postal_code`dan tashqari) `null` bo'ladi.
-  > Bu holatda `message` bo'sh qatordir (`/admin/geocode`dan farqli o'laroq, bu
-  > endpoint topilmaganda alohida xabar matni qaytarmaydi).
+  > Ma'lumot bazasi oldindan `php yii postal-code-sync/import` bilan
+  > to'ldirilgan bo'lishi kerak — jadval bo'sh bo'lsa, har qanday kod uchun
+  > `results: []` qaytadi.
+  >
+  > Pochta kodlari global miqyosda unikal emas — `country_code` berilmasa,
+  > bitta zip bir nechta davlatga tegishli natijalarni qaytarishi mumkin
+  > (masalan Amerika va Yevropaning ko'plab shaharlarida bir xil raqamli
+  > kodlar takrorlanadi). Bunday holatda frontend foydalanuvchiga tanlov
+  > ko'rsatishi kerak (`results` massividan birini tanlash).
 
   **Auth:** `admin_token` (Bearer).
 
@@ -27,30 +38,33 @@ docs: |-
   | Param | Type | Required | Description |
   |---|---|:---:|---|
   | `postal_code` | string | ✅ | Qidiriladigan zip/pochta kodi (masalan `"100000"`). Bo'sh bo'lsa `422` qaytadi. |
-  | `country_code` | string | ➖ | ISO 3166-1 alpha-2 davlat kodi (masalan `"UZ"`) — noaniqlikni kamaytirish uchun hint. Berilmasa geokoder faqat pochta kodi bo'yicha qidiradi. |
+  | `country_code` | string | ➖ | ISO 3166-1 alpha-2 davlat kodi (masalan `"UZ"`) — berilsa, natijalar shu davlat bilan filtrlanadi (odatda 1 ta natija qaytadi). Berilmasa — barcha davlatlar bo'yicha qidiriladi, bir nechta natija qaytishi mumkin. |
 
   ### 📋 Headers
 
   | Header | Required | Description |
   |---|:---:|---|
   | `Authorization` | ✅ | `Bearer {{ _.admin_token }}` |
-  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. `country_name` / `city_name` shu tilda lokalizatsiya qilinadi. Default: `uz`. |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Har bir natijadagi `country_name` / `city_name` shu tilda lokalizatsiya qilinadi. Default: `uz`. |
 
   ### 📤 Response
 
   | Field | Type | Description |
   |---|---|---|
-  | `success` | bool | Doim `true` (kod topilmasa ham). |
-  | `data.country_id` | int \| null | Geokoder qaytargan ISO2 kod bo'yicha topilgan `country` jadvali id'si. Geokod muvaffaqiyatsiz bo'lsa yoki mos davlat topilmasa `null`. |
-  | `data.country_name` | string \| null | `Accept-Language` bo'yicha lokalizatsiya qilingan davlat nomi. `country_id` `null` bo'lsa — `null`. |
-  | `data.city_id` | int \| null | Geokoder lokalitet nomi bo'yicha (davlat ichida) topilgan `city` jadvali id'si — best-effort. Lokalitet nomi lokalizatsiya qilingan holatlarda ko'pincha `null` (masalan rus tilidagi nom bazadagi inglizcha nomga mos kelmasa). |
-  | `data.city_name` | string \| null | Lokalizatsiya qilingan shahar nomi. `city_id` `null` bo'lsa — `null`. |
-  | `data.state` | string \| null | Geokoderning viloyat/provinsiya matni, xom holda (ma'lumotnoma jadvaliga bog'lanmagan). Topilmasa `null`. |
-  | `data.address` | string \| null | Geokoder qaytargan to'liq formatlangan manzil. Geokod muvaffaqiyatsiz bo'lsa `null`. |
-  | `data.postal_code` | string | So'ralgan pochta kodi, o'zgarishsiz qaytariladi. |
-  | `data.latitude` | float \| null | Kenglik (`-90..90`). Geokod muvaffaqiyatsiz bo'lsa `null`. |
-  | `data.longitude` | float \| null | Uzunlik (`-180..180`). Geokod muvaffaqiyatsiz bo'lsa `null`. |
-  | `message` | string | Doim bo'sh qator (`""`) — bu endpoint soft-fail holatida ham xabar matni qaytarmaydi. |
+  | `success` | bool | Doim `true` (natija topilmasa ham — bo'sh `results` xato hisoblanmaydi). |
+  | `data.postal_code` | string | So'ralgan pochta kodi, o'zgarishsiz qaytariladi (ro'yxat darajasida, har bir natija ichida ham takrorlanadi). |
+  | `data.results` | array | GeoNames'dan topilgan mos kelgan qatorlar ro'yxati. Hech narsa topilmasa — bo'sh massiv (`[]`), xato emas. |
+  | `data.results[].country_id` | int \| null | Qator import qilinganda `country_code` bo'yicha bog'langan `country` jadvali id'si. Mos davlat topilmagan bo'lsa `null`. |
+  | `data.results[].country_name` | string \| null | `Accept-Language` bo'yicha lokalizatsiya qilingan davlat nomi. `country_id` `null` bo'lsa — `null`. |
+  | `data.results[].city_id` | int \| null | GeoNames joy nomi (`place_name`) bo'yicha, davlat ichida best-effort qidirilib topilgan `city` jadvali id'si. **Ko'pincha `null`** — faqat `country_id` topilgan va inglizcha joy nomi bazadagi shahar nomiga aniq mos kelgan holatda to'ldiriladi. |
+  | `data.results[].city_name` | string \| null | Lokalizatsiya qilingan shahar nomi. `city_id` `null` bo'lsa — `null`. |
+  | `data.results[].state` | string \| null | GeoNames'ning viloyat/provinsiya nomi (`admin1_name`), xom holda — ma'lumotnoma jadvaliga bog'lanmagan. Topilmasa `null`. |
+  | `data.results[].place_name` | string | GeoNames'dagi shahar/joy nomi, manba tilida (odatda inglizcha yoki mahalliy transliteratsiya). Lokalizatsiya qilinmaydi — `city_name`dan farqli. |
+  | `data.results[].address` | null | **Har doim `null`.** GeoNames'da ko'cha darajasidagi manzil yo'q; maydon faqat eski (Yandex asosidagi) javob formati bilan moslik uchun saqlangan. |
+  | `data.results[].postal_code` | string | Ushbu qatorning pochta kodi (so'ralgan kod bilan bir xil). |
+  | `data.results[].latitude` | float \| null | GeoNames qator markazining kengligi (`-90..90`). Ma'lumotlar to'plamida yo'q bo'lsa `null`. |
+  | `data.results[].longitude` | float \| null | GeoNames qator markazining uzunligi (`-180..180`). Ma'lumotlar to'plamida yo'q bo'lsa `null`. |
+  | `message` | string | Doim bo'sh qator (`""`). |
 
   ### ⚠️ Errors
 
