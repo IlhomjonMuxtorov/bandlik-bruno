@@ -26,6 +26,12 @@ docs: >
   family, languages[], documents[], driver, courses[], visas[], contact, legal, medical`.
 
 
+  > **Maxfiylik — PINFL mask.** `personal.pinpp` (JSHSHIR) admin/xodim javoblarida
+  > **maskalanadi** — faqat oxirgi 4 raqam ko'rinadi (masalan `**********1234`). To'liq
+  > PINFL'ni faqat nomzodning o'zi mobil ilovada ko'radi; superadmin ham to'liq qiymatni
+  > ko'ra olmaydi.
+
+
   **`registration`** (Yashash manzili — MVD `MVDAddressInfoService`): yuqori darajada
   **joriy** manzil — faol vaqtinchalik ro'yxat bo'lsa o'sha, aks holda doimiy propiska.
 

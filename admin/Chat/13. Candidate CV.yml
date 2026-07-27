@@ -32,6 +32,11 @@ docs: |
   3. CV umuman yo'q bo'lsa — minimal profil (pasport/shaxsiy ma'lumotlar to'ldirilgan,
      `education`, `experience`, `documents`, `courses`, `skills` bo'sh; `header.cv_id = null`).
 
+  > **Maxfiylik — PINFL mask.** `personal.pinpp` (JSHSHIR) admin/xodim javoblarida
+  > **maskalanadi** — faqat oxirgi 4 raqam ko'rinadi (masalan `**********1234`). To'liq
+  > PINFL'ni faqat nomzodning o'zi mobil ilovada ko'radi; superadmin ham to'liq qiymatni
+  > ko'ra olmaydi.
+
   ### ⚠️ Errors
 
   | Code | Reason |

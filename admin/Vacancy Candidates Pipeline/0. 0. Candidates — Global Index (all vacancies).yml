@@ -202,6 +202,12 @@ docs: 'Global "Kandidatlar" ekrani — barcha vakansiyalar bo''yicha nomzodlar. 
   `include=cv` berilganda element''ga `cv` (to''liq nested CvOutput) ham qo''shiladi.
 
 
+  > **Maxfiylik — PINFL mask.** `cv.personal.pinpp` (JSHSHIR) admin/xodim javoblarida
+  > **maskalanadi** — faqat oxirgi 4 raqam ko''rinadi (masalan `**********1234`). To''liq
+  > PINFL''ni faqat nomzodning o''zi mobil ilovada ko''radi; superadmin ham to''liq
+  > qiymatni ko''ra olmaydi.
+
+
   ### ⚠️ Errors
 
 

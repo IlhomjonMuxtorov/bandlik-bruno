@@ -52,6 +52,12 @@ docs: >
   | `profile.registration` | object | Yashash manzili (MVD `MVDAddressInfoService`). Yuqori darajada **joriy** manzil — faol vaqtinchalik ro'yxat, aks holda doimiy propiska: `{ type, country, region, district, mahalla, street, street_type, address, cadastre, postal_code, registration_date, valid_until, full_address, permanent, temporary[] }`. To'liq ta'rif: `Vacancy Candidates Pipeline → 5. Candidate Profile` |
 
 
+  > **Maxfiylik — PINFL mask.** `profile.personal.pinpp` (JSHSHIR) admin/xodim
+  > javoblarida **maskalanadi** — faqat oxirgi 4 raqam ko'rinadi (masalan
+  > `**********1234`). To'liq PINFL'ni faqat nomzodning o'zi mobil ilovada ko'radi;
+  > superadmin ham to'liq qiymatni ko'ra olmaydi.
+
+
   > **BREAKING:** `profile.birth_place` endi qat'iy MVD-derived: `{ address, country }`.
   > Eski `region`/`district` kalitlari OLIB TASHLANDI — MVD ularni ajratmaydi. `address`
   > kaliti QOLADI, lekin qiymati boshqa manbadan: endi MVD `birthplace` erkin matni

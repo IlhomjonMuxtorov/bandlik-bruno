@@ -17,6 +17,12 @@ docs: 'Arizaga biriktirilgan kandidatning to''liq CV''si (mobil `GET /mobile/cv/
   **Til:** `Accept-Language` orqali lokalizatsiya qilinadi.
 
 
+  > **Maxfiylik — PINFL mask.** `personal.pinpp` (JSHSHIR) admin/xodim javoblarida
+  > **maskalanadi** — faqat oxirgi 4 raqam ko''rinadi (masalan `**********1234`). To''liq
+  > PINFL''ni faqat nomzodning o''zi mobil ilovada ko''radi; superadmin ham to''liq
+  > qiymatni ko''ra olmaydi.
+
+
   ### ⚠️ Errors
 
 
