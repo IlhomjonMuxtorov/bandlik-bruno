@@ -40,10 +40,12 @@ docs: |
   | Field | Type | Description |
   |---|---|---|
   | `id` | int | Bildirishnoma ID |
-  | `type` | string | Turi: `contract_pending_approval` \| `vacancy_application_received` |
+  | `type` | string | Turi: `contract_pending_approval` \| `vacancy_application_received` \| `cv_contact_changed_by_org` \| `cv_incomplete_reminder` |
   | `title` | string | Render qilingan sarlavha (so'ralgan til) |
   | `body` | string | Render qilingan matn (so'ralgan til) |
-  | `url` | string \| null | Bosilganda o'tiladigan deep-link; hodisada link bo'lmasa `null` |
+  | `url` | string \| null | **Deprecated** — `web_url` bilan bir xil qiymat. Frontend `web_url` ga o'tgach olib tashlanadi. |
+  | `web_url` | string \| null | Panel ichida bosilganda o'tiladigan **nisbiy** yo'l (`/dashboard/...`). Panel o'z origin'ini oldiga qo'yadi. Faqat mobil hodisalarda `null`. |
+  | `mobile_url` | string \| null | Mobil ilova deep-link'i (`xba://...`). Faqat web hodisalarda `null`. |
   | `contract_id` | int \| null | `contract_*` turlari uchun tegishli shartnoma ID; boshqa turlarda `null` |
   | `vacancy_id` | int \| null | `vacancy_*` turlari uchun vakansiya ID; boshqa turlarda `null` |
   | `application_id` | int \| null | `vacancy_application_*` turlari uchun ariza ID; boshqa turlarda `null` |
@@ -56,6 +58,24 @@ docs: |
   |---|---|---|
   | `contract_pending_approval` | Shartnoma yuklandi, tasdiqlash kutilmoqda | `contractApprove`/`contractReject` huquqidagilar + `superadmin` |
   | `vacancy_application_received` | Nomzod XBA joylagan vakansiyaga ariza topshirdi | Vakansiya XBA tashkilotining barcha active xodimlari (user'i bor) |
+  | `cv_contact_changed_by_org` | XBA xodimi CV'dagi telefon/emailni tahrirladi | Nomzod (mobil) |
+  | `cv_incomplete_reminder` | Rezyume to'liq emasligi haqida davriy eslatma (cron) | Nomzod (mobil) |
+
+  ### 🔗 Deep-linklar
+
+  `web_url` / `mobile_url` DB'da saqlanmaydi — o'qish paytida `type` va `data`
+  asosida [`DeeplinkResolver`](../../../common/services/DeeplinkResolver.php)
+  tomonidan hisoblanadi. Marshrut o'zgarsa eski qatorlar ham yangi linkni beradi.
+
+  | `type` | `web_url` | `mobile_url` |
+  |---|---|---|
+  | `contract_pending_approval` | `/dashboard/contracts?contractTab=pending&contractId={id}` | `null` |
+  | `vacancy_application_received` | `/dashboard/vacancies/{vacancy_id}?tab=applications&applicationId={id}` | `null` |
+  | `cv_contact_changed_by_org` | `null` | `xba://cv/contacts?cvId={id}` |
+  | `cv_incomplete_reminder` | `null` | `xba://cv` |
+
+  > Chat push'lari (`new_message` / `incoming_call`) inbox qatori **yaratmaydi** —
+  > ular faqat FCM orqali keladi. To'liq deeplink jadvali: `docs/FCM_PAYLOADS.md`.
 settings:
   encodeUrl: true
   timeout: 0
