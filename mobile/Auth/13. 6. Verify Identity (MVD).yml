@@ -63,8 +63,12 @@ docs: 'Ro''yxatdan o''tgan, lekin MVD orqali tasdiqlanmagan (`is_verified: false
 
   | `400` | Validatsiya xatosi |
 
-  | `400` | MVD ma''lumot bermadi (OneID blok / topilmadi / server xatosi) — tasdiqlanmagan
-  qoladi |
+  | `400` | MVD: pasport topilmadi — ma''lumotlarni tekshiring (tasdiqlanmagan qoladi) |
+
+  | `400` | MVD: pasport OneID tomonidan bloklangan (tasdiqlanmagan qoladi) |
+
+  | `400` | MVD xizmati vaqtincha ishlamayapti — keyinroq urinib ko''ring (tasdiqlanmagan
+  qoladi) |
 
   | `400` | Pasport boshqa tasdiqlangan hisobga tegishli |
 

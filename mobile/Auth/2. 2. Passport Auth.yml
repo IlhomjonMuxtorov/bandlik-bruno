@@ -20,10 +20,14 @@ docs: 'Pasport ma''lumotlarini **MVD GCP API** orqali tekshiradi va ko''rsatilga
   telefonga 6 xonali OTP yuboradi.
 
 
-  > **MVD ma''lumot bermasa (OneID blok / topilmadi / server xatosi) ham ro''yxatdan
-  o''tish RAD ETILMAYDI.** Foydalanuvchi OTP orqali davom etadi va *tasdiqlanmagan
-  mijoz* (`is_verified: false`) sifatida tizimga kiradi. Xizmatlardan foydalanish uchun
-  keyin `POST /mobile/auth/verify-identity` orqali tasdiqlanishi kerak.
+  > **Pasport MVD''da TOPILMASA yoki OneID tomonidan BLOKLANGAN bo''lsa — ro''yxatdan
+  o''tish `400` bilan RAD ETILADI** (foydalanuvchi seriya/raqam/tug''ilgan sanani
+  tekshirishi kerak; OTP yuborilmaydi).
+  >
+  > **MVD xizmati vaqtincha ishlamasa** (token/network/server 5xx) ro''yxatdan o''tish
+  RAD ETILMAYDI: OTP yuboriladi va foydalanuvchi *tasdiqlanmagan mijoz*
+  (`is_verified: false`) sifatida davom etadi. Xizmatlardan foydalanish uchun keyin
+  `POST /mobile/auth/verify-identity` orqali tasdiqlanishi kerak.
 
 
   **Auth:** `guest_token` (1-qadamdan olingan).
@@ -74,6 +78,10 @@ docs: 'Pasport ma''lumotlarini **MVD GCP API** orqali tekshiradi va ko''rsatilga
   |---|---|
 
   | `400` | Validatsiya xatosi |
+
+  | `400` | MVD: pasport topilmadi — ma''lumotlarni tekshiring (OTP yuborilmaydi) |
+
+  | `400` | MVD: pasport OneID tomonidan bloklangan (OTP yuborilmaydi) |
 
   | `400` | MVD: pasport muddati o''tgan (ma''lumot bor, lekin amal qilmaydi) |
 
