@@ -18,6 +18,7 @@ docs: |
   | Param | Type | Required | Description |
   |---|---|:---:|---|
   | `application_status` | string | ➖ | Filter: `applied` \| `reviewed` \| `accepted` \| `rejected` |
+  | `unread` | bool | ➖ | `1` \| `true` — faqat o'qilmagan xabari bor chatlar (`unread_count > 0`). Default: barchasi |
   | `per-page` | int | ➖ | Default `20`, max `100` |
   | `sort` | string | ➖ | `-last_message_at` (default) \| `-id` |
 
