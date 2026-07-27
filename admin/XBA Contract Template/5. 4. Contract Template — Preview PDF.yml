@@ -1,0 +1,45 @@
+info:
+  name: 4. Contract Template — Preview PDF
+  type: http
+  seq: 5
+http:
+  method: POST
+  url: '{{base_url}}/admin/xba/me/contract-template/preview'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"body_html\": \"<h1>Xizmat ko'rsatish shartnomasi</h1><p>Buyurtmachi: {{candidate_full_name}}, pasport {{candidate_passport}}.</p><p>Ijrochi: {{org_legal_name}}, direktor {{org_director}}.</p>\"\n}"
+  auth: inherit
+docs: |-
+  Saqlanmagan qoralamani namuna qiymatlar bilan PDF qilib qaytaradi — editor'dagi
+  "Ko'rish" tugmasi uchun. **Hech narsa saqlanmaydi**: na shablon, na `upload_file`.
+
+  **Auth:** `admin_token` (`contractTemplateManage`).
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `body_html` | string | ✅ | Ko'rib chiqiladigan qoralama HTML. Preview'da ham sanitizatsiyadan o'tadi. |
+
+  ### 📤 Response
+
+  Binar PDF (`Content-Type: application/pdf`, `inline`, fayl nomi `contract-preview.pdf`).
+  Placeholderlar o'rniga `Placeholders` endpoint'idagi `example` qiymatlari qo'yiladi
+  (masalan `{{candidate_full_name}}` → `ALIYEV ALI ALIYEVICH`).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki eskirgan |
+  | `403` | `contractTemplateManage` yo'q yoki begona tashkilot |
+  | `404` | XBA tashkiloti topilmadi |
+  | `422` | `body_html` bo'sh |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

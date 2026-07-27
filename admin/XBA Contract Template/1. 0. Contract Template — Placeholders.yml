@@ -1,0 +1,42 @@
+info:
+  name: 0. Contract Template — Placeholders
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/contract-template/placeholders'
+  auth: inherit
+docs: |-
+  Shartnoma shabloniga qo'yish mumkin bo'lgan `{{token}}` placeholderlar ro'yxati —
+  editor'dagi "token paneli" uchun. Render paytida bu tokenlar nomzod / tashkilot /
+  vakansiya ma'lumotlari bilan almashtiriladi.
+
+  **Auth:** `admin_token` (`contractTemplateView`).
+
+  ### 📤 Response — `data[]`
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `key` | string | Toza kalit, masalan `candidate_full_name`. |
+  | `token` | string | Shablonga qo'yiladigan ko'rinish: `{{candidate_full_name}}`. |
+  | `label` | string | `Accept-Language` bo'yicha tarjima qilingan nom. |
+  | `example` | string | Namuna qiymat (editor preview'i uchun). |
+
+  Mavjud tokenlar: `candidate_full_name`, `candidate_passport`, `candidate_birth_date`,
+  `candidate_address`, `org_legal_name`, `org_license_number`, `org_director`,
+  `org_address`, `vacancy_title`, `vacancy_country`, `current_date`, `current_year`.
+
+  > **PINFL (JSHSHIR) tokeni yo'q va qo'shilmaydi** — u shartnomadan ataylab chiqarib
+  > tashlangan (maxfiylik qoidasi).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki eskirgan |
+  | `403` | `contractTemplateView` huquqi yo'q |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,30 @@
+info:
+  name: 5. Contract Template — Delete (back to default)
+  type: http
+  seq: 6
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/xba/me/contract-template'
+  auth: inherit
+docs: |-
+  Tashkilotning shablonini o'chiradi — shundan keyin nomzodlarga yana tizimning standart
+  XBA shartnomasi yuboriladi. Avval yuborilgan PDF'lar o'zgarmaydi (ular chatda fayl
+  sifatida saqlangan).
+
+  **Auth:** `admin_token` (`contractTemplateManage`).
+
+  > Shablonni butunlay o'chirmasdan vaqtincha standartga qaytmoqchi bo'lsangiz —
+  > `Save` orqali `is_active: false` yuboring.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki eskirgan |
+  | `403` | `contractTemplateManage` yo'q yoki begona tashkilot |
+  | `404` | Shablon (yoki XBA tashkiloti) topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

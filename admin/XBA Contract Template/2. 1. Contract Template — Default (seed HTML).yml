@@ -1,0 +1,35 @@
+info:
+  name: 1. Contract Template — Default (seed HTML)
+  type: http
+  seq: 2
+http:
+  method: GET
+  url: '{{base_url}}/admin/contract-template/default'
+  auth: inherit
+docs: |-
+  Tizimning standart XBA shartnomasi — lekin nomzod/tashkilot qiymatlari o'rniga
+  `{{token}}` literal bilan. Tashkilot shartnomani noldan yozmasdan, shu HTML'ni
+  editor'ga yuklab, kerakli joyini o'zgartirib saqlashi mumkin.
+
+  **Auth:** `admin_token` (`contractTemplateView`).
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `body_html` | string | Faqat **body** markup (`<html>`, `<head>`, `<style>` yo'q). Saqlashda ishlatiladigan sanitizatsiyadan o'tgan. |
+
+  > Hujjat karkasi (A4 skeleton + CSS) PDF render paytida avtomatik qo'shiladi, shuning
+  > uchun `body_html` ichida `<style>` saqlashning hojati yo'q — u baribir olib tashlanadi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki eskirgan |
+  | `403` | `contractTemplateView` huquqi yo'q |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

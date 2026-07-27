@@ -1,0 +1,47 @@
+info:
+  name: 2. Contract Template — View
+  type: http
+  seq: 3
+http:
+  method: GET
+  url: '{{base_url}}/admin/xba/me/contract-template'
+  auth: inherit
+docs: |-
+  XBA tashkilotining o'z shartnoma shabloni. Shablon saqlanmagan bo'lsa `data: null` —
+  bu holda nomzodga tizimning standart shartnomasi yuboriladi.
+
+  **Auth:** `admin_token` (`contractTemplateView`).
+
+  ### 🔎 URL segmenti
+
+  | Segment | Description |
+  |---|---|
+  | `me` | Joriy foydalanuvchining o'z tashkiloti (XBA org admini uchun). |
+  | `<id>` | Aniq XBA tashkiloti id'si — faqat super-admin/admin uchun. Boshqa org id'si → `403`. |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Shablon id'si. |
+  | `organization_id` | int | Egasi bo'lgan XBA tashkiloti. |
+  | `name` | string \| null | Ichki nom (nomzodga ko'rinmaydi). `null` — nomsiz saqlangan. |
+  | `body_html` | string | Sanitizatsiyadan o'tgan HTML, `{{token}}`lar hali almashtirilmagan. |
+  | `is_active` | bool | `false` — shablon saqlanib turibdi, lekin standart shartnoma ishlatiladi. |
+  | `updated_at` | string \| null | Oxirgi tahrir sanasi `d.m.Y`. |
+  | `is_default` | bool | `true` — hozir standart shablon amalda (ya'ni `is_active = false`). |
+
+  > `data: null` qaytsa — tashkilot hech qachon shablon saqlamagan.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki eskirgan |
+  | `403` | `contractTemplateView` yo'q yoki begona tashkilot so'ralgan |
+  | `404` | XBA tashkiloti topilmadi (yoki id XBA turida emas) |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

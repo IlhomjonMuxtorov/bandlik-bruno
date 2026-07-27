@@ -1,0 +1,63 @@
+info:
+  name: 3. Contract Template — Save (upsert)
+  type: http
+  seq: 4
+http:
+  method: PUT
+  url: '{{base_url}}/admin/xba/me/contract-template'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"name\": \"2026 asosiy shartnoma\",\n  \"body_html\": \"<h1>Xizmat ko'rsatish shartnomasi</h1><p>Buyurtmachi: {{candidate_full_name}}, pasport {{candidate_passport}}, manzil {{candidate_address}}.</p><p>Ijrochi: {{org_legal_name}}, litsenziya {{org_license_number}}, direktor {{org_director}}.</p><p>Vakansiya: {{vacancy_title}} — {{vacancy_country}}. Sana: {{current_date}}</p>\",\n  \"is_active\": true\n}"
+  auth: inherit
+docs: |-
+  Tashkilotning shartnoma shablonini yaratadi yoki almashtiradi (har org uchun **bitta**
+  shablon). Saqlangandan keyin shu tashkilot vakansiyalariga qabul qilingan har bir
+  nomzod chatdagi taklif xabarida aynan shu matndan yasalgan PDF'ni oladi.
+
+  `POST` ham qabul qilinadi (`PUT` bilan bir xil).
+
+  **Auth:** `admin_token` (`contractTemplateManage` — XBA'da `xba_admin`).
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `body_html` | string | ✅ | Shartnoma HTML'i, ichida `{{token}}` placeholderlar. Faqat body markup — `<html>`/`<head>`/`<style>` saqlanmaydi. |
+  | `name` | string \| null | ➖ | Ichki nom (masalan "2026 asosiy shartnoma"). Nomzodga ko'rinmaydi. |
+  | `is_active` | bool | ➖ | `false` — shablon saqlanadi, lekin vaqtincha standart shartnoma ishlatiladi. **Yuborilmasa** — mavjud qiymat saqlanib qoladi (yangi shablon uchun `true`), ya'ni faqat matnni tahrirlash o'chirilgan shablonni qayta yoqmaydi. |
+
+  ### 🧼 Sanitizatsiya
+
+  HTML saqlashdan oldin tozalanadi: `<script>`, `on*` handlerlar, `<iframe>`/`<object>`,
+  `javascript:` va `file://` linklar, **tashqi manbalar** (`http(s)` rasm/CSS) olib tashlanadi.
+  Ruxsat: matn taglari, sarlavhalar, ro'yxatlar, jadvallar, `<a href>`, `data:` URI rasm
+  (muhr/imzo), cheklangan inline `style` xossalari va `class`.
+
+  > **Sahifa uzish:** inline `style="page-break-before: always"` tozalashda o'chib ketadi.
+  > Buning o'rniga `class="page-break"` ishlating — bu klass PDF render paytida
+  > `page-break-before: always` ga aylanadi (standart shablon ham shundan foydalanadi).
+
+  Saqlangan qiymat — aynan render qilinadigan qiymat: javobdagi `body_html` tozalangandan keyingi holat.
+
+  ### 📤 Response
+
+  `View` bilan bir xil obyekt (`id`, `organization_id`, `name`, `body_html`, `is_active`,
+  `updated_at`, `is_default`).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Tashkilot XBA turida emas |
+  | `401` | Token yo'q yoki eskirgan |
+  | `403` | `contractTemplateManage` yo'q yoki begona tashkilot |
+  | `404` | XBA tashkiloti topilmadi |
+  | `422` | `body_html` bo'sh, yoki noma'lum placeholder ishlatilgan (`Unknown placeholders: {{...}}`) |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

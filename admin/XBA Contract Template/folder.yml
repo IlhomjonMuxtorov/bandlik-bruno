@@ -1,0 +1,6 @@
+info:
+  name: XBA Contract Template
+  type: folder
+  seq: 69
+request:
+  auth: inherit
