@@ -9,11 +9,15 @@ http:
   - name: Accept
     value: application/json
   auth: inherit
-docs: 'Ro''yxatdan o''tgan nomzodning o''z profili va **MVD** dan olingan pasport
-  ma''lumotlarini qaytaradi.
+docs: 'Ro''yxatdan o''tgan nomzodning qisqa profil kartochkasi — **MVD** dan olingan
+  ism/fuqarolik, rasm, hamyon balansi va umumiy ish tajribasi.
 
 
   > Faqat `TYPE_CANDIDATE` (`type=4`) foydalanuvchilar uchun.
+
+
+  > To''liq profil (pasport, manzil, ta''lim, tajriba ro''yxati, huquqiy/tibbiy
+  holat) uchun — `GET /mobile/candidate/profile-full`.
 
 
   **Auth:** `access_token`.
@@ -28,6 +32,9 @@ docs: 'Ro''yxatdan o''tgan nomzodning o''z profili va **MVD** dan olingan paspor
 
   | `Authorization` | ✅ | `Bearer {access_token}` |
 
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz`. `citizenship.name`
+  va `work_experience` matnini tanlaydi |
+
 
   ### 📤 Response
 
@@ -41,48 +48,30 @@ docs: 'Ro''yxatdan o''tgan nomzodning o''z profili va **MVD** dan olingan paspor
   | `phone` | string \| null | E.164 (`+998XXXXXXXXX`). `null` — hali tasdiqlanmagan
   |
 
-  | `passport_series` | string \| null | 2 harf (`AA`) |
-
-  | `passport_number` | string \| null | 7 raqam (`1234567`) |
-
-  | `birth_date` | string \| null | `DD.MM.YYYY` |
-
   | `is_verified` | bool | Pasport MVD orqali tasdiqlangan |
 
-  | `status` | int | `1`=aktiv, `2`=nofaol, `3`=mehmon |
+  | `full_name_latin` | string \| null | MVD: `SURNAME NAME PATRONYM` lotin. `null`
+  — MVD ma''lumoti yo''q |
 
-  | `full_name_latin` | string \| null | MVD: `SURNAME NAME` lotin |
+  | `citizenship` | object | `{ id, name }` — MVD-derived fuqarolik. `id` — GCP davlat
+  kodi (`country.gcp_code`); `null` — MVD kod bermagan yoki davlat mos kelmagan. `name`
+  — `country` relation orqali lokalizatsiya, bo''lmasa xom MVD fuqarolik qiymati;
+  `null` — MVD ma''lumoti yo''q |
 
-  | `full_name_cyrillic` | string \| null | MVD: kirill harflarda to''liq ism |
+  | `photo_url` | string \| null | Nomzod yuklagan rasm, bo''lmasa MVD pasport rasmi.
+  `null` — ikkalasi ham yo''q |
 
-  | `pinpp` | string \| null | Shaxsiy ID raqami (14 raqam) |
-
-  | `nationality` | string \| null | Millati (MVD) |
-
-  | `citizenship` | object \| null | **YANGI.** `{ id, name }` — MVD-derived fuqarolik.
-  `id` — GCP davlat kodi (`country.gcp_code`); `null` — MVD kod bermagan yoki davlat
-  mos kelmagan. `name` — `country` relation orqali lokalizatsiya, bo''lmasa xom MVD
-  fuqarolik qiymati; `null` — MVD ma''lumoti yo''q |
-
-  | `sex` | string \| null | `male` \| `female` |
-
-  | `photo_url` | string \| null | Pasport rasmi URL. `null` — MVD da rasm yo''q |
+  | `work_experience` | string | **O''ZGARDI (int → string).** Umumiy ish tajribasi
+  — lokalizatsiya qilingan matn: `3 yil 2 oy`. Barcha CV''lardagi tajriba yozuvlarining
+  eng erta boshlanish sanasidan eng kech tugash sanasigacha (davom etayotgan ish
+  bo''lsa — bugungi kungacha) oralig''i. Tajriba yo''q bo''lsa `0 oy`. Til `Accept-Language`
+  ga bog''liq (`ru`: `3 г. 2 мес.`, `en`: `3 years 2 months`) |
 
   | `balance` | float | Joriy (sarflanadigan) balans, so''m. Hold''ni o''z ichiga
   olmaydi |
 
   | `hold_balance` | float | Hold (band) qilingan balans, so''m. Xizmat bosqichlari
   uchun zahiraga olingan summa |
-
-  | `passport_issued_by` | string \| null | Pasport bergan organ nomi |
-
-  | `passport_valid_from` | string \| null | Berilgan sana (`DD.MM.YYYY`) |
-
-  | `passport_valid_until` | string \| null | Amal qilish muddati (`DD.MM.YYYY`) |
-
-  | `created_at` | int | Hisob yaratilgan vaqt (UNIX) |
-
-  | `created_at_formatted` | string | `d.m.Y H:i` (Asia/Tashkent) |
 
 
   ### ⚠️ Errors
