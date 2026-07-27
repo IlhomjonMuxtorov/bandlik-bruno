@@ -43,6 +43,8 @@ docs: |-
 
   > **Darslar ro'yxati** kurs sahifasida doim ko'rinadi. Sotib olinmaganda **boshidagi 2 ta dars bepul ochiq** (`is_locked=false`, `play_url` to'la) — qolgan darslar `is_locked=true` va `play_url=null`. Sotib olingach barcha darslar `is_locked=false`, hammasida `play_url` bo'ladi, `progress`/`is_passed` to'ladi va `completion_percent` progress barini boshqaradi. Darsni ochish (play_url) uchun: `GET /mobile/lessons/{id}` (ochiq darslarda ishlaydi).
 
+  > **Sinov (test) rejimi:** `.env` dagi `COURSE_TEST_CANDIDATE_IDS` ro'yxatidagi nomzodlar uchun **public** kurslar sotib olmasdan ochiq — `is_purchased=true`, barcha darslar `is_locked=false`. `VacancyOnly` kurslarga ta'sir qilmaydi (ular baribir to'lov talab qiladi). Faqat sinov muhitida ishlatiladi.
+
   ### ⚠️ Errors
 
   | Code | Reason |

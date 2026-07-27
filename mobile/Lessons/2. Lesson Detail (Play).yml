@@ -14,6 +14,8 @@ docs: |-
 
   **Auth:** `access_token` (Bearer). Dars **ochiq** bo'lishi shart: kurs sotib olingan bo'lsa har qanday dars, aks holda faqat boshidagi 2 ta bepul dars. Qulflangan darsda `403`.
 
+  > **Sinov (test) rejimi:** `.env` dagi `COURSE_TEST_CANDIDATE_IDS` ro'yxatidagi nomzodlarga **public** kurs darslari sotib olmasdan ochiq (`403` bermaydi). `VacancyOnly` kurslar baribir to'lov talab qiladi. Faqat sinov muhitida.
+
   ### 📤 Response
 
   | Field | Type | Description |
