@@ -79,6 +79,12 @@ docs: 'Nomzodning hozirgi **faol qabul qilingan taklifini** (bitta vakansiya) va
 
   | `offer.remaining_hold` | int | Qolgan hold (`offer` faqat jami ko''rsatkichlar) |
 
+  | `offer.contract_confirmation` | object \| null | Shartnomani MyID Face ID bilan
+  tasdiqlash yozuvi. Aktiv taklif ta''rifiga ko''ra allaqachon qabul qilingan, shuning
+  uchun bu yerda **sarflangan** tasdiq ko''rinadi — `contract_file_url` imzolangan
+  shartnoma PDF''iga havola. `null` — tasdiqsiz qabul qilingan (global sozlama
+  o''chirilgan bo''lgan). To''liq maydonlar: Chat Detail → `offer.contract_confirmation`. |
+
   | `service_groups` | array | (Yuqori daraja) **Xizmat guruhlari = kuzatiladigan birlik** + Start→Pay→Execute→Complete→Confirm
   holati GURUH darajasida: `{service_group_id, group_type, completion_flow, organization, responsible_user, services[],
   status, status_label, required_amount, funded_amount, awaiting_amount, discount_amount, currency, started,

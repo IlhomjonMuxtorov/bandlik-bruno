@@ -33,6 +33,8 @@ docs: |
       "logo_url": "https://storage.bandlik.uz/icons/logo/logo.png",
       "vacancy_auto_approve_enabled": true,
       "vacancy_auto_approve_window_minutes": 180,
+      "manual_topup_enabled": false,
+      "contract_myid_confirmation_required": true,
       "created_at": 1739000000,
       "updated_at": 1739000000
     },
@@ -44,6 +46,8 @@ docs: |
   > `about_logo_upload_file_id = null` bo'lsa `logo_url` default logoni ko'rsatadi.
 
   > `vacancy_auto_approve_enabled` / `vacancy_auto_approve_window_minutes` — vakansiya timeout avto-tasdiq siyosati (global toggle + kutish oynasi daqiqada, default `180`). Faqat admin/internal — mobil `support`/`about` javoblarida chiqmaydi.
+
+  > `contract_myid_confirmation_required` — `true` bo'lsa nomzod shartnomani qabul qilishdan oldin MyID Face ID tasdig'idan o'tishi shart (`offer/accept` `confirmation_id` talab qiladi). Mobil reliz oynasida `false` qilinadi — eski buildlar ishlab turadi. Default `true`.
 settings:
   encodeUrl: true
   timeout: 0

@@ -54,8 +54,24 @@ docs: |
   | `reserved_amount` | int | Jami band qilingan |
   | `captured_amount` | int | Xizmatlarga yechib o'tkazilgan |
   | `remaining_hold` | int | Hali band'da turgan (bekor qilishda qaytadigan) |
+  | `contract_confirmation` | object | **Shartnomani MyID Face ID bilan tasdiqlash holati** — qabul tugmasini shu blokka qarab chizing (pastga qarang) |
 
   > `offer` faqat **jami** ko'rsatkichlar. To'lov/bajarish holati guruh darajasida `service_groups[]` da; guruh ichidagi xizmatlar `services[]` (billing line-item).
+
+  #### 🔐 `offer.contract_confirmation`
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `required` | bool | `true` — qabuldan oldin Face ID tasdig'i shart (`contract/myid/start` → `verify` → `offer/accept`). `false` — global sozlama o'chirilgan. |
+  | `confirmation_id` | int \| null | Joriy tasdiq id. `null` — hali boshlanmagan. |
+  | `status` | string \| null | `pending` (boshlangan, yuz hali tekshirilmagan) \| `confirmed` (qabulga tayyor) \| `failed` \| `expired`. `null` — hali boshlanmagan. |
+  | `mode` | string \| null | `secondary` (saqlangan reuid) \| `primary` (bazadagi pasport). Ikkalasida ham nomzoddan pasport **so'ralmaydi**. |
+  | `contract_file_url` | string \| null | Imzolangan shartnoma PDF havolasi. `null` — hali tasdiqlanmagan. |
+  | `confirmed_at` | int \| null | Yuz tekshirilgan vaqt (unix). |
+  | `expires_at` | int \| null | Tasdiq muddati (unix). O'tgan bo'lsa `start` qaytadan chaqiriladi. |
+
+  > Taklif qabul qilingandan **keyin** bu blok sarflangan tasdiqni ko'rsatadi — ya'ni
+  > `contract_file_url` imzolangan shartnomaga havola bo'lib qoladi.
 
   ### 🗂 `service_groups[]` — xizmat guruhi (kuzatiladigan birlik)
 

@@ -46,6 +46,56 @@ docs: 'Ariza tafsiloti.
   tashkilot xodimining ismi oshkor bo''lmasligi kerak.
 
 
+  ### 📤 Response — `contract_confirmation` (shartnoma imzo dalili)
+
+
+  Nomzod shartnomani **MyID Face ID** orqali tasdiqlaganida yozilgan audit qatori.
+  Faqat **detal ko''rinishda** va faqat admin/superadmin tokeni bilan qaytadi
+  (ro''yxatda yo''q — har qator uchun qo''shimcha so''rov bo''lardi). `null` — hech qanday
+  tasdiq boshlanmagan (masalan `contract_myid_confirmation_required = false` bo''lgan
+  paytda qabul qilingan ariza).
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `status` | string | `pending` \| `confirmed` \| `failed` \| `expired`. Muvaffaqiyatli
+  imzo — `confirmed`. |
+
+  | `mode` | string | `secondary` — saqlangan MyID reuid bo''yicha; `primary` — bazadagi
+  pasport bo''yicha. Ikkalasida ham nomzoddan pasport so''ralmaydi. |
+
+  | `contract_file_url` | string \| null | Imzolangan shartnoma PDF snapshot''i (oxirida
+  MyID tasdiq bloki). `null` — PDF yaratilmagan. |
+
+  | `confirmed_at` | int \| null | Yuz tekshirilgan vaqt (unix). `null` — tasdiqlanmagan.
+  |
+
+  | `consumed_at` | int \| null | Tasdiq taklifni qabul qilishda sarflangan vaqt (unix).
+  `null` — hali ishlatilmagan. |
+
+  | `expires_at` | int | Tasdiq amal qilish muddati (unix). |
+
+  | `comparison_value` | float \| null | MyID yuz o''xshashlik ko''rsatkichi 0..1. `null`
+  — tekshirilmagan. **Faqat admin javobida.** |
+
+  | `myid_job_id` | string \| null | MyID tekshiruv identifikatori — MyID tomonida
+  dalilni izlash uchun. **Faqat admin javobida.** |
+
+  | `face_image_url` | string \| null | Tasdiqlash paytida olingan yuz surati. `null` —
+  klient rasm yubormagan. Nomzodning profil rasmidan alohida fayl. **Faqat admin
+  javobida** (biometrik artefakt). |
+
+  | `failure_reason` | string \| null | `identity_mismatch` \| `low_score` \|
+  `myid_error` \| `expired`. `null` — xatolik bo''lmagan. |
+
+
+  > Muvaffaqiyatsiz urinishlar ham saqlanadi — shartnomaga qarshi qilingan **har bir**
+  yuz tekshiruvi tarixda qoladi. Ko''rsatiladigan qator: sarflangan tasdiq → yo''q bo''lsa
+  eng oxirgi muvaffaqiyatli → yo''q bo''lsa eng oxirgi urinish.
+
+
   ### ⚠️ Errors
 
 

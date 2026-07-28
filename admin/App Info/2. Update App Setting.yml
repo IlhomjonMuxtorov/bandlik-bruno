@@ -41,7 +41,18 @@ docs: |
   | `vacancy_auto_approve_window_minutes` | int | ➖ | Submit'dan keyin ishonchli org vakansiyasi avto-tasdiqlanadigan kutish oynasi (daqiqa, >=1). Default `180` (3 soat). |
 
   | `manual_topup_enabled` | bool | ➖ | Global toggle: gateway'siz nomzod hamyonini qo'lda to'ldirishga ruxsat berish (faqat test uchun, `POST /admin/payments/manual-topup`). Default `false`. |
+  | `contract_myid_confirmation_required` | bool | ➖ | Global toggle: nomzod shartnomani qabul qilishdan (`POST /mobile/chats/{id}/offer/accept`) oldin **MyID Face ID** tasdig'idan o'tishi shartmi. Default `true`. |
 
+
+  > 📵 **Mobil reliz oynasi.** `contract_myid_confirmation_required = false` qilinsa
+  > `offer/accept` `confirmation_id` talab qilmaydi — Face ID bilmagan **eski mobil
+  > buildlar ishlab turadi**. Ketma-ketlik: backend deploy → toggle `false` → yangi mobil
+  > build chiqadi → toggle `true`. `false` paytida klient `confirmation_id` yuborsa,
+  > u baribir tekshiriladi va sarflanadi (dalil yo'qolmaydi).
+
+  Har bir bool maydon **uch holatli**: kalit yuborilmasa — saqlangan qiymat
+  o'zgarmaydi; `true`/`false`/`1`/`0`/`"yes"`/`"no"` — qabul qilinadi; boshqa qiymat —
+  `400` (jim e'tiborsiz qoldirilmaydi).
 
   Yangilangandan keyin mobil `support`/`about` keshi avtomatik tozalanadi. (Avto-tasdiq maydonlari faqat admin/internal — mobil `support`/`about` javoblarida chiqmaydi.)
 
@@ -50,7 +61,7 @@ docs: |
   | Code | Reason |
   |---|---|
   | `422` | Validatsiya xatosi |
-  | `400` | `about_logo_id` topilmadi yoki `status=uploading` |
+  | `400` | `about_logo_id` topilmadi yoki `status=uploading`; bool maydonga bool bo'lmagan qiymat berilgan |
 settings:
   encodeUrl: true
   timeout: 0

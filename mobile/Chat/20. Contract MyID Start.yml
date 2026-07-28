@@ -1,0 +1,73 @@
+info:
+  name: 20. Contract MyID Start
+  type: http
+  seq: 20
+http:
+  method: POST
+  url: '{{base_url}}/mobile/chats/1/contract/myid/start'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"threshold\": 0.85,\n  \"device_id\": \"{{device_id}}\"\n}"
+  auth: inherit
+docs: |
+  # POST /mobile/chats/&lt;id&gt;/contract/myid/start
+
+  XBA xizmat ko'rsatish shartnomasini **MyID Face ID** orqali tasdiqlash jarayonini
+  boshlaydi. Javobdagi `session_id` mobil MyID SDK'ga uzatiladi; SDK yuzni skanerlaydi
+  va `code` qaytaradi — u `contract/myid/verify` ga yuboriladi.
+
+  > 🔒 **Passport ma'lumotlari so'ralmaydi.** MyID sessiyasi backend tomonidan
+  > nomzodning allaqachon saqlangan identifikatoridan quriladi:
+  > - `candidate.myid_reuid` mavjud va muddati o'tmagan → `mode: secondary` (MyID'ga faqat
+  >   reuid yuboriladi)
+  > - aks holda → `mode: primary`, backend **bazadagi** pasport seriya/raqami va tug'ilgan
+  >   sanasini o'zi yuboradi
+  >
+  > MyID SDK'ning o'z pasport kiritish ekrani (`empty_session`) **hech qachon**
+  > ishlatilmaydi.
+
+  **Auth:** `access_token`. Chat qabul qilingan arizaga (taklifga) ega bo'lishi shart.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `threshold` | float | ➖ | Talab qilinadigan minimal yuz o'xshashligi. Oraliq: `0.6`–`0.99`. Default: `MYID_THRESHOLD` (`0.85`). Server pastki chegara `0.6` ni har holda majburlaydi. |
+  | `device_id` | string | ➖ | Qurilma identifikatori (audit yozuviga saqlanadi). Maks. 64 belgi. |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {access_token}` |
+
+  ### 📤 Response (201)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `confirmation_id` | int | `contract_confirmation.id`. `verify` va `offer/accept` ga shu id yuboriladi. |
+  | `session_id` | string | MyID `session_id` — mobil SDK shu bilan ishlaydi. |
+  | `mode` | string | `secondary` (saqlangan reuid) \| `primary` (bazadagi pasport). |
+  | `expires_at` | int | Unix ts — tasdiq amal qilish muddati (15 daqiqa). Muddat o'tgach `start` qaytadan chaqiriladi. |
+
+  > ♻️ Takroriy `start` chaqiruvi ochiq `pending` yozuvni **qayta ishlatadi** (yangi MyID
+  > sessiya va yangi muddat bilan) — har chaqiruvda yangi qator yaratilmaydi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Validatsiya xatosi (masalan `threshold` `0.6`–`0.99` oraliqdan tashqarida); MyID sessiyasi yaratilmadi (MyID xatosi); **yoki** nomzodda MyID identifikatori ham, saqlangan pasport ham yo'q — avval `/mobile/my-id/*` orqali tasdiqlash kerak |
+  | `403` | Chat/taklif boshqa nomzodga tegishli |
+  | `404` | Chat topilmadi, unda taklif yo'q, yoki tasdiqlanadigan shartnoma yo'q |
+  | `409` | Taklif allaqachon qabul qilingan yoki terminal holatda |
+
+  > Mobil modul validatsiya uchun `400` ishlatadi (`422` faqat `v1`/`admin` modullarida).
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

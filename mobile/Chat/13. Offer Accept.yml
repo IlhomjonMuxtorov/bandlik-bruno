@@ -5,6 +5,12 @@ info:
 http:
   method: POST
   url: '{{base_url}}/mobile/chats/1/offer/accept'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"confirmation_id\": 1\n}"
   auth: inherit
 docs: |
   # POST /mobile/chats/&lt;id&gt;/offer/accept
@@ -12,9 +18,33 @@ docs: |
   Nomzod chat ichidagi taklifni (Offer system-xabari) **qabul qiladi**. Bosqichlar
   yaratiladi, lekin **qabulda avtomatik to'lov (hold) bo'lmaydi** (Start → Pay → Execute).
 
+  > 🔐 **MyID Face ID tasdig'i talab qilinadi.** Avval `contract/myid/start` →
+  > `contract/myid/verify` bajariladi, so'ng bu endpointga `confirmation_id` yuboriladi.
+  > Tasdiqsiz `409` qaytadi. Tasdiq **bir martalik**: qabul bilan bitta tranzaksiyada
+  > `consumed` deb belgilanadi, shu sababli bitta yuz tekshiruvi ikkinchi shartnomani
+  > tasdiqlay olmaydi. Passport ma'lumotlari hech qachon qayta so'ralmaydi.
+  >
+  > Ikki istisno — `confirmation_id` shart emas:
+  > 1. taklif **allaqachon qabul qilingan** va bu chaqiruv shunchaki to'lovni qayta
+  >    urinish (hamyon to'ldirilgandan keyin) — har to'ldirishda yuz skaneri so'ralmaydi;
+  > 2. `contract_myid_confirmation_required` global sozlamasi `false` (mobil relizga
+  >    o'tish oynasi uchun). Bu holatda yuborilgan **yaroqsiz/eskirgan** `confirmation_id`
+  >    xato bermaydi — e'tiborsiz qoldiriladi (log yoziladi), aks holda tasdiq umuman
+  >    kerak bo'lmagan qabul bloklanib qolardi.
+  >
+  > Chat Detail / `offer` javobidagi `contract_confirmation` bloki tasdiq kerakligini va
+  > joriy holatini ko'rsatadi — tugmani unga qarab chizing.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `confirmation_id` | int | ➖¹ | `contract/myid/verify` tasdiqlagan `contract_confirmation.id`. ¹ Yuqoridagi ikki istisnodan tashqari **majburiy**. |
+
   > Chatga `type=system` (`kind: offer_accepted`) xabar yoziladi va **push faqat XBA**
   > tomonga (nomzodning o'z amali — admin bilib tursin). Matn `offer_accepted`
-  > template'idan (yo'q bo'lsa standart matn).
+  > template'idan (yo'q bo'lsa standart matn). Xabarga **imzolangan shartnoma PDF'i**
+  > ilova qilinadi (Face ID tasdig'i snapshot'i) — XBA tomon nima tasdiqlanganini ko'radi.
 
   > ⚠️ **O'zgarish:** to'lov endi faqat admin/tashkilot guruhni **boshlagandan** keyin
   amalga oshadi. Qabuldan so'ng guruh `pending` holatda turadi; admin uni
@@ -36,7 +66,19 @@ docs: |
 
   ### 📤 Response (200)
 
-  Yangilangan `offer` obyekti (Chat Detail'dagi `offer` bilan bir xil shakl).
+  Yangilangan `offer` obyekti (Chat Detail'dagi `offer` bilan bir xil shakl), jumladan
+  `contract_confirmation` bloki:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `contract_confirmation.required` | bool | Face ID tasdig'i talab qilinadimi (global sozlama). |
+  | `contract_confirmation.confirmation_id` | int \| null | Sarflangan tasdiq id. `null` — hech qanday tasdiq yo'q. |
+  | `contract_confirmation.status` | string \| null | `pending` \| `confirmed` \| `failed` \| `expired`. |
+  | `contract_confirmation.mode` | string \| null | `secondary` \| `primary`. |
+  | `contract_confirmation.contract_file_url` | string \| null | Imzolangan shartnoma PDF havolasi. |
+  | `contract_confirmation.confirmed_at` | int \| null | Yuz tekshirilgan vaqt. |
+  | `contract_confirmation.expires_at` | int \| null | Tasdiq muddati. |
+
   `awaiting_amount > 0` bo'lsa → nomzodni hamyonni to'ldirishga yo'naltiring, keyin `offer/fund`.
 
   ### ⚠️ Errors
@@ -44,8 +86,9 @@ docs: |
   | Code | Reason |
   |---|---|
   | `400` | Taklif endi qabul qilib bo'lmaydi (pending emas / terminal) **yoki** nomzodda allaqachon boshqa **aktiv qabul qilingan taklif** bor |
-  | `403` | Chat boshqa nomzodga tegishli |
-  | `404` | Chat topilmadi yoki unda taklif yo'q |
+  | `403` | Chat boshqa nomzodga tegishli **yoki** `confirmation_id` boshqa nomzodning tasdig'i |
+  | `404` | Chat topilmadi, unda taklif yo'q, yoki `confirmation_id` topilmadi |
+  | `409` | Face ID tasdig'i **talab qilinadi lekin yuborilmagan**, yoki tasdiq muddati o'tgan / allaqachon ishlatilgan / boshqa shartnomaga tegishli |
 settings:
   encodeUrl: true
   timeout: 0

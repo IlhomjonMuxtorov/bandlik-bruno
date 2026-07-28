@@ -1,0 +1,90 @@
+info:
+  name: 21. Contract MyID Verify
+  type: http
+  seq: 21
+http:
+  method: POST
+  url: '{{base_url}}/mobile/chats/1/contract/myid/verify'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"confirmation_id\": 1,\n  \"code\": \"<myid-sdk-code>\",\n  \"image_base64\": \"<base64>\",\n  \"device_id\": \"{{device_id}}\"\n}"
+  auth: inherit
+docs: |
+  # POST /mobile/chats/&lt;id&gt;/contract/myid/verify
+
+  MyID SDK qaytargan `code` ni tekshiradi va shartnomani tasdiqlaydi. Muvaffaqiyatli
+  bo'lsa **imzolangan shartnoma PDF snapshot'i** yaratiladi (oxirida MyID tasdiq bloki:
+  sana, `job_id`, o'xshashlik ko'rsatkichi, IP) va javobda uning havolasi qaytadi.
+
+  > 🚫 **Bu endpoint login QILMAYDI.** Token qaytarmaydi, MVD'ga bormaydi,
+  > `user.is_verified` ni o'zgartirmaydi va nomzod suratini almashtirmaydi — faqat yuzni
+  > tekshiradi. (`/mobile/my-id/verify` esa login qiladi — ikkisini aralashtirmang.)
+
+  > 🔐 **Shaxsga bog'lanish tekshiruvi.** MyID faqat "yuz sessiyaga mos keldi" deydi.
+  > Server sessiya **aynan shu nomzodga** tegishli ekanini alohida tekshiradi:
+  > - `secondary` (profile yo'q) → qaytgan `reuid` = `candidate.myid_reuid`
+  > - `primary` (profile bor) → qaytgan `pass_data` = saqlangan pasport (pasport
+  >   almashtirilgan bo'lsa PINFL bo'yicha zaxira tekshiruv)
+  >
+  > Mos kelmasa → `403` va audit yozuvida `failure_reason = identity_mismatch`.
+
+  **Auth:** `access_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `confirmation_id` | int | ✅ | `start` qaytargan `contract_confirmation.id`. |
+  | `code` | string | ✅ | MyID SDK bergan bir martalik kod. Bir kod faqat **bir marta** ishlaydi. |
+  | `image_base64` | string | ➖ | Olingan yuz surati (base64, JPEG). **Saqlanadi** — imzo dalili sifatida `contract_confirmation.face_upload_file_id` ga bog'lanadi. Yo'q bo'lsa hech narsa saqlanmaydi (tasdiq baribir kuchda). Min. 100 belgi, maks. 10 MB. |
+  | `device_id` | string | ➖ | Qurilma identifikatori. Maks. 64 belgi. |
+
+  > `ip` va `user_agent` **klientdan olinmaydi** — server so'rovning o'zidan yozadi (dalil).
+
+  ### 📤 Response (200)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Tasdiq identifikatori (= `confirmation_id`). |
+  | `status` | string | `confirmed` — muvaffaqiyatli. |
+  | `mode` | string | `secondary` \| `primary`. |
+  | `contract_file_url` | string \| null | Imzolangan shartnoma PDF havolasi. `null` — PDF yaratishda xatolik bo'lgan (tasdiq kuchda qoladi). |
+  | `confirmed_at` | int | Unix ts — yuz tekshirilgan vaqt. |
+  | `consumed_at` | int \| null | `offer/accept` da ishlatilgan vaqt. Bu bosqichda har doim `null`. |
+  | `expires_at` | int | Unix ts — shu tasdiq bilan `offer/accept` qilish muddati. |
+
+  > `comparison_value`, `myid_job_id` va `face_image_url` mobil javobda **qaytarilmaydi** —
+  > ular ichki dalil, faqat admin API'da ko'rinadi. Yuz surati biometrik artefakt: o'z
+  > surati bo'lsa ham nomzod javobiga qo'shilmaydi.
+  >
+  > 🖼️ Saqlangan surat nomzodning **profil rasmini almashtirmaydi** — u alohida fayl
+  > sifatida shu tasdiqqa bog'lanadi (profil avatari MyID ro'yxatdan o'tishda bir marta
+  > yoziladi).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Validatsiya xatosi; kod yaroqsiz/eskirgan; MyID xatosi; **yoki** yuz o'xshashligi talab qilingan chegaradan yoki `0.6` pastki chegarasidan past |
+  | `403` | Yuz boshqa shaxsga tegishli (identity mismatch) **yoki** tasdiq boshqa nomzodning |
+  | `404` | Tasdiq topilmadi, chat topilmadi, yoki shartnoma yo'q |
+  | `409` | Tasdiq allaqachon ishlatilgan yoki muddati o'tgan; tasdiq **boshqa chat/shartnomaga** tegishli; yoki bu MyID tekshiruvi (`job_id`) allaqachon sarflangan (replay) |
+
+  > Mobil modul validatsiya va rad etilgan so'rov uchun `400` ishlatadi (`422` faqat
+  > `v1`/`admin` modullarida). `403` esa alohida qoladi — identity mismatch validatsiya
+  > emas, avtorizatsiya javobi.
+  >
+  > ⚠️ Past ball holatida javob **kimning yuzi ekanini oshkor qilmaydi**: ball gate'lari
+  > identity tekshiruvidan oldin ishlaydi, shuning uchun begona yuz + past ball → `400`
+  > (`403` emas).
+  >
+  > 🔒 Tasdiq **shu chat'ning** shartnomasiga tegishli bo'lishi shart — URL'dagi `{id}`
+  > bekorga emas.
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
