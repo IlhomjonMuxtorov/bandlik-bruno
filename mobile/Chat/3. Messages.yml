@@ -37,11 +37,11 @@ docs: |
   | `conversation_id` | int | |
   | `type` | string | `text` \| `voice` \| `image` \| `document` \| `candidate_card` \| `offer` \| `rejection` \| `system` \| `call` |
   | `type_label` | string | tarjima qilingan |
-  | `body` | string \| null | matn (yoki ovoz/rasm uchun caption) |
+  | `body` | string \| null | matn (yoki ovoz/rasm uchun caption). `rejection` uchun **doim to'ldirilgan** — rad etish matni + yangi qatorda `Sabab: ...` |
   | `sender` | object \| null | `{id, username, full_name?, profile_photo_url?}` — system message uchun `null`. XBA xodimi bo'lsa `full_name` va `profile_photo_url` qo'shiladi |
   | `attachment` | object \| null | `{id, name, mime_type, size, file_kind, file_kind_icon_url, url}` — `size` baytlarda, `file_kind_icon_url` fayl turi ikonkasi (`other` uchun `null`) |
   | `voice_duration_sec` | int \| null | faqat `type=voice` da |
-  | `system_payload` | object \| null | system msg ma'lumotlari (offer, rejection, call payload, candidate_card snapshot) |
+  | `system_payload` | object \| null | system msg ma'lumotlari (offer, rejection, call payload, candidate_card snapshot). `rejection` da: `{application_id, vacancy_id, vacancy_title, rejection_reason, rejected_at}` |
   | `reply_to_id` | int \| null | |
   | `is_mine` | bool | viewer xabar muallifimi |
   | `is_read` | bool | viewer o'qiganmi |
@@ -55,6 +55,13 @@ docs: |
   > Shartnomada Buyurtmachi (nomzod) va Ijrochi (XBA tashkiloti) maydonlari avtomatik
   > to'ldiriladi; moliyaviy summalar, raqam, sanalar va imzolar bo'sh qoldiriladi.
   > PDF generatsiyasi muvaffaqiyatsiz bo'lsa, xabar `attachment` siz keladi.
+
+  > **`rejection` xabari:** `type_label` — "Ariza rad etildi" (sarlavha sifatida
+  > ko'rsatiladi), `body` esa uning ostidagi tavsif matni. `body` **hech qachon `null`
+  > emas**: tashkilotning `application_rejected` shabloni bo'lmasa standart matn
+  > ishlatiladi, va admin kiritgan sabab oxirgi qatorda `Sabab: {sabab}` ko'rinishida
+  > qo'shiladi (shablonda `{rejection_reason}` bo'lsa takrorlanmaydi). Xom sabab
+  > `system_payload.rejection_reason` da ham keladi. Til — nomzod qurilmasining tili.
 
   ### ⚠️ Errors
 

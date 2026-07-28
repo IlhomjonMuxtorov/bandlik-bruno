@@ -18,8 +18,11 @@ docs: |
   Arizani rad etadi. Server:
 
   - `vacancy_application.status = rejected`, `rejection_reason`, `decided_at` yoziladi
-  - Chat'da `type=rejection` system message paydo bo'ladi (qizil "Rad etildi" bloki)
-  - Nomzodga `application_rejected` FCM push yuboriladi
+  - Chat'da `type=rejection` system message paydo bo'ladi (qizil "Ariza rad etildi" bloki).
+    Xabar `body` si — sarlavha ostidagi tavsif: tashkilot shabloni (`application_rejected`)
+    yoki standart matn + oxirgi qatorda `Sabab: {reason}`. Xom sabab
+    `system_payload.rejection_reason` da ham keladi
+  - Nomzodga chat push (`new_message` shabloni) yuboriladi — preview sifatida shu `body`
 
   **Auth:** `admin_token`.
 
