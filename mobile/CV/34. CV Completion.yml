@@ -13,9 +13,16 @@ http:
   auth: inherit
 docs: 'CV to''ldirilganlik foizini (`completion_percent`) va bo''limlar bo''yicha
   checklist''ni qaytaradi. Foiz **8 ta majburiy** bo''limdan to''ldirilganlari asosida
-  hisoblanadi. 3 ta bo''lim ixtiyoriy va foizga kirmaydi: `courses`,
-  `passport_identity` (JSHSHIR MVD''da yo''q — faqat qo''lda kiritiladi) va
-  `documents` (skanlar MVD''da yo''q).
+  hisoblanadi. 4 ta bo''lim ixtiyoriy va foizga kirmaydi: `courses`,
+  `passport_identity` (JSHSHIR MVD''da yo''q — faqat qo''lda kiritiladi),
+  `documents` (skanlar MVD''da yo''q) va `health_certificate`.
+
+
+  > **Diqqat — `missing[]` semantikasi.** `missing[]` endi *foydalanuvchiga
+  ko''rsatiladigan to''ldirilmagan bo''limlar* ro''yxati: barcha majburiylar **+**
+  `advised: true` bo''lgan ixtiyoriylar (hozircha faqat `health_certificate`).
+  Ya''ni `missing[]` bo''sh bo''lmagani holda ham `is_complete: true` bo''lishi
+  mumkin. Bloklaydigan bo''limni ajratish uchun `sections[].required` ga qarang.
 
 
   **Auth:** `access_token`.
@@ -42,47 +49,80 @@ docs: 'CV to''ldirilganlik foizini (`completion_percent`) va bo''limlar bo''yich
 
   | `percent` | int | To''ldirilganlik foizi (0–100) |
 
-  | `is_complete` | bool | Barcha majburiy bo''limlar to''ldirilganmi |
+  | `is_complete` | bool | Barcha **majburiy** bo''limlar to''ldirilganmi. Ariza berish
+  gate''i shu maydonga tayanadi — `advised` bo''limlar unga ta''sir qilmaydi |
 
-  | `missing` | string[] | To''ldirilmagan majburiy bo''limlar kalitlari |
+  | `missing` | string[] | To''ldirilmagan va foydalanuvchiga ko''rsatiladigan bo''limlar
+  kalitlari: majburiylar + `advised` ixtiyoriylar |
 
-  | `sections` | object[] | Har bir bo''lim: `key`, `label`, `required`, `filled` |
+  | `sections` | object[] | Har bir bo''lim: `key`, `label`, `required`, `advised`, `filled` |
 
 
   ### 🔑 Bo''lim kalitlari (`sections[].key` / `missing[]`)
 
 
-  | Key | Required | To''ldirilgan hisoblanadi |
+  | Key | Required | Advised | To''ldirilgan hisoblanadi |
 
-  |---|:---:|---|
+  |---|:---:|:---:|---|
 
-  | `personal` | ✅ | MVD passport ma''lumoti mavjud |
+  | `personal` | ✅ | ➖ | MVD passport ma''lumoti mavjud |
 
-  | `birth_registration` | ✅ | Tug''ilgan joy (MVD) **va** ro''yxatdan o''tgan manzil
+  | `birth_registration` | ✅ | ➖ | Tug''ilgan joy (MVD) **va** ro''yxatdan o''tgan manzil
   mavjud |
 
-  | `passport_identity` | ➖ | JSHSHIR (`tin`) to''ldirilgan. **Foizga kirmaydi** |
+  | `passport_identity` | ➖ | ➖ | JSHSHIR (`tin`) to''ldirilgan. **Foizga kirmaydi**,
+  `missing[]` ga ham tushmaydi |
 
-  | `education` | ✅ | CVda kamida 1 ta ta''lim yozuvi |
+  | `education` | ✅ | ➖ | CVda kamida 1 ta ta''lim yozuvi |
 
-  | `experience` | ✅ | CVda kamida 1 ta ish tajribasi |
+  | `experience` | ✅ | ➖ | CVda kamida 1 ta ish tajribasi |
 
-  | `family` | ✅ | Oilaviy holat tanlangan yoki kamida 1 ta oila a''zosi |
+  | `family` | ✅ | ➖ | Oilaviy holat tanlangan yoki kamida 1 ta oila a''zosi |
 
-  | `languages` | ✅ | Kamida 1 ta til qo''shilgan |
+  | `languages` | ✅ | ➖ | Kamida 1 ta til qo''shilgan |
 
-  | `documents` | ➖ | CVga kamida 1 ta hujjat biriktirilgan. **Foizga kirmaydi** |
+  | `documents` | ➖ | ➖ | CVga kamida 1 ta hujjat biriktirilgan (turi ahamiyatsiz).
+  **Foizga kirmaydi**, `missing[]` ga ham tushmaydi |
 
-  | `driver_license` | ✅ | Haydovchilik guvohnomasi mavjud |
+  | `health_certificate` | ➖ | ✅ | CVga `health_certificate_scan` turidagi hujjat
+  biriktirilgan. **Majburiy emas** — foizga kirmaydi va ariza berishni bloklamaydi,
+  **lekin** biriktirilmagan bo''lsa `missing[]` ichida qaytadi (mobil ekranda
+  "to''ldirilmagan" chip sifatida ko''rinadi) |
 
-  | `courses` | ➖ | Kamida 1 ta qisqa muddatli kurs. **Foizga kirmaydi** |
+  | `driver_license` | ✅ | ➖ | Haydovchilik guvohnomasi mavjud |
 
-  | `contact` | ✅ | `contact_phone` yoki user telefoni mavjud |
+  | `courses` | ➖ | ➖ | Kamida 1 ta qisqa muddatli kurs. **Foizga kirmaydi**,
+  `missing[]` ga ham tushmaydi |
+
+  | `contact` | ✅ | ➖ | `contact_phone` yoki user telefoni mavjud |
 
 
-  > 88% = 8 ta majburiy bo''limdan aynan 1 tasi bo''sh — `missing[0]` o''sha bo''lim.
-  `is_complete: true` bo''lsa CV `active` bo''ladi va vakansiyaga ariza berish ochiladi
-  (ixtiyoriy bo''limlar bo''sh bo''lsa ham).
+  > 88% = 8 ta majburiy bo''limdan aynan 1 tasi bo''sh. `is_complete: true` bo''lsa CV
+  `active` bo''ladi va vakansiyaga ariza berish ochiladi (ixtiyoriy bo''limlar — shu
+  jumladan `health_certificate` — bo''sh bo''lsa ham).
+
+
+  Sog''liq sertifikati yo''q, qolgan hammasi to''la CV uchun javob:
+
+
+  ```json
+
+  {
+    "percent": 100,
+    "is_complete": true,
+    "missing": ["health_certificate"],
+    "sections": [
+      { "key": "documents", "label": "Hujjatlar", "required": false, "advised": false, "filled": true },
+      { "key": "health_certificate", "label": "Sog''liq sertifikati", "required": false, "advised": true, "filled": false }
+    ]
+  }
+
+  ```
+
+
+  Sertifikat `POST /mobile/candidate/document` (`type: health_certificate_scan`) bilan
+  yuklanadi va `POST /mobile/cv/{cv_id}/document` bilan CVga biriktiriladi —
+  shundan keyin `filled: true` bo''lib `missing[]` dan chiqadi.
 
 
   ### ⚠️ Errors

@@ -49,10 +49,11 @@ docs: 'Joriy nomzodning **barcha CV** ro''yxati — "Rezumelarim" ekrani uchun. 
   | `status` | string | CV holati: `draft` yoki `active`. To''liqlikdan avtomatik
   hisoblanadi (mijoz o''rnatmaydi) |
 
-  | `completion_percent` | int | 0–100. 10 ta majburiy band asosida (kurs hisobga
-  olinmaydi) |
+  | `completion_percent` | int | 0–100. **8 ta majburiy** band asosida; ixtiyoriy bandlar
+  (`passport_identity`, `documents`, `health_certificate`, `courses`) foizga kirmaydi |
 
-  | `is_complete` | bool | `true` bo''lganda CV `active` va ariza topshirish mumkin |
+  | `is_complete` | bool | `true` bo''lganda CV `active` va ariza topshirish mumkin.
+  Faqat majburiy bandlarga qaraydi — sog''liq sertifikati yo''qligi bloklamaydi |
 
   | `is_primary` | bool | Primary CV bayrog''i |
 

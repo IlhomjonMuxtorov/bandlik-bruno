@@ -48,15 +48,19 @@ docs: 'Bitta CV-ning to''liq tafsilotlari (education, experience, languages va h
   | `header.status` | string | `draft` yoki `active` — to''liqlikdan avtomatik
   hisoblanadi (mijoz o''rnatmaydi) |
 
-  | `header.completion_percent` | int | 0–100. 10 ta majburiy band asosida (qisqa
-  muddatli kurs bandi hisobga olinmaydi) |
+  | `header.completion_percent` | int | 0–100. **8 ta majburiy** band asosida; ixtiyoriy
+  bandlar (`passport_identity`, `documents`, `health_certificate`, `courses`) foizga
+  kirmaydi |
 
   | `header.is_complete` | bool | `true` bo''lganda CV `active` va vakansiyaga ariza
-  topshirish mumkin |
+  topshirish mumkin. Faqat majburiy bandlarga qaraydi |
 
   | `header.completion` | object | `{ percent, is_complete, missing[], sections[] }`.
-  `missing[]` — to''ldirilmagan majburiy band kalitlari; `sections[]` har bandda
-  `{ key, label, required, filled }` (UI checklist uchun) |
+  `missing[]` — to''ldirilmagan va foydalanuvchiga ko''rsatiladigan band kalitlari:
+  majburiylar + `advised` ixtiyoriylar (hozircha `health_certificate`) — shu sabab
+  `is_complete: true` bo''lsa ham bo''sh bo''lmasligi mumkin; `sections[]` har bandda
+  `{ key, label, required, advised, filled }` (UI checklist uchun). To''liq jadval:
+  **CV Completion** so''rovi docs''ida |
 
   | `personal` | object | Passport asosida (CV-dan qat''iy nazar bir xil) |
 
