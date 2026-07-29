@@ -1,7 +1,7 @@
 info:
-  name: 2. Passport Auth
+  name: 2-legacy. Passport Auth (DEPRECATED)
   type: http
-  seq: 2
+  seq: 3
 http:
   method: POST
   url: '{{base_url}}/mobile/auth/passport'
@@ -16,8 +16,18 @@ http:
   auth:
     type: bearer
     token: '{{guest_token}}'
-docs: 'Pasport ma''lumotlarini **MVD GCP API** orqali tekshiradi va ko''rsatilgan
-  telefonga 6 xonali OTP yuboradi.
+docs: '> 🛑 **DEPRECATED — `POST /mobile/auth/phone` bilan almashtirildi.** Bu endpoint
+  faqat telefon-only ro''yxatdan o''tishdan OLDIN chiqarilgan mobil build''lar uchun
+  saqlanadi va `app_setting.mobile_passport_auth_enabled` (default `true`) bayrog''i
+  orqali boshqariladi. Bayroq **o''chirilganda** endpoint so''rovni umuman qayta ishlamaydi
+  — o''rniga `400` + `{ "app_update_required": true }` va xabar `Please update the
+  app to continue.` qaytaradi. Yangi ilova endi **umuman pasport maydonini ko''rsatmaydi**
+  — manual pasport kiritish butunlay olib tashlangan, boshqa joyga ko''chirilmagan;
+  shaxs faqat MyID orqali tasdiqlanadi (qarang "🪪 MyID" papkasi).
+
+
+  Pasport ma''lumotlarini **MVD GCP API** orqali tekshiradi va ko''rsatilgan telefonga
+  OTP yuboradi.
 
 
   > **Pasport MVD''da TOPILMASA yoki OneID tomonidan BLOKLANGAN bo''lsa — ro''yxatdan
@@ -26,8 +36,8 @@ docs: 'Pasport ma''lumotlarini **MVD GCP API** orqali tekshiradi va ko''rsatilga
   >
   > **MVD xizmati vaqtincha ishlamasa** (token/network/server 5xx) ro''yxatdan o''tish
   RAD ETILMAYDI: OTP yuboriladi va foydalanuvchi *tasdiqlanmagan mijoz*
-  (`is_verified: false`) sifatida davom etadi. Xizmatlardan foydalanish uchun keyin
-  `POST /mobile/auth/verify-identity` orqali tasdiqlanishi kerak.
+  (`is_verified: false`) sifatida davom etadi. Endi tasdiqlash faqat **MyID** orqali
+  amalga oshiriladi — `verify-identity` endpoint''i endi mavjud emas.
 
 
   **Auth:** `guest_token` (1-qadamdan olingan).
@@ -76,6 +86,10 @@ docs: 'Pasport ma''lumotlarini **MVD GCP API** orqali tekshiradi va ko''rsatilga
   | Code | Reason |
 
   |---|---|
+
+  | `400` | `mobile_passport_auth_enabled` o''chirilgan → `{ "app_update_required":
+  true }`, xabar: `Please update the app to continue.` Ilova `/mobile/auth/phone`ga
+  o''tishi kerak. |
 
   | `400` | Validatsiya xatosi |
 

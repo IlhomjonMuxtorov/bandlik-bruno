@@ -1,0 +1,101 @@
+info:
+  name: 2. Phone
+  type: http
+  seq: 2
+http:
+  method: POST
+  url: '{{base_url}}/mobile/auth/phone'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"phone\": \"+998901234567\",\n  \"device_id\": \"{{device_id}}\"\n}"
+  auth:
+    type: bearer
+    token: '{{guest_token}}'
+docs: 'Telefon raqamiga OTP yuboradi — **butun ro''yxatdan o''tish shu**. Pasport,
+  tug''ilgan sana yoki boshqa shaxsiy ma''lumot so''ralmaydi (App Store talabi:
+  hisob yaratish shaxsiy ma''lumot talab qilmasligi kerak). Shaxs keyinroq, foydalanish
+  vaqtida (masalan CV yaratishdan oldin) **MyID** orqali tasdiqlanadi — qarang
+  "🪪 MyID" papkasi.
+
+
+  Xuddi shu endpoint **kirish (login) uchun ham** ishlatiladi: agar bu raqam allaqachon
+  faol hisobga tegishli bo''lsa, keyingi `verify-phone` chaqiruvi o''sha hisobga
+  kirgizadi.
+
+
+  > ⚠️ **Enumeration''dan himoya:** javob raqam yangi (ro''yxatdan o''tish) yoki eski
+  > (kirish) ekanini FARQLAMAYDI — ikkalasida ham bir xil `{ phone_masked, expires_in }`
+  > qaytadi. Bu qasddan: aks holda endpoint "bu raqam ro''yxatdan o''tganmi?" so''rovchi
+  > oracle''ga aylanib qolardi. Klient buni allaqachon bilishi shart emas — `verify-phone`
+  > tokenlarni allaqachon qaytaradi.
+
+
+  **Auth:** `guest_token` YOKI `access_token` (ikkalasi ham qabul qilinadi — allaqachon
+  faol foydalanuvchi ham telefon raqamini shu orqali tasdiqlashi mumkin).
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `phone` | string | ✅ | O''zbekiston raqami. Har qanday yozilish qabul qilinadi
+  (`+998901234567`, `998901234567`, `90 123 45 67`, `0901234567`) va server uni
+  `+998XXXXXXXXX` kanonik shakliga keltiradi. Telefon — hisobning yagona
+  identifikatori, shuning uchun bir raqamning turli yozilishi **doim bitta**
+  hisobga olib boradi. |
+
+  | `device_id` | string | ✅ | Qurilma UUID''si, max 36 belgi. |
+
+
+  ### 📤 Response
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `phone_masked` | string | Yashirilgan raqam: `+998 ** *** 4567`. |
+
+  | `expires_in` | int | OTP amal qilish vaqti, soniyalarda (`180`). |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `400` | Validatsiya xatosi — `phone`/`device_id` formatga mos emas. |
+
+  | `400` | `Too many OTP requests. Please wait and try again.` — uchta limitdan biri
+  oshgan: telefon uchun 5/soat, qurilma uchun 10/soat + 20/kun, IP uchun 30/soat.
+  Limit faqat SMS **muvaffaqiyatli jo''natilganda** hisoblanadi — muvaffaqiyatsiz
+  urinish foydalanuvchiga tegmaydi. |
+
+  | `400` | `Could not send SMS. Please check your phone number.` — SMS provayder
+  (Eskiz) xatosi. |
+
+  | `401` | Token yo''q yoki yaroqsiz. |
+
+
+  > **Sandbox telefon:** `+998900000000` → kod `1111` (`common/config/base.php` →
+  `params[''sms.sandboxPhones'']`). Sandbox raqamlarga haqiqiy SMS yuborilmaydi —
+  App Store / Google Play reviewer aynan shu hisobdan foydalanadi
+  (`php console/yii test-account/create`).
+
+
+  Keyingi qadam: `POST /mobile/auth/verify-phone` (kod bilan tasdiqlash — 3-qadam).
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

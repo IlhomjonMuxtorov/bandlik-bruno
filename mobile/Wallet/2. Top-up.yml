@@ -69,7 +69,7 @@ docs: |
   |---|---|
   | `400` | Provider yoqilmagan/noto'g'ri (`manual` ham), summa minimaldan (`1 000 so'm`) kichik, validatsiya xatosi, gateway xatosi. |
   | `401` | Token yo'q. |
-  | `403` | Shaxs tasdiqlanmagan (`verification_required: true`) — avval `POST /mobile/auth/verify-identity`. |
+  | `403` | Shaxs tasdiqlanmagan (`verification_required: true`) — avval MyID orqali tasdiqlash: `POST /mobile/my-id/verify`. |
   | `456` | Mehmon (guest) — to'liq ro'yxatdan o'tish kerak. |
 settings:
   encodeUrl: true

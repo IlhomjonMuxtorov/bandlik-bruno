@@ -19,6 +19,18 @@ docs: 'Yangi CV yaratish.
 
   **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
 
+  > ⚠️ **Tasdiqlash faqat MyID orqali.** Ro''yxatdan o''tish endi telefon + OTP,
+  > shuning uchun yangi hisob `is_verified=false` bo''ladi va CV yarata olmaydi.
+  > Tasdiqlash: `POST /mobile/my-id/start-primary` (`empty_session: true`) →
+  > `POST /mobile/my-id/verify`. Ilovada pasport maydoni ko''rsatilmaydi — uni MyID
+  > SDK o''z ekranida so''raydi. Yuz mos kelib, MVD ma''lumot bermasa
+  > (`mvd_pending: true`) hisob **hali ham tasdiqlanmagan** bo''ladi va CV
+  > yaratilmaydi — `POST /mobile/my-id/retry-mvd` bilan qayta uriniladi.
+
+  Gate ikki qatlamda: controller filtri (`RequireVerifiedUserForWriteFilter`) va
+  service guard (`CandidateCvService::createCv`). Ikkalasi ham `403` +
+  `verification_required: true` beradi.
+
 
   ### 📥 Request Body
 

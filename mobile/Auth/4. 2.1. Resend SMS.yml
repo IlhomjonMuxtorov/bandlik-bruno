@@ -1,7 +1,7 @@
 info:
   name: 2.1. Resend SMS
   type: http
-  seq: 3
+  seq: 4
 http:
   method: POST
   url: '{{base_url}}/mobile/auth/resend-sms'

@@ -1,7 +1,7 @@
 info:
   name: 5.2. Set PIN
   type: http
-  seq: 8
+  seq: 9
 http:
   method: POST
   url: '{{base_url}}/mobile/auth/set-pin'

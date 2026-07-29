@@ -10,31 +10,65 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"session_id\": \"{{myid_session_id}}\",\n  \"image_base64\": \"/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAA4ADgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWm5ydhpSYmZqjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlbaWmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD3+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD//Z\"\
+    data: "{\n  \"session_id\": \"{{myid_session_id}}\",\n  \"image_base64\": \"<base64_jpeg_from_sdk>\"\
       ,\n  \"code\": \"sample_code_from_sdk_123456\",\n  \"device_id\": \"{{device_id}}\"\n}"
   auth:
     type: bearer
-    token: '{{guest_token}}'
-docs: "# Yuz tanishni va kodni tasdiqlash\n\nMyID SDK tarafidan qaytarilgan yuz rasmini\
-  \ va kodni yuboradi. Backend identifikatsiyani tasdiqlaydi, passport bo'yicha foydalanuvchini\
-  \ topadi/yaratadi va tizimga kiritadi. Javob `verify-phone` bilan bir xil — token juftligi.\n\
-  \n> **MVD + `is_verified`:** Yuz mosligi o'tgach backend pasport ma'lumotini **MVD'dan**\
-  \ ham olib keladi. MVD muvaffaqiyatli javob bersa hisob `is_verified: true` (to'liq\
-  \ pasport ma'lumoti yoziladi). **MVD xato bersa, yuz mosligi o'tgan bo'lsa ham hisob\
-  \ `is_verified: false` (tasdiqlanmagan) qoladi** — token qaytadi, foydalanuvchi kiradi,\
-  \ lekin xizmatlar uchun keyin `verify-identity` yoki qayta MyID kerak.\n\n> **Primary\
-  \ vs Secondary:** Primary (passport) session profil qaytaradi → yuqoridagi MVD oqimi\
-  \ ishlaydi. Secondary (reuid, faqat-yuz, qaytgan foydalanuvchi) session profil\
-  \ qaytarmaydi — backend foydalanuvchini saqlangan `Candidate.myid_reuid` orqali topib,\
-  \ yuz-moslik asosida login qiladi va **xuddi shu token juftligini** qaytaradi.\
-  \ Secondary'da MVD chaqirilmaydi, `is_verified` o'zgarmaydi. reuid topilmasa/muddati\
-  \ o'tgan bo'lsa → `400` (passport orqali tasdiqlash so'raladi).\n\n**Auth:**\
-  \ `guest_token` (kamida guest token kerak)  \n**Returns:** `{ access_token, refresh_token, expires_in, token_type\
-  \ }`\n\n### \U0001F4E5 Request Body\n\n| Field | Type | Required | Description |\n\
-  |---|---|:---:|---|\n| `session_id` | string | ✅ | `start-primary` yoki `start-secondary`-dan\
-  \ olingan session ID |\n| `image_base64` | string | ✅ | Base64 kodlangan yuz rasmi\
-  \ (SDK-dan) |\n| `code` | string | ✅ | Tasdiqlash kodi (SDK-dan qaytariladi) |\n| `device_id`\
-  \ | string | ✅ | Qurilma ID (token shu qurilmaga bog'lanadi) |\n"
+    token: '{{access_token}}'
+docs: |
+  MyID SDK qaytargan yuz rasmi va kodini yuboradi. **Chaqiruvchi kim ekaniga qarab ikki
+  xil ishlaydi** — bu eng muhim nuqta:
+
+  | Token | Ma'nosi | Natija |
+  |---|---|---|
+  | `guest_token` | **Kirish (login)** | Pasport bo'yicha hisob topiladi yoki yaratiladi, token juftligi qaytadi |
+  | `access_token` | **Shaxs tasdiqlash** | Pasport **chaqiruvchining o'z hisobiga** bog'lanadi |
+
+  > ⚠️ Ilgari bu endpoint chaqiruvchini butunlay e'tiborsiz qoldirar edi: telefon bilan
+  > kirgan foydalanuvchi "Shaxsni tasdiqlash" bosganda pasport egasi bo'lgan **boshqa**
+  > hisobga tushib qolar, o'z hisobi tashlandiq qolardi. Endi bunday emas.
+
+  **Auth:** `access_token` (tasdiqlash) yoki `guest_token` (kirish).
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `session_id` | string | ✅ | `start-primary` / `start-secondary` qaytargan sessiya id (36 belgi). |
+  | `image_base64` | string | ✅ | SDK olgan yuz rasmi, base64 JPEG (min 100 belgi). |
+  | `code` | string | ✅ | SDK qaytargan tasdiqlash kodi. |
+  | `device_id` | string | ✅ | Qurilma UUID'si — token juftligi shu qurilmaga bog'lanadi. |
+
+  ### 📤 Response — `access_token` bilan (tasdiqlash)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `access_token` | string | Yangilangan token (chaqiruvchi allaqachon kirgan, zararsiz). |
+  | `refresh_token` | string | — |
+  | `expires_in` | int | — |
+  | `token_type` | string | `Bearer` |
+  | `is_verified` | bool | `true` — MVD pasportni tasdiqladi, CV yaratish ochildi. |
+  | `mvd_pending` | bool | `true` — yuz mos keldi, lekin MVD ma'lumot bermadi. Hisob **tasdiqlanmagan** holatda qoladi va CV hali ham yaratilmaydi. `POST /mobile/my-id/retry-mvd` bilan qayta uriniladi. |
+
+  ### 📤 Response — `guest_token` bilan (kirish)
+
+  `verify-phone` bilan bir xil: `{ access_token, refresh_token, expires_in, token_type }`.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `Face verification failed. Liveness score too low (< 0.6).` |
+  | `400` | `This verification did not return passport data. Please verify with MyID again.` — secondary (reuid) sessiya ishlatilgan: u profil qaytarmaydi, ya'ni pasport ham, tug'ilgan sana ham yo'q, MVD'dan hech nima so'rab bo'lmaydi. |
+  | `400` | `Invalid passport data returned from MyID.` |
+  | `400` | `Failed to save verification data.` |
+  | `409` | `passport_conflict: true` + `conflict_phone_masked` — pasport boshqa **tirik** hisobga tegishli. Javobda o'sha hisobning yashirilgan raqami bo'ladi (`+998 ** *** 1234`), foydalanuvchi "o'sha raqam bilan kiring" deb yo'naltiriladi. |
+  | `409` | `passport_conflict: true` + `requires_support: true` — pasport egasi bo'lgan hisobda telefon yo'q (MyID yaratgan eski hisob), qaysi raqam bilan kirishni ayta olmaymiz. |
+  | `401` | Token yo'q yoki yaroqsiz. |
+
+  > **Hisoblar avtomatik birlashtirilmaydi.** Ikki `candidate` ni birlashtirish hamyon,
+  > ledger, arizalar, pipeline, chat va CV'larni ko'chirishni talab qiladi — keng,
+  > qaytarilmas, pul ko'taradigan operatsiya. Konflikt bloklanadi, qo'lda hal qilinadi.
 settings:
   encodeUrl: true
   timeout: 0

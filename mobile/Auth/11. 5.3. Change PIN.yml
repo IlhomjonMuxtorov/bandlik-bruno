@@ -1,7 +1,7 @@
 info:
   name: 5.3. Change PIN
   type: http
-  seq: 10
+  seq: 11
 http:
   method: POST
   url: '{{base_url}}/mobile/auth/change-pin'

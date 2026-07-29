@@ -51,7 +51,7 @@ docs: |
   | 402 | Balans yetarli emas (`insufficient_balance: true`, `shortfall`) |
   | 400 | Order yaratib bo'lmadi, validatsiya xatosi |
   | 401 | Token yo'q |
-  | 403 | Shaxs tasdiqlanmagan (`verification_required: true`) — avval `POST /mobile/auth/verify-identity` |
+  | 403 | Shaxs tasdiqlanmagan (`verification_required: true`) — avval MyID orqali tasdiqlash: `POST /mobile/my-id/verify` |
   | 456 | Mehmon (guest) — to'liq ro'yxatdan o'tish kerak |
   | 404 | Kurs topilmadi yoki faol emas |
 settings:

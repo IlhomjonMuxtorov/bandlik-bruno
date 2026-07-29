@@ -1,7 +1,7 @@
 info:
   name: 4. Refresh Token
   type: http
-  seq: 5
+  seq: 6
 http:
   method: POST
   url: '{{base_url}}/mobile/auth/refresh'

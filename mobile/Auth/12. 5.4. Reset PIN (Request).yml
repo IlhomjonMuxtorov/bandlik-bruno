@@ -1,7 +1,7 @@
 info:
   name: 5.4. Reset PIN (Request)
   type: http
-  seq: 11
+  seq: 12
 http:
   method: POST
   url: '{{base_url}}/mobile/auth/reset-pin'

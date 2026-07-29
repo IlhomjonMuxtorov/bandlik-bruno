@@ -1,0 +1,124 @@
+info:
+  name: 3. Verify Phone (OTP)
+  type: http
+  seq: 5
+http:
+  method: POST
+  url: '{{base_url}}/mobile/auth/verify-phone'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"phone\": \"+998901234567\",\n  \"code\": \"1111\",\n  \"device_id\"\
+      : \"{{device_id}}\"\n}"
+  auth:
+    type: bearer
+    token: '{{guest_token}}'
+docs: 'SMS orqali kelgan OTP kodni tasdiqlaydi. Bitta endpoint ikkita holatni birlashtiradi
+  — **ro''yxatdan o''tish HAM login** — ular qaysi qadamdan (`/mobile/auth/phone`
+  yoki eski `/mobile/auth/passport`) OTP olinganiga qarab ichki ravishda ajratiladi,
+  klient uchun so''rov/javob shakli bir xil.
+
+
+  > ⚠️ **Muhim o''zgarish — `is_verified`:** telefon-only (`/mobile/auth/phone`) orqali
+  kelgan bo''lsa, muvaffaqiyatli tasdiqlashdan so''ng hisob `status: Active` bo''ladi,
+  LEKIN **`is_verified` `false` bo''lib qoladi**. Shaxs bu yerda TASDIQLANMAYDI — buni
+  faqat MyID qiladi (qarang "🪪 MyID" papkasi, xususan `verify` va `retry-mvd`).
+  Eski (`/mobile/auth/passport`) yo''ldan kelgan OTP''lar uchun esa — agar MVD o''sha
+  qadamda ma''lumot bergan bo''lsa — hisob darhol `is_verified: true` bilan tasdiqlangan
+  holda ochiladi (legacy build''larni tugallash uchun saqlangan yo''l).
+
+
+  ### Mumkin bo''lgan natijalar
+
+  - **Guest, band qilinmagan raqam** → hisob aktivlashadi (`is_verified: false`),
+  yangi `Candidate` yaratiladi.
+
+  - **Boshqa (allaqachon mavjud) faol hisobga tegishli raqam** → qurilma o''sha hisobga
+  ko''chiriladi va **O''SHA hisobning** tokenlari qaytadi (reinstall / yangi qurilma
+  shu yo''l bilan eski hisobga qaytadi). Chaqiruvchi guest bo''lsa — o''chiriladi
+  (soft-delete); allaqachon faol bo''lsa — o''z hisobi va o''z raqami saqlanib qoladi,
+  faqat bu ikkinchi raqamga ega ekani tasdiqlanadi.
+
+  - **O''z raqamini qayta tasdiqlash** → idempotent, xatosiz, xuddi shu hisobning
+  tokenlari qaytadi.
+
+  - **ALLAQACHON TIZIMGA KIRGAN (access token bilan) chaqiruvchi, band qilinmagan
+  raqamni tasdiqlamoqchi bo''lsa** → `400` xato: `You are already signed in. Change
+  your phone number from your profile instead.` (Telefon almashtirish alohida oqim
+  — profil sozlamalaridan.)
+
+
+  **Auth:** `guest_token` (odatiy holat) yoki `access_token`.
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `phone` | string | ✅ | Oldingi qadamda (`/mobile/auth/phone` yoki eski `/mobile/auth/passport`)
+  ko''rsatilgan telefon (E.164). |
+
+  | `code` | string | ✅ | 4 xonali OTP kodi. Sandbox `+998900000000` → `1111`. |
+
+  | `device_id` | string | ✅ | UUID. Token shu qurilmaga bog''lanadi. |
+
+
+  ### 📤 Response
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `access_token` | string | To''liq foydalanuvchi JWT (15 daqiqa). Payload: `{ sub,
+  status: 1, type: 4 }` |
+
+  | `refresh_token` | string | Yangilash tokeni (30 kun). **Rotation:** har yangilashda
+  eski token bekor qilinadi. |
+
+  | `expires_in` | int | `access_token` muddati soniyalarda (`900`) |
+
+  | `token_type` | string | `Bearer` |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `400` | Validatsiya xatosi |
+
+  | `400` | OTP noto''g''ri yoki muddati o''tgan (180 sek) |
+
+  | `400` | `You are already signed in. Change your phone number from your profile
+  instead.` — access-token bilan kirgan chaqiruvchi boshqa (band qilinmagan) raqamni
+  tasdiqlamoqchi bo''ldi. |
+
+  | `400` | `This phone number is already registered.` — (faqat legacy/pasport yo''li)
+  telefon aktiv (o''chirilmagan) hisobga tegishli va MVD-tasdiqlangan raqam boshqasiga
+  mos kelmadi. |
+
+  | `401` | Token yo''q yoki muddati o''tgan |
+
+
+  > ✨ **Auto-save:** `access_token` va `refresh_token` avtomatik saqlanadi.
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+runtime:
+  scripts:
+  - type: after-response
+    code: "const body = res.getBody();\nif (body && body.access_token) {\n  bru.setEnvVar('access_token',\
+      \ body.access_token);\n  bru.setEnvVar('refresh_token', body.refresh_token);\n\
+      \  console.log('access_token and refresh_token saved');\n}"

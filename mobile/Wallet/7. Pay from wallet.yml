@@ -89,7 +89,7 @@ docs: |
   | `402` | Balans yetarli emas (`insufficient_balance: true`, `shortfall` bilan). |
   | `400` | Buyurtma to'liq to'langan, yoki boshqa nomzodning buyurtmasi. |
   | `401` | Token yo'q. |
-  | `403` | Shaxs tasdiqlanmagan (`verification_required: true`) — avval `POST /mobile/auth/verify-identity`. |
+  | `403` | Shaxs tasdiqlanmagan (`verification_required: true`) — avval MyID orqali tasdiqlash: `POST /mobile/my-id/verify`. |
   | `456` | Mehmon (guest) — to'liq ro'yxatdan o'tish kerak. |
   | `404` | Buyurtma topilmadi. |
 settings:

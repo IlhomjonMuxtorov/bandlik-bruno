@@ -20,9 +20,11 @@ docs: |-
   | Code | Reason |
   |---|---|
   | `401` | Token yo'q |
-  | `403` | Shaxs tasdiqlanmagan (`verification_required: true`) — avval `POST /mobile/auth/verify-identity` |
   | `404` | Nomzod topilmadi |
   | `456` | Mehmon foydalanuvchi — ro'yxatdan o'tish talab qilinadi |
+
+  > Sevimlilar shaxs tasdiqlashni **talab qilmaydi** — telefon bilan ro'yxatdan
+  > o'tgan (tasdiqlanmagan) foydalanuvchi ham qo'sha oladi. Faqat mehmon `456` oladi.
 settings:
   encodeUrl: true
   timeout: 0

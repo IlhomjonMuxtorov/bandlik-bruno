@@ -9,7 +9,7 @@ http:
 docs: |-
   Hozirgi nomzodning arizalari **umumiy sonini** qaytaradi — mobil filter ekranidagi badge yoki "N ta ariaza" tugmasi uchun. Feed (`GET /mobile/my-applications`) bilan **aynan bir xil** filtr mantig'ini ishlatadi, shuning uchun son va ro'yxat har doim mos keladi.
 
-  **Auth:** `access_token` majburiy (mehmon tokeni yaramaydi — autentifikatsiya va verifikatsiya talab qilinadi).
+  **Auth:** `access_token` majburiy (mehmon tokeni yaramaydi → `456`). Shaxs tasdiqlash **talab qilinmaydi** — telefon bilan ro'yxatdan o'tgan foydalanuvchi bo'sh ro'yxat/nolni ko'radi.
 
   ### 🔎 Query Parameters
 
@@ -43,7 +43,7 @@ docs: |-
   | Code | Reason |
   |---|---|
   | `401` | Token yo'q yoki yaroqsiz. |
-  | `403` | Nomzod hisobiga ko'rsatmadi (mehmon token). |
+  | `456` | Mehmon token — ro'yxatdan o'tish talab qilinadi. |
   | `500` | Server xatosi. |
 settings:
   encodeUrl: true

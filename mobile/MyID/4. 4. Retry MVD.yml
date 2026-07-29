@@ -1,0 +1,50 @@
+info:
+  name: 4. Retry MVD
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{base_url}}/mobile/my-id/retry-mvd'
+  headers: []
+  auth:
+    type: bearer
+    token: '{{access_token}}'
+docs: |
+  MyID yuzni tasdiqlagan, lekin MVD ma'lumot bermagan hisob uchun davlat so'rovini
+  **qaytadan** yuboradi (`mvd_pending: true` holati).
+
+  Yangi MyID sessiyasi ham, ikkinchi yuz skani ham **kerak emas**: pasport raqami va
+  tug'ilgan sana tasdiqlash paytida allaqachon saqlangan, shuning uchun bu bitta MVD
+  chaqiruvidan iborat — MyID'ga umuman murojaat qilinmaydi va billing sarflanmaydi.
+
+  > reuid orqali qayta urinish **mumkin emas** (isrofgarchilik masalasi emas): secondary
+  > sessiya profil qaytarmaydi, ya'ni `pass_data` ham, `birth_date` ham bo'lmaydi.
+
+  **Auth:** `access_token` (faol hisob; mehmon → HTTP `456`).
+
+  ### 📥 Request Body
+
+  Yo'q — body jo'natilmaydi.
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `is_verified` | bool | `true` — MVD tasdiqladi, hisob endi tasdiqlangan, CV yaratish ochildi. |
+
+  Hisob allaqachon tasdiqlangan bo'lsa ham `200 { "is_verified": true }` qaytadi
+  (idempotent).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `409` | `mvd_pending: true` + `Could not verify your identity yet. Please try again in a few minutes.` — MVD hali ham ma'lumot bermadi. |
+  | `400` | `Please verify your identity with MyID first.` — saqlangan pasport ma'lumoti yo'q, avval `POST /mobile/my-id/verify` qilish kerak. |
+  | `404` | Joriy foydalanuvchi uchun nomzod topilmadi. |
+  | `456` | Mehmon token — avval ro'yxatdan o'tish kerak. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

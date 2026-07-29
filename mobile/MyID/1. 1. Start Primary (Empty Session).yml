@@ -1,0 +1,58 @@
+info:
+  name: 1. Start Primary (Empty Session)
+  type: http
+  seq: 1
+http:
+  method: POST
+  url: '{{base_url}}/mobile/my-id/start-primary'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"empty_session\": true\n}"
+  auth:
+    type: bearer
+    token: '{{access_token}}'
+docs: |
+  MyID sessiyasini ochadi va `session_id` qaytaradi. Yangi mobil ilova **doim**
+  `{ "empty_session": true }` yuboradi — passportni MyID SDK o'z ekranida so'raydi,
+  bizning ilovada passport maydoni **umuman ko'rsatilmaydi**. App Store review talabi
+  aynan shu: ilova shaxsiy ma'lumot so'ramasligi kerak.
+
+  **Auth:** `access_token` (CV oldidan shaxs tasdiqlash) yoki `guest_token`
+  (MyID orqali kirish — eski, qaytgan foydalanuvchi yo'li).
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `empty_session` | boolean | ✅ | `true` — bo'sh sessiya: MyID'ga hech qanday shaxsiy maydon yuborilmaydi, SDK passportni o'zi so'raydi. **Yangi ilova doim shuni yuboradi.** |
+  | `pass_data` | string | ➖ | ⚠️ **DEPRECATED** — pasport seriya+raqami, masalan `AA1234567`. Faqat telefon-only ro'yxatdan o'tishdan oldin chiqarilgan buildlar uchun qabul qilinadi. Yangi ilova buni **yubormaydi**. |
+  | `birth_date` | string | ➖ | ⚠️ DEPRECATED — `dd.mm.yyyy`. Faqat `pass_data` bilan birga. |
+  | `phone` | string | ➖ | `+998XXXXXXXXX`. MyID tomonida bildirishnoma uchun; anchor sifatida ishlamaydi. |
+  | `threshold` | number | ➖ | Yuz moslik progi (0.6–0.99). Default `MYID_THRESHOLD` (0.85). Qiymat 0.6 dan pastga tushirilmaydi — `MyIdService::LIVENESS_FLOOR`. |
+
+  > `empty_session: true` berilganda qolgan barcha maydonlar e'tiborsiz qoldiriladi va
+  > MyID'ga bo'sh `{}` jo'natiladi.
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `session_id` | string | MyID SDK'ga uzatiladigan sessiya identifikatori. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Validatsiya xatosi, yoki MyID `Invalid passport or birth date` qaytardi (faqat `pass_data` yo'lida). |
+  | `401` | Token yo'q yoki yaroqsiz. |
+  | `400` | `Could not reach MyID service. Please try again later.` — MyID mavjud emas. |
+
+  Keyingi qadam: SDK yuzni skanerlaydi va `code` qaytaradi → `POST /mobile/my-id/verify`.
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

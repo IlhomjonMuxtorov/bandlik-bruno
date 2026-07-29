@@ -9,7 +9,7 @@ http:
 docs: |-
   Joriy nomzodning barcha arizalari. Mobile pagination — bare array.
 
-  **Auth:** `access_token`.
+  **Auth:** `access_token`. Shaxs tasdiqlash **talab qilinmaydi** — telefon bilan ro'yxatdan o'tgan foydalanuvchi bo'sh ro'yxat oladi. Mehmon → `456`.
 
   ### 🔎 Query Parameters
 

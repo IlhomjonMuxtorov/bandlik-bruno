@@ -1,7 +1,7 @@
 info:
   name: 5.5. Reset PIN (Verify)
   type: http
-  seq: 12
+  seq: 13
 http:
   method: POST
   url: '{{base_url}}/mobile/auth/reset-pin-verify'
