@@ -1,10 +1,10 @@
 info:
-  name: Download CV PDF
+  name: 4a. CV — Download PDF
   type: http
-  seq: 30
+  seq: 65
 http:
   method: GET
-  url: '{{base_url}}/mobile/cv/{{cv_id}}/download-pdf?template=europass'
+  url: '{{base_url}}/admin/candidate-cv/1/download-pdf?template=europass'
   params:
   - name: template
     value: europass
@@ -13,14 +13,18 @@ http:
   headers:
   - name: Accept
     value: application/pdf
+  - name: Accept-Language
+    value: uz
   auth: inherit
-docs: 'Nomzodning CV-sini PDF fayl sifatida yuklab oladi. Uchta shablondan biri
-  tanlanadi (`?template=`) — uchalasi ham bir xil bo''limlarni bir xil tartibda
-  chiqaradi, faqat ustun tuzilishi va dizayni farq qiladi. Til (uz/ru/en) qurilma
-  JWT-dagi `device_id` orqali aniqlanadi (`Accept-Language` emas).
+docs: 'Nomzod CV-sini PDF fayl sifatida yuklab oladi. Endpoint **`cv_id` bo''yicha**
+  kalitlangan (ariza ID emas): panelda `cv_id` allaqachon `GET
+  /admin/vacancy-applications/<id>/cv` javobidan olingan bo''ladi, va bitta CV bir
+  nechta arizaga biriktirilishi mumkin. Uchta shablondan biri tanlanadi
+  (`?template=`) — uchalasi ham bir xil bo''limlarni bir xil tartibda chiqaradi,
+  faqat ustun tuzilishi va dizayni farq qiladi.
 
 
-  **Auth:** `access_token`.
+  **Auth:** `admin_token` + `applicationView` ruxsati.
 
 
   ### 📋 Path Params
@@ -30,7 +34,8 @@ docs: 'Nomzodning CV-sini PDF fayl sifatida yuklab oladi. Uchta shablondan biri
 
   |---|---|---|
 
-  | `cv_id` | int | CV ID |
+  | `cv_id` | int | CV ID — `GET /admin/vacancy-applications/<id>/cv` javobidagi
+  `header.cv_id`. |
 
 
   ### 🔎 Query Parameters
@@ -52,8 +57,21 @@ docs: 'Nomzodning CV-sini PDF fayl sifatida yuklab oladi. Uchta shablondan biri
   > Shablon **saqlanmaydi** — har so''rovda tanlanadi. PDF admin paneldagi CV
   ko''rinishi bilan bir xil bo''limlarni chiqaradi (huquqiy holat, tibbiy
   ma''lumotlar va rezyume holati ham). Fayllar yuklab olinmaydi — faqat
-  "Biriktirilgan" deb belgilanadi. CV-da `template` maydoni
-  yo''q, PATCH orqali o''rnatib bo''lmaydi.
+  "Biriktirilgan" deb belgilanadi.
+
+
+  ### 📋 Headers
+
+
+  | Header | Required | Description |
+
+  |---|:---:|---|
+
+  | `Authorization` | ✅ | `Bearer {admin_token}` |
+
+  | `Accept` | ✅ | `application/pdf` |
+
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz` |
 
 
   ### 📤 Response
@@ -72,8 +90,8 @@ docs: 'Nomzodning CV-sini PDF fayl sifatida yuklab oladi. Uchta shablondan biri
   | `Content-Disposition` | `attachment; filename="<F.I.Sh>.pdf"` |
 
 
-  > Bruno-da javobni ko''rish uchun **Response → Save Response** orqali `.pdf`
-  qilib saqlang.
+  > **JSHSHIR maskalangan** — PDF-da faqat oxirgi 4 raqam ko''rinadi (mobil
+  endpoint nomzodning o''ziga to''liq qiymatni beradi).
 
 
   ### ⚠️ Errors
@@ -83,9 +101,15 @@ docs: 'Nomzodning CV-sini PDF fayl sifatida yuklab oladi. Uchta shablondan biri
 
   |---|---|
 
-  | `401` | Token yo''q |
+  | `401` | Token yo''q / eskirgan |
 
-  | `404` | CV topilmadi yoki boshqa nomzodga tegishli |
+  | `403` | `applicationView` ruxsati yo''q; yoki foydalanuvchi tashkilotga
+  bog''lanmagan |
+
+  | `404` | CV topilmadi, **yoki** CV so''rovchining vakansiyalaridagi hech bir
+  arizaga biriktirilmagan (mavjudligi oshkor qilinmaydi) |
+
+  | `406` | `Accept` sarlavhasi `application/pdf` yoki `application/json` emas |
 
   '
 settings:
