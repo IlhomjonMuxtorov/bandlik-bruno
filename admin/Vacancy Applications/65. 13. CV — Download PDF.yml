@@ -1,0 +1,110 @@
+info:
+  name: CV — Download PDF
+  type: http
+  seq: 65
+http:
+  method: GET
+  url: '{{base_url}}/admin/candidate-cv/{{cv_id}}/download-pdf?template=europass&documents=1'
+  params:
+  - name: template
+    value: europass
+    type: query
+  - name: documents
+    value: '1'
+    type: query
+  headers:
+  - name: Accept
+    value: application/pdf
+  auth: inherit
+docs: 'Nomzod CV-sini PDF fayl sifatida yuklab oladi — paneldagi "Yuklab olish
+  (PDF)" tugmasining server tomonidagi ekvivalenti. Shablon `?template=` bilan
+  tanlanadi va **saqlanmaydi**.
+
+
+  **Auth:** `admin_token`. Ruxsat aktyor doirasi bo''yicha tekshiriladi
+  (`assertCvWithinActorScope`) — CV kamida bitta o''z vakansiyangizga ariza
+  bergan bo''lishi kerak.
+
+
+  > Bu endpoint `cv_id` bo''yicha ishlaydi (ariza ID bo''yicha emas): bitta CV
+  bir nechta arizada qatnashishi mumkin. `cv_id` ni
+  `GET admin/vacancy-applications/<id>/cv` javobidan oling.
+
+
+  > **JSHSHIR (PINFL) PDF-ga chiqmaydi** (ADR-380). JSON javobda u allaqachon
+  maskalangan keladi (ADR-360), PDF-da esa qator umuman render qilinmaydi.
+
+
+  ### 📋 Path Params
+
+
+  | Param | Type | Description |
+
+  |---|---|---|
+
+  | `cv_id` | int | CV ID (`header.cv_id`) |
+
+
+  ### 🔎 Query Parameters
+
+
+  | Param | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `template` | string | ➖ | Shablon: `europass` \| `modern` \| `professional`
+  \| `classic`. Default: `europass`. Noma''lum qiymat `europass` ga qaytadi. |
+
+  | `documents` | bool | ➖ | `1` — biriktirilgan hujjatlar nomlari nuqtali
+  ro''yxat bo''lib chiqadi (fayllarning o''zi qo''shilmaydi). `0` — hujjatlar
+  bo''limi va bo''limlar ichidagi fayllar umuman chiqmaydi. Default: `1`. |
+
+
+  ### 📋 Headers
+
+
+  | Header | Required | Description |
+
+  |---|:---:|---|
+
+  | `Authorization` | ✅ | `Bearer {admin_token}` |
+
+  | `Accept` | ✅ | `application/pdf` |
+
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz` |
+
+
+  ### 📤 Response
+
+
+  Binary PDF fayl (A4, chekkalari 8mm).
+
+
+  | Header | Value |
+
+  |---|---|
+
+  | `Content-Type` | `application/pdf` |
+
+  | `Content-Disposition` | `attachment; filename="<F.I.Sh>.pdf"` |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q yoki eskirgan |
+
+  | `403` | CV sizning vakansiyalaringizdan birortasiga ham ariza bermagan |
+
+  | `404` | CV topilmadi |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
