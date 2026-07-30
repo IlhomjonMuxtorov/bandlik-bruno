@@ -180,7 +180,7 @@ docs: 'Global "Kandidatlar" ekrani — barcha vakansiyalar bo''yicha nomzodlar. 
 
   | `license_has` / `license_count` | bool / int | Kasbiy litsenziya |
 
-  | `driver_categories` | array | `["B","C",...]` |
+  | `driver_categories` | array | `["B","C",...]` — guvohnoma kartasidagi tartibda (`A, B, C, D, E, BE, CE, DE, TM, TB`), alifbo emas. Per-toifa sanalar bu ustunda yo''q, ular nomzod profilida (`driver.categories_detail`) |
 
   | `driver_certificates` | array | `[{type, label}]` |
 

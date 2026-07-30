@@ -18,6 +18,13 @@ docs: >
   ### 📤 Response (`data`)
 
   Massiv: `[{ value, label }]` — `A`, `B`, `C`, `D`, `E`, `BE`, `CE`, `DE`, `TM`, `TB`.
+  `label` = kodning o'zi (kartada ham faqat kod chiqadi), tartib — guvohnoma
+  kartasidagi tartib.
+
+
+  > Mobil ekvivalenti: `GET mobile/driver-license-categories` — u qo'shimcha
+  > `description` (toifa qanday transportni qamraydi) qaytaradi va tanlagichda
+  > yordamchi matn sifatida ishlatiladi. Admin javobi o'zgarmagan.
 settings:
   encodeUrl: true
   timeout: 0

@@ -80,6 +80,44 @@ docs: >
   > `country` relation orqali lokalizatsiya, bo'lmasa xom MVD fuqarolik qiymati.
 
 
+  **`driver`** (Haydovchilik guvohnomasi — nomzod darajasida, CV'ga emas): guvohnoma
+  maydonlari + `certificates[]` (Code 95 / ADR / chip karta).
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `has_license` | bool | Guvohnoma bormi |
+
+  | `categories` | string \| null | Vergul bilan ajratilgan toifalar (`B,C,DE`) — `categories_detail` ning qisqa proyeksiyasi, ikkisi doim bir xil to'plam |
+
+  | `categories_detail` | array | Har toifa uchun alohida amal qilish oynasi: `[{category, issue_date, expiry_date, note, source}]`. Toifa yo'q bo'lsa `[]` |
+
+  | `license_number` | string \| null | Guvohnoma raqami |
+
+  | `issue_date` / `expiry_date` | string \| null | Guvohnoma sanalari (`d.m.Y`) |
+
+  | `source` | string \| null | `manual` (nomzod kiritgan) \| `mvd_gibdd` (CV yaratishda YHXBB'dan avtomatik) |
+
+  | `certificates` | array | `[{id, type, title, certificate_number, issue_date, expiry_date, …}]` |
+
+
+  > `categories_detail` (2026-07-30) — guvohnoma kartasining orqa tomonidagi 10/11/12
+  > maydonlari: har toifa uchun **alohida** berilgan sana, amal qilish muddati va
+  > qo'shimcha izoh. `source` satr darajasida: MVD sinxronizatsiyasi faqat
+  > `mvd_gibdd` satrlarni almashtiradi, nomzod qo'lda kiritganini saqlab qoladi.
+  > Sana `null` — manba bermagan (eski yozuvlarda barcha toifa sanalari `null`:
+  > jadval qo'shilishidan oldin ular saqlanmagan).
+  >
+  > Tartib — **guvohnoma kartasidagi tartib** (`A, B, C, D, E, BE, CE, DE, TM, TB`),
+  > alifbo emas. `categories` CSV ham shu tartibda.
+  >
+  > **Admin panelda guvohnoma tahrirlanmaydi** — yozish faqat mobil ilovada
+  > (`PUT /mobile/candidate/driver-license`). Admin CV tahririda faqat driver
+  > **sertifikatlarini** biriktirish/uzish mumkin (`12a`/`12b`).
+
+
   **`legal`** (Huquqiy holat — МВД/МИБ'dan): `criminal_record` (Sudlanganlik),
   `insolvent` (Insofsiz/to'lovga qobiliyatsiz ro'yxati), `travel_ban` (Chet elga
   chiqish taqiqi). Har biri `status` (`clean` \| `has_record` \| `pending` \|

@@ -35,6 +35,12 @@ docs: 'Nomzod CV-sini PDF fayl sifatida yuklab oladi — paneldagi "Yuklab olish
   maskalangan keladi (ADR-360), PDF-da esa qator umuman render qilinmaydi.
 
 
+  > **Haydovchilik guvohnomasi bloki** PDF-da faqat toifalar ro''yxatini beradi
+  (`B, C, DE` — guvohnoma kartasidagi tartibda). Har toifa uchun alohida berilgan
+  sana / amal qilish muddati (`driver.categories_detail`) PDF-ga **chiqmaydi**,
+  faqat JSON javobda mavjud.
+
+
   ### 📋 Path Params
 
 

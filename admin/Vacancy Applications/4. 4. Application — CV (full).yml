@@ -17,6 +17,16 @@ docs: 'Arizaga biriktirilgan kandidatning to''liq CV''si (mobil `GET /mobile/cv/
   **Til:** `Accept-Language` orqali lokalizatsiya qilinadi.
 
 
+  > **`driver.categories_detail`** (2026-07-30) — haydovchilik guvohnomasining har
+  > toifasi uchun alohida berilgan sana / amal qilish muddati / izoh (kartaning
+  > 10/11/12 maydonlari): `[{category, issue_date, expiry_date, note, source}]`.
+  > `driver.categories` CSV qoldi va shu satrlarning proyeksiyasi — ikkisi doim bir
+  > xil to''plam, tartib esa karta tartibida (`A, B, C, D, E, BE, CE, DE, TM, TB`).
+  > Eski yozuvlarda toifa sanalari `null` (avval saqlanmagan). Guvohnomani
+  > **admin tahrirlay olmaydi** — yozish faqat mobil tarafda; to''liq ta''rif:
+  > `Vacancy Candidates Pipeline → 5. Candidate Profile`.
+
+
   > **Maxfiylik — PINFL mask.** `personal.pinpp` (JSHSHIR) admin/xodim javoblarida
   > **maskalanadi** — faqat oxirgi 4 raqam ko''rinadi (masalan `**********1234`). To''liq
   > PINFL''ni faqat nomzodning o''zi mobil ilovada ko''radi; superadmin ham to''liq
