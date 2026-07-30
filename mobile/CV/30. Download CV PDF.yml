@@ -36,6 +36,13 @@ docs: 'Nomzodning CV-sini PDF fayl sifatida yuklab oladi. Shablon `?template=` b
   ko''rinishi o''zgarmaydi.
 
 
+  > **Surat orientatsiyasi.** PDF generatori (mPDF) EXIF `Orientation` tegini
+  o''qimaydi, shu sababli telefonda olingan tik surat PDF-da yotgan holda chiqardi.
+  Endi burilish rasm piksellariga singdiriladi: yangi yuklamalar `POST /mobile/upload`
+  bosqichida, avval yuklangan suratlar esa PDF render paytida. Mijoz tarafida hech
+  narsa qilish kerak emas.
+
+
   ### 📋 Path Params
 
 

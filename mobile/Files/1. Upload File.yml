@@ -42,6 +42,15 @@ docs: 'Faylni serverga yuklaydi va keyinchalik entity yaratish/yangilashda ishla
   **Rasm maksimal o''lchami:** 8000×8000 px
 
 
+  **JPEG orientatsiyasi:** Telefon kamerasi rasmni sensor holatida saqlab, qanday
+  burilishi kerakligini EXIF `Orientation` tegida yozadi. Server yuklashda shu
+  burilishni **piksellarga singdiradi** va EXIF blokini olib tashlaydi. Sabab —
+  ba''zi iste''molchilar (CV PDF generatori) tegni o''qimaydi va rasm yotgan holda
+  chiqib qolardi. Yon ta''sirlar: JPEG bir marta qayta kodlanadi (sifat 92 —
+  odatda hajm kichrayadi), kamera/GPS metama''lumotlari o''chadi, `file_size`
+  javobda **qayta hisoblangan** qiymat bo''ladi. PNG/GIF/WEBP tegilmaydi.
+
+
   **Audio → Ogg:** Yuklangan audio fayllar (mp3, m4a, aac, wav, webm, opus) server tomonida
   Opus-in-Ogg (`.ogg`, mono ~32 kbps) formatiga avtomatik konvertatsiya qilinadi — `url` `.ogg`
   bilan tugaydi, `file_kind` = `audio`. Allaqachon `.ogg` bo''lsa qayta konvertatsiya qilinmaydi;
