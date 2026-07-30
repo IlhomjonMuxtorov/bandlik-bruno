@@ -1,0 +1,60 @@
+info:
+  name: CV Template — Thumbnail
+  type: http
+  seq: 85
+http:
+  method: GET
+  url: '{{base_url}}/mobile/cv/templates/europass/thumbnail'
+  auth: none
+docs: 'Bitta shablonning **sxematik eskizi** (PNG, 200x280).
+
+
+  **Auth:** talab qilinmaydi. Eskiz — joylashuvning karkasi (quyuq ustun, tasma,
+  matn o''rnidagi kulrang chiziqchalar), hech kimning CV ma''lumoti emas.
+  Rasm komponentlari (Coil / Glide / Kingfisher) odatda token ushlab turgan HTTP
+  klientdan chetlab o''tadi — shu bois bu endpoint ochiq qoldirilgan.
+
+
+  > Nega haqiqiy CV rasmi emas: 140px balandlikda matn baribir o''qilmaydi, va
+  haqiqiy miniatyura real nomzod ma''lumotini har bir klientga yuborish
+  bo''lardi. Admin panel ham aynan shunday sxematik eskiz chizadi.
+
+
+  ### 📋 Path Params
+
+
+  | Param | Type | Description |
+
+  |---|---|---|
+
+  | `template` | string | `europass` \| `modern` \| `professional` \| `classic`.
+  Noma''lum qiymat `404` bermaydi — standart shablon eskizi qaytadi, ya''ni eski
+  ilova versiyasida ham rasm buzilmaydi. |
+
+
+  ### 📤 Response
+
+
+  Binary PNG.
+
+
+  | Header | Value |
+
+  |---|---|
+
+  | `Content-Type` | `image/png` |
+
+  | `Cache-Control` | `public, max-age=604800, immutable` |
+
+  | `ETag` | rasm hash''i — qayta yuklamasdan tekshirish uchun |
+
+
+  > Rasm shablonga bog''liq o''zgarmas qiymat, shu bois uzoq keshlanadi. Ilova
+  uni bir marta yuklab, keshda saqlashi mumkin.
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,83 @@
+info:
+  name: CV Templates — List
+  type: http
+  seq: 84
+http:
+  method: GET
+  url: '{{base_url}}/mobile/cv/templates'
+  auth: inherit
+docs: 'PDF yuklab olishda tanlanadigan shablonlar ro''yxati — admin paneldagi
+  "Shablonlar" panelining mobil ekvivalenti. Ro''yxat statik (4 ta), lekin
+  serverdan olinadi: yangi shablon qo''shilsa ilova yangilanishi shart emas va
+  nomlar tayyor tarjima bo''lib keladi.
+
+
+  **Auth:** `access_token`.
+
+
+  > Tanlangan shablon **serverda saqlanmaydi**. Foydalanuvchi tanlagan `id` ni
+  ilova lokal saqlaydi va keyingi yuklab olishda
+  `GET /mobile/cv/{id}/download-pdf?template={id}` ga qo''shib yuboradi.
+
+
+  ### 📋 Headers
+
+
+  | Header | Required | Description |
+
+  |---|:---:|---|
+
+  | `Authorization` | ✅ | `Bearer {access_token}` |
+
+
+  ### 📤 Response
+
+
+  Massiv (mobil format — `data` o''ramchisi yo''q):
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `id` | string | `?template=` ga yuboriladigan qiymat: `europass` \| `modern`
+  \| `professional` \| `classic` |
+
+  | `name` | string | Qurilma tilidagi nomi (JWT `device_id` → `user_device.language`) |
+
+  | `is_default` | bool | `?template=` berilmasa yoki noma''lum bo''lsa ishlatiladigan shablon |
+
+  | `thumbnail_url` | string | Sxematik eskiz PNG (200x280). **Auth talab qilmaydi** |
+
+
+  ```json
+
+  [
+    { "id": "europass", "name": "Europass", "is_default": true,
+      "thumbnail_url": "https://api.bandlik.uz/mobile/cv/templates/europass/thumbnail" },
+    { "id": "modern", "name": "Zamonaviy", "is_default": false,
+      "thumbnail_url": "https://api.bandlik.uz/mobile/cv/templates/modern/thumbnail" },
+    { "id": "professional", "name": "Professional", "is_default": false,
+      "thumbnail_url": "https://api.bandlik.uz/mobile/cv/templates/professional/thumbnail" },
+    { "id": "classic", "name": "Klassik", "is_default": false,
+      "thumbnail_url": "https://api.bandlik.uz/mobile/cv/templates/classic/thumbnail" }
+  ]
+
+  ```
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q yoki eskirgan |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
