@@ -12,9 +12,14 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n    \"has_license\": true,\n    \"categories\": \"A,B,C\",\n    \"license_number\"\
-      : \"AB1234567\",\n    \"issue_date\": \"10.05.2018\",\n    \"expiry_date\":\
-      \ \"10.05.2028\",\n    \"file_id\": 42\n}"
+    data: "{\n    \"has_license\": true,\n    \"license_number\": \"AB1234567\",\n\
+      \    \"issue_date\": \"10.05.2018\",\n    \"expiry_date\": \"10.05.2028\",\n\
+      \    \"file_id\": 42,\n    \"categories_detail\": [\n        {\n           \
+      \ \"category\": \"B\",\n            \"issue_date\": \"10.05.2018\",\n      \
+      \      \"expiry_date\": \"10.05.2028\"\n        },\n        {\n            \"\
+      category\": \"C\",\n            \"issue_date\": \"01.06.2021\",\n          \
+      \  \"expiry_date\": \"10.05.2028\",\n            \"note\": \"AT\"\n        }\n\
+      \    ]\n}"
   auth: inherit
 docs: 'Haydovchilik guvohnomasini yaratish yoki yangilash (`PUT` — upsert).
 
@@ -32,7 +37,35 @@ docs: 'Haydovchilik guvohnomasini yaratish yoki yangilash (`PUT` — upsert).
   | `has_license` | bool | ✅ | Guvohnoma bormi |
 
   | `categories` | string | ➖ | Vergul bilan ajratilgan toifalar ro''yxati. Ruxsat
-  etilganlari: `A, B, C, D, E, BE, CE, DE, TM, TB`. Masalan: `A,B,C` |
+  etilganlari: `A, B, C, D, E, BE, CE, DE, TM, TB`. Masalan: `A,B,C`. **`categories_detail`
+  yuborilsa e''tiborga olinmaydi** — CSV shundan qayta yig''iladi. Noma''lum kod →
+  `400` |
+
+  | `categories_detail` | array | ➖ | Toifalar + har biriga alohida sanalar. `[]`
+  — hammasi o''chiriladi; ro''yxat — to''liq almashtiriladi |
+
+
+  **Toifalar qanday hisoblanadi** (`PUT` — to''liq almashtirish, shu sababli
+  yuborilmagan maydon o''chirilgan hisoblanadi):
+
+
+  | Body | Natija |
+
+  |---|---|
+
+  | `categories_detail` bor | Satrlar to''liq almashtiriladi, `categories` CSV shundan
+  qayta yig''iladi |
+
+  | Faqat `categories` (eski buildlar) | CSV **authority**: satrlar CSV to''plamiga
+  moslanadi — ikkalasida ham bor kodlar **sanalarini saqlab qoladi**, faqat CSV''da
+  bor kod sanasiz qo''shiladi, faqat jadvalda qolgani o''chiriladi |
+
+  | Ikkisi ham yo''q | Toifalar tozalanadi (`categories` = `null`, satrlar o''chadi)
+  — boshqa maydonlar bilan bir xil `PUT` semantikasi |
+
+
+  > `categories` va `categories_detail` **hech qachon** bir-biriga zid bo''lmaydi —
+  har yozuvda ikkisi bir vaqtda hisoblanadi.
 
   | `license_number` | string | ➖ | Guvohnoma raqami |
 
@@ -44,15 +77,56 @@ docs: 'Haydovchilik guvohnomasini yaratish yoki yangilash (`PUT` — upsert).
   nusxasi) |
 
 
+  **`categories_detail` elementi:**
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `category` | string | ✅ | `A` \| `B` \| `C` \| `D` \| `E` \| `BE` \| `CE` \|
+  `DE` \| `TM` \| `TB`. Boshqa kod — `400` |
+
+  | `issue_date` | date | ➖ | Shu toifa berilgan sana (`DD.MM.YYYY`, karta 10-maydoni) |
+
+  | `expiry_date` | date | ➖ | Shu toifa amal qilish muddati (11). `issue_date` dan
+  kichik bo''lmasligi kerak |
+
+  | `note` | string | ➖ | Qo''shimcha ma''lumot (12), max 255 belgi |
+
+
   ### 📤 Response
 
 
-  Yangilangan guvohnoma + sertifikatlar (`GET` bilan bir xil shaklda).
+  Yangilangan guvohnoma + sertifikatlar (`GET` bilan bir xil shaklda, `categories_detail`
+  bilan).
 
 
-  > Qo''lda upsert qilinganda yozuv `source=manual` deb belgilanadi. Shu sababli
-  keyingi CV yaratishlarda MVD/GIBDD avto-sync bu yozuvni **ustiga yozmaydi** —
-  qo''lda kiritilgan ma''lumot saqlanib qoladi.
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `400` | Noma''lum toifa kodi (masalan `A1`), sana formati xato yoki `expiry_date
+  < issue_date`. Bu holda **hech narsa saqlanmaydi** — guvohnoma ham, toifalar ham
+  o''zgarmaydi (bitta tranzaksiya) |
+
+  | `401` | Token yo''q / eskirgan |
+
+  | `403` | Foydalanuvchi MyID orqali tasdiqlanmagan |
+
+
+  > Qo''lda upsert qilinganda yozuv (va yuborilgan toifa satrlari) `source=manual`
+  deb belgilanadi. Shu sababli keyingi CV yaratishlarda MVD/GIBDD avto-sync bu
+  yozuvni **ustiga yozmaydi** — qo''lda kiritilgan ma''lumot saqlanib qoladi.
+
+
+  > Prefill oqimi: `GET /mobile/candidate/mvd-driver-license` → foydalanuvchi
+  tasdiqlaydi/tahrirlaydi → shu `PUT`. Prefill javobidagi `license` obyektini
+  o''zgartirmasdan body sifatida yuborish mumkin (`unsupported_categories` ni
+  tashlab).
 
   '
 settings:

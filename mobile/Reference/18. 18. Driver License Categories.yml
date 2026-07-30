@@ -1,0 +1,65 @@
+info:
+  name: 18. Driver License Categories
+  type: http
+  seq: 18
+http:
+  method: GET
+  url: '{{base_url}}/mobile/driver-license-categories'
+  auth: inherit
+docs: |
+  Haydovchilik guvohnomasi toifalari ro'yxati (ma'lumotnoma). CV "Haydovchilik
+  guvohnomasi" formasidagi toifa tanlagichni shu ro'yxat boshqaradi — `value`
+  `PUT /mobile/candidate/driver-license` ning `categories_detail[].category`
+  maydoniga yuboriladi.
+
+  > Ro'yxat **guvohnoma kartasidagi tartibda** qaytadi (A, B, C, D, E, BE, CE, DE,
+  > TM, TB) — boshqa enum reference endpointlaridagi kabi alifbo tartibida emas.
+
+  **Auth:** `access_token`
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {token}` |
+
+  > Til `Accept-Language` dan **olinmaydi**: `description` JWT dagi `device_id` →
+  > `user_device.language` bo'yicha qaytadi (`uz` \| `ru` \| `en`, default `uz`).
+
+  ### 📤 Response *(massiv elementi)*
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `value` | string | Toifa kodi — saqlanadigan qiymat: `A` \| `B` \| `C` \| `D` \| `E` \| `BE` \| `CE` \| `DE` \| `TM` \| `TB` |
+  | `label` | string | Ko'rinadigan nom = kodning o'zi (kartada ham faqat kod chiqadi) |
+  | `description` | string | Toifa qanday transportni qamraydi — tanlagichdagi yordamchi matn |
+
+  ```json
+  [
+    { "value": "A",  "label": "A",  "description": "Mototsikllar" },
+    { "value": "B",  "label": "B",  "description": "3.5 t gacha yengil avtomobillar" },
+    { "value": "C",  "label": "C",  "description": "3.5 t dan ortiq yuk mashinalari" },
+    { "value": "D",  "label": "D",  "description": "Avtobuslar" },
+    { "value": "E",  "label": "E",  "description": "Og'ir tirkamalar (B/C/D asosida)" },
+    { "value": "BE", "label": "BE", "description": "Yengil avtomobil + tirkama" },
+    { "value": "CE", "label": "CE", "description": "Yuk mashinasi + tirkama" },
+    { "value": "DE", "label": "DE", "description": "Avtobus + tirkama" },
+    { "value": "TM", "label": "TM", "description": "Tramvay" },
+    { "value": "TB", "label": "TB", "description": "Trolleybus" }
+  ]
+  ```
+
+  > MVD prefill (`GET /mobile/candidate/mvd-driver-license`) `unsupported_categories`
+  > da shu ro'yxatda **yo'q** kodlarni qaytarishi mumkin (masalan `A1`) — ular
+  > faqat ko'rsatiladi, saqlanmaydi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Unauthorized (token yaroqsiz yoki berilmagan) |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

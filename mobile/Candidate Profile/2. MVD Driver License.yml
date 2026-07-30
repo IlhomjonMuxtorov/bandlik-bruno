@@ -1,5 +1,5 @@
 info:
-  name: MVD Driver License
+  name: MVD Driver License (Prefill)
   type: http
   seq: 2
 http:
@@ -9,14 +9,21 @@ http:
   - name: Accept
     value: application/json
   auth: inherit
-docs: 'MVD (Ichki Ishlar Vazirligi) manbalaridan haydovchilik guvohnomasini olish.
-
-
-  Foydalanuvchining passport ma''lumotlari asosida MVD API dan guvohnomasini so''raydi.
-  Agar topilmasa, bo''sh object `{}` qaytariladi.
+docs: 'MVD/GIBDD (YHXBB) dan haydovchilik guvohnomasini **live** olib, CV formasini
+  to''ldirish uchun tayyor shaklda qaytaradi. Hech narsa saqlanmaydi — foydalanuvchi
+  tasdiqlagach, mijoz shu qiymatlarni `PUT /mobile/candidate/driver-license` ga
+  o''zgartirmasdan yuboradi (kalitlar bir xil, sana formati `DD.MM.YYYY`).
 
 
   **Auth:** `access_token`.
+
+
+  > ⚠️ **BREAKING (2026-07-30).** Avval bu endpoint xom MVD javobini qaytargan
+  (`result_code`, `license_serial`, `license_begin_date`, `license_issued_by`,
+  `birth_place: {region_id, city_id, place}`, `photo_base64`) va guvohnoma topilmasa
+  bo''sh `{}` bergan. Endi javob doim `available` + `reason` bilan keladi, kalitlar
+  forma maydonlariga moslangan, `photo_base64` olib tashlangan (og''ir; CV foto
+  alohida oqim).
 
 
   ### 📋 Headers
@@ -36,34 +43,128 @@ docs: 'MVD (Ichki Ishlar Vazirligi) manbalaridan haydovchilik guvohnomasini olis
 
   |---|---|---|
 
-  | `result_code` | int | MVD result code (1 = topildi, 0/2+ = topilmadi) |
+  | `available` | bool | `true` — `license`/`owner` to''ldirilgan; `false` — prefill
+  yo''q, sababi `reason` da |
 
-  | `owner_full_name` | string \| null | Guvohnoma egasining F.I.O. |
+  | `reason` | string \| null | `not_found` (guvohnoma yo''q) \| `unavailable` (servis/token/tarmoq
+  — keyinroq qayta urinish mumkin) \| `error` (servis qayta ishlash xatosi). `available=true`
+  bo''lsa `null` |
 
-  | `license_serial` | string \| null | Guvohnoma raqami |
+  | `reason_message` | string \| null | `reason` ning tarjima qilingan matni — formada
+  ko''rsatish uchun. `available=true` bo''lsa `null` |
 
-  | `license_begin_date` | date \| null | Berilgan sana |
+  | `license` | object \| null | Guvohnoma maydonlari. `available=false` — `null` |
 
-  | `license_end_date` | date \| null | Amal qilish muddati |
+  | `owner` | object \| null | Guvohnoma egasi (faqat ma''lumot uchun). `available=false`
+  — `null` |
 
-  | `categories` | array | Guvohnoma kategoriyalari |
 
-
-  **Kategoriya elementi:**
+  **`license` obyekti:**
 
 
   | Field | Type | Description |
 
   |---|---|---|
 
-  | `category` | string | Kategoriya kodi (`A`, `B`, `C`, `D` va h.k.) |
+  | `has_license` | bool | Doim `true` — GIBDD guvohnoma topgan |
 
-  | `begin_date` | date \| null | Kategoriya berilgan sana |
+  | `license_number` | string \| null | Guvohnoma raqami (karta 5-maydoni) |
 
-  | `end_date` | date \| null | Kategoriya amal qilish muddati |
+  | `issue_date` | string \| null | Berilgan sana `DD.MM.YYYY` (4a) |
+
+  | `expiry_date` | string \| null | Amal qilish muddati `DD.MM.YYYY` (4b) |
+
+  | `issued_by_code` | int \| null | Berilgan joy **kodi** (4c). GIBDD faqat kod qaytaradi
+  — tizimda kodni nomga aylantiruvchi reference yo''q, shu sababli nom yuborilmaydi |
+
+  | `categories` | array | Tizim qo''llab-quvvatlaydigan toifalar, har biri o''z sanalari
+  bilan. Tartib — guvohnoma kartasidagi tartib (`A, B, C, D, E, BE, CE, DE, TM, TB`) |
+
+  | `unsupported_categories` | string[] | GIBDD qaytargan, lekin tizimda yo''q kodlar
+  (masalan `A1`). Faqat ko''rsatish uchun — saqlanmaydi |
 
 
-  **Topilmasa (`result_code !== 1`):** `{}` (bo''sh object).
+  **`categories` elementi** (karta orqa tomonidagi 9–12 maydonlari):
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `category` | string | `A` \| `B` \| `C` \| `D` \| `E` \| `BE` \| `CE` \| `DE`
+  \| `TM` \| `TB` |
+
+  | `issue_date` | string \| null | Shu toifa uchun berilgan sana `DD.MM.YYYY` (10).
+  GIBDD bermasa yoki buzuq sana qaytarsa — `null` |
+
+  | `expiry_date` | string \| null | Shu toifa uchun amal qilish muddati (11) |
+
+  | `note` | string \| null | Toifaga tegishli qo''shimcha ma''lumot (12) |
+
+
+  **`owner` obyekti:**
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `full_name` | string \| null | F.I.O. (1–2) |
+
+  | `birth_date` | string \| null | Tug''ilgan sana `DD.MM.YYYY` (3) |
+
+  | `birth_place` | string \| null | Tug''ilgan joy (erkin matn). GIBDD faqat kod bersa
+  — `null` |
+
+  | `residence` | string \| null | Yashash joyi (8, erkin matn). Kod bo''lsa — `null` |
+
+
+  **Misol (topilgan):**
+
+
+  ```json
+
+  {
+    "available": true,
+    "reason": null,
+    "reason_message": null,
+    "license": {
+      "has_license": true,
+      "license_number": "AB1234567",
+      "issue_date": "12.04.2019",
+      "expiry_date": "12.04.2029",
+      "issued_by_code": 26,
+      "categories": [
+        { "category": "B", "issue_date": "12.04.2019", "expiry_date": "12.04.2029", "note": null },
+        { "category": "C", "issue_date": "01.06.2021", "expiry_date": "12.04.2029", "note": "AT" }
+      ],
+      "unsupported_categories": ["A1"]
+    },
+    "owner": {
+      "full_name": "ALIYEV ALI ALIYEVICH",
+      "birth_date": "03.02.1994",
+      "birth_place": "Toshkent shahri",
+      "residence": "Chilonzor t., 5-kv"
+    }
+  }
+
+  ```
+
+
+  **Misol (topilmagan):**
+
+
+  ```json
+
+  {
+    "available": false,
+    "reason": "not_found",
+    "reason_message": "Driver license not found.",
+    "license": null,
+    "owner": null
+  }
+
+  ```
 
 
   ### ⚠️ Errors
@@ -73,10 +174,10 @@ docs: 'MVD (Ichki Ishlar Vazirligi) manbalaridan haydovchilik guvohnomasini olis
 
   |---|---|
 
-  | `404` | Passport ma''lumoti topilmadi (foydalanuvchi hali passport orqali login
-  qilmadi) |
+  | `401` | Token yo''q / eskirgan |
 
-  | `401` | Token yo''q |
+  | `404` | Nomzodda passport ma''lumoti (PINFL) yo''q — so''rov yuborishning imkoni
+  yo''q. Guvohnomaning topilmasligi **404 emas**, `available: false` |
 
   '
 settings:

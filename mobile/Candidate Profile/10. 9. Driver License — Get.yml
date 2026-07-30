@@ -25,7 +25,12 @@ docs: 'Haydovchilik guvohnomasi + sertifikatlar.
   | `has_license` | bool | Guvohnoma bormi |
 
   | `categories` | string \| null | Vergul bilan ajratilgan toifalar (`A,B,C,D,E,BE,CE,DE,TM,TB`
-  ichidan). Masalan `A,B,C` |
+  ichidan). Masalan `A,B,C`. Bu `categories_detail` ning qisqa proyeksiyasi — ikkisi
+  doim bir xil to''plamni bildiradi |
+
+  | `categories_detail` | array | Har toifa uchun alohida amal qilish oynasi (karta
+  9–12 maydonlari). Toifa yo''q bo''lsa `[]`. Tartib — guvohnoma kartasidagi tartib
+  (`A, B, C, D, E, BE, CE, DE, TM, TB`), alifbo emas; `categories` CSV ham shu tartibda |
 
   | `license_number` | string \| null | Guvohnoma raqami |
 
@@ -50,10 +55,35 @@ docs: 'Haydovchilik guvohnomasi + sertifikatlar.
   sertifikatlari |
 
 
+  **`categories_detail` elementi:**
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `category` | string | `A` \| `B` \| `C` \| `D` \| `E` \| `BE` \| `CE` \| `DE`
+  \| `TM` \| `TB` |
+
+  | `issue_date` | string \| null | Shu toifa uchun berilgan sana `DD.MM.YYYY` (karta
+  10-maydoni). `null` — manba sanani bermagan |
+
+  | `expiry_date` | string \| null | Shu toifa uchun amal qilish muddati (11) |
+
+  | `note` | string \| null | Toifaga tegishli qo''shimcha ma''lumot (12) |
+
+  | `source` | string | Shu satr manbasi: `manual` \| `mvd_gibdd` |
+
+
   > CV birinchi marta yaratilganda haydovchilik guvohnomasi MVD/GIBDD servisidan
-  avtomatik to''ldiriladi (`source=mvd_gibdd`). Foydalanuvchi `PUT` orqali qo''lda
-  tahrir qilsa, `source=manual` bo''ladi va keyingi CV yaratishlarda MVD uni
-  ustiga yozmaydi.
+  avtomatik to''ldiriladi (`source=mvd_gibdd`) — toifa satrlari ham. Foydalanuvchi
+  `PUT` orqali qo''lda tahrir qilsa, `source=manual` bo''ladi va keyingi CV
+  yaratishlarda MVD uni ustiga yozmaydi.
+
+
+  > Jadval qo''shilishidan oldin saqlangan guvohnomalarda `categories_detail`
+  satrlari mavjud (CSV''dan ko''chirilgan), lekin `issue_date`/`expiry_date` —
+  `null`: eski sxema toifa sanalarini saqlamagan.
 
   '
 settings:
