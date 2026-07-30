@@ -16,8 +16,10 @@ http:
       {
         "save_as_template": false,
         "organization_id": 1,
-        "recruiter_id": 6,
-        "contract_id": 3,
+        "contract_chain": [
+          { "to_organization_id": 9, "contract_id": 12 },
+          { "to_organization_id": 6, "contract_id": 13 }
+        ],
         "industry_id": 1,
         "title": "Restoran Xizmatchisi",
         "description": "Zamonaviy restoranda ofitsiant.",
@@ -102,13 +104,53 @@ docs: |
 
   ### 📥 Request Body
 
+  ### 🔗 `contract_chain` — shartnoma zanjiri
+
+  XBA ish beruvchi bilan **yo to'g'ridan-to'g'ri**, **yo rekruter(lar) orqali**
+  ishlaydi. Zanjir shu yo'lni yozadi; har bir bo'g'in o'z ikki tomoni o'rtasidagi
+  shartnomani olib yuradi.
+
+  ```
+  XBA ↔ ish beruvchi                                  → 1 ta bo'g'in (oraga rekruter qo'shib bo'lmaydi)
+  XBA ↔ rekruter1 ↔ rekruter2 ↔ ish beruvchi          → 3 ta bo'g'in
+  ```
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `to_organization_id` | int | ✅ | Bo'g'in yakuniy tomoni: `RECRUITER` (7) yoki `EMPLOYER` (6). Picker: `GET /admin/vacancies/organizations?type=recruiter\|employer`. |
+  | `contract_id` | int \| null | ➖ | Shu bo'g'inning ikki tomoni o'rtasidagi shartnoma. Draft'da `null` bo'lishi mumkin; `submit`da majburiy. Picker: `GET /admin/contracts?party_a_organization_id={bo'g'in boshi}&party_b_organization_id={to_organization_id}&is_cancelled=false`. |
+
+  > Bo'g'inning **boshlanish tomoni yuborilmaydi** — server hisoblaydi: 0-bo'g'inda
+  > `organization_id` (XBA), keyingilarida oldingi bo'g'inning `to_organization_id`.
+
+  **Qoidalar (buzilsa `400`):**
+
+  | Qoida | Xabar |
+  |---|---|
+  | `EMPLOYER` faqat oxirgi bo'g'inda va bittadan ko'p emas | `The employer must be the last link of the contract chain` |
+  | Bir tashkilot zanjirda bir marta | `An organization may appear only once in the contract chain` |
+  | Ko'pi bilan 5 ta bo'g'in | `A contract chain may not exceed 5 links` |
+  | Shartnoma bo'g'inning aynan ikki tomoni o'rtasida | `Contract is not signed between the two parties of this chain link` |
+  | `vacancy`-tip shartnoma kvotasi (`candidate_count`) — zanjirning istalgan bo'g'inida band slot hisoblanadi | `Contract candidate quota is full` |
+
+  > **Draft erkin, submit qat'iy.** Draft holatida zanjir bo'sh ham, yarim
+  > to'ldirilgan ham (shartnomasiz bo'g'in, ish beruvchiga yetmagan zanjir)
+  > bo'lishi mumkin. `submit` esa har bo'g'inda shartnoma bo'lishini **va** zanjir
+  > ish beruvchi bilan tugashini talab qiladi (`400`).
+  >
+  > Tasdiqlanmagan (`pending`/`rejected`) shartnoma **tanlanishi mumkin**, ammo
+  > vakansiya biriktirilgan shartnomalarning har biri `approved` (va bekor
+  > qilinmagan) bo'lmaguncha tasdiqlanmaydi. Shartnomasiz bo'g'in approve'ni
+  > bloklamaydi — u submit'da ushlangan.
+
   **Asosiy maydonlar (1-bosqich):**
 
   | Field | Type | Required | Description |
   |---|---|:---:|---|
   | `organization_id` | int | ✅ | **XBA** tashkiloti (boshqaruvchi agentlik). Faqat `XBA`-type org qabul qilinadi — aks holda `422`. |
-  | `recruiter_id` | int | ➖ | Biriktirilgan **ish beruvchi YOKI rekruter** ("Ish beruvchi / Rekruter" tanlovi). Faqat `EMPLOYER` yoki `RECRUITER`-type org qabul qilinadi — aks holda `422`. |
-  | `contract_id` | int | ➖ | Bog'langan **XBA shartnomasi** (`organization_contract.id`). `null` = bog'lanmagan. Berilsa: tanlangan `recruiter_id` org'ga tegishli, aktiv va **bekor qilinmagan** bo'lishi shart; `vacancy`-tip shartnomada kvota (`candidate_count`) band slotlardan oshmasligi tekshiriladi. Tasdiqlanmagan (`pending`/`rejected`) shartnoma **tanlanishi mumkin**, ammo shunday vakansiya shartnoma `approved` (va bekor qilinmagan) bo'lmaguncha tasdiqlanmaydi. Picker: `GET /admin/contracts?organization_id={recruiter_id}&is_cancelled=false`. |
+  | `contract_chain` | array | ➖ | **Shartnoma zanjiri** ("Ish beruvchi / Rekruter tanlash"), bo'g'in tartibida. Draft'da bo'sh (`[]`) bo'lishi mumkin; `submit`da to'liq bo'lishi shart. Pastdagi alohida bo'limga qarang. |
+  | `recruiter_id` | int | ➖ | **Deprecated** — eski (zanjirdan oldingi) shakl. `contract_chain` yuborilmasa, `recruiter_id` (+ ixtiyoriy `contract_id`) bitta bo'g'inli zanjirga aylantiriladi. Javobda esa bu maydon doim zanjirning **0-bo'g'ini** (XBA ning to'g'ridan-to'g'ri kontragenti) bo'lib qaytadi. |
+  | `contract_id` | int | ➖ | **Deprecated** — 0-bo'g'in shartnomasining mirror'i. Yangi klientlar shartnomani `contract_chain[].contract_id` ichida yuboradi. |
   | `industry_id` | int | ➖ | Soha ID |
   | `title` | string | ✅ | Sarlavha |
   | `description` | string | ➖ | Tavsif (HTML/markdown) |
@@ -173,9 +215,10 @@ docs: |
 
   | Code | Reason |
   |---|---|
-  | `422` | Validatsiya xatosi. Jumladan: `organization_id` XBA-type emas; `recruiter_id` EMPLOYER/RECRUITER-type emas; `deadline_at` o'tmishdagi (orqa) sana — `Deadline cannot be in the past`; `contract_id` tanlangan ish beruvchi/rekruterga tegishli emas yoki kvota to'lgan |
+  | `400` | Zanjir qoidasi buzilgan (yuqoridagi `contract_chain` jadvaliga qarang) |
+  | `422` | Validatsiya xatosi. Jumladan: `organization_id` XBA-type emas; `deadline_at` o'tmishdagi (orqa) sana — `Deadline cannot be in the past` |
   | `400` | Snapshot xatosi (Organization service topilmadi / boshqa tashkilotga tegishli); `agency` xizmati yo'q yoki narxi 0; **kurs yo'q** — `training` xizmati yoki uning `educational_course_id` si yo'q; **service_groups** xatosi (tashkilot takrorlangan, bir kategoriya ikki tashkilotda, organization yo'q, muddat 0/yo'q, yoki guruhda xizmat yo'q) |
-  | `403` | Non-admin: aktyorning org'i na `organization_id` (XBA) na `recruiter_id` ga mos kelmasa |
+  | `403` | Non-admin: aktyorning org'i na `organization_id` (XBA), na zanjirdagi biror tomon bo'lmasa |
 settings:
   encodeUrl: true
   timeout: 0

@@ -95,6 +95,14 @@ docs: |
   | `country_id` | int | ✅ | Ish joyi davlati. |
   | `hiring_quota` | int | ✅ | Nechta nomzod olinadi. Min `1`. |
   | `contract_id` | int \| null | ➖ | `verify` qaytargan `contracts[]` dan tanlanadi. `null` — shartnomasiz. |
+
+  > **Shartnoma zanjiri:** token vakansiyaning kontragentini belgilaydi, shuning
+  > uchun body'dagi `contract_chain` (agar yuborilsa) e'tiborsiz qoldiriladi va
+  > zanjir bitta bo'g'indan iborat bo'ladi: taklif qilingan tashkilot +
+  > (ixtiyoriy) `contract_id`. Bu oqim **zanjir to'liqligi gate'idan ozod** —
+  > taklif qilingan org rekruter bo'lsa ham, shartnoma tanlanmasa ham vakansiya
+  > yaratilib, darhol tasdiqlash navbatiga tushadi. Zanjirni keyin XBA panelda
+  > to'ldiradi.
   | `salary_gross` / `salary_net` | int | ➖ | **Odatiy birlikda** (so'm/dollar), tiyinda emas. |
   | `requirements` | array | ✅ | Kamida bitta talab bo'lishi shart. |
   | `documents` | array | ✅ | Kamida bitta talab qilinadigan hujjat bo'lishi shart. |

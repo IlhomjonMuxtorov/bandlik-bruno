@@ -89,15 +89,43 @@ docs: |-
   | `name` | string \| null | Tashkilot nomi |
   | `logo_url` | string \| null | Logotipning to'liq URL'i (yo'q bo'lsa `null`) |
 
-  ### 🧑‍💼 `recruiter` (object \| null — `recruiter_id` bo'lmasa butun obyekt `null`)
+  ### 🧑‍💼 `recruiter` (object \| null — zanjir bo'sh bo'lsa `null`)
 
-  Recruiter ham `organization` jadvalining yozuvi, shuning uchun `organization` bilan bir xil shaklda.
+  Shartnoma zanjirining **0-bo'g'ini**: XBA ning to'g'ridan-to'g'ri kontragenti —
+  to'g'ridan-to'g'ri shartnomada ish beruvchi, aks holda birinchi rekruter.
+  `organization` bilan bir xil shaklda.
 
   | Field | Type | Description |
   |---|---|---|
-  | `id` | int | Recruiter tashkilot `organization.id` |
-  | `name` | string \| null | Recruiter tashkilot nomi |
-  | `logo_url` | string \| null | Recruiter logotipining to'liq URL'i (yo'q bo'lsa `null`) |
+  | `id` | int | Kontragent `organization.id` |
+  | `name` | string \| null | Kontragent nomi |
+  | `logo_url` | string \| null | Logotipning to'liq URL'i (yo'q bo'lsa `null`) |
+
+  ### 🏢 `employer` (object \| null — zanjir hali ish beruvchi bilan tugamagan bo'lsa `null`)
+
+  Zanjirning **oxirgi** bo'g'inidagi ish beruvchi (`EMPLOYER`, type 6). To'g'ridan-to'g'ri
+  shartnomada `recruiter` bilan bir xil tashkilot bo'ladi.
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Ish beruvchi `organization.id` |
+  | `name` | string \| null | Ish beruvchi nomi |
+  | `logo_url` | string \| null | Logotipning to'liq URL'i |
+
+  ### 🔗 `contract_chain` (array — bo'g'in tartibida)
+
+  Wizard'dagi "Ish beruvchi / Rekruter tanlash" bloki aynan shuni qayta chizadi.
+  Bo'sh massiv — faqat kontragentsiz eski draft'da.
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `position` | int | 0-based bo'g'in tartibi; `0` — XBA ↔ birinchi kontragent |
+  | `from` | object | `{ id, name, type }` — buyurtmachi tomon (0-bo'g'inda XBA) |
+  | `to` | object | `{ id, name, type }` — jalb qilingan tomon (`type` 6 = ish beruvchi, 7 = rekruter) |
+  | `contract` | object \| null | Shu bo'g'in shartnomasi (`contract` bloki bilan bir xil shakl); `null` = hali biriktirilmagan |
+
+  > `contract` (yuqoridagi yakka maydon) — zanjirning **0-bo'g'in** shartnomasi mirror'i;
+  > eski klientlar uchun saqlanib qolgan.
 
   ### 🏭 `industry` (object \| null — `industry_id` bo'lmasa `null`)
 

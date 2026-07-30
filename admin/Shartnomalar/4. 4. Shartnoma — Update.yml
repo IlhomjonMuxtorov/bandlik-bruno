@@ -10,7 +10,7 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"xba_organization_id\": 3,\n  \"organization_id\": 7,\n  \"contract_type\": \"vacancy\",\n  \"candidate_count\": 25,\n  \"upload_file_id\": 15\n}"
+    data: "{\n  \"party_a_organization_id\": 3,\n  \"party_b_organization_id\": 7,\n  \"contract_type\": \"vacancy\",\n  \"candidate_count\": 25,\n  \"upload_file_id\": 15\n}"
   auth: inherit
 docs: |
   Shartnomani tahrirlaydi. Muhim maydonlar o'zgargani uchun `approval_status`

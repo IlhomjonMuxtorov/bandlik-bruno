@@ -4,13 +4,13 @@ info:
   seq: 1
 http:
   method: GET
-  url: '{{base_url}}/admin/contracts?organization_id=&xba_organization_id=&contract_type=&approval_status=&is_active='
+  url: '{{base_url}}/admin/contracts?party_a_organization_id=&party_b_organization_id=&contract_type=&approval_status=&is_active='
   params:
-  - name: organization_id
+  - name: party_a_organization_id
     value: ''
     type: query
     enabled: false
-  - name: xba_organization_id
+  - name: party_b_organization_id
     value: ''
     type: query
     enabled: false
@@ -28,10 +28,12 @@ http:
     enabled: false
   auth: inherit
 docs: |
-  XBA ↔ ish beruvchi/rekruter shartnomalari ro'yxati. Bu endpoint vakansiya
-  yaratishdagi **shartnoma picker** sifatida ham ishlatiladi: `?organization_id=`
-  (tanlangan ish beruvchi/rekruter = `vacancy.recruiter_id`) bilan filtrlab,
-  faqat o'sha tashkilotning aktiv shartnomalari qaytariladi.
+  Ikki tomonlama shartnomalar ro'yxati. Bu endpoint vakansiya yaratishdagi
+  **zanjir shartnoma picker**i sifatida ham ishlatiladi: har bir bo'g'in uchun
+  `?party_a_organization_id=<bo'g'in boshi>&party_b_organization_id=<bo'g'in oxiri>`
+  (+ `is_cancelled=false`) bilan filtrlanadi va faqat aynan shu ikki tomon
+  o'rtasidagi aktiv shartnomalar qaytariladi. Hop 0 da `party_a` — vakansiyani
+  boshqaruvchi XBA.
 
   **Auth:** `admin_token`.
 
@@ -39,8 +41,12 @@ docs: |
 
   | Param | Type | Required | Description |
   |---|---|:---:|---|
-  | `organization_id` | int | ➖ | Egasi (ish beruvchi/rekruter) bo'yicha filtr. Picker uchun majburiy. |
-  | `xba_organization_id` | int | ➖ | XBA tomoni bo'yicha filtr. |
+  | `party_a_organization_id` | int | ➖ | Buyurtmachi tomon (XBA yoki rekruter) bo'yicha filtr. Zanjir pickeri ikkalasini birga yuboradi. |
+  | `party_b_organization_id` | int | ➖ | Jalb qilingan tomon (ish beruvchi yoki rekruter) bo'yicha filtr. |
+
+  > **O'tish davri:** eski `xba_organization_id` / `organization_id` paramlari hali
+  > mos ravishda `party_a` / `party_b` sifatida qabul qilinadi (yangi nom ustun
+  > keladi). Panel yangi nomlarga o'tgach olib tashlanadi.
   | `contract_type` | string | ➖ | `vacancy` \| `yearly`. |
   | `approval_status` | string | ➖ | `pending` \| `approved` \| `rejected`. |
   | `is_active` | string | ➖ | Standart: faqat aktiv. `all` — o'chirilganlar ham; `false` — faqat o'chirilgan. |
@@ -56,10 +62,10 @@ docs: |
   | `id` | int | Shartnoma ID |
   | `contract_type` | string | `vacancy` \| `yearly` |
   | `contract_type_label` | string | Tarjima qilingan tip nomi |
-  | `organization` | object | `{ id, name }` — egasi |
-  | `xba_organization` | object | `{ id, name }` — XBA tomoni |
+  | `party_a_organization` | object | `{ id, name, type }` — buyurtmachi tomon (type 1 = XBA, 7 = rekruter) |
+  | `party_b_organization` | object | `{ id, name, type }` — jalb qilingan tomon (type 6 = ish beruvchi, 7 = rekruter) |
   | `candidate_count` | int \| null | Vacancy kvotasi; `yearly` da `null` |
-  | `used_count` | int \| null | Band slotlar (bog'langan vakansiyalar); `yearly` da `null` |
+  | `used_count` | int \| null | Band slotlar — shartnoma **istalgan zanjir bo'g'inida** ishlatilgan vakansiyalar soni; `yearly` da `null` |
   | `remaining` | int \| null | `candidate_count - used_count`; `yearly` da `null` |
   | `start_date` | string \| null | Yearly boshlanish sanasi `d.m.Y`; `vacancy` da `null` |
   | `file` | object \| null | Shartnoma hujjati (`UploadFileOutputDTO`) |

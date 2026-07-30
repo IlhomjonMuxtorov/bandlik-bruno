@@ -10,10 +10,12 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"xba_organization_id\": 3,\n  \"organization_id\": 7,\n  \"contract_type\": \"vacancy\",\n  \"candidate_count\": 20,\n  \"upload_file_id\": 15\n}"
+    data: "{\n  \"party_a_organization_id\": 3,\n  \"party_b_organization_id\": 7,\n  \"contract_type\": \"vacancy\",\n  \"candidate_count\": 20,\n  \"upload_file_id\": 15\n}"
   auth: inherit
 docs: |
-  Yangi shartnoma yaratadi (XBA ↔ ish beruvchi/rekruter). Yangi shartnoma doim
+  Yangi ikki tomonlama shartnoma yaratadi — vakansiya shartnoma zanjirining bitta
+  bo'g'ini: `XBA ↔ rekruter`, `rekruter ↔ rekruter` yoki `… ↔ ish beruvchi`.
+  Yangi shartnoma doim
   `approval_status = pending` holatda boshlanadi va super-admin tasdiqlashini
   kutadi. Hujjat avval `/admin/upload` orqali yuklanib, `upload_file_id` olinadi.
 
@@ -29,8 +31,8 @@ docs: |
 
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `xba_organization_id` | int | ✅ | Shartnoma imzolagan XBA org (type 1). |
-  | `organization_id` | int | ✅ | Egasi: ish beruvchi/rekruter org (type 6 \| 7). |
+  | `party_a_organization_id` | int | ✅ | Buyurtmachi tomon: XBA (type 1) yoki rekruter (type 7). Ish beruvchi bu tomonda bo'la olmaydi. |
+  | `party_b_organization_id` | int | ✅ | Jalb qilingan tomon: ish beruvchi (6) yoki rekruter (7). `party_a` ga teng bo'lmasligi kerak. |
   | `contract_type` | string | ✅ | `vacancy` \| `yearly`. |
   | `candidate_count` | int | ⚠️ | `vacancy` tipida majburiy (≥1). `yearly` da yuborilsa e'tiborsiz qoldiriladi. |
   | `start_date` | string | ⚠️ | `yearly` tipida majburiy. Format `d.m.Y` (mas: `10.10.2026`). `vacancy` da e'tiborsiz. |
@@ -46,7 +48,7 @@ docs: |
 
   | Code | Reason |
   |---|---|
-  | `422` | Validatsiya xatosi (tip-shartli `candidate_count`/`start_date`, noto'g'ri org tip) |
+  | `422` | Validatsiya xatosi (tip-shartli `candidate_count`/`start_date`, noto'g'ri org tip, ikkala tomon bir xil) |
   | `400` | `upload_file_id` topilmadi yoki `status != ready` |
 settings:
   encodeUrl: true
