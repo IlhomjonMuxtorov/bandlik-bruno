@@ -19,6 +19,15 @@ docs: |
   bilan binary `.xlsx` fayl (JSON `{success,data}` o'rami YO'Q — to'g'ridan-to'g'ri
   fayl). Kategoriyalar va sohalar `sort_order` bo'yicha tartiblanadi.
 
+  | Header | Value |
+  |---|---|
+  | `Content-Disposition` | `attachment; filename="sohalar.xlsx"` |
+  | `Access-Control-Expose-Headers` | `Content-Disposition, Content-Length` |
+
+  > Fayl nomini frontend `Content-Disposition` dan o'qiydi. Cross-origin `fetch()`
+  da bu header faqat `Access-Control-Expose-Headers` da ko'rsatilgani uchun
+  ko'rinadi — usiz `null` qaytardi.
+
   ### ⚠️ Errors
 
   | Code | Reason |

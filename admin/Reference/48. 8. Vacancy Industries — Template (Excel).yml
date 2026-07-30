@@ -18,6 +18,15 @@ docs: |
   Binary `.xlsx` fayl (sarlavha: `SOHA (UZ/RUS/ENG)`, `SUB-SOHA (UZ/RUS/ENG)`,
   `TAVSIF (UZ/RUS/ENG)`).
 
+  | Header | Value |
+  |---|---|
+  | `Content-Disposition` | `attachment; filename="sohalar-shablon.xlsx"` |
+  | `Access-Control-Expose-Headers` | `Content-Disposition, Content-Length` |
+
+  > Fayl nomini frontend `Content-Disposition` dan o'qiydi. Cross-origin `fetch()`
+  da bu header faqat `Access-Control-Expose-Headers` da ko'rsatilgani uchun
+  ko'rinadi — usiz `null` qaytardi.
+
   ### ⚠️ Errors
 
   | Code | Reason |

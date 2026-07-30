@@ -88,6 +88,14 @@ docs: 'Nomzod CV-sini PDF fayl sifatida yuklab oladi — paneldagi "Yuklab olish
 
   | `Content-Disposition` | `attachment; filename="<F.I.Sh>.pdf"` |
 
+  | `Access-Control-Expose-Headers` | `Content-Disposition, Content-Length` |
+
+
+  > **Fayl nomi frontendda.** Brauzer cross-origin `fetch()` da JS-ga faqat
+  CORS-safelisted headerlarni beradi, shu bois server `Content-Disposition` va
+  `Content-Length` ni `Access-Control-Expose-Headers` orqali ochadi — usiz
+  `response.headers.get(''content-disposition'')` doim `null` qaytardi.
+
 
   ### ⚠️ Errors
 

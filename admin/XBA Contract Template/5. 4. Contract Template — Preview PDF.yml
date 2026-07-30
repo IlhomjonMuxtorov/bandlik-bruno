@@ -30,6 +30,16 @@ docs: |-
   Placeholderlar o'rniga `Placeholders` endpoint'idagi `example` qiymatlari qo'yiladi
   (masalan `{{candidate_full_name}}` → `ALIYEV ALI ALIYEVICH`).
 
+  | Header | Value |
+  |---|---|
+  | `Content-Type` | `application/pdf` |
+  | `Content-Disposition` | `inline; filename="contract-preview.pdf"` |
+  | `Access-Control-Expose-Headers` | `Content-Disposition, Content-Length` |
+
+  > Panel PDF-ni blob qilib oladi (JWT sabab `<a href>` ishlamaydi), shuning uchun
+  `Content-Disposition` va `Content-Length` CORS orqali ochilgan — usiz brauzer
+  ularni JS-ga bermaydi.
+
   ### ⚠️ Errors
 
   | Code | Reason |
