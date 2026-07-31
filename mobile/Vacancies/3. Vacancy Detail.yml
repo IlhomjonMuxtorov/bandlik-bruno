@@ -7,7 +7,7 @@ http:
   url: '{{base_url}}/mobile/vacancies/1'
   auth: inherit
 docs: |-
-  Detail ekranining **1-tabi ("Vakansiya haqida")**: header + asosiy ma'lumot + talablar + imtiyozlar + tashkilot. **Har chaqiriqda `views_count` atomik 1 ga oshadi.**
+  Detail ekranining **1-tabi ("Vakansiya haqida")**: header + asosiy ma'lumot + talablar + imtiyozlar + tashkilot. **Har chaqiriqda `views_count` atomik 1 ga oshadi.** **Muddati o'tgan vakansiyalar** (`deadline_at < today`) detail rejimda ko'rinmaydi va `404` qaytaradi.
 
   To'lovlar (2-tab) va Tayyorlov kursi (3-tab) alohida endpointlarda (lazy-load):
   - `GET /mobile/vacancies/{id}/payments`
@@ -56,7 +56,7 @@ docs: |-
 
   | Code | Reason |
   |---|---|
-  | `404` | Vakansiya topilmadi yoki `approved` emas |
+  | `404` | Vakansiya topilmadi, `approved` emas yoki muddati o'tgan |
 settings:
   encodeUrl: true
   timeout: 0

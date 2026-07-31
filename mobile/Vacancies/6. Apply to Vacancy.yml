@@ -13,7 +13,7 @@ http:
     data: "{\n  \"cv_id\": 1\n}"
   auth: inherit
 docs: |-
-  Nomzod tasdiqlangan vakansiyaga ariza topshiradi. Vakansiya `status = approved` bo'lishi va shu nomzoddan **birinchi ariza** bo'lishi shart (unique).
+  Nomzod tasdiqlangan vakansiyaga ariza topshiradi. Vakansiya `status = approved` bo'lishi, **muddati o'tmagan** (`deadline_at >= today` yoki `deadline_at IS NULL`) va shu nomzoddan **birinchi ariza** bo'lishi shart (unique). Muddati o'tgan vakansiyaga ariza qabul qilinmaydi (`400` — "vakansiya muddati o'tgan").
 
   > **Muhim:** `cv_id` endi **majburiy** va ko'rsatilgan CV **to'liq (active)** bo'lishi shart. Rezyume chala (`draft`) bo'lsa ariza qabul qilinmaydi. To'liqlik 11 ta band asosida hisoblanadi (kursdan tashqari 10 ta band majburiy) — qarang `GET /mobile/cv/{id}` → `header.completion`.
 
@@ -34,6 +34,7 @@ docs: |-
   | Code | Reason |
   |---|---|
   | `400` | Vakansiya `approved` emas |
+  | `400` | Vakansiya muddati o'tgan |
   | `400` | `cv_id` yuborilmagan ("Please select a CV to apply") |
   | `400` | CV topilmadi yoki boshqa nomzodga tegishli ("CV not found") |
   | `400` | CV to'liq emas / `draft` ("Your CV is incomplete...") |

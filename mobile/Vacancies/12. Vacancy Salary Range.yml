@@ -7,7 +7,7 @@ http:
   url: '{{base_url}}/mobile/vacancies/salary-range'
   auth: inherit
 docs: |-
-  Tanlangan (maoshdan tashqari) filterlarga mos keladigan tasdiqlangan (`status=approved`) vakansiyalar bo'yicha **brutto maoshning eng kichik va eng katta qiymatini** qaytaradi — mobil filter ekranidagi **Maosh** slayderining chegaralarini shu yerdan o'rnatish uchun. Diapazon bitta valyutaga taalluqli (default `UZS`), chunki aralash valyutalar min/max'i ma'nosiz bo'ladi.
+  Tanlangan (maoshdan tashqari) filterlarga mos keladigan tasdiqlangan (`status=approved`) vakansiyalar bo'yicha **brutto maoshning eng kichik va eng katta qiymatini** qaytaradi — mobil filter ekranidagi **Maosh** slayderining chegaralarini shu yerdan o'rnatish uchun. Diapazon bitta valyutaga taalluqli (default `UZS`), chunki aralash valyutalar min/max'i ma'nosiz bo'ladi. **Muddati o'tgan vakansiyalar** (`deadline_at < today`) diapazondan hisobga olinmaydi.
 
   Slayder chegaralarini olgandan keyin, haqiqiy filtrlash feed (`GET /mobile/vacancies`) va count (`GET /mobile/vacancies/count`) dagi `salary_min` / `salary_max` paramlari orqali qilinadi — ular ham major unitda (so'm/dollar).
 

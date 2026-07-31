@@ -7,7 +7,7 @@ http:
   url: '{{base_url}}/mobile/vacancies'
   auth: inherit
 docs: |-
-  Tasdiqlangan (`status=approved`) vakansiyalar ro'yxati — mobil **kartochka** ko'rinishi (yengil DTO, faqat kartochkada ko'rinadigan maydonlar). Default tartib: eng yangi e'lon qilinganlar (`published_at DESC`). Tartibni `sort` parametri bilan o'zgartirish mumkin.
+  Tasdiqlangan (`status=approved`) vakansiyalar ro'yxati — mobil **kartochka** ko'rinishi (yengil DTO, faqat kartochkada ko'rinadigan maydonlar). Default tartib: eng yangi e'lon qilinganlar (`published_at DESC`). Tartibni `sort` parametri bilan o'zgartirish mumkin. **Muddati o'tgan vakansiyalar** (`deadline_at < today`) bu ro'yxatda ko'rinmaydi.
 
   **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi). `match_score` viza so'rovnomasi to'ldirilmagan bo'lsa `null`; `is_favorite` nomzod profili hali yo'q bo'lsa `false`.
 
