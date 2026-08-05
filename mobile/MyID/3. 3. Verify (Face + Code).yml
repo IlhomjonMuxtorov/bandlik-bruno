@@ -48,7 +48,13 @@ docs: |
   | `expires_in` | int | — |
   | `token_type` | string | `Bearer` |
   | `is_verified` | bool | `true` — MVD pasportni tasdiqladi, CV yaratish ochildi. |
-  | `mvd_pending` | bool | `true` — yuz mos keldi, lekin MVD ma'lumot bermadi. Hisob **tasdiqlanmagan** holatda qoladi va CV hali ham yaratilmaydi. `POST /mobile/my-id/retry-mvd` bilan qayta uriniladi. |
+  | `mvd_pending` | bool | `true` — yuz mos keldi, lekin MVD **vaqtincha** javob bermadi. Hisob **tasdiqlanmagan** holatda qoladi va CV hali ham yaratilmaydi. `POST /mobile/my-id/retry-mvd` bilan qayta uriniladi. |
+  | `mvd_failure` | string \| null | MVD nima uchun tasdiqlamagani. Bu yerda faqat `unavailable` (vaqtincha ishlamayapti) bo'lishi mumkin — `blocked` / `not_found` `400` bo'lib qaytadi, chunki ular qaytarib bo'lmaydigan rad javobi. `null` — tasdiqlangan. |
+
+  > **`mvd_pending` yagona "kutish" signali.** Ilova retry tugmasini **faqat**
+  > `mvd_pending: true` bo'lganda ko'rsatishi kerak. Ilgari barcha MVD xatoliklari
+  > (jumladan HTTP `423` — OneID ruxsati yo'q) `mvd_pending` bo'lib qaytar edi va
+  > foydalanuvchi hech qachon muvaffaqiyat kelmaydigan retry'ni cheksiz bosardi.
 
   ### 📤 Response — `guest_token` bilan (kirish)
 
@@ -62,6 +68,8 @@ docs: |
   | `400` | `This verification did not return passport data. Please verify with MyID again.` — secondary (reuid) sessiya ishlatilgan: u profil qaytarmaydi, ya'ni pasport ham, tug'ilgan sana ham yo'q, MVD'dan hech nima so'rab bo'lmaydi. |
   | `400` | `Invalid passport data returned from MyID.` |
   | `400` | `Failed to save verification data.` |
+  | `400` | `mvd_failure: "blocked"` — MVD `423` qaytardi: pasport ma'lumotlari OneID orqali berilmagan. Xabar: *"Passport ma'lumotlari to'g'riligini va OneID tizimidan NextBrain uchun ruxsat berganingizni tekshiring"*. Hech narsa saqlanmaydi; foydalanuvchi OneID'da ruxsat bergandan **keyin** qayta urinishi kerak. |
+  | `400` | `mvd_failure: "not_found"` — MVD'da bu pasport bo'yicha yozuv yo'q. Qayta urinish yordam bermaydi. |
   | `409` | `passport_conflict: true` + `conflict_phone_masked` — pasport boshqa **tirik** hisobga tegishli. Javobda o'sha hisobning yashirilgan raqami bo'ladi (`+998 ** *** 1234`), foydalanuvchi "o'sha raqam bilan kiring" deb yo'naltiriladi. |
   | `409` | `passport_conflict: true` + `requires_support: true` — pasport egasi bo'lgan hisobda telefon yo'q (MyID yaratgan eski hisob), qaysi raqam bilan kirishni ayta olmaymiz. |
   | `401` | Token yo'q yoki yaroqsiz. |

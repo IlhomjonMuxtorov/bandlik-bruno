@@ -39,10 +39,20 @@ docs: |
 
   | Code | Reason |
   |---|---|
-  | `409` | `mvd_pending: true` + `Could not verify your identity yet. Please try again in a few minutes.` — MVD hali ham ma'lumot bermadi. |
+  | `409` | `mvd_pending: true` + `mvd_failure: "unavailable"` + `Could not verify your identity yet. Please try again in a few minutes.` — MVD **vaqtincha** ishlamayapti (token/tarmoq/5xx). Faqat shu holatda qayta urinish ma'noli. |
+  | `400` | `mvd_failure: "blocked"` — MVD `423`: pasport ma'lumotlari OneID orqali berilmagan. `mvd_pending` **qaytmaydi** — o'sha so'rovni takrorlash hech qachon ishlamaydi; foydalanuvchi avval OneID'da NextBrain'ga ruxsat berishi kerak, keyin qaytadan urinishi mumkin. |
+  | `400` | `mvd_failure: "not_found"` — MVD'da bu pasport bo'yicha yozuv yo'q. Terminal holat, support kerak. |
   | `400` | `Please verify your identity with MyID first.` — saqlangan pasport ma'lumoti yo'q, avval `POST /mobile/my-id/verify` qilish kerak. |
   | `404` | Joriy foydalanuvchi uchun nomzod topilmadi. |
   | `456` | Mehmon token — avval ro'yxatdan o'tish kerak. |
+
+  ### 🖥 Ilova qanday ko'rsatishi kerak
+
+  | `mvd_failure` | Ekran |
+  |---|---|
+  | `unavailable` (+ `mvd_pending: true`) | "Ma'lumotlaringiz tekshirilmoqda" + **Qayta urinish** |
+  | `blocked` | "OneID'da NextBrain'ga ruxsat bering" + ko'rsatma; tugma: **Ruxsat berdim, qayta urinish** |
+  | `not_found` | Terminal xatolik — retry tugmasi **yo'q**, support'ga yo'naltirish |
 settings:
   encodeUrl: true
   timeout: 0
