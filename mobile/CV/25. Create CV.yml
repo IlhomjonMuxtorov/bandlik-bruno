@@ -45,8 +45,10 @@ docs: 'Yangi CV yaratish.
   | `title` | string | ➖ | **DEPRECATED** — erkin matn CV nomi. `industry_id` bilan
   almashtirilmoqda; faqat eski mijozlar uchun qoldirilgan. |
 
-  | `photo_url` | string \| null | ➖ | CV uchun maxsus rasm (bo''lmasa candidate rasmi)
-  |
+  | `photo_file_id` | int \| null | ➖ | CV uchun tayyor (`ready`) rasm fayl `id`
+  (`POST /mobile/upload`). Yuborilmasa — CV yaratilganda **passport rasmi** o''z
+  nusxasiga snapshot qilinadi; keyin profil avatari o''zgarsa bu CV rasmi o''zgarmaydi.
+  Passport rasmi bo''lmasa `null`. |
 
   | `is_primary` | bool \| null | ➖ | `true` bo''lsa, eski primary CV avtomatik `false`
   bo''ladi. Birinchi CV bo''lsa, server avtomatik `true` qiladi |

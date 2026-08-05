@@ -43,8 +43,9 @@ docs: 'Joriy nomzodning **barcha CV** ro''yxati — "Rezumelarim" ekrani uchun. 
   | `industry` | object \| null | `{ id, name }` — CV sohasi. `null` — soha
   tanlanmagan (faqat `title` bilan yaratilgan eski CV) |
 
-  | `photo_url` | string \| null | CV rasmi (CV → candidate → passport tartibida)
-  |
+  | `photo_url` | string \| null | CV rasmi. CV yaratilganda passport rasmidan snapshot
+  olinadi (o''z nusxasi) va profil avatari o''zgarishiga bog''liq emas. O''z rasmi yo''q
+  eski CV-larda passport rasmiga fallback; passport ham yo''q bo''lsa `null` |
 
   | `status` | string | CV holati: `draft` yoki `active`. To''liqlikdan avtomatik
   hisoblanadi (mijoz o''rnatmaydi) |

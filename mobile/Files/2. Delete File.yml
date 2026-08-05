@@ -12,9 +12,9 @@ http:
 docs: 'Foydalanuvchi o''zi yuklagan faylni o''chiradi. `204 No Content`.
 
 
-  Operatsiya idempotent emas (qayta chaqirilsa `404` qaytadi). FK ustunlari `ON
-  DELETE SET NULL` bilan o''rnatilgan — fayl boshqa entity tomonidan ishlatilayotgan
-  bo''lsa ham o''chadi, parent ustun avtomatik `NULL` bo''ladi.
+  Operatsiya idempotent emas (qayta chaqirilsa `404` qaytadi). Fayl boshqa entity
+  (CV, hujjat, avatar va h.k.) tomonidan ishlatilayotgan bo''lsa **o''chirilmaydi** va
+  `409 Conflict` qaytadi — avval biriktirishni olib tashlang.
 
 
   **Auth:** `access_token` (Bearer).
@@ -53,6 +53,8 @@ docs: 'Foydalanuvchi o''zi yuklagan faylni o''chiradi. `204 No Content`.
   | `403` | Fayl boshqa foydalanuvchiga tegishli |
 
   | `404` | Fayl topilmadi |
+
+  | `409` | Fayl CV/hujjat/avatarga biriktirilgan — avval biriktirishni olib tashlang |
 
   '
 settings:

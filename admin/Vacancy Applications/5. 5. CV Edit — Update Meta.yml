@@ -53,7 +53,8 @@ docs: 'XBA xodimi arizaga biriktirilgan CV''ning meta maydonlarini (sarlavha, so
 
   | `industry_id` | int | ➖ | `vacancy_industry.id` — CV''ning sohasi |
 
-  | `photo_file_id` | int | ➖ | `/admin/upload` orqali yuklangan tayyor fayl ID |
+  | `photo_file_id` | int | ➖ | `/admin/upload` orqali yuklangan tayyor fayl ID. Faqat
+  shu CV rasmini almashtiradi — nomzod avatariga tegmaydi |
 
 
   ### ⚠️ Errors

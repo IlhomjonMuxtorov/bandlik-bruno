@@ -33,7 +33,8 @@ docs: 'CV meta ma''lumotlarini yangilash (soha, photo, is_primary).
   | `title` | string | ➖ | **DEPRECATED** — erkin matn CV nomi. Yuborilmasa —
   tegilmaydi. `industry_id` bilan almashtirilmoqda. |
 
-  | `photo_url` | string \| null | ➖ | CV rasm override |
+  | `photo_file_id` | int \| null | ➖ | Faqat shu CV rasmini almashtiradi (tayyor fayl
+  `id`). Profil avatariga tegmaydi. Yuborilmasa — tegilmaydi. |
 
   | `is_primary` | bool \| null | ➖ | `true` bo''lsa boshqa CV-larda `is_primary`
   avtomatik `false` bo''ladi |
