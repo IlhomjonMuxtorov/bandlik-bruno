@@ -4,7 +4,11 @@ info:
   seq: 1
 http:
   method: POST
-  url: '{{base_url}}/mobile/upload'
+  url: '{{base_url}}/mobile/upload?max_dim='
+  params:
+  - name: max_dim
+    value: ''
+    type: query
   body:
     type: multipartForm
     data:
@@ -55,6 +59,23 @@ docs: 'Faylni serverga yuklaydi va keyinchalik entity yaratish/yangilashda ishla
   Opus-in-Ogg (`.ogg`, mono ~32 kbps) formatiga avtomatik konvertatsiya qilinadi — `url` `.ogg`
   bilan tugaydi, `file_kind` = `audio`. Allaqachon `.ogg` bo''lsa qayta konvertatsiya qilinmaydi;
   ffmpeg mavjud bo''lmasa fayl as-is saqlanadi.
+
+
+  ### 🔎 Query Parameters
+
+
+  | Param | Turi | Majburiy | Izoh |
+
+  |---|---|:---:|---|
+
+  | `max_dim` | int | ➖ | **Faqat ko''rsatiladigan rasmlar uchun** (profil / CV
+  yuz surati). Berilsa, rasm eng uzun tomoni shu piksel qiymatiga (masalan `1600`)
+  kichraytiriladi — format saqlanadi (JPEG→JPEG, PNG lossless + shaffoflik,
+  WEBP→WEBP; animatsion GIF tegilmaydi), chegaradan kichik yoki to''g''ri turgan
+  rasm qayta kodlanmaydi (bayt-baytga bir xil qoladi). **Hujjat skanlari
+  (passport, diplom, litsenziya) uchun BERILMAYDI** — matn o''qilishi shart va
+  kichraytirish sifatni buzishi mumkin. Qiymat 8000px gacha cheklanadi.
+  Bo''sh/noto''g''ri qiymat → kichraytirilmaydi (default). |
 
 
   ### 📥 Request Body (multipart/form-data)

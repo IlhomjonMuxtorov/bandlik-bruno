@@ -4,7 +4,11 @@ info:
   seq: 10
 http:
   method: POST
-  url: '{{base_url}}/mobile/chats/1/upload'
+  url: '{{base_url}}/mobile/chats/1/upload?max_dim='
+  params:
+  - name: max_dim
+    value: ''
+    type: query
   headers: []
   body:
     type: multipartForm
@@ -23,6 +27,12 @@ docs: |
   > **Audio avtomatik konvertatsiya:** yuklangan audio (ovozli xabar) server tomonida **Opus-in-Ogg** (`.ogg`, mono ~32 kbps) formatiga o'tkaziladi. Shu sabab javobdagi `url` `.ogg` bilan tugaydi, `mime_type` = `audio/ogg`, `file_kind` = `audio`. Allaqachon `.ogg` bo'lsa qayta konvertatsiya qilinmaydi; ffmpeg mavjud bo'lmasa fayl as-is saqlanadi (xatosiz).
 
   **Auth:** `access_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `max_dim` | int | ➖ | **Faqat rasm qo'shimchalari uchun.** Berilsa, rasm eng uzun tomoni shu piksel qiymatiga (masalan `2000`) kichraytiriladi — format saqlanadi (JPEG→JPEG, PNG lossless, WEBP→WEBP; animatsion GIF va PDF/audio tegilmaydi). Hujjat rasmini (matn o'qilishi kerak bo'lsa) yuborayotganda **bermang**. 8000px gacha cheklanadi. Bo'sh/noto'g'ri → kichraytirilmaydi. |
 
   ### 📥 Request Body (multipart/form-data)
 

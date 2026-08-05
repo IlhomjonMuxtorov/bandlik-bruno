@@ -43,6 +43,13 @@ docs: 'Nomzodning CV-sini PDF fayl sifatida yuklab oladi. Shablon `?template=` b
   narsa qilish kerak emas.
 
 
+  > **Katta suratlar.** Ilgari 3–5 MB li telefon surati bo''lgan CV-larda PDF
+  yuklab olish `500` (mPDF `pcre.backtrack_limit`) bilan uzilardi. Endi surat
+  PDF-ga joylashtirilishidan oldin ko''rsatiladigan o''lchamgacha kichraytiriladi
+  (sifat ko''zga bilinmaydi), shu sabab yuklab olish surat hajmidan qat''i nazar
+  ishlaydi. Mijoz tarafida hech narsa qilish kerak emas.
+
+
   ### 📋 Path Params
 
 
