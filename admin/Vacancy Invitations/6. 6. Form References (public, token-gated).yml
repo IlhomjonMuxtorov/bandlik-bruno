@@ -42,7 +42,7 @@ docs: |
   | `GET .../references/benefit-options/<id>` | Bitta imtiyoz uchun tanlov variantlari. |
   | `GET .../references/documents` | Talab qilinadigan hujjatlar ro'yxati. |
   | `GET .../references/countries` | Aktiv davlatlar. |
-  | `GET .../references/cities` | Davlat shaharlari. Query: `country_id` (**majburiy**). |
+  | `GET .../references/cities` | Davlat shaharlari. Query: `country_id` (**majburiy**), `q` (nom qidiruvi), `page`, `per-page` (default `50`, oraliq `1`–`200`). Sahifalash **opt-in** — pastdagi eslatmaga qarang. |
   | `GET .../references/languages` | Aktiv tillar, har biri o'z shkalasidagi darajalar bilan. |
   | `GET .../references/language-levels` | Til darajalari. Query: `language_id` (ixtiyoriy; shkala `language.scale` dan avtomatik aniqlanadi, `scale` e'tiborsiz qoldiriladi; noma'lum ID → bo'sh massiv) yoki `scale` (masalan `cefr`, `jlpt`). |
   | `GET .../references/service-categories` | Xizmat toifalari enum: `value`, `label`, `expected_organization_type`, `service_group_type`. |
@@ -59,6 +59,15 @@ docs: |
   > `notary_*_price_id` qiymatlarini, hamda vakansiyaning `country_id` / `city_id`,
   > `documents[]` va `language_requirements[]` maydonlarini to'ldiradi — ya'ni token-gated
   > formani to'liq yuborish uchun yetarli.
+
+  > **`references/cities` — sahifalash ixtiyoriy (opt-in).** `page`/`per-page`
+  > yuborilmasa javob boshqa reference endpointlari kabi `data` ichida **oddiy
+  > massiv** bo'ladi — mavjud forma o'zgarishsiz ishlayveradi. Ikkalasidan biri
+  > yuborilsa shakl `data: { items: [...], pagination: { page, page_size,
+  > total_count, page_count } }` ga o'tadi.
+  >
+  > Katta davlatlarda ro'yxat o'n minglab qator (FR ~16k, US ~19k), shuning uchun
+  > shahar tanlagich uchun `q` bilan server-side qidiruv tavsiya etiladi.
 
   ### 📋 Headers
 

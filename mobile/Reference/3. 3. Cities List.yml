@@ -4,7 +4,14 @@ info:
   seq: 3
 http:
   method: GET
-  url: '{{base_url}}/mobile/cities'
+  url: '{{base_url}}/mobile/cities?country_id=1&per-page=50'
+  params:
+  - name: country_id
+    value: '1'
+    type: query
+  - name: per-page
+    value: '50'
+    type: query
   headers:
   - name: Accept
     value: application/json
@@ -15,8 +22,19 @@ docs: 'Aktiv shaharlar ro''yxati. `country_id` bo''yicha filterlash va/yoki `q` 
   nom qidiruvi. Kamida bittasi (`country_id` yoki `q`) berilishi shart.
 
 
+  > **Sahifalash — ixtiyoriy (opt-in), breaking emas.** `page` yoki `per-page`
+  yuborilmasa javob avvalgidek **to''liq ro''yxat** bo''ladi, ya''ni mavjud ilova
+  buildlari o''zgarishsiz ishlayveradi. Ikkalasidan biri yuborilsa javob
+  sahifalanadi (default `50`).
+
+
+  > Yangi klientlarga sahifalash **tavsiya etiladi**: katta davlatlarda ro''yxat
+  o''n minglab qator (FR ~16k, US ~19k) va to''liq javob ~480 KB ga yetadi. Shahar
+  tanlagich uchun eng yaxshi yo''l — `q` bilan server-side qidiruv.
+
+
   > Ro''yxat `Accept-Language` bo''yicha alifbo (A-Z) tartibida qaytadi (fallback
-  `uz`) — `sort_order` emas.
+  `uz`) — `sort_order` emas. Sahifalash shu tartibni saqlaydi.
 
 
   **Auth:** har qanday yaroqli JWT.
@@ -34,6 +52,15 @@ docs: 'Aktiv shaharlar ro''yxati. `country_id` bo''yicha filterlash va/yoki `q` 
 
   | `q` | string | ➖* | Nom bo''yicha qidiruv (`uz`/`ru`/`en`, registrga befarq, qisman
   moslik). `country_id` bilan birga ishlaydi. |
+
+  | `page` | int | ➖ | Sahifa raqami. Berilishi sahifalashni yoqadi. Default: `1`. |
+
+  | `per-page` | int | ➖ | Sahifadagi element soni. Berilishi sahifalashni yoqadi.
+  Default: `50`, ruxsat etilgan oraliq `1`–`200`. Chegaradan tashqarisi eng yaqin
+  chegaraga qisiladi (`999` → `200`, `0` → `1`). |
+
+
+  > Ikkalasi ham berilmasa — sahifalash yo''q, to''liq ro''yxat qaytadi.
 
 
   > \* `country_id` yoki `q` — kamida bittasi majburiy. Ikkalasi ham bo''lmasa `400`.
@@ -68,8 +95,20 @@ docs: 'Aktiv shaharlar ro''yxati. `country_id` bo''yicha filterlash va/yoki `q` 
 
   |---|---|
 
-  | `X-Pagination-Total-Count` | Qidiruv/filtrga mos jami natijalar soni (badge uchun).
-  CORS `Access-Control-Expose-Headers` orqali ochiq, frontend o''qiy oladi. |
+  | `X-Pagination-Total-Count` | Qidiruv/filtrga mos jami natijalar soni. **Doim**
+  yuboriladi — sahifalashsiz ham. |
+
+  | `X-Pagination-Page-Count` | Jami sahifalar soni. Faqat sahifalash yoqilganda. |
+
+  | `X-Pagination-Current-Page` | Joriy sahifa (1 dan). Faqat sahifalash yoqilganda. |
+
+  | `X-Pagination-Per-Page` | Amaldagi sahifa hajmi (chegaraga qisilgandan keyingi).
+  Faqat sahifalash yoqilganda. |
+
+
+  > Hammasi CORS `Access-Control-Expose-Headers` orqali ochiq — frontend o''qiy
+  oladi. Javob tanasi hamon **oddiy massiv**, metadata faqat headerlarda (mobil
+  moduli konventsiyasi).
 
 
   ### ⚠️ Errors
