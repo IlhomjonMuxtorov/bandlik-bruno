@@ -31,7 +31,7 @@ docs: 'Yangi ish tajribasi qo''shish.
 
   |---|---|:---:|---|
 
-  | `company_name` | string | ✅ | Kompaniya nomi |
+  | `company_name` | string | ✅ | Tashkilot nomi |
 
   | `position` | string | ✅ | Lavozim |
 
@@ -73,6 +73,14 @@ docs: 'Yangi ish tajribasi qo''shish.
   | `403` | Shaxsi tasdiqlanmagan (`is_verified=false`) |
 
   | `404` | CV topilmadi |
+
+
+  > Validatsiya xabarlari qurilma tilida (`user_device.language`) qaytadi va maydon
+  nomlari interfeys sarlavhalari bilan bir xil (`company_name` → «Tashkilot nomi»,
+  `position` → «Vazifa» va h.k.).
+
+  > `company_name` bo''sh bo''lsa maxsus matn qaytadi: «Tashkilot nomi to''ldirilishi
+  shart. Tashkilot nomini eslay olmasangiz, shahar nomini kiriting.»
 
   '
 settings:

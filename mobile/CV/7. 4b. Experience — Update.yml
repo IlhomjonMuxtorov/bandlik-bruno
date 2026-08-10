@@ -37,7 +37,7 @@ docs: 'Mavjud tajribani yangilash. Maydonlar `create` bilan bir xil.
 
   |---|---|:---:|---|
 
-  | `company_name` | string | ✅ | Kompaniya nomi |
+  | `company_name` | string | ✅ | Tashkilot nomi |
 
   | `position` | string | ✅ | Lavozim |
 
@@ -60,6 +60,14 @@ docs: 'Mavjud tajribani yangilash. Maydonlar `create` bilan bir xil.
   | `recommendation_file_id` | int | ➖ | Yangi tavsiyanoma fayl ID. Eski fayl avtomatik
   o''chiriladi. Saqlash uchun joriy qiymat bo''lsa, qaytadan yuborilsin yoki maydon
   yuborilmasin |
+
+
+  > Validatsiya xabarlari qurilma tilida (`user_device.language`) qaytadi va maydon
+  nomlari interfeys sarlavhalari bilan bir xil (`company_name` → «Tashkilot nomi»,
+  `position` → «Vazifa» va h.k.).
+
+  > `company_name` bo''sh bo''lsa maxsus matn qaytadi: «Tashkilot nomi to''ldirilishi
+  shart. Tashkilot nomini eslay olmasangiz, shahar nomini kiriting.»
 
   '
 settings:

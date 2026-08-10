@@ -24,7 +24,7 @@ docs: 'Ish tajribasi ro''yxati.
 
   | `id` | int | Tajriba ID |
 
-  | `company_name` | string | Kompaniya nomi |
+  | `company_name` | string | Tashkilot nomi |
 
   | `position` | string | Lavozim |
 
