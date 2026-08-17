@@ -1,0 +1,200 @@
+info:
+  name: 9b. Driver License — Card (barcha maydonlar)
+  type: http
+  seq: 32
+http:
+  method: GET
+  url: '{{base_url}}/mobile/candidate/driver-license/card'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: 'Haydovchilik guvohnomasi kartasida chop etiladigan **barcha** maydonlar (1–12)
+  — ilova kartani o''zi chizishi uchun. Ma''lumot bir necha manbadan yig''iladi:
+  live GIBDD servisi, saqlangan guvohnoma, MVD passport yozuvi va propiska.
+
+
+  **Auth:** `access_token`. Chaqiruvchi — guvohnoma egasi, shu sabab `pinfl`
+  (4d) **maskalanmaydi**.
+
+
+  ### 📋 Headers
+
+
+  | Header | Required | Description |
+
+  |---|:---:|---|
+
+  | `Authorization` | ✅ | `Bearer {access_token}` |
+
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Spravochnik nomlari (viloyat, tuman,
+  IIB bo''linmasi) shu tilda qaytadi. Default: `uz` |
+
+
+  ### 📤 Response
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `available` | bool | `false` — nomzodda guvohnoma yo''q; barcha maydon `placeholder`
+  ga teng, ilova bo''sh holatni ko''rsatadi |
+
+  | `surname` | string | 1-maydon — familiya |
+
+  | `first_name` | string | 2-maydon — ism |
+
+  | `patronymic` | string | 2-maydon — otasining ismi |
+
+  | `full_name` | string | 1+2 birga, kartada bir qatorda chiqadigan ko''rinish |
+
+  | `birth_place` | string | 3-maydon — tug''ilgan joyi. GIBDD erkin matni + SOATO
+  kodidan tiklangan ma''muriy qism birlashtiriladi (`"Tuman, Viloyat"`). Chet elda
+  tug''ilganda erkin matn davlat nomi bo''ladi (masalan `QOZOG''ISTON`) |
+
+  | `birth_date` | string | 3-maydon — tug''ilgan sanasi, `DD.MM.YYYY` |
+
+  | `issue_date` | string | 4a — guvohnoma berilgan sanasi, `DD.MM.YYYY` |
+
+  | `expiry_date` | string | 4b — amal qilish muddati, `DD.MM.YYYY` |
+
+  | `issued_by` | string | 4c — kim tomonidan berilgan. Pastdagi ⚠️ eslatmani o''qing |
+
+  | `issued_by_code` | int \| null | 4c — GIBDD''ning xom kodi. `null` — servis kod
+  bermagan. Amalda deyarli doim `null`: GIBDD yo maydonni yubormaydi, yo `0`
+  qaytaradi (`0` — spravochnik ID emas, shu sabab `null` ga aylantiriladi) |
+
+  | `pinfl` | string | 4d — JSHSHIR. Bu endpointda **to''liq** (egasi ko''radi);
+  admin API''da maskalangan (`**********1234`) |
+
+  | `license_number` | string | 5-maydon — guvohnoma raqami / seriyasi |
+
+  | `photo_url` | string \| null | 6-maydon — MVD passport portreti URL''i. `null`
+  — portret yo''q. **Diqqat:** bu yagona `null` bo''la oladigan matn maydoni |
+
+  | `residence` | string | 8-maydon — yashash joyi (propiska). GIBDD ko''pincha erkin
+  matnda **faqat uy tafsilotini** beradi (`"KVL 23 16/69"`), tuman/viloyatni esa
+  SOATO kodlarida — ikkisi birlashtiriladi:
+  `"UCHTEPA TUMANI, TOSHKENT SHAHRI, KVL 23 16/69"` |
+
+  | `categories` | string | 9-maydon — toifalar CSV, karta tartibida (`B,C,D`) |
+
+  | `categories_detail` | array | 9–12 — har toifa uchun alohida satr |
+
+  | `sources` | object | Har maydon uchun manba belgisi — pastga qarang |
+
+  | `missing` | array | Hech qaysi manba bermagan maydon kalitlari. `signature`
+  (7-maydon) **doim** shu ro''yxatda |
+
+  | `placeholder` | string | Bo''sh maydon o''rniga qo''yiladigan matn (`—`) |
+
+
+  **`categories_detail` elementi:**
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `category` | string | `A` \| `B` \| `C` \| `D` \| `E` \| `BE` \| `CE` \| `DE`
+  \| `TM` \| `TB` |
+
+  | `issue_date` | string \| null | 10-maydon — shu toifa uchun berilgan sana |
+
+  | `expiry_date` | string \| null | 11-maydon — shu toifa uchun amal muddati |
+
+  | `note` | string \| null | 12-maydon — toifaga tegishli qo''shimcha ma''lumot |
+
+  | `source` | string | `manual` \| `mvd_gibdd` |
+
+
+  ### 🔎 `sources` — qiymat qayerdan kelgani
+
+
+  Hech bir matn maydoni `null` qaytmaydi: manba bermasa `placeholder` (`—`)
+  qo''yiladi. Shu sabab **ishonchli qiymatni to''ldirmadan ajratish uchun**
+  `sources` ishlatiladi.
+
+
+  | Qiymat | Ma''nosi | Ishonchli? |
+
+  |---|---|:---:|
+
+  | `gibdd` | Live GIBDD (YHXBB) servisi | ✅ |
+
+  | `db` | Saqlangan guvohnoma yozuvi (`candidate_driver_license`) | ✅ |
+
+  | `passport` | MVD passport yozuvi | ✅ |
+
+  | `registration` | MVD propiska yozuvi | ✅ |
+
+  | `soato` | GIBDD SOATO kodidan viloyat/tuman spravochnigi orqali tiklangan | ✅ |
+
+  | `ovd` | IIB bo''linmalari spravochnigi (`ovd`) orqali tiklangan | ✅ |
+
+  | `fallback` | Hech qaysi manba bermadi — `placeholder` yoki taxminiy matn | ❌ |
+
+  | `none` | Nomzodda guvohnoma yo''q (`available: false`) | ❌ |
+
+
+  > `fallback` va `none` bo''lgan maydonni **rasmiy ma''lumot sifatida
+  ko''rsatmang** — kulrang qilib yoki alohida belgi bilan chiqarish tavsiya
+  etiladi. Ular bir vaqtda `missing` massivida ham bo''ladi.
+
+
+  ### ⚠️ 4c "Berilgan joyi" haqida
+
+
+  GIBDD hujjatida `pIssuedBy` "spravochnikdan" deb yozilgan, lekin **spravochnikning
+  o''zi berilmagan**; rasmiy namunalarda qiymat `null`, ishlab chiqarishda esa `0`
+  keladi (ikkisi ham "ma''lumot yo''q" degani). Shu sabab zanjir:
+
+
+  1. kod kelsa va `ovd` spravochnigida topilsa → bo''linmaning haqiqiy nomi
+  (`sources.issued_by = "ovd"`, ishonchli);
+
+  2. aks holda guvohnoma/propiska viloyati + `IIB YHXB`
+  (`sources.issued_by = "fallback"`, **taxminiy**);
+
+  3. viloyat ham aniqlanmasa → `O''zbekiston Respublikasi IIV`
+  (`sources.issued_by = "fallback"`).
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q yoki eskirgan |
+
+  | `404` | Joriy foydalanuvchiga tegishli nomzod yozuvi topilmadi |
+
+  | `456` | Guest token — avval to''liq ro''yxatdan o''tish kerak |
+
+
+  > GIBDD servisi ishlamasligi **xato emas**: javob baribir 200 qaytadi, maydonlar
+  saqlangan ma''lumotdan to''ldiriladi va `sources` da `db` / `passport` /
+  `registration` ko''rinadi. Aynan shu sabab bu endpoint
+  `GET /mobile/candidate/mvd-driver-license` (faqat live, `available: false`
+  qaytaradi) dan afzal.
+
+
+  > Live javob kelganda u fon rejimida `candidate_driver_license` ga yoziladi —
+  keyingi DB-only o''qishlar ham to''liq bo''ladi. Foydalanuvchi qo''lda tahrir
+  qilgan yozuv (`source=manual`) **hech qachon** ustiga yozilmaydi.
+
+
+  > 6-maydon uchun GIBDD''ning o''z rasmi (`photo`, base64) **qaytarilmaydi** —
+  javobni og''irlashtiradi. O''rniga MVD passport portretining URL''i beriladi.
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

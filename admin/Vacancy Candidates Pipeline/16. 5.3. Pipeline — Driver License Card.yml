@@ -1,0 +1,118 @@
+info:
+  name: 5.3. Pipeline — Driver License Card
+  type: http
+  seq: 16
+http:
+  method: GET
+  url: '{{base_url}}/admin/vacancy-candidates/1/driver-license-card'
+  auth: inherit
+params: {}
+headers:
+  - name: Accept-Language
+    value: uz
+    enabled: true
+docs: >
+  Kandidatning haydovchilik guvohnomasida chop etilgan **barcha** maydonlar (karta
+  1–12), bir necha manbadan yig'ilgan holda: live GIBDD servisi, saqlangan
+  guvohnoma, MVD passport yozuvi va propiska. Mobil ilova kartani chizadigan
+  payload bilan aynan bir xil shakl.
+
+
+  GIBDD live chaqiriladi, shu sabab bu endpoint ayni paytda **yangilash** vazifasini
+  ham bajaradi: servis qaytargan ma'lumot `candidate_driver_license` ga yoziladi.
+  Nomzod qo'lda tahrir qilgan yozuv (`source=manual`) **hech qachon** ustiga
+  yozilmaydi.
+
+
+  **Auth:** `access_token` (admin yoki o'z tashkiloti aktyori). Permission:
+  `applicationView`.
+
+
+  > `pinfl` (4d) **maskalangan** (`**********1234`) — to'liq JSHSHIR'ni faqat
+  > nomzodning o'zi mobil ilovada ko'radi.
+
+
+  > Bu endpoint faqat yangilash uchun kerak. Kandidat profilida (`5. Pipeline —
+  > Candidate Profile`) o'sha karta `driver.card` ichida allaqachon bor — u
+  > saqlangan ma'lumotdan yasaladi va GIBDD'ga bormaydi.
+
+
+  ### 📤 Response (`data`)
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `available` | bool | `false` — nomzodda guvohnoma yo'q |
+
+  | `surname` \| `first_name` \| `patronymic` | string | 1–2 maydonlar |
+
+  | `full_name` | string | 1+2 birga, kartadagi bir qatorlik ko'rinish |
+
+  | `birth_place` | string | 3-maydon; GIBDD erkin matni + SOATO'dan tiklangan `"Tuman, Viloyat"` birlashtiriladi. Chet elda tug'ilganda davlat nomi (`QOZOG'ISTON`) |
+
+  | `birth_date` | string | 3-maydon, `DD.MM.YYYY` |
+
+  | `issue_date` \| `expiry_date` | string | 4a / 4b, `DD.MM.YYYY` |
+
+  | `issued_by` | string | 4c — kim tomonidan berilgan (pastdagi ⚠️ ni o'qing) |
+
+  | `issued_by_code` | int \| null | 4c xom GIBDD kodi; `null` — servis bermagan. GIBDD `0` qaytarsa ham `null` ga aylantiriladi (`0` spravochnik ID emas) |
+
+  | `pinfl` | string | 4d — **maskalangan** |
+
+  | `license_number` | string | 5-maydon |
+
+  | `photo_url` | string \| null | 6-maydon — MVD passport portreti; yagona `null` bo'la oladigan maydon |
+
+  | `residence` | string | 8-maydon — propiska. GIBDD ko'pincha erkin matnda faqat uy tafsilotini beradi (`"KVL 23 16/69"`), tuman/viloyat SOATO kodlarida — birlashtiriladi: `"UCHTEPA TUMANI, TOSHKENT SHAHRI, KVL 23 16/69"` |
+
+  | `categories` | string | 9-maydon — CSV, karta tartibida (`B,C,D`) |
+
+  | `categories_detail` | array | 9–12 — `[{ category, issue_date, expiry_date, note, source }]` |
+
+  | `sources` | object | Har maydon uchun manba: `gibdd` \| `db` \| `passport` \| `registration` \| `soato` \| `ovd` \| `fallback` \| `none` |
+
+  | `missing` | array | Hech qaysi manba bermagan maydonlar; `signature` (7) doim shu yerda |
+
+  | `placeholder` | string | Bo'sh maydon o'rniga qo'yiladigan matn (`—`) |
+
+
+  > Hech bir matn maydoni `null` qaytmaydi — manba bermasa `placeholder` qo'yiladi.
+  > Shu sabab qiymat haqiqiy ekanini `sources` orqali tekshiring: `fallback` va
+  > `none` — rasmiy ma'lumot emas.
+
+
+  ### ⚠️ 4c "Berilgan joyi"
+
+
+  GIBDD `pIssuedBy` uchun spravochnik bermagan; rasmiy namunalarda `null`, ishlab
+  chiqarishda `0` keladi — ikkisi ham "ma'lumot yo'q".
+  Zanjir: kod `ovd` spravochnigida topilsa → bo'linmaning haqiqiy nomi
+  (`sources.issued_by = "ovd"`); aks holda viloyat + `IIB YHXB`, oxirida
+  `O'zbekiston Respublikasi IIV` — ikkisi ham `fallback`, ya'ni **taxminiy**.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Unauthorized |
+
+  | `403` | Boshqa tashkilot vakansiyasi yoki `applicationView` huquqi yo'q |
+
+  | `404` | Pipeline yoki kandidat topilmadi |
+
+
+  > GIBDD ishlamasligi xato emas: javob 200 qaytadi, maydonlar saqlangan
+  > ma'lumotdan to'ldiriladi, `sources` da `db` / `passport` / `registration`
+  > ko'rinadi.
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

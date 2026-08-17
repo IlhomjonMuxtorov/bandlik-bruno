@@ -85,6 +85,12 @@ docs: 'Haydovchilik guvohnomasi + sertifikatlar.
   satrlari mavjud (CSV''dan ko''chirilgan), lekin `issue_date`/`expiry_date` —
   `null`: eski sxema toifa sanalarini saqlamagan.
 
+
+  > Bu endpoint faqat **saqlangan guvohnoma yozuvi**ni qaytaradi. Kartani chizish
+  uchun kerak bo''lgan qolgan maydonlar (familiya/ism, tug''ilgan joy va sana,
+  JSHSHIR, propiska, berilgan joyi) bu javobda **yo''q** —
+  `GET /mobile/candidate/driver-license/card` (`9b`) ishlating.
+
   '
 settings:
   encodeUrl: true

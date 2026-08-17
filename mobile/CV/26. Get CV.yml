@@ -113,7 +113,7 @@ docs: 'Bitta CV-ning to''liq tafsilotlari (education, experience, languages va h
 
   | `documents` | array | Faqat shu CV |
 
-  | `driver` | object | License candidate-level, certificates CV-level |
+  | `driver` | object | License candidate-level, certificates CV-level. `driver.card` — guvohnoma kartasida chop etiladigan barcha maydonlar (1–12), rezyume kartani o''zi chizishi uchun; saqlangan ma''lumotdan yasaladi (GIBDD''ga bormaydi). Shakli: `GET /mobile/candidate/driver-license/card` bilan bir xil |
 
   | `licenses` | array | Candidate-level kasbiy/biznes litsenziyalar (AGU `/dxa/service/license/v1/pin`). Har element: `{ name, document_type, register_number, registration_date, expiry_date, organization, activity_addresses[], activity_types[], is_from_mvd }`. `is_from_mvd=true` — MVD''dan, read-only; bo''sh massiv — litsenziya yo''q |
 

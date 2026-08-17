@@ -142,6 +142,37 @@ docs: |
   | `file_kind_icon_url` | string \| null | Icon URL for file kind; `null` if no file |
   | `source` | string \| null | `manual` \| `mvd_gibdd` — data origin; `null` if no record |
   | `certificates` | array | Driver certificates (special permissions); always `[]` in this endpoint |
+  | `card` | object | Every field printed on the licence card (1–12), so the profile screen can draw the card itself — see below |
+
+  #### `driver_license.card` object
+
+  Same payload as `GET /mobile/candidate/driver-license/card`, with one difference:
+  built from **stored data only** — this endpoint never calls the GIBDD service, so
+  `sources` never reads `gibdd` / `soato` here. Use the dedicated card endpoint to
+  refresh from GIBDD.
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `available` | bool | `false` — no licence on record; every field is the placeholder |
+  | `surname` / `first_name` / `patronymic` | string | Card fields 1–2 |
+  | `full_name` | string | Fields 1+2 as the card prints them on one line |
+  | `birth_place` | string | Field 3 — place of birth |
+  | `birth_date` | string | Field 3 — `DD.MM.YYYY` |
+  | `issue_date` / `expiry_date` | string | Fields 4a / 4b — `DD.MM.YYYY` |
+  | `issued_by` | string | Field 4c — issuing authority |
+  | `issued_by_code` | int \| null | Field 4c raw GIBDD code; `null` when the service sent none |
+  | `pinfl` | string | Field 4d — full value (the owner is the caller) |
+  | `license_number` | string | Field 5 |
+  | `photo_url` | string \| null | Field 6 — MVD passport portrait; the only text field that may be `null` |
+  | `residence` | string | Field 8 — propiska |
+  | `categories` | string | Field 9 — CSV in card order (`B,C,D`) |
+  | `categories_detail` | array | Fields 9–12 — `[{ category, issue_date, expiry_date, note, source }]` |
+  | `sources` | object | Per-field origin: `db` \| `passport` \| `registration` \| `ovd` \| `fallback` \| `none` |
+  | `missing` | array | Field keys nothing supplied; `signature` (field 7) is always listed |
+  | `placeholder` | string | Text used in place of an empty field (`—`) |
+
+  > No text field is ever `null` — an unresolved one carries `placeholder`. Check
+  > `sources` before presenting a value as official: `fallback` and `none` are not.
 
   #### `legal` object — legal background checks
 
