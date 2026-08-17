@@ -1,0 +1,44 @@
+info:
+  name: Delete Profile Photo
+  type: http
+  seq: 31
+http:
+  method: DELETE
+  url: '{{base_url}}/mobile/candidate/photo'
+  headers:
+  - name: Accept
+    value: application/json
+  auth: inherit
+docs: |-
+  Foydalanuvchi yuklagan avatarni o'chiradi va profil rasmi **rasmiy passport
+  rasmiga** (MVD / elektron hukumat portreti) qaytadi. Rasmiy rasm nusxalanmaydi —
+  avatar `null` bo'lgan zahoti barcha javoblarda passport rasmi ko'rsatiladi.
+
+  **Mavjud CV-lardagi rasmlar o'zgarmaydi** — har bir CV yaratilgan paytdagi
+  nusxasini saqlaydi. Eski avatar fayli faqat boshqa hech qayerda (jumladan biror
+  CV-da) ishlatilmasa o'chiriladi.
+
+  > Idempotent: avatar allaqachon yo'q bo'lsa ham `200` qaytadi — javobda joriy
+  > (passport) rasm URL'i bo'ladi.
+
+  **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `photo_url` | string \| null | Rasmiy MVD passport rasmi URL. `null` — MVD bu nomzod uchun rasm bermagan. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Shaxs tasdiqlanmagan (`is_verified=false`) — javobda `verification_required: true` |
+  | `456` | Guest — registratsiya tugatilmagan |
+  | `404` | Nomzod topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

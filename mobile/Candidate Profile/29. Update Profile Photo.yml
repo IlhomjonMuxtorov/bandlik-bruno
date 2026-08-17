@@ -20,6 +20,11 @@ docs: |-
   `profile-extras` payload'ini qayta yubormasdan avatarni yangilash uchun alohida,
   faqat-rasm endpoint. Eski rasm fayli faqat boshqa hech qayerda ishlatilmasa o'chiriladi.
 
+  > **Default rasm — rasmiy passport rasmi.** Har bir nomzodning profil rasmi default
+  > holatda MVD (elektron hukumat) portreti bo'ladi; hech narsa yuklash shart emas.
+  > Bu endpoint uni foydalanuvchi rasmi bilan **ustidan yopadi**. Rasmiyga qaytarish —
+  > `DELETE /mobile/candidate/photo`.
+
   📎 Oqim: avval `POST /mobile/upload` (multipart, `file`) bilan rasmni yuklang →
   qaytgan `id` ni shu yerda `photo_file_id` sifatida yuboring.
 

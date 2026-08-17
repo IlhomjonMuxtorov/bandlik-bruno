@@ -35,7 +35,7 @@ docs: |
   | Field | Type | Required | Description |
   |---|---|:---:|---|
   | `session_id` | string | ✅ | `start-primary` / `start-secondary` qaytargan sessiya id (36 belgi). |
-  | `image_base64` | string | ✅ | SDK olgan yuz rasmi, base64 JPEG (min 100 belgi). |
+  | `image_base64` | string | ✅ | SDK olgan yuz rasmi, base64 JPEG (min 100 belgi). Faqat liveness tekshiruvi uchun — **profil rasmi sifatida saqlanmaydi** (avatar default holatda rasmiy MVD passport rasmi). |
   | `code` | string | ✅ | SDK qaytargan tasdiqlash kodi. |
   | `device_id` | string | ✅ | Qurilma UUID'si — token juftligi shu qurilmaga bog'lanadi. |
 
