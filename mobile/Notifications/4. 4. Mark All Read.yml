@@ -1,0 +1,33 @@
+info:
+  name: 4. Mark All Read
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{base_url}}/mobile/notifications/mark-all-read'
+  body:
+    type: none
+  auth: inherit
+docs: |
+  "Barchasini o'qilgan deb belgilash" — pastdagi menyu (bottom sheet) amali.
+  Bitta so'rovda foydalanuvchining barcha o'qilmagan qatorlari belgilanadi.
+
+  **Auth:** `access_token`.
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `marked_read` | int | Shu chaqiruvda o'qilgan deb belgilangan qatorlar soni |
+  | `unread_count` | int | Har doim `0` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

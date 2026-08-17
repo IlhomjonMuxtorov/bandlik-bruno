@@ -1,0 +1,33 @@
+info:
+  name: 5. Notification — Delete
+  type: http
+  seq: 5
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/notifications/1'
+  auth: inherit
+docs: |
+  Bitta bildirishnomani panel drawer'idan o'chiradi. **Soft delete** — qator
+  ro'yxatdan butunlay chiqadi, lekin bazada saqlanadi (cron eslatmalari o'tgan
+  qatorlar bo'yicha dedup qiladi). Faqat egasining qatori o'chadi — begona yoki
+  mavjud bo'lmagan ID `404`.
+
+  **Auth:** `admin_token`.
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `deleted` | bool | Har doim `true` |
+  | `unread_count` | int | O'chirishdan keyingi o'qilmaganlar soni |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `404` | Bildirishnoma topilmadi, joriy foydalanuvchiga tegishli emas yoki allaqachon o'chirilgan |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

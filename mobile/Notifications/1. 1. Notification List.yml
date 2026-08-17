@@ -1,0 +1,88 @@
+info:
+  name: 1. Notification List
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/mobile/notifications?per-page=20'
+  body:
+    type: none
+  auth: inherit
+docs: |
+  "Xabarnomalar" ekrani — joriy foydalanuvchining bildirishnomalari, eng
+  yangisidan boshlab. Har bir foydalanuvchi **faqat o'zining** qatorlarini
+  ko'radi. O'chirilgan (soft delete) qatorlar hech qachon qaytmaydi.
+
+  `title` / `body` **qurilma tili** bo'yicha render qilinadi
+  (`PATCH /mobile/device/language` bilan o'rnatiladi) — `Accept-Language`
+  header'i mobil modulda ishlatilmaydi.
+
+  **Auth:** `access_token`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `unread` | bool | ➖ | `1` \| `true` — faqat o'qilmaganlar. Default: barchasi |
+  | `per-page` | int | ➖ | Sahifadagi soni (1–100). Default: `20` |
+  | `page` | int | ➖ | Sahifa raqami. Default: `1` |
+  | `sort` | string | ➖ | `-created_at` (default) \| `created_at` \| `-id` \| `id` |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {access_token}` |
+
+  ### 📤 Response
+
+  Massiv (mobile format, metadata yo'q; sahifalash `X-Pagination-*` header'larida —
+  jumladan `X-Pagination-Total-Count`, badge uchun). Har element:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Bildirishnoma ID |
+  | `type` | string | Turi — pastdagi jadvalga qarang |
+  | `title` | string | Render qilingan sarlavha (qurilma tili) |
+  | `body` | string | Render qilingan matn (qurilma tili) |
+  | `icon` | string | Ikonka kaliti: `application` \| `contract` \| `cv` \| `process` \| `payment` \| `default`. Ilova o'z asset'iga map qiladi |
+  | `mobile_url` | string \| null | Bosilganda ochiladigan deep-link (`xba://...`). `null` — qator bosilmaydi |
+  | `organization` | object \| null | Yuboruvchi tashkilot: `{ id, name, logo_url }`. `null` — hodisada tashkilot yo'q (cron eslatmasi, CV tahriri). `logo_url` tashkilotda logotip bo'lmasa `null` |
+  | `is_read` | bool | O'qilgan holati (qizil nuqta `false` da ko'rsatiladi) |
+  | `created_at` | int | Yaratilgan vaqt (unix, sekund) |
+  | `created_at_formatted` | string | `d.m.Y H:i` (Asia/Tashkent) — ro'yxatda chiqadigan sana |
+  | `vacancy_id` | int \| null | `application_*` turlarida vakansiya ID; boshqalarda `null` |
+  | `application_id` | int \| null | `application_*` turlarida ariza ID; boshqalarda `null` |
+  | `cv_id` | int \| null | `cv_contact_changed_by_org` da CV ID; boshqalarda `null` |
+  | `service_group_id` | int \| null | `process_*` / `payment_overdue` da xizmat guruhi ID; boshqalarda `null` |
+  | `conversation_id` | int \| null | Hodisa chat pipeline'idan kelgan bo'lsa chat ID; aks holda `null` |
+
+  ### 🔔 Nomzod oladigan turlar
+
+  | `type` | Qachon | Push |
+  |---|---|---|
+  | `application_reviewed` | Tashkilot arizani `reviewed` holatiga o'tkazdi | ✅ ha |
+  | `application_accepted` | Ariza qabul qilindi — mehnat shartnomasi yuborildi | ➖ yo'q (chat `new_message` push qiladi) |
+  | `application_rejected` | Ariza rad etildi | ➖ yo'q (chat push qiladi) |
+  | `process_group_started` | Xizmat bosqichi boshlandi | ➖ yo'q (chat push qiladi) |
+  | `process_group_confirmed` | Xizmat bosqichi tasdiqlandi va yopildi | ➖ yo'q (chat push qiladi) |
+  | `process_pipeline_completed` | Barcha bosqichlar yakunlandi | ➖ yo'q (chat push qiladi) |
+  | `payment_overdue` | To'lov muddati o'tdi (cron) | ➖ yo'q (chat push qiladi) |
+  | `cv_contact_changed_by_org` | XBA xodimi CV'dagi telefon/emailni tahrirladi | ✅ ha |
+  | `cv_incomplete_reminder` | Rezyume to'liq emasligi haqida davriy eslatma (cron) | ✅ ha |
+
+  > **Push dublikati yo'q.** Chat system-xabari orqali allaqachon `new_message`
+  > push ketgan hodisalarda inbox qatori **push'siz** yoziladi — bir hodisa
+  > uchun ikki bildirishnoma kelmaydi.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki yaroqsiz |
+  | `403` | Foydalanuvchi bloklangan / active emas |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

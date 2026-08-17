@@ -1,0 +1,35 @@
+info:
+  name: 6. Delete All
+  type: http
+  seq: 6
+http:
+  method: DELETE
+  url: '{{base_url}}/mobile/notifications'
+  headers: []
+  body:
+    type: none
+  auth: inherit
+docs: |
+  "Barchasini o'chirish" — pastdagi menyu (bottom sheet) amali. Foydalanuvchining
+  barcha bildirishnomalari bitta so'rovda soft-delete qilinadi; ro'yxat bo'shaydi
+  va badge `0` ga tushadi.
+
+  **Auth:** `access_token`.
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `deleted` | int | O'chirilgan qatorlar soni (`0` — ro'yxat allaqachon bo'sh) |
+  | `unread_count` | int | Har doim `0` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

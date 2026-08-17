@@ -1,0 +1,33 @@
+info:
+  name: 6. Notification — Delete All
+  type: http
+  seq: 6
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/notifications'
+  auth: inherit
+docs: |
+  Joriy foydalanuvchining barcha bildirishnomalarini bitta so'rovda o'chiradi
+  (soft delete). Drawer bo'shaydi, badge `0` ga tushadi.
+
+  **Auth:** `admin_token`.
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `deleted` | int | O'chirilgan qatorlar soni (`0` — drawer allaqachon bo'sh) |
+  | `unread_count` | int | Har doim `0` |
+
+  `message` — `"Barcha bildirishnomalar o'chirildi"` (`Accept-Language` bo'yicha).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki yaroqsiz |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

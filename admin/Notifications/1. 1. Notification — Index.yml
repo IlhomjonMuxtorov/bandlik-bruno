@@ -16,6 +16,9 @@ docs: |
   bildirishnomalarini ko'radi (maxsus permission talab qilinmaydi — token
   yetarli). `title`/`body` `Accept-Language` bo'yicha render qilinadi.
 
+  `DELETE /admin/notifications/{id}` yoki `DELETE /admin/notifications` bilan
+  o'chirilgan (soft delete) qatorlar bu ro'yxatda **hech qachon** qaytmaydi.
+
   **Auth:** `admin_token`.
 
   ### 🔎 Query Parameters
@@ -60,6 +63,12 @@ docs: |
   | `vacancy_application_received` | Nomzod XBA joylagan vakansiyaga ariza topshirdi | Vakansiya XBA tashkilotining barcha active xodimlari (user'i bor) |
   | `cv_contact_changed_by_org` | XBA xodimi CV'dagi telefon/emailni tahrirladi | Nomzod (mobil) |
   | `cv_incomplete_reminder` | Rezyume to'liq emasligi haqida davriy eslatma (cron) | Nomzod (mobil) |
+
+  > Nomzodga tegishli qo'shimcha turlar (`application_reviewed`,
+  > `application_accepted`, `application_rejected`, `process_group_started`,
+  > `process_group_confirmed`, `process_pipeline_completed`, `payment_overdue`)
+  > **faqat** mobil inbox'ga yoziladi — admin panelda ular hech qachon
+  > ko'rinmaydi. Ta'rifi: mobile collection → `Notifications`.
 
   ### 🔗 Deep-linklar
 

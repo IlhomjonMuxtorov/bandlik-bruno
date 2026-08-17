@@ -1,0 +1,35 @@
+info:
+  name: 3. Mark Read
+  type: http
+  seq: 3
+http:
+  method: POST
+  url: '{{base_url}}/mobile/notifications/1/read'
+  body:
+    type: none
+  auth: inherit
+docs: |
+  Bitta bildirishnomani o'qilgan deb belgilaydi (qator bosilganda). Idempotent —
+  ikkinchi chaqiruv hech narsani o'zgartirmaydi.
+
+  Begona, mavjud bo'lmagan yoki o'chirilgan ID `404` qaytaradi.
+
+  **Auth:** `access_token`.
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `unread_count` | int | Belgilashdan keyingi o'qilmaganlar soni (badge) |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `404` | Bildirishnoma topilmadi, boshqa foydalanuvchiga tegishli yoki o'chirilgan |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

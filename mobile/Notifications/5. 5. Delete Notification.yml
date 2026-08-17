@@ -1,0 +1,37 @@
+info:
+  name: 5. Delete Notification
+  type: http
+  seq: 5
+http:
+  method: DELETE
+  url: '{{base_url}}/mobile/notifications/1'
+  headers: []
+  body:
+    type: none
+  auth: inherit
+docs: |
+  Bitta bildirishnomani o'chiradi (swipe-delete). **Soft delete** — qator
+  ro'yxatdan butunlay chiqadi va qaytmaydi, lekin bazada saqlanadi (cron
+  eslatmalari o'tgan qatorlar bo'yicha dedup qiladi, aks holda "hammasini
+  o'chirish"dan keyin eslatma darhol takrorlanardi).
+
+  **Auth:** `access_token`.
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `deleted` | bool | Har doim `true` |
+  | `unread_count` | int | O'chirishdan keyingi o'qilmaganlar soni (badge) |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `404` | Bildirishnoma topilmadi, boshqa foydalanuvchiga tegishli yoki allaqachon o'chirilgan |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
