@@ -24,5 +24,11 @@ sifatida ham ishlaydi, ham asosiy loyihaga git submodule sifatida ulanadi:
 ## Submodule eslatmasi
 
 Bu repo asosiy loyihada submodule. Bruno o'zgarishlari **submodule'ning o'z `main`
-branchida** commit qilinadi va shu repoga push qilinadi; asosiy repodagi gitlink
-(submodule pointer) foydalanuvchi aniq so'ramaguncha yangilanmaydi.
+branchida** commit qilinadi (doim pathspec bilan — parallel ishni supurib ketmaslik
+uchun) va shu repoga **push qilinadi**; so'ng asosiy repodagi gitlink (submodule pointer)
+**shu o'zgarishni chaqirgan kod commit'i bilan birga** bump qilinadi.
+
+- Gitlink bump — **default**, alohida so'rov talab qilmaydi
+- Push majburiy: origin'da yo'q SHA'ga pointer boshqa clone'da `git submodule update` ni
+  buzadi (`fatal: reference is not a tree`)
+- To'liq oqim asosiy loyiha `AGENTS.md` → **Bruno API Collection → Submodule va gitlink**
