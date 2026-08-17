@@ -47,6 +47,38 @@ docs: >
   | `medical.psychiatry` | object | `status`, `is_registered`, `med_org`, `status_change_date`, `registered_at` |
 
 
+  Har bir entry qo'shimcha ravishda tekshiruv nomini va tayyor ko'rinish holatini
+  olib keladi:
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `type` | string | `criminal_record` \| `insolvent_debtor` \| `travel_ban` \| `narcology` \| `psychiatry` |
+
+  | `type_label` | string | To'liq nom (masalan `Narkologiya hisobida ro'yxatga olinganligi`) — kesilmaydi |
+
+  | `short_label` | string | Karta sarlavhasi (masalan `Narkologiya hisobida`) |
+
+  | `display.state` | string | `awaiting_application` \| `in_progress` \| `clear` \| `flagged` |
+
+  | `display.label` | string | Ko'rsatiladigan matn — aynan chiqariladi |
+
+  | `display.color` | string | `orange` \| `blue` \| `green` \| `red` |
+
+
+  > Bu endpointda nomzod allaqachon vakansiyaga topshirgan (pipeline qatori bor),
+  > shuning uchun `awaiting_application` chiqmaydi — hal bo'lmagan tekshiruv
+  > `in_progress` (ko'k «Tekshiruvda») bo'ladi. `status = error` ham `in_progress`
+  > ko'rinadi; sababi xom `message` maydonida qoladi.
+
+
+  > `legal.travel_ban` `flagged` bo'lganda karta detallari `bans[]` dan olinadi:
+  > Qarzdorlik → `residual_balance` (so'm), Ijro hujjati → `work_number`,
+  > Ijrochi → `branch_name`.
+
+
   ### ⚠️ Errors
 
 

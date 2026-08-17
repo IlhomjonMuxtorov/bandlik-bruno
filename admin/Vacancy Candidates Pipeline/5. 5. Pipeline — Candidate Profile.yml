@@ -129,8 +129,30 @@ docs: >
   Har biri `status` + `is_registered` + `med_org` + `registered_at`.
 
 
+  Har bir entry tekshiruv nomini va tayyor ko'rinish holatini ham olib keladi:
+  `type`, `type_label` (to'liq nom — kesilmaydi), `short_label` (karta sarlavhasi)
+  va `display` = `{ state, label, color }`.
+
+
+  | `display.state` | `label` | `color` |
+
+  |---|---|---|
+
+  | `awaiting_application` | «Vakansiyaga topshirilganda tekshiriladi» | `orange` |
+
+  | `in_progress` | «Tekshiruvda» | `blue` |
+
+  | `clear` | «Ro'yxatda yo'q» / «Taqiq yo'q» | `green` |
+
+  | `flagged` | «Ro'yxatda bor» / «Faol taqiq mavjud» | `red` |
+
+
   > `legal`/`medical` kandidat **ariza topshirganda** avtomatik tortib kelinadi
   > (navbat jobi). Qo'lda yangilash: `POST .../refresh-background-checks`.
+  >
+  > Shu sabab `status = not_checked` xato emas — hali topshirmagan foydalanuvchida
+  > `display.state = awaiting_application` (sariq/orange) bo'ladi. `status = error`
+  > foydalanuvchiga `in_progress` bo'lib ko'rinadi, sababi `message` da qoladi.
 settings:
   encodeUrl: true
   timeout: 0

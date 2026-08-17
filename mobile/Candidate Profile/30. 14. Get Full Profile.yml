@@ -149,11 +149,15 @@ docs: |
 
   | Field | Type | Description |
   |---|---|---|
-  | `status` | string | `not_checked` \| `pending` \| `clean` \| `has_record` \| `error` |
-  | `status_label` | string | Localised label for the status |
+  | `status` | string | Raw stored status: `not_checked` \| `pending` \| `clean` \| `has_record` \| `error` |
+  | `status_label` | string | Localised label for the raw status (debug/admin; **not** for the card) |
   | `has_record` | bool \| null | `true` if a record was found; `null` when not checked |
   | `message` | string \| null | Raw message from the government service; `null` if not checked |
   | `checked_at` | string \| null | Date of last check in `d.m.Y`; `null` if not checked |
+  | `type` | string | Check type: `criminal_record` \| `insolvent_debtor` \| `travel_ban` |
+  | `type_label` | string | **To'liq** tekshiruv nomi — karta ichidagi qator yorlig'i. Wrap qilinadi, hech qachon kesilmaydi |
+  | `short_label` | string | Qisqa nom — karta sarlavhasi |
+  | `display` | object | Ekranga chiqadigan holat — pastga qarang |
 
   Additional fields on `insolvent`: `debtor_name` (string\|null), `execution_docs` (array).
   Additional fields on `travel_ban`: `debtor_name` (string\|null), `bans` (array — each ban has `residual_balance` in so'm).
@@ -164,15 +168,47 @@ docs: |
 
   | Field | Type | Description |
   |---|---|---|
-  | `status` | string | `not_checked` \| `pending` \| `clean` \| `has_record` \| `error` |
-  | `status_label` | string | Localised label for the status |
+  | `status` | string | Raw stored status: `not_checked` \| `pending` \| `clean` \| `has_record` \| `error` |
+  | `status_label` | string | Localised label for the raw status (debug/admin; **not** for the card) |
   | `has_record` | bool \| null | `true` if registered in the dispensary; `null` when not checked |
   | `message` | string \| null | Raw message from Minzdrav; `null` if not checked |
   | `checked_at` | string \| null | Date of last check in `d.m.Y`; `null` if not checked |
+  | `type` | string | `narcology` \| `psychiatry` |
+  | `type_label` | string | To'liq nom, masalan `Narkologiya hisobida ro'yxatga olinganligi` |
+  | `short_label` | string | Karta sarlavhasi, masalan `Narkologiya hisobida` |
+  | `display` | object | Ekranga chiqadigan holat — pastga qarang |
   | `is_registered` | bool \| null | Alias for `has_record` — `true` if registered; `null` if not checked |
   | `med_org` | string \| null | Medical organisation name; `null` if not checked or clean |
   | `status_change_date` | string \| null | Date the dispensary status last changed; `null` if not checked |
   | `registered_at` | string \| null | Date of dispensary registration; `null` if not checked |
+
+  #### `display` object — nima ko'rsatiladi
+
+  Har bir `legal.*` / `medical.*` entry ichida bo'ladi. Frontend `label` ni **aynan**
+  chiqaradi va `color` bo'yicha bo'yaydi — o'z matnini yasamaydi.
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `state` | string | `awaiting_application` \| `in_progress` \| `clear` \| `flagged` |
+  | `label` | string | Ko'rsatiladigan matn (natija yoki holat) |
+  | `color` | string | `orange` \| `blue` \| `green` \| `red` |
+
+  | `state` | Qachon | `label` | `color` |
+  |---|---|---|---|
+  | `awaiting_application` | Foydalanuvchi hali birorta vakansiyaga topshirmagan — tekshiruv boshlanmagan | «Vakansiyaga topshirilganda tekshiriladi» | `orange` |
+  | `in_progress` | Topshirgan, javob kutilmoqda (sudlanganlik 2-3 ish kuni olishi mumkin) | «Tekshiruvda» | `blue` |
+  | `clear` | Javob keldi, yozuv yo'q | «Ro'yxatda yo'q» / «Taqiq yo'q» | `green` |
+  | `flagged` | Javob keldi, yozuv/taqiq bor | «Ro'yxatda bor» / «Faol taqiq mavjud» | `red` |
+
+  > Tekshiruvlar **faqat** nomzod vakansiyaga topshirganda ishga tushadi. Shuning uchun
+  > `status = not_checked` bo'lsa ham xato emas — `display.state` shuni to'g'ri izohlaydi.
+  >
+  > `status = error` (tashqi servis javob bermadi) foydalanuvchiga `in_progress` (ko'k)
+  > bo'lib ko'rinadi — cron qayta uradi. Xom `status` va `message` payloadda qoladi.
+
+  > **Chet elga chiqish taqiqi** `flagged` bo'lganda karta detallari `bans[]` dan olinadi:
+  > Qarzdorlik → `residual_balance` (so'm), Ijro hujjati → `work_number`,
+  > Ijrochi → `branch_name`.
 
   ### ⚠️ Errors
 
