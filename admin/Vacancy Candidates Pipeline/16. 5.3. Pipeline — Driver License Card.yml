@@ -56,9 +56,9 @@ docs: >
 
   | `issue_date` \| `expiry_date` | string | 4a / 4b, `DD.MM.YYYY` |
 
-  | `issued_by` | string | 4c — kim tomonidan berilgan (pastdagi ⚠️ ni o'qing) |
+  | `issued_by` | string | 4c — kim tomonidan berilgan. GIBDD nom yuborsa aynan o'sha (`sources.issued_by = "gibdd"`/`"db"`), aks holda pastdagi ⚠️ zanjir |
 
-  | `issued_by_code` | int \| null | 4c xom GIBDD kodi; `null` — servis bermagan. GIBDD `0` qaytarsa ham `null` ga aylantiriladi (`0` spravochnik ID emas) |
+  | `issued_by_code` | int \| null | 4c — GIBDD **raqam** yuborgan holat uchun xom kod; `null` — nom yuborilgan yoki `0`/hech narsa (`0` spravochnik ID emas) |
 
   | `pinfl` | string | 4d — **maskalangan** |
 
@@ -87,11 +87,19 @@ docs: >
   ### ⚠️ 4c "Berilgan joyi"
 
 
-  GIBDD `pIssuedBy` uchun spravochnik bermagan; rasmiy namunalarda `null`, ishlab
-  chiqarishda `0` keladi — ikkisi ham "ma'lumot yo'q".
-  Zanjir: kod `ovd` spravochnigida topilsa → bo'linmaning haqiqiy nomi
-  (`sources.issued_by = "ovd"`); aks holda viloyat + `IIB YHXB`, oxirida
-  `O'zbekiston Respublikasi IIV` — ikkisi ham `fallback`, ya'ni **taxminiy**.
+  `pIssuedBy` hujjatda `Int` + "spravochnikdan", amalda esa bir necha xil shaklda
+  keladi: organ nomi matn ko'rinishida (`"TOSHKENT SHAHAR RO' VA IOB (FAYZOBOD)"` —
+  eng ko'p uchraydigan holat), yoki `0`, yoki umuman yo'q. Spravochnik berilmagan.
+
+
+  Zanjir: GIBDD nom yuborsa → aynan o'sha (`gibdd`, saqlangandan o'qilsa `db`);
+  raqam `ovd` spravochnigida topilsa → bo'linma nomi (`ovd`); aks holda viloyat +
+  `IIB YHXB`, oxirida `O'zbekiston Respublikasi IIV` — bu ikkisi `fallback`, ya'ni
+  **taxminiy**.
+
+
+  > GIBDD yuborgan nom bazaga saqlanadi — servis keyin javob bermasa ham 4c to'liq
+  > qoladi.
 
 
   ### ⚠️ Errors

@@ -61,11 +61,11 @@ docs: 'Haydovchilik guvohnomasi kartasida chop etiladigan **barcha** maydonlar (
 
   | `expiry_date` | string | 4b — amal qilish muddati, `DD.MM.YYYY` |
 
-  | `issued_by` | string | 4c — kim tomonidan berilgan. Pastdagi ⚠️ eslatmani o''qing |
+  | `issued_by` | string | 4c — kim tomonidan berilgan. GIBDD nom yuborsa aynan
+  o''sha (`sources.issued_by = "gibdd"` yoki `"db"`), aks holda pastdagi ⚠️ zanjir |
 
-  | `issued_by_code` | int \| null | 4c — GIBDD''ning xom kodi. `null` — servis kod
-  bermagan. Amalda deyarli doim `null`: GIBDD yo maydonni yubormaydi, yo `0`
-  qaytaradi (`0` — spravochnik ID emas, shu sabab `null` ga aylantiriladi) |
+  | `issued_by_code` | int \| null | 4c — GIBDD **raqam** yuborgan holat uchun xom kod.
+  `null` — GIBDD nom yuborgan, yoki `0`/hech narsa yuborgan (`0` spravochnik ID emas) |
 
   | `pinfl` | string | 4d — JSHSHIR. Bu endpointda **to''liq** (egasi ko''radi);
   admin API''da maskalangan (`**********1234`) |
@@ -148,19 +148,28 @@ docs: 'Haydovchilik guvohnomasi kartasida chop etiladigan **barcha** maydonlar (
   ### ⚠️ 4c "Berilgan joyi" haqida
 
 
-  GIBDD hujjatida `pIssuedBy` "spravochnikdan" deb yozilgan, lekin **spravochnikning
-  o''zi berilmagan**; rasmiy namunalarda qiymat `null`, ishlab chiqarishda esa `0`
-  keladi (ikkisi ham "ma''lumot yo''q" degani). Shu sabab zanjir:
+  GIBDD hujjatida `pIssuedBy` `Int` + "spravochnikdan" deb yozilgan, lekin amalda
+  maydon **bir necha xil shaklda** keladi: organ nomi matn ko''rinishida
+  (`"TOSHKENT SHAHAR RO'' VA IOB (FAYZOBOD)"` — eng ko''p uchraydigan holat), yoki
+  `0`, yoki umuman yo''q. Spravochnikning o''zi hech qachon berilmagan, shu sabab
+  yalang''och raqam yechilmasligi mumkin. Zanjir:
 
 
-  1. kod kelsa va `ovd` spravochnigida topilsa → bo''linmaning haqiqiy nomi
+  1. GIBDD nom yuborsa → aynan o''sha nom (`sources.issued_by = "gibdd"`,
+  **ishonchli**). Saqlangan nomdan o''qilsa — `"db"`;
+
+  2. raqam kelsa va `ovd` spravochnigida topilsa → bo''linmaning haqiqiy nomi
   (`sources.issued_by = "ovd"`, ishonchli);
 
-  2. aks holda guvohnoma/propiska viloyati + `IIB YHXB`
+  3. aks holda guvohnoma/propiska viloyati + `IIB YHXB`
   (`sources.issued_by = "fallback"`, **taxminiy**);
 
-  3. viloyat ham aniqlanmasa → `O''zbekiston Respublikasi IIV`
+  4. viloyat ham aniqlanmasa → `O''zbekiston Respublikasi IIV`
   (`sources.issued_by = "fallback"`).
+
+
+  > GIBDD yuborgan nom bazaga saqlanadi, shu sabab servis keyin javob bermay
+  qo''ysa ham 4c to''liq qoladi (`sources.issued_by = "db"`).
 
 
   ### ⚠️ Errors

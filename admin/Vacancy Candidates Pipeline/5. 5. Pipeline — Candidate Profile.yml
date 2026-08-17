@@ -123,9 +123,9 @@ docs: >
 
   | `issue_date` / `expiry_date` | string | 4a / 4b |
 
-  | `issued_by` | string | 4c — kim tomonidan berilgan; `ovd` spravochnigidan topilmasa taxminiy (`sources.issued_by = "fallback"`) |
+  | `issued_by` | string | 4c — kim tomonidan berilgan. GIBDD ko'pincha organ nomini matn ko'rinishida yuboradi va u bazaga saqlanadi (`sources.issued_by = "db"`); nom bo'lmasa `ovd` spravochnigi, undan keyin viloyat + `IIB YHXB` — bu taxminiy (`"fallback"`) |
 
-  | `issued_by_code` | int \| null | 4c xom GIBDD kodi; `null` — servis bermagan |
+  | `issued_by_code` | int \| null | 4c — GIBDD **raqam** yuborgan holat uchun xom kod; `null` — nom yuborilgan yoki hech narsa |
 
   | `pinfl` | string | 4d — **maskalangan** (`**********1234`) |
 

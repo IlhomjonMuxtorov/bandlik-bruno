@@ -74,8 +74,14 @@ docs: 'MVD/GIBDD (YHXBB) dan haydovchilik guvohnomasini **live** olib, CV formas
 
   | `expiry_date` | string \| null | Amal qilish muddati `DD.MM.YYYY` (4b) |
 
-  | `issued_by_code` | int \| null | Berilgan joy **kodi** (4c). GIBDD faqat kod qaytaradi
-  — tizimda kodni nomga aylantiruvchi reference yo''q, shu sababli nom yuborilmaydi |
+  | `issued_by_name` | string \| null | Berilgan joy **nomi** (4c) — GIBDD matn ko''rinishida
+  yuborganda, masalan `"TOSHKENT SHAHAR RO'' VA IOB (FAYZOBOD)"`. Amalda eng ko''p
+  uchraydigan holat. `null` — GIBDD raqam yuborgan yoki hech narsa |
+
+  | `issued_by_code` | int \| null | Berilgan joy **kodi** (4c) — GIBDD raqam yuborganda.
+  `null` — nom yuborilgan, yoki `0`/hech narsa (`0` spravochnik ID emas). Kodni nomga
+  aylantiruvchi spravochnik MVD tomonidan berilmagan, shu sababli yalang''och raqam
+  yechilmasligi mumkin |
 
   | `categories` | array | Tizim qo''llab-quvvatlaydigan toifalar, har biri o''z sanalari
   bilan. Tartib — guvohnoma kartasidagi tartib (`A, B, C, D, E, BE, CE, DE, TM, TB`) |
