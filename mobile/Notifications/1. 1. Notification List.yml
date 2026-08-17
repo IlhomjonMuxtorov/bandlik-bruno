@@ -46,7 +46,7 @@ docs: |
   | `title` | string | Render qilingan sarlavha (qurilma tili) |
   | `body` | string | Render qilingan matn (qurilma tili) |
   | `icon` | string | Ikonka kaliti: `application` \| `contract` \| `cv` \| `process` \| `payment` \| `default`. Ilova o'z asset'iga map qiladi |
-  | `mobile_url` | string \| null | Bosilganda ochiladigan deep-link (`xba://...`). `null` — qator bosilmaydi |
+  | `mobile_url` | string \| null | Bosilganda ochiladigan deep-link (`xba://...`) — pastdagi jadvalga qarang. `null` — qator bosilmaydi |
   | `organization` | object \| null | Yuboruvchi tashkilot: `{ id, name, logo_url }`. `null` — hodisada tashkilot yo'q (cron eslatmasi, CV tahriri). `logo_url` tashkilotda logotip bo'lmasa `null` |
   | `is_read` | bool | O'qilgan holati (qizil nuqta `false` da ko'rsatiladi) |
   | `created_at` | int | Yaratilgan vaqt (unix, sekund) |
@@ -74,6 +74,26 @@ docs: |
   > **Push dublikati yo'q.** Chat system-xabari orqali allaqachon `new_message`
   > push ketgan hodisalarda inbox qatori **push'siz** yoziladi — bir hodisa
   > uchun ikki bildirishnoma kelmaydi.
+
+  ### 🔗 `mobile_url` marshrutlari
+
+  DB'da saqlanmaydi — har o'qishda `type` va `data` asosida
+  [`DeeplinkResolver`](../../../common/services/DeeplinkResolver.php) hisoblab
+  beradi, ya'ni marshrut o'zgarsa eski qatorlar ham yangi linkni qaytaradi.
+
+  | `type` | `mobile_url` |
+  |---|---|
+  | `application_reviewed` \| `application_accepted` \| `application_rejected` | `xba://application?application_id={id}&conversation_id={id}&vacancy_id={id}` |
+  | `process_group_started` \| `process_group_confirmed` \| `process_pipeline_completed` \| `payment_overdue` | `xba://service-group?service_group_id={id}&conversation_id={id}` |
+  | `cv_contact_changed_by_org` | `xba://cv/contacts?cv_id={id}` |
+  | `cv_incomplete_reminder` | `xba://cv?cv_id={id}` (`cv_id` yo'q bo'lsa — `xba://cv/list`) |
+
+  > Ilova taniydigan host'lar ro'yxati: `docs/DEEPLINKS.md`. `conversation_id`
+  > bo'lmasa `application` linki "Arizalarim" ro'yxatini ochadi, `service-group`
+  > linki esa umuman yuborilmaydi (`null`) — chat'siz bosqichlar oynasi
+  > ko'tarilmaydi. Qator ID'lari (`vacancy_id`, `application_id`, `cv_id`,
+  > `service_group_id`, `conversation_id`) alohida maydonlar sifatida ham keladi,
+  > shuning uchun ilova linkni o'zi ham yig'a oladi.
 
   ### ⚠️ Errors
 

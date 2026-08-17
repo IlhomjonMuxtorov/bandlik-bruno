@@ -80,8 +80,8 @@ docs: |
   |---|---|---|
   | `contract_pending_approval` | `/dashboard/contracts?contractTab=pending&contractId={id}` | `null` |
   | `vacancy_application_received` | `/dashboard/vacancies/{vacancy_id}?tab=applications&applicationId={id}` | `null` |
-  | `cv_contact_changed_by_org` | `null` | `xba://cv/contacts?cvId={id}` |
-  | `cv_incomplete_reminder` | `null` | `xba://cv` |
+  | `cv_contact_changed_by_org` | `null` | `xba://cv/contacts?cv_id={id}` |
+  | `cv_incomplete_reminder` | `null` | `xba://cv?cv_id={id}` |
 
   > Chat push'lari (`new_message` / `incoming_call`) inbox qatori **yaratmaydi** —
   > ular faqat FCM orqali keladi. To'liq deeplink jadvali: `docs/FCM_PAYLOADS.md`.
