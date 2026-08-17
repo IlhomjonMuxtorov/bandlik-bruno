@@ -14,6 +14,19 @@ docs: 'Tajribani o''chirish. `204 No Content`.
 
   **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
 
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `403` | MVD (elektron hukumat) dan sinxronlangan yozuv (`is_from_mvd=true`) —
+  o''chirilmaydi, keyingi sinxronlashda qaytadan paydo bo''ladi |
+
+  | `404` | Yozuv topilmadi yoki boshqa CV''ga tegishli |
+
   '
 settings:
   encodeUrl: true

@@ -17,8 +17,12 @@ http:
 docs: 'Mavjud ish tajribasi yozuvini yangilaydi.
 
 
-  ⚠️ **MVD''dan sinxronlangan yozuv** (`is_from_mvd=true`) — admin tarafda
-  butunlay muzlatilgan: so''rov `403` bilan rad etiladi.
+  ℹ️ **MVD''dan sinxronlangan yozuv** (`is_from_mvd=true`) — **qisman** muzlatilgan
+  (mobil bilan bir xil qoida): elektron hukumat bergan `company_name`, `position`,
+  `start_date`, `end_date` **o''zgarmaydi** — yuborilsa jim e''tiborga olinmaydi
+  (`200`, DB o''zgarmaydi). MVD yubormaydigan `country_id`, `city_id`, `description`,
+  `achievements`, `recommendation_file_id` tahrirlanadi. Audit log''ga faqat haqiqiy
+  o''zgargan maydon tushadi.
 
 
   **Auth:** `applicationCvManage` — faqat `xba_admin` / `xba_manager`.
@@ -29,7 +33,9 @@ docs: 'Mavjud ish tajribasi yozuvini yangilaydi.
   Maydonlar `7a. Experience Create` bilan bir xil (`company_name`, `position`,
   `country_id`, `city_id`, `start_date`, `end_date`, `description`, `achievements`,
   `recommendation_file_id`). To''liq almashtirish semantikasi — yuborilmagan ixtiyoriy
-  maydon `null` ga tushadi.
+  maydon `null` ga tushadi (istisno: `recommendation_file_id` yuborilmasa joriy fayl
+  saqlanadi). MVD yozuvida muzlatilgan 4 maydon bundan mustasno — ular hech qachon
+  o''zgarmaydi.
 
 
   ### ⚠️ Errors
@@ -41,8 +47,7 @@ docs: 'Mavjud ish tajribasi yozuvini yangilaydi.
 
   | `404` | Ariza / CV / tajriba yozuvi topilmadi |
 
-  | `403` | Boshqa tashkilot, `applicationCvManage` yo''q, yoki MVD''dan sinxronlangan
-  yozuv (`Cannot edit MVD-synced data`) |
+  | `403` | Boshqa tashkilot yoki `applicationCvManage` huquqi yo''q |
 
   | `403` | Ariza faol emas (`applied`/`reviewed`/`accepted` emas) — CV endi
   tahrirlanmaydi |

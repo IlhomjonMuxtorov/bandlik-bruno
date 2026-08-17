@@ -23,7 +23,7 @@ docs: 'Manual ish tajribasi yozuvini o''chiradi. MVD''dan sinxronlangan yozuvlar
   | `404` | Ariza / CV / tajriba yozuvi topilmadi |
 
   | `403` | Boshqa tashkilot, `applicationCvManage` yo''q, yoki MVD''dan sinxronlangan
-  yozuv (`Cannot edit MVD-synced data`) |
+  yozuv (`Cannot delete MVD-synced experience record.`) |
 
   | `403` | Ariza faol emas (`applied`/`reviewed`/`accepted` emas) — CV endi
   tahrirlanmaydi |

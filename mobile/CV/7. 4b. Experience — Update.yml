@@ -21,10 +21,13 @@ http:
 docs: 'Mavjud tajribani yangilash. Maydonlar `create` bilan bir xil.
 
 
-  ℹ️ **MVD'' dan sinxronlangan yozuvlar (`is_from_mvd=true`):** body shu endpoint''ga
-  yuborilganda faqat `recommendation_file_id` maydoni qabul qilinadi (MVD hujjat skanini
-  bermaydi — nomzod o''zi biriktiradi). Qolgan maydonlar (`company_name`, `position`, va
-  h.k.) jim e''tiborga olinmaydi.
+  ℹ️ **MVD'' dan sinxronlangan yozuvlar (`is_from_mvd=true`) — qisman muzlatilgan:**
+  elektron hukumat bergan maydonlar **o''zgarmaydi** — `company_name`, `position`,
+  `start_date`, `end_date` body''da yuborilsa **jim e''tiborga olinmaydi** (403 emas,
+  200 qaytadi, DB''dagi qiymat o''zgarmaydi). MVD yubormaydigan maydonlar esa
+  tahrirlanadi: `country_id`, `city_id`, `description` (vazifalar), `achievements`
+  (yutuqlar), `recommendation_file_id`. Frontend `is_from_mvd=true` bo''lganda
+  muzlatilgan 4 inputni `disabled` qilib, to''liq formani yuboraversa bo''ladi.
 
 
   **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
@@ -37,9 +40,9 @@ docs: 'Mavjud tajribani yangilash. Maydonlar `create` bilan bir xil.
 
   |---|---|:---:|---|
 
-  | `company_name` | string | ✅ | Tashkilot nomi |
+  | `company_name` | string | ✅ | Tashkilot nomi. 🔒 MVD yozuvida o''zgarmas |
 
-  | `position` | string | ✅ | Lavozim |
+  | `position` | string | ✅ | Lavozim. 🔒 MVD yozuvida o''zgarmas |
 
   | `country_id` | int | ➖ | Ish joyi davlati (`GET /mobile/countries`). Yuborilmasa
   `null` ga tushadi |
@@ -47,9 +50,9 @@ docs: 'Mavjud tajribani yangilash. Maydonlar `create` bilan bir xil.
   | `city_id` | int | ➖ | Ish joyi shahri (`GET /mobile/cities?country_id=<id>`).
   Tanlangan `country_id` ga tegishli bo''lishi shart |
 
-  | `start_date` | date | ✅ | `DD.MM.YYYY` |
+  | `start_date` | date | ✅ | `DD.MM.YYYY`. 🔒 MVD yozuvida o''zgarmas |
 
-  | `end_date` | date | ➖ | `null` = hozirgacha |
+  | `end_date` | date | ➖ | `null` = hozirgacha. 🔒 MVD yozuvida o''zgarmas |
 
   | `description` | string | ➖ | Vazifalar va qilgan ishlar (erkin matn). Bo''sh matn
   `null` ga aylanadi |
@@ -61,6 +64,11 @@ docs: 'Mavjud tajribani yangilash. Maydonlar `create` bilan bir xil.
   o''chiriladi. Saqlash uchun joriy qiymat bo''lsa, qaytadan yuborilsin yoki maydon
   yuborilmasin |
 
+
+  > **To''liq ustiga yozish (PUT semantikasi):** yuborilmagan maydon `null` ga tushadi —
+  faqat `achievements` yuborilsa `description` / `country_id` / `city_id` tozalanadi.
+  Istisno — `recommendation_file_id`: yuborilmasa joriy fayl saqlanadi. Shu sabab
+  formadagi barcha maydon har PATCH''da yuborilsin.
 
   > Validatsiya xabarlari qurilma tilida (`user_device.language`) qaytadi va maydon
   nomlari interfeys sarlavhalari bilan bir xil (`company_name` → «Tashkilot nomi»,
