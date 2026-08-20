@@ -62,7 +62,9 @@ docs: 'Bitta CV-ning to''liq tafsilotlari (education, experience, languages va h
   `{ key, label, required, advised, filled }` (UI checklist uchun). To''liq jadval:
   **CV Completion** so''rovi docs''ida |
 
-  | `personal` | object | Passport asosida (CV-dan qat''iy nazar bir xil) |
+  | `personal` | object | Passport asosida (CV-dan qat''iy nazar bir xil): `{ passport_id, pinpp, birth_date, full_name, sex, sex_label }` |
+
+  | `personal.sex` \| `.sex_label` | int \| null / string \| null | **Yangi.** Jinsi, MVD `passport_data.sex` dan: `1` — erkak, `2` — ayol; `sex_label` — lokalizatsiya qilingan matn (`Erkak` \| `Ayol`). Ikkisi ham `null` — MVD hali javob bermagan |
 
   | `birth_place` | object | **BREAKING:** endi qat''iy MVD-derived: `{ address, country
   }`. Eski `region`/`district` kalitlari OLIB TASHLANDI (MVD ularni ajratmaydi).
@@ -71,8 +73,11 @@ docs: 'Bitta CV-ning to''liq tafsilotlari (education, experience, languages va h
   EMAS; `null` — MVD topilmagan. `country` — tug''ilgan davlat, `country.gcp_code`
   orqali lokalizatsiya, bo''lmasa xom MVD qiymati (`null` — noma''lum) |
 
-  | `passport` | object | `{ tin, foreign_passport_number, citizenship, had_visa_before,
-  additional_visa_country }`. `citizenship` (yangi) — `{ id, name }`: `id` = GCP
+  | `passport` | object | `{ tin, foreign_passport_number, nationality, citizenship,
+  had_visa_before, additional_visa_country }`. `nationality` (yangi) — `{ id, name }`:
+  **millat**, fuqarolikdan FARQ QILADI (`nationality` = "O''zbek", `citizenship` =
+  "O''zbekiston"); `id` = GCP `SP_ID` (`nationality.id`), `name` — lokalizatsiya,
+  bo''lmasa xom MVD qiymati (`null` — MVD bermagan). `citizenship` — `{ id, name }`: `id` = GCP
   davlat kodi (`country.gcp_code`), `null` — MVD kod bermagan/davlat mos kelmagan;
   `name` — lokalizatsiya, bo''lmasa xom MVD fuqarolik qiymati. `additional_visa_country`
   — `{id, name}` \| `null` |

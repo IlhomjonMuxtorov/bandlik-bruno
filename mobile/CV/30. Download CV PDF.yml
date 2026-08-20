@@ -21,11 +21,39 @@ docs: 'Nomzodning CV-sini PDF fayl sifatida yuklab oladi. Shablon `?template=` b
   qurilma JWT-dagi `device_id` orqali aniqlanadi.
 
 
-  **Europass** shabloni admin paneldagi CV ko''rinishining (`EuropassCvTemplate`)
-  bosma nusxasi: chapda 250px quyuq ko''k ustun (portret, F.I.Sh., asosiy
-  ma''lumotlar, aloqa, biriktirilgan hujjatlar), o''ngda oq fonda bo''limlar —
-  tug''ilgan joy va propiska, viza tarixi, ta''lim, mehnat faoliyati, oila,
-  tillar, ko''nikmalar, trening va sertifikatlar.
+  **Rezyume ≠ ekrandagi CV.** PDF ataylab ekrandagi CV''dan tor: u tizimdan
+  tashqariga chiqadigan hujjat, shu bois ichki va shaxsiy maydonlar chiqmaydi.
+
+
+  **Chap ustunda — aynan 6 qator, shu tartibda:** passport raqami, tug''ilgan sana,
+  tug''ilgan shahri (`birth_place.country, .address`), yashash shahri
+  (`registration.country, .region` \| `.district`), millati
+  (`passport.nationality.name`, bo''lmasa `passport.citizenship.name`), jinsi
+  (`personal.sex_label`). Europass/Klassikda shu ustunda biriktirilgan hujjatlar
+  ro''yxati ham turadi.
+
+
+  **O''ng ustunda — CV to''ldirish qadamlari tartibida** (`CvCompletionDTO` ning 12
+  bandi va endpointlardagi qadam raqamlari): ta''lim (3) → mehnat faoliyati (4) →
+  oila a''zolari (5) → tillar (7) → hujjatlar (8) → haydovchilik guvohnomasi (9) →
+  trening va sertifikatlar (10) → ko''nikmalar → qo''shimcha bo''limlar (12.x —
+  xobbi, loyihalar, nashrlar, konferensiyalar va h.k., har biri **alohida** bo''lim)
+  → huquqiy holat → tibbiy ma''lumotlar. Ko''nikmalar va tekshiruv bo''limlarining
+  o''z qadami yo''q, shu bois raqamlilardan keyin turadi. Europass/Klassikda
+  hujjatlar chap ustunda, shu sabab bu joylashuv faqat Zamonaviy va Professionalda
+  ko''rinadi. **To''ldirilmagan bo''lim umuman chiqmaydi** (bo''sh sarlavha ham
+  qolmaydi).
+
+
+  **PDF''ga CHIQMAYDIGAN maydonlar** (ekrandagi CV''da qoladi): JSHSHIR, STIR,
+  xorijiy passport raqami, hisoblangan umumiy ish tajribasi, aloqa bloki (telefon,
+  email, qo''shimcha telefon, aloqa shaxsi), to''liq yashash manzili (12 maydonli
+  MVD bloki), viza tarixi, hamda CV telemetriyasi — rezyume nomi, holati,
+  to''ldirilganlik foizi, ko''rishlar, tashriflar, takliflar.
+
+
+  **Brend belgisi** har to''rt shablonda o''ng ustun mazmuni bilan bir chizizda
+  tugaydi; Zamonaviy shablonning quyuq sarlavhasida oq variant ishlatiladi.
 
 
   **Auth:** `access_token`.
@@ -33,7 +61,8 @@ docs: 'Nomzodning CV-sini PDF fayl sifatida yuklab oladi. Shablon `?template=` b
 
   > **JSHSHIR (PINFL) PDF-ga chiqmaydi.** PDF tizimdan tashqariga chiqadigan
   artefakt, shu bois qator umuman render qilinmaydi (ADR-380). Ilovadagi CV
-  ko''rinishi o''zgarmaydi.
+  ko''rinishi o''zgarmaydi. Xuddi shu mantiq bilan aloqa ma''lumotlari, to''liq
+  manzil, viza tarixi va CV telemetriyasi ham chiqarilmaydi (ADR-394).
 
 
   > **Surat orientatsiyasi.** PDF generatori (mPDF) EXIF `Orientation` tegini

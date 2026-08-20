@@ -27,6 +27,17 @@ docs: 'Arizaga biriktirilgan kandidatning to''liq CV''si (mobil `GET /mobile/cv/
   > `Vacancy Candidates Pipeline → 5. Candidate Profile`.
 
 
+  > **`personal.sex` / `personal.sex_label`** — jinsi, MVD `passport_data.sex` dan:
+  > `1` — erkak, `2` — ayol; `sex_label` — lokalizatsiya qilingan matn. Ikkisi ham
+  > `null` — MVD hali javob bermagan.
+
+
+  > **`passport.nationality`** — `{ id, name }`, **millat**. Fuqarolikdan farq
+  > qiladi: `nationality` = "O''zbek", `citizenship` = "O''zbekiston". `id` = GCP
+  > `SP_ID` (`nationality.id`), `name` — lokalizatsiya, bo''lmasa xom MVD qiymati;
+  > `null` — MVD bermagan.
+
+
   > **Maxfiylik — PINFL mask.** `personal.pinpp` (JSHSHIR) admin/xodim javoblarida
   > **maskalanadi** — faqat oxirgi 4 raqam ko''rinadi (masalan `**********1234`). To''liq
   > PINFL''ni faqat nomzodning o''zi mobil ilovada ko''radi; superadmin ham to''liq
