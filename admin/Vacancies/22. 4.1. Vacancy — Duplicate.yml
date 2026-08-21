@@ -43,16 +43,18 @@ docs: |-
   | `organization` / `recruiter` / `industry` / `country` / `city` / maosh / manzil / `service_groups[]` / `requirements[]` / `language_requirements[]` / `benefits[]` / `documents[]` | Manbadan **aynan** ko'chiriladi |
   | `total_service_amount` | Ko'chirilgan xizmatlar asosida qayta hisoblanadi (manba bilan bir xil bo'ladi, chunki xizmatlar o'zgarishsiz) |
 
-  > Manbada **kamida bitta training xizmati + kurs** bo'lishi shart (Create bilan
-  > bir xil qoida) — nusxa boshlanishidayoq (tranzaksiyadan oldin) tekshiriladi.
-  > Eski (task #08 dan oldingi) kurssiz vakansiyani nusxalab bo'lmaydi → `400`.
-  > Shartnoma (`contract_id`) esa umuman ko'chirilmaydi (yuqoriga qarang).
+  > Manbadagi kurs talabi **shartli** (Create bilan bir xil qoida):
+  > `app_setting.vacancy_training_course_required = false` (joriy default) bo'lsa kurssiz
+  > vakansiyani ham nusxalash mumkin. Toggle `true` bo'lsa manbada **kamida bitta training
+  > xizmati + kurs** bo'lishi shart — nusxa boshlanishidayoq (tranzaksiyadan oldin)
+  > tekshiriladi, aks holda `400` (eski, task #08 dan oldingi kurssiz vakansiyalar shunda
+  > nusxalanmaydi). Shartnoma (`contract_id`) esa umuman ko'chirilmaydi (yuqoriga qarang).
 
   ### ⚠️ Errors
 
   | Code | Reason |
   |---|---|
-  | `400` | Manbada kurs biriktirilgan training xizmati yo'q |
+  | `400` | Manbada kurs biriktirilgan training xizmati yo'q (faqat `vacancy_training_course_required = true` bo'lganda) |
   | `404` | Manba vakansiya topilmadi |
   | `403` | Boshqa tashkilotning vakansiyasi (ownership View bilan bir xil) |
   | `401` | Token yo'q / eskirgan |

@@ -35,6 +35,8 @@ docs: |
       "vacancy_auto_approve_window_minutes": 180,
       "manual_topup_enabled": false,
       "contract_myid_confirmation_required": true,
+      "mobile_passport_auth_enabled": true,
+      "vacancy_training_course_required": false,
       "created_at": 1739000000,
       "updated_at": 1739000000
     },
@@ -48,6 +50,10 @@ docs: |
   > `vacancy_auto_approve_enabled` / `vacancy_auto_approve_window_minutes` — vakansiya timeout avto-tasdiq siyosati (global toggle + kutish oynasi daqiqada, default `180`). Faqat admin/internal — mobil `support`/`about` javoblarida chiqmaydi.
 
   > `contract_myid_confirmation_required` — `true` bo'lsa nomzod shartnomani qabul qilishdan oldin MyID Face ID tasdig'idan o'tishi shart (`offer/accept` `confirmation_id` talab qiladi). Mobil reliz oynasida `false` qilinadi — eski buildlar ishlab turadi. Default `true`.
+
+  > `mobile_passport_auth_enabled` — eski `POST /mobile/auth/passport` hali qabul qilinadimi. `false` bo'lsa endpoint `400 { app_update_required: true }` qaytaradi. Default `true`.
+
+  > `vacancy_training_course_required` — vakansiyada kursga ega `training` xizmati va Training service group majburiymi. **Default `false`**: o'quv dasturi tayyor bo'lmagani uchun vakansiya `training` guruhisiz yaratiladi (kurs qadami ham, kurs to'lov qadami ham yo'q). Kurslar tayyor bo'lganda `true` qilinadi. Frontend vakansiya wizard'ida "O'quv kurslari" qadamini shu maydonga qarab yashirsin/majburiy qilsin.
 settings:
   encodeUrl: true
   timeout: 0

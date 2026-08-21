@@ -19,7 +19,8 @@ http:
         "about_text": {"uz": "Bandlik — ...", "ru": "Bandlik — ...", "en": "Bandlik — ..."},
         "about_logo_id": 0,
         "vacancy_auto_approve_enabled": true,
-        "vacancy_auto_approve_window_minutes": 180
+        "vacancy_auto_approve_window_minutes": 180,
+        "vacancy_training_course_required": false
       }
   auth: inherit
 docs: |
@@ -42,6 +43,8 @@ docs: |
 
   | `manual_topup_enabled` | bool | ➖ | Global toggle: gateway'siz nomzod hamyonini qo'lda to'ldirishga ruxsat berish (faqat test uchun, `POST /admin/payments/manual-topup`). Default `false`. |
   | `contract_myid_confirmation_required` | bool | ➖ | Global toggle: nomzod shartnomani qabul qilishdan (`POST /mobile/chats/{id}/offer/accept`) oldin **MyID Face ID** tasdig'idan o'tishi shartmi. Default `true`. |
+  | `mobile_passport_auth_enabled` | bool | ➖ | Global toggle: eski `POST /mobile/auth/passport` (pasport + tug'ilgan sana) hali qabul qilinadimi. `false` — `400 { app_update_required: true }`. Default `true`. |
+  | `vacancy_training_course_required` | bool | ➖ | Global toggle: vakansiyada kursga ega `training` xizmati va **Training service group** majburiymi. `false` (default) — o'quv dasturi tayyor bo'lmagani uchun ikkisi ham ixtiyoriy, vakansiya `training` guruhisiz yaratiladi. |
 
 
   > 📵 **Mobil reliz oynasi.** `contract_myid_confirmation_required = false` qilinsa
@@ -49,6 +52,13 @@ docs: |
   > buildlar ishlab turadi**. Ketma-ketlik: backend deploy → toggle `false` → yangi mobil
   > build chiqadi → toggle `true`. `false` paytida klient `confirmation_id` yuborsa,
   > u baribir tekshiriladi va sarflanadi (dalil yo'qolmaydi).
+
+  > 🎓 **O'quv kurslari oynasi.** `vacancy_training_course_required = false` (joriy default)
+  > paytida vakansiya `training` guruhisiz yaratiladi: pipeline'da kurs qadami ham, kurs
+  > to'lov qadami ham bo'lmaydi. O'quv dasturi tayyor bo'lganda toggle `true` qilinadi —
+  > shundan keyin `POST`/`PUT /admin/vacancies` va `duplicate` yana kursga ega `training`
+  > xizmatini talab qiladi. ⚠️ Toggle yoqilgach, `false` paytida yaratilgan **kurssiz
+  > vakansiyalar** keyingi tahrirda `400` beradi — avval ularga kurs biriktirish kerak.
 
   Har bir bool maydon **uch holatli**: kalit yuborilmasa — saqlangan qiymat
   o'zgarmaydi; `true`/`false`/`1`/`0`/`"yes"`/`"no"` — qabul qilinadi; boshqa qiymat —

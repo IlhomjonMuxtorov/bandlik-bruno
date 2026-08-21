@@ -106,7 +106,7 @@ docs: |
   | `salary_gross` / `salary_net` | int | ➖ | **Odatiy birlikda** (so'm/dollar), tiyinda emas. |
   | `requirements` | array | ✅ | Kamida bitta talab bo'lishi shart. |
   | `documents` | array | ✅ | Kamida bitta talab qilinadigan hujjat bo'lishi shart. |
-  | `service_groups` | array | ✅ | Kamida `training` (kurs biriktirilgan) va `xba` (bitta `agency` xizmati) guruhlari shart. |
+  | `service_groups` | array | ✅ | Kamida `xba` guruhi (bitta `agency` xizmati, `price > 0`) shart. `training` (kurs biriktirilgan) guruhi esa **shartli** — `app_setting.vacancy_training_course_required` toggle'i `true` bo'lganda majburiy; `false` (joriy default) bo'lsa umuman yuborilmasligi mumkin. |
 
   ### 📤 Response
 

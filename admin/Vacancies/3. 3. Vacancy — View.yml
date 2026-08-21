@@ -160,6 +160,7 @@ docs: |-
   | `organization_name` | string \| null | |
   | `organization_logo_url` | string \| null | |
   | `organization_service_id` | int \| null | Manba xizmat ID (snapshotgacha) |
+  | `educational_course_id` | int \| null | Biriktirilgan kurs ID. `null` — `training` bo'lmagan xizmat yoki kurs biriktirilmagan. Wizard'ga qaytarish (GET → PUT round-trip) uchun shu maydonni o'zgarishsiz yuboring |
   | `service_name` | string | Xizmat nomi (snapshot) |
   | `price` | int | Narx — **so'mda (major unit)** |
   | `currency` | string | ISO 4217 |
