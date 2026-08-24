@@ -1,0 +1,158 @@
+info:
+  name: Download CV Archive (ZIP)
+  type: http
+  seq: 86
+http:
+  method: GET
+  url: '{{base_url}}/mobile/cv/{{cv_id}}/download-archive?template=europass'
+  params:
+  - name: template
+    value: europass
+    type: query
+  headers:
+  - name: Accept
+    value: application/zip
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: 'CV PDF-ini va unga biriktirilgan hujjat skanlarini **bitta ZIP fayl** qilib
+  yuklab oladi — "Hujjatlar bilan" tanlovining haqiqiy fayllar bilan varianti.
+
+
+  `GET .../download-pdf?documents=1` PDF ichida faqat hujjat **nomlarini** chop
+  etadi (qog''ozdan fayl yuklab olinmaydi, ADR-380). Bu endpoint esa fayllarning
+  o''zini beradi: arxiv ichida CV PDF + skanlar.
+
+
+  **Auth:** `access_token`.
+
+
+  ### 📦 ZIP tuzilmasi
+
+
+  ```
+
+  RUSTAMOV_JAVOHIR.zip
+
+  ├── RUSTAMOV_JAVOHIR.pdf                  ← download-pdf bilan bir xil nom/mazmun
+
+  ├── Hujjatlar/
+
+  │   ├── 01 Passport.pdf
+
+  │   └── 02 Xorijiy passport.pdf
+
+  └── Haydovchilik guvohnomasi sertifikatlari/
+
+      └── 01 ADR sertifikati.jpg
+
+  ```
+
+
+  - **Doirasi — CV''ning "Hujjatlar" qadami:** `candidate_cv_document` orqali
+  biriktirilgan hujjat skanlari va `candidate_cv_driver_certificate` orqali
+  biriktirilgan haydovchilik sertifikatlari. Diplom, tavsiyanoma, kurs
+  sertifikati, viza va loyiha fayllari arxivga **kirmaydi** — ular o''z
+  bo''limlariga tegishli.
+
+  - Papka nomlari `Accept-Language` tiliga tarjima qilinadi (`Hujjatlar` /
+  `Документы` / `Documents`).
+
+  - Fayl nomi: `NN <hujjat nomi>.<kengaytma>`. `NN` — tartib raqami (bir xil
+  nomli hujjatlar to''qnashmasligi uchun); nom allaqachon kengaytma bilan tugasa
+  ikkinchi marta qo''shilmaydi.
+
+  - **Hech qanday hujjat biriktirilmagan bo''lsa ham `200` va ZIP qaytadi** —
+  ichida faqat CV PDF. Mijozda ikki xil oqim kerak emas.
+
+  - Fayli o''chib ketgan yoki yuklanishi tugamagan (`status != ready`) biriktirma
+  jimgina o''tkazib yuboriladi — bitta yo''q skan butun yuklab olishni buzmaydi.
+
+  - `?documents=` **yo''q**: arxiv ta''rifan hujjatlar bilan eksport, ichidagi PDF
+  ham shunday render qilinadi.
+
+
+  ### 📋 Path Params
+
+
+  | Param | Type | Description |
+
+  |---|---|---|
+
+  | `cv_id` | int | CV ID |
+
+
+  ### 🔎 Query Parameters
+
+
+  | Param | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `template` | string | ➖ | ZIP ichidagi PDF shabloni: `europass` \| `modern`
+  \| `professional` \| `classic`. Default: `europass`. Noma''lum qiymat xato
+  bermaydi — `europass` ga qaytadi. |
+
+
+  ### 📋 Headers
+
+
+  | Header | Required | Description |
+
+  |---|:---:|---|
+
+  | `Authorization` | ✅ | `Bearer {access_token}` |
+
+  | `Accept` | ✅ | `application/zip` — aks holda `406` qaytadi |
+
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz`. ZIP papka
+  nomlari va PDF tili. |
+
+
+  ### 📤 Response
+
+
+  Binary ZIP fayl.
+
+
+  | Header | Value |
+
+  |---|---|
+
+  | `Content-Type` | `application/zip` |
+
+  | `Content-Disposition` | `attachment; filename="<F.I.Sh>.zip"` |
+
+  | `Access-Control-Expose-Headers` | `Content-Disposition, Content-Length` |
+
+
+  > **Fayl nomi frontendda.** Brauzer cross-origin `fetch()` da JS-ga faqat
+  CORS-safelisted headerlarni beradi, shu bois server `Content-Disposition` va
+  `Content-Length` ni `Access-Control-Expose-Headers` orqali ochadi.
+
+
+  > Bruno-da javobni ko''rish uchun **Response → Save Response** orqali `.zip`
+  qilib saqlang.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q yoki eskirgan |
+
+  | `404` | CV topilmadi yoki boshqa nomzodga tegishli |
+
+  | `406` | `Accept: application/zip` header yuborilmagan |
+
+  | `500` | Arxiv faylni yaratib bo''lmadi (disk/runtime muammosi) |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

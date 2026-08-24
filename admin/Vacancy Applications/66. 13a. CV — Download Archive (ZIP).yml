@@ -1,0 +1,154 @@
+info:
+  name: CV — Download Archive (ZIP)
+  type: http
+  seq: 66
+http:
+  method: GET
+  url: '{{base_url}}/admin/candidate-cv/{{cv_id}}/download-archive?template=europass'
+  params:
+  - name: template
+    value: europass
+    type: query
+  headers:
+  - name: Accept
+    value: application/zip
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: 'Nomzod CV-sini **va unga biriktirilgan hujjat skanlarini** bitta ZIP fayl
+  qilib yuklab oladi — rekruter hujjatlarni bittalab `file_url` orqali yuklab
+  olmasligi uchun.
+
+
+  `download-pdf?documents=1` PDF ichida faqat hujjat **nomlarini** chop etadi
+  (ADR-380); bu endpoint fayllarning o''zini beradi.
+
+
+  **Auth:** `admin_token`. Ruxsat PDF bilan bir xil: `applicationView` +
+  aktyor doirasi (`assertCvWithinActorScope`) — CV kamida bitta o''z
+  vakansiyangizga ariza bergan bo''lishi kerak. Arxiv JSON CV''da bo''lmagan
+  hech narsani ochmaydi (hujjat `file_url` lari allaqachon CV javobida bor).
+
+
+  > Endpoint `cv_id` bo''yicha ishlaydi (ariza ID bo''yicha emas) — bitta CV bir
+  nechta arizada qatnashishi mumkin. JSHSHIR maskalangan.
+
+
+  ### 📦 ZIP tuzilmasi
+
+
+  ```
+
+  RUSTAMOV_JAVOHIR.zip
+
+  ├── RUSTAMOV_JAVOHIR.pdf                  ← download-pdf bilan bir xil nom/mazmun
+
+  ├── Hujjatlar/
+
+  │   ├── 01 Passport.pdf
+
+  │   └── 02 Xorijiy passport.pdf
+
+  └── Haydovchilik guvohnomasi sertifikatlari/
+
+      └── 01 ADR sertifikati.jpg
+
+  ```
+
+
+  - **Doirasi — CV''ning "Hujjatlar" qadami:** `candidate_cv_document` va
+  `candidate_cv_driver_certificate` orqali biriktirilgan fayllar. Diplom,
+  tavsiyanoma, kurs sertifikati, viza va loyiha fayllari arxivga **kirmaydi**.
+
+  - Papka nomlari `Accept-Language` tiliga tarjima qilinadi.
+
+  - Hujjat biriktirilmagan bo''lsa ham `200` va ZIP qaytadi — ichida faqat PDF.
+
+  - Fayli o''chgan yoki `status != ready` biriktirma jimgina o''tkazib yuboriladi.
+
+  - `?documents=` **yo''q**: arxiv ta''rifan hujjatlar bilan eksport.
+
+
+  ### 📋 Path Params
+
+
+  | Param | Type | Description |
+
+  |---|---|---|
+
+  | `cv_id` | int | CV ID (`GET admin/vacancy-applications/<id>/cv` javobidan) |
+
+
+  ### 🔎 Query Parameters
+
+
+  | Param | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `template` | string | ➖ | ZIP ichidagi PDF shabloni: `europass` \| `modern`
+  \| `professional` \| `classic`. Default: `europass`. Noma''lum qiymat
+  `europass` ga qaytadi. |
+
+
+  ### 📋 Headers
+
+
+  | Header | Required | Description |
+
+  |---|:---:|---|
+
+  | `Authorization` | ✅ | `Bearer {admin_token}` |
+
+  | `Accept` | ✅ | `application/zip` — aks holda `406` qaytadi |
+
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz`. ZIP papka
+  nomlari va PDF tili. |
+
+
+  ### 📤 Response
+
+
+  Binary ZIP fayl.
+
+
+  | Header | Value |
+
+  |---|---|
+
+  | `Content-Type` | `application/zip` |
+
+  | `Content-Disposition` | `attachment; filename="<F.I.Sh>.zip"` |
+
+  | `Access-Control-Expose-Headers` | `Content-Disposition, Content-Length` |
+
+
+  > **Fayl nomi frontendda.** Panel `fetch()` bilan yuklab oladi (JWT sababli
+  oddiy `<a href>` ishlamaydi), shu bois `Content-Disposition` va
+  `Content-Length` `Access-Control-Expose-Headers` orqali ochilgan.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q yoki eskirgan |
+
+  | `403` | `applicationView` ruxsati yo''q yoki CV sizning vakansiyalaringizga
+  ariza bermagan |
+
+  | `404` | CV topilmadi |
+
+  | `406` | `Accept: application/zip` header yuborilmagan |
+
+  | `500` | Arxiv faylni yaratib bo''lmadi (disk/runtime muammosi) |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

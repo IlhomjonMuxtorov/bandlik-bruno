@@ -79,6 +79,11 @@ docs: 'Nomzodning CV-sini PDF fayl sifatida yuklab oladi. Shablon `?template=` b
   ishlaydi. Mijoz tarafida hech narsa qilish kerak emas.
 
 
+  > **Fayllar bilan kerak bo''lsa.** `documents=1` faqat hujjat NOMLARINI chop
+  etadi. Skanlarning o''zi kerak bo''lsa — `GET /mobile/cv/<id>/download-archive`
+  (CV PDF + hujjatlar bitta ZIP faylda).
+
+
   ### 📋 Path Params
 
 

@@ -141,6 +141,11 @@ docs: 'Nomzod CV-sini PDF fayl sifatida yuklab oladi — paneldagi "Yuklab olish
   `response.headers.get(''content-disposition'')` doim `null` qaytardi.
 
 
+  > **Fayllar bilan kerak bo''lsa.** `documents=1` faqat hujjat NOMLARINI chop
+  etadi. Skanlarning o''zi kerak bo''lsa —
+  `GET /admin/candidate-cv/<id>/download-archive` (CV PDF + hujjatlar bitta ZIP).
+
+
   ### ⚠️ Errors
 
 
