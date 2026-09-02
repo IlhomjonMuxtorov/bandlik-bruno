@@ -39,7 +39,7 @@ docs: |
   |---|---|:---:|---|
   | `confirmation_id` | int | ✅ | `start` qaytargan `contract_confirmation.id`. |
   | `code` | string | ✅ | MyID SDK bergan bir martalik kod. Bir kod faqat **bir marta** ishlaydi. |
-  | `image_base64` | string | ➖ | Olingan yuz surati (base64, JPEG). **Saqlanadi** — imzo dalili sifatida `contract_confirmation.face_upload_file_id` ga bog'lanadi. Yo'q bo'lsa hech narsa saqlanmaydi (tasdiq baribir kuchda). Min. 100 belgi, maks. 10 MB. |
+  | `image_base64` | string | ➖ | Olingan yuz surati (base64, JPEG). **Saqlanadi** — imzo dalili sifatida `contract_confirmation.face_upload_file_id` ga bog'lanadi. Yo'q bo'lsa hech narsa saqlanmaydi (tasdiq baribir kuchda). Min. 100 belgi, maks. 40 MB. |
   | `device_id` | string | ➖ | Qurilma identifikatori. Maks. 64 belgi. |
 
   > `ip` va `user_agent` **klientdan olinmaydi** — server so'rovning o'zidan yozadi (dalil).

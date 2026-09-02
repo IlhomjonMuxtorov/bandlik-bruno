@@ -37,7 +37,7 @@ docs: 'Faylni serverga yuklaydi va keyinchalik entity yaratish/yangilashda ishla
   | mp3, m4a, aac, ogg, opus, wav, webm | Audio (ovozli xabar) |
 
 
-  **Maksimal hajm:** 10 MB (audio fayllar uchun 25 MB)
+  **Maksimal hajm:** 40 MB (audio fayllar uchun ham 40 MB)
 
   **Rasm maksimal o''lchami:** 8000×8000 px
 
@@ -110,7 +110,7 @@ docs: 'Faylni serverga yuklaydi va keyinchalik entity yaratish/yangilashda ishla
 
   | `403` | Admin ruxsat yo''q |
 
-  | `413` | Fayl 10 MB dan katta (web-server darajasida) |
+  | `413` | Fayl 40 MB dan katta (web-server darajasida) |
 
   | `422` | Serverda MIME tekshiruvi muvaffaqiyatsiz bo''ldi |
 
