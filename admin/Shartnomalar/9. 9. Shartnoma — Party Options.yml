@@ -1,0 +1,76 @@
+info:
+  name: 9. Shartnoma — Party Options
+  type: http
+  seq: 9
+http:
+  method: GET
+  url: '{{base_url}}/admin/contracts/party-options?side=a&q='
+  params:
+  - name: side
+    value: a
+    type: query
+    enabled: true
+  - name: q
+    value: ''
+    type: query
+    enabled: false
+  auth: inherit
+docs: |
+  "Shartnoma yuklash" modalidagi ikkita select uchun yengil dropdown manbai.
+  Panel bu ro'yxatlarni platforma katalog endpointlaridan (`/admin/xba`,
+  `/admin/recruiters`, `/admin/employers`) yig'masligi kerak — ular og'ir DTO
+  qaytaradi, org-scope qilinmagan va `xbaView` sinfidagi ruxsatlar ortida turadi
+  (u esa bir agentlikka barcha raqobatchilarni sanab chiqish imkonini beradi).
+
+  Faqat **aktiv** tashkilotlar qaytariladi, A–Z tartibda. Tiplar
+  `OrganizationContract::rules()` dagi ruxsat etilgan to'plamlarga mos.
+
+  **Auth:** `admin_token` (`contractView` ruxsati).
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `side` | string | ✅ | Qaysi tomon uchun: `a` — Buyurtmachi (XBA \| Rekruter), `b` — Jalb qilingan tomon (Ish beruvchi \| Rekruter). Boshqa qiymat → `400`. |
+  | `q` | string | ➖ | Erkin qidiruv — `name` va `brand_name` bo'yicha `ilike`. |
+  | `per-page` | int | ➖ | Sahifa hajmi (1–100, default 20). |
+
+  > **Org-scope (ADR 0009).** Platforma admini (`superadmin` / `admin`) uchun
+  > ro'yxat to'liq. Tashkilot foydalanuvchisi (masalan `xba_admin`,
+  > `xba_manager`) uchun:
+  > - `side=a` → **faqat shartnoma tuzuvchi tashkilot** qaytadi (aynan 1 ta
+  >   element), shuning uchun frontend select'ni avtomatik to'ldirib `disabled`
+  >   qilishi kerak;
+  > - `side=b` → umumiy katalog, lekin ichidan shu tashkilot **chiqarib
+  >   tashlanadi** — model ikkala tomon bir xil bo'lishini taqiqlaydi.
+  >
+  > **XBA agent uchun** "shartnoma tuzuvchi tashkilot" — agentning o'zi emas,
+  > **root XBA**. Agent yaratgan vakansiyada `organization_id` = root, va
+  > `Vacancy::validateContract` shartnomaning `party_a` si aynan shunga teng
+  > bo'lishini talab qiladi. Shu sabab agent uchun ham `side=a` root XBA'ni
+  > qaytaradi.
+
+  ### 📤 Response
+
+  `200` — `{ items: OrganizationOptionDTO[], pagination }`. Har element:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Tashkilot ID — `party_a_organization_id` / `party_b_organization_id` ga yuboriladi |
+  | `type` | int | Tashkilot tipi: `1` = XBA, `6` = Ish beruvchi, `7` = Rekruter |
+  | `type_label` | string | Tarjima qilingan tip nomi (`Accept-Language` bo'yicha) |
+  | `name` | string | Tashkilot nomi, so'ralgan tilda (fallback `uz`) |
+  | `brand_name` | string \| null | Brend nomi; kiritilmagan bo'lsa `null` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `side` berilmagan yoki `a`/`b` dan boshqa qiymatda |
+  | `401` | Token yo'q yoki eskirgan |
+  | `403` | `contractView` ruxsati yo'q; yoki tashkilot foydalanuvchisi hech qaysi tashkilotga bog'lanmagan |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

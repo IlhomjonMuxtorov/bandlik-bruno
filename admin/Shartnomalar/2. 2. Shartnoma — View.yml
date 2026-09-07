@@ -9,7 +9,11 @@ http:
 docs: |
   Bitta shartnoma to'liq ma'lumoti.
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token` (`contractView` ruxsati).
+
+  > **Org-scope (ADR 0009).** Tashkilot foydalanuvchisi faqat o'z tashkiloti (XBA agent uchun — root XBA ham) tomon
+  > bo'lgan shartnomani ocha oladi. Begona shartnoma ID'si **404** qaytaradi (403
+  > emas) — endpoint bunday shartnoma mavjudligini ham tasdiqlamaydi.
 
   ### 📤 Response
 
@@ -19,7 +23,7 @@ docs: |
 
   | Code | Reason |
   |---|---|
-  | `404` | Shartnoma topilmadi |
+  | `404` | Shartnoma topilmadi, **yoki** boshqa tashkilotga tegishli |
 settings:
   encodeUrl: true
   timeout: 0

@@ -35,7 +35,18 @@ docs: |
   o'rtasidagi aktiv shartnomalar qaytariladi. Hop 0 da `party_a` — vakansiyani
   boshqaruvchi XBA.
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token` (`contractView` ruxsati).
+
+  > **Org-scope (ADR 0009).** Platforma admini barcha shartnomalarni ko'radi.
+  > Tashkilot foydalanuvchisi uchun ro'yxatga o'zgartirib bo'lmaydigan tashqi
+  > shart qo'shiladi: `party_a IN (mening org'larim) OR party_b IN (mening
+  > org'larim)`. U query paramlardan **keyin** AND bilan qo'shilgani uchun
+  > `?party_a_organization_id=<begona>` yuborish ro'yxatni kengaytirmaydi —
+  > bo'sh natija qaytaradi.
+  >
+  > "Mening org'larim" — odatda bitta tashkilot; **XBA agent** uchun esa agentning
+  > o'zi **va** root XBA. Agent yaratadigan vakansiyalar root nomidagi
+  > shartnomaga bog'lanadi, shuning uchun zanjir pickeri agentda ham to'ladi.
 
   ### 🔎 Query Parameters
 

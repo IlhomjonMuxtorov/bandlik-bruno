@@ -19,7 +19,21 @@ docs: |
   `approval_status = pending` holatda boshlanadi va super-admin tasdiqlashini
   kutadi. Hujjat avval `/admin/upload` orqali yuklanib, `upload_file_id` olinadi.
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token` (`contractCreate` ruxsati).
+
+  > **Org-scope (ADR 0009).** Tashkilot foydalanuvchisi shartnomani faqat **o'z
+  > nomidan** tuzadi: server `party_a_organization_id` ni majburan o'rnatadi va
+  > body'dagi qiymatni e'tiborsiz qoldiradi. Ya'ni qo'lda tahrirlangan so'rov ham
+  > boshqa agentlik nomidan shartnoma yarata olmaydi. Platforma admini uchun
+  > body'dagi qiymat saqlanadi.
+  >
+  > **XBA agent uchun `party_a` = root XBA** (agentning o'z id'si emas). Aks holda
+  > yaratilgan shartnomani hech qaysi vakansiya qabul qilmasdi —
+  > `Vacancy::validateContract` `party_a` ni vakansiyaning `organization_id` si
+  > (ya'ni root) bilan solishtiradi.
+  >
+  > Buyurtmachi/Jalb qilingan tomon select'lari uchun
+  > `GET /admin/contracts/party-options?side=a|b` ishlatiladi (9-so'rov).
 
   > **Bildirishnoma:** shartnoma muvaffaqiyatli yaratilganda tasdiqlash huquqiga
   > ega adminlarga (`contractApprove` / `contractReject` egalari + `superadmin`)
@@ -31,7 +45,7 @@ docs: |
 
   | Field | Type | Required | Description |
   |---|---|:---:|---|
-  | `party_a_organization_id` | int | ✅ | Buyurtmachi tomon: XBA (type 1) yoki rekruter (type 7). Ish beruvchi bu tomonda bo'la olmaydi. |
+  | `party_a_organization_id` | int | ✅ | Buyurtmachi tomon: XBA (type 1) yoki rekruter (type 7). Ish beruvchi bu tomonda bo'la olmaydi. Tashkilot foydalanuvchisi uchun server o'z tashkiloti bilan almashtiradi. |
   | `party_b_organization_id` | int | ✅ | Jalb qilingan tomon: ish beruvchi (6) yoki rekruter (7). `party_a` ga teng bo'lmasligi kerak. |
   | `contract_type` | string | ✅ | `vacancy` \| `yearly`. |
   | `candidate_count` | int | ⚠️ | `vacancy` tipida majburiy (≥1). `yearly` da yuborilsa e'tiborsiz qoldiriladi. |

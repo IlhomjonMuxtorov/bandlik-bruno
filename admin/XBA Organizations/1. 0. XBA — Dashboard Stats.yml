@@ -9,7 +9,12 @@ http:
 docs: |-
   XBA modulining yuqori statistika kartochkalari (ro'yxat sahifasi ustidagi 4 ta karta).
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token` (`xbaView` — faqat platforma admini).
+
+  > **Org-scope (ADR 0009).** Bu **barcha** XBA lar bo'yicha platforma agregati,
+  > bitta tashkilotning raqamlari emas — shu sabab tashkilot foydalanuvchisiga
+  > **403** qaytadi. O'z tashkiloti statistikasi:
+  > `GET /admin/my/organization/stats`.
 
   ### 📤 Response (`data`)
 

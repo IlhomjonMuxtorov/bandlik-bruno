@@ -9,7 +9,18 @@ http:
 docs: |-
   Bitta XBA tashkiloti haqida to'liq ma'lumot + `stats` blok.
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token` (`xbaView`).
+
+  > **Org-scope (ADR 0009).** Tashkilot foydalanuvchisi faqat o'z tashkilotini —
+  > XBA agent bo'lsa, qo'shimcha ravishda o'zi operatsiya qiladigan root XBA'ni —
+  > ocha oladi; boshqa har qanday ID **404** qaytaradi. Shu qoida sub-resurs
+  > tab'lariga ham tegishli (`/services`, `/employees`, `/clients`, `/vacancies`,
+  > `/archived-vacancies`, `/stats-charts`).
+  >
+  > Bu tab'lar `xbaView` ruxsatini talab qiladi va ular uchun boshqa route yo'q
+  > (`GET /admin/xba-employees` index mavjud emas). Faqat **profil + stats**
+  > kerak bo'lsa, ruxsat talab qilmaydigan `GET /admin/my/organization`
+  > (`ownOrganizationView`) ishlatilsin.
 
   ### 📤 `stats` (detal sahifa kartochkalari)
 

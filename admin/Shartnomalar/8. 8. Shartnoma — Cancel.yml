@@ -19,7 +19,11 @@ docs: |
   vakansiya tasdiqlanmaydi (gate). Allaqachon approved/published vakansiyalar
   **tegilmaydi** — ishlayveradi.
 
-  **Auth:** `admin_token` (super-admin).
+  **Auth:** `admin_token` (super-admin — `contractCancel` ruxsati).
+
+  > **Org-scope (ADR 0009).** Agar `contractCancel` biror tashkilot roliga
+  > berilsa, u faqat o'z tashkiloti (XBA agent uchun — root XBA ham) tomon bo'lgan shartnomani bekor qila oladi —
+  > begona ID **404** qaytaradi.
 
   ### 📥 Request Body
 

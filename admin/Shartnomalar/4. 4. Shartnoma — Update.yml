@@ -21,7 +21,16 @@ docs: |
   > ham bekor qiladi — `cancelled_at`/`cancellation_reason` tozalanadi va shartnoma
   > qayta `pending` bo'ladi (qayta yuborilgan deb hisoblanadi).
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token` (`contractUpdate` ruxsati).
+
+  > **Org-scope (ADR 0009).** Tashkilot foydalanuvchisi faqat o'z tashkiloti tomon
+  > bo'lgan shartnomani tahrirlaydi — begona ID **404** qaytaradi.
+  >
+  > `party_a_organization_id` **faqat aktor A tomonda bo'lganda** Create'dagi kabi
+  > almashtiriladi (XBA agent uchun — root XBA). Aktor **B tomonda** bo'lsa (ish
+  > beruvchi yoki quyi rekruter o'z nusxasini tahrirlayotganda) mavjud `party_a`
+  > o'zgarishsiz saqlanadi — aks holda ikkala tomon bir xil bo'lib, model
+  > ma'nosiz `422` qaytargan bo'lardi.
 
   ### 📥 Request Body
 
@@ -32,7 +41,7 @@ docs: |
 
   | Code | Reason |
   |---|---|
-  | `404` | Shartnoma topilmadi |
+  | `404` | Shartnoma topilmadi, **yoki** boshqa tashkilotga tegishli |
   | `422` | `candidate_count` band slotlardan past, yoki band vakansiya bor holda `vacancy→yearly` |
   | `400` | `upload_file_id` topilmadi yoki `status != ready` |
 settings:

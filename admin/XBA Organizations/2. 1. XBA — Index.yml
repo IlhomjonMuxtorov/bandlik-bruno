@@ -9,7 +9,19 @@ http:
 docs: |-
   XBA tashkilotlari ro'yxati (paginatsiya + filtrlar). Faqat `type = 1` yozuvlar qaytadi.
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token` (`xbaView` — platforma admini ruxsati).
+
+  > **Org-scope (ADR 0009).** Bu platforma katalogi: to'liq ro'yxatni faqat
+  > `superadmin` / `admin` ko'radi. `xbaView` biror tashkilot roliga qo'lda
+  > berilgan bo'lsa ham javob cheklanadi — bir agentlik boshqa agentliklarni
+  > sanab chiqa olmaydi:
+  > - root XBA → **faqat o'zi**;
+  > - XBA agent → **o'zi operatsiya qiladigan root XBA** (agentning o'z qatori
+  >   `root_only` filtri sababi bu ro'yxatga umuman tushmaydi — agentlar
+  >   `GET /admin/xba-agents` da).
+  >
+  > Shartnoma modalidagi Buyurtmachi select'i bu endpointdan **foydalanmaydi** —
+  > `GET /admin/contracts/party-options?side=a` ishlatiladi.
 
   ### 🔎 Query Parameters
 

@@ -10,13 +10,16 @@ docs: |
   Shartnomani **soft-delete** qiladi (`is_active = false`). Mavjud vakansiya
   bog'lanishlari saqlanadi; picker'da ko'rinmaydi.
 
-  **Auth:** `admin_token`.
+  **Auth:** `admin_token` (`contractDelete` ruxsati).
+
+  > **Org-scope (ADR 0009).** Tashkilot foydalanuvchisi faqat o'z tashkiloti (XBA agent uchun — root XBA ham) tomon
+  > bo'lgan shartnomani o'chira oladi — begona ID **404** qaytaradi.
 
   ### ⚠️ Errors
 
   | Code | Reason |
   |---|---|
-  | `404` | Shartnoma topilmadi |
+  | `404` | Shartnoma topilmadi, **yoki** boshqa tashkilotga tegishli |
 settings:
   encodeUrl: true
   timeout: 0
