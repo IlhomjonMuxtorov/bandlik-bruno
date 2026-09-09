@@ -17,7 +17,11 @@ http:
         "employment_type": "full_time",
         "hiring_quota": 15,
         "country_id": 1,
-        "requirements": [{ "id": 1, "sort_order": 0, "is_mandatory": true, "value_int_min": 21, "value_int_max": 45 }],
+        "requirements": [{ "id": 7, "sort_order": 0, "is_mandatory": true, "value_refs": ["married"] }],
+        "gender_requirements": [
+          { "gender": 1, "age_min": 18, "age_max": 30, "sort_order": 0 },
+          { "gender": 2, "age_min": 18, "age_max": 45, "sort_order": 1 }
+        ],
         "language_requirements": [{ "language_id": 3, "min_language_level_id": 4, "is_mandatory": true, "sort_order": 0 }],
         "benefits": [{ "id": 1, "mode": "money", "amount": 50, "currency": "USD", "sort_order": 0 }, { "id": 12, "value_min": 20, "value_max": 50, "sort_order": 1 }],
         "documents": [{ "id": 1, "sort_order": 0 }],
@@ -59,7 +63,8 @@ docs: |
 
   Create bilan bir xil (yuqorida) — `service_groups[]` (bitta tashkilot = bitta guruh, bir
   kategoriya faqat bitta tashkilotda, ikki muddat, nested `services[]` har biri o'z `category`
-  si bilan) bu yerda ham majburiy.
+  si bilan) bu yerda ham majburiy. `gender_requirements[]` ham xuddi shunday **butunlay
+  almashtiriladi**: yuborilmasa yoki `[]` bo'lsa — vakansiyaning jins/yosh cheklovi o'chadi.
 
   > **`deadline_at` (orqa sana):** muddat o'tmishdagi (orqa) sana bo'lmasligi kerak — bugun
   ruxsat. Bu tekshiruv faqat `deadline_at` **o'zgartirilganda** ishlaydi; eski qiymat

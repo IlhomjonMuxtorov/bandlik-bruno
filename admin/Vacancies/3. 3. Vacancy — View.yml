@@ -68,6 +68,7 @@ docs: |-
   | `created_by` | object \| null | Vakansiyani yaratgan foydalanuvchi `{ id: int, name: string\|null }` (yo'q bo'lsa `null`). `name` — `username`, yo'q bo'lsa `email` |
   | `updated_by` | object \| null | Oxirgi marta o'zgartirgan foydalanuvchi `{ id: int, name: string\|null }` (yo'q bo'lsa `null`). `name` — `username`, yo'q bo'lsa `email` |
   | `requirements` | array | `[{ id: int, title: string, description: string\|null, sort_order: int }]` |
+  | `gender_requirements` | array | Jins + shu jins uchun yosh oralig'i (ADR 0013). `[{ gender: 1\|2\|null, gender_label: string, age_min: int\|null, age_max: int\|null, sort_order: int }]`. `gender: null` — «jinsi farqi yo'q»; `gender_label` — `Accept-Language`ga qarab lokalizatsiyalangan (`Erkaklar` / `Ayollar` / `Jinsi farqi yo'q`). Bo'sh massiv = jins va yosh cheklovi yo'q. Yosh/jins **`requirements[]` ichida endi kelmaydi** |
   | `benefits` | array | `[{ id: int, title: string, description: string\|null, sort_order: int }]` |
   | `documents` | array | `[{ id: int, title: string, description: string\|null, sort_order: int }]` |
   | `services` | array | Biriktirilgan xizmatlar (snapshot) — service object ro'yxati (quyida) |

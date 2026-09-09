@@ -43,9 +43,12 @@ http:
         "hide_address_from_clients": true,
         "deadline_at": "01.07.2026",
         "requirements": [
-          { "id": 1, "sort_order": 0, "is_mandatory": true, "value_int_min": 21, "value_int_max": 45 },
           { "id": 7, "sort_order": 1, "is_mandatory": true, "value_refs": ["married"] },
           { "id": 50, "sort_order": 2, "is_mandatory": false, "value_refs": ["B", "C"] }
+        ],
+        "gender_requirements": [
+          { "gender": 1, "age_min": 18, "age_max": 30, "sort_order": 0 },
+          { "gender": 2, "age_min": 18, "age_max": 45, "sort_order": 1 }
         ],
         "language_requirements": [
           { "language_id": 3, "min_language_level_id": 4, "is_mandatory": true, "certificate_type": "ielts", "certificate_min_score": "6.5", "sort_order": 0 }
@@ -177,6 +180,7 @@ docs: |
   |---|---|---|
   | `requirements[]` | array | **Tiplangan talablar.** Har element: `{id, sort_order, is_mandatory?, …value}`. `id` — `vacancy_requirement` (definition) IDsi; qiymat maydoni definition `value_type`iga bog'liq: `integer_range` → `value_int_min`+`value_int_max`; `integer` → `value_int_min`; `boolean` → `value_bool`; `level` → `value_level_id`; `single_select`/`multi_select`/`reference_single`/`reference_multi` → `value_refs` (kod/id massiv); `text` → `value_text` (`{uz,ru,en}`). `is_mandatory` (bool, ➖, default `true`) — majburiy/afzal. Pickable definition'lar: `GET /admin/vacancies/requirement-definitions?industry_category_id=…`; tanlovlar: `GET /admin/vacancies/requirement-options/{id}` |
   | `language_requirements[]` | array | **Til talablari** (alohida). Har element: `{language_id, min_language_level_id, is_mandatory?, certificate_type?, certificate_min_score?, sort_order?}`. `min_language_level_id` — `language_level` (CEFR/HSK/TOPIK shkalasi). `certificate_type` — `ielts`\|`toefl`\|`delf`\|`goethe`\|`hsk`\|`topik` (➖). `certificate_min_score` — string, masalan `6.5`/`B2`/`HSK5` (➖) |
+  | `gender_requirements[]` | array | **Jins + shu jins uchun yosh oralig'i** (alohida jadval — ADR 0013; katalogda `gender`/`age` ta'riflar **endi yo'q**). Har element: `{gender, age_min?, age_max?, sort_order?}`. `gender` — `1` = Erkak \| `2` = Ayol \| `null` = jinsi farqi yo'q. Har bir qiymat **bir marta**; `null` qatori per-gender qatorlar bilan birga kelmaydi (400). `age_min`/`age_max` — shu jins uchun yosh (kiritiladi), `null`/`""` = chegara yo'q; `age_min` **18 dan kichik bo'lmaydi**, `age_max >= age_min`. Massiv bo'sh yoki yuborilmasa — jins va yosh cheklovi yo'q. Misol: erkaklar 18–30, ayollar 18–45. |
   | `benefits[]` | array | **Tiplangan imtiyozlar.** Har element: `{id, sort_order, …value}`. `id` — `vacancy_benefit` (definition) IDsi; qiymat maydoni definition `value_type`iga bog'liq: `boolean` → `value_bool`; `percent` → `value_min` (0–100); `percent_range` → `value_min`+`value_max`; `days` → `value_min`; `percent_or_money` → `mode` (`percent`\|`money`) + (`percent` → `value_min` \| `money` → `amount`+`currency`); `money` → `amount`+`currency`. `amount` — major birlik (so'm/dollar); `is_free` (bool, ➖) — to'liq bepul (faqat `percent`/`percent_range`). **1-guruh (`salary.*`) money rejimida `currency` vakansiya gross/net valyutasiga teng bo'lishi shart.** Pickable definition'lar: `GET /admin/vacancies/benefit-definitions?q=…`; tanlovlar: `GET /admin/vacancies/benefit-options/{id}` |
   | `documents[]` | array | `{id, sort_order}` — vacancy_document katalog IDsi |
   | `service_groups[]` | array | **Xizmatlar TASHKILOT guruhlari bo'yicha (majburiy).** Har bir guruh: `{organization_id, payment_deadline_days, execution_deadline_days, sort_order, services:[…]}`. Bitta tashkilot = bitta guruh; guruh bir nechta kategoriyani qamrashi mumkin (masalan notarius tashkilotning `notary_translation` + `notary_apostille` + `notary_other` xizmatlari bitta guruhda). `organization_id` faqat guruhda — nested xizmatlar undan meros oladi. Ikkala muddat (kunlarda) > 0. `payment_deadline_days` — kandidatning to'lash muddati (guruh boshlangandan); `execution_deadline_days` — bajarish muddati (to'langandan). **Tartib:** saqlashda qayta tartiblanadi — reorderable guruhlar (course/insurance/notarius) boshida (yuborilgan `sort_order` bo'yicha), fixed guruhlar (visa→agency→logistics) oxirida (qat'iy). Guruhning turi uning xizmatlari kategoriyasidan aniqlanadi |

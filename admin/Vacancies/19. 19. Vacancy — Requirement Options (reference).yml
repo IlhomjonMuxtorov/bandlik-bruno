@@ -13,6 +13,10 @@ docs: |-
   Bitta talab andozasi uchun resolved tanlovlar (ref jadval / enum / inline) —
   select/reference/level tipidagi widgetni to'ldirish uchun lazy yuklanadi.
 
+  > **⚠️ ADR 0013 (breaking):** `gender` va `age` ta'riflari bu katalogdan **olib tashlandi**.
+  > Jins va yosh endi vakansiya wizard'ining alohida bloki — `gender_requirements[]`
+  > (har jins uchun o'z yosh oralig'i). Eski `requirement_id`ni yuborish `400` beradi.
+
   > Tanlovlar tarjima qilingan `label` bo'yicha alifbo (A-Z) tartibida qaytadi
   > (fallback `uz`) — **bundan mustasno**: ordinal shkalalar (masalan `language_level`,
   > `education_level` — `cert.driving_license` kabi darajali havolalar) hamon o'z

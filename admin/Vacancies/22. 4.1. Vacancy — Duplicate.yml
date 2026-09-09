@@ -40,7 +40,7 @@ docs: |-
   | `contract_id` | Har doim `null` — **ko'chirilmaydi**. `vacancy`-tip shartnomada `candidate_count` kvotasi bor; havolani ko'chirish slot band qilib, to'la shartnomada `422` berardi. Nusxa shartnomasiz boshlanadi — wizard'da qayta bog'lanadi |
   | `agent` (`agent_organization_id`) | **Amaldagi** XBA agent org'iga o'rnatiladi (Create bilan bir xil), manbadan ko'chirilmaydi. Admin/root XBA nusxalaganda `null` |
   | `saved_from_template_id` | Har doim `null` — nusxa shablondan yaratilmagan, **ko'chirilmaydi** |
-  | `organization` / `recruiter` / `industry` / `country` / `city` / maosh / manzil / `service_groups[]` / `requirements[]` / `language_requirements[]` / `benefits[]` / `documents[]` | Manbadan **aynan** ko'chiriladi |
+  | `organization` / `recruiter` / `industry` / `country` / `city` / maosh / manzil / `service_groups[]` / `requirements[]` / `language_requirements[]` / `gender_requirements[]` / `benefits[]` / `documents[]` | Manbadan **aynan** ko'chiriladi |
   | `total_service_amount` | Ko'chirilgan xizmatlar asosida qayta hisoblanadi (manba bilan bir xil bo'ladi, chunki xizmatlar o'zgarishsiz) |
 
   > Manbadagi kurs talabi **shartli** (Create bilan bir xil qoida):

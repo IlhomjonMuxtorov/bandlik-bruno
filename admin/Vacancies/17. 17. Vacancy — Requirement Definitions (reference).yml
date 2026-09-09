@@ -27,6 +27,10 @@ docs: |-
 
   **Auth:** `admin_token` yoki Employer/Recruiter token.
 
+  > **⚠️ ADR 0013 (breaking):** `gender` va `age` ta'riflari bu katalogdan **olib tashlandi**.
+  > Jins va yosh endi vakansiya wizard'ining alohida bloki — `gender_requirements[]`
+  > (har jins uchun o'z yosh oralig'i). Eski `requirement_id`ni yuborish `400` beradi.
+
   ### 🔎 Query Parameters
 
   | Param | Type | Required | Description |
