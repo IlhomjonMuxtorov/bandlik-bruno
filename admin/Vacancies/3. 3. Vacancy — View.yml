@@ -44,6 +44,8 @@ docs: |-
   | `work_schedule_label` | string \| null | Lokalizatsiyalangan |
   | `work_time_from` / `_to` | string \| null | `HH:MM:SS` |
   | `salary` | object | `{ gross: int\|null, gross_currency: string\|null, net: int\|null, net_currency: string\|null }` — summalar **major unitda** (so'm/dollar, o'z valyutasida), valyuta ISO 4217 |
+  | `salary_type` | string \| null | Maosh turi — `salary.gross`/`salary.net` qaysi davrga tegishli: `hourly` \| `weekly` \| `monthly`. `salary` obyekti ichida **emas** — top-level maydon. Amalda deyarli hech qachon `null` bo'lmaydi (default `monthly`); eski qatorlar backfill qilingan. Ro'yxat: `GET /admin/vacancies/salary-types`. |
+  | `salary_type_label` | string \| null | Lokalizatsiyalangan (`Accept-Language`): `Soatlik` \| `Haftalik` \| `Oylik` (`uz`). `salary_type` `null` bo'lsagina `null`. |
   | `country` | object | Davlat — quyida |
   | `city` | object \| null | Shahar — quyida |
   | `address` | string \| null | Manzil (1-qator) |

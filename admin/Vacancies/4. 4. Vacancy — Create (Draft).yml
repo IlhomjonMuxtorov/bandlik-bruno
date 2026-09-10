@@ -35,6 +35,7 @@ http:
         "salary_gross_currency": "UZS",
         "salary_net": 15000000,
         "salary_net_currency": "UZS",
+        "salary_type": "monthly",
         "country_id": 1,
         "address": "Marszalkowska 1",
         "address2": "Apt 4B",
@@ -165,6 +166,7 @@ docs: |
   | `work_time_from` / `_to` | string | ➖ | `HH:MM` |
   | `salary_gross` / `_currency` | int / string | ➖ | Maosh (tavsifiy) — **major unitda** (o'z valyutasida; client uchun o'zgarish yo'q). Valyuta: `UZS` \| `USD` \| `EUR` \| `RUB` \| `GBP` \| `KRW` \| `JPY` \| `TRY` \| `AED` \| `SAR` \| `KZT` \| `PLN` \| `QAR` \| `KWD` (boshqasi → `422`). To'liq ro'yxat: `GET /admin/vacancies/salary-currencies`. Default `UZS`. Xizmat narxlari valyutasiga ta'sir qilmaydi — ular `UZS`-da qoladi. |
   | `salary_net` / `_currency` | int / string | ➖ | **Major unitda** (o'z valyutasida). Valyuta: yuqoridagi bilan bir xil ro'yxat. |
+  | `salary_type` | string | ➖ | Maosh turi — yuqoridagi summalar qaysi davrga tegishli: `hourly` \| `weekly` \| `monthly`. Yuborilmasa `monthly`. Ro'yxat: `GET /admin/vacancies/salary-types`. |
   | `country_id` | int | ✅ | |
   | `city_id` | int | ➖ | |
   | `address` | string | ➖ | Manzil (1-qator) — max 500 |

@@ -30,6 +30,7 @@ http:
         "work_time_to": "18:00",
         "salary_gross": 1500,
         "salary_gross_currency": "USD",
+        "salary_type": "monthly",
         "country_id": 110,
         "deadline_at": "31.12.2026",
         "single_payment": false,
@@ -104,6 +105,7 @@ docs: |
   > yaratilib, darhol tasdiqlash navbatiga tushadi. Zanjirni keyin XBA panelda
   > to'ldiradi.
   | `salary_gross` / `salary_net` | int | ➖ | **Odatiy birlikda** (so'm/dollar), tiyinda emas. |
+  | `salary_type` | string | ➖ | Maosh turi — yuqoridagi summalar qaysi davrga tegishli: `hourly` \| `weekly` \| `monthly`. Yuborilmasa `monthly`. Ro'yxat: `GET .../references/salary-types`. |
   | `requirements` | array | ✅ | Kamida bitta talab bo'lishi shart. |
   | `documents` | array | ✅ | Kamida bitta talab qilinadigan hujjat bo'lishi shart. |
   | `service_groups` | array | ✅ | Kamida `xba` guruhi (bitta `agency` xizmati, `price > 0`) shart. `training` (kurs biriktirilgan) guruhi esa **shartli** — `app_setting.vacancy_training_course_required` toggle'i `true` bo'lganda majburiy; `false` (joriy default) bo'lsa umuman yuborilmasligi mumkin. |

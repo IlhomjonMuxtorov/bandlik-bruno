@@ -1,0 +1,40 @@
+info:
+  name: 25. Vacancy — Salary Types (reference)
+  type: http
+  seq: 25
+http:
+  method: GET
+  url: '{{base_url}}/admin/vacancies/salary-types'
+  headers:
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: |-
+  Vakansiyaning "Maosh turi" dropdown'ini to'ldiradi — `salary_gross`/`salary_net`
+  qaysi davrga tegishli ekanini bildiradi (soatlik/haftalik/oylik). Manba: `SalaryType`
+  enum.
+
+  **Auth:** `admin_token` yoki Employer/Recruiter token.
+
+  ### 📤 Response (`data`)
+
+  Massiv. Har bir element:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `value` | string | Saqlanadigan qiymat: `hourly` \| `weekly` \| `monthly` |
+  | `label` | string | Lokalizatsiyalangan nomi (`Accept-Language`) — `Soatlik` \| `Haftalik` \| `Oylik` (`uz`) |
+
+  > Ro'yxat **ordinal tartibda** qaytadi: `hourly → weekly → monthly` — boshqa enum
+  > reference endpointlaridagi kabi alifbo tartibida **emas** (aks holda `ru`da
+  > `Месячная` birinchi chiqar edi). Frontend dropdown shu tartibni saqlab
+  > ko'rsatishi kerak, o'zi qayta saralamasin.
+
+  > Bu qiymat `vacancy.salary_type` maydoniga yoziladi (`POST`/`PUT
+  > /admin/vacancies`, `salary_type` maydoni). Yuborilmasa server `monthly`ni
+  > default qiladi.
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

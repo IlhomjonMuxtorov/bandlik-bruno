@@ -45,6 +45,8 @@ docs: |-
   | `salary_gross_currency` | string \| null | `USD` \| `UZS` … |
   | `salary_net` | int \| null | Maosh (net) |
   | `salary_net_currency` | string \| null | |
+  | `salary_type` | string \| null | Maosh turi — yuqoridagi summalar qaysi davrga tegishli: `hourly` \| `weekly` \| `monthly`. Amalda deyarli hech qachon `null` emas (default `monthly`). |
+  | `salary_type_label` | string \| null | Lokalizatsiyalangan: `Soatlik` \| `Haftalik` \| `Oylik` (`uz`). |
   | `candidates_count` | int | Pipeline'dagi nomzodlar soni (`vacancy_candidate`) |
   | `filled` | int | Jo'nab ketgan (`departed`) nomzodlar — to'ldirilgan kvota |
   | `hiring_quota` | int | Umumiy kvota → "Kvota hajmi" = `filled`/`hiring_quota` |

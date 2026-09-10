@@ -63,7 +63,9 @@ docs: >
 
   | `applied_at` / `reviewed_at` / `decided_at` (+`_formatted`) | int / string | |
 
-  | `vacancy` | object | `{id, title, country{id,name,iso_code,flag_url}, city{id,name}, organization, salary_gross, salary_gross_currency, salary_net, salary_net_currency, employment_type(+_label), work_schedule(+_label), work_time_from, work_time_to, duration_months_min, duration_months_max}` |
+  | `vacancy` | object | `{id, title, country{id,name,iso_code,flag_url}, city{id,name}, organization, salary_gross, salary_gross_currency, salary_net, salary_net_currency, salary_type, salary_type_label, employment_type(+_label), work_schedule(+_label), work_time_from, work_time_to, duration_months_min, duration_months_max}` |
+
+  | `vacancy.salary_type` / `.salary_type_label` | string \| null | Maosh turi — `salary_gross`/`salary_net` qaysi davrga tegishli: `hourly` \| `weekly` \| `monthly` (+ lokalizatsiyalangan label, masalan `Oylik`). Amalda deyarli hech qachon `null` emas (default `monthly`). |
 
   | `vacancy.organization` | object \| null | Vakansiyani joylagan XBA tashkilot: `{id, name, logo_url}`. `null` — vakansiyada tashkilot yo'q. |
 

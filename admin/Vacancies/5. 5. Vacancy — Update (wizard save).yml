@@ -25,6 +25,7 @@ http:
         "language_requirements": [{ "language_id": 3, "min_language_level_id": 4, "is_mandatory": true, "sort_order": 0 }],
         "benefits": [{ "id": 1, "mode": "money", "amount": 50, "currency": "USD", "sort_order": 0 }, { "id": 12, "value_min": 20, "value_max": 50, "sort_order": 1 }],
         "documents": [{ "id": 1, "sort_order": 0 }],
+        "salary_type": "monthly",
         "service_groups": [
           {
             "organization_id": 1,
@@ -65,6 +66,16 @@ docs: |
   kategoriya faqat bitta tashkilotda, ikki muddat, nested `services[]` har biri o'z `category`
   si bilan) bu yerda ham majburiy. `gender_requirements[]` ham xuddi shunday **butunlay
   almashtiriladi**: yuborilmasa yoki `[]` bo'lsa — vakansiyaning jins/yosh cheklovi o'chadi.
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `salary_type` | string | ➖ | Maosh turi — `salary_gross`/`salary_net` qaysi davrga tegishli: `hourly` \| `weekly` \| `monthly`. Yuborilmasa `monthly`. Ro'yxat: `GET /admin/vacancies/salary-types`. |
+
+  > **⚠️ `salary_type` ham to'liq almashtiriladi (partial-update emas):** update
+  > har chaqiriqda butun formani qayta yozadi — agar `salary_type` yuborilmasa,
+  > qiymat oldingisi bilan **saqlanib qolmaydi**, `monthly`ga qaytadi. Wizard
+  > "saqlash" tugmasi joriy ekrandagi (yoki avval yuklab olingan) qiymatni doim
+  > qayta yuborsin.
 
   > **`deadline_at` (orqa sana):** muddat o'tmishdagi (orqa) sana bo'lmasligi kerak — bugun
   ruxsat. Bu tekshiruv faqat `deadline_at` **o'zgartirilganda** ishlaydi; eski qiymat

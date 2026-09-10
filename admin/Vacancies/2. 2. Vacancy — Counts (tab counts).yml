@@ -50,11 +50,28 @@ docs: 'Vakansiyalar ro''yxati sahifasidagi tablar uchun statuslar bo''yicha sonl
 
   | `employment_type` | string | ➖ | `full_time` \| `part_time` \| `seasonal` \| `contract`. |
 
-  | `experience_months_min` | int | ➖ | Talab qilinadigan tajriba (oy) shu qiymatdan **kam bo'lmagan** vakansiyalar (`experience_months >=`). |
+  | `experience_months_min` | int | ➖ | Talab qilinadigan tajriba (oy) shu qiymatdan **kam bo''lmagan** vakansiyalar (`experience_months >=`). |
 
-  | `experience_months_max` | int | ➖ | Talab qilinadigan tajriba (oy) shu qiymatdan **katta bo'lmagan** vakansiyalar (`experience_months <=`). |
+  | `experience_months_max` | int | ➖ | Talab qilinadigan tajriba (oy) shu qiymatdan **katta bo''lmagan** vakansiyalar (`experience_months <=`). |
 
-  | `salary_min` / `salary_max` | int | ➖ | Maosh oralig''i — major unitda (so''m/dollar). |
+  | `salary_min` / `salary_max` | int | ➖ | Maosh oralig''i — **oylik ekvivalentda**, major unitda (so''m/dollar). Xom `salary_gross` emas — pastdagi izohga qarang. |
+
+
+  > **Maosh normalizatsiyasi (`salary_min`/`salary_max`):** solishtirish xom `salary_gross`ga emas, **oylik ekvivalentga** qarab bo''ladi — soatlik/haftalik maosh avval oylikka o''girib olinadi:
+
+  >
+
+  > | `salary_type` | Oylik ekvivalent |
+
+  > |---|---|
+
+  > | `hourly` | `salary_gross × 176` (176 = 22 ish kuni × 8 soat) |
+
+  > | `weekly` | `salary_gross × 52 / 12` (yaxlitlangan) |
+
+  > | `monthly` | `salary_gross` (o''zgarmaydi) |
+
+  > | `null` (eski yozuv) | oylik sifatida hisoblanadi |
 
 
   ### 📋 Headers
@@ -80,9 +97,9 @@ docs: 'Vakansiyalar ro''yxati sahifasidagi tablar uchun statuslar bo''yicha sonl
 
   | `draft` | int | Qoralama |
 
-  | `pending_approval` | int | 1-faza: agentlik vakansiyasi root XBA tasdig'ini kutmoqda (faqat `agent_organization_id != null` yozuvlar) |
+  | `pending_approval` | int | 1-faza: agentlik vakansiyasi root XBA tasdig''ini kutmoqda (faqat `agent_organization_id != null` yozuvlar) |
 
-  | `pending_association` | int | 2-faza: Uyushma (superadmin/admin) tasdig'ini kutmoqda — root XBA'ning o'z vakansiyasi bevosita shu yerga tushadi, agentlik vakansiyasi esa `pending_approval`dan o'tib keladi |
+  | `pending_association` | int | 2-faza: Uyushma (superadmin/admin) tasdig''ini kutmoqda — root XBA''ning o''z vakansiyasi bevosita shu yerga tushadi, agentlik vakansiyasi esa `pending_approval`dan o''tib keladi |
 
   | `approved` | int | Faol (tasdiqlangan) |
 

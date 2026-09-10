@@ -25,10 +25,19 @@ docs: |-
   | `employment_type` | string | ➖ | `full_time` \| `part_time` \| `seasonal` \| `contract`. |
   | `experience_months_min` | int | ➖ | Talab qilinadigan tajriba (oy) shu qiymatdan **kam bo'lmagan** vakansiyalar (`experience_months >=`). |
   | `experience_months_max` | int | ➖ | Talab qilinadigan tajriba (oy) shu qiymatdan **katta bo'lmagan** vakansiyalar (`experience_months <=`). |
-  | `salary_min` | int | ➖ | Minimal brutto maosh (`salary_gross >=`) — major unitda (so'm/dollar). |
-  | `salary_max` | int | ➖ | Maksimal brutto maosh (`salary_gross <=`) — major unitda (so'm/dollar). |
+  | `salary_min` | int | ➖ | Minimal maosh — **oylik ekvivalentda**, major unitda (so'm/dollar). Xom `salary_gross` emas — pastdagi izohga qarang. |
+  | `salary_max` | int | ➖ | Maksimal maosh — **oylik ekvivalentda**, major unitda (so'm/dollar). Xom `salary_gross` emas — pastdagi izohga qarang. |
   | `salary_currency` | string | ➖ | `UZS` \| `USD` \| `EUR`. Range berilganda default `USD`. |
   | `is_favorite` | bool | ➖ | Faqat sevimli (`true`) yoki sevimli emas (`false`). Mehmon `true` so'rasa → `456`. |
+
+  > **Maosh normalizatsiyasi (`salary_min`/`salary_max`):** feed (`GET /mobile/vacancies`) bilan bir xil qoida — solishtirish xom `salary_gross`ga emas, **oylik ekvivalentga** qarab bo'ladi:
+  >
+  > | `salary_type` | Oylik ekvivalent |
+  > |---|---|
+  > | `hourly` | `salary_gross × 176` (176 = 22 ish kuni × 8 soat) |
+  > | `weekly` | `salary_gross × 52 / 12` (yaxlitlangan) |
+  > | `monthly` | `salary_gross` (o'zgarmaydi) |
+  > | `null` (eski yozuv) | oylik sifatida hisoblanadi |
 
   ### 📋 Headers
 

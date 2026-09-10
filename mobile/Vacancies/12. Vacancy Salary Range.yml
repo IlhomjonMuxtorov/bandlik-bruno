@@ -7,13 +7,24 @@ http:
   url: '{{base_url}}/mobile/vacancies/salary-range'
   auth: inherit
 docs: |-
-  Tanlangan (maoshdan tashqari) filterlarga mos keladigan tasdiqlangan (`status=approved`) vakansiyalar bo'yicha **brutto maoshning eng kichik va eng katta qiymatini** qaytaradi — mobil filter ekranidagi **Maosh** slayderining chegaralarini shu yerdan o'rnatish uchun. Diapazon bitta valyutaga taalluqli (default `UZS`), chunki aralash valyutalar min/max'i ma'nosiz bo'ladi. **Muddati o'tgan vakansiyalar** (`deadline_at < today`) diapazondan hisobga olinmaydi.
+  Tanlangan (maoshdan tashqari) filterlarga mos keladigan tasdiqlangan (`status=approved`) vakansiyalar bo'yicha **oylik ekvivalent maoshning eng kichik va eng katta qiymatini** qaytaradi — mobil filter ekranidagi **Maosh** slayderining chegaralarini shu yerdan o'rnatish uchun. Diapazon bitta valyutaga taalluqli (default `UZS`), chunki aralash valyutalar min/max'i ma'nosiz bo'ladi. **Muddati o'tgan vakansiyalar** (`deadline_at < today`) diapazondan hisobga olinmaydi.
 
-  Slayder chegaralarini olgandan keyin, haqiqiy filtrlash feed (`GET /mobile/vacancies`) va count (`GET /mobile/vacancies/count`) dagi `salary_min` / `salary_max` paramlari orqali qilinadi — ular ham major unitda (so'm/dollar).
+  Slayder chegaralarini olgandan keyin, haqiqiy filtrlash feed (`GET /mobile/vacancies`) va count (`GET /mobile/vacancies/count`) dagi `salary_min` / `salary_max` paramlari orqali qilinadi — ular ham major unitda (so'm/dollar) va **shu endpoint qaytargan bilan bir xil oylik ekvivalent shkalada**.
 
   **Auth:** `access_token` majburiy (mehmon tokeni ham yaraydi).
 
   > Diapazon **boshqa tanlangan filtrlarga moslashadi** — masalan `country_id` berilsa, faqat shu davlat vakansiyalari bo'yicha min/max qaytadi. Hech qanday filtr berilmasa — barcha tasdiqlangan vakansiyalar bo'yicha global diapazon. Maoshi (`salary_gross`) ko'rsatilmagan vakansiyalar hisobga olinmaydi.
+
+  > **Maosh normalizatsiyasi:** `min`/`max` xom `salary_gross`dan emas, **oylik ekvivalentdan** hisoblanadi — soatlik/haftalik vakansiyalar avval oylikka o'girib olinadi:
+  >
+  > | `salary_type` | Oylik ekvivalent |
+  > |---|---|
+  > | `hourly` | `salary_gross × 176` (176 = 22 ish kuni × 8 soat) |
+  > | `weekly` | `salary_gross × 52 / 12` (yaxlitlangan) |
+  > | `monthly` | `salary_gross` (o'zgarmaydi) |
+  > | `null` (eski yozuv) | oylik sifatida hisoblanadi |
+  >
+  > Bu faqat diapazon/filtr/saralash uchun — vakansiya kartochkasidagi `salary` obyekti (`GET /mobile/vacancies`) har doim xom, e'lon qilingan summani qaytaradi, normalizatsiya qilinmaydi.
 
   ### 🔎 Query Parameters
 
@@ -41,8 +52,8 @@ docs: |-
 
   | Field | Type | Description |
   |---|---|---|
-  | `min` | int \| null | Eng kichik brutto maosh — major unitda (so'm/dollar, `currency` valyutasida). Mos keladigan maoshli vakansiya bo'lmasa `null`. |
-  | `max` | int \| null | Eng katta brutto maosh — major unitda (so'm/dollar, `currency` valyutasida). Mos keladigan maoshli vakansiya bo'lmasa `null`. |
+  | `min` | int \| null | Eng kichik maosh — **oylik ekvivalentda**, major unitda (so'm/dollar, `currency` valyutasida). Xom `salary_gross` emas — yuqoridagi izohga qarang. Mos keladigan maoshli vakansiya bo'lmasa `null`. |
+  | `max` | int \| null | Eng katta maosh — **oylik ekvivalentda**, major unitda (so'm/dollar, `currency` valyutasida). Xom `salary_gross` emas — yuqoridagi izohga qarang. Mos keladigan maoshli vakansiya bo'lmasa `null`. |
   | `currency` | string | Diapazon valyutasi (so'ralgan yoki default `UZS`). |
   | `count` | int | Diapazonga hissa qo'shgan (maoshi ko'rsatilgan) vakansiyalar soni. |
 

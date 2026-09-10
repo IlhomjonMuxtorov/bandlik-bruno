@@ -30,6 +30,7 @@ docs: |
   | Endpoint | Tavsif |
   |---|---|
   | `GET .../references/salary-currencies` | Maosh valyutalari (`code`, `symbol`, `label`). |
+  | `GET .../references/salary-types` | Maosh turlari (`value`, `label`) — `hourly` \| `weekly` \| `monthly`, **ordinal tartibda** (alifbo emas). |
   | `GET .../references/industries` | Aktiv sohalar. |
   | `GET .../references/industry-categories` | Soha kategoriyalari. |
   | `GET .../references/requirement-categories` | Talablar taksonomiyasi (daraxt). |

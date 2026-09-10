@@ -1,0 +1,52 @@
+info:
+  name: 19. Salary Types
+  type: http
+  seq: 19
+http:
+  method: GET
+  url: '{{base_url}}/mobile/salary-types'
+  auth: inherit
+docs: |
+  Vakansiya maoshining davr turlari ro'yxati (ma'lumotnoma). Hozircha vakansiya
+  yaratish/tahrirlash mobil ilovada yo'q — bu endpoint kelajakdagi mobil
+  filter/ko'rsatish ehtiyoji uchun tayyorlangan. Manba: `SalaryType` enum.
+
+  > Ro'yxat **ordinal tartibda** qaytadi: `hourly → weekly → monthly` — boshqa enum
+  > reference endpointlaridagi kabi alifbo tartibida **emas**.
+
+  **Auth:** `access_token`
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {token}` |
+
+  ### 📤 Response *(massiv elementi)*
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `value` | string | Saqlanadigan qiymat: `hourly` \| `weekly` \| `monthly` |
+  | `label` | string | Lokalizatsiyalangan nomi (`Accept-Language`) — `Soatlik` \| `Haftalik` \| `Oylik` (`uz`) |
+
+  ```json
+  [
+    { "value": "hourly",  "label": "Soatlik" },
+    { "value": "weekly",  "label": "Haftalik" },
+    { "value": "monthly", "label": "Oylik" }
+  ]
+  ```
+
+  > Vakansiya karta/detal javoblarida shu juftlik `salary_type` +
+  > `salary_type_label` sifatida top-level qaytadi (`salary` obyekti ichida emas).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Unauthorized (token yaroqsiz yoki berilmagan) |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

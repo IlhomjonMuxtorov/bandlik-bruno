@@ -37,6 +37,8 @@ docs: |-
   | `visa_chance` | int \| null | "Sizga Viza chiqish darajasi %" — viza so'rovnomasidan, shu davlat bo'yicha. `match_score` bilan bir xil manba. `null` agar token yo'q / so'rovnoma to'ldirilmagan. |
   | `is_favorite` | bool | Joriy foydalanuvchi shu vakansiyani sevimlilarga qo'shganmi. Mehmon / kandidat topilmasa `false`. |
   | `salary` | object | `{ gross, gross_currency, gross_uzs, net, net_currency, net_uzs }` — `gross`/`net` o'z valyutasida (major unit); `gross_uzs`/`net_uzs` — **shu kungi Markaziy bank (CBU) kursi** bo'yicha UZS ekvivalenti. UZS valyutali vakansiyada `*_uzs == gross`/`net`; kurs mavjud bo'lmaganda `*_uzs == null`. |
+  | `salary_type` | string \| null | Maosh turi — `salary.*` summalar qaysi davrga tegishli: `hourly` \| `weekly` \| `monthly`. `salary` obyekti ichida **emas** — top-level maydon. Amalda deyarli hech qachon `null` emas (default `monthly`). |
+  | `salary_type_label` | string \| null | Lokalizatsiyalangan: `Soatlik` \| `Haftalik` \| `Oylik` (`uz`). `salary_type` `null` bo'lsagina `null`. |
   | `experience_months` | int | Talab qilinadigan ish tajribasi (oylarda). `0` = talab qilinmaydi. |
   | `experience_months_label` | string | Lokalizatsiyalangan label (`Accept-Language`). Masalan: `Tajriba talab qilinmaydi`, `8 oy`, `2 yil`, `1 yil 6 oy`. |
   | `employment_type` / `_label` | string | `full_time` ... + lokalizatsiya |
