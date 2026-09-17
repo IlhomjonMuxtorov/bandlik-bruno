@@ -1,0 +1,67 @@
+info:
+  name: 24. Language Scales — Update
+  type: http
+  seq: 69
+http:
+  method: POST
+  url: '{{base_url}}/admin/languages/1/scales/ielts'
+  headers:
+  - name: Content-Type
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  body:
+    type: json
+    data: "{\n  \"is_active\": 0,\n  \"sort_order\": 2\n}"
+  auth: inherit
+docs: 'Tilga biriktirilgan shkalaning bayroqlarini yangilaydi (qisman update — faqat
+  yuborilgan maydonlar o''zgaradi).
+
+
+  **Auth:** `admin_token` (`referenceManage` ruxsati).
+
+
+  ### 📥 Request Body
+
+
+  Hammasi ixtiyoriy:
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `is_active` | int (0\|1) | ➖ | `0` — pikerlarda yashiradi (mavjud yozuvlar ishlayveradi).
+  Standart shkalani (`is_default=true`) faolsizlantirib bo''lmaydi — avval boshqa
+  shkalani standart qiling. |
+
+  | `sort_order` | int | ➖ | Ko''rsatish tartibi |
+
+  | `is_default` | int (0\|1) | ➖ | `1` — shu shkalani standart qiladi (make-default
+  bilan bir xil samara) |
+
+
+  ### 📤 Response
+
+
+  Shu tilning yangilangan `scales[]` ro''yxati.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `404` | `Til topilmadi` yoki `Til shkalasi topilmadi` |
+
+  | `400` | `Asosiy shkalani faolsizlantirib bo''lmaydi` — `is_active=0` standart shkalaga
+  yuborilgan |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

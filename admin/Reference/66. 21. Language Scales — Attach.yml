@@ -1,0 +1,68 @@
+info:
+  name: 21. Language Scales — Attach
+  type: http
+  seq: 66
+http:
+  method: POST
+  url: '{{base_url}}/admin/languages/1/scales'
+  headers:
+  - name: Content-Type
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  body:
+    type: json
+    data: "{\n  \"scale\": \"ielts\",\n  \"is_default\": 0,\n  \"is_active\": 1,\n  \"sort_order\"\
+      : 1\n}"
+  auth: inherit
+docs: 'Tilga yangi shkala biriktiradi (masalan ingliz tiliga IELTS qo''shish).
+
+
+  **Auth:** `admin_token` (`referenceManage` ruxsati).
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `scale` | string | ✅ | Biriktiriladigan shkala kodi (23 tadan biri — `GET /admin/proficiency-scales`).
+  Tilga allaqachon biriktirilgan bo''lsa `409`. |
+
+  | `is_default` | int (0\|1) | ➖ | `1` — darhol shu tilning standart shkalasiga aylantiradi
+  (`language.scale` ham yangilanadi). Default: `0` (standart o''zgarmaydi). |
+
+  | `is_active` | int (0\|1) | ➖ | Default: `1` |
+
+  | `sort_order` | int | ➖ | Ko''rsatish tartibi. Berilmasa — tilning oxiriga qo''shiladi
+  (joriy maksimal `sort_order + 1`). |
+
+
+  ### 📤 Response
+
+
+  `201` — shu tilning **yangilangan to''liq** `scales[]` ro''yxati (faqat yangi qo''shilgan
+  qator emas) — «Language Scales — Index» bilan bir xil shakl.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `404` | `Til topilmadi` |
+
+  | `400` | `Proficiency scale is required` — `scale` yuborilmagan |
+
+  | `409` | `Bu shkala tilga allaqachon biriktirilgan.` |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

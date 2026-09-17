@@ -17,6 +17,13 @@ http:
 docs: 'Yangi til qo''shish.
 
 
+  > **O''zgardi (2026-09):** shkala endi client tomonidan yuborilmaydi — tanlangan
+  `language_level_id` qaysi shkalaga tegishli bo''lsa, yozuv shu shkalada saqlanadi
+  (`scale` avtomatik hisoblanadi). Nomzod bitta tilni **bir necha marta**, har safar
+  boshqa shkalada qo''sha oladi — masalan «Ingliz — CEFR B1» va «Ingliz — IELTS 6.5»
+  ikkalasi ham saqlanadi. Faqat **bitta tilning bitta shkalasi** takrorlanmaydi.
+
+
   **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
 
 
@@ -27,11 +34,18 @@ docs: 'Yangi til qo''shish.
 
   |---|---|:---:|---|
 
-  | `language_id` | int | ✅ | Reference: languages |
+  | `language_id` | int | ✅ | Reference: `GET /mobile/languages` |
 
-  | `language_level_id` | int | ✅ | Reference: language-levels. Daraja tilning shkalasiga
-  (`language.scale`) tegishli bo''lishi shart — ro''yxatni
-  `GET /mobile/language-levels?language_id={language_id}` bilan oling. |
+  | `language_level_id` | int | ✅ | Reference: `GET /mobile/language-levels?language_id={language_id}`.
+  Shkala shu darajadan avtomatik aniqlanadi — daraja tilga biriktirilgan (`language_scale`)
+  shkalalardan biriga tegishli bo''lishi shart, aks holda `400`. |
+
+
+  ### 📤 Response
+
+
+  `201` — yaratilgan yozuv, `GET .../language` bilan bir xil element shaklida (`id`,
+  `language`, `level`, `scale`, `scale_label`, `source`, …).
 
 
   ### ⚠️ Errors
@@ -45,10 +59,13 @@ docs: 'Yangi til qo''shish.
 
   | `456` | Guest — registratsiya tugatilmagan |
 
-  | `400` | Bir til ikki marta qo''shilmaydi (UNIQUE) |
+  | `400` | `Bu til {scale} shkalasi bilan allaqachon qo''shilgan` — shu til shu shkalada
+  allaqachon mavjud (masalan ikkinchi marta IELTS qo''shilmoqchi). Boshqa shkalada (masalan
+  CEFR) esa muammosiz qo''shiladi — `201`. |
 
-  | `400` | `language_level_id` tilning shkalasiga tegishli emas (masalan yapon tiliga
-  CEFR darajasi) — `Validation failed: [...]` |
+  | `400` | `{scale} shkalasi bu til uchun mavjud emas.` — tanlangan daraja shu til
+  sertifikatlanadigan shkalalardan biriga tegishli emas (masalan yapon tiliga IELTS
+  darajasi tanlansa) |
 
   '
 settings:

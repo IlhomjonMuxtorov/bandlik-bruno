@@ -22,6 +22,13 @@ http:
 docs: 'Yangi til qo''shadi.
 
 
+  > **Yangi (2026-09):** `scale` endi tilning **standart** shkalasini bildiradi.
+  Saqlanganda backend avtomatik ravishda `language_scale` pivot''ga shu shkalani
+  `is_default=true` bilan yozadi — til yaratilgandan so''ng darhol ishlatishga tayyor
+  bo''ladi. Qo''shimcha shkalalarni keyin `POST /admin/languages/{id}/scales` bilan
+  biriktiring.
+
+
   **Auth:** `admin_token`.
 
 
@@ -36,11 +43,22 @@ docs: 'Yangi til qo''shadi.
 
   | `iso_code` | string (max 5) | ✅ | Unikal ISO kod (masalan `fr`) |
 
-  | `scale` | string | ➖ | Daraja shkalasi: `cefr` \| `hsk` \| `topik` \| `jlpt` \| `torfl` \| `ilr` \| `actfl` \| `clb` \| `nclc` \| `testdaf` \| `tocfl` \| `stanag` \| `oet` \| `dsh` \| `nt2` \| `eiken`. Default: `cefr`. |
+  | `scale` | string | ➖ | Tilning **standart** shkalasi (23 tadan biri: `cefr` \|
+  `ielts` \| `toefl_ibt` \| `toefl_itp` \| `linguaskill` \| `delf` \| `tcf` \| `goethe`
+  \| `hsk` \| `topik` \| `jlpt` \| `testdaf` \| `torfl` \| `ilr` \| `actfl` \| `clb`
+  \| `nclc` \| `tocfl` \| `stanag` \| `oet` \| `dsh` \| `nt2` \| `eiken`). Default:
+  `cefr`. To''liq ro''yxat: `GET /admin/proficiency-scales`. |
 
   | `is_active` | int (0\|1) | ➖ | Default: 1 |
 
   | `sort_order` | int | ➖ | Default: 0 |
+
+
+  ### 📤 Response
+
+
+  Yaratilgan til — «Languages — View» bilan bir xil shakl (`scales[]` ichida faqat
+  yuqoridagi standart shkala, `is_default=true`).
 
   '
 settings:

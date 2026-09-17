@@ -44,8 +44,8 @@ docs: |
   | `GET .../references/documents` | Talab qilinadigan hujjatlar ro'yxati. |
   | `GET .../references/countries` | Aktiv davlatlar. |
   | `GET .../references/cities` | Davlat shaharlari. Query: `country_id` (**majburiy**), `q` (nom qidiruvi), `page`, `per-page` (default `50`, oraliq `1`–`200`). Sahifalash **opt-in** — pastdagi eslatmaga qarang. |
-  | `GET .../references/languages` | Aktiv tillar, har biri o'z shkalasidagi darajalar bilan. |
-  | `GET .../references/language-levels` | Til darajalari. Query: `language_id` (ixtiyoriy; shkala `language.scale` dan avtomatik aniqlanadi, `scale` e'tiborsiz qoldiriladi; noma'lum ID → bo'sh massiv) yoki `scale` (masalan `cefr`, `jlpt`). |
+  | `GET .../references/languages` | Aktiv tillar. Har biri `scale` (standart shkala) va **yangi (2026-09)** `scales[]` bilan — shu tilga biriktirilgan barcha shkalalar (masalan ingliz: cefr/ielts/toefl_ibt/toefl_itp/linguaskill), har biri o'z darajalari (`levels[]`) bilan nested. `levels` (top-level, eski maydon) — faqat standart shkala darajalari, o'zgarmadi. |
+  | `GET .../references/language-levels` | Til darajalari. Query: `language_id` (➖; **endi `scale` bilan birga ishlaydi** — avval `scale`ni e'tiborsiz qoldirar edi. Yolg'iz berilsa — tilga biriktirilgan barcha shkalalar birlashmasi, masalan ingliz uchun 44 ta; noma'lum ID → bo'sh massiv), `scale` (➖, masalan `ielts`\|`cefr`\|`jlpt`\|… 23 ta — `language_id` bilan bitta shkalaga toraytiradi), `include_inactive` (➖, `0`\|`1`, default `0`). Har element `scale_label`, `is_active`, `score_min`, `score_max` maydonlarini ham qaytaradi. |
   | `GET .../references/service-categories` | Xizmat toifalari enum: `value`, `label`, `expected_organization_type`, `service_group_type`. |
   | `GET .../references/organizations` | Toifaga mos hamkor tashkilotlar. Query: `category` (**majburiy**; `insurance` \| `notarius` \| `logistics` \| `visa` \| `training`). |
   | `GET .../references/organizations/<id>/services` | Bitta tashkilotning aktiv xizmatlari. |

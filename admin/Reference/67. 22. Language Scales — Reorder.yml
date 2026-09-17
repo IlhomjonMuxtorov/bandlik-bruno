@@ -1,0 +1,57 @@
+info:
+  name: 22. Language Scales — Reorder
+  type: http
+  seq: 67
+http:
+  method: POST
+  url: '{{base_url}}/admin/languages/1/scales/reorder'
+  headers:
+  - name: Content-Type
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  body:
+    type: json
+    data: "{\n  \"order\": [\"ielts\", \"toefl_ibt\", \"cefr\"]\n}"
+  auth: inherit
+docs: 'Tilning shkalalarini ko''rsatish tartibini qayta yozadi (drag-n-drop saqlash).
+
+
+  **Auth:** `admin_token` (`referenceManage` ruxsati).
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `order` | string[] | ✅ | Shkala kodlari, ko''rsatilish tartibida (birinchisi eng
+  yuqorida). Tilga biriktirilmagan kod bo''lsa e''tiborsiz qoldiriladi; ro''yxatda
+  yo''q qolgan shkalalar sanab o''tilganlardan **keyin**, o''z nisbiy tartibida qoladi. |
+
+
+  ### 📤 Response
+
+
+  Shu tilning yangilangan `scales[]` ro''yxati, yangi `sort_order` bilan.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `404` | `Til topilmadi` |
+
+  | `400` | `Order is required` — `order` bo''sh yoki massiv emas |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

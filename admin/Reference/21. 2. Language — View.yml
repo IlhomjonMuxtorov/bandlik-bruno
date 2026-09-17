@@ -9,6 +9,11 @@ http:
 docs: 'Bitta til ma''lumotlarini olish.
 
 
+  > **Yangi (2026-09):** `scales[]` qo''shildi — shu tilga biriktirilgan barcha daraja
+  shkalalari, har biri o''z darajalari bilan. `levels` (standart shkala darajalari)
+  o''zgarmadi.
+
+
   **Auth:** `admin_token`.
 
 
@@ -40,14 +45,19 @@ docs: 'Bitta til ma''lumotlarini olish.
 
   | `iso_code` | string | ISO kod |
 
-  | `scale` | string | Daraja shkalasi: `cefr` \| `hsk` \| `jlpt` \| … (16 ta). |
+  | `scale` | string | Tilning **standart** daraja shkalasi (23 tadan biri — to''liq
+  ro''yxat: `GET /admin/proficiency-scales`). |
 
   | `is_active` | bool | |
 
   | `sort_order` | int | |
 
-  | `levels` | array | Shu tilning scale darajalari (read-only): `[{ id, code, name:
-  { uz, ru, en }, name_localized }]`. |
+  | `levels` | array | Tilning **standart** shkalasi darajalari (read-only): `[{ id, code,
+  name: { uz, ru, en }, name_localized, is_active, score_min, score_max }]`. |
+
+  | `scales` | array | **Yangi.** Barcha biriktirilgan shkalalar: `[{ scale, label,
+  is_default, is_active, sort_order, is_exam, levels[] }]` — elementi «Languages — Index»
+  faylidagi bilan bir xil. |
 
   '
 settings:

@@ -1,0 +1,88 @@
+info:
+  name: 20. Language Scales — Index
+  type: http
+  seq: 65
+http:
+  method: GET
+  url: '{{base_url}}/admin/languages/1/scales'
+  headers:
+  - name: Accept-Language
+    value: uz
+  params:
+  - name: active_only
+    value: '1'
+    type: query
+    enabled: false
+  auth: inherit
+docs: 'Bitta tilga biriktirilgan shkalalar ro''yxati — «Til sozlamalari» ekranining
+  "IELTS / TOEFL iBT / CEFR…" bo''limi.
+
+
+  **Auth:** `admin_token` (`referenceView` ruxsati).
+
+
+  ### 🔎 Query Parameters
+
+
+  | Param | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `active_only` | int (0\|1) | ➖ | `1` — faqat faol (`is_active=true`) shkalalar.
+  Default `0` — admin barchasini (faolsizlarini ham) ko''radi. |
+
+
+  ### 📋 Headers
+
+
+  | Header | Required | Description |
+
+  |---|:---:|---|
+
+  | `Authorization` | ✅ | `Bearer {{ _.admin_token }}` |
+
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz`. |
+
+
+  ### 📤 Response (`data[]`)
+
+
+  Til topilmasa `404`, aks holda shu tilning `scales[]` massivi — `sort_order` bo''yicha:
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `scale` | string | Shkala kodi |
+
+  | `label` | string | Lokalizatsiyalangan nom |
+
+  | `is_default` | bool | `true` — tilning standart shkalasi (`language.scale` bilan
+  sinxron) |
+
+  | `is_active` | bool | `false` — pikerlarda ko''rinmaydi, mavjud yozuvlar ishlayveradi |
+
+  | `sort_order` | int | Ko''rsatish tartibi |
+
+  | `is_exam` | bool | `true` — yagona imtihon shkalasi, `false` — umumiy freymvork/reyting |
+
+  | `levels` | array | Shu shkalaning darajalari: `[{ id, code, name: { uz, ru, en },
+  name_localized, is_active, score_min, score_max }]` |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `404` | `Til topilmadi` — `languageId` mavjud emas |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

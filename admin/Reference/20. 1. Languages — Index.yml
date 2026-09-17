@@ -13,6 +13,15 @@ docs: 'Tillar ro''yxati (paginatsiya bilan).
   `uz`) — `sort_order` emas, agar `sort` yuborilmagan bo''lsa.
 
 
+  > **Yangi (2026-09):** `language.scale` 1:1 dan **`language_scale` pivot** (1:N) ga
+  o''tdi — bir tilga bir nechta shkala biriktirilishi mumkin (masalan ingliz tili: CEFR,
+  IELTS, TOEFL iBT, TOEFL ITP, Linguaskill). `scale` ustuni **standart (default)** shkalani
+  ko''rsatadi va saqlanib qoldi; har bir elementga qo''shilgan yangi `scales[]` massivi
+  **barcha** biriktirilgan shkalalarni, har biri o''z darajalari bilan qaytaradi. Qo''shimcha
+  shkalalarni boshqarish uchun `GET/POST/DELETE /admin/languages/{id}/scales*` endpointlariga
+  qarang.
+
+
   **Auth:** `admin_token`.
 
 
@@ -64,17 +73,49 @@ docs: 'Tillar ro''yxati (paginatsiya bilan).
 
   | `iso_code` | string | ISO kod (masalan `uz`, `ru`, `en`) |
 
-  | `scale` | string | Daraja shkalasi: `cefr` \| `hsk` \| `topik` \| `jlpt` \| `torfl`
-  \| `ilr` \| `actfl` \| `clb` \| `nclc` \| `testdaf` \| `tocfl` \| `stanag` \| `oet` \|
-  `dsh` \| `nt2` \| `eiken`. |
+  | `scale` | string | Tilning **standart** daraja shkalasi (23 tadan biri: `cefr` \|
+  `ielts` \| `toefl_ibt` \| `toefl_itp` \| `linguaskill` \| `delf` \| `tcf` \| `goethe`
+  \| `hsk` \| `topik` \| `jlpt` \| `testdaf` \| `torfl` \| `ilr` \| `actfl` \| `clb` \|
+  `nclc` \| `tocfl` \| `stanag` \| `oet` \| `dsh` \| `nt2` \| `eiken`). To''liq ro''yxat:
+  `GET /admin/proficiency-scales`. |
 
   | `is_active` | bool | |
 
   | `sort_order` | int | |
 
-  | `levels` | array | Shu tilning scale darajalari (read-only), scale tartibida:
-  `[{ id, code, name: { uz, ru, en }, name_localized }]` — masalan `jlpt` uchun
-  `N5..N1`. |
+  | `levels` | array | Tilning **standart** shkalasi darajalari (read-only, o''zgarmadi —
+  eski client''lar uchun), scale tartibida: `[{ id, code, name: { uz, ru, en }, name_localized,
+  is_active, score_min, score_max }]` — masalan `jlpt` uchun `N5..N1`. |
+
+  | `scales` | array | **Yangi.** Shu tilga biriktirilgan barcha shkalalar, `sort_order`
+  bo''yicha: `[{ scale, label, is_default, is_active, sort_order, is_exam, levels[] }]`
+  — quyidagi jadvalga qarang. |
+
+
+  #### `scales[]` elementi
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `scale` | string | Shkala kodi: `cefr` \| `ielts` \| … |
+
+  | `label` | string | Lokalizatsiyalangan nom, masalan «IELTS (ingliz tili)» |
+
+  | `is_default` | bool | `true` — tilning standart shkalasi (`scale` ustuniga teng, `language.scale`
+  bilan sinxron) |
+
+  | `is_active` | bool | `false` — pikerlarda ko''rinmaydi, lekin mavjud yozuvlar hamon
+  ishlaydi |
+
+  | `sort_order` | int | Ko''rsatish tartibi |
+
+  | `is_exam` | bool | `true` — yagona imtihon shkalasi (IELTS, JLPT…), `false` — umumiy
+  freymvork/reyting tizimi (CEFR, ILR, ACTFL, CLB, NCLC, STANAG) |
+
+  | `levels` | array | Shu shkalaning darajalari: `[{ id, code, name: { uz, ru, en },
+  name_localized, is_active, score_min, score_max }]` |
 
   '
 settings:

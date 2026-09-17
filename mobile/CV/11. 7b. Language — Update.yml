@@ -14,12 +14,51 @@ http:
     type: json
     data: "{\n    \"language_id\": 1,\n    \"language_level_id\": 6\n}"
   auth: inherit
-docs: 'Til darajasini yangilash. `language_level_id` tilning shkalasiga (`language.scale`)
-  tegishli bo''lishi shart — aks holda `400` (`Validation failed`). Mos ro''yxat:
-  `GET /mobile/language-levels?language_id={language_id}`.
+docs: 'Til daraja/til yozuvini yangilash — `language_id` va `language_level_id` ikkalasi
+  ham qayta yuboriladi (partial-update emas, ikkalasi ham majburiy).
+
+
+  Tanlangan `language_level_id` ning shkalasi shu til uchun mavjud shkalalardan biri
+  bo''lishi shart, aks holda `400`. Boshqa (til, shkala) juftlikka ko''chirilganda ham
+  o''sha juftlik bandligi tekshiriladi — band bo''lsa `400`.
 
 
   **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `language_id` | int | ✅ | Reference: `GET /mobile/languages` |
+
+  | `language_level_id` | int | ✅ | Reference: `GET /mobile/language-levels?language_id={language_id}`.
+  Shkala shundan avtomatik aniqlanadi. |
+
+
+  ### 📤 Response
+
+
+  Yangilangan yozuv, `GET .../language` bilan bir xil element shaklida.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `400` | `Bu til {scale} shkalasi bilan allaqachon qo''shilgan` — boshqa yozuv shu (til,
+  shkala) juftligini allaqachon egallagan |
+
+  | `400` | `{scale} shkalasi bu til uchun mavjud emas.` — tanlangan daraja bu til
+  sertifikatlanadigan shkalalardan biriga tegishli emas |
+
+  | `404` | Yozuv topilmadi yoki boshqa nomzodga tegishli |
 
   '
 settings:

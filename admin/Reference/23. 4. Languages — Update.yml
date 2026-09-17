@@ -23,6 +23,12 @@ http:
 docs: 'Til ma''lumotlarini yangilash (qisman update).
 
 
+  > **Yangi (2026-09):** `scale` — tilning **standart** shkalasi. O''zgartirilsa, `language_scale`
+  pivot''dagi `is_default` bayrog''i shu shkalaga ko''chadi (agar hali biriktirilmagan
+  bo''lsa — avtomatik biriktiriladi). Qo''shimcha shkalalar (nostandart) bu endpoint orqali
+  emas, `POST/DELETE /admin/languages/{id}/scales*` bilan boshqariladi.
+
+
   **Auth:** `admin_token`.
 
 
@@ -37,11 +43,18 @@ docs: 'Til ma''lumotlarini yangilash (qisman update).
 
   | `iso_code` | string (max 5) | ➖ | Unikal ISO kod |
 
-  | `scale` | string | ➖ | Daraja shkalasi: `cefr` \| `hsk` \| `topik` \| `jlpt` \| `torfl` \| `ilr` \| `actfl` \| `clb` \| `nclc` \| `testdaf` \| `tocfl` \| `stanag` \| `oet` \| `dsh` \| `nt2` \| `eiken`. |
+  | `scale` | string | ➖ | Tilning **standart** shkalasi (23 tadan biri — to''liq
+  ro''yxat: `GET /admin/proficiency-scales`). |
 
   | `is_active` | int (0\|1) | ➖ | |
 
   | `sort_order` | int | ➖ | |
+
+
+  ### 📤 Response
+
+
+  Yangilangan til — «Languages — View» bilan bir xil shakl.
 
   '
 settings:

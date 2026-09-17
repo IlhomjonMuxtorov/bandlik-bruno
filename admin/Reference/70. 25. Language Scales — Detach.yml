@@ -1,0 +1,45 @@
+info:
+  name: 25. Language Scales — Detach
+  type: http
+  seq: 70
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/languages/1/scales/toefl_itp'
+  headers:
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: 'Shkalani tildan uzadi (butunlay o''chiradi). Standart shkala uzilmaydi va
+  shkala biror satrda (nomzod tili yoki vakansiya til talabi) ishlatilayotgan bo''lsa
+  uzish rad etiladi — bunday holatlarda **faolsizlantiring** (`is_active=0`) o''rniga.
+
+
+  **Auth:** `admin_token` (`referenceManage` ruxsati).
+
+
+  ### 📤 Response
+
+
+  Shu tilning yangilangan (uzilgan shkalasiz) `scales[]` ro''yxati.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `404` | `Til topilmadi` yoki `Til shkalasi topilmadi` |
+
+  | `400` | `Asosiy shkalani uzib bo''lmaydi` — avval boshqa shkalani standart qiling |
+
+  | `409` | `Shkala {count} ta satrda ishlatilmoqda; uzish o''rniga uni faolsizlantiring`
+  — nomzod tili yoki vakansiya til talabi shu (til, shkala) juftligiga ishora qilmoqda |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

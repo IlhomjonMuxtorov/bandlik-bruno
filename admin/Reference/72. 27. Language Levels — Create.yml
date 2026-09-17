@@ -1,0 +1,74 @@
+info:
+  name: 27. Language Levels — Create
+  type: http
+  seq: 72
+http:
+  method: POST
+  url: '{{base_url}}/admin/language-levels'
+  headers:
+  - name: Content-Type
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  body:
+    type: json
+    data: "{\n  \"code\": \"ielts_6_5\",\n  \"name\": {\"uz\": \"6.5 — Yaxshi+\", \"ru\"\
+      : \"6.5 — Хорошо+\", \"en\": \"6.5 — Competent+\"},\n  \"scale\": \"ielts\",\n\
+      \  \"sort_order\": 12,\n  \"is_active\": 1,\n  \"score_min\": null,\n  \"score_max\"\
+      : null\n}"
+  auth: inherit
+docs: 'Yangi daraja qo''shadi — imtihon yangi band kiritganda (masalan HSK 3.0 ning
+  yangi bosqichi) kod o''zgarishisiz ishlatiladi.
+
+
+  **Auth:** `admin_token` (`referenceManage` ruxsati).
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `code` | string | ✅ | Barqaror, **barcha shkalalar orasida unikal** kod (masalan
+  `ielts_6_5`, `hsk_3_6`). Katalogda va nomzod/vakansiya yozuvlarida ishlatiladi —
+  yaratilgach o''zgartirmang. |
+
+  | `name` | object (JSON) | ✅ | `{"uz": "...", "ru": "...", "en": "..."}` |
+
+  | `scale` | string | ✅ | Qaysi shkalaga tegishli (23 tadan biri — `GET /admin/proficiency-scales`) |
+
+  | `sort_order` | int | ➖ | Shkala **ichidagi** daraja tartibi (kuchliroq — kattaroq).
+  Solishtirish faqat bitta shkala ichida bo''ladi. |
+
+  | `is_active` | int (0\|1) | ➖ | Default: `1` |
+
+  | `score_min` | int \| null | ➖ | Ball oralig''ining pastki chegarasi (masalan TOEFL
+  iBT 72). `null` — ball asosli emas (CEFR, JLPT, DELF). |
+
+  | `score_max` | int \| null | ➖ | Yuqori chegara. `null` — ochiq yuqori band («180+»)
+  yoki ball asosli emas. |
+
+
+  ### 📤 Response
+
+
+  `201` — yaratilgan daraja, «Language Level — View» bilan bir xil shakl.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `400` | Validatsiya xatosi (`code` takrorlangan, `scale` noto''g''ri va h.k.) |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

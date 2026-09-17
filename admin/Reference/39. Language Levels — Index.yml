@@ -15,14 +15,24 @@ params:
     value: jlpt
     type: query
     enabled: false
+  - name: include_inactive
+    value: '1'
+    type: query
+    enabled: false
 headers:
   - name: Accept-Language
     value: uz
     enabled: true
 docs: >
-  Til bilish darajalari ro'yxati — leadlar Filter paneli va til tanlash dropdowni
-  uchun. `language_id` bilan filtrlaganda shkala tilning o'zidan (`language.scale`)
-  avtomatik aniqlanadi; `scale` bilan shkalani qo'lda ham berish mumkin.
+  Til bilish darajalari ro'yxati — leadlar Filter paneli, vakansiya til talabi va til
+  tanlash dropdowni uchun.
+
+
+  > **O'zgardi (2026-09):** `language_id` va `scale` endi **birga ishlaydi** (avval
+  `language_id` berilsa `scale` e'tiborsiz qolardi). `language_id` yolg'iz — shu tilga
+  biriktirilgan (`language_scale` pivot) **barcha** shkalalarning darajalari birlashmasi
+  (masalan ingliz tili uchun 44 ta: cefr 7 + ielts 17 + toefl_ibt 11 + toefl_itp 4 +
+  linguaskill 5); `scale` qo'shilsa bitta shkalaga toraytiriladi.
 
 
   **Auth:** `access_token` (admin).
@@ -35,22 +45,53 @@ docs: >
 
   |---|---|:---:|---|
 
-  | `language_id` | int | ➖ | Til ID (`GET /admin/languages`). Berilsa shkala shu tilning
-  `language.scale` ustunidan avtomatik aniqlanadi va `scale` param e'tiborsiz qoldiriladi.
-  Mavjud bo'lmagan ID → bo'sh massiv. |
+  | `language_id` | int | ➖ | Til ID (`GET /admin/languages`). Berilsa shu tilga
+  biriktirilgan barcha shkalalarning darajalari birlashmasi qaytadi; `scale` bilan birga
+  bitta shkalaga toraytiriladi. Mavjud bo'lmagan ID → bo'sh massiv. |
 
-  | `scale` | string | ➖ | Bitta shkala darajalarini filtrlash: `cefr` \| `hsk` \|
-  `topik` \| `jlpt` \| `torfl` \| `ilr` \| `actfl` \| `clb` \| `nclc` \| `testdaf` \|
-  `tocfl` \| `stanag` \| `oet` \| `dsh` \| `nt2` \| `eiken`. Faqat `language_id`
-  berilmaganda ishlaydi. Ikkalasi ham berilmasa — barcha darajalar. |
+  | `scale` | string | ➖ | Bitta shkala darajalarini filtrlash: `cefr` \| `ielts` \|
+  `toefl_ibt` \| `toefl_itp` \| `linguaskill` \| `delf` \| `tcf` \| `goethe` \| `hsk`
+  \| `topik` \| `jlpt` \| `testdaf` \| `torfl` \| `ilr` \| `actfl` \| `clb` \| `nclc`
+  \| `tocfl` \| `stanag` \| `oet` \| `dsh` \| `nt2` \| `eiken` (23 ta). `language_id`
+  bilan birga qo'llanadi. Ikkalasi ham berilmasa — barcha darajalar. |
+
+  | `include_inactive` | int (0\|1) | ➖ | **Yangi.** `1` — faolsizlantirilgan darajalar
+  ham (masalan eski `hsk_1`..`hsk_6`, `topik_1`/`topik_2`) qaytadi. Default `0` — faqat
+  faol darajalar. |
 
 
   ### 📤 Response (`data`)
 
 
-  Massiv: `[{ id, code, name: { uz, ru, en }, name_localized, scale }]` (`code` masalan
-  `A1` / `jlpt_n1`; `scale` — daraja shkalasi; `name` — tahrirlash uchun xom i18n map;
-  `name_localized` — `Accept-Language` bo'yicha string).
+  Massiv: `[{ id, code, name: { uz, ru, en }, name_localized, scale, scale_label, is_active,
+  score_min, score_max }]`.
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `id` | int | Daraja ID |
+
+  | `code` | string | Masalan `A1` \| `jlpt_n1` \| `ielts_6_5` \| `hsk_3_6` |
+
+  | `name` | object | Tahrirlash uchun xom i18n map `{uz, ru, en}` |
+
+  | `name_localized` | string | `Accept-Language` bo'yicha string |
+
+  | `scale` | string | Daraja shkalasi |
+
+  | `scale_label` | string | **Yangi.** Shkalaning lokalizatsiyalangan nomi, masalan
+  «IELTS (ingliz tili)» |
+
+  | `is_active` | bool | **Yangi.** `false` — pikerlarda ko'rinmaydi (`include_inactive=1`
+  bo'lmasa bunday qatorlar umuman qaytmaydi ham) |
+
+  | `score_min` | int \| null | **Yangi.** Ball oralig'ining pastki chegarasi; `null` —
+  ball asosli emas |
+
+  | `score_max` | int \| null | **Yangi.** Yuqori chegara; `null` — ochiq band yoki ball
+  asosli emas |
 settings:
   encodeUrl: true
   timeout: 0

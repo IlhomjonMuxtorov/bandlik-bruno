@@ -17,6 +17,13 @@ docs: 'Til ma''lumotnomasi. Tanlangan tilga ko''ra lokalizatsiya qilingan nomlar
   `uz`) — `sort_order` emas.
 
 
+  > **Yangi (2026-09):** har bir tilga bir nechta daraja shkalasi biriktirilishi mumkin
+  (masalan ingliz tili — CEFR, IELTS, TOEFL iBT, TOEFL ITP, Linguaskill). `scale` maydoni
+  **standart (default)** shkala bo''lib qoladi — eski client''lar o''zgarishsiz ishlayveradi.
+  Tilning **barcha** biriktirilgan shkalalarini ko''rish uchun yangi `scales[]` massiviga
+  qarang.
+
+
   **Auth:** `access_token`.
 
 
@@ -43,8 +50,31 @@ docs: 'Til ma''lumotnomasi. Tanlangan tilga ko''ra lokalizatsiya qilingan nomlar
 
   | `name` | string | Lokalizatsiyalangan nom |
 
-  | `scale` | string | Tilning standart daraja shkalasi (`cefr` \| `hsk` \| `jlpt` \|
-  …) — darajalarni `GET /mobile/language-levels?scale=` bilan filtrlash uchun |
+  | `scale` | string | Tilning **standart** daraja shkalasi (`cefr` \| `ielts` \| `hsk`
+  \| `jlpt` \| … 23 ta) — darajalarni `GET /mobile/language-levels?scale=` bilan filtrlash
+  uchun. To''liq ro''yxat `scales[]` da. |
+
+  | `scales` | array | Shu til sertifikatlanadigan **barcha** faol shkalalar, `sort_order`
+  bo''yicha: `[{ scale, label, is_default }]`. Masalan ingliz tili uchun 5 ta element
+  (`cefr`, `ielts`, `toefl_ibt`, `toefl_itp`, `linguaskill`). Faqat `is_default: true`
+  bo''lgan element `scale` maydoniga teng keladi. |
+
+
+  #### `scales[]` elementi
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `scale` | string | Shkala kodi: `cefr` \| `ielts` \| `toefl_ibt` \| `toefl_itp` \|
+  `linguaskill` \| `delf` \| `tcf` \| `goethe` \| `hsk` \| `topik` \| `jlpt` \| `testdaf`
+  \| … |
+
+  | `label` | string | Lokalizatsiyalangan nom, masalan «IELTS (ingliz tili)» |
+
+  | `is_default` | bool | `true` — shu til uchun standart shkala (`scale` maydoniga teng)
+  |
 
 
   ### ⚠️ Errors

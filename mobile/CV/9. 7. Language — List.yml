@@ -12,6 +12,12 @@ http:
 docs: 'Nomzod biladigan tillar ro''yxati.
 
 
+  > **O''zgardi (2026-09):** nomzod endi **bitta tilga bir nechta yozuv** saqlashi mumkin
+  — har biri boshqa shkalada (masalan ingliz tili uchun «CEFR B1» va «IELTS 6.5» yonma-yon).
+  Ro''yxatni kalitlashda **`id` yoki `language_id`+`scale`** ishlating — `language_id`
+  yolg''iz endi unikal emas.
+
+
   **Auth:** `access_token`.
 
 
@@ -24,9 +30,17 @@ docs: 'Nomzod biladigan tillar ro''yxati.
 
   | `id` | int | Yozuv ID |
 
-  | `language` | object | `{ id, iso_code, name }` |
+  | `language` | object | `{ id, iso_code, name, scale, scales[] }` — `scale` tilning
+  standart shkalasi, `scales[]` esa shu tilga biriktirilgan barcha shkalalar (`[{scale,
+  label, is_default}]`) |
 
-  | `level` | object | `{ id, code, name }` |
+  | `level` | object | `{ id, code, name, scale, scale_label, score_min, score_max }` |
+
+  | `scale` | string | Shu **yozuv** qaysi shkalada ekanligi (masalan `ielts`), `level.scale`
+  bilan bir xil qiymat — guruhlash/filtrlash uchun tekis maydon sifatida qo''shildi |
+
+  | `scale_label` | string | Shkalaning lokalizatsiyalangan nomi, masalan «IELTS (ingliz
+  tili)» |
 
   | `source` | string | `mvd` (DTM/ГЦТ CEFR sertifikatidan, `/dtm/service/certificate/v1`,
   read-only) \| `manual` (nomzod kiritgan) |
@@ -41,6 +55,11 @@ docs: 'Nomzod biladigan tillar ro''yxati.
 
   | `issued_date` | date \| null | Sertifikat berilgan sana (`DD.MM.YYYY`); faqat `mvd`,
   aks holda `null` |
+
+
+  > `mvd` orqali sinxronlangan yozuvlar har doim CEFR shkalasida keladi (DTM sertifikati
+  CEFR balliga mos keltiriladi) — boshqa shkalalar (IELTS va h.k.) faqat `manual` bo''lishi
+  mumkin.
 
   '
 settings:

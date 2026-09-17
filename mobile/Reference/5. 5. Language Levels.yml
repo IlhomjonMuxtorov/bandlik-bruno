@@ -18,9 +18,15 @@ http:
     type: query
     enabled: false
   auth: inherit
-docs: 'Til daraja ma''lumotnomasi. `language_id` bilan filtrlaganda shkala tilning
-  o''zidan (`language.scale`) avtomatik aniqlanadi — masalan yapon tili uchun faqat
-  JLPT darajalari qaytadi. `scale` bilan shkalani qo''lda ham berish mumkin.
+docs: 'Til daraja ma''lumotnomasi.
+
+
+  > **O''zgardi (2026-09):** avval `language_id` berilsa `scale` e''tiborsiz qolar edi.
+  Endi ikkalasi **birga ishlaydi**: `language_id` bilan tilning **barcha** biriktirilgan
+  shkalalari (`language_scale` pivot) birlashmasi qaytadi — masalan ingliz tili uchun
+  **44 element** (`cefr` 7 + `ielts` 17 + `toefl_ibt` 11 + `toefl_itp` 4 + `linguaskill`
+  5); `scale` qo''shilsa shu birlashma **bitta** shkalaga toraytiriladi. Faqat `scale`
+  berilsa (til yo''q) — shu shkalaning barcha darajalari, tilidan qat''i nazar.
 
 
   **Auth:** `access_token`.
@@ -43,14 +49,17 @@ docs: 'Til daraja ma''lumotnomasi. `language_id` bilan filtrlaganda shkala tilni
 
   |---|---|:---:|---|
 
-  | `language_id` | int | ➖ | Til ID (`GET /mobile/languages`). Berilsa shkala shu
-  tilning `language.scale` ustunidan avtomatik aniqlanadi va `scale` param e''tiborsiz
-  qoldiriladi. Mavjud bo''lmagan ID → bo''sh massiv `[]`. |
+  | `language_id` | int | ➖ | Til ID (`GET /mobile/languages`). Berilsa — shu tilga
+  biriktirilgan **barcha faol** shkalalarning darajalari birlashmasi qaytadi (masalan
+  ingliz uchun 44 ta). `scale` bilan birga berilsa faqat shu shkalaga toraytiriladi.
+  Mavjud bo''lmagan ID → bo''sh massiv `[]`. |
 
-  | `scale` | string | ➖ | Bitta shkala darajalari: `cefr` \| `hsk` \| `topik` \| `jlpt`
-  \| `torfl` \| `ilr` \| `actfl` \| `clb` \| `nclc` \| `testdaf` \| `tocfl` \| `stanag`
-  \| `oet` \| `dsh` \| `nt2` \| `eiken`. Faqat `language_id` berilmaganda ishlaydi.
-  Ikkalasi ham berilmasa — barchasi. |
+  | `scale` | string | ➖ | Bitta shkala darajalari: `cefr` \| `ielts` \| `toefl_ibt`
+  \| `toefl_itp` \| `linguaskill` \| `delf` \| `tcf` \| `goethe` \| `hsk` \| `topik`
+  \| `jlpt` \| `testdaf` \| `torfl` \| `ilr` \| `actfl` \| `clb` \| `nclc` \| `tocfl`
+  \| `stanag` \| `oet` \| `dsh` \| `nt2` \| `eiken` (23 ta jami). `language_id` bilan
+  birga beriladi (endi ikkalasi ham qo''llaniladi). Ikkalasi ham berilmasa — barcha
+  faol darajalar. |
 
 
   ### 📤 Response *(massiv elementi)*
@@ -62,11 +71,25 @@ docs: 'Til daraja ma''lumotnomasi. `language_id` bilan filtrlaganda shkala tilni
 
   | `id` | int | Daraja ID |
 
-  | `code` | string | Daraja kodi, masalan `A1` \| `native` \| `jlpt_n1` \| `hsk_3` |
+  | `code` | string | Daraja kodi, masalan `A1` \| `native` \| `jlpt_n1` \| `hsk_3_6`
+  \| `ielts_6_5` \| `toefl_ibt_72` |
 
-  | `name` | string | Lokalizatsiyalangan nom |
+  | `name` | string | Lokalizatsiyalangan nom, masalan «6.5 — Competent+» yoki «B2» |
 
-  | `scale` | string | Daraja shkalasi: `cefr` \| `hsk` \| `jlpt` \| … |
+  | `scale` | string | Daraja shkalasi: `cefr` \| `ielts` \| `toefl_ibt` \| `jlpt` \| … |
+
+  | `scale_label` | string | Shkalaning lokalizatsiyalangan nomi, masalan «IELTS (ingliz
+  tili)» — natijani shkala bo''yicha guruhlash uchun |
+
+  | `score_min` | int \| null | Ball oralig''ining pastki chegarasi. `null` — ball asosli
+  emas (`cefr`, `jlpt`, `delf`, `hsk`, `topik` va h.k.) |
+
+  | `score_max` | int \| null | Ball oralig''ining yuqori chegarasi. `null` — ochiq yuqori
+  band (masalan `linguaskill_c1`: «180+») yoki ball asosli emas |
+
+
+  > Faqat **faol** (`is_active=true`) darajalar qaytadi — masalan eski `hsk_1`..`hsk_6`
+  va `topik_1`/`topik_2` endi faolsiz, natijada ko''rinmaydi.
 
 
   ### ⚠️ Errors

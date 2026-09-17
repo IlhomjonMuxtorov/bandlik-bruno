@@ -22,7 +22,7 @@ http:
           { "gender": 1, "age_min": 18, "age_max": 30, "sort_order": 0 },
           { "gender": 2, "age_min": 18, "age_max": 45, "sort_order": 1 }
         ],
-        "language_requirements": [{ "language_id": 3, "min_language_level_id": 4, "is_mandatory": true, "sort_order": 0 }],
+        "language_requirements": [{ "language_id": 3, "min_language_level_id": 109, "is_mandatory": true, "sort_order": 0 }],
         "benefits": [{ "id": 1, "mode": "money", "amount": 50, "currency": "USD", "sort_order": 0 }, { "id": 12, "value_min": 20, "value_max": 50, "sort_order": 1 }],
         "documents": [{ "id": 1, "sort_order": 0 }],
         "salary_type": "monthly",
@@ -70,6 +70,20 @@ docs: |
   | Field | Type | Required | Description |
   |---|---|:---:|---|
   | `salary_type` | string | ➖ | Maosh turi — `salary_gross`/`salary_net` qaysi davrga tegishli: `hourly` \| `weekly` \| `monthly`. Yuborilmasa `monthly`. Ro'yxat: `GET /admin/vacancies/salary-types`. |
+
+  ### 🗣 `language_requirements[]` — shkalalar va OR/AND semantikasi (2026-09)
+
+  Create bilan bir xil qoida — `language_requirements[]` bu yerda ham **butunlay
+  almashtiriladi** (delete + insert). Bitta til uchun bir nechta qator = **ALTERNATIVA
+  (OR)**, turli tillar — **AND**. `is_mandatory` til darajasida ishlaydi (bitta tilning
+  barcha qatorlarida bir xil bo'lishi shart). Shkala tanlangan `min_language_level_id`
+  dan olinadi, alohida yuborilmaydi. `certificate_type` / `certificate_min_score` —
+  **deprecated**, yuborilsa jimgina e'tiborsiz qoldiriladi, javobda `null`. Batafsil:
+  `Vacancy — Create (Draft)` faylidagi shu nomdagi bo'lim.
+
+  Yangi `400` xatolar: `Duplicate language requirement for the {scale} scale`,
+  `{scale} shkalasi bu til uchun mavjud emas.`, `All requirements for the same language
+  must share is_mandatory`.
 
   > **⚠️ `salary_type` ham to'liq almashtiriladi (partial-update emas):** update
   > har chaqiriqda butun formani qayta yozadi — agar `salary_type` yuborilmasa,
@@ -123,6 +137,7 @@ docs: |
   | `400` | Zanjir qoidasi buzilgan — `Create (Draft)` dagi `contract_chain` bo'limiga qarang (ish beruvchi oxirgi bo'g'inda emas, takrorlangan tashkilot, shartnoma bo'g'in tomonlariga mos emas, kvota to'lgan) |
   | `422` | Validatsiya xatosi. Jumladan: `organization_id` XBA-type emas; `deadline_at` o'zgartirilib o'tmishdagi (orqa) sanaga qo'yilsa — `Deadline cannot be in the past` |
   | `400` | Agentlik guruhi/xizmati; **kurs yo'q** (`training` xizmati yoki `educational_course_id` yo'q — faqat `vacancy_training_course_required = true` bo'lganda); service_groups validatsiyasi xatosi |
+  | `400` | `language_requirements[]` xatosi: `Duplicate language requirement for the {scale} scale` \| `{scale} shkalasi bu til uchun mavjud emas.` \| `All requirements for the same language must share is_mandatory` |
 settings:
   encodeUrl: true
   timeout: 0

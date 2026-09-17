@@ -12,7 +12,25 @@ http:
 docs: 'Tilni o''chirish. `204 No Content`.
 
 
+  > **Yangi (2026-09):** MVD/DTM orqali sinxronlangan (`source=mvd`) yozuvni o''chirib
+  bo''lmaydi — keyingi sinxronizatsiya baribir uni qayta tiklaydi. Faqat `source=manual`
+  yozuvlar o''chiriladi.
+
+
   **Auth:** `access_token` — `is_verified=true` (tasdiqlangan shaxs) talab qilinadi.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `403` | `MVD orqali sinxronlangan til satrini o''chirib bo''lmaydi.` — yozuv
+  `source=mvd` (DTM sertifikatidan) |
+
+  | `404` | Yozuv topilmadi yoki boshqa nomzodga tegishli |
 
   '
 settings:

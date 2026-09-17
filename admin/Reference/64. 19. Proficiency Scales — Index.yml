@@ -1,0 +1,77 @@
+info:
+  name: 19. Proficiency Scales — Index
+  type: http
+  seq: 64
+http:
+  method: GET
+  url: '{{base_url}}/admin/proficiency-scales'
+  headers:
+  - name: Accept-Language
+    value: uz
+  params:
+  - name: in_use
+    value: '1'
+    type: query
+    enabled: false
+  auth: inherit
+docs: 'Til bilish shkalalari **katalogi** — "Bu tilga qaysi shkalani biriktirmoqchisiz?"
+  pikerining orqasidagi ro''yxat. Tizim biladigan **barcha 23 ta shkala** qaytadi, hozircha
+  hech qanday tilga biriktirilmagan bo''lsa ham (masalan `torfl` — rus tili uchun qayta
+  yoqish mumkin, deploy shart emas).
+
+
+  **Auth:** `admin_token` (`referenceView` ruxsati).
+
+
+  ### 🔎 Query Parameters
+
+
+  | Param | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `in_use` | int (0\|1) | ➖ | `1` — faqat kamida bitta tilga biriktirilgan shkalalar
+  (`languages_count > 0`). Default `0` — barcha 23 ta shkala. |
+
+
+  ### 📋 Headers
+
+
+  | Header | Required | Description |
+
+  |---|:---:|---|
+
+  | `Authorization` | ✅ | `Bearer {{ _.admin_token }}` |
+
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz`. |
+
+
+  ### 📤 Response (`data[]`)
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `value` | string | Shkala kodi: `cefr` \| `ielts` \| `toefl_ibt` \| `toefl_itp` \|
+  `linguaskill` \| `delf` \| `tcf` \| `goethe` \| `hsk` \| `topik` \| `jlpt` \| `testdaf`
+  \| `torfl` \| `ilr` \| `actfl` \| `clb` \| `nclc` \| `tocfl` \| `stanag` \| `oet` \|
+  `dsh` \| `nt2` \| `eiken` |
+
+  | `label` | string | Lokalizatsiyalangan nom, masalan «IELTS (ingliz tili)» |
+
+  | `is_exam` | bool | `true` — yagona imtihon shkalasi, `false` — umumiy freymvork
+  (CEFR) yoki reyting tizimi (ILR, ACTFL, CLB, NCLC, STANAG) |
+
+  | `levels_count` | int | Shu shkalaning **faol** darajalari soni. `0` — hali hech
+  qanday daraja tanlashga tayyor emas |
+
+  | `languages_count` | int | Shu shkalaga biriktirilgan tillar soni (faol biriktirishlar,
+  `language_scale.is_active=true`) |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -52,7 +52,7 @@ http:
           { "gender": 2, "age_min": 18, "age_max": 45, "sort_order": 1 }
         ],
         "language_requirements": [
-          { "language_id": 3, "min_language_level_id": 4, "is_mandatory": true, "certificate_type": "ielts", "certificate_min_score": "6.5", "sort_order": 0 }
+          { "language_id": 3, "min_language_level_id": 109, "is_mandatory": true, "sort_order": 0 }
         ],
         "benefits": [{ "id": 1, "mode": "money", "amount": 50, "currency": "USD", "sort_order": 0 }, { "id": 5, "value_min": 100, "sort_order": 1 }, { "id": 9, "value_min": 28, "sort_order": 2 }, { "id": 12, "is_free": true, "sort_order": 3 }],
         "documents": [{ "id": 1, "sort_order": 0 }, { "id": 2, "sort_order": 1 }],
@@ -181,13 +181,54 @@ docs: |
   | Field | Type | Description |
   |---|---|---|
   | `requirements[]` | array | **Tiplangan talablar.** Har element: `{id, sort_order, is_mandatory?, …value}`. `id` — `vacancy_requirement` (definition) IDsi; qiymat maydoni definition `value_type`iga bog'liq: `integer_range` → `value_int_min`+`value_int_max`; `integer` → `value_int_min`; `boolean` → `value_bool`; `level` → `value_level_id`; `single_select`/`multi_select`/`reference_single`/`reference_multi` → `value_refs` (kod/id massiv); `text` → `value_text` (`{uz,ru,en}`). `is_mandatory` (bool, ➖, default `true`) — majburiy/afzal. Pickable definition'lar: `GET /admin/vacancies/requirement-definitions?industry_category_id=…`; tanlovlar: `GET /admin/vacancies/requirement-options/{id}` |
-  | `language_requirements[]` | array | **Til talablari** (alohida). Har element: `{language_id, min_language_level_id, is_mandatory?, certificate_type?, certificate_min_score?, sort_order?}`. `min_language_level_id` — `language_level` (CEFR/HSK/TOPIK shkalasi). `certificate_type` — `ielts`\|`toefl`\|`delf`\|`goethe`\|`hsk`\|`topik` (➖). `certificate_min_score` — string, masalan `6.5`/`B2`/`HSK5` (➖) |
+  | `language_requirements[]` | array | **Til talablari** (alohida). Har element: `{language_id, min_language_level_id, is_mandatory?, sort_order?}`. `min_language_level_id` — `language_level` ID (`GET /admin/vacancies/references/language-levels?language_id=…` yoki umumiy `GET /admin/language-levels`); "IELTS 6.5" endi shunchaki shu darajaning ID'si — masalan `ielts_6_5` kodli qator. Shkala (`ielts`, `cefr`, `toefl_ibt`, …) darajaning o'zidan olinadi, alohida yuborilmaydi. |
   | `gender_requirements[]` | array | **Jins + shu jins uchun yosh oralig'i** (alohida jadval — ADR 0013; katalogda `gender`/`age` ta'riflar **endi yo'q**). Har element: `{gender, age_min?, age_max?, sort_order?}`. `gender` — `1` = Erkak \| `2` = Ayol \| `null` = jinsi farqi yo'q. Har bir qiymat **bir marta**; `null` qatori per-gender qatorlar bilan birga kelmaydi (400). `age_min`/`age_max` — shu jins uchun yosh (kiritiladi), `null`/`""` = chegara yo'q; `age_min` **18 dan kichik bo'lmaydi**, `age_max >= age_min`. Massiv bo'sh yoki yuborilmasa — jins va yosh cheklovi yo'q. Misol: erkaklar 18–30, ayollar 18–45. |
   | `benefits[]` | array | **Tiplangan imtiyozlar.** Har element: `{id, sort_order, …value}`. `id` — `vacancy_benefit` (definition) IDsi; qiymat maydoni definition `value_type`iga bog'liq: `boolean` → `value_bool`; `percent` → `value_min` (0–100); `percent_range` → `value_min`+`value_max`; `days` → `value_min`; `percent_or_money` → `mode` (`percent`\|`money`) + (`percent` → `value_min` \| `money` → `amount`+`currency`); `money` → `amount`+`currency`. `amount` — major birlik (so'm/dollar); `is_free` (bool, ➖) — to'liq bepul (faqat `percent`/`percent_range`). **1-guruh (`salary.*`) money rejimida `currency` vakansiya gross/net valyutasiga teng bo'lishi shart.** Pickable definition'lar: `GET /admin/vacancies/benefit-definitions?q=…`; tanlovlar: `GET /admin/vacancies/benefit-options/{id}` |
   | `documents[]` | array | `{id, sort_order}` — vacancy_document katalog IDsi |
   | `service_groups[]` | array | **Xizmatlar TASHKILOT guruhlari bo'yicha (majburiy).** Har bir guruh: `{organization_id, payment_deadline_days, execution_deadline_days, sort_order, services:[…]}`. Bitta tashkilot = bitta guruh; guruh bir nechta kategoriyani qamrashi mumkin (masalan notarius tashkilotning `notary_translation` + `notary_apostille` + `notary_other` xizmatlari bitta guruhda). `organization_id` faqat guruhda — nested xizmatlar undan meros oladi. Ikkala muddat (kunlarda) > 0. `payment_deadline_days` — kandidatning to'lash muddati (guruh boshlangandan); `execution_deadline_days` — bajarish muddati (to'langandan). **Tartib:** saqlashda qayta tartiblanadi — reorderable guruhlar (course/insurance/notarius) boshida (yuborilgan `sort_order` bo'yicha), fixed guruhlar (visa→agency→logistics) oxirida (qat'iy). Guruhning turi uning xizmatlari kategoriyasidan aniqlanadi |
   | `service_groups[].services[]` | array | Guruhning xizmatlari: `{category, organization_service_id?, educational_course_id?, notary_*_price_id?, insurance_country_price_id?, price?, currency?, service_name?, duration_text?, notes?, sort_order?}`. Har xizmat o'z `category` siga ega (bir kategoriya faqat bitta tashkilotda bo'lishi mumkin). `educational_course_id` `category="training"` da majburiy. Vakansiya darajasida `training` xizmati + kurs talabi esa **shartli** — `app_setting.vacancy_training_course_required` toggle'iga bog'liq (pastga qarang). `organization_service_id` berilsa narx/nom snapshot qilinadi (override `price`/`service_name` orqali). **Training kurslari uchun `price` override e'tiborga olinmaydi** — narx kursdan snapshot qilinadi (ADR 0005) |
   | `single_payment` | bool | `1 tada 100% lik to'lov` toggle. `false` bo'lsa to'lov rejasi `service_groups[]` ning o'zi — guruhlar ketma-ket (yuqoridagi tartibda) to'lanadi |
+
+  ### 🗣 `language_requirements[]` — shkalalar va OR/AND semantikasi (2026-09)
+
+  Til shkalalari O'zbekistonda tan olinadigan imtihonlar bo'yicha qayta qurildi:
+  `language.scale` (1:1) o'rniga har bir til bir nechta shkalaga (`language_scale`
+  pivot) biriktirilishi mumkin (masalan ingliz tili — CEFR, IELTS, TOEFL iBT, TOEFL ITP,
+  Linguaskill; CEFR **har bir tilga** biriktirilgan — MVD/DTM sinxronizatsiyasi doim CEFR
+  yozadi).
+
+  > **Muhim semantika:** bitta til uchun bir nechta qator = **ALTERNATIVA (OR)** — «IELTS
+  6.5 yoki TOEFL iBT 72+» ikkita ingliz tili qatori sifatida yuboriladi (ikkalasi ham
+  `language_id` bir xil, `min_language_level_id` boshqa-boshqa shkaladan). Turli tillar
+  esa **AND** bilan birlashadi (masalan ingliz **va** nemis ikkalasi ham talab qilinsa).
+  `is_mandatory` **til darajasida** ishlaydi — bitta tilning barcha (alternativa) qatorlarida
+  bir xil bo'lishi shart, aks holda `400`.
+
+  Masalan «IELTS 6.5 yoki CEFR B2» ingliz tili uchun:
+
+  ```json
+  "language_requirements": [
+    { "language_id": 3, "min_language_level_id": 109, "is_mandatory": true, "sort_order": 0 },
+    { "language_id": 3, "min_language_level_id": 45,  "is_mandatory": true, "sort_order": 1 }
+  ]
+  ```
+
+  Shkala va daraja pikeri: `GET /admin/vacancies/references/languages` (har til `scales[]`
+  bilan) va `GET /admin/vacancies/references/language-levels?language_id=…&scale=…`
+  (yoki umumiy `GET /admin/language-levels?language_id=…`).
+
+  > **⚠️ DEPRECATED (2026-09):** `certificate_type` va `certificate_min_score` — yuborilsa
+  **jimgina e'tiborsiz qoldiriladi** (eski client'lar buzilmasligi uchun); javobda maydon
+  qoladi, lekin yangi/yangilangan qatorlarda doim `null`. Ularning o'rnini
+  `min_language_level_id` (tanlangan darajaning shkalasi) egalladi.
+
+  **Yangi `400` xatolar:**
+
+  | Xabar | Sabab |
+  |---|---|
+  | `Duplicate language requirement for the {scale} scale` | Bitta til uchun bir xil shkalada ikkita qator (masalan ikkita IELTS qatori) |
+  | `{scale} shkalasi bu til uchun mavjud emas.` | Tanlangan daraja shu til sertifikatlanadigan shkalalardan biriga tegishli emas (masalan yapon tiliga IELTS darajasi) |
+  | `All requirements for the same language must share is_mandatory` | Bitta tilning alternativa qatorlarida `is_mandatory` har xil qiymatga ega |
 
   > To'lov rejasi alohida yuborilmaydi — `service_groups[]` (har guruh o'z xizmat narxlari snapshot'i bilan) to'lov rejasining o'zidir. Eski `payment_steps[]` maydoni olib tashlangan; yuborilsa e'tiborga olinmaydi.
 
@@ -212,6 +253,13 @@ docs: |
 
   Full detail DTO (View bilan bir xil). `status` = `draft`, `total_service_amount` = **barcha** xizmatlar narxi yig'indisi (training kurslar ham per-service qo'shiladi) — **so'mda (major unit)**. `service_groups[]` nested `services[]` bilan, `sort_order` bo'yicha tartiblangan (reorderable oldinda, visa→agency→logistics oxirida) va har biri `is_reorderable` (bool) maydonini qaytaradi — FE shu flag bo'yicha sudraladigan/qulflangan elementlarni ajratadi. (`combined_price` maydoni olib tashlandi — ADR 0005.)
 
+  **`language_requirements[]`** (array) — har element: `{ language_id, language: string,
+  min_language_level_id, min_level: string, scale, scale_label, is_mandatory, certificate_type:
+  null, certificate_min_score: null, sort_order }`. `scale`/`scale_label` **endi doim
+  to'lgan** (avval `null` bo'lishi mumkin edi); `certificate_type`/`certificate_min_score`
+  — deprecated, yangi qatorlarda doim `null`. Bir xil `language_id`ga ega bir nechta
+  element — alternativa (OR) qatorlar (yuqoridagi bo'limga qarang).
+
   **`auto_approval`** (object) — vakansiya keyin avtomatik chop etilishi haqida ma'lumot (FE "submit'dan keyin N daqiqada avto-chop etiladi" deb ko'rsatishi uchun):
 
   | Field | Type | Description |
@@ -231,6 +279,7 @@ docs: |
   | `400` | Zanjir qoidasi buzilgan (yuqoridagi `contract_chain` jadvaliga qarang) |
   | `422` | Validatsiya xatosi. Jumladan: `organization_id` XBA-type emas; `deadline_at` o'tmishdagi (orqa) sana — `Deadline cannot be in the past` |
   | `400` | Snapshot xatosi (Organization service topilmadi / boshqa tashkilotga tegishli); `agency` xizmati yo'q yoki narxi 0; **kurs yo'q** — `training` xizmati yoki uning `educational_course_id` si yo'q (faqat `vacancy_training_course_required = true` bo'lganda); **service_groups** xatosi (tashkilot takrorlangan, bir kategoriya ikki tashkilotda, organization yo'q, muddat 0/yo'q, yoki guruhda xizmat yo'q) |
+  | `400` | `language_requirements[]` xatosi: `Duplicate language requirement for the {scale} scale` (bitta til uchun bir xil shkalada ikkita qator) \| `{scale} shkalasi bu til uchun mavjud emas.` (daraja shu til shkalalaridan biriga tegishli emas) \| `All requirements for the same language must share is_mandatory` (bitta tilning alternativa qatorlarida `is_mandatory` mos kelmadi) |
   | `403` | Non-admin: aktyorning org'i na `organization_id` (XBA), na zanjirdagi biror tomon bo'lmasa |
   | `403` | Non-admin: zanjirning 0-bo'g'ini (`contract_chain[0].to_organization_id`) aktor ishlaydigan kontragent bo'lmasa — `You do not work with the selected employer/recruiter` (ADR 0014). Aktorning o'z tashkiloti 0-bo'g'inda tursa (ish beruvchi/rekruter o'z vakansiyasini yaratsa) — istisno, o'tkaziladi |
 settings:

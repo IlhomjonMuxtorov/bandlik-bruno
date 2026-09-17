@@ -1,0 +1,57 @@
+info:
+  name: 28. Language Levels — Update
+  type: http
+  seq: 73
+http:
+  method: POST
+  url: '{{base_url}}/admin/language-levels/1'
+  headers:
+  - name: Content-Type
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  body:
+    type: json
+    data: "{\n  \"name\": {\"uz\": \"6.5 — Yaxshi+ (yangilandi)\", \"ru\": \"6.5\
+      \ — Хорошо+\", \"en\": \"6.5 — Competent+\"},\n  \"is_active\": 1,\n  \"score_min\"\
+      : null,\n  \"score_max\": null\n}"
+  auth: inherit
+docs: 'Daraja ma''lumotlarini yangilash (qisman update — faqat yuborilgan maydonlar
+  o''zgaradi; `score_min`/`score_max` esa **har doim** so''rovdagi qiymatga qo''yiladi
+  — `null` yuborish oraliqni tozalaydi).
+
+
+  **Auth:** `admin_token` (`referenceManage` ruxsati).
+
+
+  ### 📥 Request Body
+
+
+  Hammasi ixtiyoriy — «Language Levels — Create» dagi maydonlar bilan bir xil (`code`,
+  `scale` ham shu yerda o''zgartirilishi mumkin, lekin amalda kamdan-kam kerak bo''ladi,
+  chunki ular boshqa jadvallarda ishora qilinadi).
+
+
+  ### 📤 Response
+
+
+  Yangilangan daraja, «Language Level — View» bilan bir xil shakl.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `404` | `Til darajasi topilmadi` |
+
+  | `400` | Validatsiya xatosi |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

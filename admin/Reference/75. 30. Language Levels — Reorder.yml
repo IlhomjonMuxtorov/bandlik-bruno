@@ -1,0 +1,58 @@
+info:
+  name: 30. Language Levels — Reorder
+  type: http
+  seq: 75
+http:
+  method: POST
+  url: '{{base_url}}/admin/language-levels/reorder'
+  headers:
+  - name: Content-Type
+    value: application/json
+  - name: Accept-Language
+    value: uz
+  body:
+    type: json
+    data: "{\n  \"scale\": \"ielts\",\n  \"order\": [12, 13, 14]\n}"
+  auth: inherit
+docs: 'Bitta shkala ichidagi darajalar tartibini qayta yozadi — kuchsizdan kuchliga
+  qarab (`order` massividagi birinchi eng past daraja).
+
+
+  **Auth:** `admin_token` (`referenceManage` ruxsati).
+
+
+  ### 📥 Request Body
+
+
+  | Field | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `scale` | string | ✅ | Qaysi shkala darajalari qayta tartiblanadi |
+
+  | `order` | int[] | ✅ | Daraja ID''lari, **kuchsizdan kuchliga** tartibda. Boshqa
+  shkalaga tegishli ID''lar e''tiborsiz qoldiriladi. |
+
+
+  ### 📤 Response
+
+
+  Shu shkalaning yangilangan darajalari ro''yxati (`sort_order` yangilangan holda),
+  «Language Level — View» elementi shaklida.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `400` | `Scale and order are required` — `scale` bo''sh yoki `order` bo''sh/massiv emas |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

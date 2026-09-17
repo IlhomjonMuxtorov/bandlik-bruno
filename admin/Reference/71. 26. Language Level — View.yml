@@ -1,0 +1,71 @@
+info:
+  name: 26. Language Level — View
+  type: http
+  seq: 71
+http:
+  method: GET
+  url: '{{base_url}}/admin/language-levels/1'
+  headers:
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: 'Bitta daraja yozuvini olish.
+
+
+  **Auth:** `admin_token` (`referenceView` ruxsati).
+
+
+  ### 📋 Headers
+
+
+  | Header | Required | Description |
+
+  |---|:---:|---|
+
+  | `Authorization` | ✅ | `Bearer {{ _.admin_token }}` |
+
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz`. |
+
+
+  ### 📤 Response
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `id` | int | |
+
+  | `code` | string | Barqaror kod, masalan `ielts_6_5`, `hsk_3_6` |
+
+  | `name` | object | Tahrirlash uchun xom i18n `{ uz, ru, en }` |
+
+  | `name_localized` | string | `Accept-Language` bo''yicha string |
+
+  | `scale` | string | Qaysi shkalaga tegishli |
+
+  | `scale_label` | string | Shkalaning lokalizatsiyalangan nomi |
+
+  | `is_active` | bool | `false` — pikerlarda ko''rinmaydi |
+
+  | `score_min` | int \| null | Ball oralig''ining pastki chegarasi; `null` — ball asosli
+  emas |
+
+  | `score_max` | int \| null | Yuqori chegara; `null` — ochiq band yoki ball asosli emas |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `404` | `Til darajasi topilmadi` |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

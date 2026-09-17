@@ -1,0 +1,43 @@
+info:
+  name: 29. Language Levels — Delete
+  type: http
+  seq: 74
+http:
+  method: DELETE
+  url: '{{base_url}}/admin/language-levels/1'
+  headers:
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: 'Darajani o''chiradi. Nomzod tili, vakansiya til talabi yoki MVD sertifikat
+  yozuvi shu darajaga ishora qilsa (RESTRICT FK) o''chirish rad etiladi — o''rniga
+  **faolsizlantiring** (`is_active=0`), pikerlar undan yashiriladi, mavjud yozuvlar
+  esa ishlayveradi.
+
+
+  **Auth:** `admin_token` (`referenceManage` ruxsati).
+
+
+  ### 📤 Response
+
+
+  `200`, `data: null`.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `404` | `Til darajasi topilmadi` |
+
+  | `409` | `Daraja {count} ta satrda ishlatilmoqda; o''chirish o''rniga uni faolsizlantiring` |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

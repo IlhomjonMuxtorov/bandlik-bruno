@@ -1,0 +1,43 @@
+info:
+  name: 23. Language Scales — Make Default
+  type: http
+  seq: 68
+http:
+  method: POST
+  url: '{{base_url}}/admin/languages/1/scales/ielts/default'
+  headers:
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: 'Ko''rsatilgan shkalani tilning **standart (default)** shkalasiga aylantiradi.
+  `language.scale` ustuni ham shu shkalaga yangilanadi — ikkalasi hech qachon bir-biridan
+  ajralib qolmaydi.
+
+
+  **Auth:** `admin_token` (`referenceManage` ruxsati).
+
+
+  ### 📤 Response
+
+
+  Shu tilning yangilangan `scales[]` ro''yxati — yangi standart qatorda `is_default: true`,
+  eskisida `false`.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `404` | `Til topilmadi` yoki `Til shkalasi topilmadi` (`{scale}` shu tilga biriktirilmagan) |
+
+  | `400` | `Faolsiz shkala asosiy bo''la olmaydi` — avval `is_active=1` qiling |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
