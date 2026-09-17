@@ -1,0 +1,82 @@
+info:
+  name: 10. Shartnoma — Party Lookup
+  type: http
+  seq: 10
+http:
+  method: GET
+  url: '{{base_url}}/admin/contracts/party-lookup?license_number=&type='
+  params:
+  - name: license_number
+    value: ''
+    type: query
+    enabled: true
+  - name: type
+    value: ''
+    type: query
+    enabled: false
+  headers:
+  - name: Accept-Language
+    value: uz
+  auth: inherit
+docs: |-
+  "Jalb qilingan tomon" uchun **yangi** kontragentni topish — litsenziya raqami
+  bo'yicha aniq qidiruv. `Party Options` (`side=b`) faqat aktor allaqachon
+  ishlaydigan tashkilotlarni ko'rsatadi, munosabat esa qayerdandir boshlanishi
+  kerak (ADR 0014).
+
+  **Auth:** `admin_token`. **Ruxsat:** `contractCreate` (`contractView` **emas**).
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `license_number` | string | ✅ | **Aniq** litsenziya raqami. Qisman moslik, `LIKE`, `q` qidiruvi va ro'yxat **yo'q** — raqamni aniq bilish shart. Bo'sh yoki berilmagan → `400`. |
+  | `type` | int | ➖ | `6` = Ish beruvchi, `7` = Rekruter. Berilmasa — ikkalasi bo'yicha qidiriladi. Boshqa qiymat → `400`. |
+
+  ### 📤 Response (`data`)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `items` | array | 0 dan **2** tagacha element. Topilmasa — bo'sh massiv (`404` emas). |
+  | `items[].id` | int | `party_b_organization_id` ga yuboriladigan qiymat. |
+  | `items[].type` | int | `6` \| `7` |
+  | `items[].type_label` | string | `Accept-Language` bo'yicha tarjima |
+  | `items[].name` | string | Tashkilot nomi |
+  | `items[].brand_name` | string \| null | Brend nomi; kiritilmagan bo'lsa `null` |
+
+  > Ikkita element bo'lishi mumkin: unique indeks `(type, license_number)` —
+  > bir xil raqam ish beruvchi va rekruter sifatida alohida ro'yxatdan o'tgan
+  > bo'lishi mumkin. `type` bilan ajrating.
+  >
+  > Faqat `is_active = true` tashkilotlar. Aktorning o'z tashkiloti hech qachon
+  > qaytmaydi — model ikkala tomon bir xil bo'lishini taqiqlaydi.
+
+  ### ⚠️ Muhim
+
+  > **Topilgan tashkilot hali katalogda ko'rinmaydi.** Uni
+  > `party_b_organization_id` ga yuborib shartnoma yaratasiz; tashkilot
+  > `/admin/employers`, `/admin/recruiters`, `party-options` va kartochkalarda
+  > faqat shartnoma **super-admin tomonidan tasdiqlangandan keyin** paydo
+  > bo'ladi (ADR 0014, 2-qoida). UI shu kutish holatini tushuntirsin.
+
+  > **Qayta qo'shib bo'lmaydi.** Platformada bor tashkilotni `POST /admin/employers`
+  > orqali "o'ziga" yaratish `422 License number already exists for this
+  > organization type` beradi — `organization` da `UNIQUE (type, license_number)`
+  > indeksi bor. Aynan shuning uchun bu endpoint mavjud.
+
+  > **Har bir chaqiruv audit log'ga yoziladi** — topilgan ham, topilmagan ham
+  > (`action = lookup`, kontekstda `license_number`, `types`, `found`,
+  > `actor_org_id`).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `license_number` bo'sh/berilmagan; `type` `6`/`7` dan boshqa |
+  | `401` | Token yo'q yoki eskirgan |
+  | `403` | `contractCreate` ruxsati yo'q |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

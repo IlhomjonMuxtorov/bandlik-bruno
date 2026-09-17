@@ -119,6 +119,7 @@ docs: |
   |---|---|
   | `404` | Vakansiya topilmadi |
   | `403` | Approved/closed vakansiyalar tahrirlanmaydi (egasi uchun) |
+  | `403` | Non-admin: zanjirning 0-bo'g'ini (`contract_chain[0].to_organization_id`) aktor ishlaydigan kontragent bo'lmasa — `You do not work with the selected employer/recruiter` (ADR 0014) |
   | `400` | Zanjir qoidasi buzilgan — `Create (Draft)` dagi `contract_chain` bo'limiga qarang (ish beruvchi oxirgi bo'g'inda emas, takrorlangan tashkilot, shartnoma bo'g'in tomonlariga mos emas, kvota to'lgan) |
   | `422` | Validatsiya xatosi. Jumladan: `organization_id` XBA-type emas; `deadline_at` o'zgartirilib o'tmishdagi (orqa) sanaga qo'yilsa — `Deadline cannot be in the past` |
   | `400` | Agentlik guruhi/xizmati; **kurs yo'q** (`training` xizmati yoki `educational_course_id` yo'q — faqat `vacancy_training_course_required = true` bo'lganda); service_groups validatsiyasi xatosi |

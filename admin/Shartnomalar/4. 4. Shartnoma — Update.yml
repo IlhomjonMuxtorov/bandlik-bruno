@@ -44,6 +44,14 @@ docs: |
   | `404` | Shartnoma topilmadi, **yoki** boshqa tashkilotga tegishli |
   | `422` | `candidate_count` band slotlardan past, yoki band vakansiya bor holda `vacancy→yearly` |
   | `400` | `upload_file_id` topilmadi yoki `status != ready` |
+
+  > ⚠️ **ADR 0014.** `party_a_organization_id` va `party_b_organization_id`
+  > ikkalasi ham serverda pin qilinadi: tahrir mavjud munosabat shartlarini
+  > o'zgartirishi mumkin, lekin shartnomani uchinchi tashkilotga yo'naltira
+  > olmaydi. Body'da boshqa qiymat yuborilsa e'tiborga olinmaydi.
+  >
+  > Har qanday moddiy tahrir `approval_status` ni `pending` ga qaytaradi — demak
+  > kontragentning katalogdagi ko'rinishi qayta tasdiqlangunga qadar uziladi.
 settings:
   encodeUrl: true
   timeout: 0

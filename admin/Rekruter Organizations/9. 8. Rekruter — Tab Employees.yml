@@ -46,6 +46,10 @@ docs: |-
 
   > `vacancies_count` / `candidates_count` butun tashkilot uchun bitta query'da batch
   > hisoblanadi (N+1 yo'q) — `organization_service_order` dagi `employee_id` asosida.
+
+  > **Org-scope (ADR 0014):** non-admin aktor faqat o'zi ishlaydigan tashkilotni
+  > ocha oladi — begona id **`404`** qaytaradi (ataylab `403` emas: API begona
+  > tashkilot mavjudligini tasdiqlamaydi). Ko'rinish qoidasi Index faylida.
 settings:
   encodeUrl: true
   timeout: 0

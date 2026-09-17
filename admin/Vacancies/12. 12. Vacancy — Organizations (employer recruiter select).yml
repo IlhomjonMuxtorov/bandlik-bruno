@@ -49,6 +49,11 @@ docs: 'Vakansiya yaratishdagi **shartnoma zanjiri** ("Ish beruvchi / Rekruter
   | `type` | string | ➖ | `employer` \| `recruiter`. Berilmasa — ikkalasi (eski
   xatti-harakat). |
 
+  | `from_organization_id` | int | ➖ | Zanjir bo''g''inining **boshi**. Berilmasa —
+  0-bo''g''in, ya''ni aktorning o''z kontragentlari. Berilsa — o''sha tashkilotning
+  kontragentlari (`party_a` → `party_b` yo''nalishi). Aktordan yetib bo''lmaydigan
+  qiymat → `403`. Ko''p bo''g''inli zanjir uchun **majburiy**. |
+
   | `page` | int | ➖ | Sahifa raqami (default `1`). |
 
   | `per-page` | int | ➖ | 1..100, default 20. |
@@ -100,7 +105,51 @@ docs: 'Vakansiya yaratishdagi **shartnoma zanjiri** ("Ish beruvchi / Rekruter
 
   | `401` | Token yo''q |
 
-  | `403` | Ruxsat yo''q |
+  | `403` | Ruxsat yo''q; aktor non-admin bo''lib, unga tashkilot bog''lanmagan |
+
+
+  ### 🔒 Org-scope (ADR 0014)
+
+
+  Non-admin aktor faqat **o''zi ishlaydigan** kontragentlarni ko''radi. Tashkilot
+  ko''rinadi, agar: (1) uni shu agentlik kiritgan
+  (`onboarded_by_organization_id`), **yoki** (2) agentlik bilan faol shartnomasi
+  bor (`organization_contract`), **yoki** (3) u agentlikning o''z vakansiyasi
+  shartnoma zanjirida qatnashadi. Ilgari butun katalog qaytardi.
+
+
+  > ⚠️ Select''ni filtrlash faqat UI qatlami. Haqiqiy chegara —
+  `POST /admin/vacancies` va `POST /admin/vacancies/<id>` dagi server tekshiruvi:
+  `contract_chain[0].to_organization_id` kontragent bo''lmasa **`403`**.
+
+
+  > ⚠️ Ro''yxat bo''sh qaytishi normal holat — hali kontragent yo''q degani.
+  Foydalanuvchiga "Avval ish beruvchi qo''shing va shartnoma yuklang" deb
+  ko''rsating.
+
+
+  ### 🔗 Ko''p bo''g''inli zanjir
+
+
+  `XBA → R1 → R2 → ish beruvchi` zanjirini qurishda har bir bo''g''in uchun
+  o''zidan **oldingi** bo''g''inning tanlovi `from_organization_id` qilib
+  yuboriladi:
+
+
+  | Bo''g''in | Chaqiruv |
+
+  |---|---|
+
+  | 0 | `?type=recruiter` (parametrsiz) → `R1` |
+
+  | 1 | `?type=recruiter&from_organization_id=<R1>` → `R2` |
+
+  | 2 | `?type=employer&from_organization_id=<R2>` → ish beruvchi |
+
+
+  > Butun zanjir bitta `POST /admin/vacancies` payload''ida vakansiya egasi
+  bo''lgan XBA tomonidan yuboriladi — `Vacancy::isEditableBy()` tahrirlashni
+  `organization_id` bilan chekgani uchun boshqa tomon zanjirni uzaytira olmaydi.
 
   '
 settings:

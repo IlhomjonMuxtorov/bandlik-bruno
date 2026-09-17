@@ -232,6 +232,7 @@ docs: |
   | `422` | Validatsiya xatosi. Jumladan: `organization_id` XBA-type emas; `deadline_at` o'tmishdagi (orqa) sana — `Deadline cannot be in the past` |
   | `400` | Snapshot xatosi (Organization service topilmadi / boshqa tashkilotga tegishli); `agency` xizmati yo'q yoki narxi 0; **kurs yo'q** — `training` xizmati yoki uning `educational_course_id` si yo'q (faqat `vacancy_training_course_required = true` bo'lganda); **service_groups** xatosi (tashkilot takrorlangan, bir kategoriya ikki tashkilotda, organization yo'q, muddat 0/yo'q, yoki guruhda xizmat yo'q) |
   | `403` | Non-admin: aktyorning org'i na `organization_id` (XBA), na zanjirdagi biror tomon bo'lmasa |
+  | `403` | Non-admin: zanjirning 0-bo'g'ini (`contract_chain[0].to_organization_id`) aktor ishlaydigan kontragent bo'lmasa — `You do not work with the selected employer/recruiter` (ADR 0014). Aktorning o'z tashkiloti 0-bo'g'inda tursa (ish beruvchi/rekruter o'z vakansiyasini yaratsa) — istisno, o'tkaziladi |
 settings:
   encodeUrl: true
   timeout: 0

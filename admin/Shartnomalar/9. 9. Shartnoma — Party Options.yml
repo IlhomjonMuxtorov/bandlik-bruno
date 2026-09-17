@@ -41,8 +41,22 @@ docs: |
   > - `side=a` → **faqat shartnoma tuzuvchi tashkilot** qaytadi (aynan 1 ta
   >   element), shuning uchun frontend select'ni avtomatik to'ldirib `disabled`
   >   qilishi kerak;
-  > - `side=b` → umumiy katalog, lekin ichidan shu tashkilot **chiqarib
-  >   tashlanadi** — model ikkala tomon bir xil bo'lishini taqiqlaydi.
+  > - `side=b` → **faqat shu tashkilot ishlaydigan kontragentlar** (ADR 0014),
+  >   ichidan shu tashkilotning o'zi **chiqarib tashlanadi** — model ikkala
+  >   tomon bir xil bo'lishini taqiqlaydi.
+  >
+  > **`side=b` org-scope (ADR 0014).** Tashkilot ko'rinadi, agar: (1) uni shu
+  > agentlik kiritgan (`onboarded_by_organization_id`), **yoki** (2) agentlik
+  > bilan faol shartnomasi bor, **yoki** (3) u agentlikning o'z vakansiyasi
+  > shartnoma zanjirida qatnashadi. Ilgari bu yerda butun katalog qaytardi.
+  >
+  > ⚠️ **Yangi kontragent bilan shartnoma tuzishning ikki yo'li:**
+  > platformada hali yo'q bo'lsa — `POST /admin/employers` (yoki
+  > `/admin/recruiters`) orqali qo'shing, `onboarded_by` shtamplanadi va u shu
+  > zahoti `side=b` da paydo bo'ladi. Allaqachon bor bo'lsa (boshqa agentlik
+  > kiritgan) — `GET /admin/contracts/party-lookup` bilan litsenziya raqami
+  > bo'yicha toping; qayta qo'shib bo'lmaydi (`UNIQUE (type, license_number)`).
+  > Modalda ikkala yo'l ham bo'lsin.
   >
   > **XBA agent uchun** "shartnoma tuzuvchi tashkilot" — agentning o'zi emas,
   > **root XBA**. Agent yaratgan vakansiyada `organization_id` = root, va

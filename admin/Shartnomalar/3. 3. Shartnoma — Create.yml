@@ -64,6 +64,15 @@ docs: |
   |---|---|
   | `422` | Validatsiya xatosi (tip-shartli `candidate_count`/`start_date`, noto'g'ri org tip, ikkala tomon bir xil) |
   | `400` | `upload_file_id` topilmadi yoki `status != ready` |
+
+  > ⚠️ **ADR 0014.** `party_b_organization_id` cheklanmagan — yangi munosabat aynan
+  > shu yerdan boshlanadi. Lekin shartnoma **super-admin tasdiqlamaguncha** hech
+  > qanday ko'rinish bermaydi: tashkilot `pending` holatda katalogda paydo
+  > bo'lmaydi. `party_a_organization_id` avvalgidek serverda pin qilinadi.
+  >
+  > Platformada hali bo'lmagan kontragent uchun avval
+  > `POST /admin/employers` (yoki `/admin/recruiters`) — `onboarded_by`
+  > shtamplanadi va tashkilot darhol ko'rinadi.
 settings:
   encodeUrl: true
   timeout: 0

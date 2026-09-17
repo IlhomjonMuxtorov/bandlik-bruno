@@ -62,6 +62,11 @@ docs: 'Rekruter tashkilotning **Mijozlar** tabi — DISTINCT kandidatlar bo''yic
 
   | `orders_count` | int | Shu org-ga jami buyurtmalar soni |
 
+
+  > **Org-scope (ADR 0014):** non-admin aktor faqat o''zi ishlaydigan tashkilotni
+  > ocha oladi — begona id **`404`** qaytaradi (ataylab `403` emas: API begona
+  > tashkilot mavjudligini tasdiqlamaydi). Ko''rinish qoidasi Index faylida.
+
   '
 settings:
   encodeUrl: true

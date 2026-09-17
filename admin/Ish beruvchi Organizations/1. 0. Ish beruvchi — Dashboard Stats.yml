@@ -24,6 +24,16 @@ docs: |-
   > **`vacancy.recruiter_id`** bo'yicha bog'lanadi (ish beruvchiga biriktirilgan vakansiyalar;
   > `vacancy.organization_id` doim XBA agentligi). `total_revenue` / `refunded_amount` esa
   > tashkilotning o'z buyurtma/tranzaksiyalari bo'yicha.
+
+  > **Org-scope (ADR 0014):** non-admin aktor uchun agregat faqat **ko'rinadigan**
+  > tashkilotlar bo'yicha hisoblanadi, ya'ni ro'yxat (`Index`) qaytaradigan aynan
+  > shu to'plam. `this_month_vacancies` va `this_month_candidates` qo'shimcha
+  > ravishda aktorning **o'z vakansiyalari** bilan ham cheklanadi — aks holda
+  > umumiy kontragenti bor ikki agentlik bir-birining vakansiya hajmini ko'rardi.
+  > Platforma admini (`superadmin`/`admin`) uchun raqamlar avvalgidek platforma
+  > bo'yicha. Aktorda tashkilot bo'lmasa → `403`.
+  >
+  > ⚠️ Non-admin uchun raqamlar avvalgidan **kichikroq** chiqadi — bu xato emas.
 settings:
   encodeUrl: true
   timeout: 0

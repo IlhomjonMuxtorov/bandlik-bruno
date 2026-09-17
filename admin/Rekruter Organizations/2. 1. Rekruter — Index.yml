@@ -33,6 +33,22 @@ docs: |-
   > o'z `organization_service_order` lari bo'yicha (org id), turdan qat'i nazar. `counts`
   > joriy sahifa uchun batch hisoblanadi (N+1 yo'q); detal (`View`) javobida `stats` ichida
   > kengaytirilgan ko'rsatkichlar bo'ladi.
+
+  ### 🔒 Org-scope (ADR 0014)
+
+  Non-admin aktor (masalan `xba_admin`) faqat **o'zi ishlaydigan** tashkilotlarni
+  ko'radi. Tashkilot ko'rinadi, agar: (0) u aktorning o'zi, **yoki** (1) uni shu
+  agentlik kiritgan (`onboarded_by_organization_id`), **yoki** (2) agentlik bilan
+  tasdiqlangan va bekor qilinmagan shartnomasi bor (`organization_contract`, ikki
+  yo'nalishda), **yoki** (3) u
+  agentlikning o'z vakansiyasi shartnoma zanjirida **imzolangan bo'g'in** bilan
+  qatnashadi (`contract_id IS NOT NULL` — shartnomasiz qoralama bo'g'in ko'rinish
+  bermaydi). Bitta tashkilot bir nechta agentlik bilan shartnoma tuzsa —
+  hammasiga ko'rinadi.
+
+  Scope klient filtrlaridan **keyin** qo'llanadi: `?q=` orqali begona tashkilotni
+  topib bo'lmaydi (`items: []`). Platforma admini (`superadmin`/`admin`) — filtrsiz.
+  Aktorda umuman tashkilot bo'lmasa → `403`.
 settings:
   encodeUrl: true
   timeout: 0

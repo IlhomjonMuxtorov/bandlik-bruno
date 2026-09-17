@@ -58,6 +58,14 @@ docs: |-
 
   > `candidates_count` / `filled` joriy sahifa uchun batch hisoblanadi (N+1 yo'q).
   > "Kvota hajmi" indikatori (masalan `46/100`) = `filled` / `hiring_quota`.
+
+  > **Org-scope (ADR 0014):** non-admin aktor faqat o'zi ishlaydigan tashkilotni
+  > ocha oladi — begona id **`404`** qaytaradi (ataylab `403` emas: API begona
+  > tashkilot mavjudligini tasdiqlamaydi). Ko'rinish qoidasi Index faylida.
+  >
+  > ⚠️ **Buzuvchi:** ro'yxat endi faqat **aktorning o'z** vakansiyalarini
+  > qaytaradi. Ilgari bu yerda ish beruvchining barcha vakansiyalari chiqardi —
+  > jumladan boshqa agentliknikini ham. Bo'sh natija normal holat.
 settings:
   encodeUrl: true
   timeout: 0
