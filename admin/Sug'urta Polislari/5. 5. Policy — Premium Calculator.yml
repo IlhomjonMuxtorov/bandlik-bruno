@@ -1,0 +1,81 @@
+info:
+  name: 5. Policy — Premium Calculator
+  type: http
+  seq: 5
+http:
+  method: GET
+  url: '{{base_url}}/admin/insurance-policies/premium?country_id=1'
+  auth: inherit
+docs: 'Yo''nalish davlati bo''yicha sug''urta tarifini **oldindan ko''rsatadi** — vakansiya
+
+  yaratish formasida narxni ko''rsatish uchun. Hech nima saqlanmaydi.
+
+
+  Narxni **provayder** hisoblaydi (davlat + viza rejimi bo''yicha) — bizning
+
+  `insurance_country_price` katalogi bu provayder uchun ishlatilmaydi.
+
+
+  **Auth:** `admin_token`. **Permission:** `insurancePolicyView`.
+
+
+  ### 🔎 Query Parameters
+
+
+  | Param | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `country_id` | int | ✅ | Yo''nalish davlati (`country.id`). Davlatda `visa_regime` belgilangan bo''lishi
+  shart |
+
+
+  ### 📤 Response
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `country_id` | int | |
+
+  | `country_name` | string \| null | Provayder bazasidagi davlat nomi |
+
+  | `premium_usd` | int \| float | Nomzod to''laydigan mukofot, **USD**. Davlat+viza guruhiga bog''liq — **barqaror**
+  |
+
+  | `sum_usd` | int \| float | Qoplama summasi, **USD** |
+
+  | `premium_uzs` | int \| float | Mukofot **so''m**da — **bugungi** kurs bo''yicha |
+
+  | `sum_uzs` | int \| float | Qoplama **so''m**da — **bugungi** kurs bo''yicha |
+
+  | `usd_exchange_rate` | float | Provayder ishlatgan USD kursi (so''m) |
+
+  | `provider_group` | int \| null | Provayderning o''z tarif guruhi |
+
+
+  > ⚠️ **so''m qiymatlari faqat bugunga.** Kurs har kuni o''zgaradi va nomzod to''layotgan kuni
+
+  > tarif qaytadan olinadi. Vakansiyada faqat **USD** qiymati muzlatiladi.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `400` | `country_id` berilmagan |
+
+  | `422` | Davlat topilmadi, `visa_regime` belgilanmagan yoki ISO kodi yo''q |
+
+  | `500` | Provayder javob bermadi — tarif olinmadi |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

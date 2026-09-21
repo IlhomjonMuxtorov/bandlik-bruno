@@ -1,0 +1,124 @@
+info:
+  name: 1. Policy — Index
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/insurance-policies?status=failed&per-page=20'
+  auth: inherit
+docs: 'Nomzodlarga ochilgan sug''urta polislari ro''yxati (pagination bilan).
+
+
+  Polis nomzod puli **hold** qilingan zahoti Agrosugurta (ERSP) da ochiladi. Shuning uchun
+
+  `failed` qator — "pul ushlab turilgan, lekin polis yo''q" degani; shu ekran aynan shularni
+
+  kuzatish uchun.
+
+
+  **Auth:** `admin_token`. **Permission:** `insurancePolicyView`.
+
+
+  ### 🔎 Query Parameters
+
+
+  | Param | Type | Required | Description |
+
+  |---|---|:---:|---|
+
+  | `status` | string | ➖ | `pending` \| `contract_created` \| `issued` \| `failed` |
+
+  | `candidate_id` | int | ➖ | Faqat shu nomzodning polislari |
+
+  | `vacancy_candidate_id` | int | ➖ | Faqat shu pipeline qatori |
+
+  | `country_code` | string | ➖ | ISO alpha-2 yo''nalish davlati, masalan `AE` |
+
+  | `expiring_before` | string | ➖ | `Y-m-d` — shu sanagacha amal muddati tugaydiganlar |
+
+  | `q` | string | ➖ | Polis raqami / seriyasi / `contract_uuid` bo''yicha qidiruv |
+
+  | `page`, `per-page` | int | ➖ | Pagination |
+
+  | `sort` | string | ➖ | `id` \| `created_at` \| `issued_at` \| `end_date` \| `attempt_count` |
+
+
+  ### 📤 Response (`data.items[]`)
+
+
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `id` | int | |
+
+  | `provider` | string | Provayder kodi: `agrosugurta` |
+
+  | `status` | string | `pending` \| `contract_created` \| `issued` \| `failed` |
+
+  | `status_label` | string | Tarjima qilingan holat nomi |
+
+  | `candidate_id` | int | |
+
+  | `candidate_name` | string \| null | Pasport ma''lumotidagi to''liq ism (lotin). `null` — pasport sinxronlanmagan
+  |
+
+  | `vacancy_candidate_id` | int | Pipeline qatori |
+
+  | `candidate_service_group_id` | int | Sug''urta xizmat guruhi |
+
+  | `contract_uuid` | string \| null | ERSP shartnomasi. `null` — hali ochilmagan |
+
+  | `policy_series` / `policy_number` | string \| null | Polis seriyasi va raqami. `null` — hali berilmagan
+  |
+
+  | `policy_full_number` | string \| null | `"EUAD 0265464"` ko''rinishida |
+
+  | `policy_url` | string \| null | ERSP''dagi PDF havolasi |
+
+  | `policy_file_url` | string \| null | O''zimizda saqlangan PDF nusxasi — havola o''lsa ham ishlaydi
+  |
+
+  | `start_date` / `end_date` | string \| null | `Y-m-d`. Amal muddati = ochilgan kundan 1 yil - 1 kun
+  |
+
+  | `country_code` | string \| null | Provayderga yuborilgan davlat kodi |
+
+  | `visa_type` | string \| null | Provayderga yuborilgan `VISA` \| `VISA_FREE` |
+
+  | `premium_usd` / `sum_usd` | int \| null | Mukofot va qoplama, **USD** (major unit) |
+
+  | `premium_uzs` / `sum_uzs` | int \| null | O''sha qiymatlar **so''m**da — polis ochilgan kundagi kurs
+  bo''yicha |
+
+  | `usd_exchange_rate` | float \| null | Provayder ishlatgan USD kursi (so''m) |
+
+  | `provider_group` | int \| null | Provayderning **o''z** tarif guruhi — `country.visa_difficulty_group`
+  EMAS |
+
+  | `attempt_count` | int | Polis ochishga qilingan urinishlar soni |
+
+  | `last_attempt_at` | int \| null | Oxirgi urinish (unix ts) |
+
+  | `failure_reason` | string \| null | Oxirgi xato sababi. `null` — xato yo''q |
+
+  | `issued_at` | int \| null | Polis berilgan vaqt (unix ts) |
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `401` | Token yo''q yoki eskirgan |
+
+  | `403` | `insurancePolicyView` permission yo''q |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

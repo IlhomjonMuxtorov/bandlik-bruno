@@ -14,8 +14,8 @@ http:
 docs: 'Barcha aktiv davlatlar ro''yxatini qaytaradi.
 
 
-  > Ro''yxat `Accept-Language` bo''yicha alifbo (A-Z) tartibida qaytadi (fallback
-  `uz`) — `sort_order` emas.
+  > Ro''yxat `Accept-Language` bo''yicha alifbo (A-Z) tartibida qaytadi (fallback `uz`) — `sort_order`
+  emas.
 
 
   **Auth:** har qanday yaroqli JWT (`guest_token` yoki `access_token`).
@@ -38,12 +38,6 @@ docs: 'Barcha aktiv davlatlar ro''yxatini qaytaradi.
 
   |---|---|:---:|---|
 
-  | `visa` | string | ➖ | `1` yuborilsa faqat `is_visa_available=true` davlatlar qaytadi.
-  |
-
-  | `q` | string | ➖ | Nom bo''yicha qidiruv (`uz`/`ru`/`en` ichidan, registrga befarq, qisman
-  moslik). `visa` bilan birga ishlaydi. |
-
 
   ### 📤 Response *(massiv elementi)*
 
@@ -56,14 +50,11 @@ docs: 'Barcha aktiv davlatlar ro''yxatini qaytaradi.
 
   | `name` | string | Tanlangan tilga mos. Fallback → `uz`. |
 
-  | `iso_code` | string | ISO 3166-1 alpha-2 (`DE`, `KR`, `PL`, …). Sinxronizatsiya
-  uchun kalit. |
+  | `iso_code` | string | ISO 3166-1 alpha-2 (`DE`, `KR`, `PL`, …). Sinxronizatsiya uchun kalit. |
 
   | `flag_url` | string \| null | Bayroq rasmi (`flagcdn.com/w80/{iso}.png`) |
 
   | `image_url` | string \| null | Banner/cover rasmi |
-
-  | `is_visa_available` | bool | `true` — viza rasmiylashtirish mumkin |
 
 
   ### 📋 Response Headers
@@ -73,8 +64,8 @@ docs: 'Barcha aktiv davlatlar ro''yxatini qaytaradi.
 
   |---|---|
 
-  | `X-Pagination-Total-Count` | Qidiruv/filtrga mos jami natijalar soni (badge uchun).
-  CORS `Access-Control-Expose-Headers` orqali ochiq, frontend o''qiy oladi. |
+  | `X-Pagination-Total-Count` | Qidiruv/filtrga mos jami natijalar soni (badge uchun). CORS `Access-Control-Expose-Headers`
+  orqali ochiq, frontend o''qiy oladi. |
 
 
   ### ⚠️ Errors
@@ -88,6 +79,13 @@ docs: 'Barcha aktiv davlatlar ro''yxatini qaytaradi.
 
 
   > Boshqa xato qaytarmaydi — mavjud bo''lmasa bo''sh massiv `[]` qaytadi.
+
+
+  > **O''zgardi:** `is_visa_available` maydoni va `?visa=1` filtri olib tashlandi.
+
+  > Davlatning viza rejimi endi `country.visa_regime` da yuritiladi va faqat admin
+
+  > tomonda ko''rinadi — mobil javobda viza bilan bog''liq maydon yo''q.
 
   '
 settings:

@@ -6,8 +6,8 @@ http:
   method: GET
   url: '{{base_url}}/admin/countries'
   auth: inherit
-docs: 'Davlatlar ro''yxati (paginatsiya bilan). Natijalar `Accept-Language` tili bo''yicha
-  **alfavit (A-Z)** tartibida qaytadi (til yo''q bo''lsa `uz` fallback) — `sort_order` emas.
+docs: 'Davlatlar ro''yxati (paginatsiya bilan). Natijalar `Accept-Language` tili bo''yicha **alfavit (A-Z)**
+  tartibida qaytadi (til yo''q bo''lsa `uz` fallback) — `sort_order` emas.
 
 
   **Auth:** `admin_token`.
@@ -24,22 +24,26 @@ docs: 'Davlatlar ro''yxati (paginatsiya bilan). Natijalar `Accept-Language` tili
 
   | `is_active` | int (0\|1) | ➖ | Faolligi bo''yicha filtr. |
 
-  | `is_visa_available` | int (0\|1) | ➖ | Viza beradigan davlatlar. |
+  | `visa_regime` | string \| null | Davlatning O''zbekiston fuqarosi uchun viza rejimi: `visa` \| `visa_free`.
+  `null` — aniqlanmagan, bu davlat uchun sug''urta polisi **ochilmaydi** |
+
+  | `visa_difficulty_group` | int \| null | Viza olish qiyinligi: `1` (deyarli muammosiz) \| `2` (o''rta)
+  \| `3` (qiyin). Rekruting tahlili uchun; sug''urta tarifiga aloqasi yo''q |
 
   | `exclude_priced_for_org` | int | ➖ | Sug''urta tashkilot `organization.id` (`type = 4`). Berilsa,
   o''sha tashkilotga **allaqachon narx biriktirilgan** davlatlar ro''yxatdan chiqariladi — "Davlatlar
   bo''yicha narxlash" formasida yangi davlat qo''shish dropdown''i uchun (dublikat blok / unique-kalit
-  konfliktining oldini oladi). Active yoki inactive — har qanday narx satri bo''lsa, davlat chiqariladi. |
+  konfliktining oldini oladi). Active yoki inactive — har qanday narx satri bo''lsa, davlat chiqariladi.
+  |
 
   | `page` | int | ➖ | Sahifa raqami (default `1`). |
 
-  | `per-page` | int | ➖ | Sahifa hajmi (1–300, default `20`). Butun davlatlar to''plamini
-  (~240) bir sahifada olish uchun `250` beriladi (dropdown to''liq A-Z). |
+  | `per-page` | int | ➖ | Sahifa hajmi (1–300, default `20`). Butun davlatlar to''plamini (~240) bir
+  sahifada olish uchun `250` beriladi (dropdown to''liq A-Z). |
 
-  | `sort` | string | ➖ | Berilmasa — natija yuqorida aytilgan A-Z tartibda. `sort_order`
-  qiymati eski **tahririy (editorial)** tartibni qaytaradi (masalan boshqaruv jadvali
-  uchun). Ruxsat etilgan: `id` \| `-id` \| `sort_order` \| `-sort_order` \| `created_at`
-  \| `-created_at`. |
+  | `sort` | string | ➖ | Berilmasa — natija yuqorida aytilgan A-Z tartibda. `sort_order` qiymati eski
+  **tahririy (editorial)** tartibni qaytaradi (masalan boshqaruv jadvali uchun). Ruxsat etilgan: `id`
+  \| `-id` \| `sort_order` \| `-sort_order` \| `created_at` \| `-created_at`. |
 
 
   ### 📋 Headers
@@ -75,7 +79,11 @@ docs: 'Davlatlar ro''yxati (paginatsiya bilan). Natijalar `Accept-Language` tili
 
   | `image_url` | string \| null | To''liq URL |
 
-  | `is_visa_available` | bool | |
+  | `visa_regime` | string \| null | Davlatning O''zbekiston fuqarosi uchun viza rejimi: `visa` \| `visa_free`.
+  `null` — aniqlanmagan, bu davlat uchun sug''urta polisi **ochilmaydi** |
+
+  | `visa_difficulty_group` | int \| null | Viza olish qiyinligi: `1` (deyarli muammosiz) \| `2` (o''rta)
+  \| `3` (qiyin). Rekruting tahlili uchun; sug''urta tarifiga aloqasi yo''q |
 
   | `is_active` | bool | |
 
@@ -88,6 +96,11 @@ docs: 'Davlatlar ro''yxati (paginatsiya bilan). Natijalar `Accept-Language` tili
   | `updated_at` | int | Unix timestamp |
 
   | `updated_at_formatted` | string | `d.m.Y H:i` (Asia/Tashkent) |
+
+
+  > **O''zgardi:** `is_visa_available` ustuni **o''chirildi** (240 qatorning hammasi `false` edi, ishlatilmasdi).
+
+  > O''rniga `visa_regime` + `visa_difficulty_group`. `PATCH .../toggle-visa` endpointi ham olib tashlandi.
 
   '
 settings:

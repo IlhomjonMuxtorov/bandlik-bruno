@@ -10,9 +10,9 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"name\": {\"uz\": \"Germaniya\", \"ru\": \"Германия\", \"en\": \"\
-      Germany\"},\n  \"iso_code\": \"DE\",\n  \"is_visa_available\": 1,\n  \"is_active\"\
-      : 1,\n  \"flag_id\": 10,\n  \"image_id\": 11\n}"
+    data: "{\n  \"name\": {\"uz\": \"Germaniya\", \"ru\": \"Германия\", \"en\": \"Germany\"},\n  \"iso_code\"\
+      : \"DE\",\n  \"visa_regime\": \"visa\",\n  \"visa_difficulty_group\": 1,\n  \"is_active\": 1,\n\
+      \  \"flag_id\": 10,\n  \"image_id\": 11\n}"
   auth: inherit
 docs: 'Yangi davlat qo''shadi. `application/json` so''rov.
 
@@ -31,7 +31,11 @@ docs: 'Yangi davlat qo''shadi. `application/json` so''rov.
 
   | `iso_code` | string | ✅ | 2 ta xarfli kod (masalan `DE`, `US`) |
 
-  | `is_visa_available` | int (0\|1) | ➖ | Default: 0 |
+  | `visa_regime` | string \| null | Davlatning O''zbekiston fuqarosi uchun viza rejimi: `visa` \| `visa_free`.
+  `null` — aniqlanmagan, bu davlat uchun sug''urta polisi **ochilmaydi** |
+
+  | `visa_difficulty_group` | int \| null | Viza olish qiyinligi: `1` (deyarli muammosiz) \| `2` (o''rta)
+  \| `3` (qiyin). Rekruting tahlili uchun; sug''urta tarifiga aloqasi yo''q |
 
   | `is_active` | int (0\|1) | ➖ | Default: 0 |
 
@@ -52,6 +56,11 @@ docs: 'Yangi davlat qo''shadi. `application/json` so''rov.
   | `422` | Validatsiya xatosi |
 
   | `400` | `flag_id` yoki `image_id` topilmadi yoki `status=uploading` |
+
+
+  > **O''zgardi:** `is_visa_available` ustuni **o''chirildi** (240 qatorning hammasi `false` edi, ishlatilmasdi).
+
+  > O''rniga `visa_regime` + `visa_difficulty_group`. `PATCH .../toggle-visa` endpointi ham olib tashlandi.
 
   '
 settings:

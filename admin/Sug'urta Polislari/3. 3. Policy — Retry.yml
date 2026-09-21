@@ -1,0 +1,65 @@
+info:
+  name: 3. Policy — Retry
+  type: http
+  seq: 3
+http:
+  method: POST
+  url: '{{base_url}}/admin/insurance-policies/1/retry'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: '{}'
+  auth: inherit
+docs: 'Ochilmay qolgan polisni **qayta ochishga urinadi**. Nomzod puli allaqachon hold
+
+  qilingan, shuning uchun bu bo''shliqni yopish qo''lda ham imkoniyat bo''lishi kerak
+
+  (cron `insurance/retry-failed` ham har 10 daqiqada shuni qiladi).
+
+
+  Idempotent: allaqachon ochilgan polis o''zgarishsiz qaytariladi, provayderda mavjud
+
+  shartnoma (`contract_uuid`) qayta sotib olinmaydi — `confirm-payment` dan davom etiladi.
+
+
+  Polis ochilsa, xizmat guruhi avtomatik `completed` bo''ladi va admin tasdig''ini kutadi
+
+  (tasdiq — pulni sug''urta tashkilotiga o''tkazadi).
+
+
+  **Auth:** `admin_token`. **Permission:** `insurancePolicyManage`.
+
+
+  ### 📤 Response
+
+
+  Yangilangan polis obyekti (**Index** bilan bir xil maydonlar). `message` polis ochilgan-ochilmaganini
+  bildiradi.
+
+
+  > `status` hamon `failed` bo''lsa — `failure_reason` ni o''qing. Provayder ma''lumotni rad etgan
+
+  > bo''lsa (masalan PINFL yoki propiska yetishmasa) qayta urinish yordam bermaydi: avval
+
+  > nomzodning MVD ma''lumotini to''g''rilash kerak.
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `403` | `insurancePolicyManage` permission yo''q |
+
+  | `404` | Polis topilmadi |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

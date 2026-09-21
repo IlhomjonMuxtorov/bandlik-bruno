@@ -1,0 +1,55 @@
+info:
+  name: 4. Policy — Check
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{base_url}}/admin/insurance-policies/1/check'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: '{}'
+  auth: inherit
+docs: 'Provayderdan shartnoma holatini **qayta o''qiydi** (ERSP `check-policy`) va bizdagi
+
+  qatorni yangilaydi.
+
+
+  Kerak bo''ladigan holat: shartnoma ERSP''da ochilgan (`contract_created`), lekin
+
+  `confirm-payment` javobi bizga yetib kelmagan. Polis ko''pincha ularning tomonida allaqachon
+
+  mavjud — bu chaqiruv uni **ikkinchi marta sotib olmasdan** tiklaydi.
+
+
+  Cron `insurance/check-pending` har 30 daqiqada shuni qiladi.
+
+
+  **Auth:** `admin_token`. **Permission:** `insurancePolicyManage`.
+
+
+  ### 📤 Response
+
+
+  Yangilangan polis obyekti (**Index** bilan bir xil maydonlar).
+
+
+  ### ⚠️ Errors
+
+
+  | Code | Reason |
+
+  |---|---|
+
+  | `403` | `insurancePolicyManage` permission yo''q |
+
+  | `404` | Polis topilmadi |
+
+  '
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

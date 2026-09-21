@@ -8,129 +8,290 @@ http:
   body:
     type: none
   auth: inherit
-docs: |
-  Bir chatning to'liq detali — list summary + pinlangan **candidate_card** snapshot + **service GROUP** tracker (faqat ariza qabul qilingan bo'lsa).
+docs: 'Bir chatning to''liq detali — list summary + pinlangan **candidate_card** snapshot + **service
+  GROUP** tracker (faqat ariza qabul qilingan bo''lsa).
 
-  > **18.06 refactor:** xizmat GURUHI = kuzatiladigan birlik. Status / to'lov muddati /
+
+  > **18.06 refactor:** xizmat GURUHI = kuzatiladigan birlik. Status / to''lov muddati /
+
   > bajarish muddati / boshlanish vaqti endi **guruh** darajasida (`service_groups[]`).
+
   > Guruh ichidagi alohida xizmatlar — `services[]` (faqat billing line-item, alohida
+
   > bajarildi belgilanmaydi). Eski `service_groups[].stages[]` → `service_groups[].services[]`.
+
 
   **Auth:** `access_token`.
 
+
   ### 📋 Headers
 
+
   | Header | Required | Description |
+
   |---|:---:|---|
+
   | `Authorization` | ✅ | `Bearer {access_token}` |
+
 
   ### 📤 Response
 
-  List item DTO + qo'shimcha:
+
+  List item DTO + qo''shimcha:
+
 
   | Field | Type | Description |
-  |---|---|---|
-  | `candidate_card` | object \| null | Pinlangan obyektivka. `{candidate_id, application_id, full_name, photo_url, phone, cv_id, cv_title}`. Conversation ochilishda system message sifatida birinchi xabar sifatida |
-  | `service_groups` | array | **Xizmat guruhlari = kuzatiladigan birlik** + guruh bo'yicha ketma-ket to'lov/bajarish holati. Guruh ichidagi xizmatlar `services[]` (billing line-item) da. Bo'sh massiv — pipeline yo'q. (Quyida tuzilishi) |
-  | `offer` | object \| null | **Taklif + funding holati**. `null` — tashkilot arizani hali qabul qilmagan (pipeline yo'q). Nomzod taklifni shu yerdan **qabul/rad/bekor** qiladi: `POST /mobile/chats/<id>/offer/{accept,decline,fund,cancel}` |
-  | `active_call` | object \| null | **Aktiv (davom etayotgan/jiringlayotgan) qo'ng'iroq**. `null` — qo'shiladigan qo'ng'iroq yo'q. Push kelmagan / chat qayta ochilgan holatda mijoz shu maydon orqali "Join" tugmasini ko'rsatadi va `POST /mobile/chats/<id>/video-call/join` chaqiradi. Obyekt: `{call_message_id, room_name, domain, started_by, started_at}` |
-  | `can_request_cancellation` | bool | Hozir **jarayonni to'xtatish so'rovi** yuborish mumkinmi (`POST /mobile/chats/<id>/cancellation-request`). Mijoz tugmani shu flag bilan oldindan yoqadi/o'chiradi |
-  | `cancellation_block_reason` | string \| null | Bloklangan bo'lsa sabab kodi: `request_pending` (kutilayotgan so'rov bor) \| `pipeline_finished` \| `chat_closed` \| `no_pipeline`. `can=true` da `null`. (Yetkazilgan-lekin-tasdiqlanmagan guruh **yuborishni** bloklamaydi — bu approval'da tekshiriladi) |
-  | `pending_cancellation_request` | object \| null | Kutilayotgan to'xtatish so'rovi (bo'lsa): `{id, status, source, reason, decision_reason, refunded_amount, requested_at, decided_at}` |
 
-  `offer` obyekti (mavjud bo'lsa):
+  |---|---|---|
+
+  | `candidate_card` | object \| null | Pinlangan obyektivka. `{candidate_id, application_id, full_name,
+  photo_url, phone, cv_id, cv_title}`. Conversation ochilishda system message sifatida birinchi xabar
+  sifatida |
+
+  | `service_groups` | array | **Xizmat guruhlari = kuzatiladigan birlik** + guruh bo''yicha ketma-ket
+  to''lov/bajarish holati. Guruh ichidagi xizmatlar `services[]` (billing line-item) da. Bo''sh massiv
+  — pipeline yo''q. (Quyida tuzilishi) |
+
+  | `offer` | object \| null | **Taklif + funding holati**. `null` — tashkilot arizani hali qabul qilmagan
+  (pipeline yo''q). Nomzod taklifni shu yerdan **qabul/rad/bekor** qiladi: `POST /mobile/chats/<id>/offer/{accept,decline,fund,cancel}`
+  |
+
+  | `active_call` | object \| null | **Aktiv (davom etayotgan/jiringlayotgan) qo''ng''iroq**. `null` —
+  qo''shiladigan qo''ng''iroq yo''q. Push kelmagan / chat qayta ochilgan holatda mijoz shu maydon orqali
+  "Join" tugmasini ko''rsatadi va `POST /mobile/chats/<id>/video-call/join` chaqiradi. Obyekt: `{call_message_id,
+  room_name, domain, started_by, started_at}` |
+
+  | `can_request_cancellation` | bool | Hozir **jarayonni to''xtatish so''rovi** yuborish mumkinmi (`POST
+  /mobile/chats/<id>/cancellation-request`). Mijoz tugmani shu flag bilan oldindan yoqadi/o''chiradi |
+
+  | `cancellation_block_reason` | string \| null | Bloklangan bo''lsa sabab kodi: `request_pending` (kutilayotgan
+  so''rov bor) \| `pipeline_finished` \| `chat_closed` \| `no_pipeline`. `can=true` da `null`. (Yetkazilgan-lekin-tasdiqlanmagan
+  guruh **yuborishni** bloklamaydi — bu approval''da tekshiriladi) |
+
+  | `pending_cancellation_request` | object \| null | Kutilayotgan to''xtatish so''rovi (bo''lsa): `{id,
+  status, source, reason, decision_reason, refunded_amount, requested_at, decided_at}` |
+
+
+  `offer` obyekti (mavjud bo''lsa):
+
 
   | Field | Type | Description |
+
   |---|---|---|
+
   | `id` | int | Pipeline (taklif) id |
-  | `pipeline_outcome` | string | `active` \| `completed` \| `cancelled` |
-  | `current_stage` | string | `awaiting` (qabul kutilmoqda) / `training` / … / `completed` / `cancelled` |
-  | `confirmed` | bool | Taklif qabul qilinganmi (pul band qilish boshlanganmi) |
-  | `currency` | string | Band qilish valyutasi (UZS) |
-  | `required_amount` | int | Barcha xizmatlar jami (so'm) |
-  | `funded_amount` | int | Band qilingan (boshlangan) summa |
-  | `awaiting_amount` | int | **Boshlangan** (awaiting_payment) — hozir to'lash mumkin bo'lgan summa |
-  | `pending_amount` | int | Hali boshlanmagan (pending) guruhlar summasi — hali to'lab bo'lmaydi |
-  | `reserved_amount` | int | Jami band qilingan |
-  | `captured_amount` | int | Xizmatlarga yechib o'tkazilgan |
-  | `remaining_hold` | int | Hali band'da turgan (bekor qilishda qaytadigan) |
-  | `contract_confirmation` | object | **Shartnomani MyID Face ID bilan tasdiqlash holati** — qabul tugmasini shu blokka qarab chizing (pastga qarang) |
 
-  > `offer` faqat **jami** ko'rsatkichlar. To'lov/bajarish holati guruh darajasida `service_groups[]` da; guruh ichidagi xizmatlar `services[]` (billing line-item).
+  | `pipeline_outcome` | string | `active` \| `completed` \| `cancelled` |
+
+  | `current_stage` | string | `awaiting` (qabul kutilmoqda) / `training` / … / `completed` / `cancelled`
+  |
+
+  | `confirmed` | bool | Taklif qabul qilinganmi (pul band qilish boshlanganmi) |
+
+  | `currency` | string | Band qilish valyutasi (UZS) |
+
+  | `required_amount` | int | Barcha xizmatlar jami (so''m) |
+
+  | `funded_amount` | int | Band qilingan (boshlangan) summa |
+
+  | `awaiting_amount` | int | **Boshlangan** (awaiting_payment) — hozir to''lash mumkin bo''lgan summa
+  |
+
+  | `pending_amount` | int | Hali boshlanmagan (pending) guruhlar summasi — hali to''lab bo''lmaydi |
+
+  | `reserved_amount` | int | Jami band qilingan |
+
+  | `captured_amount` | int | Xizmatlarga yechib o''tkazilgan |
+
+  | `remaining_hold` | int | Hali band''da turgan (bekor qilishda qaytadigan) |
+
+  | `contract_confirmation` | object | **Shartnomani MyID Face ID bilan tasdiqlash holati** — qabul tugmasini
+  shu blokka qarab chizing (pastga qarang) |
+
+
+  > `offer` faqat **jami** ko''rsatkichlar. To''lov/bajarish holati guruh darajasida `service_groups[]`
+  da; guruh ichidagi xizmatlar `services[]` (billing line-item).
+
 
   #### 🔐 `offer.contract_confirmation`
 
-  | Field | Type | Description |
-  |---|---|---|
-  | `required` | bool | `true` — qabuldan oldin Face ID tasdig'i shart (`contract/myid/start` → `verify` → `offer/accept`). `false` — global sozlama o'chirilgan. |
-  | `confirmation_id` | int \| null | Joriy tasdiq id. `null` — hali boshlanmagan. |
-  | `status` | string \| null | `pending` (boshlangan, yuz hali tekshirilmagan) \| `confirmed` (qabulga tayyor) \| `failed` \| `expired`. `null` — hali boshlanmagan. |
-  | `mode` | string \| null | `secondary` (saqlangan reuid) \| `primary` (bazadagi pasport). Ikkalasida ham nomzoddan pasport **so'ralmaydi**. |
-  | `contract_file_url` | string \| null | Imzolangan shartnoma PDF havolasi. `null` — hali tasdiqlanmagan. |
-  | `confirmed_at` | int \| null | Yuz tekshirilgan vaqt (unix). |
-  | `expires_at` | int \| null | Tasdiq muddati (unix). O'tgan bo'lsa `start` qaytadan chaqiriladi. |
 
-  > Taklif qabul qilingandan **keyin** bu blok sarflangan tasdiqni ko'rsatadi — ya'ni
-  > `contract_file_url` imzolangan shartnomaga havola bo'lib qoladi.
+  | Field | Type | Description |
+
+  |---|---|---|
+
+  | `required` | bool | `true` — qabuldan oldin Face ID tasdig''i shart (`contract/myid/start` → `verify`
+  → `offer/accept`). `false` — global sozlama o''chirilgan. |
+
+  | `confirmation_id` | int \| null | Joriy tasdiq id. `null` — hali boshlanmagan. |
+
+  | `status` | string \| null | `pending` (boshlangan, yuz hali tekshirilmagan) \| `confirmed` (qabulga
+  tayyor) \| `failed` \| `expired`. `null` — hali boshlanmagan. |
+
+  | `mode` | string \| null | `secondary` (saqlangan reuid) \| `primary` (bazadagi pasport). Ikkalasida
+  ham nomzoddan pasport **so''ralmaydi**. |
+
+  | `contract_file_url` | string \| null | Imzolangan shartnoma PDF havolasi. `null` — hali tasdiqlanmagan.
+  |
+
+  | `confirmed_at` | int \| null | Yuz tekshirilgan vaqt (unix). |
+
+  | `expires_at` | int \| null | Tasdiq muddati (unix). O''tgan bo''lsa `start` qaytadan chaqiriladi.
+  |
+
+
+  > Taklif qabul qilingandan **keyin** bu blok sarflangan tasdiqni ko''rsatadi — ya''ni
+
+  > `contract_file_url` imzolangan shartnomaga havola bo''lib qoladi.
+
 
   ### 🗂 `service_groups[]` — xizmat guruhi (kuzatiladigan birlik)
 
-  Oqim: **Start → Pay → Execute → Complete → Confirm**. Admin/tashkilot guruhni boshlaydi (`started`), shunda kandidat to'lay oladi. To'lov **guruh bo'yicha, ketma-ket** (sort tartibida; oldingi tasdiqlanmaguncha keyingisi `is_current` bo'lmaydi). Guruh ichida — hammasi yoki hech narsa. Status / muddatlar / boshlanish vaqti **guruh** darajasida.
 
-  > **Kurs chegirmasi (Task 21):** agar nomzod vakansiyaning `training` guruhidagi kursni **avval to'liq sotib olgan** bo'lsa, o'sha xizmat avtomatik **bepul** bo'ladi: `amount = 0`, `discount_amount = original_amount`. Chegirma guruh yaratilganda (taklif qabulida) bir marta hisoblanadi.
+  Oqim: **Start → Pay → Execute → Complete → Confirm**. Admin/tashkilot guruhni boshlaydi (`started`),
+  shunda kandidat to''lay oladi. To''lov **guruh bo''yicha, ketma-ket** (sort tartibida; oldingi tasdiqlanmaguncha
+  keyingisi `is_current` bo''lmaydi). Guruh ichida — hammasi yoki hech narsa. Status / muddatlar / boshlanish
+  vaqti **guruh** darajasida.
+
+
+  > **Kurs chegirmasi (Task 21):** agar nomzod vakansiyaning `training` guruhidagi kursni **avval to''liq
+  sotib olgan** bo''lsa, o''sha xizmat avtomatik **bepul** bo''ladi: `amount = 0`, `discount_amount =
+  original_amount`. Chegirma guruh yaratilganda (taklif qabulida) bir marta hisoblanadi.
+
 
   | Field | Type | Description |
+
   |---|---|---|
-  | `service_group_id` | int \| null | Guruhning `VacancyServiceGroup.id`'si — `POST /admin/chats/<id>/groups/{groupId}/start\|complete\|confirm\|reject` uchun |
-  | `group_type` | string | `training` \| `translation_apostil` \| `insurance` \| `visa` \| `xba` \| `logistics` |
+
+  | `service_group_id` | int \| null | Guruhning `VacancyServiceGroup.id`''si — `POST /admin/chats/<id>/groups/{groupId}/start\|complete\|confirm\|reject`
+  uchun |
+
+  | `group_type` | string | `training` \| `translation_apostil` \| `insurance` \| `visa` \| `xba` \| `logistics`
+  |
+
   | `completion_flow` | string | `auto` (training) \| `single` (xba) \| `standard` (qolganlari) |
-  | `organization` | object \| null | `{id, name, type, type_label, logo_url}` — xizmatni beruvchi tashkilot |
-  | `responsible_user` | object \| null | Tashkilotning mas'ul useri: `{id, username, full_name, phone, photo_url}` |
-  | `services` | array | Guruh ichidagi xizmatlar = billing line-item (quyidagi `services[]` struktura) |
-  | `status` | string | `pending` \| `awaiting_payment` \| `in_progress` \| `completed` \| `xba_confirmed` \| `overdue` \| `payment_overdue` \| `skipped` |
+
+  | `organization` | object \| null | `{id, name, type, type_label, logo_url}` — xizmatni beruvchi tashkilot
+  |
+
+  | `responsible_user` | object \| null | Tashkilotning mas''ul useri: `{id, username, full_name, phone,
+  photo_url}` |
+
+  | `services` | array | Guruh ichidagi xizmatlar = billing line-item (quyidagi `services[]` struktura)
+  |
+
+  | `status` | string | `pending` \| `awaiting_payment` \| `in_progress` \| `completed` \| `xba_confirmed`
+  \| `overdue` \| `payment_overdue` \| `skipped` |
+
   | `status_label` | string | tarjima qilingan status |
-  | `required_amount` | int | Guruh jami — **chegirmadan keyingi** to'lanadigan summa (so'm) |
-  | `funded_amount` | int | Guruhda band qilingan (so'm) |
-  | `awaiting_amount` | int | Guruhni to'lash uchun yetishmayotgan (so'm) |
-  | `discount_amount` | int | **Guruhdagi jami chegirma** (so'm) |
+
+  | `required_amount` | int | Guruh jami — **chegirmadan keyingi** to''lanadigan summa (so''m) |
+
+  | `funded_amount` | int | Guruhda band qilingan (so''m) |
+
+  | `awaiting_amount` | int | Guruhni to''lash uchun yetishmayotgan (so''m) |
+
+  | `discount_amount` | int | **Guruhdagi jami chegirma** (so''m) |
+
   | `currency` | string | Valyuta (UZS) |
-  | `started` | bool | Admin/tashkilot guruhni boshlaganmi (to'lov oynasi ochilganmi) |
+
+  | `started` | bool | Admin/tashkilot guruhni boshlaganmi (to''lov oynasi ochilganmi) |
+
   | `awaiting_start` | bool | Guruh hali boshlanmagan |
-  | `fully_funded` | bool | Guruh to'liq to'langanmi (hold qo'yilgan) |
-  | `is_current` | bool | Ketma-ket pipeline'da hozir aktiv guruh (oldingilar tasdiqlangan, bu hali emas) |
+
+  | `fully_funded` | bool | Guruh to''liq to''langanmi (hold qo''yilgan) |
+
+  | `is_current` | bool | Ketma-ket pipeline''da hozir aktiv guruh (oldingilar tasdiqlangan, bu hali emas)
+  |
+
   | `started_at` | int \| null | Guruh boshlangan vaqt (unix ts) |
-  | `payment_deadline_at` | int \| null | Guruhning to'lov muddati (unix ts) |
-  | `execution_deadline_at` | int \| null | Guruhning bajarish muddati (unix ts; to'langan kundan) |
+
+  | `payment_deadline_at` | int \| null | Guruhning to''lov muddati (unix ts) |
+
+  | `execution_deadline_at` | int \| null | Guruhning bajarish muddati (unix ts; to''langan kundan) |
+
   | `completed_at` | int \| null | Tashkilot guruhni bajarildi belgilagan vaqt |
-  | `time_left_text` | string \| null | Aktiv guruh soatining qolgan vaqti, status'ga qarab boshqa deadline'ga nisbatan: `awaiting_payment` da `payment_deadline_at`gacha, `in_progress`/`overdue` da `execution_deadline_at`gacha; boshqa statusda `null`. Format: "6 d, 23 h" / "7 d" / "23 h" / "{n} min" / "Deadline passed" |
+
+  | `time_left_text` | string \| null | Aktiv guruh soatining qolgan vaqti, status''ga qarab boshqa deadline''ga
+  nisbatan: `awaiting_payment` da `payment_deadline_at`gacha, `in_progress`/`overdue` da `execution_deadline_at`gacha;
+  boshqa statusda `null`. Format: "6 d, 23 h" / "7 d" / "23 h" / "{n} min" / "Deadline passed" |
+
   | `skipped` / `fully_completed` / `confirmed` | bool | Guruh holati flaglari |
-  | `can_start` / `can_complete` / `can_confirm` / `can_reject` | bool | Guruh action affordance'lari (admin tomonidan bajariladi; hammasi faqat `is_current` da). `can_start` — boshlash; `can_complete` — tashkilot bajarildi belgilashi (faqat standart guruhlar); `can_confirm` — XBA tasdig'i (standard: pending attempt; training & xba: fund qilingan + `in_progress`, training'da kurs tugamasa ham); `can_reject` — pending completion attempt'ni rad etish (training/xba'da doim `false`). Batafsil: admin Chat Detail docs |
-  | `last_attempt` | object \| null | Oxirgi complete urinishi (`pending_confirmation`/`confirmed`/`rejected` + `rejection_reason` + `visa_granted`/`visa_notes`) |
+
+  | `can_start` / `can_complete` / `can_confirm` / `can_reject` | bool | Guruh action affordance''lari
+  (admin tomonidan bajariladi; hammasi faqat `is_current` da). `can_start` — boshlash; `can_complete`
+  — tashkilot bajarildi belgilashi (faqat standart guruhlar); `can_confirm` — XBA tasdig''i (standard:
+  pending attempt; training & xba: fund qilingan + `in_progress`, training''da kurs tugamasa ham); `can_reject`
+  — pending completion attempt''ni rad etish (training/xba''da doim `false`). Batafsil: admin Chat Detail
+  docs |
+
+  | `last_attempt` | object \| null | Oxirgi complete urinishi (`pending_confirmation`/`confirmed`/`rejected`
+  + `rejection_reason` + `visa_granted`/`visa_notes`) |
+
   | `documents` | array | Guruhga biriktirilgan isbot fayllari |
+
+  | `policy` | object \| null | **Sug''urta polisi** — faqat `group_type = insurance` guruhida va faqat
+  polis **berilgandan keyin** to''ladi; qolgan barcha holatda `null`. `{status, policy_series, policy_number,
+  policy_number_full, start_date, end_date, policy_url}`. `policy_url` — yuklab olish havolasi (o''zimizda
+  saqlangan nusxa; provayder havolasi eskirsa ham ishlaydi). `start_date`/`end_date` — `Y-m-d`, polis
+  ochilgan kundan 1 yil |
+
+
+  > **Sug''urta guruhi (`group_type = insurance`) boshqacha ishlaydi.** U pipeline''ning **birinchi**
+  guruhi va har bir vakansiyada bo''ladi. Nomzod to''laganda (hold) polis Agrosugurta''dan **avtomatik**
+  olinadi — tashkilot "bajarildi" bosmaydi, shuning uchun `can_complete` doim `false`, `completion_flow`
+  = `auto`. Polis kelgach guruh o''zi `completed` bo''ladi va `policy` obyekti to''ladi; XBA tasdig''i
+  (`can_confirm`) pulni sug''urta tashkilotiga o''tkazadi. Provayder javob bermasa guruh `in_progress`
+  da qoladi, pul qaytarilmaydi — fon vazifasi qayta uradi.
+
 
   Har `service_groups[].services[]` elementi (billing line-item — alohida bajarildi belgilanmaydi):
 
+
   | Field | Type | Description |
+
   |---|---|---|
+
   | `id` | int | line-item id |
+
   | `service_id` | int \| null | `vacancy_service.id` |
-  | `category` | string | `agency` \| `notarius` \| `insurance` \| `logistics` \| `visa` \| `translation_apostille` \| `training` |
+
+  | `category` | string | `agency` \| `notarius` \| `insurance` \| `logistics` \| `visa` \| `translation_apostille`
+  \| `training` |
+
   | `category_label` | string | tarjima qilingan label |
+
   | `service_name` | string \| null | vacancy_service snapshot nomi |
-  | `amount` | int | **To'lanadigan summa** (so'm) — qabul paytida snapshot. Avval to'liq sotib olingan kurs uchun `0` |
-  | `discount_amount` | int | **Chegirma** (so'm) |
-  | `original_amount` | int | Chegirmagacha asl narx (so'm) = `amount + discount_amount` |
+
+  | `amount` | int | **To''lanadigan summa** (so''m) — qabul paytida snapshot. Avval to''liq sotib olingan
+  kurs uchun `0` |
+
+  | `discount_amount` | int | **Chegirma** (so''m) |
+
+  | `original_amount` | int | Chegirmagacha asl narx (so''m) = `amount + discount_amount` |
+
   | `currency` | string | Valyuta (UZS) |
+
   | `sort_order` | int | UI tartibi |
-  | `course_progress_percent` | int \| null | `training` kursning jonli progressi (0–100); kursga bog'lanmagan line-item uchun `null` |
+
+  | `course_progress_percent` | int \| null | `training` kursning jonli progressi (0–100); kursga bog''lanmagan
+  line-item uchun `null` |
+
 
   ### ⚠️ Errors
 
+
   | Code | Reason |
+
   |---|---|
-  | `401` | Token yo'q |
+
+  | `401` | Token yo''q |
+
   | `403` | Chat boshqa nomzodga tegishli |
+
   | `404` | Chat topilmadi |
+
+  '
 settings:
   encodeUrl: true
   timeout: 0

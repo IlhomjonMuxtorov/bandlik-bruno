@@ -10,18 +10,21 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"name\": {\"uz\": \"O'zbekiston\", \"ru\": \"Узбекистан\", \"en\"\
-      : \"Uzbekistan\"},\n  \"is_visa_available\": 0\n}"
+    data: "{\n  \"name\": {\"uz\": \"Turkiya\", \"ru\": \"Турция\", \"en\": \"Turkey\"},\n  \"visa_regime\"\
+      : \"visa_free\",\n  \"visa_difficulty_group\": 2\n}"
   auth: inherit
-docs: 'Davlatni yangilaydi. `application/json` — faqat o''zgaradigan maydonlarni yuborish
-  kifoya.
+docs: 'Davlatni yangilaydi. `application/json` — faqat o''zgaradigan maydonlarni yuborish kifoya.
 
 
-  Fayl maydonlari: `flag_id`, `image_id` (oldindan `/admin/upload` orqali yuklangan
-  fayl ID).
+  Fayl maydonlari: `flag_id`, `image_id` (oldindan `/admin/upload` orqali yuklangan fayl ID).
 
 
   **Auth:** `admin_token`.
+
+
+  > **O''zgardi:** `is_visa_available` ustuni **o''chirildi** (240 qatorning hammasi `false` edi, ishlatilmasdi).
+
+  > O''rniga `visa_regime` + `visa_difficulty_group`. `PATCH .../toggle-visa` endpointi ham olib tashlandi.
 
   '
 settings:

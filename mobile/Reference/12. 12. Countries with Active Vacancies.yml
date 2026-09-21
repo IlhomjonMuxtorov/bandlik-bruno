@@ -11,14 +11,12 @@ http:
   auth:
     type: bearer
     token: '{{guest_token}}'
-docs: 'Bosh ekran (Asosiy) davlatlar lentasi uchun: faqat kamida 1 ta aktiv
-  (`approved`) vakansiyasi bor davlatlar, har birida aktiv vakansiyalar soni
-  (badge) bilan qaytadi.
+docs: 'Bosh ekran (Asosiy) davlatlar lentasi uchun: faqat kamida 1 ta aktiv (`approved`) vakansiyasi bor
+  davlatlar, har birida aktiv vakansiyalar soni (badge) bilan qaytadi.
 
 
-  Davlatlar `Accept-Language` bo''yicha alifbo (A-Z) tartibida qaytadi (fallback
-  `uz`) — endi `sort_order` bo''yicha emas. Vakansiyasi yo''q davlatlar ro''yxatda
-  umuman bo''lmaydi.
+  Davlatlar `Accept-Language` bo''yicha alifbo (A-Z) tartibida qaytadi (fallback `uz`) — endi `sort_order`
+  bo''yicha emas. Vakansiyasi yo''q davlatlar ro''yxatda umuman bo''lmaydi.
 
 
   **Auth:** har qanday yaroqli JWT (`guest_token` yoki `access_token`).
@@ -57,10 +55,8 @@ docs: 'Bosh ekran (Asosiy) davlatlar lentasi uchun: faqat kamida 1 ta aktiv
 
   | `image_url` | string \| null | Banner/cover rasmi |
 
-  | `is_visa_available` | bool | `true` — viza rasmiylashtirish mumkin |
-
-  | `active_vacancy_count` | int | Shu davlatdagi aktiv (`approved`) vakansiyalar soni
-  (badge). Har doim ≥ 1. |
+  | `active_vacancy_count` | int | Shu davlatdagi aktiv (`approved`) vakansiyalar soni (badge). Har doim
+  ≥ 1. |
 
 
   ### ⚠️ Errors
