@@ -6,12 +6,11 @@ http:
   method: GET
   url: '{{base_url}}/admin/payouts?per-page=20&status=1'
   auth: inherit
-docs: 'Barcha payout so''rovlari — admin tomonidan ko''rib chiqilishi kerak bo''lganlar
-  (status=1, Pending) eng birinchi.
+docs: 'Barcha payout so''rovlari. Default tartib: `-id` (eng yangisi birinchi); Pending''larni
+  ko''rish uchun `status=1` filtri ishlatiladi. `provider` bo''yicha filter yo''q.
 
 
-  **Auth:** `admin_token`. Permission: `payoutApprove` (ko''rish), `payoutComplete`
-  (yakunlash).
+  **Auth:** `admin_token`. Permission: `payoutView`.
 
 
   ### 🔎 Query Params
@@ -26,7 +25,7 @@ docs: 'Barcha payout so''rovlari — admin tomonidan ko''rib chiqilishi kerak bo
   | `status` | int | 1..6 (Pending, Approved, Rejected, Processing, Completed, Failed)
   |
 
-  | `from` / `to` | int | created_at unix timestamp |
+  | `from` / `to` | int | created_at unix timestamp; faqat ikkalasi birga yuborilganda qo''llanadi |
 
   | `per-page` | int | 1..100 |
 
@@ -40,6 +39,12 @@ docs: 'Barcha payout so''rovlari — admin tomonidan ko''rib chiqilishi kerak bo
   (valyutaga mos major unit; DB tiyinda saqlaydi).
 
 
+  Aloqabank rail maydonlari (`provider`, `external_order_id`, `external_status`,
+  `external_error_code`, `last_checked_at`, `service_group_id`) har elementda bor;
+  ma''nosi View so''rovida. Capture''dan avtomatik yaratilgan payout''lar
+  `provider=aloqabank`, `requested_by=null` bilan `Pending` holatda keladi.
+
+
   ### ⚠️ Errors
 
 
@@ -49,7 +54,7 @@ docs: 'Barcha payout so''rovlari — admin tomonidan ko''rib chiqilishi kerak bo
 
   | `401` | Token yo''q |
 
-  | `403` | Admin emas |
+  | `403` | `payoutView` ruxsati yo''q |
 
   '
 settings:

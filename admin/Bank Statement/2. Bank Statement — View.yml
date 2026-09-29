@@ -1,0 +1,29 @@
+info:
+  name: 2. Bank Statement — View
+  type: http
+  seq: 2
+http:
+  method: GET
+  url: '{{base_url}}/admin/bank-statement/1'
+  auth: inherit
+docs: |
+  Vipiska bitta qatori.
+
+  **Auth:** `admin_token`. Permission: `bankStatementView`.
+
+  ### 📤 Response
+
+  `BankStatementEntry` — [Index](./1.%20Bank%20Statement%20—%20Index.yml) dagi maydonlar bilan bir xil.
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q. |
+  | `403` | `bankStatementView` ruxsati yo'q. |
+  | `404` | Vipiska qatori topilmadi. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,59 @@
+info:
+  name: 6. Topup Details (bank transfer)
+  type: http
+  seq: 6
+http:
+  method: GET
+  url: '{{base_url}}/mobile/wallet/topup-details'
+  auth: inherit
+docs: |
+  Bank o'tkazmasi orqali hamyonni to'ldirish uchun **rekvizitlar** va nomzodning **shaxsiy kodi**.
+  Nomzod o'z bank ilovasidan bizning Aloqabank hisobimizga pul o'tkazadi va to'lov maqsadiga
+  (`purpose`) shaxsiy kodni yozadi. Vipiska cron bilan har 5 daqiqada o'qiladi; kod bo'yicha
+  nomzod topilsa hamyon avtomatik to'ldiriladi (Aloqabank to'lovni "Проведен" qilgandan keyin).
+
+  Shaxsiy kod birinchi so'rovda yaratiladi va doim bir xil qoladi. Format: `BND` + 7 belgi
+  (Crockford base32: `I`, `L`, `O`, `U` ishlatilmaydi). Kod maqsad matnining istalgan joyida
+  bo'lishi mumkin, katta-kichik harf farq qilmaydi.
+
+  **Auth:** `access_token` (nomzod, shaxsi tasdiqlangan — `RequireVerifiedUserFilter`).
+
+  > Hisobga tushgan summa kodsiz/noto'g'ri kod bilan kelsa, avtomatik kreditlanmaydi: admin
+  > paneldan qo'lda biriktiriladi (`POST /admin/bank-statement/{id}/assign`).
+
+  ### 📤 Response (200)
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `receiver_name` | string | Qabul qiluvchi (bizning yuridik nomimiz). |
+  | `account` | string | Bizning 20 xonali hisob raqamimiz. |
+  | `mfo` | string | Bank MFO kodi (5 raqam). |
+  | `inn` | string \| null | Bizning INN (9 raqam); sozlanmagan bo'lsa `null`. |
+  | `purpose_code` | string | Nomzodning shaxsiy kodi, masalan `BND7K3M9QX`. To'lov maqsadida **bo'lishi shart**. |
+  | `purpose_template` | string | Nusxalash uchun tayyor maqsad matni (kodni o'z ichiga oladi), masalan `Wallet top-up BND7K3M9QX`. |
+
+  ```json
+  {
+    "receiver_name": "OOO Bandlik",
+    "account": "20208000900000000001",
+    "mfo": "00014",
+    "inn": "123456789",
+    "purpose_code": "BND7K3M9QX",
+    "purpose_template": "Wallet top-up BND7K3M9QX"
+  }
+  ```
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `Bank transfer top-up is not available yet` — (`app_setting.aloqabank_enabled = false` yoki rekvizitlar sozlanmagan). |
+  | `401` | Token yo'q yoki yaroqsiz. |
+  | `403` | Shaxs hali MyID orqali tasdiqlanmagan: `{"status_code": 403, "message": "Identity verification required.", "verification_required": true, ...}`. |
+  | `456` | Guest token bilan so'ralgan — avval ro'yxatdan o'tish kerak. |
+  | `404` | Joriy foydalanuvchiga bog'langan nomzod topilmadi. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

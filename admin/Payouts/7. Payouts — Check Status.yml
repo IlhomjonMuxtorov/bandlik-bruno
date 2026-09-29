@@ -1,0 +1,39 @@
+info:
+  name: 7. Payouts — Check Status
+  type: http
+  seq: 7
+http:
+  method: POST
+  url: '{{base_url}}/admin/payouts/17/check-status'
+  auth: inherit
+docs: |
+  Aloqabank'dan payout holatini so'rab, javobni qo'llaydi (`GET /api/v2/payment/{orderId}`).
+  Cron `aloqabank/check-payouts` shuni har 5 daqiqada o'zi bajaradi; bu tugma shoshilinch tekshirish uchun.
+
+  | Bank javobi | Natija |
+  |---|---|
+  | `Проведен` | Ledger `finalize`, payout `Completed` (`external:aloqabank` kredit). |
+  | `Введен` | Hech narsa o'zgarmaydi — payout `Processing`, keyinroq yana tekshiriladi. |
+  | `Удален` | Ledger `reject` (hold → balance), payout `Failed`. |
+  | xato `1008` (bankda yo'q) | Yuborilganiga 10 daqiqa (`BANK_NOT_FOUND_GRACE_SECONDS = 600`) bo'lmagan bo'lsa — o'zgarmaydi (bank hali ro'yxatga olmagan bo'lishi mumkin). Undan keyin — ledger `reject`, payout `Failed`. |
+  | boshqa xato / tarmoq muammosi | O'zgarmaydi (holat noaniq — qayta yuborilmaydi). |
+
+  **Auth:** `admin_token`. Permission: `payoutSend`.
+
+  ### 📤 Response
+
+  Yangilangan PayoutRequest DTO (`status`, `external_status`, `external_error_code`, `last_checked_at`).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q. |
+  | `403` | `payoutSend` ruxsati yo'q. |
+  | `404` | Payout topilmadi. |
+  | `422` | Payout Aloqabank orqali yuborilmagan / integratsiya o'chirilgan / `Only payouts in progress can be checked` — holat `Processing` emas (`Approved` faqat yuborilganiga 10 daqiqadan oshgan bo'lsa tekshiriladi). |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

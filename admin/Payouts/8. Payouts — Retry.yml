@@ -1,0 +1,39 @@
+info:
+  name: 8. Payouts — Retry
+  type: http
+  seq: 8
+http:
+  method: POST
+  url: '{{base_url}}/admin/payouts/17/retry'
+  auth: inherit
+docs: |
+  `Failed` Aloqabank payout'ini qayta yuborish. Pul yana **hold** qilinadi va bankka **yangi `orderId`**
+  bilan boradi (`XBA-PO-{id}-r2`, `-r3`, ...): bank bir `orderId` ni ikki marta to'lamaydi, shuning uchun
+  eski id qayta ishlatilmaydi. Ledger idempotency kalitlari ham urinish raqamiga bog'liq
+  (`payout:approve:{id}:r2` ...), eski urinish yozuvlariga tegilmaydi.
+
+  Bank rekvizitlari qayta tekshiriladi (tashkilotdagi joriy rekvizitlar olinadi) — xato sababi
+  noto'g'ri rekvizit bo'lsa, avval [Update Bank Details](../Bank%20Statement/7.%20Organization%20—%20Update%20Bank%20Details.yml) ni tuzating.
+
+  Shuningdek, `Approved` holatda qolib ketgan (hold bor, bankka hali yuborilmagan, `external_order_id = null`)
+  payout'ni yuborishni yakunlaydi.
+
+  **Auth:** `admin_token`. Permission: `payoutSend`.
+
+  ### 📤 Response
+
+  Yangilangan PayoutRequest DTO (odatda `Processing` yoki `Completed`; `external_order_id` = `XBA-PO-{id}-rN`).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q. |
+  | `403` | `payoutSend` ruxsati yo'q. |
+  | `404` | Payout topilmadi. |
+  | `422` | Faqat `Failed` payout qayta yuboriladi / Aloqabank payout'i emas / `Bank details are incomplete` / balans yetarli emas / integratsiya o'chirilgan. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

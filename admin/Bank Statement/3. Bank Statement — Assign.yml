@@ -1,0 +1,47 @@
+info:
+  name: 3. Bank Statement — Assign
+  type: http
+  seq: 3
+http:
+  method: POST
+  url: '{{base_url}}/admin/bank-statement/1/assign'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"candidate_id\": 42\n}"
+  auth: inherit
+docs: |
+  Avtomatik moslashmagan (`unmatched`) yoki `ignored` **kirim** qatorini nomzodga biriktirish: nomzod
+  hamyoni shu summaga to'ldiriladi (`payment` + ledger yozuvi bitta tranzaksiyada, `external:aloqabank`
+  dan `candidate.balance` ga), so'ng qabul qilingan taklif bo'lsa avtomatik hold qilinadi.
+
+  Idempotent: bir qatorni ikki marta bosish ikki marta kreditlamaydi (qator `matched` bo'lsa o'zi qaytadi).
+
+  **Auth:** `admin_token`. Permission: `bankStatementAssign`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `candidate_id` | int | ✅ | Hamyoni to'ldiriladigan nomzod `id`. |
+
+  ### 📤 Response
+
+  Yangilangan `BankStatementEntry` (`match_status = matched`, `candidate_id`, `payment_id` to'ldirilgan).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q. |
+  | `403` | `bankStatementAssign` ruxsati yo'q. |
+  | `404` | Vipiska qatori topilmadi. |
+  | `422` | `candidate_id` yo'q — `Validation failed`, `errors` field-map (`{"candidate_id": [...]}`). |
+  | `422` | Qolgan holatlar — `errors` oddiy massiv: nomzod topilmadi / `Only incoming statement rows can be credited` / `The bank has not posted this payment yet` / `This statement row cannot be credited`. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,56 @@
+info:
+  name: 7. Organization — Update Bank Details
+  type: http
+  seq: 7
+http:
+  method: PUT
+  url: '{{base_url}}/admin/organizations/1/bank-details'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"receiver_name\": \"OOO Example Org\",\n  \"mfo\": \"00014\",\n  \"account\": \"20208000900000000001\",\n  \"inn\": \"123456789\"\n}"
+  auth: inherit
+docs: |
+  Tashkilot bank rekvizitlarini almashtiradi. Yuborilmagan/bo'sh maydon **tozalanadi** (`null`). Majburiy maydon yo'q —
+  faqat format tekshiriladi; to'liqlik payout `approve`/`retry` paytida talab qilinadi.
+  Rekvizitlar to'liq bo'lmasa payout `approve` `Bank details are incomplete` xatosini qaytaradi.
+  Approve paytida joriy rekvizitlar payout'ga snapshot qilib yoziladi — keyingi o'zgarishlar
+  yo'ldagi payout'ga ta'sir qilmaydi.
+
+  **Auth:** `admin_token`. Permission: `payoutApprove`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `receiver_name` | string | ➖ | Qabul qiluvchi nomi (maks. 255). Payout uchun kerak. |
+  | `mfo` | string | ➖ | Aniq 5 raqam. Payout uchun kerak. |
+  | `account` | string | ➖ | Aniq 20 raqam. Payout uchun kerak. |
+  | `inn` | string | ➖ | Aniq 9 raqam. |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `organization_id` | int | Tashkilot `id`. |
+  | `receiver_name` | string \| null | Payout hujjatida chiqadigan qabul qiluvchi nomi; to'ldirilmagan bo'lsa `null`. |
+  | `mfo` | string \| null | Bank MFO (5 raqam). |
+  | `account` | string \| null | Hisob raqami (20 raqam). |
+  | `inn` | string \| null | INN (9 raqam); ixtiyoriy. |
+  | `is_complete` | bool | `receiver_name`, `mfo` va `account` to'liq — payout yuborish mumkin. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q. |
+  | `403` | `payoutApprove` ruxsati yo'q. |
+  | `404` | Tashkilot topilmadi. |
+  | `422` | Format xatosi. `errors` kalitlari model atributlari: `bank_receiver_name`, `bank_mfo`, `bank_account`, `inn`. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

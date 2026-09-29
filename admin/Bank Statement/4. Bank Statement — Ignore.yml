@@ -1,0 +1,31 @@
+info:
+  name: 4. Bank Statement — Ignore
+  type: http
+  seq: 4
+http:
+  method: POST
+  url: '{{base_url}}/admin/bank-statement/1/ignore'
+  auth: inherit
+docs: |
+  Biriktirilmagan (`unmatched`) qatorni e'tiborsiz qoldirish (bizniki emas / to'ldirish emas).
+  Kreditlangan (`matched`) qatorni rad etib bo'lmaydi.
+
+  **Auth:** `admin_token`. Permission: `bankStatementAssign`.
+
+  ### 📤 Response
+
+  Yangilangan `BankStatementEntry` (`match_status = ignored`).
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q. |
+  | `403` | `bankStatementAssign` ruxsati yo'q. |
+  | `404` | Vipiska qatori topilmadi. |
+  | `422` | `Only unmatched statement rows can be ignored`. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

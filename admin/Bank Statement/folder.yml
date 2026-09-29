@@ -1,0 +1,6 @@
+info:
+  name: Bank Statement
+  type: folder
+  seq: 71
+request:
+  auth: inherit

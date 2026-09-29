@@ -29,6 +29,8 @@ docs: 'Approved payout''ni "Processing" holatiga o''tkazish — admin bank ilova
 
   | `422` | `Only approved payouts can move to processing` |
 
+  | `422` | `This payout is settled through Aloqabank and cannot be moved to processing manually` — Aloqabank orqali to''lanadigan payout''ni qo''lda o''tkazib bo''lmaydi (holat bank so''rovi/cron orqali hal bo''ladi) |
+
   | `404` | Payout topilmadi |
 
   | `401` | Token yo''q |

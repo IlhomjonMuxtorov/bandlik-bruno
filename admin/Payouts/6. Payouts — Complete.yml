@@ -53,6 +53,8 @@ docs: 'Bank tarafida pul yuborildi — payout''ni yakuniylash. **Pul harakati:**
 
   | `422` | `Payout must be Approved or Processing to complete` |
 
+  | `422` | `This payout is settled through Aloqabank and cannot be completed manually` — Aloqabank orqali to''lanadigan payout''ni qo''lda o''tkazib bo''lmaydi (holat bank so''rovi/cron orqali hal bo''ladi) |
+
   | `404` | Payout topilmadi |
 
   | `401` | Token yo''q |

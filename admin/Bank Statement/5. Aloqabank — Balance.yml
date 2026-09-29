@@ -1,0 +1,42 @@
+info:
+  name: 5. Aloqabank — Balance
+  type: http
+  seq: 5
+http:
+  method: GET
+  url: '{{base_url}}/admin/aloqabank/balance'
+  auth: inherit
+docs: |
+  Bank balansi (`GET /api/v2/account/{serviceId}/balance`) va ledger'dagi `external:aloqabank`
+  hamyoni solishtiruvi. Bu hamyon bank hisobidagi pulning "ko'zgusi": nomzod to'ldirishi uni debet
+  qiladi (manfiy), tashkilotga payout kredit qiladi. Shuning uchun `expected_bank_balance = −ledger_external_balance`.
+  `difference != 0` — bankda ledger bilmagan harakat bor (komissiya, vipiskada o'tkazib yuborilgan qator).
+
+  Bankka **jonli so'rov** yuboradi (faqat o'qish). `app_setting.aloqabank_enabled = true` bo'lishi shart.
+
+  **Auth:** `admin_token`. Permission: `bankStatementView`.
+
+  ### 📤 Response
+
+  Barcha summalar **so'm**da.
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `currency` | string | Doim `UZS`. |
+  | `bank_balance` | int | Bank aytgan balans. |
+  | `ledger_external_balance` | int | `external:aloqabank` hamyonining xom balansi (odatda manfiy). |
+  | `expected_bank_balance` | int | Ledger to'g'ri bo'lsa bankda turishi kerak bo'lgan summa. |
+  | `difference` | int | `bank_balance − expected_bank_balance`. `0` — mos. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q. |
+  | `403` | `bankStatementView` ruxsati yo'q. |
+  | `502` | Bankka ulanib bo'lmadi, integratsiya o'chirilgan/sozlanmagan yoki bank xato qaytardi. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

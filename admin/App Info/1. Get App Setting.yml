@@ -37,6 +37,7 @@ docs: |
       "contract_myid_confirmation_required": true,
       "mobile_passport_auth_enabled": true,
       "vacancy_training_course_required": false,
+      "aloqabank_enabled": false,
       "created_at": 1739000000,
       "updated_at": 1739000000
     },
@@ -54,6 +55,8 @@ docs: |
   > `mobile_passport_auth_enabled` — eski `POST /mobile/auth/passport` hali qabul qilinadimi. `false` bo'lsa endpoint `400 { app_update_required: true }` qaytaradi. Default `true`.
 
   > `vacancy_training_course_required` — vakansiyada kursga ega `training` xizmati va Training service group majburiymi. **Default `false`**: o'quv dasturi tayyor bo'lmagani uchun vakansiya `training` guruhisiz yaratiladi (kurs qadami ham, kurs to'lov qadami ham yo'q). Kurslar tayyor bo'lganda `true` qilinadi. Frontend vakansiya wizard'ida "O'quv kurslari" qadamini shu maydonga qarab yashirsin/majburiy qilsin.
+  >
+  > `aloqabank_enabled` — Aloqabank kill switch. **Default `false`**: vipiska sync (`aloqabank/sync-statement`) va payout yuborish hech narsa qilmaydi. Kredensiallar `.env` da to'ldirilib, sinovdan o'tgach `true` qilinadi.
 settings:
   encodeUrl: true
   timeout: 0

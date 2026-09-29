@@ -45,6 +45,7 @@ docs: |
   | `contract_myid_confirmation_required` | bool | ➖ | Global toggle: nomzod shartnomani qabul qilishdan (`POST /mobile/chats/{id}/offer/accept`) oldin **MyID Face ID** tasdig'idan o'tishi shartmi. Default `true`. |
   | `mobile_passport_auth_enabled` | bool | ➖ | Global toggle: eski `POST /mobile/auth/passport` (pasport + tug'ilgan sana) hali qabul qilinadimi. `false` — `400 { app_update_required: true }`. Default `true`. |
   | `vacancy_training_course_required` | bool | ➖ | Global toggle: vakansiyada kursga ega `training` xizmati va **Training service group** majburiymi. `false` (default) — o'quv dasturi tayyor bo'lmagani uchun ikkisi ham ixtiyoriy, vakansiya `training` guruhisiz yaratiladi. |
+  | `aloqabank_enabled` | bool | ➖ | Aloqabank kill switch: `false` (default) — vipiska sync va payout yuborish **no-op**; `true` — jonli. Kalit yo'q bo'lsa qiymat o'zgarmaydi. |
 
 
   > 📵 **Mobil reliz oynasi.** `contract_myid_confirmation_required = false` qilinsa

@@ -6,40 +6,47 @@ http:
   method: POST
   url: '{{base_url}}/admin/payouts/17/approve'
   auth: inherit
-docs: 'Pending payout''ni tasdiqlash. **Pul harakati:** Org wallet `balance -= amount`,
+docs: |
+  Pending payout'ni tasdiqlash. **Pul harakati:** Org wallet `balance -= amount`,
   `hold_balance += amount` (qulflash). Yangi Transaction (`type=OrganizationPayout`,
   `status=Pending`, `idempotency_key="payout:approve:{id}"`) yoziladi.
 
+  ## Aloqabank payout'lari (`provider = aloqabank`)
+  Service group capture bo'lganda tashkilot uchun `Pending` payout **avtomatik** yaratiladi
+  (`requested_by = null`, `service_group_id`, `bank_details` — tashkilot rekvizitlari snapshot'i).
+  `approve` bosilganda:
+  1. Tashkilotning joriy bank rekvizitlari olinadi va tekshiriladi (to'liq bo'lmasa `422`, pul harakatsiz).
+  2. Ledger `hold`.
+  3. Bankka `POST /api/v2/payment` yuboriladi: `orderId = XBA-PO-{id}`, `serviceId = 141`,
+     `amount` tiyinda, `comissionAmount = 0`, `purpose` lotin/bosma belgilarda.
+  4. Javob:
 
-  Bu bosqichda hali bank tarafidan pul yuborilmaydi — faqat ledger''da reservatsiya.
+  | Bank javobi | Natija |
+  |---|---|
+  | `Проведен` | `finalize` → `Completed`. |
+  | `Введен` | `Processing` (cron tekshiradi). |
+  | `1013`, `1014`, `1015`, `1016`, `1017`, `3333` | Ma'lumot xato: hold qaytadi, `Failed`, `external_error_code`. Tuzatib `retry`. |
+  | `1111`, `2222`, taymaut, noma'lum xato | **Noaniq** — `Processing`, qayta yuborilmaydi; cron holatni tekshiradi. |
 
+  Integratsiya `app_setting.aloqabank_enabled = false` bo'lsa yoki kredensiallar yo'q bo'lsa approve rad etiladi.
 
-  **Auth:** `admin_token`. Permission: `payoutApprove`.
-
+  **Auth:** `admin_token`. Permission: `payoutApprove`. Aloqabank payout'i uchun qo'shimcha
+  `payoutSend` ham kerak (haqiqiy pul yuboriladi).
 
   ### 📤 Response
 
-
-  Yangilangan PayoutRequest DTO (`status=Approved`, `approved_by`, `approved_at`,
-  `transaction_id` to''ldirildi).
-
+  Yangilangan PayoutRequest DTO (`status`, `approved_by`, `approved_at`, `transaction_id`;
+  Aloqabank uchun: `provider`, `external_order_id`, `external_status`, `external_error_code`,
+  `last_checked_at`, `service_group_id`).
 
   ### ⚠️ Errors
 
-
   | Code | Reason |
-
   |---|---|
-
-  | `422` | `Payout is not pending` / `Insufficient balance` |
-
+  | `422` | `Payout is not pending` / `Insufficient wallet balance` / `Insufficient available balance` / `Bank details are incomplete` / `Aloqabank integration is disabled or not configured` |
   | `404` | Payout topilmadi |
-
-  | `401` | Token yo''q |
-
-  | `403` | Admin emas |
-
-  '
+  | `401` | Token yo'q |
+  | `403` | Ruxsat yo'q (`payoutApprove`, Aloqabank uchun `payoutSend`) |
 settings:
   encodeUrl: true
   timeout: 0

@@ -1,0 +1,42 @@
+info:
+  name: 6. Organization — Bank Details
+  type: http
+  seq: 6
+http:
+  method: GET
+  url: '{{base_url}}/admin/organizations/1/bank-details'
+  auth: inherit
+docs: |
+  Tashkilotning bank rekvizitlari — Aloqabank orqali payout (расщепление) qabul qiluvchisi.
+
+  **Auth:** `admin_token`. Permission: `payoutView`.
+
+  ### 🔎 Path Params
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `id` | int | ✅ | Tashkilot `id`. |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `organization_id` | int | Tashkilot `id`. |
+  | `receiver_name` | string \| null | Payout hujjatida chiqadigan qabul qiluvchi nomi; to'ldirilmagan bo'lsa `null`. |
+  | `mfo` | string \| null | Bank MFO (5 raqam). |
+  | `account` | string \| null | Hisob raqami (20 raqam). |
+  | `inn` | string \| null | INN (9 raqam); ixtiyoriy. |
+  | `is_complete` | bool | `receiver_name`, `mfo` va `account` to'liq — payout yuborish mumkin. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q. |
+  | `403` | `payoutView` ruxsati yo'q. |
+  | `404` | Tashkilot topilmadi. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

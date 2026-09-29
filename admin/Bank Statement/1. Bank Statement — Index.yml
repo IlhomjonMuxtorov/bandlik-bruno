@@ -1,0 +1,63 @@
+info:
+  name: 1. Bank Statement — Index
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/bank-statement?match_status=unmatched&page=1&per-page=20'
+  auth: inherit
+docs: |
+  Aloqabank vipiskasining lokal nusxasi (cron `aloqabank/sync-statement` har 5 daqiqada yangilaydi).
+  Asosiy ish: **`match_status=unmatched`** — kodsiz/noto'g'ri kod bilan tushgan pullar, admin
+  qo'lda biriktiradi yoki e'tiborsiz qoldiradi.
+
+  **Auth:** `admin_token`. Permission: `bankStatementView`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `match_status` | string | ➖ | `matched` \| `unmatched` \| `ignored` \| `outgoing`. Bo'sh — hammasi. |
+  | `direction` | string | ➖ | `in` \| `out`. |
+  | `from` | string | ➖ | Hujjat sanasi (`doc_date`) dan boshlab, `YYYY-MM-DD`. |
+  | `to` | string | ➖ | Hujjat sanasigacha (shu kun kiritilgan), `YYYY-MM-DD`. |
+  | `page` | int | ➖ | Sahifa raqami. Default `1`. |
+  | `per-page` | int | ➖ | Sahifa hajmi (1–100). Default `20`. |
+  | `sort` | string | ➖ | `id` \| `created_at` \| `amount` (`-` prefiksi — kamayish). Default `-id`. |
+
+  ### 📤 Response
+
+  `data.items[]` — quyidagi qatorlar, `data.pagination` — sahifalash.
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Ichki qator `id`. |
+  | `external_id` | int | Bankdagi qator `id` (vipiska kursori; provayder ichida unikal). |
+  | `direction` | string | `in` — bizga tushgan pul, `out` — bizdan chiqqan pul. |
+  | `doc_number` | string \| null | Bank hujjat raqami. |
+  | `doc_date` | string \| null | Hujjat sanasi `YYYY-MM-DD HH:MM:SS` (bank yuborganidek). |
+  | `payment_date` | string \| null | Bank o'tkazgan sana; hali o'tkazilmagan bo'lsa `null`. |
+  | `payer_name` | string \| null | To'lovchi nomi. |
+  | `payer_inn` | string \| null | To'lovchi INN/PINFL. |
+  | `payer_account` | string \| null | To'lovchi hisobi. |
+  | `amount` | int | Summa (**so'm**; DB tiyinda saqlaydi). |
+  | `purpose` | string \| null | To'lov maqsadi matni (nomzod kodi shu yerdan qidiriladi). |
+  | `bank_status` | string \| null | Bank holati (`Проведен` — o'tkazilgan). Faqat o'tkazilgan kirimlar kreditlanadi. |
+  | `match_status` | string | `matched` (nomzodga kreditlangan) \| `unmatched` (admin kutmoqda) \| `ignored` (admin rad etgan) \| `outgoing` (bizning to'lovimiz, faqat solishtirish uchun). |
+  | `match_status_label` | string | `match_status` tarjimasi. |
+  | `candidate_id` | int \| null | Kreditlangan nomzod; `matched` bo'lmasa `null`. |
+  | `payment_id` | int \| null | Kredit uchun yaratilgan `payment`; `matched` bo'lmasa `null`. |
+  | `created_at` | int | Qator bizning bazaga tushgan vaqt (unix). |
+  | `created_at_formatted` | string | `created_at` — `d.m.Y H:i` ko'rinishida (server vaqt zonasi). |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q. |
+  | `403` | `bankStatementView` ruxsati yo'q. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
