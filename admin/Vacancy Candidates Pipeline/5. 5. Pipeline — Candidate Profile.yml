@@ -26,6 +26,11 @@ docs: >
   family, languages[], documents[], driver, courses[], visas[], contact, legal, medical`.
 
 
+  `bank_topup_code` (string) — nomzodning bank o'tkazma kodi (`BND` + 7 belgi); nomzod
+  yaratilganda generatsiya qilinadi, har doim to'ldirilgan. Bank ko'chirmasidagi to'lov
+  maqsadidan nomzodni shu kod bo'yicha topish mumkin.
+
+
   > **Maxfiylik — PINFL mask.** `personal.pinpp` (JSHSHIR) admin/xodim javoblarida
   > **maskalanadi** — faqat oxirgi 4 raqam ko'rinadi (masalan `**********1234`). To'liq
   > PINFL'ni faqat nomzodning o'zi mobil ilovada ko'radi; superadmin ham to'liq qiymatni
