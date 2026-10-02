@@ -1,0 +1,56 @@
+info:
+  name: 7. Own Organization Insurance Premium Calculator
+  type: http
+  seq: 7
+http:
+  method: GET
+  url: '{{base_url}}/admin/my/organization/insurance-premium?country_id=1'
+  auth: inherit
+docs: |-
+  Sug'urta tariffini hisoblash kalkulyatori — moʻljal davlatiga asoslanib premiyu va
+  o'zgaruvchi summasi. Yagona Sug'urta tashkiloti uchun. `country_id` majburiy.
+
+  **Auth:** `admin_token`. **Permission:** `insuranceOwnPolicyView`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `country_id` | int | ✅ | Davlat ID (ilova katalogi) — moʻljal davlati |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {{ _.admin_token }}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz` |
+
+  ### 📤 Response
+
+  `200` — `InsurancePremiumOutputDTO`:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `country_id` | int | Davlat ID (so'ralgan) |
+  | `country_name` | string \| null | Davlatning nomi (sug'urta ko'rsatuvchining ma'lumotlari asosida); `null` = noma'lum davlat |
+  | `premium_usd` | int \| float | Premiya USD (so'mda, aniq hisoblangan) |
+  | `sum_usd` | int \| float | O'zgaruvchi summasi USD (so'mda, aniq hisoblangan) |
+  | `premium_uzs` | int \| float | Premiya UZS (so'mda, bugungi kursda) |
+  | `sum_uzs` | int \| float | O'zgaruvchi summasi UZS (so'mda, bugungi kursda) |
+  | `usd_exchange_rate` | int \| float | USD/UZS kursi (1 USD = ? UZS) — sug'urta ko'rsatuvchining ma'lumotlari |
+  | `provider_group` | int \| null | Sug'urta ko'rsatuvchining tariff guruhi; `null` = berilmadi |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `country_id` yo'q yoki noto'g'ri davlat ID; yoki davlat viza rejimiga ega emas |
+  | `401` | Token yo'q yoki eskirgan |
+  | `403` | `ownOrganizationView` yo'q; tashkilot yo'q; yoki Sug'urta tashkiloti emas; yoki `insuranceOwnPolicyView` yo'q |
+  | `404` | Tashkilot topilmadi |
+  | `500` | Sug'urta ko'rsatuvchi API'si ulanmadi (serverga murojaat qilish xatosi) |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

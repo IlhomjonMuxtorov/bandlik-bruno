@@ -1,0 +1,75 @@
+info:
+  name: 4. Own Organization Employees
+  type: http
+  seq: 4
+http:
+  method: GET
+  url: '{{base_url}}/admin/my/organization/employees?page=1&per-page=20'
+  auth: inherit
+docs: |-
+  Kirgan (logged-in) partner o'z tashkilotining xodimlar ro'yxati (paginatsiyalangan).
+
+  **Auth:** `admin_token`. **Permission:** `{type}EmployeeManage` (xodimni boshqarish); XBA uchun `employeeManage`.
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `q` | string | ➖ | Xodim ismi / telefoni bo'yicha qidiruv |
+  | `is_active` | bool | ➖ | `true` \| `false` — faollik bo'yicha filtr |
+  | `region_id` | int | ➖ | Mintaqa ID bo'yicha filtr |
+  | `district_id` | int | ➖ | Tumani ID bo'yicha filtr |
+  | `country_id` | int | ➖ | Davlat ID bo'yicha filtr |
+  | `city_id` | int | ➖ | Shahar ID bo'yicha filtr |
+  | `page` | int | ➖ | Sahifa raqami. Default: `1` |
+  | `per-page` | int | ➖ | Bir sahifada qatorlar. Default: `20` |
+  | `sort` | string | ➖ | `id` \| `joined_at` \| `created_at` (`-` bilan teskari). Default: `-id`. |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {{ _.admin_token }}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz` |
+
+  ### 📤 Response
+
+  `200` — `OrganizationEmployeeOutputDTO[]` (paginatsiyalangan), `sensitive` maydonlari OLMASA:
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Xodim ID |
+  | `organization_id` | int | Tashkilot ID |
+  | `user_id` | int \| null | Bog'lanmagan user ID (login akkaunt bo'lsa) |
+  | `firstname` | string | Ismi |
+  | `lastname` | string | Familiyasi |
+  | `patronymic` | string \| null | Sharifi (otasining ismi) |
+  | `phone` | string \| null | Telefon raqami |
+  | `role` | string | Roli (tashkilot xodim roli, masalan `supervisor`) |
+  | `language` | string | Preferensi tili (uz, ru, en) |
+  | `profile_photo_url` | string \| null | Avatar URL |
+  | `region` | object \| null | `{id, name}` — mintaqa |
+  | `district` | object \| null | `{id, name}` — tumani |
+  | `country` | object \| null | `{id, name}` — davlat |
+  | `city` | object \| null | `{id, name}` — shahar |
+  | `address` | string \| null | Manzili |
+  | `vacancies_count` | int | Ushbu xodim yaratgan vakansiyalar soni |
+  | `candidates_count` | int | Ushbu xodim qabul qilgan nomzodlar soni |
+  | `joined_at` | int \| null | Unix timestamp — xodim qo'shilgan vaqti |
+  | `is_active` | bool | `true` = faol, `false` = deaktivlashtirilgan |
+  | `created_at` | int | Unix timestamp |
+  | `updated_at` | int | Unix timestamp |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Validatsiya xatosi (noto'g'ri query parametrlari) |
+  | `401` | Token yo'q yoki eskirgan |
+  | `403` | `ownOrganizationView` yo'q; tashkilot yo'q; yoki xodimlarni boshqarish ruxsati yo'q |
+  | `404` | Tashkilot topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

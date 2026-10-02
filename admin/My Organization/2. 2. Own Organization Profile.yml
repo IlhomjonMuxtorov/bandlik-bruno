@@ -28,12 +28,23 @@ docs: |-
 
   ### 📤 Response
 
-  `200` — `OrganizationOutputDTO` (`/admin/xba/<id>` javobi bilan bir xil shakl):
+  `200` — `OrganizationOutputDTO` + `capabilities` bloki:
+
+  **Asosiy maydonlar** (`/admin/xba/<id>` javobi bilan bir xil):
   asosiy rekvizitlar, manzil munosabatlari, litsenziya fayllari, logo, yaratuvchi/
   o'zgartiruvchi, hamda `stats` bloki
   ({@see OrganizationRepository::getOrgStats} — `total_revenue`, `clients_count`,
   `services_count`, `active_employees`, `active_vacancies`, `archived_vacancies`;
   pul maydonlari so'mda).
+
+  **`capabilities` bloki** (frontend karochka tanlangan qilimlari uchun):
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `services_mode` | string | Xizmat rejimi: `catalog` — xizmatlar katalogi (XBA, Visa, Notarius, Logistika, Ish beruvchi, Rekruter); `courses` — o'quv kurslar (O'quv markazi); `provider` — sug'urta tarifi (Sug'urta); o'qiladi `/admin/educational-courses` (courses) yoki Agrosug'urta API (provider) uchun |
+  | `can_manage_services` | bool | `true` = katalog xizmatlarini boshqarish ruxsati bor (katalog rejimi + `{type}ServiceManage`); courses rejimi — `courseManage` ruxsati; provider rejimi — `false` |
+  | `can_manage_employees` | bool | `true` = tashkilot xodimlarini boshqarish ruxsati bor (`{type}EmployeeManage`; XBA uchun `employeeManage`) |
+  | `can_view_insurance_policies` | bool | `true` = faqat Sug'urta tashkiloti, `insuranceOwnPolicyView` ruxsati bilan |
 
   > Faqat kartochka raqamlari kerak bo'lsa, yengilroq `1. Own Organization Stats`
   > (`/admin/my/organization/stats`) ishlatilsin.

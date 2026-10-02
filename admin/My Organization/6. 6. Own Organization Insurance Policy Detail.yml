@@ -1,0 +1,71 @@
+info:
+  name: 6. Own Organization Insurance Policy Detail
+  type: http
+  seq: 6
+http:
+  method: GET
+  url: '{{base_url}}/admin/my/organization/insurance-policies/<id>'
+  auth: inherit
+docs: |-
+  Yagona Sug'urta tashkiloti tomonidan chiqarilgan bitta sug'urta polisining
+  batafsil ma'lumotlari. Faqat Sug'urta tashkiloti, `insuranceOwnPolicyView` ruxsati bilan.
+
+  **Auth:** `admin_token`. **Permission:** `insuranceOwnPolicyView`.
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {{ _.admin_token }}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Default: `uz` |
+
+  ### 📤 Response
+
+  `200` — `InsurancePolicyOutputDTO` (bitta polis):
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `id` | int | Polis ID |
+  | `provider` | string | Sug'urta ko'rsatuvchi (`agrosugurta`, ...) |
+  | `status` | string | `pending` \| `contract_created` \| `issued` \| `failed` |
+  | `status_label` | string | Lokalizatsiyalangan status |
+  | `candidate_id` | int | Nomzod ID |
+  | `candidate_name` | string \| null | Nomzod F.I.Sh. (lotin yozuvi) |
+  | `vacancy_candidate_id` | int | Vakansiya-nomzod bog'lanish ID |
+  | `candidate_service_group_id` | int | Xizmatlar guruhi ID |
+  | `contract_uuid` | string \| null | Shartnoma UUID (Agrosug'urta tizimida) |
+  | `policy_uuid` | string \| null | Polis UUID (Agrosug'urta tizimida) |
+  | `policy_series` | string \| null | Polis seriasi |
+  | `policy_number` | string \| null | Polis raqami |
+  | `policy_full_number` | string \| null | To'liq polis raqami (seriasi + raqami) |
+  | `policy_url` | string \| null | Polis havolasi (Agrosug'urta) |
+  | `policy_file_url` | string \| null | Yuklab olingan polis PDF fayli URL |
+  | `start_date` | string \| null | Format: `Y-m-d` |
+  | `end_date` | string \| null | Format: `Y-m-d` |
+  | `country_code` | string \| null | ISO kodi (`DE`, `GB`, ...) |
+  | `visa_type` | string \| null | Viza turi |
+  | `premium_usd` | int \| null | Premiya USD (so'mda). `null` = tasdiqlanmadi |
+  | `sum_usd` | int \| null | O'zgaruvchi summasi USD (so'mda). `null` = tasdiqlanmadi |
+  | `premium_uzs` | int \| null | Premiya UZS (so'mda) |
+  | `sum_uzs` | int \| null | O'zgaruvchi summasi UZS (so'mda) |
+  | `usd_exchange_rate` | float \| null | USD/UZS kursi (1 USD = ? UZS) |
+  | `provider_group` | int \| null | Sug'urta ko'rsatuvchining tariff guruhi |
+  | `attempt_count` | int | API chaqiruvlar soni |
+  | `last_attempt_at` | int \| null | Unix timestamp — oxirgi urinish vaqti |
+  | `failure_reason` | string \| null | Xatolik sababi (agar status=failed) |
+  | `issued_at` | int \| null | Unix timestamp — polis chiqarilgan vaqti |
+  | `created_at` | int | Unix timestamp |
+  | `updated_at` | int | Unix timestamp |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki eskirgan |
+  | `403` | `ownOrganizationView` yo'q; tashkilot yo'q; yoki Sug'urta tashkiloti emas; yoki `insuranceOwnPolicyView` yo'q |
+  | `404` | Tashkilot topilmadi; yoki polis topilmadi (yoki boshqa tashkilotning polisi) |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

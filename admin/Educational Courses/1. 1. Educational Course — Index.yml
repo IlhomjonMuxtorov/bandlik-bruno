@@ -7,8 +7,11 @@ http:
   url: '{{base_url}}/admin/educational-courses?per-page=20&organization_id=1'
   auth: inherit
   docs: |
-    Barcha o'quv kurslari ro'yxati. Markaz bo'yicha filtrlash uchun `organization_id`
+    O'quv kurslari ro'yxati. Markaz bo'yicha filtrlash uchun `organization_id`
     query parametri ishlatiladi.
+
+    > **ESLATMA:** Supa-admin bo'lmasa (faqat tashkilot xodimi bo'lsa), faqat
+    > **o'z tashkilotining kurslariga ruxsat**; login tashkilotga bog'lanmagan bo'lsa **403**. `organization_id` query param non-admin uchun e'tiborsiz — token'dagi tashkilot majburan qo'llanadi.
 
     **Auth:** `admin_token`.
 
