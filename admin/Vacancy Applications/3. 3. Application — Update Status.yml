@@ -67,6 +67,8 @@ docs: 'Ariza statusini o''zgartiradi:
   | `403` | Boshqa tashkilot |
 
   | `409` | Nomzodda allaqachon aktiv (qabul qilingan) offer mavjud — yangi offer yaratilmaydi
+
+  | `409` | `accepted` uchun: vakansiya kvotasi (birinchi to''lov qilgan nomzodlar) to''lgan — "Hiring quota for this vacancy is full"
   |
 
   '

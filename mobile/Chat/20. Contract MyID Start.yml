@@ -63,7 +63,7 @@ docs: |
   | `400` | Validatsiya xatosi (masalan `threshold` `0.6`–`0.99` oraliqdan tashqarida); MyID sessiyasi yaratilmadi (MyID xatosi); **yoki** nomzodda MyID identifikatori ham, saqlangan pasport ham yo'q — avval `/mobile/my-id/*` orqali tasdiqlash kerak |
   | `403` | Chat/taklif boshqa nomzodga tegishli |
   | `404` | Chat topilmadi, unda taklif yo'q, yoki tasdiqlanadigan shartnoma yo'q |
-  | `409` | Taklif allaqachon qabul qilingan yoki terminal holatda |
+  | `409` | Taklif allaqachon qabul qilingan yoki terminal holatda; **yoki** Vakansiya kvotasi (to'langan nomzodlar) to'lgan — "Hiring quota for this vacancy is full" — Face ID boshlanmaydi |
 
   > Mobil modul validatsiya uchun `400` ishlatadi (`422` faqat `v1`/`admin` modullarida).
 settings:

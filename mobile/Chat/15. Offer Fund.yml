@@ -34,6 +34,7 @@ docs: |
   | `400` | Taklif qabul qilinmagan |
   | `403` | Chat boshqa nomzodga tegishli |
   | `404` | Chat topilmadi yoki unda taklif yo'q |
+  | `409` | Vakansiya kvotasi (to'langan nomzodlar) to'lgan — "Hiring quota for this vacancy is full". Faqat **hali birinchi to'lovni qilmagan** nomzodga tegishli — avval to'lagan nomzodning keyingi guruh to'lovlari kvotadan qat'i nazar o'tadi. |
 settings:
   encodeUrl: true
   timeout: 0

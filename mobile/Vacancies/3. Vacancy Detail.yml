@@ -43,8 +43,12 @@ docs: |-
   | `experience_months_label` | string | Lokalizatsiyalangan label (`Accept-Language`). Masalan: `Tajriba talab qilinmaydi`, `8 oy`, `2 yil`, `1 yil 6 oy`. |
   | `employment_type` / `_label` | string | `full_time` ... + lokalizatsiya |
   | `hiring_quota` | int | Ishga qabul kvotasi (jami o'rin soni) |
-  | `accepted_count` | int | Hozircha band qilingan o'rinlar — pipeline'dagi nomzodlar (chiqib ketgan / kursdan yiqilgan / vizasi rad etilganlar hisobga olinmaydi). |
-  | `remaining_quota` | int | Qolgan bo'sh o'rin = `hiring_quota − accepted_count` (manfiy bo'lmaydi). Kvota to'lganda yangi nomzod qabul qilinmaydi. |
+  | `accepted_count` | int | Band o'rinlar = **birinchi to'lovni (birinchi guruh hold) qilgan**, bekor qilinmagan nomzodlar (chiqib ketgan / kursdan yiqilgan / vizasi rad etilganlar hisobga olinmaydi). Pipeline va shartnomalar soni kvotadan oshishi mumkin. |
+  | `remaining_quota` | int | Qolgan bo'sh o'rin = `hiring_quota − accepted_count` (manfiy bo'lmaydi). Kvota to'lganda ariza, XBA qabuli, shartnoma va birinchi to'lov yopiladi (`409`). |
+  | `is_quota_full` | bool | `accepted_count >= hiring_quota`. |
+  | `deadline_at` | string \| null | Ariza topshirish muddati (`d.m.Y`). `null` — muddat yo'q. |
+  | `applications_count` | int | Jami kelgan arizalar soni. |
+  | `contracts_count` | int | Shartnomani tasdiqlagan (offer qabul qilgan), bekor qilinmagan nomzodlar soni — kvotadan oshishi mumkin. |
   | `duration_months_min` / `_max` | int \| null | Ish davomiyligi (oy) |
   | `work_schedule` / `_label` | string \| null | Ish jadvali |
   | `work_time_from` / `_to` | string \| null | `HH:MM` |

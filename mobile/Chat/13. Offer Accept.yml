@@ -32,6 +32,11 @@ docs: |
   >    xato bermaydi — e'tiborsiz qoldiriladi (log yoziladi), aks holda tasdiq umuman
   >    kerak bo'lmagan qabul bloklanib qolardi.
   >
+  > ⚠️ **Kvota:** vakansiya kvotasi (`hiring_quota` — birinchi to'lov qilgan nomzodlar) to'lgan bo'lsa,
+  > birinchi qabul `409` ("Hiring quota for this vacancy is full") qaytaradi. Shartnomalar soni kvotadan
+  > oshishi mumkin, lekin to'lov va qabul to'lgan kvotada yopiladi. Allaqachon qabul qilingan taklifni
+  > qayta urinish (to'lov) ham, nomzod hali to'lamagan bo'lsa, shu `409` ni berishi mumkin.
+  >
   > Chat Detail / `offer` javobidagi `contract_confirmation` bloki tasdiq kerakligini va
   > joriy holatini ko'rsatadi — tugmani unga qarab chizing.
 

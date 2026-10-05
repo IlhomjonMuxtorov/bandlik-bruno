@@ -67,6 +67,11 @@ docs: |-
   | `salary_type_label` | string \| null | Lokalizatsiyalangan: `Soatlik` \| `Haftalik` \| `Oylik` (`uz`). `salary_type` `null` bo'lsagina `null`. |
   | `employment_type` / `employment_type_label` | string | `full_time` ... + lokalizatsiya |
   | `duration_months_min` / `_max` | int \| null | Ish davomiyligi (oy) |
+  | `hiring_quota` | int | Ishga qabul kvotasi (jami o'rin soni). |
+  | `accepted_count` | int | Band o'rinlar = **birinchi to'lovni (birinchi guruh hold) qilgan**, bekor qilinmagan nomzodlar. Pipeline / shartnomalar soni emas. |
+  | `remaining_quota` | int | `max(0, hiring_quota − accepted_count)`. |
+  | `is_quota_full` | bool | `accepted_count >= hiring_quota`. `true` bo'lsa ariza, shartnoma va birinchi to'lov yopiq (vakansiya ro'yxatda qoladi). |
+  | `deadline_at` | string \| null | Ariza topshirish muddati (`d.m.Y`). `null` — muddat yo'q. |
   | `match_score` | int \| null | "Sizga moslik darajasi %" — viza so'rovnomasi natijasidan, vakansiya davlati bo'yicha. Token yo'q yoki so'rovnoma to'ldirilmagan bo'lsa `null`. |
   | `is_favorite` | bool | Joriy nomzod sevimliga qo'shganmi. Mehmon uchun `false`. |
 
