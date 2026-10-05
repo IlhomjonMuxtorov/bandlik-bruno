@@ -12,17 +12,19 @@ http:
     value: uz
   auth: inherit
 docs: 'CV to''ldirilganlik foizini (`completion_percent`) va bo''limlar bo''yicha
-  checklist''ni qaytaradi. Foiz **8 ta majburiy** bo''limdan to''ldirilganlari asosida
-  hisoblanadi. 4 ta bo''lim ixtiyoriy va foizga kirmaydi: `courses`,
+  checklist''ni qaytaradi. Foiz **7 ta majburiy** bo''limdan to''ldirilganlari asosida
+  hisoblanadi. 5 ta bo''lim ixtiyoriy va foizga kirmaydi: `courses`,
   `passport_identity` (JSHSHIR MVD''da yo''q — faqat qo''lda kiritiladi),
-  `documents` (skanlar MVD''da yo''q) va `health_certificate`.
+  `documents` (skanlar MVD''da yo''q), `driver_license` (haydovchilik guvohnomasi —
+  hamma nomzodda bo''lmaydi) va `health_certificate`.
 
 
   > **Diqqat — `missing[]` semantikasi.** `missing[]` endi *foydalanuvchiga
   ko''rsatiladigan to''ldirilmagan bo''limlar* ro''yxati: barcha majburiylar **+**
   `advised: true` bo''lgan ixtiyoriylar (hozircha faqat `health_certificate`).
   Ya''ni `missing[]` bo''sh bo''lmagani holda ham `is_complete: true` bo''lishi
-  mumkin. Bloklaydigan bo''limni ajratish uchun `sections[].required` ga qarang.
+  mumkin. Bloklaydigan bo''limni ajratish uchun `sections[].required` ga yoki
+  `missing_sections[].required` ga qarang.
 
 
   **Auth:** `access_token`.
@@ -54,6 +56,8 @@ docs: 'CV to''ldirilganlik foizini (`completion_percent`) va bo''limlar bo''yich
 
   | `missing` | string[] | To''ldirilmagan va foydalanuvchiga ko''rsatiladigan bo''limlar
   kalitlari: majburiylar + `advised` ixtiyoriylar |
+
+  | `missing_sections` | object[] | `missing[]` dagi har bir kalit uchun `{ key, label, required }`. `label` — `Accept-Language` bo''yicha tarjima qilingan nom. `required: true` — ariza berishni bloklaydi; `false` — faqat tavsiya (hozircha `health_certificate`) |
 
   | `sections` | object[] | Har bir bo''lim: `key`, `label`, `required`, `advised`, `filled` |
 
@@ -89,7 +93,7 @@ docs: 'CV to''ldirilganlik foizini (`completion_percent`) va bo''limlar bo''yich
   **lekin** biriktirilmagan bo''lsa `missing[]` ichida qaytadi (mobil ekranda
   "to''ldirilmagan" chip sifatida ko''rinadi) |
 
-  | `driver_license` | ✅ | ➖ | Haydovchilik guvohnomasi mavjud |
+  | `driver_license` | ➖ | ➖ | Haydovchilik guvohnomasi mavjud. **Ixtiyoriy** — foizga kirmaydi, ariza berishni bloklamaydi va `missing[]` ga ham tushmaydi |
 
   | `courses` | ➖ | ➖ | Kamida 1 ta qisqa muddatli kurs. **Foizga kirmaydi**,
   `missing[]` ga ham tushmaydi |
@@ -97,7 +101,7 @@ docs: 'CV to''ldirilganlik foizini (`completion_percent`) va bo''limlar bo''yich
   | `contact` | ✅ | ➖ | `contact_phone` yoki user telefoni mavjud |
 
 
-  > 88% = 8 ta majburiy bo''limdan aynan 1 tasi bo''sh. `is_complete: true` bo''lsa CV
+  > 86% = 7 ta majburiy bo''limdan aynan 1 tasi bo''sh. `is_complete: true` bo''lsa CV
   `active` bo''ladi va vakansiyaga ariza berish ochiladi (ixtiyoriy bo''limlar — shu
   jumladan `health_certificate` — bo''sh bo''lsa ham).
 
@@ -111,8 +115,12 @@ docs: 'CV to''ldirilganlik foizini (`completion_percent`) va bo''limlar bo''yich
     "percent": 100,
     "is_complete": true,
     "missing": ["health_certificate"],
+    "missing_sections": [
+      { "key": "health_certificate", "label": "Sog''liq sertifikati", "required": false }
+    ],
     "sections": [
       { "key": "documents", "label": "Hujjatlar", "required": false, "advised": false, "filled": true },
+      { "key": "driver_license", "label": "Haydovchilik guvohnomasi", "required": false, "advised": false, "filled": false },
       { "key": "health_certificate", "label": "Sog''liq sertifikati", "required": false, "advised": true, "filled": false }
     ]
   }

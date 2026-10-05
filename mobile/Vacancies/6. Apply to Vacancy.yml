@@ -37,7 +37,7 @@ docs: |-
   | `400` | Vakansiya muddati o'tgan |
   | `400` | `cv_id` yuborilmagan ("Please select a CV to apply") |
   | `400` | CV topilmadi yoki boshqa nomzodga tegishli ("CV not found") |
-  | `400` | CV to'liq emas / `draft` ("Your CV is incomplete...") |
+  | `400` | CV to'liq emas / `draft`. Xabar yetishmayotgan **majburiy** bo'limlar nomlarini sanaydi (`Accept-Language` bo'yicha), masalan: "Rezyume to'liq emas. Yetishmayotgan bo'limlar: Ta'lim, Tillar" (en: "Your CV is incomplete. Missing: ..."). Faqat ariza berishni bloklaydigan bo'limlar kiradi (`health_certificate` va `driver_license` kirmaydi) |
   | `409` | Allaqachon ariza topshirilgan |
   | `409` | Vakansiya kvotasi (to'langan nomzodlar) to'lgan — "Hiring quota for this vacancy is full". Kvota **birinchi to'lov** qilgan nomzodlar bilan to'ladi; to'lgach yangi ariza yopiladi (vakansiya ro'yxatda qoladi). |
   | `401` | Token yo'q |

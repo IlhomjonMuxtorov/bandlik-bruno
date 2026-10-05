@@ -50,11 +50,15 @@ docs: 'Joriy nomzodning **barcha CV** ro''yxati — "Rezumelarim" ekrani uchun. 
   | `status` | string | CV holati: `draft` yoki `active`. To''liqlikdan avtomatik
   hisoblanadi (mijoz o''rnatmaydi) |
 
-  | `completion_percent` | int | 0–100. **8 ta majburiy** band asosida; ixtiyoriy bandlar
-  (`passport_identity`, `documents`, `health_certificate`, `courses`) foizga kirmaydi |
+  | `completion_percent` | int | 0–100. **7 ta majburiy** band asosida; ixtiyoriy bandlar
+  (`passport_identity`, `documents`, `health_certificate`, `driver_license`, `courses`) foizga kirmaydi |
 
   | `is_complete` | bool | `true` bo''lganda CV `active` va ariza topshirish mumkin.
   Faqat majburiy bandlarga qaraydi — sog''liq sertifikati yo''qligi bloklamaydi |
+
+  | `missing` | string[] | To''ldirilmagan va foydalanuvchiga ko''rsatiladigan band kalitlari: majburiylar + `advised` ixtiyoriylar (hozircha `health_certificate`). `is_complete: true` bo''lsa ham bo''sh bo''lmasligi mumkin. Hammasi to''la bo''lsa — `[]` |
+
+  | `missing_sections` | object[] | `missing[]` dagi har bir kalit uchun `{ key, label, required }`. `label` — `Accept-Language` bo''yicha tarjima qilingan nom; `required: true` — ariza berishni bloklaydi, `false` — faqat tavsiya |
 
   | `is_primary` | bool | Primary CV bayrog''i |
 
