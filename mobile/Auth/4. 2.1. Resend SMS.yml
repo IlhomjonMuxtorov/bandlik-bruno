@@ -10,7 +10,7 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"phone\": \"+998901234567\"\n}"
+    data: "{\n  \"phone\": \"+998901234567\",\n  \"channel\": \"sms\"\n}"
   auth:
     type: bearer
     token: '{{guest_token}}'
@@ -29,6 +29,10 @@ docs: 'MVD orqali takroriy tekshiruvisiz faqat SMS ni qayta jo''natadi.
 
   | `phone` | string | ✅ | 2-qadamda ko''rsatilgan telefon (E.164). |
 
+  | `channel` | string | ➖ | `sms` \| `telegram`. Berilmasa — shu raqamga yuborilgan
+  oxirgi kod qaysi kanaldan ketgan bo''lsa, o''sha kanal ishlatiladi (foydalanuvchi
+  "Telegram orqali" yoki "SMS orqali" ni almashtirib qayta yuborishi uchun ham ishlatiladi). |
+
 
   ### 📤 Response
 
@@ -40,6 +44,8 @@ docs: 'MVD orqali takroriy tekshiruvisiz faqat SMS ni qayta jo''natadi.
   | `phone_masked` | string | Yashirilgan telefon raqami |
 
   | `expires_in` | int | OTP muddati soniyalarda (`180`) |
+
+  | `channel` | string | Kod yuborilgan kanal: `sms` \| `telegram` |
 
 
   ### ⚠️ Errors
@@ -56,6 +62,9 @@ docs: 'MVD orqali takroriy tekshiruvisiz faqat SMS ni qayta jo''natadi.
   | `400` | Avvalgi OTP so''rovi topilmadi |
 
   | `400` | SMS yuborishda xatolik |
+
+  | `400` | `Could not send the code via Telegram. Please choose SMS.` — Telegram orqali
+  yuborib bo''lmadi |
 
   | `401` | `guest_token` yo''q yoki muddati o''tgan |
 

@@ -13,7 +13,7 @@ http:
   body:
     type: json
     data: "{\n    \"phone\": \"+998901234567\",\n    \"code\": \"1234\",\n    \"email\"\
-      : \"candidate@example.com\"\n}"
+      : \"candidate@example.com\",\n    \"email_code\": \"5678\"\n}"
   auth: inherit
 docs: 'Nomzodning aloqa ma''lumotlarini (telefon + email) yangilash.
 
@@ -24,8 +24,14 @@ docs: 'Nomzodning aloqa ma''lumotlarini (telefon + email) yangilash.
 
   ⚠️ **Telefon raqamini o''zgartirish SMS tasdiqlashni talab qiladi.** Avval
   `POST /mobile/candidate/contact/request-otp` bilan yangi raqamga kod yuboring,
-  so''ng shu yerda `phone` bilan birga `code` ni yuboring. Faqat `email`
-  o''zgartirilayotgan bo''lsa, `code` kerak emas.
+  so''ng shu yerda `phone` bilan birga `code` ni yuboring.
+
+
+  ⚠️ **Login emailni o''zgartirish ham tasdiqlashni talab qiladi.** Avval
+  `POST /mobile/candidate/email/request-otp` bilan YANGI manzilga kod yuboring,
+  so''ng shu yerda `email` bilan birga `email_code` ni yuboring (telefon `code` idan
+  alohida). Email muvaffaqiyatli o''zgarsa `email_verified_at` o''rnatiladi. Email
+  o''zgarmasa (katta-kichik harfga e''tiborsiz) `email_code` kerak emas.
 
 
   **Auth:** `access_token`.
@@ -43,7 +49,10 @@ docs: 'Nomzodning aloqa ma''lumotlarini (telefon + email) yangilash.
 
   | `code` | string | ➖ | 4 xonali SMS kod. **Faqat** `phone` o''zgartirilayotganda majburiy. |
 
-  | `email` | string | ➖ | Elektron pochta |
+  | `email` | string | ➖ | Elektron pochta. Server kichik harfga keltirib saqlaydi. |
+
+  | `email_code` | string | ➖ | 4 xonali email kod. **Faqat** `email` joriy emaildan
+  farq qilganda majburiy. |
 
 
   ### 📤 Response
@@ -62,6 +71,12 @@ docs: 'Nomzodning aloqa ma''lumotlarini (telefon + email) yangilash.
   | `400` | `phone` o''zgargan, lekin `code` yuborilmagan |
 
   | `400` | SMS kod noto''g''ri yoki muddati o''tgan |
+
+  | `400` | `email` o''zgargan, lekin `email_code` yuborilmagan (`Email verification
+  code is required to change the email.`) |
+
+  | `400` | Email kodi noto''g''ri yoki muddati o''tgan (faqat `email_change` kodlari
+  qabul qilinadi; kirish kodi mos kelmaydi) |
 
   | `400` | Email noto''g''ri yoki telefon allaqachon boshqa foydalanuvchida band |
 

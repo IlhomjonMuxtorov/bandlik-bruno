@@ -19,7 +19,7 @@ docs: |-
   **yangi** raqamga yuboradi.
 
   Oqim: avval shu endpoint bilan kod so'raladi, so'ng `PATCH /mobile/candidate/contact`
-  ga `phone` + `code` yuboriladi. Email-ni o'zgartirish uchun kod **kerak emas**.
+  ga `phone` + `code` yuboriladi. Bu endpoint **faqat telefon** uchun. Email-ni o'zgartirish uchun kod `POST /mobile/candidate/email/request-otp` orqali olinadi (`email_code`).
 
   > **Telefon o'zgarmasa SMS yuborilmaydi.** Agar `phone` joriy profil raqami bo'lsa —
   > javob `verification_required=false`, `sms_sent=false` qaytaradi va SMS umuman

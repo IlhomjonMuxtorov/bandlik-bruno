@@ -1,0 +1,58 @@
+info:
+  name: 3.1. Email (OTP)
+  type: http
+  seq: 14
+http:
+  method: POST
+  url: '{{base_url}}/mobile/auth/email'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"email\": \"user@example.com\",\n  \"device_id\": \"{{device_id}}\"\n}"
+  auth:
+    type: bearer
+    token: '{{guest_token}}'
+docs: |
+  Email manziliga 4 xonali bir martalik kod yuboradi. Telefon `phone` endpointi bilan bir xil
+  g'oya: **ro'yxatdan o'tish ham, kirish ham** shu endpoint orqali; keyingi qadam
+  `POST /mobile/auth/verify-email`. Shaxsiy ma'lumot so'ralmaydi.
+
+  Kod emailga navbat (`queue-notification`) orqali jo'natiladi, shuning uchun `queue-notification`
+  worker ishlab turishi shart. Kod 5 daqiqa amal qiladi, bazada faqat sha256 hash saqlanadi.
+  **Qayta yuborish** uchun shu endpointni yana chaqiring (limit amal qiladi).
+
+  > ⚠️ **Enumeration'dan himoya:** javob manzil yangi yoki mavjud ekanini FARQLAMAYDI.
+
+  **Auth:** `guest_token` YOKI `access_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `email` | string | ✅ | Email manzil, max 255. Server kichik harfga keltiradi va trim qiladi. |
+  | `device_id` | string | ✅ | Qurilma UUID'si, max 36 belgi. Qurilma bo'yicha OTP limiti shu kalit bilan hisoblanadi. |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `email_masked` | string | Yashirilgan manzil: `u***@example.com`. |
+  | `expires_in` | int | Kod amal qilish vaqti, soniyalarda (`300`). |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Validatsiya xatosi — `email` noto'g'ri formatda yoki `device_id` yo'q. |
+  | `400` | `Too many OTP requests. Please wait and try again.` — manzil uchun 5/soat, qurilma uchun 10/soat + 20/kun, IP uchun 30/soat. Limit faqat xat navbatga qo'yilganda hisoblanadi. |
+  | `400` | `This email address cannot be used to sign in.` — manzil admin/hamkor/xodim akkauntiga tegishli yoki boshqa akkauntda tasdiqlanmagan. |
+  | `400` | `You are already signed in. Change your email address from your profile instead.` — `access_token` bilan kirgan foydalanuvchi boshqa (band qilinmagan) manzilni tasdiqlamoqchi. |
+  | `400` | `Could not send the email. Please try again later.` — navbatga qo'yib bo'lmadi. |
+  | `401` | Token yo'q yoki muddati o'tgan. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

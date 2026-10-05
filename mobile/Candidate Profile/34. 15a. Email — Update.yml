@@ -1,0 +1,51 @@
+info:
+  name: 15a. Email — Update
+  type: http
+  seq: 34
+http:
+  method: PATCH
+  url: '{{base_url}}/mobile/candidate/email'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n    \"email\": \"new@example.com\",\n    \"code\": \"1234\"\n}"
+  auth: inherit
+docs: |-
+  Profil (login) emailini o'zgartirish — 2-qadam. Faqat `user.email` ni o'zgartiradi va
+  uni **tasdiqlangan** deb belgilaydi (`email_verified_at`). `PUT` ham qabul qilinadi.
+
+  Joriy **tasdiqlangan** emailni qayta yuborish — no-op (kod kerak emas). Joriy, lekin
+  tasdiqlanmagan emailni yuborib, kod bilan uni tasdiqlash ham mumkin.
+
+  **Auth:** `access_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `email` | string | ✅ | Yangi email (`/email/request-otp` dagi bilan bir xil). |
+  | `code` | string | ✅ | 4 xonali email kodi (faqat `email_change` maqsadidagi kod mos). 5 marta xato urinishdan keyin vaqtincha bloklanadi. |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `email` | string | Saqlangan (kichik harfli) email |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Validatsiya xatosi (`email` / `code` formati) |
+  | `400` | `Invalid or expired verification code.` |
+  | `401` | Token yo'q |
+  | `404` | Nomzod topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

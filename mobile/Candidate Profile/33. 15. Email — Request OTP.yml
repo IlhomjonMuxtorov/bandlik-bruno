@@ -1,0 +1,59 @@
+info:
+  name: 15. Email — Request OTP
+  type: http
+  seq: 33
+http:
+  method: POST
+  url: '{{base_url}}/mobile/candidate/email/request-otp'
+  headers:
+  - name: Accept
+    value: application/json
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n    \"email\": \"new@example.com\"\n}"
+  auth: inherit
+docs: |-
+  Profil (login) emailini o'zgartirish — 1-qadam. **Yangi** manzilga 4 xonali tasdiqlash
+  kodini yuboradi (xat `queue-notification` orqali ketadi, kod 5 daqiqa amal qiladi).
+
+  Oqim: avval shu endpoint bilan kod so'raladi, so'ng `PATCH /mobile/candidate/email`
+  ga `email` + `code` yuboriladi (yoki `PATCH /mobile/candidate/contact` ga `email` +
+  `email_code`). Bu kodlar faqat email o'zgartirish uchun — `/mobile/auth/email` kirish
+  kodi bilan almashtirib bo'lmaydi.
+
+  > **Email o'zgarmasa xat yuborilmaydi.** `email` joriy **tasdiqlangan** manzil bo'lsa —
+  > `verification_required=false`. Joriy, lekin hali tasdiqlanmagan manzil uchun kod
+  > yuboriladi (tasdiqlash uchun).
+
+  **Auth:** `access_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `email` | string | ✅ | Yangi email, max 255. Server kichik harfga keltiradi. |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `email_masked` | string | `n***@example.com` ko'rinishida |
+  | `expires_in` | int | Kod amal qilish muddati (soniya, `300`; tasdiqlash kerak bo'lmaganda `0`) |
+  | `verification_required` | bool | Tasdiqlash kerakmi. Joriy tasdiqlangan email kiritilsa `false` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Validatsiya xatosi (email formati) |
+  | `400` | `This email address is already in use.` — boshqa faol akkauntda band |
+  | `400` | `Too many OTP requests. Please wait and try again.` — manzil uchun 5/soat, foydalanuvchi/IP budjeti |
+  | `400` | `Could not send the email. Please try again later.` |
+  | `401` | Token yo'q |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

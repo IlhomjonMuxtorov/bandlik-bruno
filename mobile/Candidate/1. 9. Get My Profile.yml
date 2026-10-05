@@ -53,6 +53,10 @@ docs: 'Ro''yxatdan o''tgan nomzodning qisqa profil kartochkasi — **MVD** dan o
   | `full_name_latin` | string \| null | MVD: `SURNAME NAME PATRONYM` lotin. `null`
   — MVD ma''lumoti yo''q |
 
+  | `display_name` | string \| null | Google/Apple orqali kirishda foydalanuvchi o''zi
+  bildirgan ism. Rasmiy ism (`full_name_latin`) MyID gacha `null` — shu vaqtgacha
+  ilova `display_name` ni ko''rsatadi. Berilmagan bo''lsa `null` |
+
   | `citizenship` | object | `{ id, name }` — MVD-derived fuqarolik. `id` — GCP davlat
   kodi (`country.gcp_code`); `null` — MVD kod bermagan yoki davlat mos kelmagan. `name`
   — `country` relation orqali lokalizatsiya, bo''lmasa xom MVD fuqarolik qiymati;

@@ -1,0 +1,66 @@
+info:
+  name: 3.2. Verify Email (OTP)
+  type: http
+  seq: 15
+http:
+  method: POST
+  url: '{{base_url}}/mobile/auth/verify-email'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"email\": \"user@example.com\",\n  \"code\": \"1234\",\n  \"device_id\": \"{{device_id}}\"\n}"
+  auth:
+    type: bearer
+    token: '{{guest_token}}'
+docs: |
+  Emailga kelgan kodni tasdiqlaydi va token juftligini qaytaradi. `verify-phone` bilan bir xil natijalar:
+
+  - **Guest, band qilinmagan manzil** → akkaunt `Active` bo'ladi (`phone = null`, `email` + `email_verified_at` o'rnatiladi), yangi `Candidate` yaratiladi. `is_verified` o'zgarmaydi (`false`).
+  - **Boshqa mobil akkauntga tegishli (tasdiqlangan) manzil** → qurilma o'sha akkauntga ko'chiriladi va **o'sha** akkaunt tokenlari qaytadi; chaqiruvchi guest bo'lsa o'chiriladi.
+  - **O'z manzilini qayta tasdiqlash** → idempotent.
+
+  **Auth:** `guest_token` yoki `access_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `email` | string | ✅ | Kod yuborilgan manzil (`/mobile/auth/email` dagi bilan bir xil). |
+  | `code` | string | ✅ | 4 xonali kod. 5 marta noto'g'ri urinishdan keyin to'g'ri kod ham vaqtincha rad etiladi. |
+  | `device_id` | string | ✅ | Qurilma UUID'si. Token shu qurilmaga bog'lanadi. |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `access_token` | string | To'liq foydalanuvchi JWT. |
+  | `refresh_token` | string | Yangilash tokeni (rotation). |
+  | `expires_in` | int | `access_token` muddati soniyalarda. |
+  | `token_type` | string | `Bearer`. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Validatsiya xatosi. |
+  | `400` | `Invalid or expired verification code.` — kod noto'g'ri, ishlatilgan yoki muddati o'tgan (300 sek) yoki urinishlar limiti tugagan. |
+  | `400` | `This email address cannot be used to sign in.` |
+  | `400` | `You are already signed in. Change your email address from your profile instead.` |
+  | `400` | `This email address is already registered.` — poyga holati (bir vaqtda ikki so'rov). |
+  | `401` | Token yo'q yoki muddati o'tgan. |
+
+
+  > ⚠️ **Telefonsiz akkaunt:** bu usul bilan ochilgan akkauntda `phone == null` bo'lishi mumkin. Unda "PIN esdan chiqdi" (`reset-pin`) **ishlamaydi** (`No account found with this phone number.`) — ilova `phone == null` foydalanuvchiga bu havolani ko'rsatmasligi, o'rniga "Qayta kirish" (Google / Apple / Email) ni taklif qilishi kerak; so'ng yangi PIN o'rnatiladi. Telefonni keyin `POST /mobile/candidate/phone/request-otp` + `PATCH /mobile/candidate/phone` orqali qo'shish mumkin.
+
+  > ✨ **Auto-save:** `access_token` va `refresh_token` avtomatik saqlanadi.
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+runtime:
+  scripts:
+  - type: after-response
+    code: "const body = res.getBody();\nif (body && body.access_token) {\n  bru.setEnvVar('access_token', body.access_token);\n  bru.setEnvVar('refresh_token', body.refresh_token);\n  console.log('access_token and refresh_token saved');\n}"

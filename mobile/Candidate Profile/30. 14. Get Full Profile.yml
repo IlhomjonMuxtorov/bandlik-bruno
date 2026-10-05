@@ -40,6 +40,7 @@ docs: |
   | `phone` | string \| null | Registered phone number; `null` if not set |
   | `is_verified` | bool | `true` when MVD/MyID identity verification is complete |
   | `full_name_latin` | string \| null | Full name in Latin script (SURNAME NAME PATRONYM from MVD); `null` if MVD not fetched |
+  | `display_name` | string \| null | Self-reported name from Google/Apple sign-in; `null` if not provided. Official name is `null` until MyID — the app shows `display_name` meanwhile |
   | `photo_url` | string \| null | Resolved profile photo URL (candidate upload or MVD photo); `null` if none |
   | `balance` | float | Available wallet balance in so'm |
   | `hold_balance` | float | Frozen (held) wallet amount in so'm |

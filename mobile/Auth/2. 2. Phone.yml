@@ -10,7 +10,7 @@ http:
     value: application/json
   body:
     type: json
-    data: "{\n  \"phone\": \"+998901234567\",\n  \"device_id\": \"{{device_id}}\"\n}"
+    data: "{\n  \"phone\": \"+998901234567\",\n  \"device_id\": \"{{device_id}}\",\n  \"channel\": \"sms\"\n}"
   auth:
     type: bearer
     token: '{{guest_token}}'
@@ -52,6 +52,12 @@ docs: 'Telefon raqamiga OTP yuboradi — **butun ro''yxatdan o''tish shu**. Pasp
 
   | `device_id` | string | ✅ | Qurilma UUID''si, max 36 belgi. |
 
+  | `channel` | string | ➖ | Kod yetkazish kanali: `sms` \| `telegram`. Default: `sms`.
+  `telegram` tanlansa kod Telegram Gateway API orqali Telegram ilovasiga yuboriladi
+  (kodni o''zimiz generatsiya qilamiz, tekshiruv `verify-phone` da o''zgarishsiz).
+  Telegram sozlanmagan yoki yuborish muvaffaqiyatsiz bo''lsa — `400`, klient `sms`
+  ga qaytishi kerak. |
+
 
   ### 📤 Response
 
@@ -63,6 +69,8 @@ docs: 'Telefon raqamiga OTP yuboradi — **butun ro''yxatdan o''tish shu**. Pasp
   | `phone_masked` | string | Yashirilgan raqam: `+998 ** *** 4567`. |
 
   | `expires_in` | int | OTP amal qilish vaqti, soniyalarda (`180`). |
+
+  | `channel` | string | Kod yuborilgan kanal: `sms` \| `telegram`. |
 
 
   ### ⚠️ Errors
@@ -81,6 +89,9 @@ docs: 'Telefon raqamiga OTP yuboradi — **butun ro''yxatdan o''tish shu**. Pasp
 
   | `400` | `Could not send SMS. Please check your phone number.` — SMS provayder
   (Eskiz) xatosi. |
+
+  | `400` | `Could not send the code via Telegram. Please choose SMS.` — `channel=telegram`
+  va Telegram Gateway sozlanmagan yoki yuborish xato. Limit hisoblanmaydi. |
 
   | `401` | Token yo''q yoki yaroqsiz. |
 

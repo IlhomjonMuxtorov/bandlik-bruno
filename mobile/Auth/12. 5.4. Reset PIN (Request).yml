@@ -64,6 +64,15 @@ docs: 'PINni unutgan foydalanuvchi uchun **tiklash 1-bosqichi** ("Pin kod esingi
 
   | `400` | SMS yuborishda xatolik |
 
+
+  > ⚠️ **Telefonsiz foydalanuvchilar** (Google / Apple / Email orqali ro''yxatdan
+  > o''tgan, `phone == null`) uchun bu endpoint ishlamaydi — `No account found with
+  > this phone number.` qaytadi (raqam bo''yicha hisob topilmaydi). Ilova
+  > `phone == null` bo''lgan foydalanuvchiga "Pin kod esingizdan chiqdimi?" havolasini
+  > **ko''rsatmasligi**, uning o''rniga "Qayta kirish" (Google / Apple / Email) ni
+  > taklif qilishi kerak; kirgandan so''ng `set-pin` + `confirm-pin` bilan yangi PIN
+  > o''rnatiladi.
+
   '
 settings:
   encodeUrl: true

@@ -1,0 +1,64 @@
+info:
+  name: 3.3. Google Sign-In
+  type: http
+  seq: 16
+http:
+  method: POST
+  url: '{{base_url}}/mobile/auth/google'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"id_token\": \"<google_id_token>\",\n  \"device_id\": \"{{device_id}}\"\n}"
+  auth:
+    type: bearer
+    token: '{{guest_token}}'
+docs: |
+  Google bilan kirish (iOS/Android native SDK'dan olingan `id_token`). **Ro'yxatdan o'tish ham, kirish ham.**
+
+  Akkaunt moslashtirish tartibi: (1) saqlangan `(provider, sub)` bog'lanishi; (2) tokendagi **tasdiqlangan** email bilan mos keluvchi, emaili tasdiqlangan **mobil** akkaunt (admin/hamkor/xodim akkauntlari hech qachon moslashtirilmaydi). Hech biri topilmasa va chaqiruvchi guest bo'lsa — akkaunt **darhol `Active`** bo'ladi, **telefonsiz** (`phone = null`), `Candidate` yaratiladi; provayderning tasdiqlangan emaili bo'sh bo'lsagina akkauntga yoziladi. Allaqachon kirgan (`access_token`) foydalanuvchi yangi identifikatorni yuborsa — u o'z akkauntiga **bog'lanadi** (account linking).
+
+  **Auth:** `guest_token` yoki `access_token`.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `id_token` | string | ✅ | Google SDK qaytargan `id_token` (JWT). Server uni Google JWKS bilan tekshiradi; `aud` — `GOOGLE_OAUTH_MOBILE_CLIENT_IDS` (iOS + Android client ID'lar) ichida bo'lishi shart. |
+  | `device_id` | string | ✅ | Qurilma UUID'si. Token shu qurilmaga bog'lanadi. |
+
+  ### 📤 Response
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `access_token` | string | To'liq foydalanuvchi JWT. |
+  | `refresh_token` | string | Yangilash tokeni (rotation). |
+  | `expires_in` | int | `access_token` muddati soniyalarda. |
+  | `token_type` | string | `Bearer`. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | Validatsiya xatosi (`id_token` / `device_id` yo'q). |
+  | `400` | `Invalid token.` — imzo, `aud`, `iss` yoki muddat noto'g'ri. |
+  | `400` | `This account cannot be used to sign in here.` — provayder identifikatori admin/hamkor/xodim akkauntiga bog'langan. |
+  | `503` | `Sign-in with Google is not available right now.` / `... is temporarily unavailable. Please try again.` — server sozlanmagan (`GOOGLE_OAUTH_MOBILE_CLIENT_IDS`) yoki provayder kalitlarini olib bo'lmadi. Klient qayta urinishi yoki boshqa usulni taklif qilishi kerak. |
+  | `401` | Token yo'q yoki muddati o'tgan. |
+
+
+  > 👤 **`display_name`:** Google `id_token` dagi `name` claim'i (bo'lsa) saqlanadi. Akkauntda `user.display_name` **bo'sh bo'lsagina** yoziladi (mavjud nomni hech qachon almashtirmaydi). U `GET /mobile/candidate/profile` va `profile-full` javoblarida `display_name` sifatida qaytadi. Rasmiy ism (`full_name_latin`) MyID/MVD tasdiqlanguncha `null` — shu vaqtgacha ilova `display_name` ni ko'rsatadi.
+
+  > ⚠️ **Telefonsiz akkaunt:** bu usul bilan ochilgan akkauntda `phone == null` bo'lishi mumkin. Unda "PIN esdan chiqdi" (`reset-pin`) **ishlamaydi** (`No account found with this phone number.`) — ilova `phone == null` foydalanuvchiga bu havolani ko'rsatmasligi, o'rniga "Qayta kirish" (Google / Apple / Email) ni taklif qilishi kerak; so'ng yangi PIN o'rnatiladi. Telefonni keyin `POST /mobile/candidate/phone/request-otp` + `PATCH /mobile/candidate/phone` orqali qo'shish mumkin.
+
+  > ✨ **Auto-save:** `access_token` va `refresh_token` avtomatik saqlanadi.
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+runtime:
+  scripts:
+  - type: after-response
+    code: "const body = res.getBody();\nif (body && body.access_token) {\n  bru.setEnvVar('access_token', body.access_token);\n  bru.setEnvVar('refresh_token', body.refresh_token);\n  console.log('access_token and refresh_token saved');\n}"
