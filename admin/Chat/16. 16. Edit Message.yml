@@ -1,0 +1,57 @@
+info:
+  name: Edit Message
+  type: http
+  seq: 16
+http:
+  method: PATCH
+  url: '{{base_url}}/admin/chats/1/messages/10'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"body\": \"Tuzatilgan matn\"\n}"
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+docs: |
+  XBA xodimi **o'zining** `text` xabarini tahrirlaydi. Faqat yuborilgandan keyin cheklangan vaqt ichida (default 15 daqiqa, `app_setting.chat_message_edit_window_minutes`). Xabarlar o'chirilmaydi. Push yuborilmaydi, unread counter o'zgarmaydi.
+
+  **Auth:** `admin_token` (`chatManage` ruxsati). Foydalanuvchi shu chatga kirish huquqiga ega bo'lishi shart.
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `body` | string | ✅ | Yangi matn. Bo'sh yoki faqat bo'shliqdan iborat bo'lmasligi kerak (trim qilinadi). |
+
+  ### 🧭 Path Parameters
+
+  | Param | Type | Description |
+  |---|---|---|
+  | `id` | int | Chat (conversation) id |
+  | `messageId` | int | Tahrirlanadigan xabar id |
+
+  ### 📤 Response
+
+  `200` + ChatMessageOutputDTO (`3. Messages` bilan bir xil). Tahrirdan keyin `is_edited = true`, `edited_at` — hozirgi unix ts, `body` — yangi matn.
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `is_edited` | bool | `true` |
+  | `edited_at` | int | Tahrir vaqti (unix ts) |
+  | `editable_until` | int \| null | `created_at` + tahrir oynasi (unix ts) |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `400` | `Edit time has expired` — tahrir oynasi o'tgan; xabar `text` emas; `body` bo'sh yoki berilmagan |
+  | `401` | Token yo'q |
+  | `403` | Xabar muallifi siz emassiz yoki chatga kirish huquqi yo'q |
+  | `404` | Chat yoki xabar topilmadi (xabar boshqa chatniki yoki o'chirilgan) |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

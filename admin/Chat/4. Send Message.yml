@@ -37,6 +37,8 @@ docs: |
 
   `201` + ChatMessageOutputDTO.
 
+  Yangi xabarda `read_status = sent`, `is_edited = false`, `edited_at = null`, `editable_until = created_at + edit oynasi` (default 15 daqiqa, `app_setting.chat_message_edit_window_minutes`) — faqat `text` uchun, boshqa turlarda `null`.
+
   Sender maydonida: XBA xodimi bo'lsa `full_name` va `profile_photo_url` (agar mavjud bo'lsa) qo'shiladi.
 
   ### ⚠️ Errors

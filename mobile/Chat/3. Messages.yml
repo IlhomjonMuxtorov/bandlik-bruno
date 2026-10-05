@@ -45,6 +45,10 @@ docs: |
   | `reply_to_id` | int \| null | |
   | `is_mine` | bool | viewer xabar muallifimi |
   | `is_read` | bool | viewer o'qiganmi |
+  | `read_status` | string \| null | Faqat viewerning **o'z** xabarlari uchun: `sent` (yuborildi, ✓) \| `read` (qarshi tomon o'qidi, ✓✓). Boshqa/system xabarlarda `null`. Qarshi tomonning "o'qilgan" kursori (`peer_last_read_message_id`) xabar `id` sidan katta yoki teng bo'lsa `read` |
+  | `is_edited` | bool | Muallif xabarni yuborgandan keyin tahrirlaganmi ("tahrirlangan" belgisi) |
+  | `edited_at` | int \| null | Oxirgi tahrir unix ts. `null` — tahrirlanmagan |
+  | `editable_until` | int \| null | Viewer shu vaqtgacha (unix ts) o'z `text` xabarini tahrirlashi mumkin. Mobile'da doim `null` (tahrirlash faqat admin web'da); admin'da faqat o'z `text` xabarlari uchun, boshqalarda `null` |
   | `created_at` | int | unix ts |
   | `created_at_formatted` | string | `d.m.Y H:i` (Asia/Tashkent) |
 

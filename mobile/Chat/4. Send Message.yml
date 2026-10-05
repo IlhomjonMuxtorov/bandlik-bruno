@@ -33,6 +33,8 @@ docs: |
 
   `201` + ChatMessageOutputDTO (Messages endpointidagi format bilan bir xil).
 
+  Yangi xabarda `read_status = sent`, `is_edited = false`, `edited_at = null`, `editable_until = null` (mobile'da tahrirlash yo'q).
+
   Sender maydonida: XBA xodimi bo'lsa `full_name` va `profile_photo_url` (agar mavjud bo'lsa) qo'shiladi.
 
   Server qo'shimcha:

@@ -14,6 +14,8 @@ http:
 docs: |
   Paginated xabarlar (cursor pagination). Mobile bilan bir xil format.
 
+  Qo'shimcha: `read_status` (✓/✓✓), `is_edited`, `edited_at`, `editable_until` — pastdagi jadvalga qarang. Xabarlar hech qachon o'chirilmaydi.
+
   **Auth:** `admin_token`.
 
   ### 🔎 Query Parameters
@@ -31,6 +33,10 @@ docs: |
   | Field | Type | Description |
   |---|---|---|
   | `sender` | object \| null | `{id, username, full_name?, profile_photo_url?}` — XBA xodimi bo'lsa full_name va profile_photo_url qo'shiladi |
+  | `read_status` | string \| null | Faqat viewerning **o'z** xabarlari uchun: `sent` (yuborildi, ✓) \| `read` (qarshi tomon o'qidi, ✓✓). Boshqa/system xabarlarda `null`. Qarshi tomonning "o'qilgan" kursori (`peer_last_read_message_id`) xabar `id` sidan katta yoki teng bo'lsa `read` |
+  | `is_edited` | bool | Muallif xabarni yuborgandan keyin tahrirlaganmi ("tahrirlangan" belgisi) |
+  | `edited_at` | int \| null | Oxirgi tahrir unix ts. `null` — tahrirlanmagan |
+  | `editable_until` | int \| null | Viewer shu vaqtgacha (unix ts) o'z `text` xabarini tahrirlashi mumkin. Mobile'da doim `null` (tahrirlash faqat admin web'da); admin'da faqat o'z `text` xabarlari uchun, boshqalarda `null` |
 
   ### ⚠️ Errors
 

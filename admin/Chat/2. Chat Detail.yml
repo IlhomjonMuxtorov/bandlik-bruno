@@ -22,6 +22,8 @@ docs: |
 
   Mobile `Chat Detail` bilan bir xil shape, lekin `unread_count` XBA tomonidan.
 
+  - `peer_last_read_message_id` (int|null) — nomzod o'qigan eng katta xabar `id`si. XBA'ning o'z xabarlari shu qiymatgacha `read` (✓✓) bo'ladi. `null` — nomzod hali hech narsa o'qimagan.
+
   - `service_groups[]` — **xizmat GURUHI = kuzatiladigan birlik** (ish birligi). Har bir guruh
   Start→Pay→Execute→Complete→Confirm holatini **guruh darajasida** olib yuradi:
   `{service_group_id, group_type, completion_flow, organization, responsible_user, services[],

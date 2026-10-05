@@ -1,0 +1,55 @@
+info:
+  name: Chat Documents
+  type: http
+  seq: 17
+http:
+  method: GET
+  url: '{{base_url}}/admin/chats/1/documents?page=1&per-page=20'
+  headers: []
+  body:
+    type: none
+  auth:
+    mode: bearer
+    bearer: '{{ admin_token }}'
+docs: |
+  Chatda ulashilgan barcha fayllar ("Hujjatlar" paneli) — rasm, hujjat va xabarga ilingan fayllar (masalan offer shartnomasi PDF). Ovozli xabarlar kirmaydi. Eng yangisi birinchi. Frontend oylar bo'yicha (MART 2026, FEVRAL 2026) guruhlaydi (`created_at` bo'yicha).
+
+  **Auth:** `admin_token` (`chatManage` ruxsati).
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `q` | string | ➖ | Fayl nomi bo'yicha qidiruv (katta-kichik harfga e'tiborsiz, qisman moslik). |
+  | `page` | int | ➖ | Sahifa raqami (1 dan). Default `1`. |
+  | `per-page` | int | ➖ | Sahifa hajmi, `1..100`. Default `20`. |
+
+  ### 📤 Response
+
+  `200` — `{ success, data: { items[], pagination }, message, errors }`. Panel sarlavhasidagi "Hujjatlar N ta" uchun `pagination.total_count` ishlatiladi (qidiruv filtrini hisobga oladi).
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `items[].message_id` | int | Faylni olib kelgan xabar id |
+  | `items[].sender` | object \| null | `{id, full_name}` — system xabar uchun `null`; profil bo'lmasa `full_name = null` |
+  | `items[].is_mine` | bool | Faylni siz yuborgansiz |
+  | `items[].created_at` | int | Yuborilgan vaqt (unix ts) |
+  | `items[].created_at_formatted` | string | `d.m.Y H:i` (Asia/Tashkent) |
+  | `items[].attachment` | object | `{id, name, mime_type, size, file_kind, file_kind_icon_url, url}` — `size` baytlarda, `url` yuklab olish havolasi |
+  | `pagination.page` | int | Joriy sahifa (1 dan) |
+  | `pagination.page_size` | int | Sahifa hajmi |
+  | `pagination.total_count` | int | Jami hujjatlar soni |
+  | `pagination.page_count` | int | Jami sahifalar |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q |
+  | `403` | Chatga kirish huquqi yo'q |
+  | `404` | Chat topilmadi |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

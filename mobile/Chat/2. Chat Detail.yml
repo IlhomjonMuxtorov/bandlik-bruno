@@ -48,6 +48,8 @@ docs: 'Bir chatning to''liq detali — list summary + pinlangan **candidate_card
   photo_url, phone, cv_id, cv_title}`. Conversation ochilishda system message sifatida birinchi xabar
   sifatida |
 
+  | `peer_last_read_message_id` | int \| null | XBA tomoni o''qigan eng katta xabar `id`si. Nomzodning o''z xabarlari shu qiymatgacha `read` (✓✓). `null` — hali hech narsa o''qilmagan |
+
   | `service_groups` | array | **Xizmat guruhlari = kuzatiladigan birlik** + guruh bo''yicha ketma-ket
   to''lov/bajarish holati. Guruh ichidagi xizmatlar `services[]` (billing line-item) da. Bo''sh massiv
   — pipeline yo''q. (Quyida tuzilishi) |
