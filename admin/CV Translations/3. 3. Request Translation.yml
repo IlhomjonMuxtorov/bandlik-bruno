@@ -1,0 +1,94 @@
+info:
+  name: Request Translation
+  type: http
+  seq: 3
+http:
+  method: POST
+  url: '{{base_url}}/admin/candidate-cv/{{cv_id}}/translations/en'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"force\": false\n}"
+  auth: inherit
+docs: |
+  CV erkin matnini Gemini yordamida tarjima qilishni **navbatga qo'yadi** (async). Javob darrov `202` bilan
+  qaytadi; natijani [Get Translation](./2.%202.%20Get%20Translation.yml) `?fields=0` bilan `job.status = ready | failed`
+  bo'lguncha polling qiling (queue worker ishlab turishi kerak).
+
+  Faqat **eskirgan (`stale`) va tarjimasiz (`untranslated`)** maydonlar yuboriladi — o'zgarmagan qo'lda tahrirlar
+  saqlanadi. `force: true` — hammasi qayta tarjima qilinadi (eski qo'lda tahrirlar ham ustiga yoziladi; ishlash
+  paytida kiritilgan yangi tahrir esa hech qachon yo'qolmaydi). Hech narsa tarjima qilinishi shart bo'lmasa —
+  job yaratilmaydi va xarajat bo'lmaydi (`200`, `queued: false`).
+
+  **Maxfiylik:** Gemini'ga faqat identifikatorsiz matn ketadi — ism, JSHSHIR, passport, telefon, email, manzil va
+  havolalar yuborilmaydi; matn ichidagi shunday qiymatlar niqoblanadi. Tarjima tashkilotlar o'rtasida umumiy.
+
+  **Auth:** `admin_token`. Permission: `cvTranslationCreate`. Aktyor doirasi `assertCvWithinActorScope` bilan tekshiriladi.
+
+  ### 📋 Path Params
+
+  | Param | Type | Description |
+  |---|---|---|
+  | `cv_id` | int | CV ID. |
+  | `lang` | string | Tarjima tili: `en` \| `ru`. Boshqa qiymat — `404`. |
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `force` | bool | ➖ | `true` — barcha maydonlarni qayta tarjima qilish (qimmatroq). Default `false` — faqat `stale` + `untranslated`. |
+
+  ### 📤 Response
+
+  `202` — navbatga qo'yildi; `200` — yangilash shart emas:
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "queued": true,
+      "language": "en",
+      "label": "English",
+      "summary": "incomplete",
+      "ok_count": 0,
+      "stale_count": 0,
+      "untranslated_count": 14,
+      "job": { "status": "pending", "force": false, "error_code": null, "error_message": null, "requested_at": 1791450000, "started_at": null, "finished_at": null, "translated_count": 0, "missing_count": 0 }
+    },
+    "message": "Translation queued",
+    "errors": {}
+  }
+  ```
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `queued` | bool | `true` — job navbatga qo'yildi (HTTP `202`); `false` — tarjima allaqachon dolzarb, job yaratilmadi (HTTP `200`). |
+  | `summary` ... `job` | — | [List Translations](./1.%201.%20List%20Translations.yml) dagi `languages[]` bilan bir xil. `job` — joriy ish holati (`pending`). |
+
+  > **Limit.** Bitta chaqiruv ≈ 60 tagacha maydon; so'rov kerak bo'ladigan chaqiruvlar soni tashkilotning kunlik
+  > limitidan (boshqa faol joblar band qilgan chaqiruvlar bilan birga) oshsa — `429`. Tarmoq xatosi, `429`/`5xx` Gemini javobi limitni yemaydi; Google qayta ishlagan har bir chaqiruv (filtrlangan javob ham) hisoblanadi.
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {admin_token}` |
+  | `Content-Type` | ✅ | `application/json` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki eskirgan. |
+  | `403` | `cvTranslationCreate` ruxsati yo'q, yoki xodimning tashkiloti yo'q. |
+  | `404` | CV topilmadi yoki doirangizdan tashqarida (sizning vakansiyalaringizga ariza bermagan CV ham `404`); yoki `lang` qo'llab-quvvatlanmaydi. |
+  | `409` | Shu CV va til uchun tarjima allaqachon ishlayapti (`pending`/`running`; hajmiga qarab ~6 daqiqadan boshlab, har chunk uchun +5 daqiqagacha kutiladi, undan keyin job o'lik hisoblanadi). |
+  | `429` | Tashkilotning kunlik tarjima limiti tugadi. |
+  | `503` | Funksiya o'chirilgan (`app_setting.cv_translation_enabled = false`) yoki serverda `GEMINI_API_KEY` yo'q. |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

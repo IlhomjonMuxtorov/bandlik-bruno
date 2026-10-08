@@ -1,0 +1,103 @@
+info:
+  name: Get Translation
+  type: http
+  seq: 2
+http:
+  method: GET
+  url: '{{base_url}}/admin/candidate-cv/{{cv_id}}/translations/en?fields=1'
+  params:
+  - name: fields
+    value: '1'
+    type: query
+  auth: inherit
+docs: |
+  Bitta til uchun tarjima holati va (ixtiyoriy) **asl matn — tarjima** maydonlar ro'yxati. Staff tarjimani
+  tekshirib, tuzatishi uchun. Tarjima ishi ishlayotgan paytda `?fields=0` bilan **yengil polling** qiling.
+
+  **Auth:** `admin_token`. Permission: `cvTranslationView`. Aktyor doirasi `assertCvWithinActorScope` bilan tekshiriladi.
+
+  ### 📋 Path Params
+
+  | Param | Type | Description |
+  |---|---|---|
+  | `cv_id` | int | CV ID. |
+  | `lang` | string | Tarjima tili: `en` \| `ru`. Boshqa qiymat — `404`. |
+
+  ### 🔎 Query Parameters
+
+  | Param | Type | Required | Description |
+  |---|---|:---:|---|
+  | `fields` | bool | ➖ | `0` — faqat `summary` (maydonlar ro'yxatisiz, polling uchun). Default `1`. |
+
+  ### 📤 Response
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "summary": { "language": "en", "label": "English", "summary": "stale", "ok_count": 1, "stale_count": 1, "untranslated_count": 0, "job": { "status": "ready", "force": false, "error_code": null, "error_message": null, "requested_at": 1791450000, "started_at": 1791450002, "finished_at": 1791450011, "translated_count": 2, "missing_count": 0 } },
+      "fields": [
+        {
+          "key": "experience.12.position",
+          "section": "experience",
+          "field": "position",
+          "original": "Katta menejer",
+          "translated": "Manager",
+          "state": "stale",
+          "origin": "ai",
+          "updated_at": 1791450010,
+          "updated_by": 7
+        },
+        {
+          "key": "education.5.institution_name",
+          "section": "education",
+          "field": "institution_name",
+          "original": "Toshkent davlat iqtisodiyot universiteti",
+          "translated": "Tashkent State University of Economics",
+          "state": "ok",
+          "origin": "manual",
+          "updated_at": 1791452000,
+          "updated_by": 9
+        }
+      ]
+    },
+    "message": "",
+    "errors": {}
+  }
+  ```
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `summary` | object | [List Translations](./1.%201.%20List%20Translations.yml) dagi `languages[]` elementi bilan bir xil shakl. |
+  | `fields[].key` | string | `<section>.<source_id>.<field>`. PATCH endpointi shu kalit bilan ishlaydi. |
+  | `fields[].section` | string | Bo'lim: `experience` \| `education` \| `course` \| `conference` \| `creative_work` \| `hobby` \| `membership` \| `project` \| `digital_skill` \| `publication` \| `recommendation` \| `volunteering` \| `document` \| `driver_certificate` \| `visa`. |
+  | `fields[].field` | string | Bo'limdagi ustun nomi (masalan `position`, `description`, `institution_name`). |
+  | `fields[].original` | string | Hozirgi asl matn (nomzod yozgan). Bo'sh matnli maydonlar ro'yxatda **yo'q**. |
+  | `fields[].translated` | string \| null | Saqlangan tarjima; `state = untranslated` bo'lsa `null`. |
+  | `fields[].state` | string | `ok` — joriy matndan tarjima qilingan; `stale` — asl matn tarjimadan keyin o'zgargan (PDF'da baribir shu tarjima chiqadi); `untranslated` — tarjima yo'q (PDF'da asl matn chiqadi). |
+  | `fields[].origin` | string \| null | `ai` — Gemini; `manual` — staff tuzatgan. `untranslated` bo'lsa `null`. |
+  | `fields[].updated_at` | int \| null | Tarjima oxirgi yozilgan vaqt (unix). `untranslated` bo'lsa `null`. |
+  | `fields[].updated_by` | int \| null | Oxirgi yozgan foydalanuvchi ID (AI tarjimada — so'ragan xodim). Noma'lum bo'lsa `null`. |
+
+  `?fields=0` da javobda faqat `summary` bo'ladi (`fields` kaliti umuman yo'q).
+
+  > MVD'dan kelgan matn (ish joyi, ta'lim muassasasi) ham tarjima qilinadi; MVD qayta sinxronlanganda matn o'zgarsa tarjima `stale` bo'ladi.
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {admin_token}` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki eskirgan. |
+  | `403` | `cvTranslationView` ruxsati yo'q, yoki xodimning tashkiloti yo'q. |
+  | `404` | CV topilmadi yoki doirangizdan tashqarida (sizning vakansiyalaringizga ariza bermagan CV ham `404`); yoki `lang` qo'llab-quvvatlanmaydi (`en`/`ru` dan boshqa). |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

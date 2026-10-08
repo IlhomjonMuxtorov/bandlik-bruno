@@ -39,6 +39,8 @@ docs: |
       "mobile_passport_auth_enabled": true,
       "vacancy_training_course_required": false,
       "aloqabank_enabled": false,
+      "cv_translation_enabled": false,
+      "cv_translation_daily_limit_per_org": 50,
       "created_at": 1739000000,
       "updated_at": 1739000000
     },
@@ -60,6 +62,8 @@ docs: |
   > `vacancy_training_course_required` — vakansiyada kursga ega `training` xizmati va Training service group majburiymi. **Default `false`**: o'quv dasturi tayyor bo'lmagani uchun vakansiya `training` guruhisiz yaratiladi (kurs qadami ham, kurs to'lov qadami ham yo'q). Kurslar tayyor bo'lganda `true` qilinadi. Frontend vakansiya wizard'ida "O'quv kurslari" qadamini shu maydonga qarab yashirsin/majburiy qilsin.
   >
   > `aloqabank_enabled` — Aloqabank kill switch. **Default `false`**: vipiska sync (`aloqabank/sync-statement`) va payout yuborish hech narsa qilmaydi. Kredensiallar `.env` da to'ldirilib, sinovdan o'tgach `true` qilinadi.
+  >
+  > `cv_translation_enabled` — AI (Gemini) CV tarjimasi kill switch'i. **Default `false`**: tarjima endpointlari `503` qaytaradi. `.env` da `GEMINI_API_KEY` (faqat **pullik** tarif kaliti — bepul tarifda Google ma'lumotni o'qitish uchun ishlatishi mumkin) to'ldirilib, sinovdan o'tgach `true` qilinadi. `cv_translation_daily_limit_per_org` — tashkilot uchun kuniga (Asia/Tashkent) ruxsat etilgan muvaffaqiyatli Gemini chaqiruvlar soni (1 chaqiruv ≈ 60 maydon), default `50`; `0` — hamma narsani bloklaydi.
 settings:
   encodeUrl: true
   timeout: 0

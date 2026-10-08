@@ -9,6 +9,10 @@ http:
   - name: template
     value: europass
     type: query
+  - name: translation
+    value: ''
+    type: query
+    disabled: true
   headers:
   - name: Accept
     value: application/zip
@@ -90,6 +94,13 @@ docs: 'Nomzod CV-sini **va unga biriktirilgan hujjat skanlarini** bitta ZIP fayl
   \| `professional` \| `classic`. Default: `europass`. Noma''lum qiymat
   `europass` ga qaytadi. |
 
+  | `translation` | string | ➖ | `en` \| `ru` — ZIP ichidagi PDF **saqlangan
+  tarjima** bilan chop etiladi (PDF tili shu tilga o''tadi; hujjat fayllari
+  o''zgarmaydi). Permission `cvTranslationView` kerak (yo''q bo''lsa `403`);
+  noma''lum til — `404`. Javobda `X-Cv-Translation-Status: complete` \| `stale`
+  \| `incomplete` header''i qaytadi — `stale`/`incomplete` bo''lsa PDF tarjima va
+  asl matn aralashmasi. Yuklashda Gemini chaqirilmaydi. Default: yo''q. |
+
 
   ### 📋 Headers
 
@@ -137,10 +148,12 @@ docs: 'Nomzod CV-sini **va unga biriktirilgan hujjat skanlarini** bitta ZIP fayl
 
   | `401` | Token yo''q yoki eskirgan |
 
-  | `403` | `applicationView` ruxsati yo''q yoki CV sizning vakansiyalaringizga
-  ariza bermagan |
+  | `403` | `applicationView` ruxsati yo''q yoki xodimning tashkiloti yo''q; yoki
+  `?translation=` bilan `cvTranslationView` ruxsati yo''q |
 
-  | `404` | CV topilmadi |
+  | `404` | CV topilmadi yoki CV sizning vakansiyalaringizga ariza bermagan
+  (doiradan tashqari CV mavjudligi yashiriladi); yoki `?translation=` tili
+  qo''llab-quvvatlanmaydi |
 
   | `406` | `Accept: application/zip` header yuborilmagan |
 

@@ -21,7 +21,9 @@ http:
         "vacancy_auto_approve_enabled": true,
         "vacancy_auto_approve_window_minutes": 180,
         "chat_message_edit_window_minutes": 15,
-        "vacancy_training_course_required": false
+        "vacancy_training_course_required": false,
+        "cv_translation_enabled": false,
+        "cv_translation_daily_limit_per_org": 50
       }
   auth: inherit
 docs: |
@@ -48,6 +50,8 @@ docs: |
   | `mobile_passport_auth_enabled` | bool | ➖ | Global toggle: eski `POST /mobile/auth/passport` (pasport + tug'ilgan sana) hali qabul qilinadimi. `false` — `400 { app_update_required: true }`. Default `true`. |
   | `vacancy_training_course_required` | bool | ➖ | Global toggle: vakansiyada kursga ega `training` xizmati va **Training service group** majburiymi. `false` (default) — o'quv dasturi tayyor bo'lmagani uchun ikkisi ham ixtiyoriy, vakansiya `training` guruhisiz yaratiladi. |
   | `aloqabank_enabled` | bool | ➖ | Aloqabank kill switch: `false` (default) — vipiska sync va payout yuborish **no-op**; `true` — jonli. Kalit yo'q bo'lsa qiymat o'zgarmaydi. |
+  | `cv_translation_enabled` | bool | ➖ | AI (Gemini) CV tarjimasi kill switch'i: `false` (default) — `POST /admin/candidate-cv/<id>/translations/<lang>` `503` qaytaradi; `true` — jonli. Serverda `GEMINI_API_KEY` (pullik tarif kaliti) bo'lishi shart, aks holda baribir `503`. |
+  | `cv_translation_daily_limit_per_org` | int | ➖ | Tashkilot uchun kuniga (Asia/Tashkent) ruxsat etilgan **muvaffaqiyatli** Gemini chaqiruvlar soni (1 chaqiruv ≈ 60 maydon). `>=0`; `0` — barcha tarjima so'rovlarini bloklaydi. Default `50`. Oshsa — `429`. |
 
 
   > 📵 **Mobil reliz oynasi.** `contract_myid_confirmation_required = false` qilinsa

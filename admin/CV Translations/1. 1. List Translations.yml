@@ -1,0 +1,92 @@
+info:
+  name: List Translations
+  type: http
+  seq: 1
+http:
+  method: GET
+  url: '{{base_url}}/admin/candidate-cv/{{cv_id}}/translations'
+  auth: inherit
+docs: |
+  CV tarjimalari bo'yicha umumiy holat: funksiya yoqilganmi, tashkilotning kunlik limiti qancha sarflangan
+  va har bir til (`en`, `ru`) uchun tarjima qanchalik to'liq. Tarjima paneli ochilganda birinchi shu chaqiriladi.
+
+  Tarjima — nomzod yozgan **erkin matn** (lavozim, tavsif, muassasa nomi...) ning AI (Gemini) yordamidagi
+  `en` / `ru` nusxasi. Katalog nomlari (davlat, daraja) tarjima qilinmaydi — ular PDF tilida o'zi chiqadi.
+  Tarjima DB'da saqlanadi, tashkilotlar o'rtasida **umumiy** va qo'lda tahrirlanadi.
+
+  **Auth:** `admin_token`. Permission: `cvTranslationView`. Aktyor doirasi `assertCvWithinActorScope` bilan tekshiriladi.
+
+  ### 📋 Path Params
+
+  | Param | Type | Description |
+  |---|---|---|
+  | `cv_id` | int | CV ID (`GET admin/vacancy-applications/<id>/cv` javobidagi `header.cv_id`). |
+
+  ### 📤 Response
+
+  ```json
+  {
+    "success": true,
+    "data": {
+      "feature": { "enabled": true, "daily_limit": 50, "used_today": 3 },
+      "languages": [
+        {
+          "language": "en",
+          "label": "English",
+          "summary": "stale",
+          "ok_count": 12,
+          "stale_count": 2,
+          "untranslated_count": 0,
+          "job": {
+            "status": "ready",
+            "force": false,
+            "error_code": null,
+            "error_message": null,
+            "requested_at": 1791450000,
+            "started_at": 1791450002,
+            "finished_at": 1791450011,
+            "translated_count": 14,
+            "missing_count": 0
+          }
+        },
+        { "language": "ru", "label": "Russian", "summary": "incomplete", "ok_count": 0, "stale_count": 0, "untranslated_count": 14, "job": null }
+      ]
+    },
+    "message": "",
+    "errors": {}
+  }
+  ```
+
+  | Field | Type | Description |
+  |---|---|---|
+  | `feature.enabled` | bool | `app_setting.cv_translation_enabled` yoqilgan **va** serverda `GEMINI_API_KEY` bor. `false` — tarjima so'rovi `503` beradi, tugmani yashiring. |
+  | `feature.daily_limit` | int | Tashkilot uchun kunlik Gemini chaqiruvlari limiti (`app_setting.cv_translation_daily_limit_per_org`). 1 chaqiruv ≈ 60 tagacha maydon. |
+  | `feature.used_today` | int | Shu tashkilot bugun (Asia/Tashkent) sarflagan **to'lanadigan** chaqiruvlar (Google qayta ishlagan har bir chaqiruv, jumladan filtrlangan/kesilgan HTTP 200 javob). Tarmoq xatosi, `429` va `5xx` limitni yemaydi. Limit tekshiruvida tashkilotning boshqa faol joblari band qilgan chaqiruvlar ham hisobga olinadi. |
+  | `languages[].language` | string | `en` \| `ru`. |
+  | `languages[].summary` | string | `complete` — hammasi joriy matndan tarjima qilingan; `stale` — kamida bittasi eskirgan (asl matn keyin o'zgargan); `incomplete` — kamida bitta bo'sh bo'lmagan maydon tarjimasiz. `incomplete` `stale` dan ustun. |
+  | `languages[].ok_count` / `stale_count` / `untranslated_count` | int | Maydonlar soni holat bo'yicha. Bo'sh matnli maydonlar hisobga olinmaydi. |
+  | `languages[].job` | object \| null | Shu til uchun oxirgi tarjima ishi; hech qachon so'ralmagan bo'lsa `null`. |
+  | `job.status` | string | `pending` \| `running` \| `ready` \| `failed`. |
+  | `job.error_code` | string \| null | `quota_exceeded` \| `gemini_unavailable` \| `gemini_rejected` \| `malformed_response` \| `safety_blocked` \| `disabled` \| `cv_not_found`. `failed` yoki qisman natijada to'ladi, aks holda `null`. |
+  | `job.error_message` | string \| null | `error_code` ning foydalanuvchiga ko'rsatiladigan tarjimasi (`Accept-Language` bo'yicha). |
+  | `job.missing_count` | int | Oxirgi ishda tarjima olinmagan maydonlar soni (`> 0` — qisman natija). |
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {admin_token}` |
+  | `Accept-Language` | ➖ | `uz` \| `ru` \| `en`. Xabar va til nomlari tili. Default: `uz`. |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki eskirgan. |
+  | `403` | `cvTranslationView` ruxsati yo'q, yoki so'rov qilgan xodimning tashkiloti yo'q (`You do not have an organization`). |
+  | `404` | CV topilmadi yoki sizning vakansiyalaringizdan birortasiga ham ariza bermagan (CV mavjudligi sizdan yashiriladi). |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

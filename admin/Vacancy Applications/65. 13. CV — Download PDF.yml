@@ -12,6 +12,10 @@ http:
   - name: documents
     value: '1'
     type: query
+  - name: translation
+    value: ''
+    type: query
+    disabled: true
   headers:
   - name: Accept
     value: application/pdf
@@ -103,6 +107,14 @@ docs: 'Nomzod CV-sini PDF fayl sifatida yuklab oladi — paneldagi "Yuklab olish
   ro''yxat bo''lib chiqadi (fayllarning o''zi qo''shilmaydi). `0` — hujjatlar
   bo''limi va bo''limlar ichidagi fayllar umuman chiqmaydi. Default: `1`. |
 
+  | `translation` | string | ➖ | `en` \| `ru` — PDF **saqlangan tarjima** bilan
+  chop etiladi: nomzod yozgan erkin matn (lavozim, tavsif, muassasa nomi...)
+  tarjimadan olinadi, PDF tili (`Accept-Language` o''rniga) shu tilga o''tadi.
+  Tarjimasi yo''q maydonda asl matn qoladi. Permission `cvTranslationView`
+  kerak (yo''q bo''lsa `403`); noma''lum til — `404`. Tarjima
+  `POST /admin/candidate-cv/<id>/translations/<lang>` bilan oldindan tayyorlanadi —
+  yuklashda Gemini **chaqirilmaydi**. Default: yo''q (asl matn). |
+
 
   ### 📋 Headers
 
@@ -132,7 +144,12 @@ docs: 'Nomzod CV-sini PDF fayl sifatida yuklab oladi — paneldagi "Yuklab olish
 
   | `Content-Disposition` | `attachment; filename="<F.I.Sh>.pdf"` |
 
-  | `Access-Control-Expose-Headers` | `Content-Disposition, Content-Length` |
+  | `Access-Control-Expose-Headers` | `Content-Disposition, Content-Length` (`?translation=` bilan `X-Cv-Translation-Status` ham) |
+
+  | `X-Cv-Translation-Status` | Faqat `?translation=` bilan: `complete` \| `stale`
+  \| `incomplete` — tarjima to''liqmi. `stale`/`incomplete` bo''lsa fayl tarjima
+  va asl matn aralashmasi (tarjimasi yo''q maydonlarda asl matn): panel
+  foydalanuvchini ogohlantirsin. |
 
 
   > **Fayl nomi frontendda.** Brauzer cross-origin `fetch()` da JS-ga faqat
@@ -155,9 +172,12 @@ docs: 'Nomzod CV-sini PDF fayl sifatida yuklab oladi — paneldagi "Yuklab olish
 
   | `401` | Token yo''q yoki eskirgan |
 
-  | `403` | CV sizning vakansiyalaringizdan birortasiga ham ariza bermagan |
+  | `403` | Xodimning tashkiloti yo''q; yoki `?translation=` berilgan, lekin
+  `cvTranslationView` ruxsati yo''q |
 
-  | `404` | CV topilmadi |
+  | `404` | CV topilmadi yoki CV sizning vakansiyalaringizdan birortasiga ham
+  ariza bermagan (doiradan tashqari CV mavjudligi yashiriladi); yoki
+  `?translation=` tili qo''llab-quvvatlanmaydi (`en`/`ru` dan boshqa) |
 
   '
 settings:

@@ -1,0 +1,63 @@
+info:
+  name: Edit Translated Fields
+  type: http
+  seq: 4
+http:
+  method: PATCH
+  url: '{{base_url}}/admin/candidate-cv/{{cv_id}}/translations/en/fields'
+  headers:
+  - name: Content-Type
+    value: application/json
+  body:
+    type: json
+    data: "{\n  \"fields\": [\n    { \"key\": \"experience.12.position\", \"text\": \"Senior Manager\" },\n    { \"key\": \"experience.12.description\", \"text\": null }\n  ]\n}"
+  auth: inherit
+docs: |
+  Saqlangan tarjimani qo'lda tuzatadi. Matn yuborilsa maydon `origin = manual` bo'ladi va **joriy asl matnga**
+  bog'lanadi (ya'ni `ok` — eskirgan emas); keyingi avto-tarjima uni ustiga yozmaydi, asl matn o'zgarmaguncha.
+  `text: null` (yoki bo'sh satr) — tarjima o'chadi, PDF'da yana asl matn chiqadi.
+
+  Barcha o'zgarishlar bitta tranzaksiyada: bitta kalit noto'g'ri bo'lsa hech biri saqlanmaydi.
+
+  **Auth:** `admin_token`. Permission: `cvTranslationUpdate`. Aktyor doirasi `assertCvWithinActorScope` bilan tekshiriladi.
+
+  ### 📋 Path Params
+
+  | Param | Type | Description |
+  |---|---|---|
+  | `cv_id` | int | CV ID. |
+  | `lang` | string | Tarjima tili: `en` \| `ru`. Boshqa qiymat — `404`. |
+
+  ### 📥 Request Body
+
+  | Field | Type | Required | Description |
+  |---|---|:---:|---|
+  | `fields` | array | ✅ | Bo'sh bo'lmagan ro'yxat. |
+  | `fields[].key` | string | ✅ | [Get Translation](./2.%202.%20Get%20Translation.yml) dagi `fields[].key` (`experience.12.position`). Faqat hozir bo'sh bo'lmagan translatable maydon bo'lishi mumkin. |
+  | `fields[].text` | string \| null | ✅ | Yangi tarjima (≤ 20000 belgi). `null` yoki bo'sh satr — tarjimani o'chirish. Kalit majburiy ravishda yuborilishi kerak. |
+
+  ### 📤 Response
+
+  Yangilangan holat — [Get Translation](./2.%202.%20Get%20Translation.yml) bilan bir xil (`summary` + `fields`).
+
+  ### 📋 Headers
+
+  | Header | Required | Description |
+  |---|:---:|---|
+  | `Authorization` | ✅ | `Bearer {admin_token}` |
+  | `Content-Type` | ✅ | `application/json` |
+
+  ### ⚠️ Errors
+
+  | Code | Reason |
+  |---|---|
+  | `401` | Token yo'q yoki eskirgan. |
+  | `403` | `cvTranslationUpdate` ruxsati yo'q, yoki xodimning tashkiloti yo'q. |
+  | `404` | CV topilmadi yoki doirangizdan tashqarida (sizning vakansiyalaringizga ariza bermagan CV ham `404`); yoki `lang` qo'llab-quvvatlanmaydi. |
+  | `409` | Maydon shu paytda boshqa so'rov tomonidan o'zgartirilgan, qayta urinib ko'ring. |
+  | `422` | `fields` ro'yxat emas / element shakli noto'g'ri / matn juda uzun / kalit hozirgi translatable maydonlar orasida yo'q (`Unknown translation field(s): ...`). |
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
