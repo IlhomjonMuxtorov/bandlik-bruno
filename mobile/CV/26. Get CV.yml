@@ -13,6 +13,12 @@ docs: 'Bitta CV-ning to''liq tafsilotlari (education, experience, languages va h
   shu CV uchun).
 
 
+  > **Uzbek lotin yozuvi:** `Accept-Language: uz` bo''lganda MVD dan kelgan
+  kirill matn (lavozim, kompaniya, manzil, tug''ilgan joy va h.k.) avtomatik lotinga
+  o''giriladi ("Етакчи муҳандис" → "Yetakchi muhandis"). Rus tilidagi matn va ism-familiya
+  o''zgarmaydi; bazadagi asl matn kirillcha qoladi. `ru`/`en` da o''zgarish yo''q.
+
+
   **Auth:** `access_token`.
 
 

@@ -28,6 +28,12 @@ docs: 'Nomzod CV-sini **va unga biriktirilgan hujjat skanlarini** bitta ZIP fayl
   (ADR-380); bu endpoint fayllarning o''zini beradi.
 
 
+  > **Uzbek lotin yozuvi:** `Accept-Language: uz` bo''lganda MVD dan kelgan
+  kirill matn (lavozim, kompaniya, manzil, tug''ilgan joy va h.k.) avtomatik lotinga
+  o''giriladi ("Етакчи муҳандис" → "Yetakchi muhandis"). Rus tilidagi matn va ism-familiya
+  o''zgarmaydi; bazadagi asl matn kirillcha qoladi. `ru`/`en` da o''zgarish yo''q.
+
+
   **Auth:** `admin_token`. Ruxsat PDF bilan bir xil: `applicationView` +
   aktyor doirasi (`assertCvWithinActorScope`) — CV kamida bitta o''z
   vakansiyangizga ariza bergan bo''lishi kerak. Arxiv JSON CV''da bo''lmagan

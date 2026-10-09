@@ -11,6 +11,14 @@ http:
   auth: inherit
 docs: |
   "Ko'ngillilik" CV bo'limining barcha yozuvlari ro'yxati.
+  > **Uzbek lotin yozuvi:** `Accept-Language: uz` bo''lganda MVD dan kelgan
+  kirill matn (lavozim, kompaniya, manzil, tug''ilgan joy va h.k.) avtomatik lotinga
+  o''giriladi ("Етакчи муҳандис" → "Yetakchi muhandis"). Rus tilidagi matn va ism-familiya
+  o''zgarmaydi; bazadagi asl matn kirillcha qoladi. `ru`/`en` da o''zgarish yo''q.
+  To''liq CV (`GET /mobile/cv/{id}`) bilan bir xil qoida — ro''yxat, bitta yozuv,
+  yaratish va yangilash javoblari ham lotinda qaytadi.
+
+
   **Auth:** `access_token`.
 
   ### 📤 Response *(massiv elementi)*

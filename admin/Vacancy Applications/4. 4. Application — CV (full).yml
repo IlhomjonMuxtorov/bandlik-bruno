@@ -11,6 +11,12 @@ docs: 'Arizaga biriktirilgan kandidatning to''liq CV''si (mobil `GET /mobile/cv/
   haydovchilik guvohnomasi, kurslar, ko''nikmalar).
 
 
+  > **Uzbek lotin yozuvi:** `Accept-Language: uz` bo''lganda MVD dan kelgan
+  kirill matn (lavozim, kompaniya, manzil, tug''ilgan joy va h.k.) avtomatik lotinga
+  o''giriladi ("Етакчи муҳандис" → "Yetakchi muhandis"). Rus tilidagi matn va ism-familiya
+  o''zgarmaydi; bazadagi asl matn kirillcha qoladi. `ru`/`en` da o''zgarish yo''q.
+
+
   **Auth:** Admin yoki vakansiya egasi.
 
 

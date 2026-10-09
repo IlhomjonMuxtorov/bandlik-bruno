@@ -19,6 +19,10 @@ docs: |
   `GET /mobile/cv/:id` shape'i — ta'lim, ish tajribasi, tillar, hujjatlar, oila,
   vizalar, haydovchilik guvohnomasi, kurslar, ko'nikmalar, kontakt).
 
+  > **Uzbek lotin yozuvi:** `Accept-Language: uz` bo'lganda MVD'dan kelgan kirill matn
+  (lavozim, kompaniya, manzil, tug'ilgan joy) lotinga o'giriladi ("Етакчи муҳандис" →
+  "Yetakchi muhandis"). Rus matni va ismlar o'zgarmaydi; `ru`/`en` da o'zgarish yo'q.
+
   **Auth:** `admin_token`. Admin yoki shu chat tashkilotining xodimi.
 
   **Til:** `Accept-Language` orqali lokalizatsiya qilinadi (`uz` | `ru` | `en`).

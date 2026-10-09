@@ -25,6 +25,12 @@ docs: 'Nomzod CV-sini PDF fayl sifatida yuklab oladi — paneldagi "Yuklab olish
   tanlanadi va **saqlanmaydi**.
 
 
+  > **Uzbek lotin yozuvi:** `Accept-Language: uz` bo''lganda MVD dan kelgan
+  kirill matn (lavozim, kompaniya, manzil, tug''ilgan joy va h.k.) avtomatik lotinga
+  o''giriladi ("Етакчи муҳандис" → "Yetakchi muhandis"). Rus tilidagi matn va ism-familiya
+  o''zgarmaydi; bazadagi asl matn kirillcha qoladi. `ru`/`en` da o''zgarish yo''q.
+
+
   **Auth:** `admin_token`. Ruxsat aktyor doirasi bo''yicha tekshiriladi
   (`assertCvWithinActorScope`) — CV kamida bitta o''z vakansiyangizga ariza
   bergan bo''lishi kerak.
